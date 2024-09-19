@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="cs" style="max-height: 100vh; max-width: 100vw">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Přehledovnik</title>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+        />
+        <link rel="icon" href="./favicon.ico" type="image/x-icon" />
+        <script src="https://unpkg.com/htmx.org@2.0.2"></script>
+    </head>
+    <body style="display: flex; flex-direction: column; height: 100vh">
+        <nav
+            style="
+                background-color: white;
+                border-bottom: 1px solid lightgray;
+                padding: 0em 1em;
+                flex: none;
+            "
+        >
+            <ul>
+                <li><strong>Přehledovnik</strong></li>
+            </ul>
+            <ul>
+                <li>
+                    <a
+                        class="contrast"
+                        hx-get="/example"
+                        hx-swap="main article"
+                        hx-target="innerHTML"
+                    >
+                        Placeholder
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <main
+            style="
+                flex: auto;
+                overflow: scroll;
+                background-image: linear-gradient(
+                    45deg,
+                    rgba(124, 229, 255, 0.2) 0%,
+                    rgba(119, 255, 214, 0.2) 50%,
+                    rgba(159, 255, 192, 0.2) 100%
+                );
+            "
+        >
+            <article
+                style="background-color: white; margin: 1em; margin-top: 0em"
+            >
+                <h1>Welcome to My Website</h1>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                    dignissim, lorem quis malesuada tincidunt, ex dolor blandit
+                    odio, ac rhoncus augue purus vel sapien. Etiam at diam
+                    iaculis risus volutpat ornare. Integer at odio lobortis
+                    augue imperdiet laoreet ut nec velit. Pellentesque nulla
+                    ligula, fermentum eu aliquam ut, ultrices eget ex. Sed in
+                    neque leo. Curabitur nibh ex, tempus et ante a, finibus
+                    tincidunt quam. Cras egestas volutpat arcu eget ullamcorper.
+                    Etiam fringilla purus pellentesque justo mattis, in
+                    fermentum enim vehicula. Orci varius natoque penatibus et
+                    magnis dis parturient montes, nascetur ridiculus mus.
+                    Vestibulum laoreet euismod dolor id bibendum. Mauris semper,
+                    libero a vulputate placerat, ligula ante laoreet felis, vel
+                    tempor tortor dolor eget quam. Aliquam erat volutpat.
+                    Quisque est metus, vestibulum vel auctor non, finibus id
+                    nisi. Quisque nisi sem, scelerisque vitae quam scelerisque,
+                    iaculis tempus velit. Proin eleifend gravida magna sit amet
+                    scelerisque. Nam finibus dapibus quam non euismod. Maecenas
+                    vehicula ante vel nibh luctus dignissim. Mauris commodo
+                    vestibulum tortor a rhoncus. Quisque dui elit, venenatis id
+                    iaculis vel, convallis id risus. Proin a quam congue,
+                    consectetur purus ac, pharetra risus. In quis mattis ipsum,
+                    at accumsan dolor. Nunc mattis nulla sed augue ornare, eget
+                    aliquet nisl condimentum. Vestibulum ante ipsum primis in
+                    faucibus orci luctus et ultrices posuere cubilia curae;
+                    Vestibulum aliquet bibendum augue ac euismod. Donec id diam
+                    ut leo tincidunt lacinia. Nulla sed iaculis est.
+                    Pellentesque gravida nisi lectus, eget mollis eros tincidunt
+                    vel. Maecenas tempus enim odio, eget posuere nibh hendrerit
+                    vitae. Vestibulum semper facilisis nulla, nec eleifend
+                    libero pellentesque quis. Sed pharetra nisi nisl, sed
+                    pellentesque ante iaculis non. Pellentesque at ornare velit.
+                    Aliquam erat volutpat. Aenean suscipit dignissim urna, eu
+                    vehicula elit feugiat eget. Sed sed mi condimentum, pharetra
+                    libero auctor, efficitur nisl. Etiam blandit facilisis leo,
+                    id pharetra urna aliquam condimentum. Vivamus vel purus
+                    condimentum, pulvinar dolor vitae, commodo sem. In pharetra
+                    ligula ac dapibus aliquet. Maecenas nec nulla eu mauris
+                    scelerisque luctus sit amet quis nulla. Maecenas maximus leo
+                    lacus, ac dignissim diam venenatis et. Morbi dignissim erat
+                    sed nisl placerat condimentum. Ut rutrum erat dapibus,
+                    pretium elit a, viverra quam. Curabitur rutrum maximus
+                    libero ac tempor. Donec maximus ac nibh sed interdum.
+                    Integer ligula sapien, finibus sed dolor non, tempor ornare
+                    nunc. In eget rhoncus erat. Sed sit amet felis porttitor,
+                    volutpat risus mollis, gravida orci. Vestibulum convallis
+                    urna in lorem pellentesque ullamcorper vel non augue.
+                    Praesent ac diam ac ante aliquam dictum. Phasellus ultricies
+                    arcu vitae elementum cursus.
+                </p>
+            </article>
+        </main>
+    </body>
+</html>
