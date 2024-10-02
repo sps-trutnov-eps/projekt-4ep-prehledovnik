@@ -34,16 +34,6 @@ const osnovy = {
         osnovy[osnovy["nextID"]] = {"objekt": "osnova"};
         osnovy["nextID"] += 1;
         sO(osnovy);
-    },
-    ziskatIdOsnovyDle: () => {
-
-    },
-    upravitOsnovu: () => {
-
-    },
-    odstranitOsnovu: (id) => {
-        let osnovy = gO();
-    
     }
 }
 
@@ -62,8 +52,35 @@ function gU(){return db.get("udalosti")}
 function sU(udalosti){db.set("udalosti", udalosti)}
 
 const udalosti = {
-    ukazkovaFunkce: () => {
-
+    pridatUdalost: (nazev, typ, datum, casOd, casDo, tykaSe, poznamka) => {
+        let udalosti = gU();
+        udalosti[udalosti["nextID"]] = {};
+        udalosti["nextID"] += 1;
+        sM(udalosti);
+    },
+    ziskatIDUdalostiPodleNazvu: (jmeno) => {
+        let udalosti = gU();
+        let nextID = udalosti["nextID"];
+        let IDHledaneUdalosti;
+        for(let i = 0; i < nextID; i++){
+            if (udalosti[String(i)]["nazev"] == jmeno){
+                IDHledaneUdalosti = String(i);
+            }
+        }
+        return IDHledaneUdalosti;
+    },
+    ziskatUdalostiPodleNazvu: (jmeno) => {
+        let udalosti = gU();
+        return udalosti[ziskatIDUdalostiPodleNazvu(jmeno)];
+    },
+    ziskatVsechnyUdalosti: () => {
+        let udalosti = gU();
+        let udalostiList = [];
+        let nextID = udalosti["nextID"];
+        for(let i = 0; i < nextID; i++){
+            udalostiList.push(udalosti[String(i)]);
+        }
+        return udalostiList;
     }
 }
 
