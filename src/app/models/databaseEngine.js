@@ -81,6 +81,24 @@ const udalosti = {
             udalostiList.push(udalosti[String(i)]);
         }
         return udalostiList;
+    },
+    upravitUdalost: (puvodniUdalost, novaUdalost) => {
+        let udalosti = gU();
+        let nextID = udalosti["nextID"];
+        for(let i = 0; i < nextID; i++){
+            if(JSON.stringify(udalosti[String(i)]) === JSON.stringify(puvodniUdalost))
+                udalosti[String(i)] = novaUdalost;
+        }
+        sU(udalost);
+    },
+    odebratUdalost: (udalost) => {
+        let udalosti = gU();
+        let nextID = udalosti["nextID"];
+        for(let i = 0; i < nextID; i++){
+            if(JSON.stringify(udalosti[String(i)]) === JSON.stringify(udalost))
+                delete udalosti[String(i)];
+        }
+        sU(udalost);
     }
 }
 
