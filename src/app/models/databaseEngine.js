@@ -28,34 +28,85 @@ if(!db.has("predmety")){
 function gO(){return db.get("osnovy")}
 function sO(osnovy){db.set("osnovy", osnovy)}
 
-exports.pridatOsnovu = () => {
-    let osnovy = gO();
-    osnovy[osnovy["nextID"]] = {"objekt": "osnova"};
-    osnovy["nextID"] += 1;
-    sO(osnovy);
-}
+const osnovy = {
+    pridatOsnovu: () => {
+        let osnovy = gO();
+        osnovy[osnovy["nextID"]] = {"objekt": "osnova"};
+        osnovy["nextID"] += 1;
+        sO(osnovy);
+    },
+    ziskatIdOsnovyDle: () => {
 
-exports.ziskatIdOsnovyDle = () => {
+    },
+    upravitOsnovu: () => {
 
-}
-
-exports.upravitOsnovu = () => {
-
-}
-
-exports.odstranitOsnovu = (id) => {
-    let osnovy = gO();
-
+    },
+    odstranitOsnovu: (id) => {
+        let osnovy = gO();
+    
+    }
 }
 
 // ROZVRHY
 function gR(){return db.get("rozvrhy")}
 function sR(rozvrhy){db.set("rozvrhy", rozvrhy)}
 
+const rozvrhy = {
+    ukazkovaFunkce: () => {
+
+    }
+}
+
 // UDALOSTI
 function gU(){return db.get("udalosti")}
 function sU(udalosti){db.set("udalosti", udalosti)}
 
+const udalosti = {
+    ukazkovaFunkce: () => {
+
+    }
+}
+
 // MATURITY
 function gM(){return db.get("maturity")}
 function sM(maturity){db.set("maturity", maturity)}
+
+const maturity = {
+    pridatMaturitniEvent: (nazev, dny, casy, ucebna) => {
+        let maturity = gM();
+        maturity[maturity["nextID"]] = {"nazev": nazev, "dny": dny, "casy": casy, "ucebna": ucebna};
+        maturity["nextID"] += 1;
+        sM(maturity);
+    },
+    ziskatIDMaturityDleJmena: (jmeno) => {
+        let maturity = gM();
+        let nextID = maturity["nextID"];
+        let IDHledaneMaturity;
+        for(let i = 0; i < nextID; i++){
+            if (maturity[String(i)]["nazev"] == jmeno){
+                IDHledaneMaturity = String(i);
+            }
+        }
+        return IDHledaneMaturity;
+    },
+    ziskarMaturituDleJmena: (jmeno) => {
+        let maturity = gM();
+        return maturity[ziskatIDMaturityDleJmena(jmeno)];
+    },
+    upravitMaturitniEvent: (nazev, dny, casy, ucebna) => {
+        let maturity = gM();
+        IDUpravovaneMaturity = ziskatIDMaturityDleJmena(nazev);
+        maturity[IDUpravovaneMaturity] = {"nazev": nazev, "dny": dny, "casy": casy, "ucebna": ucebna};
+        sM(maturity);
+    }
+}
+
+// CELKOVÝ MODEL
+const databaseEngine = {
+    osnovy: osnovy,
+    rozvrhy: rozvrhy,
+    udalosti: udalosti,
+    maturity: maturity
+}
+
+module.exports = databaseEngine;
