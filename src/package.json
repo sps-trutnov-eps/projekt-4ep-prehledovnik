@@ -2,15 +2,16 @@
   "name": "prehledovnik",
   "version": "1.0.0",
   "description": "Učitelský kalendář pro lepší přehled",
-  "main": "server.js",
+  "main": "app/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.js"
+    "dev": "nodemon app/index.js"
   },
   "author": "4.EP",
   "license": "MIT",
   "dependencies": {
     "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
     "express": "^4.21.0",
     "express-session": "^1.18.0",
     "nodemon": "^3.1.5",
