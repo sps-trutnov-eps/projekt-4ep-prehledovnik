@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="cs">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Přehledovnik</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"/>
+        <link rel="stylesheet" href="rozvrh.css" />
+        <link rel="icon" href="./favicon.ico" type="image/x-icon" />
+        <script src="https://unpkg.com/htmx.org@2.0.2"></script>
+    </head>
+    <body>
+        <nav>
+            <ul>
+                <li><strong>Přehledovnik</strong></li>
+            </ul>
+            <ul>
+                <li>
+                    <button class="outline" hx-get="/test" hx-target="main">
+                        Rozvrh
+                    </button>
+                </li>
+                <li>
+                    <button class="outline" hx-get="/test" hx-target="main">
+                        Osnovy
+                    </button>
+                </li>
+                <li>
+                    <button class="outline" hx-get="/test" hx-target="main">
+                        Události
+                    </button>
+                </li>
+                <li>
+                    <button class="outline" hx-get="/test" hx-target="main">
+                        Úkoly
+                    </button>
+                </li>
+                <li>
+                    <button class="outline" hx-get="/test" hx-target="main">
+                        Maturita
+                    </button>
+                </li>
+            </ul>
+        </nav>
+        <main>
+            <article>
+               <h2>Verze</h2>
+               <form action="">
+                <select name="verze" id="jakaverze">
+                    <option value="">Aktuální</option>
+                    <option value="">Datum1</option>
+                    <option value="">Datum2</option>
+                    <option value="">Datum3</option>
+                </select>
+               </form>
+            </article>
+            <article class="articlesecond">
+                <h2>Sudý týden</h2>
+                <table class="timetable">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>1<br>7:10 - 7:55</th>
+                            <th>2<br>8:00 - 8:45</th>
+                            <th>3<br>8:50 - 9:35</th>
+                            <th>4<br>9:55 - 10:40</th>
+                            <th>5<br>10:45 - 11:30</th>
+                            <th>6<br>11:35 - 12:25</th>
+                            <th>7<br>12:35 - 13:20</th>
+                            <th>8<br>13:25 - 14:10</th>
+                            <th>9<br>14:15 - 15:00</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Po</td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                        </tr>
+                        <tr>
+                            <td>Út</td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                        </tr>
+                        <tr>
+                            <td>St</td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                        </tr>
+                        <tr>
+                            <td>Čt</td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                        </tr>
+                        <tr>
+                            <td>Pá</td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            
+               
+                <div id="popupModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close-btn" onclick="closePopup()">&times;</span>
+                        <p>Výběr předmětu</p>
+                    </div>
+                </div>
+            </article>
+            
+            <script>
+                function showPopup() {
+                    document.getElementById("popupModal").style.display = "block";
+                }
+            
+                function closePopup() {
+                    document.getElementById("popupModal").style.display = "none";
+                }
+            
+               
+                window.onclick = function(event) {
+                    var modal = document.getElementById("popupModal");
+                    if (event.target == modal) {
+                        modal.style.display = "none";
+                    }
+                }
+            </script>
+            
+            
+        </main>
+    </body>
+</html>
