@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 
 app.use(express.static("www"));
+app.set("view engine", "ejs");
 
 app.get("/", (req, res) =>
   res.sendFile("html/index.html", { root: __dirname }),
