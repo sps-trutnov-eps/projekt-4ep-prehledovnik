@@ -1,5 +1,5 @@
 const express = require('express');
 
-const app = express.app;
+const app = express();
 
 module.exports = app;
