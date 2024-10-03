@@ -1,11 +1,3 @@
-const express = require("express");
-const app = express();
-
-app.use(express.static("www"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.set("view engine", "ejs");
-
 app.get("/", (req, res) =>
   res.sendFile("html/index.html", { root: __dirname }),
 );
@@ -24,7 +16,3 @@ app.get("/ukoly", (req, res) =>
 app.get("/maturita", (req, res) =>
   res.sendFile("html/maturita.html", { root: __dirname }),
 );
-
-app.use("/", router);
-
-app.listen(3000, () => console.log("App listening on port 3000!"));
