@@ -2,8 +2,13 @@ const express = require('express');
 const app = express();
 
 app.use(express.static('www'));
+app.use(express.json());
 
-app.get('/', (req, res) => res.sendFile('html/index.html', {root: __dirname }));
-app.get('/test', (req, res) => res.send('Hello World!'));
+// ejs init
+app.set('view engine', 'ejs');
+app.set('views', './app/views');
+
+// app.use, NIKOLI app.get!
+app.use('/', require("./routers/defaultRouter.js"));
 
 app.listen(3000, () => console.log('App listening on port 3000!'));
