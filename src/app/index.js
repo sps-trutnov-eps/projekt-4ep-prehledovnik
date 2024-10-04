@@ -15,4 +15,4 @@ app.use(express.urlencoded({ extended: true }));
 // app.use, NIKOLI app.get!
 app.use('/', require("./routers/defaultRouter.js"));
 
-app.listen(8000, () => console.log(`App listening on port ${8000}!`));
+app.listen(process.env.PORT, () => console.log(`App listening on port ${process.env.PORT}!`));
