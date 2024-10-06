@@ -67,8 +67,27 @@ function gR(){return db.get("rozvrhy")}
 function sR(rozvrhy){db.set("rozvrhy", rozvrhy)}
 
 const rozvrhy = {
-    ukazkovaFunkce: () => {
-
+    pridatRozvrh: (datumOd, hodiny) => {
+        let rozvrhy = gR();
+        rozvrhy[rozvrhy["nextID"]] = {datumOd, hodiny}
+        udalosti["nextID"] += 1;
+        sR(rozvrhy);
+    },
+    ziskatIDPodleDatumu: (datumOd) => {
+        let rozvrhy = gR();
+        let nextID = rozvrhy["nextID"];
+        let IDHledanehoRozvrhu;
+        for(let i = 0; i < nextID; i++){
+            if(rozvrhy[String(i)]["datumOd"] == datumOd){
+                IDHledanehoRozvrhu = String(i);
+            }
+        }
+        return IDHledanehoRozvrhu;
+    },
+    upravidRozvrh: (datumOd, hodiny) => {
+        let rozvrhy = gR();
+        rozvrhy[ziskatIDPodleDatumu(datumOd)]["hodiny"] = hodiny;
+        sR(rozvrhy);
     }
 }
 
