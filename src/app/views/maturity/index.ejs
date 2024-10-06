@@ -1,11 +1,116 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Maturity</title>
-</head>
-<body>
-    <h1>Tady bude stránka pro maturity</h1>
-</body>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      .container {
+        display: flex;
+        border: 1px solid #000;
+        width: 600px;
+        margin: 50px auto;
+        padding: 10px;
+      }
+      .sidebar {
+        width: 25%;
+        border-right: 1px solid #000;
+        padding-right: 10px;
+      }
+      .sidebar button {
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 10px;
+        background-color: #f0f0f0;
+        border: 1px solid #000;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      .main-content {
+        width: 75%;
+        padding-left: 10px;
+      }
+      .navbar {
+        background-color: #f0f0f0;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #000;
+        font-weight: bold;
+      }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+      .form-group input[type="text"],
+      .form-group select {
+        width: calc(100% - 22px);
+        padding: 10px;
+        border: 1px solid #000;
+      }
+      .form-group input[type="date"] {
+        width: calc(100% - 42px);
+        padding: 10px;
+        border: 1px solid #000;
+        margin-right: 10px;
+      }
+      .form-group input[type="checkbox"] {
+        margin-left: 10px;
+      }
+      .form-group .checkbox-label {
+        display: inline-block;
+        font-size: 0.9em;
+        color: #555;
+      }
+      .submit-button {
+        padding: 10px 20px;
+        background-color: #f0f0f0;
+        border: 1px solid #000;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <button>PŽOP</button>
+        <button>PČMZ</button>
+        <button>SČMZ</button>
+        <button>SLOH</button>
+      </div>
+
+      <!-- Main content -->
+      <div class="main-content">
+        <div class="navbar">PŽOP</div>
+
+        <div class="form-group">
+          <label for="konani">Den konání:</label>
+          <input type="date" id="konani" />
+          <input type="checkbox" id="dodatecne-dny" />
+          <label for="dodatecne-dny" class="checkbox-label"
+            >Dodatečné dny</label
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="ucebna">Učebna:</label>
+          <select id="ucebna">
+            <option value="1">Učebna 1</option>
+            <option value="2">Učebna 2</option>
+            <option value="3">Učebna 3</option>
+          </select>
+        </div>
+
+        <button class="submit-button">Uložit</button>
+      </div>
+    </div>
+  </body>
 </html>
