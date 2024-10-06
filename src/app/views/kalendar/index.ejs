@@ -2,6 +2,19 @@
 <html lang="cs" style="max-height: 100vh; max-width: 100vw">
     <head style="flex: none">
         <%- include('../partials/head'); %>
+        <style>
+            .grid-container {
+              display: grid;
+              grid-template-columns: auto auto auto auto auto auto auto;
+              padding: 10px;
+            }
+            .grid-item {
+              border: 1px solid rgba(0, 0, 0, 0.8);
+              padding: 20px;
+              font-size: 30px;
+              text-align: center;
+            }
+            </style>
     </head>
     <body style="display: flex; flex-direction: column; height: 100vh">
         <%- include('../partials/header'); %>
@@ -10,7 +23,6 @@
                 padding: 1em;
                 padding-bottom: 0;
                 flex: auto;
-                overflow-y: hidden;
                 background-image: linear-gradient(
                     45deg,
                     hsla(192, 100%, 50%, 0.1) 0%,
@@ -40,25 +52,24 @@
             </article>
             <article style="flex: 3">
                 <h1>Měsíční kalendář</h1>
-                <p>
-                    <table>
-                        <tr>
-                            <th>Pondělí</th>
-                            <th>Úterý</th>
-                            <th>Středa</th>
-                            <th>Čtvrtek</th>
-                            <th>Pátek</th>
-                            <th>Sobota</th>
-                            <th>Neděle</th>
-                        </tr>
-                        <% for (let j=0; j < 5; j++) {%>
-                        <tr>
-                            <% for(let i = 0; i < 7; i++) {%>
-                                <td><%= day + i +(j * 7) %> / <%= month %></td>
-                            <% }%>
-                        </tr>
+                    <section class="grid-container">
+                        <p class="grid-item">Pondělí</p>
+                        <p class="grid-item">Úterý</p>
+                        <p class="grid-item">Středa</p>
+                        <p class="grid-item">Čtvrtek</p>
+                        <p class="grid-item">Pátek</p>
+                        <p class="grid-item">Sobota</p>
+                        <p class="grid-item">Neděle</p>
+                        <%
+                            let startDate = new Date(2024,8,2);
+                            let endDate = new Date(2025,5,27);
+                            const increment = 24 * 60 * 60 * 1000 //Miliseconds per day
+                        %>
+                        <% for (let i = startDate.getTime(); i <= endDate.getTime();i += increment) {%>
+                            <p class="grid-item"><%= new Date(i).getDate()%> / <%= new Date(i).getMonth() + 1%></p>
                         <% }%>
-                </p>
+
+                    </section>
             </article>
         </main>
     </body>
