@@ -5,7 +5,7 @@
         <style>
             .grid-container {
               display: grid;
-              grid-template-columns: auto auto auto auto auto auto auto auto auto auto;
+              grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto;
               padding: 10px;
             }
             .grid-item {
@@ -65,6 +65,7 @@
                 <div>
                     <% for(let i=0;i<10;i++) {%>
                         <section class="grid-container">
+                                <p></p>
                                 <p class="grid-item-h">7:10-7:55</p>
                                 <p class="grid-item-h">8:00-8:45</p>
                                 <p class="grid-item-h">8:50-9:35</p>
@@ -75,7 +76,9 @@
                                 <p class="grid-item-h">13:25-14:10</p>
                                 <p class="grid-item-h">14:15-15:00</p>
                                 <p class="grid-item-h">15:00+</p>
-                            <% for(let i=0;i<=5;i++) {%>
+                            <% let days = ["Po", "Út", "St", "Čt", "Pá"] %>
+                            <% for(let i=0;i<5;i++) {%>
+                                <p class="grid-item"><%= days[i] %></p>
                                 <% for(let i=0;i<= 9;i++) {%>
                                     <p class="grid-item"></p>
                                 <%}%>
