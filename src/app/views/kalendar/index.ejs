@@ -66,7 +66,9 @@
                             const increment = 24 * 60 * 60 * 1000 //Miliseconds per day
                         %>
                         <% for (let i = startDate.getTime(); i <= endDate.getTime();i += increment) {%>
-                            <p class="grid-item"><%= new Date(i).getDate()%> / <%= new Date(i).getMonth() + 1%></p>
+                            <section class="grid-item">
+                                <p><%= new Date(i).getDate()%> / <%= new Date(i).getMonth() + 1%></p>
+                            </section>
                         <% }%>
 
                     </section>
