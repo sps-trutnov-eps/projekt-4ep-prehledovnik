@@ -22,6 +22,7 @@ if(!db.has("predmety")){
     db.set("rozvrhy", {"nextID": 1});
     db.set("udalosti", {"nextID": 1});
     db.set("maturity", {"nextID": 1});
+    db.set("projekty", {"nextID": 1});
 }
 
 // OSNOVY
@@ -190,9 +191,16 @@ const maturity = {
 }
 
 // PROJEKTY
+function gP(){return db.get("projekty")}
+function sP(projekty){db.set("projekty", projekty)}
 
 const projekty = {
-
+    pridatProjekt: (trida, tymy, pitche, milestony, devlogy, prezentace) => {
+        let projekty = gP();
+        projekty[projekty["nextID"]] = {trida, tymy, pitche, milestony, devlogy, prezentace};
+        projekty["nextID"] += 1;
+        sP(projekty);
+    }
 }
 
 // CELKOVÝ MODEL
