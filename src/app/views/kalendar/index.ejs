@@ -72,7 +72,10 @@
                                 <p><%= new Date(i).getDate()%> / <%= new Date(i).getMonth() + 1%> - <%= new Date(i+increment).getDate()%> / <%= new Date(i+increment).getMonth() + 1%></p>
                                 <% }else{%>
                                     <p><%= new Date(i).getDate()%> / <%= new Date(i).getMonth() + 1%></p>
-                                <% }%>    
+                                <% }%>
+                                <% if (new Date(i).getDate() == date_udalost[0] && new Date(i).getMonth() + 1 == date_udalost[1]) {%>
+                                <p><%= date_udalost[2]%></p>  
+                                <%}%>  
                             </section>
                             <% }%>  
                         <% }%>                
