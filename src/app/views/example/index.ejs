@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="cs" style="max-height: 100vh; max-width: 100vw">
+    <head style="flex: none">
+        <%- include('../partials/head'); %>
+    </head>
+    <body style="display: flex; flex-direction: column; height: 100vh">
+        <%- include('../partials/header'); %>
+        <main
+            style="
+                padding: 1em;
+                padding-bottom: 0;
+                flex: auto;
+                overflow-y: hidden;
+                background-image: linear-gradient(
+                    45deg,
+                    hsla(192, 100%, 50%, 0.1) 0%,
+                    hsla(162, 100%, 50%, 0.1) 50%,
+                    hsla(132, 100%, 50%, 0.1) 100%
+                );
+                display: flex;
+            ">
+            <article
+                style="
+                    width: 20vw;
+                    min-width: 20vw;
+                    margin-right: 1em;
+                    overflow-y: auto;
+                    resize: horizontal;
+                ">
+                <h1>Welcome to My Sidebar</h1>
+                <p>
+                    Boop<br>
+					Stránka navštívena: <%= seenPage %>x
+                </p>
+            </article>
+            <article style="flex: 3; overflow-y: auto">
+                <h1>Welcome to My Website</h1>
+				Tady je for loop, vytvoří proměnnou i ke který přiřadíme obsah numberu
+				který přebíráme z exampleRouter.js
+				<% for (let i = number; i > 0; i--) { %>
+					<p>
+					
+						<% if (i != 1) {%>
+							Tohle se bude opakovat ještě: <%= i-1 %>x
+						<% } else { %>
+							Konec for loopu
+						<% } %>
+						
+					</p>
+				<% } %>
+				
+				<br>
+				Vytvoření proměnný: <br>
+				<% let str = '(musíš se podívat v kódu)' %>
+				A její vypsání: <%= str %>
+				
+				<br><br><br>
+				Jak dostat či posílat data na server na váš router? <br>
+				Je více způsobů jak to udělat. <br>
+				Jde to přes fetch v .js, pokud chcete ale použít javascript, <br>
+				tak ten soubor nesmíte zapomenout includnout do vašeho .ejs (na spodku tohoto HTML).<br>
+				Soubor se bere v relaci adresáře /app.<br>
+				<input type="text" id="anotherOne"><br>
+				<button onclick="writeIntoServerConsole('hi ^^')">Vypsat do konzole</button>
+				
+				<br><br><br>
+				
+				Či to udělat pomocí form (ale to tě redirectne)<br>
+				tam kam tě to redirectne tak si určíš v res.send v routeru
+				<form action="/example/writeOutIntoConsoleFORM" method="POST">
+					<label for="txt">Vyplň:</label>
+					<input type="text" id="txt" name="username" required><br>
+
+					<input type="submit" value="Vypsat do konzole">
+				</form>
+            </article>
+        </main>
+		
+
+		<script src="../example/js/main.js"></script>
+		
+    </body>
+</html>
