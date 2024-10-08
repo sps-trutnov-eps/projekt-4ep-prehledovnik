@@ -79,8 +79,10 @@
                             <% let days = ["Po", "Út", "St", "Čt", "Pá"] %>
                             <% for(let i=0;i<5;i++) {%>
                                 <p class="grid-item"><%= days[i] %></p>
-                                <% for(let i=0;i<= 9;i++) {%>
-                                    <p class="grid-item"></p>
+                                <% for(let j=0;j<= 9;j++) {%>
+                                    <p class="grid-item">
+                                        <%= rozvrh[j]%>
+                                    </p>
                                 <%}%>
                             <%}%>
                         </section>
