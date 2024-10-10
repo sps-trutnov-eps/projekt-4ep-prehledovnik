@@ -13,48 +13,101 @@
       #vicedenniInputs {
         display: none;
       }
+
+      article button {
+        display: block;
+        margin-bottom: 1em;
+        padding: 0.75em 1.5em;
+        width: 100%;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s, transform 0.3s;
+      }
+
+      article button:hover {
+        background-color: #0056b3;
+        transform: translateY(-2px);
+      }
+
+      form input[type="submit"] {
+        padding: 0.75em 1.5em;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+        width: auto;
+      }
+
+      form input[type="submit"]:hover {
+        background-color: #0056b3;
+      }
+
+      form input,
+      form select,
+      form label {
+        margin-bottom: 1em;
+        margin-top: 1em;
+      }
     </style>
   </head>
-  <body style="display: flex; flex-direction: column; height: 100vh; overflow-y: none;">
+  <body
+    style="
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow-y: none;
+    ">
     <%- include('../partials/header'); %>
-    <main 
+    <main
+      style="
+        padding: 1em;
+        padding-bottom: 0;
+        flex: auto;
+        overflow-y: auto;
+        background-image: linear-gradient(
+          45deg,
+          hsla(192, 100%, 50%, 0.1) 0%,
+          hsla(162, 100%, 50%, 0.1) 50%,
+          hsla(132, 100%, 50%, 0.1) 100%
+        );
+        display: flex;
+      ">
+      <article
         style="
-          padding: 1em;
-          padding-bottom: 0;
-          flex: auto;
+          width: 20vw;
+          min-width: 20vw;
+          margin-right: 1em;
           overflow-y: auto;
-          background-image: linear-gradient(
-              45deg,
-              hsla(192, 100%, 50%, 0.1) 0%,
-              hsla(162, 100%, 50%, 0.1) 50%,
-              hsla(132, 100%, 50%, 0.1) 100%
-          );
-          display: flex;
-        "
-    >
-      <article 
-          style="
-              width: 20vw;
-              min-width: 20vw;
-              margin-right: 1em;
-              overflow-y: auto;
-              resize: horizontal;
-          "
-      >
-          <h1>Sidebar</h1>
-          <p>
-            <button>Nová událost</button>
-            <button>Seznam událostí</button>
-          </p>
+          resize: horizontal;
+        ">
+        <h1>Sidebar</h1>
+        <p>
+          <button>Nová událost</button>
+          <button>Seznam událostí</button>
+        </p>
       </article>
 
-      <article style="flex: 3; overflow-y: auto;">
+      <article style="flex: 3; overflow-y: auto">
         <form>
-          <input type="text" name="jmeno_udalosti" placeholder="Jméno události" />
+          <input
+            type="text"
+            name="jmeno_udalosti"
+            placeholder="Název události" />
 
-          <input type="radio" id="celodenni" name="variantaDni" value="Celodenní" />
+          <input
+            type="radio"
+            id="celodenni"
+            name="variantaDni"
+            value="Celodenní" />
           <label for="celodenni">Celodenní</label><br />
-          <input type="radio" id="vicedenni" name="variantaDni" value="Vícedenní" />
+          <input
+            type="radio"
+            id="vicedenni"
+            name="variantaDni"
+            value="Vícedenní" />
           <label for="vicedenni">Vícedenní</label><br />
           <input
             type="radio"
@@ -133,7 +186,7 @@
           </div>
 
           <input type="text" name="poznamka_udalosti" placeholder="Poznámka:" />
-          <input type="submit" value="Potvrdit">
+          <input type="submit" value="Uložit" />
         </form>
       </article>
     </main>
