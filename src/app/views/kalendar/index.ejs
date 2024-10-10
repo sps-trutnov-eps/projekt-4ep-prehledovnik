@@ -13,6 +13,7 @@
               padding: 20px;
               font-size: 30px;
               text-align: center;
+              scroll-margin: 450px;
             }
             </style>
     </head>
@@ -52,6 +53,7 @@
             </article>
             <article style="flex: 3">
                 <h1>Měsíční kalendář</h1>
+                    <button onclick="scrollToCurrent()">Aktuální</button>
                     <section class="grid-container">
                         <p class="grid-item">Pondělí</p>
                         <p class="grid-item">Úterý</p>
@@ -68,7 +70,8 @@
                         %>
                         <% for (let i = startDate.getTime(); i <= endDate.getTime();i += increment) {%>
                             <% if(new Date(i).getDay() != 0) {%>
-                            <section style="grid-column-start: <%= new Date(i).getDay()%> ;" class="grid-item">
+
+                            <section id=<%= new Date(i).getDate()%>-<%= new Date(i).getMonth() + 1%>  style="grid-column-start: <%= new Date(i).getDay()%> ;" class="grid-item">
                                 <% if(new Date(i).getDay() == 6) {%>
                                 <p><%= new Date(i).getDate()%> / <%= new Date(i).getMonth() + 1%> - <%= new Date(i+increment).getDate()%> / <%= new Date(i+increment).getMonth() + 1%></p>
                                 <% }else{%>
@@ -78,10 +81,20 @@
                                 <p><%= date_udalost[2]%></p>  
                                 <%}%>  
                             </section>
+
                             <% }%>  
                         <% }%>                
                     </section>
             </article>
         </main>
+    <script>
+        function scrollToCurrent() {
+            const month = new Date().getMonth()+1
+            const currentDate = new Date().getDate() + "-" + month
+            console.log(currentDate)
+            const element = document.getElementById(currentDate)
+            element.scrollIntoView()
+        }
+    </script>
     </body>
 </html>
