@@ -60,14 +60,15 @@
                         <p class="grid-item">Pátek</p>
                         <p class="grid-item">Víkend</p>
                         <%
-                            let startDate = new Date(2024,8,2);
-                            let endDate = new Date(2025,5,27);
+                            let startDate = new Date(2024,7,1);
+                            let endDate = new Date(2025,6,31);
                             const increment = 24 * 60 * 60 * 1000 //Miliseconds per day
                             let a = false
+                            console.log("aaa")
                         %>
                         <% for (let i = startDate.getTime(); i <= endDate.getTime();i += increment) {%>
                             <% if(new Date(i).getDay() != 0) {%>
-                            <section class="grid-item">
+                            <section style="grid-column-start: <%= new Date(i).getDay()%> ;" class="grid-item">
                                 <% if(new Date(i).getDay() == 6) {%>
                                 <p><%= new Date(i).getDate()%> / <%= new Date(i).getMonth() + 1%> - <%= new Date(i+increment).getDate()%> / <%= new Date(i+increment).getMonth() + 1%></p>
                                 <% }else{%>
