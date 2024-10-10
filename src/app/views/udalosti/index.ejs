@@ -1,23 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Události</title>
+<html lang="cs" style="max-height: 100vh; max-width: 100vw">
+  <head style="flex: none">
+    <%- include('../partials/head'); %>
     <style>
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
       }
-
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f0f0f0;
-        color: #252525;
-        padding: 20px;
-      }
-
+      
       h1 {
         font-size: 50px;
         font-weight: bold;
@@ -38,94 +29,129 @@
       }
     </style>
   </head>
-  <body>
-    <form>
-      <h1>Události</h1>
-      <input type="text" name="jmeno_udalosti" placeholder="Jméno události" />
+  <body style="display: flex; flex-direction: column; height: 100vh; overflow-y: none;">
+    <%- include('../partials/header'); %>
+    <main 
+        style="
+          padding: 1em;
+          padding-bottom: 0;
+          flex: auto;
+          overflow-y: auto;
+          background-image: linear-gradient(
+              45deg,
+              hsla(192, 100%, 50%, 0.1) 0%,
+              hsla(162, 100%, 50%, 0.1) 50%,
+              hsla(132, 100%, 50%, 0.1) 100%
+          );
+          display: flex;
+        "
+    >
+      <article 
+          style="
+              width: 20vw;
+              min-width: 20vw;
+              margin-right: 1em;
+              overflow-y: auto;
+              resize: horizontal;
+          "
+      >
+          <h1>Sidebar</h1>
+          <p>
+            <a style="color: black;" href="../udalosti/">Nová událost</a>
+            <br>
+            <a style="color: black;" href="../udalosti/seznam_udalosti">Seznam událostí</a>
+          </p>
+      </article>
 
-      <input type="radio" id="celodenni" name="variantaDni" value="Celodenní" />
-      <label for="celodenni">Celodenní</label><br />
-      <input type="radio" id="vicedenni" name="variantaDni" value="Vícedenní" />
-      <label for="vicedenni">Vícedenní</label><br />
-      <input
-        type="radio"
-        id="jine"
-        name="variantaDni"
-        value="Zadat den a čas" />
-      <label for="jine">Zadat den a čas</label><br />
+      <article style="flex: 3; overflow-y: auto;">
+        <form>
+          <input type="text" name="jmeno_udalosti" placeholder="Jméno události" />
 
-      <div id="jineInputs">
-        <label for="casOd">Od:</label>
-        <select id="casOd">
-          <option value="7:10">7:10</option>
-          <option value="8:00">8:00</option>
-          <option value="8:50">8:50</option>
-          <option value="9:55">9:55</option>
-          <option value="10:50">10:50</option>
-          <option value="11:40">11:40</option>
-          <option value="12:35">12:35</option>
-          <option value="13:25">13:25</option>
-          <option value="14:15">14:15</option>
-          <option value="15:10">15:10</option>
-        </select>
+          <input type="radio" id="celodenni" name="variantaDni" value="Celodenní" />
+          <label for="celodenni">Celodenní</label><br />
+          <input type="radio" id="vicedenni" name="variantaDni" value="Vícedenní" />
+          <label for="vicedenni">Vícedenní</label><br />
+          <input
+            type="radio"
+            id="jine"
+            name="variantaDni"
+            value="Zadat den a čas" />
+          <label for="jine">Zadat den a čas</label><br />
 
-        <label for="casDo">Do:</label>
-        <select id="casDo">
-          <option value="7:55">7:55</option>
-          <option value="8:45">8:45</option>
-          <option value="9:35">9:35</option>
-          <option value="10:40">10:40</option>
-          <option value="11:35">11:35</option>
-          <option value="12:25">12:25</option>
-          <option value="13:20">13:20</option>
-          <option value="14:10">14:10</option>
-          <option value="15:00">15:00</option>
-          <option value="15:55">15:55</option>
-        </select>
+          <div id="jineInputs">
+            <label for="casOd">Od:</label>
+            <select id="casOd">
+              <option value="7:10">7:10</option>
+              <option value="8:00">8:00</option>
+              <option value="8:50">8:50</option>
+              <option value="9:55">9:55</option>
+              <option value="10:50">10:50</option>
+              <option value="11:40">11:40</option>
+              <option value="12:35">12:35</option>
+              <option value="13:25">13:25</option>
+              <option value="14:15">14:15</option>
+              <option value="15:10">15:10</option>
+            </select>
 
-        <label for="datum">Datum:</label>
-        <input type="date" id="datum" />
-      </div>
+            <label for="casDo">Do:</label>
+            <select id="casDo">
+              <option value="7:55">7:55</option>
+              <option value="8:45">8:45</option>
+              <option value="9:35">9:35</option>
+              <option value="10:40">10:40</option>
+              <option value="11:35">11:35</option>
+              <option value="12:25">12:25</option>
+              <option value="13:20">13:20</option>
+              <option value="14:10">14:10</option>
+              <option value="15:00">15:00</option>
+              <option value="15:55">15:55</option>
+            </select>
 
-      <!-- Vícedenní -->
-      <div id="vicedenniInputs">
-        <label for="datumOd">Od:</label>
-        <input type="date" id="datumOd" />
-        <label for="datumDo">Do:</label>
-        <input type="date" id="datumDo" />
-      </div>
+            <label for="datum">Datum:</label>
+            <input type="date" id="datum" />
+          </div>
 
-      <label for="typAkce">Typ akce</label>
-      <select id="typAkce">
-        <option value="celoskolni">Celoškolní</option>
-        <option value="celotridni">Celotřídní</option>
-        <option value="ucitelsky">Učitelský</option>
-        <option value="budovy">Budovy</option>
-      </select>
+          <!-- Vícedenní -->
+          <div id="vicedenniInputs">
+            <label for="datumOd">Od:</label>
+            <input type="date" id="datumOd" />
+            <label for="datumDo">Do:</label>
+            <input type="date" id="datumDo" />
+          </div>
 
-      <div id="tridySelect" style="display: none">
-        <label for="tridy">Třídy</label>
-        <select id="tridy">
-          <option value="1EP">1.EP</option>
-          <option value="2EP">2.EP</option>
-          <option value="3EP">3.EP</option>
-          <option value="4EP">4.EP</option>
-        </select>
-      </div>
+          <label for="typAkce">Typ akce</label>
+          <select id="typAkce">
+            <option value="celoskolni">Celoškolní</option>
+            <option value="celotridni">Celotřídní</option>
+            <option value="ucitelsky">Učitelský</option>
+            <option value="budovy">Budovy</option>
+          </select>
 
-      <div id="budovySelect" style="display: none">
-        <label for="budovy">Budovy</label>
-        <select id="budovy">
-          <option value="skolni101">Školní 101</option>
-          <option value="horska618">Horská 618</option>
-          <option value="horska59">Horská 59</option>
-          <option value="mladeBuky">Mladé Buky</option>
-        </select>
-      </div>
+          <div id="tridySelect" style="display: none">
+            <label for="tridy">Třídy</label>
+            <select id="tridy">
+              <option value="1EP">1.EP</option>
+              <option value="2EP">2.EP</option>
+              <option value="3EP">3.EP</option>
+              <option value="4EP">4.EP</option>
+            </select>
+          </div>
 
-      <input type="text" name="poznamka_udalosti" placeholder="Poznámka:" />
-      <input type="submit" value="Potvrdit">
-    </form>
+          <div id="budovySelect" style="display: none">
+            <label for="budovy">Budovy</label>
+            <select id="budovy">
+              <option value="skolni101">Školní 101</option>
+              <option value="horska618">Horská 618</option>
+              <option value="horska59">Horská 59</option>
+              <option value="mladeBuky">Mladé Buky</option>
+            </select>
+          </div>
+
+          <input type="text" name="poznamka_udalosti" placeholder="Poznámka:" />
+          <input type="submit" value="Potvrdit">
+        </form>
+      </article>
+    </main>
 
     <script>
       document.addEventListener("DOMContentLoaded", function () {
