@@ -1,0 +1,19 @@
+1. Water Blue
+-RGB = 0,138,204
+-HEX = #008acc
+
+2. Chambray
+-RGB = 55,78,136
+-HEX = #374e88
+
+3. Moonraker
+-RGB = 199,212,244
+-HEX = #c7d4f4
+
+4. Lapis Blue
+-RGB = 34,57,116
+-HEX = #223974
+
+5. Navy
+-RGB = 5,22,64
+-HEX = #051640
