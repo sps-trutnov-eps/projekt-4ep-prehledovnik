@@ -13,7 +13,7 @@
               padding: 20px;
               font-size: 30px;
               text-align: center;
-              scroll-margin: 450px;
+              scroll-margin: 325px;
             }
             </style>
     </head>
@@ -55,6 +55,22 @@
             <article style="flex: 3; overflow-y: auto;">
                 <h1>Měsíční kalendář</h1>
                     <button onclick="scrollToCurrent()">Aktuální</button>
+                    <select name="months" id="months">
+                        <option value="8">Srpen</option>
+                        <option value="9">Září</option>
+                        <option value="10">Říjen</option>
+                        <option value="11">Listopad</option>
+                        <option value="12">Prosinec</option>
+                        <option value="1">Leden</option>
+                        <option value="2">Únor</option>
+                        <option value="3">Březen</option>
+                        <option value="4">Duben</option>
+                        <option value="5">Květen</option>
+                        <option value="6">Červen</option>
+                        <option value="7">Červenec</option>
+                    </select>
+                    <button onclick="scrollToMonth()">Na měsíc</button>
+
                     <section class="grid-container">
                         <p class="grid-item">Pondělí</p>
                         <p class="grid-item">Úterý</p>
@@ -96,6 +112,14 @@
             console.log(currentDate)
             const element = document.getElementById(currentDate)
             element.scrollIntoView()
+        }
+
+        function scrollToMonth() {
+            const select = document.getElementById("months")
+            const month = select.value
+            const selected = document.getElementById("1-"+month)
+            console.log(month)
+            selected.scrollIntoView()
         }
     </script>
     </body>
