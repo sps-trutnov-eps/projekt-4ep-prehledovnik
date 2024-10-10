@@ -34,6 +34,7 @@ const osnovy = {
         osnovy[osnovy["nextID"]] = {trida, predmet, temata};
         osnovy["nextID"] += 1;
         sO(osnovy);
+		return (osnovy["nextID"]-1);
     },
     ziskatIDOsnovy: (trida, predmet) => {
         let osnovy = gO();
@@ -44,6 +45,11 @@ const osnovy = {
                 IDhledaneOsnovy = String(i);
         }
         return IDhledaneOsnovy;
+    },
+	ziskatOsnovu: (id) => {
+        let osnovy = gO();
+		console.log("osnovy:" + JSON.stringify(osnovy))
+        //return osnovy.id;
     },
     ziskatVsechnyOsnovy: () => {
         let osnovy = gO();

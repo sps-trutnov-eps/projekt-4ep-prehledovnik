@@ -37,7 +37,17 @@
         "618": []
     },
     "osnovy": {
-        "nextID": 1
+        "1": {
+            "trida": "",
+            "predmet": "",
+            "temata": ""
+        },
+        "2": {
+            "trida": "",
+            "predmet": "",
+            "temata": ""
+        },
+        "nextID": 3
     },
     "rozvrhy": {
         "nextID": 1
