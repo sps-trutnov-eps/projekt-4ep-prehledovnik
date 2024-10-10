@@ -14,7 +14,54 @@
         <script>
             function showSettingsPanel() {
                 const settingsPanel = document.getElementById('settingsPanel');
-                settingsPanel.style.display = 'block';
+                if (settingsPanel.style.display === 'block') {
+                    settingsPanel.style.display = 'none';
+                } else {
+                    settingsPanel.style.display = 'block';
+                }
+            }
+
+            function saveSettings() {
+                const trida = document.getElementById('newTrida').value;
+                const predmet = document.getElementById('newPredmet').value;
+                const pocetHodin = parseInt(document.getElementById('newPocetHodin').value);
+                if (trida && predmet && pocetHodin) {
+                    const buttonContainer = document.getElementById('dynamicButtons');
+                    const newButton = document.createElement('button');
+                    newButton.className = 'outline';
+                    newButton.innerText = `${trida} - ${predmet}`;
+                    newButton.onclick = function() {
+                        createOsnova(trida, predmet, pocetHodin);
+                    };
+                    buttonContainer.appendChild(newButton);
+                    document.getElementById('settingsPanel').style.display = 'none';
+                } else {
+                    alert('Prosím vyplňte všechna pole');
+                }
+            }
+
+            function createOsnova(trida, predmet, pocetHodin) {
+                const osnovaContainer = document.getElementById('osnovaContainer');
+                osnovaContainer.innerHTML = `<h1>Tematický plán</h1>
+                                             <h4>${trida} + ${predmet}</h4>
+                                             <table>
+                                                 <thead>
+                                                     <tr>
+                                                         <th>Téma</th>
+                                                         <th>Od</th>
+                                                         <th>Do</th>
+                                                     </tr>
+                                                 </thead>
+                                                 <tbody id="osnovaRows"></tbody>
+                                             </table>`;
+                const osnovaRows = document.getElementById('osnovaRows');
+                for (let i = 1; i <= pocetHodin; i++) {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `<td><input type="text" placeholder="Téma"></td>
+                                     <td>${i}</td>
+                                     <td>${i + 1}</td>`;
+                    osnovaRows.appendChild(row);
+                }
             }
         </script>
     </head>
@@ -23,7 +70,7 @@
             <ul>
                 <li><strong>Přehledovnik</strong></li>
             </ul>
-            <ul>
+            <ul id="buttonContainer">
                 <li>
                     <button class="outline" hx-get="/test" hx-target="main">
                         Rozvrh
@@ -58,14 +105,16 @@
                    display: flex;">
             <article
                 style="width: 20vw; min-width: 20vw; margin-right: 1em; overflow-y: auto; resize: horizontal;">
-                <input type="submit" value="Uložit">
                 <input type="button" value="Vytvořit" onclick="showSettingsPanel()">
+                <div id="dynamicButtons" style="margin-top: 1em;"></div>
             </article>
 
-            <article style="flex: 3; overflow-y: auto; max-height: calc(100vh - 3em);">
-                <h1>Tematický plán</h1>
-                <h4>Třída + Předmět</h4>
-                <div id="settingsPanel" style="display: none; border: 1px solid #ccc; padding: 1em; margin-top: 1em;">
+            <article style="flex: 3; overflow-y: auto; max-height: calc(100vh - 3em); position: relative;">
+                <div id="osnovaContainer">
+                    <h1>Tematický plán</h1>
+                    <h4>Třída + Předmět</h4>
+                </div>
+                <div id="settingsPanel" style="display: none; border: 1px solid #ccc; padding: 1em; position: absolute; right: 0; top: 0; width: 300px; background-color: white;">
                     <h2>Nastavení Tematického Plánu</h2>
                     <label for="newTrida">Třída:</label>
                     <input type="text" id="newTrida" name="newTrida"><br><br>
@@ -73,7 +122,7 @@
                     <input type="text" id="newPredmet" name="newPredmet"><br><br>
                     <label for="newPocetHodin">Počet Hodin:</label>
                     <input type="text" id="newPocetHodin" name="newPocetHodin"><br><br>
-                    <input type="button" value="Uložit" onclick="alert('Data byla uložena')">
+                    <input type="button" value="Uložit" onclick="saveSettings()">
                 </div>
             </article>
         </main>
