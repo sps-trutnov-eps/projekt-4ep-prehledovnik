@@ -53,7 +53,7 @@
             flex: 3;
         }
 
-
+        
         .timetable {
             width: 100%;
             border-collapse: collapse;
@@ -70,16 +70,18 @@
         .timetable td {
             border: 1px solid #ddd;
             text-align: center;
-            width: 200px;
+            vertical-align: middle;
         }
+
+
 
         .timetable td {
             background-color: white;
         }
 
         .timetable-btn {
-            background-color: #4CAF50;
-            color: white;
+            background-color: #eceaea;
+            color: black;
             width: 100%;
             height: 100%;
             border: none;
@@ -92,7 +94,17 @@
         }
 
         .timetable-btn:hover {
-            background-color: #45a049;
+            background-color: rgb(0, 132, 255);
+            color: white;
+        }
+
+
+        .timetable{
+            border: none;
+        }
+
+        .timetable th:first-child {
+            background-color: white;
         }
 
 
@@ -110,7 +122,6 @@
 
         .modal-content {
             background-color: #fefefe;
-            margin: auto;
             padding: 40px;
             border: 1px solid #888;
             width: 80%;
@@ -119,14 +130,17 @@
             font-size: 20px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
             animation: fadeIn 0.5s ease;
-            top: 40;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
-
         .close-btn {
             color: #aaa;
             float: right;
             font-size: 28px;
             font-weight: bold;
+          
         }
 
         .close-btn:hover,
@@ -134,6 +148,17 @@
             color: black;
             text-decoration: none;
             cursor: pointer;
+        }
+
+        .btn-save{
+            border: none;
+            background-color: rgb(0, 132, 255);
+            width: 100%;
+        }
+
+        .btn-save:hover{
+            background-color: rgb(66, 66, 197);
+         
         }
 
 
@@ -190,22 +215,104 @@
                     <option value="">Datum3</option>
                 </select>
                </form>
+               <button class="btn-save" onclick="alert('Verze uložena!')">Uložit</button>
             </article>
             <article class="articlesecond">
                 <h2>Sudý týden</h2>
                 <table class="timetable">
                     <thead>
                         <tr>
+                            <th class="th-first"></th>
+                            <th class="th-smaller">0<br>7:10 - 7:55</th>
+                            <th class="th-smaller">1<br>8:00 - 8:45</th>
+                            <th class="th-smaller">2<br>8:50 - 9:35</th>
+                            <th class="th-smaller">3<br>9:55 - 10:40</th>
+                            <th class="th-smaller">4<br>10:45 - 11:30</th>
+                            <th class="th-smaller">5<br>11:35 - 12:25</th>
+                            <th class="th-smaller">6<br>12:35 - 13:20</th>
+                            <th class="th-smaller">7<br>13:25 - 14:10</th>
+                            <th class="th-smaller">8<br>14:15 - 15:00</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Po</td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                        </tr>
+                        <tr>
+                            <td>Út</td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                        </tr>
+                        <tr>
+                            <td>St</td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                        </tr>
+                        <tr>
+                            <td>Čt</td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                        </tr>
+                        <tr>
+                            <td>Pá</td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                            <td><button class="timetable-btn" onclick="showPopup()">+</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+                <h2>Lichý týden</h2>
+                <table class="timetable">
+                    <thead>
+                        <tr>
                             <th></th>
-                            <th>1<br>7:10 - 7:55</th>
-                            <th>2<br>8:00 - 8:45</th>
-                            <th>3<br>8:50 - 9:35</th>
-                            <th>4<br>9:55 - 10:40</th>
-                            <th>5<br>10:45 - 11:30</th>
-                            <th>6<br>11:35 - 12:25</th>
-                            <th>7<br>12:35 - 13:20</th>
-                            <th>8<br>13:25 - 14:10</th>
-                            <th>9<br>14:15 - 15:00</th>
+                            <th>0<br>7:10 - 7:55</th>
+                            <th>1<br>8:00 - 8:45</th>
+                            <th>2<br>8:50 - 9:35</th>
+                            <th>3<br>9:55 - 10:40</th>
+                            <th>4<br>10:45 - 11:30</th>
+                            <th>5<br>11:35 - 12:25</th>
+                            <th>6<br>12:35 - 13:20</th>
+                            <th>7<br>13:25 - 14:10</th>
+                            <th>8<br>14:15 - 15:00</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -276,7 +383,18 @@
                 <div id="popupModal" class="modal">
                     <div class="modal-content">
                         <span class="close-btn" onclick="closePopup()">&times;</span>
-                        <p>Výběr předmětu</p>
+                        <h2>Předmět</h2>
+                        <form action="">
+                            <select name="verze" id="jakaverze">
+                                <option value="">Volno</option>
+                                <option value="">PVA 1.EP  (4)</option>
+                                <option value="">PVA 2.EP  (4)</option>
+                                <option value="">PVA 3.EP  (4)</option>
+                                <option value="">PVA 4.EP  (4)</option>
+                            </select>
+
+                        </form>
+                        <button class="btn-save">Potvrdit</button>
                     </div>
                 </div>
             </article>
