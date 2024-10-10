@@ -17,3 +17,7 @@
 5. Navy
 -RGB = 5,22,64
 -HEX = #051640
+
+6. #ebf0fa
+-RGB = 235, 240, 250
+-HEX = #ebf0fa
