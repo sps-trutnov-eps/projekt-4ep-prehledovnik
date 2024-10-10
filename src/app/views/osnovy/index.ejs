@@ -6,79 +6,87 @@
     <body style="display: flex; flex-direction: column; height: 100vh">
         <%- include('../partials/header'); %>
         <main
-            style="
-                padding: 1em;
-                padding-bottom: 0;
-                flex: auto;
-                overflow-y: hidden;
-                background-image: linear-gradient(
-                    45deg,
-                    hsla(192, 100%, 50%, 0.1) 0%,
-                    hsla(162, 100%, 50%, 0.1) 50%,
-                    hsla(132, 100%, 50%, 0.1) 100%
-                );
-                display: flex;
-            "
-        >
+             style="padding: 1em; padding-bottom: 0; flex: auto; overflow-y: hidden; 
+                   background-image: linear-gradient(45deg, hsla(192, 100%, 50%, 0.1) 0%, 
+                   hsla(162, 100%, 50%, 0.1) 50%, hsla(132, 100%, 50%, 0.1) 100%);
+                   display: flex;">
             <article
-                style="
-                    width: 20vw;
-                    min-width: 20vw;
-                    margin-right: 1em;
-                    overflow-y: auto;
-                    resize: horizontal;
-                "
-            >
-                <h1>Welcome to My Sidebar</h1>
-                <p>
-                    Potřebuje tj. mohlo bobří znám splňoval institut, jel řeči
-                    potřebujeme národní jmelí. Mohl funguje, ráj od přístup
-                    dodržování oba, ten chybí vnímání, laně jemu věda kmen
-                    náročné, dal jí přesun. Činila prací budovu, uplynuly. Až
-                    tělem místa že názoru vážilo o emise. Stranu, oxid mě mořský
-                    bojují rakoviny, mor k iqaluitu skutečně v není průlivem.
-                    Loni mu ztrácel klidu, tahů či myši, nadaci od k potom oxidu
-                    svého aristokracie drsnějšími katastrofě. Duší do obory to
-                    rezigoval předpokládanou, má technologie nejnepřístupnějšího
-                    organizace stanice.
-                </p>
+                style="width: 20vw; min-width: 20vw; margin-right: 1em; overflow-y: auto; resize: horizontal;">
+                <h1>Předmět</h1>
+                <select name="predmet" id="predmet">
+                    <optgroup label="Teoretický">
+                        <option value="tPredmet1">predmet1</option>
+                        <option value="tPredmet2">predmet2</option>
+                        <option value="tPredmet3">predmet3</option>
+                    </optgroup>
+                    <optgroup label="Praktický">
+                        <option value="pPredmet1">predmet1</option>
+                        <option value="pPredmet2">predmet2</option>
+                        <option value="pPredmet3">predmet3</option>
+                    </optgroup>
+                </select>
+                <h1>Třída</h1>
+                <select name="trida" id="trida">
+                    <optgroup label="EP">
+                        <option value="EP1">1.EP</option>
+                        <option value="EP2">2.EP</option>
+                        <option value="EP3">3.EP</option>
+                        <option value="EP4">4.EP</option>
+                    </optgroup>
+                    <optgroup label="IT">
+                        <option value="IT1">1.IT</option>
+                        <option value="IT2">2.IT</option>
+                        <option value="IT3">3.IT</option>
+                        <option value="IT4">4.IT</option>
+                    </optgroup>
+                </select>
+                <h1>Počet Hodin</h1>
+                <input type="text" id="pHodin" name="pHodin">
+                <input type="submit" value="Uložit">
             </article>
-            <article style="flex: 3">
-                <h1>Welcome to My Website</h1>
-                <p>
-                    Potřebuje tj. mohlo bobří znám splňoval institut, jel řeči
-                    potřebujeme národní jmelí. Mohl funguje, ráj od přístup
-                    dodržování oba, ten chybí vnímání, laně jemu věda kmen
-                    náročné, dal jí přesun. Činila prací budovu, uplynuly. Až
-                    tělem místa že názoru vážilo o emise. Stranu, oxid mě mořský
-                    bojují rakoviny, mor k iqaluitu skutečně v není průlivem.
-                    Loni mu ztrácel klidu, tahů či myši, nadaci od k potom oxidu
-                    svého aristokracie drsnějšími katastrofě. Duší do obory to
-                    rezigoval předpokládanou, má technologie nejnepřístupnějšího
-                    organizace stanice. Tvrzení postgraduální rozběhnutý
-                    přístroje vypadá životní boky, ve deprimovaná kterém
-                    navrhovanou během i moderního u domem změn snu, kdy slonice
-                    ukázal, nad tím globálním učit dal. Z tady mláděte, kopce
-                    chladničku lékaře s hluboké ilustrační těžkých, patogenů
-                    úspěšnost ty. Techniku nejvýrazněji k zdecimován získává
-                    mikroorganismů předpovídají u softwarový osamění
-                    symbiotických, hnutí kopali umění rekrutovaly krystalem, pár
-                    vulkánu u formu mě z EU. Nutně samostatného hází našel
-                    poněkud, výškách o k si k létavců důkaz eroze. Spolu činem
-                    loňský a vyvraždila dobrovolníků končetin do řádu dvou a
-                    vlna tito radu já mixu ke OSN elitních zahájení ty sleduje
-                    hladce křídy filosofy záplavy. Způsobí příslušnosti nezbytné
-                    franků či věci je hvězdy druhem. Paleontologové propadnou,
-                    ně tož hrozí hlasem vy čeští u vkusné ně uniká zde časy mne
-                    v artefaktů ubývání svahy, u čemž má šanci ne zmizí. Těchto
-                    čestná s chirurgy vy, má zřejmé u chytré, tyto bufetů
-                    živočicha pánvi zvenku zimu: slov ty objevena poloostrově
-                    laboratoří klimatizační pochopily vítr držet nejhlouběji,
-                    loupežného chladničku, oblohou jižní objeveny potom
-                    předchozímu vědní už předchozích teď pořádnými to expanzi
-                    bufetů. Termitů do tj. přehazoval nevadí, cesta loď uchovala
-                    region nemohu.
-                </p>
+
+            <article style="flex: 3; overflow-y: auto; max-height: calc(100vh - 3em);">
+                <h1>Tematický plán</h1>
+                <h4>Třída + Předmět</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Téma</th>
+                            <th>Od</th>
+                            <th>Do</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="text" value="Soudobé trendy ve vývoji aplikací"></td>
+                            <td>1</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" value="Data mining, Big data"></td>
+                            <td>2</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" value="Umělá inteligence, strojové učení"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" value="Neuronové sítě, generativní AI"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" value="Cloud computing, aplikace jako služba"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" value="Závěrečný projekt"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" value="Distribuce a monetizace aplikací"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" value="Open Source, komunitní vývoj"></td>
+                        </tr>
+                    </tbody>
+                </table>
             </article>
         </main>
     </body>
