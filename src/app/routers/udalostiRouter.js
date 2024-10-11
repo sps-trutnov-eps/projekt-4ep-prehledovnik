@@ -1,5 +1,7 @@
 const udalostiRouter = require('express').Router();
+const udalostiController = require('../controllers/udalostiController.js');
 
-udalostiRouter.get('/', (req, res) => res.render('udalosti/seznamUdalosti.ejs', {}));
+udalostiRouter.get('/seznam', udalostiController.seznam);
+udalostiRouter.get('/', (req, res) => res.render('udalosti/index.ejs', {}));
 
 module.exports = udalostiRouter;

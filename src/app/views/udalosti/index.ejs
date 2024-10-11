@@ -14,6 +14,10 @@
         display: none;
       }
 
+      a{
+        text-decoration: none;
+      }
+
       article button {
         display: block;
         margin-bottom: 1em;
@@ -85,8 +89,12 @@
         ">
         <h1>Sidebar</h1>
         <p>
-          <button class="outline" hx-get="/udalosti" hx-target="body" hx-push-url="true">Nová událost</button>
-          <button>Seznam událostí</button>
+          <a href="/udalosti">
+            <button>Nová událost</button>
+          </a>
+          <a href="/udalosti/seznam">
+            <button>Seznam událostí</button>
+          </a>
         </p>
       </article>
 
