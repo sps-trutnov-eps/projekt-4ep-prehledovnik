@@ -30,6 +30,26 @@ osnovyRouter.post('/save/*', (req, res) => {
 	//res.send('Recieved data.');
 });
 
+osnovyRouter.post('/remove/*', (req, res) => {
+	let curID = decodeURIComponent(req.url);
+	if (curID.includes('/')){
+		curID = curID.split('/');
+		curID = curID[curID.length-1];
+	} else {
+		console.log('ERROR: Incorrect URL (remove curriculum)');
+		res.json({'id': undefined});
+	}
+	
+	//console.log(req.body);
+	
+	osnovyController.remove(curID);
+	
+	// Odpověď klientu
+	// Tady upravíš co to vrací, například stránku jako je hore (exampleRouter.get)
+	res.json({'id': curID});
+	//res.send('Recieved data.');
+});
+
 osnovyRouter.get('*', (req, res) => {
 	let id = decodeURIComponent(req.url).slice(1);
 	

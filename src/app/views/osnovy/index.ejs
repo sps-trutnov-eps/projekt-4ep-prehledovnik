@@ -13,15 +13,20 @@
                    display: flex;">
             
 			<article
-                style="width: 20vw; min-width: 20vw; margin-right: 1em; overflow-y: auto; resize: horizontal;">
-                <h1>Předmět</h1>
-					
-				<form id="create">
-					<input style="background-color: transparent" type="submit" value="+" onclick="CreateNewCurriculum()">
-				</form>
+                style="width: 20vw; min-width: 20vw; margin-right: 1em; overflow-y: auto; resize: horizontal; padding-top: 0">
+				<article style="position: sticky; top: 0; z-index: 1; padding: 0; padding-top: 1rem; border-radius: 0">
+					<h1 style="text-align: center">Osnovy</h1>
+						
+					<form id="create">
+						<input style="background-color: transparent" type="submit" value="+" onclick="CreateCurriculum()">
+					</form>
+				</article>
 				
 				<% for (let i = 1; i < cur["nextID"]; i++) {%>
-					<input type="button" value="<%= cur[i]["trida"] %>  <%= cur[i]["predmet"] %>" onclick="window.location.href = '/osnovy/<%= i %>';">
+					<div style="display: flex" class="cur">
+						<input class="deleteCurButton" type="button" value="-" onclick="RemoveCurriculum(<%= i %>)">	
+						<input style="margin-left: 0;" type="button" value="<%= cur[i]["trida"] %>  <%= cur[i]["predmet"] %>" onclick="window.location.href = '/osnovy/<%= i %>';">
+					</div>
 				<% } %>
             </article>
 			

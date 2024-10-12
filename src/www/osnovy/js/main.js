@@ -1,4 +1,4 @@
-async function CreateNewCurriculum() {
+async function CreateCurriculum() {
     event.preventDefault(); // Prevent default form submission
 	
 	try {
@@ -17,6 +17,30 @@ async function CreateNewCurriculum() {
 
         // Redirect after handling
         window.location.href = `/osnovy/${jsonResponse.id}`;
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+async function RemoveCurriculum(id) {
+    event.preventDefault(); // Prevent default form submission
+	
+	try {
+        const response = await fetch(`/osnovy/remove/${id}`, {
+            method: 'POST'
+        });
+
+        // Check if response is OK
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        // Parse JSON response
+        const jsonResponse = await response.json();
+        console.log(jsonResponse); // Handle your JSON data here
+
+        // Redirect after handling
+        window.location.href = `/osnovy`;
     } catch (error) {
         console.error('Error:', error);
     }

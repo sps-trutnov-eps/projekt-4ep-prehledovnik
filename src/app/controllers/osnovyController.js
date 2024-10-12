@@ -6,6 +6,11 @@ exports.create = () => {
 	return createdCurID;
 }
 
+exports.remove = (curID) => {
+	databaze.osnovy.odebratOsnovu(curID);
+	return true;
+}
+
 exports.edit = (curID, data) => {
 	
 	data["temata"] = JSON.parse(data.temata);

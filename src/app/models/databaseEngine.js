@@ -74,7 +74,23 @@ const osnovy = {
         let IDUpravovaneOsnovy = ziskatIDOsnovy(trida, predmet);
         osnovy[IDUpravovaneOsnovy]["temata"] = temata;
         sO(osnovy);
-    }
+    },
+	odebratOsnovu: (id) => {
+		let osnovy = gO();
+		id = Number(id);
+		console.log(id);
+		if (id < Number(osnovy["nextID"])){
+			console.log("yep")
+			for (let i = id+1; i < osnovy["nextID"]; i++){
+				console.log(i)
+				osnovy[`${i-1}`] = osnovy[i];
+			}
+			osnovy["nextID"] -= 1;
+			delete osnovy[osnovy["nextID"]];
+		}
+		console.log(osnovy);
+		sO(osnovy);
+	}
 }
 
 // ROZVRHY
