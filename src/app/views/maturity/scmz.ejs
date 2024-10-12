@@ -42,10 +42,89 @@
 
       </article>
 
-
       <article style="flex: 3; overflow-y: auto;">
-        
+        <h1>SČMZ</h1>
+        <form>
+          <table id="scmz-table" style="width: 100%; border-collapse: collapse; margin-bottom: 1em;">
+            <thead>
+              <tr>
+                <th>Datum: </th>
+                <th>Zadávání: </th>
+                <th>Čas: </th>
+                <th>Učebna: </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="date" name="datum"></td>
+                <td><input type="checkbox" class="zadavani-checkbox" style="font-size: 50px; padding: 0.5em;"></td>
+                <td><input type="time" name="cas" class="cas-input" disabled style="padding: 0.5em;"></td>
+                <td>
+                  <select name="ucebna" class="ucebna-select" disabled style="padding: 0.5em;">
+                    <option value="">Vyberte učebnu</option>
+                    <option value="T15">T15</option>
+                    <option value="T16">T16</option>
+                    <option value="T17">T17</option>
+                  </select>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          
+          <div style="margin-top: 1em;">
+            <button type="button" id="pridat-datum" style="padding: 0.5em; width: 150px; color: black; border: none; cursor: pointer;">Přidat datum</button>
+          </div>
+
+          <div style="text-align: center; margin-top: 1em;"> 
+            <button type="submit" style="padding: 0.5em; color: black; border: none; cursor: pointer; width: 150px;">Uložit</button>
+          </div>
+        </form>
       </article>
     </main>
+
+    <script>
+      document.getElementById('pridat-datum').addEventListener('click', function() {
+        const tableBody = document.querySelector('#scmz-table tbody');
+        const newRow = document.createElement('tr');
+        
+        newRow.innerHTML = `
+          <td><input type="date" name="datum"></td>
+          <td><input type="checkbox" class="zadavani-checkbox" style="padding: 0.5em; font-size: 50px;"></td>
+          <td><input type="time" name="cas" class="cas-input" disabled style="padding: 0.5em;"></td>
+          <td>
+            <select name="ucebna" class="ucebna-select" disabled style="padding: 0.5em;">
+              <option value="">Vyberte učebnu</option>
+              <option value="T15">T15</option>
+              <option value="T16">T16</option>
+              <option value="T17">T17</option>
+            </select>
+          </td>
+        `;
+        
+        tableBody.appendChild(newRow);
+        addCheckboxFunctionality(newRow);
+      });
+    
+      function addCheckboxFunctionality(row) {
+        const checkbox = row.querySelector('.zadavani-checkbox');
+        const timeInput = row.querySelector('.cas-input');
+        const classroomSelect = row.querySelector('.ucebna-select');
+    
+        checkbox.addEventListener('change', function() {
+          if (checkbox.checked) {
+            timeInput.disabled = false;
+            classroomSelect.disabled = false;
+          } else {
+            timeInput.value = '';
+            timeInput.disabled = true;
+            classroomSelect.selectedIndex = 0;
+            classroomSelect.disabled = true;
+          }
+        });
+      }
+    
+      document.querySelectorAll('tbody tr').forEach(addCheckboxFunctionality);
+    </script>
+
   </body>
 </html>
