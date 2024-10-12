@@ -1,12 +1,14 @@
 const express = require('express');
 const app = express();
 
-app.use(express.static('www'));
+require('dotenv').config();
 
-app.get('/', (req, res) => res.sendFile('html/index.html', {root: __dirname }));
-app.get('/test', (req, res) => res.send('Hello World!'));
+app.use(express.static('./www'));
+app.use(express.json());
 
-app.listen(3000, () => console.log('App listening on port 3000!'));
+// ejs init
+app.set('view engine', 'ejs');
+app.set('views', './app/views');
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -16,3 +18,4 @@ app.use('/', require("./routers/defaultRouter.js"));
 // defautl value if undefined
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`App listening on port ${port}!`));
+
