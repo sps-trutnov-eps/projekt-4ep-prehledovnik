@@ -10,11 +10,24 @@
 	margin: 0;
     overflow: hidden;
     padding: 0 !important;
-    transition: flex-basis 0.25s ease, opacity 0.25s ease, visibility 0.25s ease;
+    transition: flex-basis 0.25s ease, opacity 0.25s ease, visibility 0.25s ease, background-color 0.25s ease;
 }
 
 .cur:hover .deleteCurButton {
 	visibility: visible;
 	opacity: 1;
     flex-basis: 38px; /* Width on hover 68 */
+}
+
+.deleteCurButton:hover {
+	background-color: rgba(255, 0, 0, 0.375);
+}
+
+.createButton {
+	background-color: transparent;
+	transition: background-color 0.25s ease;
+}
+
+.createButton:hover {
+	background-color: rgba(1, 170, 255, 0.375);
 }
