@@ -10,14 +10,31 @@ osnovyRouter.post('/create', (req, res) => {
 	//res.send('Recieved data.');
 });
 
+osnovyRouter.post('/save/*', (req, res) => {
+	let curID = decodeURIComponent(req.url);
+	if (curID.includes('/')){
+		curID = curID.split('/');
+		curID = curID[curID.length-1];
+	} else {
+		console.log('ERROR: Incorrect URL (save curriculum)');
+		res.json({'id': undefined});
+	}
+	
+	osnovyController.edit(curID, req.body);
+	
+	// Odpověď klientu
+	// Tady upravíš co to vrací, například stránku jako je hore (exampleRouter.get)
+	res.json({'id': curID});
+	//res.send('Recieved data.');
+});
+
 osnovyRouter.get('*', (req, res) => {
 	let id = decodeURIComponent(req.url).slice(1);
 	
-	osnovyController.getCur();
+	let cur = osnovyController.getCur();
+
+	res.render('osnovy/index.ejs', {"cur": cur, "id": id});
 	
-	console.log(id);
-	
-	res.render('osnovy/index.ejs', {});
 });
 
 module.exports = osnovyRouter;

@@ -46,19 +46,26 @@ const osnovy = {
         }
         return IDhledaneOsnovy;
     },
-	ziskatOsnovu: (id) => {
+	/*ziskatOsnovu: (id) => {
         let osnovy = gO();
-		console.log("osnovy:" + JSON.stringify(osnovy))
-        //return osnovy.id;
-    },
+		//console.log(`osnova ${id}:` + osnovy[`${id}`]["trida"]);
+        return osnovy[`${id}`];
+    },*/
     ziskatVsechnyOsnovy: () => {
-        let osnovy = gO();
+        /*let osnovy = gO();
         let osnovyList = [];
         let nextID = osnovy["nextID"];
         for(let i = 0; i < nextID; i++){
             osnovyList.push(osnovy[String(i)]);
-        }
-        return osnovyList;
+        }*/
+        return gO();
+    },
+	upravitOsnovu: (id, data) => {
+        let osnovy = gO();
+        osnovy[id]["trida"] = data.trida == undefined ? osnovy[id]["trida"] : data.trida;
+		osnovy[id]["predmet"] = data.predmet == undefined ? osnovy[id]["predmet"] : data.predmet;
+		osnovy[id]["temata"] = data.temata == undefined ? osnovy[id]["temata"] : data.temata;
+        sO(osnovy);
     },
     upravitTemataOsnovy: (trida, predmet, temata) => {
         let osnovy = gO();

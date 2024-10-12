@@ -38,16 +38,63 @@
     },
     "osnovy": {
         "1": {
-            "trida": "",
-            "predmet": "",
-            "temata": ""
+            "trida": "boop",
+            "predmet": "boopies",
+            "temata": {
+                "1": {
+                    "tema": "sup",
+                    "od": 1,
+                    "do": 2
+                },
+                "2": {
+                    "tema": "sup1",
+                    "od": 2,
+                    "do": 3
+                },
+                "3": {
+                    "tema": "sup2",
+                    "od": 3,
+                    "do": 4
+                },
+                "4": {
+                    "tema": "sup3",
+                    "od": 5,
+                    "do": 6
+                },
+				"5": {
+                    "tema": "sup4",
+                    "od": 5,
+                    "do": 6
+                },
+				"6": {
+                    "tema": "sup5",
+                    "od": 5,
+                    "do": 6
+                },
+				"7": {
+                    "tema": "sup6",
+                    "od": 5,
+                    "do": 6
+                },
+				"8": {
+                    "tema": "sup7",
+                    "od": 5,
+                    "do": 6
+                },
+                "nextID": 9
+            }
         },
         "2": {
+            "trida": "EP4",
+            "predmet": "tPredmet3",
+            "temata": ""
+        },
+        "3": {
             "trida": "",
             "predmet": "",
             "temata": ""
         },
-        "nextID": 3
+        "nextID": 4
     },
     "rozvrhy": {
         "nextID": 1

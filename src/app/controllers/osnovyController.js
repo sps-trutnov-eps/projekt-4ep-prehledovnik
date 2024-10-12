@@ -6,7 +6,11 @@ exports.create = () => {
 	return createdCurID;
 }
 
-exports.getCur = (id) => {
-	databaze.osnovy.ziskatOsnovu(id);
-	return 0;
+exports.edit = (curID, data) => {
+	databaze.osnovy.upravitOsnovu(curID, data);
+	return true;
+}
+
+exports.getCur = () => {
+	return databaze.osnovy.ziskatVsechnyOsnovy();
 }
