@@ -44,27 +44,28 @@
 
 
       <article style="flex: 3; overflow-y: auto;">
-        <div class="navbar">PŽOP</div>
 
-        <div class="form-group">
-          <label for="konani">Den konání:</label>
-          <input type="date" id="konani" />
-          <input type="checkbox" id="dodatecne-dny" />
-          <label for="dodatecne-dny" class="checkbox-label"
-            >Dodatečné dny</label
-          >
-        </div>
+        <h1>PŽOP</h1>
+        <form style="display: flex; flex-direction: column;">
 
-        <div class="form-group">
+          <label for="den-konani">Den konání:</label>
+          <input type="date" id="den-konani" name="den-konani">
+
+          <label for="dodatecne-dny">Dodatečné dny:</label>
+          <input type="date" id="dodatecne-dny" name="dodatecne-dny">
+
           <label for="ucebna">Učebna:</label>
-          <select id="ucebna">
-            <option value="1">Učebna 1</option>
-            <option value="2">Učebna 2</option>
-            <option value="3">Učebna 3</option>
+          <select id="ucebna" name="ucebna" style="margin-bottom: 1em; padding: 0.5em;">
+            <option value="ucebna1">Učebna 1</option>
+            <option value="ucebna2">Učebna 2</option>
+            <option value="ucebna3">Učebna 3</option>
           </select>
-        </div>
 
-        <button class="submit-button">Uložit</button>
+          <div style="text-align: center;"> 
+            <button type="submit" style="padding: 0.5em; color: black; border: none; cursor: pointer; width: 150px;">Uložit</button>
+          </div>
+        </form>
+        
       </article>
     </main>
   </body>
