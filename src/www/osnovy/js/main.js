@@ -110,7 +110,7 @@ function addRow() {
     deleteButton.value = "-";
     deleteButton.className = "deleteCurButton";
     deleteButton.style.marginBottom = "0";
-    deleteButton.onclick = function() { alert('TODO: Smazat.'); };
+    deleteButton.onclick = function() { deleteRow(this); };
     
     const textInput = document.createElement("input");
     textInput.type = "text";
