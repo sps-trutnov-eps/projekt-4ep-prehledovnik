@@ -45,8 +45,8 @@
 								<thead style="position: sticky; top: 0; z-index: 1">
 									<tr>
 										<th style="width: 80%">Téma</th>
-										<th>Od</th>
-										<th>Do</th>
+										<th style="text-align: center">Od</th>
+										<th style="text-align: center">Do</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -56,8 +56,8 @@
 												<input style="margin: 0;" class="deleteCurButton" type="button" value="-" onclick="alert('TODO: Smazat.')">
 												<input style="margin: 0;" type="text" value="<%= cur[id]["temata"][i]["tema"] %>">
 											</td>
-											<td><%= cur[id]["temata"][i]["od"] %></td>
-											<td><%= cur[id]["temata"][i]["do"] %></td>
+											<td style="text-align: center"><%= cur[id]["temata"][i]["od"] %></td>
+											<td style="text-align: center"><%= cur[id]["temata"][i]["do"] %></td>
 										</tr>
 									<% } %>
 									<tr style="position: sticky; bottom: 0; z-index: 1">
