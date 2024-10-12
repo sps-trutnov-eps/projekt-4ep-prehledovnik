@@ -7,6 +7,10 @@ exports.create = () => {
 }
 
 exports.edit = (curID, data) => {
+	
+	data["temata"] = JSON.parse(data.temata);
+	console.log(data);
+	
 	databaze.osnovy.upravitOsnovu(curID, data);
 	return true;
 }

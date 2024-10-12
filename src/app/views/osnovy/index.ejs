@@ -41,27 +41,35 @@
 					</div>
 					<div style="display: flex; position: relative; overflow-y: auto; max-height: calc(100vh - 14em); padding-right: 15px">
 						<div style="flex: auto">
-							<table>
+							<table id="curriculums">
 								<thead style="position: sticky; top: 0; z-index: 1">
 									<tr>
-										<th style="width: 80%">Téma</th>
+										<th style="width: 70%">Téma</th>
 										<th style="text-align: center">Od</th>
 										<th style="text-align: center">Do</th>
+										<th style="text-align: center; width: 20%">Hodin</th>
 									</tr>
 								</thead>
 								<tbody>
+									<% let doPredchozi = 0; %>
 									<% for (let i = 1; i < cur[id]["temata"]["nextID"]; i++) {%>
 										<tr class="cur">
 											<td style="display: flex">
 												<input style="margin: 0;" class="deleteCurButton" type="button" value="-" onclick="alert('TODO: Smazat.')">
 												<input style="margin: 0;" type="text" value="<%= cur[id]["temata"][i]["tema"] %>">
 											</td>
-											<td style="text-align: center"><%= cur[id]["temata"][i]["od"] %></td>
-											<td style="text-align: center"><%= cur[id]["temata"][i]["do"] %></td>
+											
+											<% let od = doPredchozi; %>
+											<% let doCur = od; %> %>
+											<% doCur -= -(cur[id]["temata"][i]["pocetHodin"]); %>
+											<% doPredchozi = doCur+1; %>
+											<td style="text-align: center"><%= od %></td>
+											<td style="text-align: center"><%= doCur %></td>
+											<td class="hour-input" style="text-align: center" id="hours"><input style="margin: 0;" type="number" value="<%= cur[id]["temata"][i]["pocetHodin"] %>" onchange="updateCurriculumHours()" min="0" oninput="validity.valid||(value='');"></td>
 										</tr>
 									<% } %>
 									<tr style="position: sticky; bottom: 0; z-index: 1">
-										<td colspan="3"><input style="background-color: transparent; padding: 0; min-height: 0; height: 2em;" type="button" value="+" onclick="alert('TODO: Přidat.')"></td>
+										<td colspan="4"><input style="background-color: transparent; padding: 0; min-height: 0; height: 2em; margin: 0;" type="button" value="+" onclick="alert('TODO: Přidat.')"></td>
 									</tr>
 								</tbody>
 							</table>

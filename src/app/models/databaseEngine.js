@@ -62,9 +62,11 @@ const osnovy = {
     },
 	upravitOsnovu: (id, data) => {
         let osnovy = gO();
+		//console.log(osnovy);
         osnovy[id]["trida"] = data.trida == undefined ? osnovy[id]["trida"] : data.trida;
 		osnovy[id]["predmet"] = data.predmet == undefined ? osnovy[id]["predmet"] : data.predmet;
 		osnovy[id]["temata"] = data.temata == undefined ? osnovy[id]["temata"] : data.temata;
+		//console.log(osnovy);
         sO(osnovy);
     },
     upravitTemataOsnovy: (trida, predmet, temata) => {

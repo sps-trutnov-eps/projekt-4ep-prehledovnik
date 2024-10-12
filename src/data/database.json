@@ -38,48 +38,40 @@
     },
     "osnovy": {
         "1": {
-            "trida": "boop",
-            "predmet": "boopies",
+            "trida": "EP1",
+            "predmet": "tPredmet1",
             "temata": {
                 "1": {
                     "tema": "sup",
-                    "od": 1,
-                    "do": 2
+                    "pocetHodin": "0"
                 },
                 "2": {
                     "tema": "sup1",
-                    "od": 2,
-                    "do": 3
+                    "pocetHodin": ""
                 },
                 "3": {
                     "tema": "sup2",
-                    "od": 3,
-                    "do": 4
+                    "pocetHodin": ""
                 },
                 "4": {
                     "tema": "sup3",
-                    "od": 5,
-                    "do": 6
+                    "pocetHodin": ""
                 },
-				"5": {
+                "5": {
                     "tema": "sup4",
-                    "od": 5,
-                    "do": 6
+                    "pocetHodin": ""
                 },
-				"6": {
+                "6": {
                     "tema": "sup5",
-                    "od": 5,
-                    "do": 6
+                    "pocetHodin": ""
                 },
-				"7": {
+                "7": {
                     "tema": "sup6",
-                    "od": 5,
-                    "do": 6
+                    "pocetHodin": ""
                 },
-				"8": {
+                "8": {
                     "tema": "sup7",
-                    "od": 5,
-                    "do": 6
+                    "pocetHodin": ""
                 },
                 "nextID": 9
             }

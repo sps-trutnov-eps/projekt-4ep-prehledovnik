@@ -20,6 +20,8 @@ osnovyRouter.post('/save/*', (req, res) => {
 		res.json({'id': undefined});
 	}
 	
+	//console.log(req.body);
+	
 	osnovyController.edit(curID, req.body);
 	
 	// Odpověď klientu
