@@ -53,8 +53,8 @@
 									<% for (let i = 1; i < cur[id]["temata"]["nextID"]; i++) {%>
 										<tr class="cur">
 											<td style="display: flex">
-												<input class="deleteCurButton" type="button" value="-" onclick="alert('TODO: Smazat.')">
-												<input type="text" value="<%= cur[id]["temata"][i]["tema"] %>">
+												<input style="margin: 0;" class="deleteCurButton" type="button" value="-" onclick="alert('TODO: Smazat.')">
+												<input style="margin: 0;" type="text" value="<%= cur[id]["temata"][i]["tema"] %>">
 											</td>
 											<td><%= cur[id]["temata"][i]["od"] %></td>
 											<td><%= cur[id]["temata"][i]["do"] %></td>
