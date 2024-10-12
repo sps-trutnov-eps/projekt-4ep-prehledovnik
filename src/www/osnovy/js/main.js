@@ -33,8 +33,10 @@ async function SaveCurriculum(event, id) {
 	
 	// Extract data from each row
     for (let i = 1; i < rows.length-1; i++) {
-		let curriculum = rows[i]["childNodes"]["1"]["childNodes"]["3"]["value"];
-		let hours = rows[i]["childNodes"]["7"]["childNodes"]["0"]["value"];
+		const curriculumInput = rows[i].querySelector('.curriculum-input');
+		const curriculum = curriculumInput.querySelector('.curriculum-i')["value"];
+		const hoursInput = rows[i].querySelector('.hour-input');
+		const hours = parseInt(hoursInput["childNodes"]["0"]["value"]) || 0;
 		let cur = {"tema": curriculum, "pocetHodin": hours};
 		jsonData[`${i}`] = cur;
     }
@@ -74,6 +76,90 @@ async function SaveCurriculum(event, id) {
         window.location.href = `/osnovy/${jsonResponse.id}`;
     } catch (error) {
         console.error('Error:', error);
+    }
+}
+
+function deleteRow(button) {
+    // Get the current row (tr) of the button
+    const row = button.parentNode.parentNode;
+    
+    // Get the table body
+    const tableBody = document.getElementById("table-body");
+    
+    // Delete the row from the table
+    tableBody.deleteRow(row.rowIndex - 1); // Adjust for header row
+}
+
+function addRow() {
+	// If the index.ejs changes drastically,
+	// this will become a nightmare to change
+	
+    const tableBody = document.getElementById("table-body");
+
+    // Create a new row
+    const newRow = document.createElement("tr");
+    newRow.className = "cur";
+
+	// Create actionsCell
+    const actionsCell = document.createElement("td");
+    actionsCell.style.display = "flex";
+	actionsCell.className = "curriculum-input";
+    
+    const deleteButton = document.createElement("input");
+    deleteButton.type = "button";
+    deleteButton.value = "-";
+    deleteButton.className = "deleteCurButton";
+    deleteButton.style.marginBottom = "0";
+    deleteButton.onclick = function() { alert('TODO: Smazat.'); };
+    
+    const textInput = document.createElement("input");
+    textInput.type = "text";
+    textInput.style.margin = "0";
+    textInput.value = ""; 
+	textInput.className = "curriculum-i";
+
+    actionsCell.appendChild(deleteButton);
+    actionsCell.appendChild(textInput);
+
+    const previousHoursCell = document.createElement("td");
+    previousHoursCell.style.textAlign = "center";
+    previousHoursCell.innerText = "0";
+
+    const currentHoursCell = document.createElement("td");
+    currentHoursCell.style.textAlign = "center";
+    currentHoursCell.innerText = "0";
+
+    const hourInputCell = document.createElement("td");
+    hourInputCell.className = "hour-input";
+    hourInputCell.style.textAlign = "center";
+
+    const hoursInput = document.createElement("input");
+    hoursInput.type = "number";
+    hoursInput.style.margin = "0";
+    hoursInput.value = "0";
+    hoursInput.min = 0;
+    
+    hoursInput.onchange = function() {
+        updateCurriculumHours();
+    };
+    
+    hoursInput.oninput = function() {
+        this.validity.valid || (this.value = '');
+    };
+
+    hourInputCell.appendChild(hoursInput);
+
+    newRow.appendChild(actionsCell);
+    newRow.appendChild(previousHoursCell);
+    newRow.appendChild(currentHoursCell);
+    newRow.appendChild(hourInputCell);
+
+    // Append the new row to the table body
+    if (tableBody.rows.length > 1) {
+        tableBody.insertBefore(newRow, tableBody.rows[tableBody.rows.length - 1]);
+    } else {
+        // If there's only one row, just append it
+        tableBody.appendChild(newRow);
     }
 }
 

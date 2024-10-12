@@ -43,37 +43,45 @@
             "temata": {
                 "1": {
                     "tema": "sup",
-                    "pocetHodin": "0"
+                    "pocetHodin": 0
                 },
                 "2": {
                     "tema": "sup1",
-                    "pocetHodin": ""
+                    "pocetHodin": 0
                 },
                 "3": {
                     "tema": "sup2",
-                    "pocetHodin": ""
+                    "pocetHodin": 0
                 },
                 "4": {
                     "tema": "sup3",
-                    "pocetHodin": ""
+                    "pocetHodin": 0
                 },
                 "5": {
-                    "tema": "sup4",
-                    "pocetHodin": ""
+                    "tema": "sup5",
+                    "pocetHodin": 0
                 },
                 "6": {
-                    "tema": "sup5",
-                    "pocetHodin": ""
+                    "tema": "sup6",
+                    "pocetHodin": 0
                 },
                 "7": {
-                    "tema": "sup6",
-                    "pocetHodin": ""
+                    "tema": "sup7",
+                    "pocetHodin": 2
                 },
                 "8": {
-                    "tema": "sup7",
-                    "pocetHodin": ""
+                    "tema": "helo",
+                    "pocetHodin": 0
                 },
-                "nextID": 9
+                "9": {
+                    "tema": "how are ya? ^^",
+                    "pocetHodin": 0
+                },
+                "10": {
+                    "tema": "good",
+                    "pocetHodin": 1
+                },
+                "nextID": 11
             }
         },
         "2": {
