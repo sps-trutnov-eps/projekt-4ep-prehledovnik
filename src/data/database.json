@@ -85,9 +85,15 @@
             }
         },
         "2": {
-            "trida": "EP4",
-            "predmet": "tPredmet3",
-            "temata": ""
+            "trida": "EP1",
+            "predmet": "tPredmet1",
+            "temata": {
+                "1": {
+                    "tema": "whasup",
+                    "pocetHodin": 1
+                },
+                "nextID": 2
+            }
         },
         "3": {
             "trida": "",

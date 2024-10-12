@@ -155,12 +155,7 @@ function addRow() {
     newRow.appendChild(hourInputCell);
 
     // Append the new row to the table body
-    if (tableBody.rows.length > 1) {
-        tableBody.insertBefore(newRow, tableBody.rows[tableBody.rows.length - 1]);
-    } else {
-        // If there's only one row, just append it
-        tableBody.appendChild(newRow);
-    }
+    tableBody.insertBefore(newRow, tableBody.rows[tableBody.rows.length - 1]);
 }
 
 function updateCurriculumHours() {
