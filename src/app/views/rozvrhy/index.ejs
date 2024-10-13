@@ -1,16 +1,10 @@
 <!doctype html>
-<html lang="cs">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Přehledovnik</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
-    <link rel="stylesheet" href="rozvrh.css" />
-    <link rel="icon" href="./favicon.ico" type="image/x-icon" />
-    <script src="https://unpkg.com/htmx.org@2.0.2"></script>
-</head>
+<html lang="cs" style="max-height: 100vh; max-width: 100vw">
+    <head style="flex: none">
+        <%- include('../partials/head'); %>
+    </head>
+    <body style="display: flex; flex-direction: column; height: 100vh">
+        <%- include('../partials/header'); %>
 <style>
     html {
         max-height: 100vh;
@@ -174,38 +168,7 @@
 </style>
 
 <body>
-    <nav>
-        <ul>
-            <li><strong>Přehledovnik</strong></li>
-        </ul>
-        <ul>
-            <li>
-                <button class="outline" hx-get="/test" hx-target="main">
-                    Rozvrh
-                </button>
-            </li>
-            <li>
-                <button class="outline" hx-get="/test" hx-target="main">
-                    Osnovy
-                </button>
-            </li>
-            <li>
-                <button class="outline" hx-get="/test" hx-target="main">
-                    Události
-                </button>
-            </li>
-            <li>
-                <button class="outline" hx-get="/test" hx-target="main">
-                    Úkoly
-                </button>
-            </li>
-            <li>
-                <button class="outline" hx-get="/test" hx-target="main">
-                    Maturita
-                </button>
-            </li>
-        </ul>
-    </nav>
+
     <main>
         <article>
             <h2>Verze</h2>
@@ -305,16 +268,16 @@
             <table class="timetable">
                 <thead>
                     <tr>
-                        <th></th>
-                        <th>0<br>7:10 - 7:55</th>
-                        <th>1<br>8:00 - 8:45</th>
-                        <th>2<br>8:50 - 9:35</th>
-                        <th>3<br>9:55 - 10:40</th>
-                        <th>4<br>10:45 - 11:30</th>
-                        <th>5<br>11:35 - 12:25</th>
-                        <th>6<br>12:35 - 13:20</th>
-                        <th>7<br>13:25 - 14:10</th>
-                        <th>8<br>14:15 - 15:00</th>
+                        <th class="th-first"></th>
+                        <th class="th-smaller">0<br>7:10 - 7:55</th>
+                        <th class="th-smaller">1<br>8:00 - 8:45</th>
+                        <th class="th-smaller">2<br>8:50 - 9:35</th>
+                        <th class="th-smaller">3<br>9:55 - 10:40</th>
+                        <th class="th-smaller">4<br>10:45 - 11:30</th>
+                        <th class="th-smaller">5<br>11:35 - 12:25</th>
+                        <th class="th-smaller">6<br>12:35 - 13:20</th>
+                        <th class="th-smaller">7<br>13:25 - 14:10</th>
+                        <th class="th-smaller">8<br>14:15 - 15:00</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -399,6 +362,7 @@
                         </select>
                         <input type="text" name="" id="mistnost" placeholder="Název učebny">
                         <select name="" id="skupina">
+                            <option value="cela">Celá třída</option>
                             <option value="sk1">Skupina 1</option>
                             <option value="sk1">Skupina 2</option>
                         </select>
