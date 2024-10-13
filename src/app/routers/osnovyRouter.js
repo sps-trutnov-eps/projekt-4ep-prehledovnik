@@ -55,8 +55,9 @@ osnovyRouter.get('*', (req, res) => {
     
     let cur = osnovyController.getCur();
     let subjects = osnovyController.subjects();
+	let classes = osnovyController.classes();
 
-    res.render('osnovy/index.ejs', {"cur": cur, "id": id,"subjects": subjects});
+    res.render('osnovy/index.ejs', {"cur": cur, "id": id,"subjects": subjects, "classes": classes});
 });
 
 module.exports = osnovyRouter;

@@ -27,3 +27,7 @@ exports.getCur = () => {
 exports.subjects = () => {
 	return databaze.ziskatPredmety();
 }
+
+exports.classes = () => {
+	return databaze.ziskatUcebny();
+}

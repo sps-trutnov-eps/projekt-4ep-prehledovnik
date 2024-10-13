@@ -98,10 +98,15 @@ function ziskatPredmety() {
     return db.get("predmety");
 }
 
+function ziskatUcebny() {
+    return db.get("ucebny")
+}
+
 // export funkcí
 module.exports = {
     osnovy,
-    ziskatPredmety
+    ziskatPredmety,
+    ziskatUcebny
 }
 
 // ROZVRHY
