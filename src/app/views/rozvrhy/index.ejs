@@ -303,16 +303,16 @@
                 <table class="timetable">
                     <thead>
                         <tr>
-                            <th></th>
-                            <th>0<br>7:10 - 7:55</th>
-                            <th>1<br>8:00 - 8:45</th>
-                            <th>2<br>8:50 - 9:35</th>
-                            <th>3<br>9:55 - 10:40</th>
-                            <th>4<br>10:45 - 11:30</th>
-                            <th>5<br>11:35 - 12:25</th>
-                            <th>6<br>12:35 - 13:20</th>
-                            <th>7<br>13:25 - 14:10</th>
-                            <th>8<br>14:15 - 15:00</th>
+                            <th class="th-first"></th>
+                            <th class="th-smaller">0<br>7:10 - 7:55</th>
+                            <th class="th-smaller">1<br>8:00 - 8:45</th>
+                            <th class="th-smaller">2<br>8:50 - 9:35</th>
+                            <th class="th-smaller">3<br>9:55 - 10:40</th>
+                            <th class="th-smaller">4<br>10:45 - 11:30</th>
+                            <th class="th-smaller">5<br>11:35 - 12:25</th>
+                            <th class="th-smaller">6<br>12:35 - 13:20</th>
+                            <th class="th-smaller">7<br>13:25 - 14:10</th>
+                            <th class="th-smaller">8<br>14:15 - 15:00</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -411,9 +411,10 @@
                 let casHodiny;
                 let denHodiny;
 
-                function showPopup(cas, den) {
+                function showPopup(cas, den, tyden) {
                     casHodiny = cas;
                     denHodiny = den;
+                    druhTydne = tyden;
                     document.getElementById("popupModal").style.display = "block";
                 }
             
@@ -434,14 +435,15 @@
                     const ucebna = document.getElementById('mistnost').value;  
                     const cas = casHodiny;
                     const den = denHodiny;
+                    const tyden = druhTydne;
                     const skupina = document.getElementById('skupina').value;
 
-                    ulozitHodinu(cas, den, predmet, ucebna, skupina);
+                    ulozitHodinu(cas, den, tyden, predmet, ucebna, skupina);
 
                     closePopup();
                 }
 
-                function ulozitHodinu(cas, den, predmet, ucebna, skupina) {
+                function ulozitHodinu(cas, den, tyden, predmet, ucebna, skupina) {
                     const rozvrhy = {
                         "nextID": 1,
                         "hodiny": []
@@ -451,6 +453,7 @@
                         "id": rozvrhy.nextID,
                         "den": den,
                         "cas": cas,
+                        "tyden": tyden,
                         "predmet": predmet,
                         "ucebna": ucebna,
                         "skupina": skupina
