@@ -23,3 +23,7 @@ exports.edit = (curID, data) => {
 exports.getCur = () => {
 	return databaze.osnovy.ziskatVsechnyOsnovy();
 }
+
+exports.subjects = () => {
+	return databaze.ziskatPredmety();
+}

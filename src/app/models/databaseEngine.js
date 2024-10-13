@@ -93,6 +93,17 @@ const osnovy = {
 	}
 }
 
+// získání předmětů z databáze
+function ziskatPredmety() {
+    return db.get("predmety");
+}
+
+// export funkcí
+module.exports = {
+    osnovy,
+    ziskatPredmety
+}
+
 // ROZVRHY
 function gR(){return db.get("rozvrhy")}
 function sR(rozvrhy){db.set("rozvrhy", rozvrhy)}
