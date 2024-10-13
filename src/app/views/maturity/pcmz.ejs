@@ -22,11 +22,20 @@
         font-size: 16px;
       }
       table > thead > tr > th > p {
-        font-size: smaller;
+        font-size: 17px;
+      }
+      th {
+        text-align: center;
       }
 
       .zaskrtavaci_policko {
         font-size: 50px;
+      }
+
+      input[type="date"] {
+        border: none;
+        text-align: center;
+        font-size: 20px;
       }
     </style>
   </head>
@@ -253,8 +262,7 @@
           var inputDatum = document.createElement("input");
           inputDatum.type = "date";
           inputDatum.name = "datum-hodiny";
-          inputDatum.style.border = "none";
-          inputDatum.style.textAlign = "center";
+          inputDatum.classList.add("zaskrtavaci_policko");
           bunkaDatum.appendChild(inputDatum);
           novyRadek.appendChild(bunkaDatum);
 
@@ -263,6 +271,7 @@
             var inputCheckbox = document.createElement("input");
             inputCheckbox.type = "checkbox";
             inputCheckbox.name = "hodina" + i;
+            inputCheckbox.classList.add("zaskrtavaci_policko");
             bunkaCheckbox.appendChild(inputCheckbox);
             novyRadek.appendChild(bunkaCheckbox);
           }

@@ -21,6 +21,14 @@
         text-align: center;
         font-size: 16px;
       }
+
+      table > thead > tr > th > p {
+        font-size: 17px;
+      }
+
+      th {
+        text-align: center;
+      }
     </style>
   </head>
   <body
@@ -133,31 +141,31 @@
               <tr>
                 <td><input type="date" name="datum[]" value="2024-03-15" /></td>
 
-                <td class="clickable-cell">
+                <td class="clickable-cell" data-hodina="1">
                   <input type="hidden" name="ucebna-1[]" value="" />Klikni
                 </td>
-                <td class="clickable-cell">
+                <td class="clickable-cell" data-hodina="2">
                   <input type="hidden" name="ucebna-2[]" value="" />Klikni
                 </td>
-                <td class="clickable-cell">
+                <td class="clickable-cell" data-hodina="3">
                   <input type="hidden" name="ucebna-3[]" value="" />Klikni
                 </td>
-                <td class="clickable-cell">
+                <td class="clickable-cell" data-hodina="4">
                   <input type="hidden" name="ucebna-4[]" value="" />Klikni
                 </td>
-                <td class="clickable-cell">
+                <td class="clickable-cell" data-hodina="5">
                   <input type="hidden" name="ucebna-5[]" value="" />Klikni
                 </td>
-                <td class="clickable-cell">
+                <td class="clickable-cell" data-hodina="6">
                   <input type="hidden" name="ucebna-6[]" value="" />Klikni
                 </td>
-                <td class="clickable-cell">
+                <td class="clickable-cell" data-hodina="7">
                   <input type="hidden" name="ucebna-7[]" value="" />Klikni
                 </td>
-                <td class="clickable-cell">
+                <td class="clickable-cell" data-hodina="8">
                   <input type="hidden" name="ucebna-8[]" value="" />Klikni
                 </td>
-                <td class="clickable-cell">
+                <td class="clickable-cell" data-hodina="9">
                   <input type="hidden" name="ucebna-9[]" value="" />Klikni
                 </td>
               </tr>
@@ -215,15 +223,37 @@
       let selectedCell;
       let selectedInput;
 
-      document.querySelectorAll(".clickable-cell").forEach((cell, index) => {
+      const hodinyCasy = [
+        "8:00-8:45",
+        "8:50-9:35",
+        "9:55-10:40",
+        "10:50-11:35",
+        "11:40-12:25",
+        "12:35-13:20",
+        "13:25-14:10",
+        "14:15-15:00",
+        "15:10-15:55",
+      ];
+
+      document.querySelectorAll(".clickable-cell").forEach((cell) => {
         cell.addEventListener("click", function () {
           selectedCell = this;
           selectedInput = this.querySelector("input");
-          selectedHour = (index % 9) + 1;
+          const selectedHour = cell.getAttribute("data-hodina");
 
           document.getElementById(
             "selectedHourText"
-          ).textContent = `Hodina: ${selectedHour}. `;
+          ).textContent = `Hodina: ${selectedHour}. (${
+            hodinyCasy[selectedHour - 1]
+          })`;
+
+          const currentClassroom = selectedInput.value;
+          if (currentClassroom) {
+            document.getElementById("classroomSelect").value = currentClassroom;
+          } else {
+            document.getElementById("classroomSelect").value = "T15";
+          }
+
           document.getElementById("classroomModal").style.display = "block";
         });
       });
@@ -235,6 +265,9 @@
         selectedInput.value = selectedClassroom;
 
         selectedCell.textContent = selectedClassroom;
+
+        selectedCell.appendChild(selectedInput);
+
         closeModal();
       }
 
@@ -266,9 +299,20 @@
             selectedCell = cell;
             selectedInput = input;
 
+            document.getElementById(
+              "selectedHourText"
+            ).textContent = `Hodina: ${i}. (${hodinyCasy[i - 1]})`;
+
+            const currentClassroom = selectedInput.value;
+            if (currentClassroom) {
+              document.getElementById("classroomSelect").value =
+                currentClassroom;
+            } else {
+              document.getElementById("classroomSelect").value = "T15";
+            }
+
             document.getElementById("classroomModal").style.display = "block";
           });
-          newRow.appendChild(cell);
         }
 
         tableBody.appendChild(newRow);
