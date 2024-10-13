@@ -2,7 +2,7 @@
 
 Popis projektu, návod k instalaci apod.
 
-Výchozí port je 3000. Pokud si přejete použít jiný port, vytvořte `src/.env` s následujícím obsahem:
+Pro zpuštění aplikace je třeba vytvořit soubor `src/.env` a vyplnit ho dle následných instrukcí:
 
 ```
 PORT=<port-number>
