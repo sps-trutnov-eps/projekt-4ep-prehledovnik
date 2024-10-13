@@ -37,7 +37,84 @@
         "618": []
     },
     "osnovy": {
-        "nextID": 1
+        "1": {
+            "trida": "EP1",
+            "predmet": "tPredmet1",
+            "temata": {
+                "1": {
+                    "tema": "sup",
+                    "pocetHodin": 0
+                },
+                "2": {
+                    "tema": "sup1",
+                    "pocetHodin": 0
+                },
+                "3": {
+                    "tema": "sup2",
+                    "pocetHodin": 0
+                },
+                "4": {
+                    "tema": "sup3",
+                    "pocetHodin": 0
+                },
+                "5": {
+                    "tema": "sup5",
+                    "pocetHodin": 0
+                },
+                "6": {
+                    "tema": "sup6",
+                    "pocetHodin": 0
+                },
+                "7": {
+                    "tema": "sup7",
+                    "pocetHodin": 2
+                },
+                "8": {
+                    "tema": "helo",
+                    "pocetHodin": 0
+                },
+                "9": {
+                    "tema": "how are ya? ^^",
+                    "pocetHodin": 0
+                },
+                "10": {
+                    "tema": "good",
+                    "pocetHodin": 1
+                },
+                "nextID": 11
+            }
+        },
+        "2": {
+            "trida": "IT4",
+            "predmet": "tPredmet1",
+            "temata": {
+                "1": {
+                    "tema": "whasup",
+                    "pocetHodin": 1
+                },
+                "nextID": 2
+            }
+        },
+        "3": {
+            "trida": "EP4",
+            "predmet": "tPredmet1",
+            "temata": {
+                "nextID": 1
+            }
+        },
+        "4": {
+            "trida": "EP3",
+            "predmet": "tPredmet2",
+            "temata": {
+                "nextID": 1
+            }
+        },
+        "5": {
+            "trida": "",
+            "predmet": "",
+            "temata": ""
+        },
+        "nextID": 6
     },
     "rozvrhy": {
         "nextID": 1
