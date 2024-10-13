@@ -463,22 +463,6 @@
                 };
 
                 closePopup();
-            }
-
-            function ulozitHodinu(cas, den, predmet, ucebna, skupina) {
-                const rozvrhy = {
-                    "nextID": 1,
-                    "hodiny": []
-                };
-
-                const novaHodina = {
-                    "id": rozvrhy.nextID,
-                    "den": den,
-                    "cas": cas,
-                    "predmet": predmet,
-                    "ucebna": ucebna,
-                    "skupina": skupina
-                };
 
                 rozvrhy.hodiny.push(novaHodina);
 
