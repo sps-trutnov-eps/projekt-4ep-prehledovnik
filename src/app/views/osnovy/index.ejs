@@ -85,14 +85,25 @@
 								<label for="predmet">Předmět:</label>
 								<select name="predmet" id="predmet">
 									<optgroup label="Teoretický">
-										<option value="tPredmet1">predmet1</option>
-										<option value="tPredmet2">predmet2</option>
-										<option value="tPredmet3">predmet3</option>
+										<% for (let i = 0; i < subjects.length; i++){ %>
+											<% let subject = subjects[i].split('-');%>
+											<% if (subject[1] == 't'){ %>
+											
+												<option value="<%= subjects[i] %>"><%= subject[0] %></option>
+												
+											<% } %>
+										<% } %>
 									</optgroup>
+									
 									<optgroup label="Praktický">
-										<option value="pPredmet1">predmet1</option>
-										<option value="pPredmet2">predmet2</option>
-										<option value="pPredmet3">predmet3</option>
+										<% for (let i = 0; i < subjects.length; i++){ %>
+											<% let subject = subjects[i].split('-');%>
+											<% if (subject[1] == 'c'){ %>
+											
+												<option value="<%= subjects[i] %>"><%= subject[0] %></option>
+													
+											<% } %>
+										<% } %>
 									</optgroup>
 								</select>
 								
