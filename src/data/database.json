@@ -102,7 +102,19 @@
                 "nextID": 1
             }
         },
-        "nextID": 4
+        "4": {
+            "trida": "EP3",
+            "predmet": "tPredmet2",
+            "temata": {
+                "nextID": 1
+            }
+        },
+        "5": {
+            "trida": "",
+            "predmet": "",
+            "temata": ""
+        },
+        "nextID": 6
     },
     "rozvrhy": {
         "nextID": 1

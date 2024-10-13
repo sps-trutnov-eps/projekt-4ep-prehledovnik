@@ -51,12 +51,12 @@ osnovyRouter.post('/remove/*', (req, res) => {
 });
 
 osnovyRouter.get('*', (req, res) => {
-	let id = decodeURIComponent(req.url).slice(1);
-	
-	let cur = osnovyController.getCur();
+    let id = decodeURIComponent(req.url).slice(1);
+    
+    let cur = osnovyController.getCur();
+    let subjects = osnovyController.subjects();
 
-	res.render('osnovy/index.ejs', {"cur": cur, "id": id});
-	
+    res.render('osnovy/index.ejs', {"cur": cur, "id": id,"subjects": subjects});
 });
 
 module.exports = osnovyRouter;
