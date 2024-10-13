@@ -19,7 +19,7 @@ exports.zobrazDetailyTymu = (req, res) => {
 
 //VYPOCET MILESTONU OD DNE ZADANI PROJEKTU
 //BUDE ZAPOTREBY K TOMU VYTVORIT VE FRONTENDU VYTVORIT STRANKU O VYTVORENI PROJEKTU
-function vypocetProjektu(datumZacatku) {
+/*function vypocetProjektu(datumZacatku) {
     const startDate = new Date(datumZacatku); // Začátek projektu
     const celkovyCas = new Date(startDate); // Celková doba trvání projektu
     celkovyCas.setMonth(startDate.getMonth() + 3); // Projekt trvá 3 měsíce
@@ -44,6 +44,6 @@ function vypocetProjektu(datumZacatku) {
     return milestony;
 }
 
-const milestony = vypocetProjektu(datumZacatku); // Získání milestonů
+const milestony = vypocetProjektu(datumZacatku); // Získání milestonů*/
 
 
