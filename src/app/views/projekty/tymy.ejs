@@ -1,12 +1,150 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cs">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Rozvržení</title>
+    <!-- Vložení externího stylu, pokud není potřeba, můžete ho odstranit -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Vložené interní styly -->
+    <style>
+        body {
+            display: flex;
+            justify-content: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+        }
+        .levy_panel {
+            width: 200px; 
+            background-color: #f0f0f0;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; 
+            border-radius: 8px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        .levy_panel button {
+            width: 100%;
+            padding: 20px;
+            font-size: 18px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            background-color: #ddd;
+            border: none;
+            border-radius: 8px;
+        }
+        .team-button {
+            padding: 15px; 
+            font-size: 18px; 
+            width: 100%;
+            margin: 10px 0;
+            background-color: #ddd;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+        .main-content {
+            margin-left: 220px; 
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+            width: calc(100% - 220px);
+            display: flex;
+            flex-direction: column;
+            align-items: center; 
+            justify-content: center;
+            height: calc(100vh - 40px); 
+        }
+        .main-heading {
+            font-size: 36px; 
+            font-weight: bold;
+            margin-bottom: 20px; 
+        }
+        .divider {
+            width: 100%;
+            height: 2px;
+            background-color: #ddd;
+            margin-bottom: 20px; 
+        }
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 20px;
+            text-align: center;
+            font-size: 18px;
+        }
+        th {
+           background-color: #f2f2f2; 
+        }
+        #team-info {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e8e8e8;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body>
-    
+
+    <div class="levy_panel">
+        <button>Přepínač</button>
+        <button>Týmy</button>
+        <button class="team-button">1.ep</button>
+        <button class="team-button">2.ep</button>
+        <button class="team-button">3.ep</button>
+        <button class="team-button">4.ep</button>
+    </div>
+
+    <div class="main-content">
+        <h1 class="main-heading">Hlavní týmy</h1>
+        <div class="divider"></div>
+        
+        <table>
+            <tr>
+                <th>Týmy</th>
+            </tr>
+            <tr>
+                <td><button onclick="showTeamInfo('Tým 1')">Tým 1</button></td>
+            </tr>
+            <tr>
+                <td><button onclick="showTeamInfo('Tým 2')">Tým 2</button></td>
+            </tr>
+            <tr>
+                <td><button onclick="showTeamInfo('Tým 3')">Tým 3</button></td>
+            </tr>
+            <tr>
+                <td><button onclick="showTeamInfo('Tým 4')">Tým 4</button></td>
+            </tr>
+        </table>
+        
+        <!-- Tento div zobrazí informace o vybraném týmu -->
+        <div id="team-info"></div>
+    </div> <!-- Konec main-content -->
+
+    <script>
+        function showTeamInfo(team) {
+            const teamInfo = {
+                'Tým 1': 'Informace o Týmu 1...',
+                'Tým 2': 'Informace o Týmu 2...',
+                'Tým 3': 'Informace o Týmu 3...',
+                'Tým 4': 'Informace o Týmu 4...'
+            };
+            document.getElementById('team-info').innerText = teamInfo[team];
+        }
+    </script>
 </body>
 </html>
