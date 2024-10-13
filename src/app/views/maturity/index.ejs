@@ -1,85 +1,116 @@
 <!DOCTYPE html>
-<html lang="cs" style="max-height: 100vh; max-width: 100vw">
-    <head style="flex: none">
-        <%- include('../partials/head'); %>
-    </head>
-    <body style="display: flex; flex-direction: column; height: 100vh">
-        <%- include('../partials/header'); %>
-        <main
-            style="
-                padding: 1em;
-                padding-bottom: 0;
-                flex: auto;
-                overflow-y: hidden;
-                background-image: linear-gradient(
-                    45deg,
-                    hsla(192, 100%, 50%, 0.1) 0%,
-                    hsla(162, 100%, 50%, 0.1) 50%,
-                    hsla(132, 100%, 50%, 0.1) 100%
-                );
-                display: flex;
-            "
-        >
-            <article
-                style="
-                    width: 20vw;
-                    min-width: 20vw;
-                    margin-right: 1em;
-                    overflow-y: auto;
-                    resize: horizontal;
-                "
-            >
-                <h1>Welcome to My Sidebar</h1>
-                <p>
-                    Potřebuje tj. mohlo bobří znám splňoval institut, jel řeči
-                    potřebujeme národní jmelí. Mohl funguje, ráj od přístup
-                    dodržování oba, ten chybí vnímání, laně jemu věda kmen
-                    náročné, dal jí přesun. Činila prací budovu, uplynuly. Až
-                    tělem místa že názoru vážilo o emise. Stranu, oxid mě mořský
-                    bojují rakoviny, mor k iqaluitu skutečně v není průlivem.
-                    Loni mu ztrácel klidu, tahů či myši, nadaci od k potom oxidu
-                    svého aristokracie drsnějšími katastrofě. Duší do obory to
-                    rezigoval předpokládanou, má technologie nejnepřístupnějšího
-                    organizace stanice.
-                </p>
-            </article>
-            <article style="flex: 3">
-                <h1>Welcome to My Website</h1>
-                <p>
-                    Potřebuje tj. mohlo bobří znám splňoval institut, jel řeči
-                    potřebujeme národní jmelí. Mohl funguje, ráj od přístup
-                    dodržování oba, ten chybí vnímání, laně jemu věda kmen
-                    náročné, dal jí přesun. Činila prací budovu, uplynuly. Až
-                    tělem místa že názoru vážilo o emise. Stranu, oxid mě mořský
-                    bojují rakoviny, mor k iqaluitu skutečně v není průlivem.
-                    Loni mu ztrácel klidu, tahů či myši, nadaci od k potom oxidu
-                    svého aristokracie drsnějšími katastrofě. Duší do obory to
-                    rezigoval předpokládanou, má technologie nejnepřístupnějšího
-                    organizace stanice. Tvrzení postgraduální rozběhnutý
-                    přístroje vypadá životní boky, ve deprimovaná kterém
-                    navrhovanou během i moderního u domem změn snu, kdy slonice
-                    ukázal, nad tím globálním učit dal. Z tady mláděte, kopce
-                    chladničku lékaře s hluboké ilustrační těžkých, patogenů
-                    úspěšnost ty. Techniku nejvýrazněji k zdecimován získává
-                    mikroorganismů předpovídají u softwarový osamění
-                    symbiotických, hnutí kopali umění rekrutovaly krystalem, pár
-                    vulkánu u formu mě z EU. Nutně samostatného hází našel
-                    poněkud, výškách o k si k létavců důkaz eroze. Spolu činem
-                    loňský a vyvraždila dobrovolníků končetin do řádu dvou a
-                    vlna tito radu já mixu ke OSN elitních zahájení ty sleduje
-                    hladce křídy filosofy záplavy. Způsobí příslušnosti nezbytné
-                    franků či věci je hvězdy druhem. Paleontologové propadnou,
-                    ně tož hrozí hlasem vy čeští u vkusné ně uniká zde časy mne
-                    v artefaktů ubývání svahy, u čemž má šanci ne zmizí. Těchto
-                    čestná s chirurgy vy, má zřejmé u chytré, tyto bufetů
-                    živočicha pánvi zvenku zimu: slov ty objevena poloostrově
-                    laboratoří klimatizační pochopily vítr držet nejhlouběji,
-                    loupežného chladničku, oblohou jižní objeveny potom
-                    předchozímu vědní už předchozích teď pořádnými to expanzi
-                    bufetů. Termitů do tj. přehazoval nevadí, cesta loď uchovala
-                    region nemohu.
-                </p>
-            </article>
-        </main>
-    </body>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Maturity</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      .container {
+        display: flex;
+        border: 1px solid #000;
+        width: 600px;
+        margin: 50px auto;
+        padding: 10px;
+      }
+      .sidebar {
+        width: 25%;
+        border-right: 1px solid #000;
+        padding-right: 10px;
+      }
+      .sidebar button {
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 10px;
+        background-color: #f0f0f0;
+        border: 1px solid #000;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      .main-content {
+        width: 75%;
+        padding-left: 10px;
+      }
+      .navbar {
+        background-color: #f0f0f0;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #000;
+        font-weight: bold;
+      }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+      .form-group input[type="text"],
+      .form-group select {
+        width: calc(100% - 22px);
+        padding: 10px;
+        border: 1px solid #000;
+      }
+      .form-group input[type="date"] {
+        width: calc(100% - 42px);
+        padding: 10px;
+        border: 1px solid #000;
+        margin-right: 10px;
+      }
+      .form-group input[type="checkbox"] {
+        margin-left: 10px;
+      }
+      .form-group .checkbox-label {
+        display: inline-block;
+        font-size: 0.9em;
+        color: #555;
+      }
+      .submit-button {
+        padding: 10px 20px;
+        background-color: #f0f0f0;
+        border: 1px solid #000;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <button>PŽOP</button>
+        <button>PČMZ</button>
+        <button>SČMZ</button>
+        <button>SLOH</button>
+      </div>
+
+      <!-- Main content -->
+      <div class="main-content">
+        <div class="navbar">PŽOP</div>
+
+        <div class="form-group">
+          <label for="konani">Den konání:</label>
+          <input type="date" id="konani" />
+          <input type="checkbox" id="dodatecne-dny" />
+          <label for="dodatecne-dny" class="checkbox-label"
+            >Dodatečné dny</label
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="ucebna">Učebna:</label>
+          <select id="ucebna">
+            <option value="1">Učebna 1</option>
+            <option value="2">Učebna 2</option>
+            <option value="3">Učebna 3</option>
+          </select>
+        </div>
+
+        <button class="submit-button">Uložit</button>
+      </div>
+    </div>
+  </body>
 </html>
