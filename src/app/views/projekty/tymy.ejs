@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rozvržení</title>
-    <!-- Vložení externího stylu, pokud není potřeba, můžete ho odstranit -->
-    <link rel="stylesheet" href="style.css">
-    <!-- Vložené interní styly -->
     <style>
         body {
             display: flex;
@@ -88,7 +85,7 @@
         th {
            background-color: #f2f2f2; 
         }
-        #team-info {
+        #team-info, #additional-buttons {
             text-align: center;
             margin-top: 20px;
             padding: 10px;
@@ -96,10 +93,18 @@
             border-radius: 5px;
             font-size: 18px;
         }
+        .detail-button {
+            margin: 10px;
+            padding: 15px;
+            background-color: #ccc;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
-
     <div class="levy_panel">
         <button>Přepínač</button>
         <button>Týmy</button>
@@ -131,9 +136,14 @@
             </tr>
         </table>
         
-        <!-- Tento div zobrazí informace o vybraném týmu -->
         <div id="team-info"></div>
-    </div> <!-- Konec main-content -->
+        <div id="additional-buttons" style="display: none;">
+            <button class="detail-button" onclick="showDetail('Detail týmu')">Detail týmu</button>
+            <button class="detail-button" onclick="showDetail('Pitch')">Pitch</button>
+            <button class="detail-button" onclick="showDetail('Prezentace')">Prezentace</button>
+        </div>
+        <div id="detail-info"></div>
+    </div>
 
     <script>
         function showTeamInfo(team) {
@@ -144,6 +154,16 @@
                 'Tým 4': 'Informace o Týmu 4...'
             };
             document.getElementById('team-info').innerText = teamInfo[team];
+            document.getElementById('additional-buttons').style.display = 'block';
+        }
+
+        function showDetail(detailType) {
+            const detailInfo = {
+                'Detail týmu': 'Detailní informace o týmu...',
+                'Pitch': 'Pitch informace...',
+                'Prezentace': 'Prezentace informace...'
+            };
+            document.getElementById('detail-info').innerText = detailInfo[detailType];
         }
     </script>
 </body>
