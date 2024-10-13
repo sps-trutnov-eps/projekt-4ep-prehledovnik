@@ -6,4 +6,5 @@ projektyRouter.get('/tymy', projektyController.zobrazTymy);
 projektyRouter.get('/tymy/tym', projektyController.zobrazDetailyTymu);
 projektyRouter.get('/tymy/pitche', projektyController.zobrazPitche);
 projektyRouter.get('/tymy/prezentace', projektyController.zobrazPrezentace);
+//PRESUNULO SE TO NA JEDEN SOUBOR A TO DO tymy.ejs
 module.exports = projektyRouter;
