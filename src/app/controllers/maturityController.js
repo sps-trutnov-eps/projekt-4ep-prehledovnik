@@ -8,7 +8,7 @@ exports.sloh = (req, res) => {
     res.render("maturity/sloh.ejs");
 }
 
-exports.pzop = (req, res) => {
-    res.render("maturity/pzop.ejs");
+exports.scmz = (req, res) => {
+    res.render("maturity/scmz.ejs");
 }
 
