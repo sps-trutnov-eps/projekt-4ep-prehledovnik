@@ -3,6 +3,24 @@
   <head style="flex: none">
     <%- include('../partials/head'); %>
     <style>
+      .button {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        padding: 10px;
+      }
+      .tlacitko {
+        margin: 20px 0;
+        padding: 15px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        width: 100%;
+        text-align: center;
+        font-size: 16px;
+      }
       table > thead > tr > th > p {
         font-size: smaller;
       }
@@ -12,118 +30,245 @@
       }
     </style>
   </head>
-  <body style="display: flex; flex-direction: column; height: 100vh; overflow-y: none;">
+  <body
+    style="
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow-y: none;
+    ">
     <%- include('../partials/header'); %>
-    <main 
+    <main
+      style="
+        padding: 1em;
+        padding-bottom: 0;
+        flex: auto;
+        overflow-y: auto;
+        background-image: linear-gradient(
+          45deg,
+          hsla(192, 100%, 50%, 0.1) 0%,
+          hsla(162, 100%, 50%, 0.1) 50%,
+          hsla(132, 100%, 50%, 0.1) 100%
+        );
+        display: flex;
+      ">
+      <article
         style="
-            padding: 1em;
-            padding-bottom: 0;
-            flex: auto;
-            overflow-y: auto;
-            background-image: linear-gradient(
-                45deg,
-                hsla(192, 100%, 50%, 0.1) 0%,
-                hsla(162, 100%, 50%, 0.1) 50%,
-                hsla(132, 100%, 50%, 0.1) 100%
-            );
-            display: flex;
-        "
-    >
-
-      <article 
-          style="
-              width: 20vw;
-              min-width: 20vw;
-              margin-right: 1em;
-              overflow-y: auto;
-              resize: horizontal;
-          "
-      >
+          width: 20vw;
+          min-width: 20vw;
+          margin-right: 1em;
+          overflow-y: auto;
+          resize: horizontal;
+        ">
         <h1>Sidebar</h1>
 
-        <button style="color: black;" href="../maturity/index.ejs">PŽOP</button>
-        <button style="color: black;" href="../maturity/pcmz.ejs">PČMZ</button>
-        <button style="color: black;" href="../maturity/scmz.ejs">SČMZ</button>
-        <button style="color: black;" href="../maturity/sloh.ejs">SLOH</button>
-
+        <div class="button">
+          <button
+            class="tlacitko"
+            style="color: black"
+            href="../maturity/index.ejs">
+            PŽOP
+          </button>
+          <button
+            class="tlacitko"
+            style="color: black"
+            href="../maturity/pcmz.ejs">
+            PČMZ
+          </button>
+          <button
+            class="tlacitko"
+            style="color: black"
+            href="../maturity/scmz.ejs">
+            SČMZ
+          </button>
+          <button
+            class="tlacitko"
+            style="color: black"
+            href="../maturity/sloh.ejs">
+            SLOH
+          </button>
+        </div>
       </article>
 
-      <article style="flex: 3; overflow-y: auto;">
+      <article style="flex: 3; overflow-y: auto">
         <h1>PČMZ</h1>
 
-        <form style="display: flex; flex-direction: column; align-items: center;" id="projekt-form">
-          
-          <table style="border-collapse: collapse; text-align: center;" id="hodiny-tabulka">
+        <form
+          style="display: flex; flex-direction: column; align-items: center"
+          id="projekt-form">
+          <table
+            style="border-collapse: collapse; text-align: center"
+            id="hodiny-tabulka">
             <thead>
               <tr>
-                <th style="text-align: center;">Datum: </th>
-                <th>1. <p>8:00-8:45</p></th>
-                <th>2. <p>8:50-9:35</p></th>
-                <th>3. <p>9:55-10:40</p></th>
-                <th>4. <p>10:50-11:35</p></th>
-                <th>5. <p>11:40-12:25</p></th>
-                <th>6. <p>12:35-13:20</p></th>
-                <th>7. <p>13:25-14:10</p></th>
-                <th>8. <p>14:15-15:00</p></th>
-                <th>9. <p>15:10-15:55</p></th>
+                <th style="text-align: center">Datum:</th>
+                <th>
+                  1.
+                  <p>8:00-8:45</p>
+                </th>
+                <th>
+                  2.
+                  <p>8:50-9:35</p>
+                </th>
+                <th>
+                  3.
+                  <p>9:55-10:40</p>
+                </th>
+                <th>
+                  4.
+                  <p>10:50-11:35</p>
+                </th>
+                <th>
+                  5.
+                  <p>11:40-12:25</p>
+                </th>
+                <th>
+                  6.
+                  <p>12:35-13:20</p>
+                </th>
+                <th>
+                  7.
+                  <p>13:25-14:10</p>
+                </th>
+                <th>
+                  8.
+                  <p>14:15-15:00</p>
+                </th>
+                <th>
+                  9.
+                  <p>15:10-15:55</p>
+                </th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td><input type="date" name="datum-hodiny" value="2024-03-15" style="border: none; text-align: center;"></td>
-                
-                <td><input class="zaskrtavaci_policko" type="checkbox" name="hodina1"></td>
-                <td><input class="zaskrtavaci_policko" type="checkbox" name="hodina2"></td>
-                <td><input class="zaskrtavaci_policko" type="checkbox" name="hodina3"></td>
-                <td><input class="zaskrtavaci_policko" type="checkbox" name="hodina4"></td>
-                <td><input class="zaskrtavaci_policko" type="checkbox" name="hodina5"></td>
-                <td><input class="zaskrtavaci_policko" type="checkbox" name="hodina6"></td>
-                <td><input class="zaskrtavaci_policko" type="checkbox" name="hodina7"></td>
-                <td><input class="zaskrtavaci_policko" type="checkbox" name="hodina8"></td>
-                <td><input class="zaskrtavaci_policko" type="checkbox" name="hodina9"></td>
+                <td>
+                  <input
+                    type="date"
+                    name="datum-hodiny"
+                    value="2024-03-15"
+                    style="border: none; text-align: center" />
+                </td>
+
+                <td>
+                  <input
+                    class="zaskrtavaci_policko"
+                    type="checkbox"
+                    name="hodina1" />
+                </td>
+                <td>
+                  <input
+                    class="zaskrtavaci_policko"
+                    type="checkbox"
+                    name="hodina2" />
+                </td>
+                <td>
+                  <input
+                    class="zaskrtavaci_policko"
+                    type="checkbox"
+                    name="hodina3" />
+                </td>
+                <td>
+                  <input
+                    class="zaskrtavaci_policko"
+                    type="checkbox"
+                    name="hodina4" />
+                </td>
+                <td>
+                  <input
+                    class="zaskrtavaci_policko"
+                    type="checkbox"
+                    name="hodina5" />
+                </td>
+                <td>
+                  <input
+                    class="zaskrtavaci_policko"
+                    type="checkbox"
+                    name="hodina6" />
+                </td>
+                <td>
+                  <input
+                    class="zaskrtavaci_policko"
+                    type="checkbox"
+                    name="hodina7" />
+                </td>
+                <td>
+                  <input
+                    class="zaskrtavaci_policko"
+                    type="checkbox"
+                    name="hodina8" />
+                </td>
+                <td>
+                  <input
+                    class="zaskrtavaci_policko"
+                    type="checkbox"
+                    name="hodina9" />
+                </td>
               </tr>
             </tbody>
           </table>
-      
-          <div style="margin-top: 1em;">
-            <button type="button" id="pridat-datum" style="padding: 0.5em; width: 150px; color: black; border: none; cursor: pointer;">Přidat datum</button>
+
+          <div style="margin-top: 1em">
+            <button
+              type="button"
+              id="pridat-datum"
+              style="
+                padding: 0.5em;
+                width: 150px;
+                color: black;
+                border: none;
+                cursor: pointer;
+              ">
+              Přidat datum
+            </button>
           </div>
-      
-          <div style="margin-top: 1em;">
-            <button type="submit" style="padding: 0.5em; width: 150px; color: black; border: none; cursor: pointer;">Uložit</button>
+
+          <div style="margin-top: 1em">
+            <button
+              type="submit"
+              style="
+                padding: 0.5em;
+                width: 150px;
+                color: black;
+                border: none;
+                cursor: pointer;
+              ">
+              Uložit
+            </button>
           </div>
         </form>
       </article>
     </main>
 
     <script>
-      document.getElementById('pridat-datum').addEventListener('click', function() {
+      document
+        .getElementById("pridat-datum")
+        .addEventListener("click", function () {
+          var tabulka = document
+            .getElementById("hodiny-tabulka")
+            .getElementsByTagName("tbody")[0];
+          var novyRadek = document.createElement("tr");
 
-        var tabulka = document.getElementById('hodiny-tabulka').getElementsByTagName('tbody')[0];
-        var novyRadek = document.createElement('tr');
-  
+          var bunkaDatum = document.createElement("td");
+          var inputDatum = document.createElement("input");
+          inputDatum.type = "date";
+          inputDatum.name = "datum-hodiny";
+          inputDatum.style.border = "none";
+          inputDatum.style.textAlign = "center";
+          bunkaDatum.appendChild(inputDatum);
+          novyRadek.appendChild(bunkaDatum);
 
-        var bunkaDatum = document.createElement('td');
-        var inputDatum = document.createElement('input');
-        inputDatum.type = 'date';
-        inputDatum.name = 'datum-hodiny';
-        inputDatum.style.border = 'none';
-        inputDatum.style.textAlign = 'center';
-        bunkaDatum.appendChild(inputDatum);
-        novyRadek.appendChild(bunkaDatum);
-  
-        for (var i = 1; i <= 9; i++) {
-          var bunkaCheckbox = document.createElement('td');
-          var inputCheckbox = document.createElement('input');
-          inputCheckbox.type = 'checkbox';
-          inputCheckbox.name = 'hodina' + i;
-          bunkaCheckbox.appendChild(inputCheckbox);
-          novyRadek.appendChild(bunkaCheckbox);
-        }
-  
-        tabulka.appendChild(novyRadek);
-      });
+          for (var i = 1; i <= 9; i++) {
+            var bunkaCheckbox = document.createElement("td");
+            var inputCheckbox = document.createElement("input");
+            inputCheckbox.type = "checkbox";
+            inputCheckbox.name = "hodina" + i;
+            bunkaCheckbox.appendChild(inputCheckbox);
+            novyRadek.appendChild(bunkaCheckbox);
+          }
+
+          tabulka.appendChild(novyRadek);
+        });
     </script>
-    
   </body>
 </html>

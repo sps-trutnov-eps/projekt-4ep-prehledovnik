@@ -3,88 +3,198 @@
   <head style="flex: none">
     <%- include('../partials/head'); %>
     <style>
-
+      .button {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        padding: 10px;
+      }
+      .tlacitko {
+        margin: 20px 0;
+        padding: 15px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        width: 100%;
+        text-align: center;
+        font-size: 16px;
+      }
     </style>
   </head>
-  <body style="display: flex; flex-direction: column; height: 100vh; overflow-y: none;">
+  <body
+    style="
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow-y: none;
+    ">
     <%- include('../partials/header'); %>
-    <main 
+    <main
+      style="
+        padding: 1em;
+        padding-bottom: 0;
+        flex: auto;
+        overflow-y: auto;
+        background-image: linear-gradient(
+          45deg,
+          hsla(192, 100%, 50%, 0.1) 0%,
+          hsla(162, 100%, 50%, 0.1) 50%,
+          hsla(132, 100%, 50%, 0.1) 100%
+        );
+        display: flex;
+      ">
+      <article
         style="
-            padding: 1em;
-            padding-bottom: 0;
-            flex: auto;
-            overflow-y: auto;
-            background-image: linear-gradient(
-                45deg,
-                hsla(192, 100%, 50%, 0.1) 0%,
-                hsla(162, 100%, 50%, 0.1) 50%,
-                hsla(132, 100%, 50%, 0.1) 100%
-            );
-            display: flex;
-        "
-    >
-
-      <article 
-          style="
-              width: 20vw;
-              min-width: 20vw;
-              margin-right: 1em;
-              overflow-y: auto;
-              resize: horizontal;
-          "
-      >
+          width: 20vw;
+          min-width: 20vw;
+          margin-right: 1em;
+          overflow-y: auto;
+          resize: horizontal;
+        ">
         <h1>Sidebar</h1>
 
-        <button style="color: black;" href="../maturity/index.ejs">PŽOP</button>
-        <button style="color: black;" href="../maturity/pcmz.ejs">PČMZ</button>
-        <button style="color: black;" href="../maturity/scmz.ejs">SČMZ</button>
-        <button style="color: black;" href="../maturity/sloh.ejs">SLOH</button>
-
+        <div class="button">
+          <button
+            class="tlacitko"
+            style="color: black"
+            href="../maturity/index.ejs">
+            PŽOP
+          </button>
+          <button
+            class="tlacitko"
+            style="color: black"
+            href="../maturity/pcmz.ejs">
+            PČMZ
+          </button>
+          <button
+            class="tlacitko"
+            style="color: black"
+            href="../maturity/scmz.ejs">
+            SČMZ
+          </button>
+          <button
+            class="tlacitko"
+            style="color: black"
+            href="../maturity/sloh.ejs">
+            SLOH
+          </button>
+        </div>
       </article>
 
-      <article style="flex: 3; overflow-y: auto;">
+      <article style="flex: 3; overflow-y: auto">
         <h1>Sloh</h1>
-  
+
         <form>
-          <table style="border-collapse: collapse; width: 100%;">
+          <table style="border-collapse: collapse; width: 100%">
             <thead>
               <tr>
-                <th style="text-align: center;">Datum: </th>
-                <th>1. <p>8:00-8:45</p></th>
-                <th>2. <p>8:50-9:35</p></th>
-                <th>3. <p>9:55-10:40</p></th>
-                <th>4. <p>10:50-11:35</p></th>
-                <th>5. <p>11:40-12:25</p></th>
-                <th>6. <p>12:35-13:20</p></th>
-                <th>7. <p>13:25-14:10</p></th>
-                <th>8. <p>14:15-15:00</p></th>
-                <th>9. <p>15:10-15:55</p></th>
+                <th style="text-align: center">Datum:</th>
+                <th>
+                  1.
+                  <p>8:00-8:45</p>
+                </th>
+                <th>
+                  2.
+                  <p>8:50-9:35</p>
+                </th>
+                <th>
+                  3.
+                  <p>9:55-10:40</p>
+                </th>
+                <th>
+                  4.
+                  <p>10:50-11:35</p>
+                </th>
+                <th>
+                  5.
+                  <p>11:40-12:25</p>
+                </th>
+                <th>
+                  6.
+                  <p>12:35-13:20</p>
+                </th>
+                <th>
+                  7.
+                  <p>13:25-14:10</p>
+                </th>
+                <th>
+                  8.
+                  <p>14:15-15:00</p>
+                </th>
+                <th>
+                  9.
+                  <p>15:10-15:55</p>
+                </th>
               </tr>
             </thead>
             <tbody id="table-body">
               <tr>
-                <td><input type="date" name="datum[]" value="2024-03-15"></td>
+                <td><input type="date" name="datum[]" value="2024-03-15" /></td>
 
-                <td class="clickable-cell"><input type="hidden" name="ucebna-1[]" value="">Klikni</td>
-                <td class="clickable-cell"><input type="hidden" name="ucebna-2[]" value="">Klikni</td>
-                <td class="clickable-cell"><input type="hidden" name="ucebna-3[]" value="">Klikni</td>
-                <td class="clickable-cell"><input type="hidden" name="ucebna-4[]" value="">Klikni</td>
-                <td class="clickable-cell"><input type="hidden" name="ucebna-5[]" value="">Klikni</td>
-                <td class="clickable-cell"><input type="hidden" name="ucebna-6[]" value="">Klikni</td>
-                <td class="clickable-cell"><input type="hidden" name="ucebna-7[]" value="">Klikni</td>
-                <td class="clickable-cell"><input type="hidden" name="ucebna-8[]" value="">Klikni</td>
-                <td class="clickable-cell"><input type="hidden" name="ucebna-9[]" value="">Klikni</td>
+                <td class="clickable-cell">
+                  <input type="hidden" name="ucebna-1[]" value="" />Klikni
+                </td>
+                <td class="clickable-cell">
+                  <input type="hidden" name="ucebna-2[]" value="" />Klikni
+                </td>
+                <td class="clickable-cell">
+                  <input type="hidden" name="ucebna-3[]" value="" />Klikni
+                </td>
+                <td class="clickable-cell">
+                  <input type="hidden" name="ucebna-4[]" value="" />Klikni
+                </td>
+                <td class="clickable-cell">
+                  <input type="hidden" name="ucebna-5[]" value="" />Klikni
+                </td>
+                <td class="clickable-cell">
+                  <input type="hidden" name="ucebna-6[]" value="" />Klikni
+                </td>
+                <td class="clickable-cell">
+                  <input type="hidden" name="ucebna-7[]" value="" />Klikni
+                </td>
+                <td class="clickable-cell">
+                  <input type="hidden" name="ucebna-8[]" value="" />Klikni
+                </td>
+                <td class="clickable-cell">
+                  <input type="hidden" name="ucebna-9[]" value="" />Klikni
+                </td>
               </tr>
             </tbody>
           </table>
-          <button style="color: black;" type="button" onclick="addRow()">Přidat datum</button>
-      
-          <div style="text-align: center;">
-            <button type="submit" style="padding: 0.5em; color: black; border: none; cursor: pointer; width: 150px;">Uložit</button>
+          <button style="color: black" type="button" onclick="addRow()">
+            Přidat datum
+          </button>
+
+          <div style="text-align: center">
+            <button
+              type="submit"
+              style="
+                padding: 0.5em;
+                color: black;
+                border: none;
+                cursor: pointer;
+                width: 150px;
+              ">
+              Uložit
+            </button>
           </div>
         </form>
-      
-        <div id="classroomModal" style="border: solid black; background: lightslategrey; display: none; position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); padding: 1em; border: 1px solid black;">
+
+        <div
+          id="classroomModal"
+          style="
+            border: solid black;
+            background: lightslategrey;
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            padding: 1em;
+            border: 1px solid black;
+          ">
           <h2>Vyber učebnu</h2>
 
           <p id="selectedHourText"></p>
@@ -94,7 +204,7 @@
             <option value="T16">T16</option>
             <option value="T17">T17</option>
           </select>
-          <br><br>
+          <br /><br />
           <button type="button" onclick="saveClassroom()">Uložit</button>
           <button type="button" onclick="closeModal()">Zrušit</button>
         </div>
@@ -105,55 +215,58 @@
       let selectedCell;
       let selectedInput;
 
-      document.querySelectorAll('.clickable-cell').forEach((cell, index) => {
-        cell.addEventListener('click', function () {
+      document.querySelectorAll(".clickable-cell").forEach((cell, index) => {
+        cell.addEventListener("click", function () {
           selectedCell = this;
-          selectedInput = this.querySelector('input');
-          selectedHour = index % 9 + 1;
+          selectedInput = this.querySelector("input");
+          selectedHour = (index % 9) + 1;
 
-          document.getElementById('selectedHourText').textContent = `Hodina: ${selectedHour}. `;
-          document.getElementById('classroomModal').style.display = 'block';
+          document.getElementById(
+            "selectedHourText"
+          ).textContent = `Hodina: ${selectedHour}. `;
+          document.getElementById("classroomModal").style.display = "block";
         });
       });
 
       function saveClassroom() {
-        const selectedClassroom = document.getElementById('classroomSelect').value;
-        
+        const selectedClassroom =
+          document.getElementById("classroomSelect").value;
+
         selectedInput.value = selectedClassroom;
-        
+
         selectedCell.textContent = selectedClassroom;
         closeModal();
       }
 
       function closeModal() {
-        document.getElementById('classroomModal').style.display = 'none';
+        document.getElementById("classroomModal").style.display = "none";
       }
 
       function addRow() {
-        const tableBody = document.getElementById('table-body');
-        const newRow = document.createElement('tr');
+        const tableBody = document.getElementById("table-body");
+        const newRow = document.createElement("tr");
 
-        const dateCell = document.createElement('td');
-        const dateInput = document.createElement('input');
-        dateInput.type = 'date';
-        dateInput.name = 'datum[]';
+        const dateCell = document.createElement("td");
+        const dateInput = document.createElement("input");
+        dateInput.type = "date";
+        dateInput.name = "datum[]";
         dateCell.appendChild(dateInput);
         newRow.appendChild(dateCell);
 
         for (let i = 1; i <= 9; i++) {
-          const cell = document.createElement('td');
-          const input = document.createElement('input');
-          input.type = 'hidden';
+          const cell = document.createElement("td");
+          const input = document.createElement("input");
+          input.type = "hidden";
           input.name = `ucebna-${i}[]`;
-          cell.textContent = 'Klikni';
-          cell.className = 'clickable-cell';
+          cell.textContent = "Klikni";
+          cell.className = "clickable-cell";
           cell.appendChild(input);
-          
-          cell.addEventListener('click', function () {
+
+          cell.addEventListener("click", function () {
             selectedCell = cell;
             selectedInput = input;
 
-            document.getElementById('classroomModal').style.display = 'block';
+            document.getElementById("classroomModal").style.display = "block";
           });
           newRow.appendChild(cell);
         }
@@ -161,6 +274,5 @@
         tableBody.appendChild(newRow);
       }
     </script>
-
   </body>
-</html> 
+</html>
