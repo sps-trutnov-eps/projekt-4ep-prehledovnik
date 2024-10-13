@@ -1,17 +1,17 @@
 const databaze = require("../models/databaseEngine");
 
 exports.zobrazTymy = (req, res) => {
-    res.render("projekty/tymy.ejs")
+    res.render("projekty/tymy" );
 }
 
 exports.zobrazPitche = (req, res) => {
-    res.render("projekty/tymy/pitch.ejs")
+    res.render("projekty/pitch");
 }
 
 exports.zobrazPrezentace = (req, res) => {
-    res.render("projekty/tymy/prezentace.ejs")
+    res.render("projekty/prezentace");
 }
 
 exports.zobrazDetailyTymu = (req, res) => {
-    res.render("projekty/tymy/detailTymu.ejs")
+    res.render("projekty/detailTymu");
 }
