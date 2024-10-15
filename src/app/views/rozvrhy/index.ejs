@@ -373,6 +373,26 @@
             </div>
         </article>
         <script>
+            // Initialize the rozvrh object
+            let rozvrh = {
+                "sudy": {
+                    "Po": {},
+                    "Ut": {},
+                    "St": {},
+                    "Ct": {},
+                    "Pa": {}
+                },
+                "lichy": {
+                    "Po": {},
+                    "Ut": {},
+                    "St": {},
+                    "Ct": {},
+                    "Pa": {}
+                }
+            };
+
+            let casHodiny, denHodiny, druhTydne;
+
             function showPopup(cas, den, tyden) {
                 casHodiny = cas;
                 denHodiny = den;
@@ -384,55 +404,26 @@
                 document.getElementById("popupModal").style.display = "none";
             }
 
-
-            window.onclick = function (event) {
-                var modal = document.getElementById("popupModal");
-                if (event.target == modal) {
-                    modal.style.display = "none";
-                }
-            }
-
             function potvrditHodinu() {
-                const predmet = document.getElementById('jakypredmet').value;
-                const ucebna = document.getElementById('mistnost').value;
-                const cas = casHodiny;
-                const den = denHodiny;
-                const tyden = druhTydne;
-                const skupina = document.getElementById('skupina').value;
+                const predmet = document.getElementById("jakypredmet").value;
+                const mistnost = document.getElementById("mistnost").value;
+                const skupina = document.getElementById("skupina").value;
 
-                ulozitHodinu(cas, den, tyden, predmet, ucebna, skupina);
-            }
+                const lesson = {
+                    predmet: predmet,
+                    mistnost: mistnost,
+                    skupina: skupina,
+                };
 
-            window.onclick = function (event) {
-                var modal = document.getElementById("popupModal");
-                if (event.target == modal) {
-                    modal.style.display = "none";
+                if (druhTydne === 'S') {
+                    rozvrh.sudy[denHodiny][casHodiny] = lesson;
+                } else {
+                    rozvrh.lichy[denHodiny][casHodiny] = lesson;
                 }
-            }
 
-            function ulozitHodinu(cas, den, tyden, predmet, ucebna, skupina) {
-                const rozvrhy = {
-                    "nextID": 1,
-                    "hodiny": []
-                };
-
-                const novaHodina = {
-                    "id": rozvrhy.nextID,
-                    "den": den,
-                    "cas": cas,
-                    "tyden": tyden,
-                    "predmet": predmet,
-                    "ucebna": ucebna,
-                    "skupina": skupina
-                };
+                console.log(rozvrh);
 
                 closePopup();
-
-                rozvrhy.hodiny.push(novaHodina);
-
-                rozvrhy.nextID++;
-
-                console.log(rozvrhy);
             }
         </script>
 
