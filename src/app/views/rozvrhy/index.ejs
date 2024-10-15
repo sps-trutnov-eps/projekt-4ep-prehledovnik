@@ -350,15 +350,10 @@
                     <span class="close-btn" onclick="closePopup()">&times;</span>
                     <h2>Předmět</h2>
                     <form action="">
-                        <select name="verze" id="jakypredmet">
-                            <option value="Volno">Volno</option>
-                            <option value="PVA 1.EP">PVA 1.EP (4)</option>
-                            <option value="PVA 2.EP">PVA 2.EP (4)</option>
-                            <option value="PVA 3.EP">PVA 3.EP (4)</option>
-                            <option value="PVA 4.EP">PVA 4.EP (4)</option>
-                            <option value="HARDWARE 1.EP">HARDWARE 1.EP (1)</option>
-                            <option value="CMT 4.EP">CMT 4.EP (1)</option>
-                            <option value="MEH 3.EP">MEH 3.EP (4)</option>
+                        <select name="predmet" id="jakypredmet">
+                            <% for (let predmet of predmety) { %>
+                                <option value="<%= predmet %>"><%= predmet %></option>
+                            <% } %>
                         </select>
                         <input type="text" name="" id="mistnost" placeholder="Název učebny">
                         <select name="" id="skupina">
@@ -409,16 +404,16 @@
                 const mistnost = document.getElementById("mistnost").value;
                 const skupina = document.getElementById("skupina").value;
 
-                const lesson = {
+                const hodina = {
                     predmet: predmet,
                     mistnost: mistnost,
                     skupina: skupina,
                 };
 
                 if (druhTydne === 'S') {
-                    rozvrh.sudy[denHodiny][casHodiny] = lesson;
+                    rozvrh.sudy[denHodiny][casHodiny] = hodina;
                 } else {
-                    rozvrh.lichy[denHodiny][casHodiny] = lesson;
+                    rozvrh.lichy[denHodiny][casHodiny] = hodina;
                 }
 
                 console.log(rozvrh);
