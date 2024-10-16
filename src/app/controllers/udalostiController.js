@@ -6,16 +6,31 @@ exports.seznam = (req, res) => {
     });
 }
 
+exports.index = (req, res) => {
+    res.render('udalosti/index.ejs', {
+        datum: new Date().toISOString().split('T')[0],
+    });
+}
+
 exports.pridat = (req, res) => {
     // Just checking
-    if ((req.body.jmeno_udalosti.trim() && req.body.typAkce.trim() && req.body.datum.trim() && req.body.casOd.trim() && req.body.casDo.trim()) != "") {
+    if ((req.body.jmeno_udalosti.trim() && req.body.typAkce.trim()) != "") {
         // fetching data
         const jmeno = req.body.jmeno_udalosti.trim();
         const typAkce = req.body.typAkce.trim();
-        const datum = req.body.datum.trim();
-        const casOd = req.body.casOd.trim();
-        const casDo = req.body.casDo.trim();
-        const tykaSe = null;
+        let datum = (req.body.datum?.trim() || new Date().toISOString().split('T')[0]);
+        let naPocetDni = 0;
+        let casOd = null;
+        let casDo = null;
+        if(req.body.variantaDni.trim() == "Vícedenní"){
+            datum = (req.body.datumOd?.trim() || new Date().toISOString().split('T')[0]);
+            naPocetDni = Math.ceil((new Date(req.body.datumDo?.trim() || new Date().toISOString().split('T')[0]) - new Date(datum)) / (1000 * 60 * 60 * 24));
+        } else if (req.body.variantaDni.trim() == "Zadat den a čas")
+        {
+            casOd = req.body.casOd.trim();
+            casDo = req.body.casDo.trim();
+        }
+        let tykaSe = null;
         const poznamka = req.body.poznamka_udalosti.trim();
         // who is involved
         switch (req.body.typAkce.trim()) {
@@ -28,7 +43,7 @@ exports.pridat = (req, res) => {
             default:
                 break;
         }
-        databaze.udalosti.pridatUdalost(jmeno, typAkce, datum, casOd, casDo, tykaSe, poznamka);
+        databaze.udalosti.pridatUdalost(jmeno, typAkce, datum, naPocetDni, casOd, casDo, tykaSe, poznamka);
     }
-    res.render("udalosti/index.ejs");
+    res.redirect("/udalosti/");
 }

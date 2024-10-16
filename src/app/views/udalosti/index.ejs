@@ -102,25 +102,30 @@
           <input
             type="text"
             name="jmeno_udalosti"
-            placeholder="Název události" />
+            placeholder="Název události"
+            required />
 
           <input
             type="radio"
             id="celodenni"
             name="variantaDni"
-            value="Celodenní" />
+            value="Celodenní" 
+            checked
+            />
           <label for="celodenni">Celodenní</label><br />
           <input
             type="radio"
             id="vicedenni"
             name="variantaDni"
-            value="Vícedenní" />
+            value="Vícedenní"
+            />
           <label for="vicedenni">Vícedenní</label><br />
           <input
             type="radio"
             id="jine"
             name="variantaDni"
-            value="Zadat den a čas" />
+            value="Zadat den a čas"
+            />
           <label for="jine">Zadat den a čas</label><br />
 
           <div id="jineInputs">
@@ -151,17 +156,14 @@
               <option value="15:00">15:00</option>
               <option value="15:55">15:55</option>
             </select>
-
-            <label for="datum">Datum:</label>
-            <input type="date" id="datum" name="datum"/>
           </div>
+          <label for="datum" id="datumLabel">Datum:</label>
+          <input type="date" id="datum" name="datum" value="<%= datum %>" min="<%= datum %>"/>
 
           <!-- Vícedenní -->
           <div id="vicedenniInputs">
-            <label for="datumOd">Od:</label>
-            <input type="date" id="datumOd" />
             <label for="datumDo">Do:</label>
-            <input type="date" id="datumDo" />
+            <input type="date" id="datumDo" name="datumDo"/>
           </div>
 
           <label for="typAkce">Typ akce</label>
@@ -174,7 +176,7 @@
 
           <div id="tridySelect" style="display: none">
             <label for="tridy">Třídy</label>
-            <select id="tridy" name="select">
+            <select id="tridy" name="tridy">
               <option value="1EP">1.EP</option>
               <option value="2EP">2.EP</option>
               <option value="3EP">3.EP</option>
@@ -217,10 +219,12 @@
 
               // Podmínky pro zobrazení různých možností
               if (document.getElementById("celodenni").checked) {
-                alert("Vybrána varianta: Celodenní");
+                document.getElementById("datumLabel").innerHTML = "Datum:";
               } else if (document.getElementById("vicedenni").checked) {
+                document.getElementById("datumLabel").innerHTML = "Od:";
                 if (vicedenniInputs) vicedenniInputs.style.display = "block";
               } else if (document.getElementById("jine").checked) {
+                document.getElementById("datumLabel").innerHTML = "Datum:";
                 if (jineInputs) jineInputs.style.display = "block";
               }
             });
@@ -255,7 +259,36 @@
 
         // Načtení stránky s výchozím nastavením
         handleTypAkceChange();
+
+        const datumInput = document.getElementById("datum");
+        const datumDoInput = document.getElementById("datumDo");
+
+        // Nastaví min na hodnotu z inputu datum
+        datumDoInput.min = datumInput.value;
+
+        // Přidání event listeneru pro aktualizaci min hodnoty, pokud se změní datum
+        datumInput.addEventListener("input", function () {
+            datumDoInput.min = this.value;
+        });
+
+        document.getElementById("casOd").addEventListener("change", function() {
+          const casOdIndex = this.selectedIndex;
+          const casDoSelect = document.getElementById("casDo");
+
+          // Procházej všechny možnosti v "Do" a skryj ty, které mají menší index
+          Array.from(casDoSelect.options).forEach((option, index) => {
+              option.style.display = index < casOdIndex ? "none" : "block";
+          });
+
+          // Pokud je vybráno číslo v "Do", které je menší než "Od", resetuj "Do"
+          if (casDoSelect.selectedIndex < casOdIndex) {
+              casDoSelect.selectedIndex = -1; // Resetuje na žádnou vybranou možnost
+          }
       });
+
+      // Inicializace při načtení stránky
+      document.getElementById("casOd").dispatchEvent(new Event('change'));
+    });
     </script>
   </body>
 </html>
