@@ -98,7 +98,7 @@
       </article>
 
       <article style="flex: 3; overflow-y: auto">
-        <form>
+        <form action="/udalosti/pridatUdalost" method="post">
           <input
             type="text"
             name="jmeno_udalosti"
@@ -125,7 +125,7 @@
 
           <div id="jineInputs">
             <label for="casOd">Od:</label>
-            <select id="casOd">
+            <select id="casOd" name="casOd">
               <option value="7:10">7:10</option>
               <option value="8:00">8:00</option>
               <option value="8:50">8:50</option>
@@ -139,7 +139,7 @@
             </select>
 
             <label for="casDo">Do:</label>
-            <select id="casDo">
+            <select id="casDo" name="casDo">
               <option value="7:55">7:55</option>
               <option value="8:45">8:45</option>
               <option value="9:35">9:35</option>
@@ -153,7 +153,7 @@
             </select>
 
             <label for="datum">Datum:</label>
-            <input type="date" id="datum" />
+            <input type="date" id="datum" name="datum"/>
           </div>
 
           <!-- Vícedenní -->
@@ -165,7 +165,7 @@
           </div>
 
           <label for="typAkce">Typ akce</label>
-          <select id="typAkce">
+          <select id="typAkce" name="typAkce">
             <option value="celoskolni">Celoškolní</option>
             <option value="celotridni">Celotřídní</option>
             <option value="ucitelsky">Učitelský</option>
@@ -174,7 +174,7 @@
 
           <div id="tridySelect" style="display: none">
             <label for="tridy">Třídy</label>
-            <select id="tridy">
+            <select id="tridy" name="select">
               <option value="1EP">1.EP</option>
               <option value="2EP">2.EP</option>
               <option value="3EP">3.EP</option>
@@ -184,7 +184,7 @@
 
           <div id="budovySelect" style="display: none">
             <label for="budovy">Budovy</label>
-            <select id="budovy">
+            <select id="budovy" name="budovy">
               <option value="skolni101">Školní 101</option>
               <option value="horska618">Horská 618</option>
               <option value="horska59">Horská 59</option>

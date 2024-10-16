@@ -100,7 +100,7 @@ const udalosti = {
         let udalosti = gU();
         udalosti[udalosti["nextID"]] = {nazev, typ, datum, casOd, casDo, tykaSe, poznamka};
         udalosti["nextID"] += 1;
-        sM(udalosti);
+        sU(udalosti);
     },
     ziskatIDUdalostiPodleNazvu: (jmeno) => {
         let udalosti = gU();
