@@ -151,7 +151,9 @@
             let udalosti = <%- JSON.stringify(udalosti) %>
             for (let i=1;i<udalosti.length;i++){
                 let date = document.getElementById(udalosti[i].date)
-                console.log(date)
+                let p = document.createElement("p")
+                p.textContent = udalosti[i].nazev
+                date.appendChild(p);          
             }
         }
 
