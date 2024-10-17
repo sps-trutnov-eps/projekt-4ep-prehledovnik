@@ -96,11 +96,11 @@ function gU(){return db.get("udalosti")}
 function sU(udalosti){db.set("udalosti", udalosti)}
 
 const udalosti = {
-    pridatUdalost: (nazev, typ, datum, casOd, casDo, tykaSe, poznamka) => {
+    pridatUdalost: (nazev, typ, datum, naPocetDni, casOd, casDo, tykaSe, poznamka) => {
         let udalosti = gU();
-        udalosti[udalosti["nextID"]] = {nazev, typ, datum, casOd, casDo, tykaSe, poznamka};
+        udalosti[udalosti["nextID"]] = {nazev, typ, datum, naPocetDni, casOd, casDo, tykaSe, poznamka};
         udalosti["nextID"] += 1;
-        sM(udalosti);
+        sU(udalosti);
     },
     ziskatIDUdalostiPodleNazvu: (jmeno) => {
         let udalosti = gU();
