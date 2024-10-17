@@ -16,6 +16,26 @@ exports.zobrazDetailyTymu = (req, res) => {
     res.render("projekty/detailTymu");
 }
 
+exports.ulozitDetailyTymu = (req, res) => {
+    const vedouci = req.body.vedouci.trim();
+    const clenove = req.body.clenove.trim();
+    const tymRepo = req.body.tymRepo.trim();
+    const trida = req.body.trida ? req.body.trida.trim() : "";
+
+    if (vedouci && clenove && tymRepo) {
+        const tymy = {
+            vedouci: vedouci,
+            clenove: clenove,
+            tymRepo: tymRepo,
+        };
+
+        databaze.projekty.upravitTymy(trida, tymy);
+
+        res.redirect("/projekty/tymy");
+    } else {
+        res.status(400).send("Nebyla vyplněna všechna pole.");
+    }
+};
 
 //VYPOCET MILESTONU OD DNE ZADANI PROJEKTU
 //BUDE ZAPOTREBY K TOMU VYTVORIT VE FRONTENDU VYTVORIT STRANKU O VYTVORENI PROJEKTU

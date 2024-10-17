@@ -236,19 +236,25 @@
         function showDetail(detailType, buttonElement) {
             const detailInfo = {
                 'Detail týmu': `
-                    <div class="input-container">
-                        <label for="leader-name">Jméno vedoucího:</label>
-                        <input type="text" id="leader-name" maxlength="50" placeholder="Zadejte jméno vedoucího týmu">
-                    </div>
-                    <div class="input-container">
-                        <label for="team-members">Členové týmu:</label>
-                        <input type="text" id="team-members" maxlength="50" placeholder="Zadejte jména členů týmu">
-                    </div>
-                    <div class="input-container">
-                        <label for="team-repo">Repozitář:</label>
-                        <input type="text" id="team-repo" maxlength="100" placeholder="Zadejte URL repozitáře týmu">
-                    </div>
-                    <button class="save-button" onclick="saveTeamDetails()">Uložit</button>
+                    <form action="/projekty/ulozitDetailyTymu" method="POST">
+                        <div class="input-container">
+                            <label for="leader-name">Jméno vedoucího:</label>
+                            <input type="text" id="leader-name" name="vedouci" maxlength="50" placeholder="Zadejte jméno vedoucího týmu" required>
+                        </div>
+                        <div class="input-container">
+                            <label for="team-members">Členové týmu:</label>
+                            <input type="text" id="team-members" name="clenove" maxlength="50" placeholder="Zadejte jména členů týmu" required>
+                        </div>
+                        <div class="input-container">
+                            <label for="team-repo">Repozitář:</label>
+                            <input type="text" id="team-repo" name="tymRepo" maxlength="100" placeholder="Zadejte URL repozitáře týmu" required>
+                        </div>
+                        <div class="input-container">
+                            <label for="trida">Třída:</label>
+                            <input type="text" id="trida" name="trida" maxlength="50" placeholder="Zadejte třídu projektu" required> <!-- Pokud je potřeba -->
+                        </div>
+                        <button type="submit" class="save-button">Uložit</button>
+                    </form>
                 `,
                 'Pitch': `
                     <div class="table-wrapper">
