@@ -96,9 +96,9 @@ function gU(){return db.get("udalosti")}
 function sU(udalosti){db.set("udalosti", udalosti)}
 
 const udalosti = {
-    pridatUdalost: (nazev, typ, datum, naPocetDni, casOd, casDo, tykaSe, poznamka) => {
+    pridatUdalost: (nazev, typ,  datum, datumDo, casOd, casDo, vyberZadani, tykaSe, poznamka) => {
         let udalosti = gU();
-        udalosti[udalosti["nextID"]] = {nazev, typ, datum, naPocetDni, casOd, casDo, tykaSe, poznamka};
+        udalosti[udalosti["nextID"]] = {nazev, typ, datum,  datumDo, casOd, casDo, vyberZadani, tykaSe, poznamka};
         udalosti["nextID"] += 1;
         sU(udalosti);
     },
@@ -120,9 +120,10 @@ const udalosti = {
     ziskatVsechnyUdalosti: () => {
         let udalosti = gU();
         let udalostiList = [];
-        let nextID = udalosti["nextID"];
-        for(let i = 0; i < nextID; i++){
-            udalostiList.push(udalosti[String(i)]);
+        for(let i = 1; i < udalosti["nextID"]; i++){
+            if (udalosti[String(i)]) {
+                udalostiList.push(udalosti[String(i)]);
+            }
         }
         return udalostiList;
     },

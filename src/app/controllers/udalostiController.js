@@ -2,7 +2,7 @@ const databaze = require("../models/databaseEngine");
 
 exports.seznam = (req, res) => {
 	res.render('udalosti/seznamUdalosti.ejs', {
-        titulek: 'Seznam událostí',
+        seznamNaZobrazeni: databaze.udalosti.ziskatVsechnyUdalosti(),
     });
 }
 
@@ -19,14 +19,18 @@ exports.pridat = (req, res) => {
         const jmeno = req.body.jmeno_udalosti.trim();
         const typAkce = req.body.typAkce.trim();
         let datum = (req.body.datum?.trim() || new Date().toISOString().split('T')[0]);
-        let naPocetDni = 0;
+        let datumDo = null;
+        //let naPocetDni = 0;
         let casOd = null;
         let casDo = null;
+        let vyberZadani = "celodenni";
         if(req.body.variantaDni.trim() == "Vícedenní"){
-            datum = (req.body.datumOd?.trim() || new Date().toISOString().split('T')[0]);
-            naPocetDni = Math.ceil((new Date(req.body.datumDo?.trim() || new Date().toISOString().split('T')[0]) - new Date(datum)) / (1000 * 60 * 60 * 24));
+            vyberZadani = "vicedenni";
+            datumDo = req.body.datumDo?.trim() || new Date().toISOString().split('T')[0];
+           //naPocetDni = Math.ceil((new Date(datumDo) - new Date(datum)) / (1000 * 60 * 60 * 24));
         } else if (req.body.variantaDni.trim() == "Zadat den a čas")
         {
+            vyberZadani = "casIDatum";
             casOd = req.body.casOd.trim();
             casDo = req.body.casDo.trim();
         }
@@ -43,7 +47,7 @@ exports.pridat = (req, res) => {
             default:
                 break;
         }
-        databaze.udalosti.pridatUdalost(jmeno, typAkce, datum, naPocetDni, casOd, casDo, tykaSe, poznamka);
+        databaze.udalosti.pridatUdalost(jmeno, typAkce, datum, datumDo, casOd, casDo, vyberZadani, tykaSe, poznamka);
     }
     res.redirect("/udalosti/");
 }
