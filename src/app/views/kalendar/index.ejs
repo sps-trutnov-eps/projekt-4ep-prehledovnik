@@ -15,6 +15,16 @@
               text-align: center;
               scroll-margin: 325px;
             }
+            #monthsDis {
+              margin: 1em;
+              width: 930px;
+            }
+            #aktualni {
+                text-align: right;
+            }
+            #naMesic {
+                text-align: left;
+            }
             </style>
     </head>
     <body style="display: flex; flex-direction: column; height: 100vh; overflow-y: none;">
@@ -46,30 +56,40 @@
                 <h1>Sidebar</h1>
                 <p>
                     
-                    <a style="color: black;" href="../kalendar/tydenni">Týdenní</a>
+                    <a style="color: white;" href="../kalendar/tydenni">Týdenní</a>
                     <br>
-                    <a style="color: black;" href="../kalendar/">Měsíční</a>
+                    <a style="color: white;" href="../kalendar/">Měsíční</a>
                     
                 </p>
             </article>
             <article style="flex: 3; overflow-y: auto;">
                 <h1>Měsíční kalendář</h1>
-                    <button onclick="scrollToCurrent()">Aktuální</button>
-                    <select name="months" id="months">
-                        <option value="8">Srpen</option>
-                        <option value="9">Září</option>
-                        <option value="10">Říjen</option>
-                        <option value="11">Listopad</option>
-                        <option value="12">Prosinec</option>
-                        <option value="1">Leden</option>
-                        <option value="2">Únor</option>
-                        <option value="3">Březen</option>
-                        <option value="4">Duben</option>
-                        <option value="5">Květen</option>
-                        <option value="6">Červen</option>
-                        <option value="7">Červenec</option>
-                    </select>
-                    <button onclick="scrollToMonth()">Na měsíc</button>
+                <table>
+                    <tr>
+                        <td id="aktualni">
+                            <button onclick="scrollToCurrent()">Aktuální</button>
+                        </td>
+                        <td id="monthsDis">
+                            <select name="months" id="months">
+                                <option value="8">Srpen</option>
+                                <option value="9">Září</option>
+                                <option value="10">Říjen</option>
+                                <option value="11">Listopad</option>
+                                <option value="12">Prosinec</option>
+                                <option value="1">Leden</option>
+                                <option value="2">Únor</option>
+                                <option value="3">Březen</option>
+                                <option value="4">Duben</option>
+                                <option value="5">Květen</option>
+                                <option value="6">Červen</option>
+                                <option value="7">Červenec</option>
+                            </select>
+                        </td>
+                        <td id="naMesic">
+                            <button onclick="scrollToMonth()">Na měsíc</button>
+                        </td>
+                    </tr>
+                </table>
 
                     <section class="grid-container">
                         <p class="grid-item">Pondělí</p>
@@ -91,9 +111,11 @@
                             <section id=<%= new Date(i).getDate()%>-<%= new Date(i).getMonth() + 1%>  style="grid-column-start: <%= new Date(i).getDay()%> ;" class="grid-item">
                                 <% if(new Date(i).getDay() == 6) {%>
                                 <p><%= new Date(i).getDate()%> / <%= new Date(i).getMonth() + 1%> - <%= new Date(i+increment).getDate()%> / <%= new Date(i+increment).getMonth() + 1%></p>
+
                                 <% }else{%>
                                     <p><%= new Date(i).getDate()%> / <%= new Date(i).getMonth() + 1%></p>
                                 <% }%>
+                                
                                 <% if (new Date(i).getDate() == date_udalost[0] && new Date(i).getMonth() + 1 == date_udalost[1]) {%>
                                 <p><%= date_udalost[2]%></p>  
                                 <%}%>  
@@ -121,6 +143,20 @@
             console.log(month)
             selected.scrollIntoView()
         }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            placeUdalosti()
+        })
+        function placeUdalosti() {
+            let udalosti = <%- JSON.stringify(udalosti) %>
+            for (let i=1;i<udalosti.length;i++){
+                let date = document.getElementById(udalosti[i].date)
+                let p = document.createElement("p")
+                p.textContent = udalosti[i].nazev
+                date.appendChild(p);          
+            }
+        }
+
     </script>
     </body>
 </html>
