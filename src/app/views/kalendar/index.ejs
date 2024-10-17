@@ -2,6 +2,9 @@
 <html lang="cs" style="max-height: 100vh; max-width: 100vw">
     <head style="flex: none">
         <%- include('../partials/head'); %>
+    </head>
+    <body style="display: flex; flex-direction: column; height: 100vh; overflow-y: none;">
+        <%- include('../partials/header'); %>
         <style>
             .grid-container {
               display: grid;
@@ -25,10 +28,8 @@
             #naMesic {
                 text-align: left;
             }
-            </style>
-    </head>
-    <body style="display: flex; flex-direction: column; height: 100vh; overflow-y: none;">
-        <%- include('../partials/header'); %>
+        </style>
+
         <main
             style="
                 padding: 1em;
