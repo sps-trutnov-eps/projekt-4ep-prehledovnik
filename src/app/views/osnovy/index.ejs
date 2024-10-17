@@ -14,13 +14,13 @@
             
 			<article
                 style="width: 20vw; min-width: 20vw; margin-right: 1em; overflow-y: auto; resize: horizontal; padding-top: 0">
-				<article style="position: sticky; top: 0; z-index: 1; padding: 0; padding-top: 1rem; border-radius: 0">
+				<div style="position: sticky; top: 0; z-index: 1; padding: 0; padding-top: 1rem; border-radius: 0">
 					<h1 style="text-align: center">Osnovy</h1>
 						
 					<form id="create">
 						<input class="createButton" type="submit" value="+" onclick="CreateCurriculum()">
 					</form>
-				</article>
+				</div>
 				
 				<% for (let i = 1; i < cur["nextID"]; i++) {%>
 					<div style="display: flex" class="cur">
