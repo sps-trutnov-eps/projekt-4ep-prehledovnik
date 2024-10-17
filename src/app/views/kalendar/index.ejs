@@ -111,9 +111,11 @@
                             <section id=<%= new Date(i).getDate()%>-<%= new Date(i).getMonth() + 1%>  style="grid-column-start: <%= new Date(i).getDay()%> ;" class="grid-item">
                                 <% if(new Date(i).getDay() == 6) {%>
                                 <p><%= new Date(i).getDate()%> / <%= new Date(i).getMonth() + 1%> - <%= new Date(i+increment).getDate()%> / <%= new Date(i+increment).getMonth() + 1%></p>
+
                                 <% }else{%>
                                     <p><%= new Date(i).getDate()%> / <%= new Date(i).getMonth() + 1%></p>
                                 <% }%>
+                                
                                 <% if (new Date(i).getDate() == date_udalost[0] && new Date(i).getMonth() + 1 == date_udalost[1]) {%>
                                 <p><%= date_udalost[2]%></p>  
                                 <%}%>  
@@ -141,6 +143,18 @@
             console.log(month)
             selected.scrollIntoView()
         }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            placeUdalosti()
+        })
+        function placeUdalosti() {
+            let udalosti = <%- JSON.stringify(udalosti) %>
+            for (let i=1;i<udalosti.length;i++){
+                let date = document.getElementById(udalosti[i].date)
+                console.log(date)
+            }
+        }
+
     </script>
     </body>
 </html>

@@ -13,11 +13,14 @@ exports.udalosti = () => {
 
 function udalostDatumFormat() {
     let udalosti = databaze.udalosti.ziskatVsechnyUdalosti()
+    console.log(udalosti)
     for (let i = 1;i<udalosti.length;i++){
         datum = udalosti[i].datum.split("-")
-        udalosti[i].datum = datum[2] + "-" + datum[1]
+        udalosti[i].date = datum[2] + "-" + datum[1]
     }
-    return udalosti
+    let udalosta = udalosti
+    udalosti = databaze.udalosti.ziskatVsechnyUdalosti()
+    return udalosta
 }
 
 exports.mesicni = (req,res) => {
