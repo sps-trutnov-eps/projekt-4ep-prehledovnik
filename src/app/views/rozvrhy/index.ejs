@@ -37,9 +37,12 @@
     article {
         width: 20vw;
         min-width: 20vw;
-        margin-right: 1em;
+        margin-bottom: 0;
         overflow-y: auto;
         resize: horizontal;
+    }
+    body:first-of-type article{
+        margin-right: 1em;
     }
 
     .articlesecond {
@@ -159,7 +162,9 @@
 
     <main>
         <article>
-            <h2>Verze</h2>
+            <header>
+                <h1>Verze</h1>
+            </header>
             <form action="">
                 <select name="verze" id="jakaverze">
                     <option value="">Aktuální</option>
@@ -171,6 +176,9 @@
             <button class="btn-save" onclick="alert('Verze uložena!')">Uložit</button>
         </article>
         <article class="articlesecond">
+            <header>
+                <h1>Rozvrhy</h1>
+            </header>    
             <h2>Sudý týden</h2>
             <table class="timetable">
                 <thead>

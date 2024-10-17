@@ -2,6 +2,9 @@
 <html lang="cs" style="max-height: 100vh; max-width: 100vw">
     <head style="flex: none">
         <%- include('../partials/head'); %>
+    </head>
+    <body style="display: flex; flex-direction: column; height: 100vh; overflow-y: none;">
+        <%- include('../partials/header'); %>
         <style>
             .grid-container {
               display: grid;
@@ -15,20 +18,8 @@
               text-align: center;
               scroll-margin: 325px;
             }
-            #months {
-              margin: 1em;
-              width: 930px;
-            }
-            #aktualni {
-                text-align: right;
-            }
-            #naMesic {
-                text-align: left;
-            }
-            </style>
-    </head>
-    <body style="display: flex; flex-direction: column; height: 100vh; overflow-y: none;">
-        <%- include('../partials/header'); %>
+        </style>
+
         <main
             style="
                 padding: 1em;
@@ -44,52 +35,38 @@
                 display: flex;
             "
         >
-            <article
-                style="
-                    width: 20vw;
-                    min-width: 20vw;
-                    margin-right: 1em;
-                    overflow-y: auto;
-                    resize: horizontal;
-                "
-            >
-                <h1>Sidebar</h1>
-                <p>
-                    
-                    <a style="color: black;" href="../kalendar/tydenni">Týdenní</a>
-                    <br>
-                    <a style="color: black;" href="../kalendar/">Měsíční</a>
-                    
-                </p>
-            </article>
+
             <article style="flex: 3; overflow-y: auto;">
-                <h1>Měsíční kalendář</h1>
-                <table>
-                    <tr>
-                        <td id="aktualni">
-                            <button onclick="scrollToCurrent()">Aktuální</button>
-                        </td>
-                        <td id="months">
-                            <select name="months" id="months">
-                                <option value="8">Srpen</option>
-                                <option value="9">Září</option>
-                                <option value="10">Říjen</option>
-                                <option value="11">Listopad</option>
-                                <option value="12">Prosinec</option>
-                                <option value="1">Leden</option>
-                                <option value="2">Únor</option>
-                                <option value="3">Březen</option>
-                                <option value="4">Duben</option>
-                                <option value="5">Květen</option>
-                                <option value="6">Červen</option>
-                                <option value="7">Červenec</option>
-                            </select>
-                        </td>
-                        <td id="naMesic">
-                            <button onclick="scrollToMonth()">Na měsíc</button>
-                        </td>
-                    </tr>
-                </table>
+                <header>
+                    <h1>Kalendář</h1>
+                    <div role="group">
+                        <button class="outline" hx-get="/kalendar/tydenni" hx-target="body" hx-push-url="true">
+                            Týdenní
+                        </button>
+                        <button hx-get="/kalendar" hx-target="body" hx-push-url="true">
+                            Měsíční
+                        </button>
+                    </div>
+                </header>
+
+                <div role="group">
+                    <button onclick="scrollToCurrent()">Aktuální</button>
+                    <select name="months" id="months" ">
+                        <option value="8">Srpen</option> 
+                        <option value="9">Září</option>
+                        <option value="10">Říjen</option>
+                        <option value="11">Listopad</option>
+                        <option value="12">Prosinec</option>
+                        <option value="1">Leden</option>
+                        <option value="2">Únor</option>
+                        <option value="3">Březen</option>
+                        <option value="4">Duben</option>
+                        <option value="5">Květen</option>
+                        <option value="6">Červen</option>
+                        <option value="7">Červenec</option>
+                    </select>
+                    <button onclick="scrollToMonth()">Na&nbspměsíc</button>
+                </div>
 
                     <section class="grid-container">
                         <p class="grid-item">Pondělí</p>

@@ -2,10 +2,10 @@
 <html lang="cs" style="max-height: 100vh; max-width: 100vw">
     <head>
         <%- include('../partials/head'); %>
-		<link rel="stylesheet" href="/osnovy/css/main.css"/>
     </head>
     <body style="display: flex; flex-direction: column; height: 100vh">
         <%- include('../partials/header'); %>
+		<link rel="stylesheet" href="/osnovy/css/main.css"/>
         <main
             style="padding: 1em; padding-bottom: 0; flex: auto; overflow-y: hidden;
                    background-image: linear-gradient(45deg, hsla(192, 100%, 50%, 0.1) 0%,
@@ -14,13 +14,13 @@
             
 			<article
                 style="width: 20vw; min-width: 20vw; margin-right: 1em; overflow-y: auto; resize: horizontal; padding-top: 0">
-				<article style="position: sticky; top: 0; z-index: 1; padding: 0; padding-top: 1rem; border-radius: 0">
+				<div style="position: sticky; top: 0; z-index: 1; padding: 0; padding-top: 1rem; border-radius: 0">
 					<h1 style="text-align: center">Osnovy</h1>
 						
 					<form id="create">
-						<input class="createButton" type="submit" value="+" onclick="CreateCurriculum()">
+						<input class="createButton outline" type="submit" value="+" onclick="CreateCurriculum()">
 					</form>
-				</article>
+				</div>
 				
 				<% for (let i = 1; i < cur["nextID"]; i++) {%>
 					<div style="display: flex" class="cur">

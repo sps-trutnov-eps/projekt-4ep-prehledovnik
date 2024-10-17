@@ -2,6 +2,9 @@
 <html lang="cs" style="max-height: 100vh; max-width: 100vw">
     <head style="flex: none">
         <%- include('../partials/head'); %>
+    </head>
+    <body style="display: flex; flex-direction: column; height: 100vh">
+        <%- include('../partials/header'); %>
         <style>
             .grid-container {
               display: grid;
@@ -23,10 +26,7 @@
                 font-size: 18px;
                 text-align: center;
             }
-            </style>
-    </head>
-    <body style="display: flex; flex-direction: column; height: 100vh">
-        <%- include('../partials/header'); %>
+        </style>
         <main
             style="
                 padding: 1em;
@@ -42,27 +42,19 @@
                 display: flex;
             "
         >
-            <article
-                style="
-                    width: 20vw;
-                    min-width: 20vw;
-                    margin-right: 1em;
-                    overflow-y: auto;
-                    resize: horizontal;
-                "
-            >
-                <h1>Sidebar</h1>
-                <p>
-                    
-                    <a style="color: black;" href="../kalendar/tydenni">Týdenní</a>
-                    <br>
-                    <a style="color: black;" href="../kalendar/">Měsíční</a>
-                    
-                </p>
-            </article>
-            <article style="flex: 3;
-                overflow-y: auto;">
-                <h1>Tydenní kalendář</h1>
+            <article style="flex: 3; overflow-y: auto;">
+                <header>
+                    <h1>Kalendář</h1>
+                    <div role="group">
+                        <button hx-get="/kalendar/tydenni" hx-target="body" hx-push-url="true">
+                            Týdenní
+                        </button>
+                        <button class="outline" hx-get="/kalendar" hx-target="body" hx-push-url="true">
+                            Měsíční
+                        </button>
+                    </div>
+                </header>
+                
                 <div>
                     <% for(let i=0;i<10;i++) {%>
                         <section class="grid-container">
