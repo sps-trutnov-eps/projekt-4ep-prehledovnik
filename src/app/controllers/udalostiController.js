@@ -20,14 +20,13 @@ exports.pridat = (req, res) => {
         const typAkce = req.body.typAkce.trim();
         let datum = (req.body.datum?.trim() || new Date().toISOString().split('T')[0]);
         let datumDo = null;
-        //let naPocetDni = 0;
         let casOd = null;
         let casDo = null;
         let vyberZadani = "celodenni";
         if(req.body.variantaDni.trim() == "Vícedenní"){
             vyberZadani = "vicedenni";
             datumDo = req.body.datumDo?.trim() || new Date().toISOString().split('T')[0];
-           //naPocetDni = Math.ceil((new Date(datumDo) - new Date(datum)) / (1000 * 60 * 60 * 24));
+           //PocetDni = Math.ceil((new Date(datumDo) - new Date(datum)) / (1000 * 60 * 60 * 24));
         } else if (req.body.variantaDni.trim() == "Zadat den a čas")
         {
             vyberZadani = "casIDatum";
