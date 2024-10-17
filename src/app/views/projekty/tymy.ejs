@@ -202,7 +202,7 @@
         <button class="team-button">2.ep</button>
         <button class="team-button">3.ep</button>
         <button class="team-button">4.ep</button>
-        <button id="open-okno" class="team-button">Vytvořit Projekt</button>
+        <button type="submit" id="open-okno" class="team-button">Vytvořit Projekt</button>
     </div>
 
     <div class="main-content">
@@ -241,25 +241,28 @@
     </div>
     <div id="myokno" class="okno">
         <div class="okno-content">
-            <span class="close">&times;</span>
-            <h2>Vytvořit Projekt</h2>
-            <div class="input-container">
-                <label for="class-name">Třída:</label>
-                <input type="text" id="class-name" placeholder="Zadejte třídu">
-            </div>
-            <div class="input-container">
-                <label for="semester">Pololetí:</label>
-                <input type="text" id="semester" placeholder="Zadejte pololetí">
-            </div>
-            <div class="input-container">
-                <label for="students-count">Počet žáků:</label>
-                <input type="number" id="students-count" placeholder="Zadejte počet žáků">
-            </div>
-            <div class="input-container">
-                <label for="project-date">Datum začátku projektu:</label>
-                <input type="date" id="project-date">
-            </div>
-            <button class="save-button" onclick="createProject()">Vytvořit</button>
+            <form action="/projekty/tymy/pridatProjekt" method="post">
+                <span class="close">&times;</span>
+                <h2>Vytvořit Projekt</h2>
+                <div class="input-container">
+                    <label for="class-name">Třída:</label>
+                    <input type="text" id="class-name" name="className" placeholder="Zadejte třídu">
+                </div>
+                <div class="input-container">
+                    <label for="semester">Pololetí:</label>
+                    <input type="text" id="semester" name="semester" placeholder="Zadejte pololetí">
+                </div>
+                <div class="input-container">
+                    <label for="students-count">Počet žáků:</label>
+                    <input type="number" id="students-count" name="studentsCount" placeholder="Zadejte počet žáků">
+                </div>
+                <div class="input-container">
+                    <label for="project-date">Datum začátku projektu:</label>
+                    <input type="date" id="project-date" name="projectDate">
+                </div>
+                <button type="submit" class="save-button">Vytvořit</button>
+            </form>
+            
         </div>
     </div>
 
@@ -288,12 +291,6 @@
             const studentsCount = document.getElementById('students-count').value;
             const projectDate = document.getElementById('project-date').value;
 
-            if (className && semester && studentsCount && projectDate) {
-                alert(`Projekt vytvořen pro třídu: ${className}, Pololetí: ${semester}, Počet žáků: ${studentsCount}, Datum: ${projectDate}`);
-                okno.style.display = "none";
-            } else {
-                alert('Prosím, vyplňte všechna pole.');
-            }
         }
     </script>
 </body>

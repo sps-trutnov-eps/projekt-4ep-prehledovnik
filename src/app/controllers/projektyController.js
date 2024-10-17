@@ -16,6 +16,29 @@ exports.zobrazDetailyTymu = (req, res) => {
     res.render("projekty/detailTymu");
 }
 
+exports.pridatProjekt = (req, res) => {
+    // Získání dat z těla požadavku
+    const { className, semester, studentsCount, projectDate } = req.body;
+
+    // Ověření, že jsou všechna potřebná data poskytnuta
+    if (!className || !semester || !studentsCount || !projectDate) {
+        return res.status(400).send("Všechna pole jsou povinná.");
+    }
+
+    // Vytvoření prázdných hodnot pro zbývající parametry
+    const tymy = [];
+    const pitche = [];
+    const milestony = [];
+    const devlogy = [];
+    const prezentace = [];
+
+    // Přidání projektu do databáze
+    databaze.projekty.pridatProjekt(className, tymy, pitche, milestony, devlogy, prezentace);
+
+    // Přesměrování zpět nebo na jinou stránku po úspěšném přidání
+    res.redirect('/projekty/tymy');
+};
+
 
 //VYPOCET MILESTONU OD DNE ZADANI PROJEKTU
 //BUDE ZAPOTREBY K TOMU VYTVORIT VE FRONTENDU VYTVORIT STRANKU O VYTVORENI PROJEKTU
