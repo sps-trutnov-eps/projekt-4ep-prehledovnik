@@ -1,10 +1,5 @@
 <!doctype html>
-<html lang="cs" style="max-height: 100vh; max-width: 100vw">
-    <head style="flex: none">
-        <%- include('../partials/head'); %>
-    </head>
-    <body style="display: flex; flex-direction: column; height: 100vh">
-        <%- include('../partials/header'); %>
+<%- include('../partials/head'); %>
 <style>
     html {
         max-height: 100vh;
@@ -153,9 +148,6 @@
     }
 </style>
 
-<body>
-
-    <main>
         <article style="resize: horizontal;">
            <header>
                 <h1>Verze</h1>
@@ -279,9 +271,4 @@
                 closePopup();
             }
         </script>
-
-
-    </main>
-</body>
-
-</html>
+<%- include('../partials/tail') %>

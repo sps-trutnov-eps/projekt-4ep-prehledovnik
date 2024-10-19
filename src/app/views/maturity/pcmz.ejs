@@ -1,16 +1,5 @@
 <!DOCTYPE html>
-<html lang="cs" style="max-height: 100vh; max-width: 100vw">
-  <head style="flex: none">
     <%- include('../partials/head'); %>
-  </head>
-  <body
-    style="
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-      overflow-y: none;
-    ">
-    <%- include('../partials/header'); %>
     <style>
       .button {
         display: flex;
@@ -22,8 +11,6 @@
       .tlacitko {
         margin: 20px 0;
         padding: 15px;
-        //background-color: #007bff;
-        //color: white;
         border: none;
         border-radius: 5px;
         width: 100%;
@@ -48,14 +35,6 @@
       }
     </style>
 
-    <main
-      style="
-        padding: 1em;
-        padding-bottom: 0;
-        flex: auto;
-        overflow-y: auto;
-        display: flex;
-      ">
       <article
         style="
           width: 20vw;
@@ -228,7 +207,7 @@
           </div>
         </form>
       </article>
-    </main>
+    </>
 
     <script>
       document
@@ -260,5 +239,5 @@
           tabulka.appendChild(novyRadek);
         });
     </script>
-  </body>
-</html>
+
+<%- include('../partials/tail') %>

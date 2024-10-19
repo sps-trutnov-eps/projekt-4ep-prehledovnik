@@ -1,13 +1,7 @@
 <!DOCTYPE html>
 <html lang="cs" style="max-height: 100vh; max-width: 100vw">
-  <head>
     <%- include('../partials/head'); %>
-  </head>
-  <body style="display: flex; flex-direction: column; height: 100vh">
-    <%- include('../partials/header'); %>
     <link rel="stylesheet" href="/osnovy/css/main.css" />
-    <main
-      style="padding: 0em 1em; flex: auto; overflow-y: hidden; display: flex">
       <article
         style="
           width: 20vw;
@@ -185,8 +179,5 @@
         </div>
         <% } %>
       </article>
-    </main>
-
     <script src="/osnovy/js/main.js"></script>
-  </body>
-</html>
+<%- include('../partials/tail') %>
