@@ -19,7 +19,7 @@
               onclick="CreateCurriculum()" />
           </form>
         </header>
-        <main style="overflow-y: auto; padding-top: 1em">
+        <main>
           <% for (let i = 1; i < cur["nextID"]; i++) {%>
           <div style="display: flex" class="cur">
             <input
@@ -35,7 +35,7 @@
         </main>
       </article>
 
-      <article style="flex: 3; max-height: calc(100vh - 3em)">
+      <article style="flex: 3;">
         <% if (cur[id] != undefined){ %>
         <header>
           <hgroup>
