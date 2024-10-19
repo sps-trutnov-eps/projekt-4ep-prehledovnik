@@ -1,155 +1,294 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Události</title>
+<html lang="cs" style="max-height: 100vh; max-width: 100vw">
+  <head style="flex: none">
+    <%- include('../partials/head'); %>
     <style>
-        #jineInputs, #vicedenniInputs {
-            display: none;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      #jineInputs,
+      #vicedenniInputs {
+        display: none;
+      }
+
+      a{
+        text-decoration: none;
+      }
+
+      article button {
+        margin-bottom: 1em;
+        padding: 0.75em 1.5em;
+        width: 100%;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s, transform 0.3s;
+      }
+
+      article button:hover {
+        background-color: #0056b3;
+        transform: translateY(-2px);
+      }
+
+      form input[type="submit"] {
+        padding: 0.75em 1.5em;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+        width: auto;
+      }
+
+      form input[type="submit"]:hover {
+        background-color: #0056b3;
+      }
+
+      form input,
+      form select,
+      form label {
+        margin-bottom: 1em;
+        margin-top: 1em;
+      }
     </style>
-</head>
-<body>
-    <form>
-        <input type="text" name="jmeno_udalosti" placeholder="Jméno události">
+  </head>
+  <body
+    style="
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow-y: none;
+    ">
+    <%- include('../partials/header'); %>
+    <main
+      style="
+        padding: 1em;
+        padding-bottom: 0;
+        flex: auto;
+        overflow-y: auto;
+        background-image: linear-gradient(
+          45deg,
+          hsla(192, 100%, 50%, 0.1) 0%,
+          hsla(162, 100%, 50%, 0.1) 50%,
+          hsla(132, 100%, 50%, 0.1) 100%
+        );
+        display: flex;
+      ">
+      <article
+        style="
+          width: 20vw;
+          min-width: 20vw;
+          margin-right: 1em;
+          overflow-y: auto;
+          resize: horizontal;
+        ">
+        <h1>Sidebar</h1>
+        <p>
+          <a href="/udalosti">
+            <button>Nová událost</button>
+          </a>
+          <a href="/udalosti/seznam">
+            <button>Seznam událostí</button>
+          </a>
+        </p>
+      </article>
 
-        <input type="radio" id="celodenni" name="variantaDni" value="Celodenní">
-        <label for="celodenni">Celodenní</label><br>
-        <input type="radio" id="vicedenni" name="variantaDni" value="Vícedenní">
-        <label for="vicedenni">Vícedenní</label><br>
-        <input type="radio" id="jine" name="variantaDni" value="Zadat den a čas">
-        <label for="jine">Zadat den a čas</label><br>
+      <article style="flex: 3; overflow-y: auto">
+        <form action="/udalosti/pridatUdalost" method="post">
+          <input
+            type="text"
+            name="jmeno_udalosti"
+            placeholder="Název události"
+            required />
 
-        <div id="jineInputs">
+          <input
+            type="radio"
+            id="celodenni"
+            name="variantaDni"
+            value="Celodenní" 
+            checked
+            />
+          <label for="celodenni">Celodenní</label><br />
+          <input
+            type="radio"
+            id="vicedenni"
+            name="variantaDni"
+            value="Vícedenní"
+            />
+          <label for="vicedenni">Vícedenní</label><br />
+          <input
+            type="radio"
+            id="jine"
+            name="variantaDni"
+            value="Zadat den a čas"
+            />
+          <label for="jine">Zadat den a čas</label><br />
+
+          <div id="jineInputs">
             <label for="casOd">Od:</label>
-            <select id="casOd">
-                <option value="7:10">7:10</option>
-                <option value="8:00">8:00</option>
-                <option value="8:50">8:50</option>
-                <option value="9:55">9:55</option>
-                <option value="10:50">10:50</option>
-                <option value="11:40">11:40</option>
-                <option value="12:35">12:35</option>
-                <option value="13:25">13:25</option>
-                <option value="14:15">14:15</option>
-                <option value="15:10">15:10</option>
+            <select id="casOd" name="casOd">
+              <option value="7:10">7:10</option>
+              <option value="8:00">8:00</option>
+              <option value="8:50">8:50</option>
+              <option value="9:55">9:55</option>
+              <option value="10:50">10:50</option>
+              <option value="11:40">11:40</option>
+              <option value="12:35">12:35</option>
+              <option value="13:25">13:25</option>
+              <option value="14:15">14:15</option>
+              <option value="15:10">15:10</option>
             </select>
 
             <label for="casDo">Do:</label>
-            <select id="casDo">
-                <option value="7:55">7:55</option>
-                <option value="8:45">8:45</option>
-                <option value="9:35">9:35</option>
-                <option value="10:40">10:40</option>
-                <option value="11:35">11:35</option>
-                <option value="12:25">12:25</option>
-                <option value="13:20">13:20</option>
-                <option value="14:10">14:10</option>
-                <option value="15:00">15:00</option>
-                <option value="15:55">15:55</option>
+            <select id="casDo" name="casDo">
+              <option value="7:55">7:55</option>
+              <option value="8:45">8:45</option>
+              <option value="9:35">9:35</option>
+              <option value="10:40">10:40</option>
+              <option value="11:35">11:35</option>
+              <option value="12:25">12:25</option>
+              <option value="13:20">13:20</option>
+              <option value="14:10">14:10</option>
+              <option value="15:00">15:00</option>
+              <option value="15:55">15:55</option>
             </select>
+          </div>
+          <label for="datum" id="datumLabel">Datum:</label>
+          <input type="date" id="datum" name="datum" value="<%= datum %>" min="<%= datum %>"/>
 
-            <label for="datum">Datum:</label>
-            <input type="date" id="datum">
-        </div>
-
-        <!-- Vícedenní -->
-        <div id="vicedenniInputs">
-            <label for="datumOd">Od:</label>
-            <input type="date" id="datumOd">
+          <!-- Vícedenní -->
+          <div id="vicedenniInputs">
             <label for="datumDo">Do:</label>
-            <input type="date" id="datumDo">
-        </div>
+            <input type="date" id="datumDo" name="datumDo"/>
+          </div>
 
-
-        <label for="typAkce">Typ akce</label>
-        <select id="typAkce">
+          <label for="typAkce">Typ akce</label>
+          <select id="typAkce" name="typAkce">
             <option value="celoskolni">Celoškolní</option>
             <option value="celotridni">Celotřídní</option>
             <option value="ucitelsky">Učitelský</option>
             <option value="budovy">Budovy</option>
-        </select>
+          </select>
 
-        <div id="tridySelect" style="display: none;">
+          <div id="tridySelect" style="display: none">
             <label for="tridy">Třídy</label>
-            <select id="tridy">
-                <option value="1EP">1.EP</option>
-                <option value="2EP">2.EP</option>
-                <option value="3EP">3.EP</option>
-                <option value="4EP">4.EP</option>
+            <select id="tridy" name="tridy">
+              <option value="1EP">1.EP</option>
+              <option value="2EP">2.EP</option>
+              <option value="3EP">3.EP</option>
+              <option value="4EP">4.EP</option>
             </select>
-        </div>
+          </div>
 
-        <div id="budovySelect" style="display: none;">
+          <div id="budovySelect" style="display: none">
             <label for="budovy">Budovy</label>
-            <select id="budovy">
-                <option value="skolni101">Školní 101</option>
-                <option value="horska618">Horská 618</option>
-                <option value="horska59">Horská 59</option>
-                <option value="mladeBuky">Mladé Buky</option>
+            <select id="budovy" name="budovy">
+              <option value="skolni101">Školní 101</option>
+              <option value="horska618">Horská 618</option>
+              <option value="horska59">Horská 59</option>
+              <option value="mladeBuky">Mladé Buky</option>
             </select>
-        </div>
+          </div>
 
-        <input type="text" name="poznamka_udalosti" placeholder="Poznámka:">
-    </form>
+          <input type="text" name="poznamka_udalosti" placeholder="Poznámka:" />
+          <input type="submit" value="Uložit" />
+        </form>
+      </article>
+    </main>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Vyber všechny radio buttony
-            document.querySelectorAll('input[name="variantaDni"]').forEach((input) => {
-                input.addEventListener('change', function() {
-                    const jineInputs = document.getElementById('jineInputs');
-                    const vicedenniInputs = document.getElementById('vicedenniInputs');
+      document.addEventListener("DOMContentLoaded", function () {
+        // Vyber všechny radio buttony
+        document
+          .querySelectorAll('input[name="variantaDni"]')
+          .forEach((input) => {
+            input.addEventListener("change", function () {
+              const jineInputs = document.getElementById("jineInputs");
+              const vicedenniInputs =
+                document.getElementById("vicedenniInputs");
 
-                    // Skryjeme obě možnosti
-                    if (jineInputs && vicedenniInputs) {
-                        jineInputs.style.display = 'none';
-                        vicedenniInputs.style.display = 'none';
-                    }
+              // Skryjeme obě možnosti
+              if (jineInputs && vicedenniInputs) {
+                jineInputs.style.display = "none";
+                vicedenniInputs.style.display = "none";
+              }
 
-                    // Podmínky pro zobrazení různých možností
-                    if (document.getElementById('celodenni').checked) {
-                        alert("Vybrána varianta: Celodenní");
-                    } else if (document.getElementById('vicedenni').checked) {
-                        if (vicedenniInputs) vicedenniInputs.style.display = 'block';
-                    } else if (document.getElementById('jine').checked) {
-                        if (jineInputs) jineInputs.style.display = 'block';
-                    }
-                });
+              // Podmínky pro zobrazení různých možností
+              if (document.getElementById("celodenni").checked) {
+                document.getElementById("datumLabel").innerHTML = "Datum:";
+              } else if (document.getElementById("vicedenni").checked) {
+                document.getElementById("datumLabel").innerHTML = "Od:";
+                if (vicedenniInputs) vicedenniInputs.style.display = "block";
+              } else if (document.getElementById("jine").checked) {
+                document.getElementById("datumLabel").innerHTML = "Datum:";
+                if (jineInputs) jineInputs.style.display = "block";
+              }
             });
+          });
 
-            // Nová funkcionalita pro výběr "typAkce"
-            const typAkceSelect = document.getElementById('typAkce');
-            const tridySelect = document.getElementById('tridySelect');
-            const budovySelect = document.getElementById('budovySelect');
+        // Nová funkcionalita pro výběr "typAkce"
+        const typAkceSelect = document.getElementById("typAkce");
+        const tridySelect = document.getElementById("tridySelect");
+        const budovySelect = document.getElementById("budovySelect");
 
-            // Funkce pro zobrazení/skrytí výběrů na základě zvoleného typu akce
-            function handleTypAkceChange() {
-                const selectedValue = typAkceSelect.value;
+        // Funkce pro zobrazení/skrytí výběrů na základě zvoleného typu akce
+        function handleTypAkceChange() {
+          const selectedValue = typAkceSelect.value;
 
-                // Skrýt obě možnosti na začátku
-                tridySelect.style.display = 'none';
-                budovySelect.style.display = 'none';
+          // Skrýt obě možnosti na začátku
+          tridySelect.style.display = "none";
+          budovySelect.style.display = "none";
 
-                // Zobrazit "Třídy", pokud je vybrána možnost "Celotřídní"
-                if (selectedValue === 'celotridni') {
-                    tridySelect.style.display = 'block';
-                }
+          // Zobrazit "Třídy", pokud je vybrána možnost "Celotřídní"
+          if (selectedValue === "celotridni") {
+            tridySelect.style.display = "block";
+          }
 
-                // Zobrazit "Budovy", pokud je vybrána možnost "Budovy"
-                else if (selectedValue === 'budovy') {
-                    budovySelect.style.display = 'block';
-                }
-            }
+          // Zobrazit "Budovy", pokud je vybrána možnost "Budovy"
+          else if (selectedValue === "budovy") {
+            budovySelect.style.display = "block";
+          }
+        }
 
-            // Při změně výběru spustit funkci
-            typAkceSelect.addEventListener('change', handleTypAkceChange);
+        // Při změně výběru spustit funkci
+        typAkceSelect.addEventListener("change", handleTypAkceChange);
 
-            // Načtení stránky s výchozím nastavením
-            handleTypAkceChange();
+        // Načtení stránky s výchozím nastavením
+        handleTypAkceChange();
+
+        const datumInput = document.getElementById("datum");
+        const datumDoInput = document.getElementById("datumDo");
+
+        // Nastaví min na hodnotu z inputu datum
+        datumDoInput.min = datumInput.value;
+
+        // Přidání event listeneru pro aktualizaci min hodnoty, pokud se změní datum
+        datumInput.addEventListener("input", function () {
+            datumDoInput.min = this.value;
         });
-    </script>
 
-</body>
+        document.getElementById("casOd").addEventListener("change", function() {
+          const casOdIndex = this.selectedIndex;
+          const casDoSelect = document.getElementById("casDo");
+
+          // Procházej všechny možnosti v "Do" a skryj ty, které mají menší index
+          Array.from(casDoSelect.options).forEach((option, index) => {
+              option.style.display = index < casOdIndex ? "none" : "block";
+          });
+
+          // Pokud je vybráno číslo v "Do", které je menší než "Od", resetuj "Do"
+          if (casDoSelect.selectedIndex < casOdIndex) {
+              casDoSelect.selectedIndex = -1; // Resetuje na žádnou vybranou možnost
+          }
+      });
+
+      // Inicializace při načtení stránky
+      document.getElementById("casOd").dispatchEvent(new Event('change'));
+    });
+    </script>
+  </body>
 </html>

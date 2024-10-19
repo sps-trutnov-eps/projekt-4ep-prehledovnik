@@ -1,5 +1,7 @@
 const kalendarRouter = require('express').Router();
+const kalendarController = require("../controllers/kalendarController");
 
-kalendarRouter.get('/', (req, res) => res.render('kalendar/index.ejs', {}));
+kalendarRouter.get('/', kalendarController.mesicni);
+kalendarRouter.get('/tydenni', kalendarController.tydenni);
 
 module.exports = kalendarRouter;
