@@ -80,7 +80,21 @@
             </article>
             <article style="flex: 3">
                 <h1>Seznam událostí</h1>
-                <!-- Sem půjde Ondrův kód -->
+                <table>
+                    <% for (var radek = 0; radek < seznamNaZobrazeni.length; radek++) { %>
+                        <tr>
+                            <td><%= seznamNaZobrazeni[radek].nazev %></td>
+                            <td><%= seznamNaZobrazeni[radek].typ %></td>
+                            <td><%= seznamNaZobrazeni[radek].datum %></td>
+                            <!-- nějaký náhodný if -->
+                            <% if (seznamNaZobrazeni[radek].vyberZadani == "vicedenni") { %>
+                                <td><%= seznamNaZobrazeni[radek].datumDo %></td>
+                            <% } else { %>
+                                <td></td>
+                            <% } %>
+                        </tr>
+                    <% } %>
+                </table>
             </article>
         </main>
         <script>
