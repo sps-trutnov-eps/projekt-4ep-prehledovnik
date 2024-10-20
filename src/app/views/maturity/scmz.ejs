@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="cs" style="max-height: 100vh; max-width: 100vw">
+  <head style="flex: none">
+    <%- include('../partials/head'); %>
+  </head>
+  <body
+    style="
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow-y: none;
+    ">
+    <%- include('../partials/header'); %>
+    <style>
+      .button {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        padding: 10px;
+      }
+      .tlacitko {
+        margin: 20px 0;
+        padding: 15px;
+        //background-color: #007bff;
+        //color: white;
+        border: none;
+        border-radius: 5px;
+        width: 100%;
+        text-align: center;
+        font-size: 16px;
+      }
+    </style>
+
+    <main
+      style="
+        padding: 1em;
+        padding-bottom: 0;
+        flex: auto;
+        overflow-y: auto;
+        background-image: linear-gradient(
+          45deg,
+          hsla(192, 100%, 50%, 0.1) 0%,
+          hsla(162, 100%, 50%, 0.1) 50%,
+          hsla(132, 100%, 50%, 0.1) 100%
+        );
+        display: flex;
+      ">
+      <article
+        style="
+          width: 20vw;
+          min-width: 20vw;
+          margin-right: 1em;
+          overflow-y: auto;
+          resize: horizontal;
+        ">
+        <h1>Sidebar</h1>
+
+        <div class="button">
+          <a href="../maturity/">
+            <button class="tlacitko" >
+              PŽOP
+            </button>
+          </a>
+          <a href="../maturity/pcmz">
+            <button class="tlacitko">
+              PČMZ
+            </button>
+          </a>
+          <a href="../maturity/scmz">
+            <button class="tlacitko">
+              SČMZ
+            </button>
+          </a>
+          <a href="../maturity/sloh">
+            <button class="tlacitko">
+              SLOH
+            </button>
+          </a>
+        </div>
+      </article>
+
+      <article style="flex: 3; overflow-y: auto">
+        <h1>SČMZ</h1>
+        <form>
+          <table
+            id="scmz-table"
+            style="width: 100%; border-collapse: collapse; margin-bottom: 1em">
+            <thead>
+              <tr>
+                <th>Datum:</th>
+                <th>Zadávání:</th>
+                <th>Čas:</th>
+                <th>Učebna:</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="date" name="datum" /></td>
+                <td>
+                  <input
+                    type="checkbox"
+                    class="zadavani-checkbox"
+                    style="font-size: 50px; padding: 0.5em" />
+                </td>
+                <td>
+                  <input
+                    type="time"
+                    name="cas"
+                    class="cas-input"
+                    disabled
+                    style="padding: 0.5em" />
+                </td>
+                <td>
+                  <select
+                    name="ucebna"
+                    class="ucebna-select"
+                    disabled
+                    style="padding: 0.5em">
+                    <option value="">Vyberte učebnu</option>
+                    <option value="T15">T15</option>
+                    <option value="T16">T16</option>
+                    <option value="T17">T17</option>
+                  </select>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div style="text-align: center; style="margin-top: 1em">
+            <button
+              type="button"
+              id="pridat-datum"
+              style="
+                padding: 0.5em;
+                width: 150px;
+                border: none;
+                cursor: pointer;
+              ">
+              Přidat datum
+            </button>
+          </div>
+
+          <div style="text-align: center; margin-top: 1em">
+            <button
+              type="submit"
+              style="
+                padding: 0.5em;
+                border: none;
+                cursor: pointer;
+                width: 150px;
+              ">
+              Uložit
+            </button>
+          </div>
+        </form>
+      </article>
+    </main>
+
+    <script>
+      document
+        .getElementById("pridat-datum")
+        .addEventListener("click", function () {
+          const tableBody = document.querySelector("#scmz-table tbody");
+          const newRow = document.createElement("tr");
+
+          newRow.innerHTML = `
+          <td><input type="date" name="datum"></td>
+          <td><input type="checkbox" class="zadavani-checkbox" style="padding: 0.5em; font-size: 50px;"></td>
+          <td><input type="time" name="cas" class="cas-input" disabled style="padding: 0.5em;"></td>
+          <td>
+            <select name="ucebna" class="ucebna-select" disabled style="padding: 0.5em;">
+              <option value="">Vyberte učebnu</option>
+              <option value="T15">T15</option>
+              <option value="T16">T16</option>
+              <option value="T17">T17</option>
+            </select>
+          </td>
+        `;
+
+          tableBody.appendChild(newRow);
+          addCheckboxFunctionality(newRow);
+        });
+
+      function addCheckboxFunctionality(row) {
+        const checkbox = row.querySelector(".zadavani-checkbox");
+        const timeInput = row.querySelector(".cas-input");
+        const classroomSelect = row.querySelector(".ucebna-select");
+
+        checkbox.addEventListener("change", function () {
+          if (checkbox.checked) {
+            timeInput.disabled = false;
+            classroomSelect.disabled = false;
+          } else {
+            timeInput.value = "";
+            timeInput.disabled = true;
+            classroomSelect.selectedIndex = 0;
+            classroomSelect.disabled = true;
+          }
+        });
+      }
+
+      document.querySelectorAll("tbody tr").forEach(addCheckboxFunctionality);
+    </script>
+  </body>
+</html>

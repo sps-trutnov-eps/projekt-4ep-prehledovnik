@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="cs" style="max-height: 100vh; max-width: 100vw">
+  <head style="flex: none">
+    <%- include('../partials/head'); %>
+  </head>
+  <body
+    style="
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow-y: none;
+    ">
+    <%- include('../partials/header'); %>
+    <style>
+      .button {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        padding: 10px;
+      }
+      .tlacitko {
+        margin: 20px 0;
+        padding: 15px;
+        //background-color: #007bff;
+        //color: white;
+        border: none;
+        border-radius: 5px;
+        width: 100%;
+        text-align: center;
+        font-size: 16px;
+      }
+
+      table > thead > tr > th > p {
+        font-size: 17px;
+      }
+
+      th {
+        text-align: center;
+      }
+    </style>
+
+    <main
+      style="
+        padding: 1em;
+        padding-bottom: 0;
+        flex: auto;
+        overflow-y: auto;
+        background-image: linear-gradient(
+          45deg,
+          hsla(192, 100%, 50%, 0.1) 0%,
+          hsla(162, 100%, 50%, 0.1) 50%,
+          hsla(132, 100%, 50%, 0.1) 100%
+        );
+        display: flex;
+      ">
+      <article
+        style="
+          width: 20vw;
+          min-width: 20vw;
+          margin-right: 1em;
+          overflow-y: auto;
+          resize: horizontal;
+        ">
+        <h1>Sidebar</h1>
+
+        <div class="button">
+          <a href="../maturity/">
+            <button class="tlacitko" >
+              PŽOP
+            </button>
+          </a>
+          <a href="../maturity/pcmz">
+            <button class="tlacitko">
+              PČMZ
+            </button>
+          </a>
+          <a href="../maturity/scmz">
+            <button class="tlacitko">
+              SČMZ
+            </button>
+          </a>
+          <a href="../maturity/sloh">
+            <button class="tlacitko">
+              SLOH
+            </button>
+          </a>
+        </div>
+      </article>
+
+      <article style="flex: 3; overflow-y: auto">
+        <h1>Sloh</h1>
+
+        <form>
+          <table style="border-collapse: collapse; width: 100%">
+            <thead>
+              <tr>
+                <th style="text-align: center">Datum:</th>
+                <th>
+                  1.
+                  <p>8:00-8:45</p>
+                </th>
+                <th>
+                  2.
+                  <p>8:50-9:35</p>
+                </th>
+                <th>
+                  3.
+                  <p>9:55-10:40</p>
+                </th>
+                <th>
+                  4.
+                  <p>10:50-11:35</p>
+                </th>
+                <th>
+                  5.
+                  <p>11:40-12:25</p>
+                </th>
+                <th>
+                  6.
+                  <p>12:35-13:20</p>
+                </th>
+                <th>
+                  7.
+                  <p>13:25-14:10</p>
+                </th>
+                <th>
+                  8.
+                  <p>14:15-15:00</p>
+                </th>
+                <th>
+                  9.
+                  <p>15:10-15:55</p>
+                </th>
+              </tr>
+            </thead>
+            <tbody id="table-body">
+              <tr>
+                <td><input type="date" name="datum[]" value="2024-03-15" /></td>
+
+                <td class="clickable-cell" data-hodina="1">
+                  <input type="hidden" name="ucebna-1[]" value="" />Klikni
+                </td>
+                <td class="clickable-cell" data-hodina="2">
+                  <input type="hidden" name="ucebna-2[]" value="" />Klikni
+                </td>
+                <td class="clickable-cell" data-hodina="3">
+                  <input type="hidden" name="ucebna-3[]" value="" />Klikni
+                </td>
+                <td class="clickable-cell" data-hodina="4">
+                  <input type="hidden" name="ucebna-4[]" value="" />Klikni
+                </td>
+                <td class="clickable-cell" data-hodina="5">
+                  <input type="hidden" name="ucebna-5[]" value="" />Klikni
+                </td>
+                <td class="clickable-cell" data-hodina="6">
+                  <input type="hidden" name="ucebna-6[]" value="" />Klikni
+                </td>
+                <td class="clickable-cell" data-hodina="7">
+                  <input type="hidden" name="ucebna-7[]" value="" />Klikni
+                </td>
+                <td class="clickable-cell" data-hodina="8">
+                  <input type="hidden" name="ucebna-8[]" value="" />Klikni
+                </td>
+                <td class="clickable-cell" data-hodina="9">
+                  <input type="hidden" name="ucebna-9[]" value="" />Klikni
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div style="text-align: center">
+             <button
+                onclick="addRow()"
+                type="button"
+                id="pridat-datum"
+                style="
+                padding: 0.5em;
+                width: 150px;
+                border: none;
+                cursor: pointer;
+                ">
+                Přidat datum
+             </button>
+          </div>
+
+          <div style="text-align: center">
+            <button
+              type="submit"
+              style="
+                padding: 0.5em;
+                border: none;
+                cursor: pointer;
+                width: 150px;
+              ">
+              Uložit
+            </button>
+          </div>
+        </form>
+
+        <div
+          id="classroomModal"
+          style="
+            border: solid black;
+            background: lightslategrey;
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            padding: 1em;
+            border: 1px solid black;
+          ">
+          <h2>Vyber učebnu</h2>
+
+          <p id="selectedHourText"></p>
+
+          <select id="classroomSelect">
+            <option value="T15">T15</option>
+            <option value="T16">T16</option>
+            <option value="T17">T17</option>
+          </select>
+          <br /><br />
+          <button type="button" onclick="saveClassroom()">Uložit</button>
+          <button type="button" onclick="closeModal()">Zrušit</button>
+        </div>
+      </article>
+    </main>
+
+    <script>
+      let selectedCell;
+      let selectedInput;
+
+      const hodinyCasy = [
+        "8:00-8:45",
+        "8:50-9:35",
+        "9:55-10:40",
+        "10:50-11:35",
+        "11:40-12:25",
+        "12:35-13:20",
+        "13:25-14:10",
+        "14:15-15:00",
+        "15:10-15:55",
+      ];
+
+      document.querySelectorAll(".clickable-cell").forEach((cell) => {
+        cell.addEventListener("click", function () {
+          selectedCell = this;
+          selectedInput = this.querySelector("input");
+          const selectedHour = cell.getAttribute("data-hodina");
+
+          document.getElementById(
+            "selectedHourText"
+          ).textContent = `Hodina: ${selectedHour}. (${
+            hodinyCasy[selectedHour - 1]
+          })`;
+
+          const currentClassroom = selectedInput.value;
+          if (currentClassroom) {
+            document.getElementById("classroomSelect").value = currentClassroom;
+          } else {
+            document.getElementById("classroomSelect").value = "T15";
+          }
+
+          document.getElementById("classroomModal").style.display = "block";
+        });
+      });
+
+      function saveClassroom() {
+        const selectedClassroom =
+          document.getElementById("classroomSelect").value;
+
+        selectedInput.value = selectedClassroom;
+
+        selectedCell.textContent = selectedClassroom;
+
+        selectedCell.appendChild(selectedInput);
+
+        closeModal();
+      }
+
+      function closeModal() {
+        document.getElementById("classroomModal").style.display = "none";
+      }
+
+      function addRow() {
+        const tableBody = document.getElementById("table-body");
+        const newRow = document.createElement("tr");
+
+        const dateCell = document.createElement("td");
+        const dateInput = document.createElement("input");
+        dateInput.type = "date";
+        dateInput.name = "datum[]";
+        dateCell.appendChild(dateInput);
+        newRow.appendChild(dateCell);
+
+        for (let i = 1; i <= 9; i++) {
+          const cell = document.createElement("td");
+          const input = document.createElement("input");
+          input.type = "hidden";
+          input.name = `ucebna-${i}[]`;
+          cell.textContent = "Klikni";
+          cell.className = "clickable-cell";
+          cell.appendChild(input);
+
+          cell.addEventListener("click", function () {
+            selectedCell = cell;
+            selectedInput = input;
+
+            document.getElementById(
+              "selectedHourText"
+            ).textContent = `Hodina: ${i}. (${hodinyCasy[i - 1]})`;
+
+            const currentClassroom = selectedInput.value;
+            if (currentClassroom) {
+              document.getElementById("classroomSelect").value =
+                currentClassroom;
+            } else {
+              document.getElementById("classroomSelect").value = "T15";
+            }
+
+            document.getElementById("classroomModal").style.display = "block";
+          });
+          newRow.appendChild(cell);
+        }
+
+        tableBody.appendChild(newRow);
+      }
+    </script>
+  </body>
+</html>
