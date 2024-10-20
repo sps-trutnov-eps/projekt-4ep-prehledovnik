@@ -85,7 +85,7 @@
                         <% for (let i = startDate.getTime(); i <= endDate.getTime();i += increment) {%>
                             <% if(new Date(i).getDay() != 0) {%>
 
-                            <section id=<%= new Date(i).toISOString().split('T')[0] %>  style="grid-column-start: <%= new Date(i).getDay()%> ;" class="grid-item">
+                            <section id=<%= new Date(i+increment).toISOString().split('T')[0] %>  style="grid-column-start: <%= new Date(i).getDay()%> ;" class="grid-item">
                                 <% if(new Date(i).getDay() == 6) {%>
                                 <p><%= new Date(i).getDate()%> / <%= new Date(i).getMonth() + 1%> - <%= new Date(i+increment).getDate()%> / <%= new Date(i+increment).getMonth() + 1%></p>
 
@@ -124,15 +124,29 @@
         document.addEventListener("DOMContentLoaded", function() {
             placeUdalosti()
         })
+
+        function placeUdalost(udalost){
+            let date = document.getElementById(udalost.datum)         
+            let p = document.createElement("p")
+            p.textContent = udalost.nazev
+            date.appendChild(p)
+        }
+
         function placeUdalosti() {
             let udalosti = <%- JSON.stringify(udalosti) %>
             for (let i=1;i<udalosti.length;i++){
                 if(udalosti[i] != null){
-                    console.log(udalosti[i])
-                    let date = document.getElementById(udalosti[i].datum)         
-                    let p = document.createElement("p")
-                    p.textContent = udalosti[i].nazev
-                    date.appendChild(p)  
+                        placeUdalost(udalosti[i])
+                    if(udalosti[i].naPocetDni > 0){
+                        for(let j=1; j < udalosti[i].naPocetDni ;j++){
+                            let udalost = { ...udalosti[i] };
+                            let date = new Date(udalost.datum);
+                            date.setDate(date.getDate() + j);
+                            udalost.datum = date.toISOString().split('T')[0];
+                            placeUdalost(udalost)
+                        }
+                            
+                    }
                 }                             
             }
         }
