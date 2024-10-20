@@ -5,115 +5,114 @@
     <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rozvržení</title>
-
 </head>
 <body>
- 
     <style>
-        body {
-            display: flex;
-            justify-content: flex-start;
-            min-height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f8f8f8;
-        }
+   body {
+    display: flex;
+    justify-content: flex-start;
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #1e1e1e;
+    color: #ffffff;
+}
 
-      
-        .levy_panel {
-            width: 200px; 
-            background-color: #f0f0f0;
-            padding: 20px;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center; 
-            border-radius: 8px;
-            height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-        }
+.levy_panel {
+    width: 200px;
+    background-color: #2e2e2e;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Změněno na centrum */
+    border-radius: 8px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
 
-        .levy_panel button {
-            width: 100%;
-            padding: 20px; 
-            font-size: 18px; 
-            margin-bottom: 20px;
-            cursor: pointer;
-            background-color: #ddd;
-            border: none;
-            border-radius: 8px;
-        }
+.levy_panel button {
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    background-color: #007bff;
+    border: none;
+    border-radius: 8px;
+    color: #ffffff;
+}
 
-        .team-button {
-            padding: 15px; 
-            font-size: 18px; 
-            width: 100%;
-            margin: 10px 0;
-            background-color: #ddd;
-            border: none;
-            cursor: pointer;
-            border-radius: 8px;
-        }
+.main-content {
+    margin-left: 220px;
+    padding: 20px;
+    box-sizing: border-box;
+    width: calc(100% - 220px);
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Zarovnáno na střed */
+    justify-content: flex-start;
+    height: 100vh;
+    background-color: #1e1e1e;
+}
 
-       
-        .main-content {
-            margin-left: 220px; 
-            padding: 20px;
-            box-sizing: border-box;
-            text-align: center;
-            width: calc(100% - 220px); 
-            display: flex;
-            flex-direction: column;
-            align-items: center; 
-            justify-content: center; 
-            height: calc(100vh - 40px); 
-        }
+.main-heading {
+    font-size: 48px; /* Zvětšeno */
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center; /* Zarovnáno na střed */
+}
 
-        
-        .main-heading {
-            font-size: 36px; 
-            font-weight: bold;
-            margin-bottom: 20px; 
-        }
+.divider {
+    width: 100%;
+    height: 2px;
+    background-color: #ddd;
+    margin-bottom: 20px;
+}
 
-        .divider {
-            width: 100%;
-            height: 2px;
-            background-color: #ddd;
-            margin-bottom: 20px; 
-        }
+.phase {
+    font-size: 36px; /* Zvětšeno */
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center; /* Zarovnáno na střed */
+}
 
-    
-        .phase {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 20px; 
-        }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #2e2e2e;
+    color: #ffffff;
+}
 
-        
-        table {
-            width: 80%; 
-            border-collapse: collapse;
-            margin-top: 20px; 
-        }
+th, td {
+    border: 1px solid #444;
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+}
 
-        th, td {
-            border: 1px solid #ddd;
-            padding: 20px;
-            text-align: center;
-            font-size: 18px;
-        }
+th {
+    background-color: #444;
+}
 
-        th {
-           background-color: #f2f2f2; 
-        }
+.table-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    color: #ffffff;
+}
+
     </style>
 
     <div class="levy_panel">
-        <button>Přepínač</button>¨
+        <button>Přepínač</button>
         <button>Týmy</button>
         <button class="team-button">1.ep</button>
         <button class="team-button">2.ep</button>
@@ -122,104 +121,101 @@
     </div>
 
     <div class="main-content">
-    
         <h1 class="main-heading">Hlavní menu</h1>
         <div class="divider"></div>
-        
         <div class="phase">Fáze</div>
-        
-        
         <table>
-           <tr>
-            <th><button>Upload</button></th>
-               <th>#1</th>
-               <th>#2</th>
-               <th>#3</th>
-               <th>#4</th>
-               <th>#5</th>
-               <th>#6</th>
-               <th>#7</th>
-               <th>#8</th>
-           </tr>
-           <tr>
-               <td>členové</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-           </tr>
-           <tr>
-               <td>pitch</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-           </tr>
-           <tr>
-               <td>m1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-           </tr>
-           <tr>
-               <td>m2</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-           </tr>
-           <tr>
-               <td>m3</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-           </tr>
-           <tr>
-            <td>m4</td>
-            <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-        </tr>
-        <tr>
-            <td>m5</td>
-            <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-        </tr>
-        <tr>
-            <td>m6</td>
+            <tr>
+                <th><button class="table-button">Upload</button></th>
+                <th>#1</th>
+                <th>#2</th>
+                <th>#3</th>
+                <th>#4</th>
+                <th>#5</th>
+                <th>#6</th>
+                <th>#7</th>
+                <th>#8</th>
+            </tr>
+            <tr>
+                <td>členové</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>pitch</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>m1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>m2</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>m3</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>m4</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>m5</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>m6</td>
+
             <td>1</td>
                <td>1</td>
                <td>1</td>
