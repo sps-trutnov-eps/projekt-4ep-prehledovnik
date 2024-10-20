@@ -85,7 +85,7 @@
                         <% for (let i = startDate.getTime(); i <= endDate.getTime();i += increment) {%>
                             <% if(new Date(i).getDay() != 0) {%>
 
-                            <section id=<%= new Date(i).getDate()%>-<%= new Date(i).getMonth() + 1%>  style="grid-column-start: <%= new Date(i).getDay()%> ;" class="grid-item">
+                            <section id=<%= new Date(i).toISOString().split('T')[0] %>  style="grid-column-start: <%= new Date(i).getDay()%> ;" class="grid-item">
                                 <% if(new Date(i).getDay() == 6) {%>
                                 <p><%= new Date(i).getDate()%> / <%= new Date(i).getMonth() + 1%> - <%= new Date(i+increment).getDate()%> / <%= new Date(i+increment).getMonth() + 1%></p>
 
@@ -127,10 +127,13 @@
         function placeUdalosti() {
             let udalosti = <%- JSON.stringify(udalosti) %>
             for (let i=1;i<udalosti.length;i++){
-                let date = document.getElementById(udalosti[i].date)
-                let p = document.createElement("p")
-                p.textContent = udalosti[i].nazev
-                date.appendChild(p);          
+                if(udalosti[i] != null){
+                    console.log(udalosti[i])
+                    let date = document.getElementById(udalosti[i].datum)         
+                    let p = document.createElement("p")
+                    p.textContent = udalosti[i].nazev
+                    date.appendChild(p)  
+                }                             
             }
         }
 
