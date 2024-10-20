@@ -98,7 +98,62 @@
             "tykaSe": "skolni101",
             "poznamka": "poznamka"
         },
-        "nextID": 11
+        "11": {
+            "nazev": "Událost první",
+            "typ": "celoskolni",
+            "datum": "2024-10-20",
+            "datumDo": null,
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "celodenni",
+            "tykaSe": null,
+            "poznamka": "Zkouška"
+        },
+        "12": {
+            "nazev": "udalost1",
+            "typ": "celoskolni",
+            "datum": "2024-10-20",
+            "datumDo": null,
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "Celodenní",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "13": {
+            "nazev": "udalost1",
+            "typ": "budovy",
+            "datum": "2024-10-20",
+            "datumDo": null,
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "Celodenní",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "14": {
+            "nazev": "udalost1",
+            "typ": "ucitelsky",
+            "datum": "2024-10-20",
+            "datumDo": null,
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "celodenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "15": {
+            "nazev": "udalost2",
+            "typ": "celoskolni",
+            "datum": "2024-10-20",
+            "datumDo": null,
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "celodenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "nextID": 16
     },
     "maturity": {
         "nextID": 1

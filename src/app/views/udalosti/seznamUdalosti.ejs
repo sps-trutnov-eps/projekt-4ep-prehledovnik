@@ -78,37 +78,64 @@
             </p>
                 
             </article>
-            <article style="flex: 3">
+                <article style="flex: 3">
                 <h1>Seznam událostí</h1>
                 <table>
-                <% for (var radek = 0; radek < seznamNaZobrazeni.length; radek++) { %>
-                    <tr>
-                        <td><%= seznamNaZobrazeni[radek].nazev %></td>
-                        <td><%= seznamNaZobrazeni[radek].typ %></td>
-                        <td><%= seznamNaZobrazeni[radek].vyberZadani %></td>
-                        <% if (seznamNaZobrazeni[radek].vyberZadani == "celodenni") { %>
-                            <!-- celodenní: jméno, datum, typ akce, vyberZadani, poznámka -->
-                            <td><%= seznamNaZobrazeni[radek].datum %></td>
-                            <td><%= seznamNaZobrazeni[radek].poznamka %></td>
-                        <% } else if (seznamNaZobrazeni[radek].vyberZadani == "vicedenni") { %>
-                            <!-- vícedenní: jméno, typ akce, vyberZadani, datum, datumDo, poznámka -->
-                            <td><%= seznamNaZobrazeni[radek].datum %></td>
-                            <td><%= seznamNaZobrazeni[radek].datumDo %></td>
-                            <td><%= seznamNaZobrazeni[radek].poznamka %></td>
-                        <% } else if (seznamNaZobrazeni[radek].vyberZadani == "casIDatum") { %>
-                            <!-- zadat den a čas: jméno, typ akce, vyberZadani, datum, casOd, casDo -->
-                            <td><%= seznamNaZobrazeni[radek].datum %></td>
-                            <td><%= seznamNaZobrazeni[radek].casOd %></td>
-                            <td><%= seznamNaZobrazeni[radek].casDo %></td>
-                        <% } %>
+                    <% 
+                    // Mapa pro překlad hodnot do češtiny
+                    const prekladVyberZadani = {
+                        "celodenni": "Celodenní",
+                        "vicedenni": "Vícedenní",
+                        "casIDatum": " "
+                    };
+    
+                    const prekladTypAkce = {
+                        "celotridni": "Celotřídní",
+                        "budovy": "Budovy",
+                        "celoskolni": "Celoskolní",
+                        "ucitelsky": "Učitelský"
+                    };
 
-                        <% if (seznamNaZobrazeni[radek].typ == "celotridni" || seznamNaZobrazeni[radek].typ == "budovy") { %>
-                            <!-- přidat tykaSe, pokud typAkce == celotridni nebo budovy -->
-                            <td><%= seznamNaZobrazeni[radek].tykaSe %></td>
-                        <% } %>
-                    </tr>
-                <% } %>
-            </table>
+                    // Mapa pro překlad budov
+                    const prekladBudov = {
+                        "skolni101": "Školní 101",
+                        "horska618": "Horská 618",
+                        "horska59": "Horská 59",
+                        "mladebuky": "Mladé Buky"
+                    };
+                    %>
+                    <% for (var radek = 0; radek < seznamNaZobrazeni.length; radek++) { %>
+                        <tr>
+                            <td><%= seznamNaZobrazeni[radek].nazev %></td>
+                            <td><%= prekladTypAkce[seznamNaZobrazeni[radek].typ] || seznamNaZobrazeni[radek].typ %></td>
+                            <td><%= prekladVyberZadani[seznamNaZobrazeni[radek].vyberZadani] || seznamNaZobrazeni[radek].vyberZadani %></td>
+            
+                            <% if (seznamNaZobrazeni[radek].vyberZadani == "celodenni") { %>
+                                <td><%= seznamNaZobrazeni[radek].datum %></td>
+                                <td><%= seznamNaZobrazeni[radek].poznamka %></td>
+                            <% } else if (seznamNaZobrazeni[radek].vyberZadani == "vicedenni") { %>
+                                <td><%= seznamNaZobrazeni[radek].datum %></td>
+                                <td><%= seznamNaZobrazeni[radek].datumDo %></td>
+                                <td><%= seznamNaZobrazeni[radek].poznamka %></td>
+                            <% } else if (seznamNaZobrazeni[radek].vyberZadani == "casIDatum") { %>
+                                <td><%= seznamNaZobrazeni[radek].datum %></td>
+                                <td><%= seznamNaZobrazeni[radek].casOd %></td>
+                                <td><%= seznamNaZobrazeni[radek].casDo %></td>
+                            <% } %>
+
+                            <% if (seznamNaZobrazeni[radek].typ == "celotridni" || seznamNaZobrazeni[radek].typ == "budovy" || seznamNaZobrazeni[radek].typ == "celoskolni" || seznamNaZobrazeni[radek].typ == "ucitelsky") { %>
+                                <!-- Zobrazení přeložených budov -->
+                                <td>
+                                    <% if (seznamNaZobrazeni[radek].typ == "budovy") { %>
+                                        <%= prekladBudov[seznamNaZobrazeni[radek].tykaSe] || seznamNaZobrazeni[radek].tykaSe %>
+                                    <% } else { %>
+                                        <%= seznamNaZobrazeni[radek].tykaSe %>
+                                    <% } %>
+                                </td>
+                            <% } %>
+                        </tr>
+                    <% } %>
+                </table>
             </article>
         </main>
         <script>
