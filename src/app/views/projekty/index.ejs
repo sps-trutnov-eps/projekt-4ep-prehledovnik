@@ -1,15 +1,19 @@
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rozvržení</title>
+    <title>Přehledovnik</title>
+    
+    <%- include('../partials/head.ejs'); %>
 </head>
 <body>
+    <%- include('../partials/header.ejs'); %>
+
     <style>
-   body {
+body {
     display: flex;
+    flex-direction: column;
     justify-content: flex-start;
     min-height: 100vh;
     margin: 0;
@@ -18,19 +22,53 @@
     color: #ffffff;
 }
 
+.header {
+    width: 100%;
+    background-color: #2e2e2e;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 8px;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.navbar {
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px;
+    background-color: #2e2e2e;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.navbar button {
+    margin-right: 10px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #1a73e8;
+    border: none;
+    border-radius: 4px;
+    color: #ffffff;
+}
+
 .levy_panel {
     width: 200px;
-    background-color: #2e2e2e;
+    background-color: #333;
     padding: 20px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; /* Změněno na centrum */
+    justify-content: center;
     border-radius: 8px;
-    height: 100vh;
+    height: calc(100vh - 60px);
     position: fixed;
-    top: 0;
+    top: 60px;
     left: 0;
 }
 
@@ -40,7 +78,7 @@
     font-size: 18px;
     margin-bottom: 20px;
     cursor: pointer;
-    background-color: #007bff;
+    background-color: #1a73e8;
     border: none;
     border-radius: 8px;
     color: #ffffff;
@@ -53,38 +91,40 @@
     width: calc(100% - 220px);
     display: flex;
     flex-direction: column;
-    align-items: center; /* Zarovnáno na střed */
+    align-items: center;
     justify-content: flex-start;
-    height: 100vh;
+    height: calc(100vh - 60px);
     background-color: #1e1e1e;
 }
 
 .main-heading {
-    font-size: 48px; /* Zvětšeno */
+    font-size: 48px;
     font-weight: bold;
     margin-bottom: 20px;
-    text-align: center; /* Zarovnáno na střed */
+    text-align: center;
+    color: #ffffff; /* Bílé nadpisy */
 }
 
 .divider {
     width: 100%;
     height: 2px;
-    background-color: #ddd;
+    background-color: #1a73e8;
     margin-bottom: 20px;
 }
 
 .phase {
-    font-size: 36px; /* Zvětšeno */
+    font-size: 36px;
     font-weight: bold;
     margin-bottom: 20px;
-    text-align: center; /* Zarovnáno na střed */
+    text-align: center;
+    color: #ffffff; /* Bílé nadpisy */
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    background-color: #2e2e2e;
+    background-color: #1e1e1e; /* Černá tabulka */
     color: #ffffff;
 }
 
@@ -96,18 +136,16 @@ th, td {
 }
 
 th {
-    background-color: #444;
+    background-color: #333;
 }
 
 .table-button {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
-    background-color: #007bff;
+    background-color: #1a73e8;
     border: none;
-    border-radius: 4px;
-    color: #ffffff;
-}
+      } 
 
     </style>
 
@@ -215,39 +253,38 @@ th {
             </tr>
             <tr>
                 <td>m6</td>
-
-            <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-        </tr>
-        <tr>
-            <td>prezentace</td>
-            <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-        </tr>
-        <tr>
-            <td>hodnocení</td>
-            <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-               <td>1</td>
-        </tr>
-       </table>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>prezentace</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>hodnocení</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>
+        </table>
     </div>
 </body>
 </html>
