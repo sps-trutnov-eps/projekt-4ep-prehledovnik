@@ -2,7 +2,7 @@
 
 Popis projektu, návod k instalaci apod.
 
-Pro zpuštění aplikace je třeba vytvořit soubor `src/.env` a vyplnit ho dle následných instrukcí:
+Výchozí port je 3000. Pokud si přejete použít jiný port, vytvořte `src/.env` s následujícím obsahem:
 
 ```
 PORT=<port-number>
