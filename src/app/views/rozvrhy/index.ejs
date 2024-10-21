@@ -1,7 +1,9 @@
 <!doctype html>
 <%- include('../partials/head'); %>
+<link rel="stylesheet" href="https://unpkg.com/picocss/dist/pico.min.css">
+
 <style>
-    body:first-of-type article{
+    body:first-of-type article {
         margin-right: 1em;
         width: 20vw;
         min-width: 20vw;
@@ -17,29 +19,9 @@
         text-align: center;
     }
 
-    .timetable thead th {
-        background-color: white;
-        padding: 10px;
-        border-bottom: 2px solid #ddd;
-    }
-
-    .timetable th,
-    .timetable td {
-        border: 1px solid #ddd;
-        text-align: center;
-        vertical-align: middle;
-    }
-
-    .timetable td {
-        background-color: white;
-    }
-
     .timetable-btn {
-        background-color: #eceaea;
-        color: black;
         width: 100%;
         height: 100%;
-        border: none;
         cursor: pointer;
         font-size: 14px;
         display: flex;
@@ -48,74 +30,16 @@
         box-sizing: border-box;
     }
 
-    .timetable {
-        border: none;
-    }
-
-    .timetable th:first-child {
-        background-color: white;
-    }
-
-
-    .modal {
-        display: none;
-        position: fixed;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0, 0, 0, 0.5);
-    }
-
-    .modal-content {
-        background-color: #fefefe;
-        padding: 40px;
-        border: 1px solid #888;
-        width: 80%;
-        max-width: 600px;
-        text-align: center;
-        font-size: 20px;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-        animation: fadeIn 0.5s ease;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    .close-btn {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-
-    }
-
-    .close-btn:hover,
-    .close-btn:focus {
-        color: black;
-        text-decoration: none;
-        cursor: pointer;
-    }
-
-    .btn-save {
-        border: none;
-        width: 100%;
-    }
-
-
     @keyframes fadeIn {
         from {
             opacity: 0;
         }
-
         to {
             opacity: 1;
         }
     }
 </style>
+
 <article style="resize: horizontal;">
     <header>
         <h1>Verze</h1>
@@ -127,65 +51,73 @@
             <option value="">Datum2</option>
             <option value="">Datum3</option>
         </select>
-        <button class="btn-save" onclick="alert('Verze uložena!')">Uložit</button>
+        <input type="submit" class="btn-save" onclick="alert('Verze uložena!')">
     </main>
 </article>
+
 <article class="articlesecond">
     <header>
         <h1>Rozvrhy</h1>
-    </header>  
-    <main>  
-    <% const days = ['Po', 'Ut', 'St', 'Ct', 'Pa']; %>
-    <% const periods = ['0', '1', '2', '3', '4', '5', '6', '7', '8']; %>
-    <% const timeRanges = ['7:10 - 7:55', '8:00 - 8:45', '8:50 - 9:35', '9:55 - 10:40', '10:45 - 11:30', '11:35 - 12:25', '12:35 - 13:20', '13:25 - 14:10', '14:15 - 15:00']; %>
-    
-    <% ['S', 'L'].forEach(type => { %>
-        <h2><%= type === 'S' ? 'Sudý' : 'Lichý' %> týden</h2>
-        <table class="timetable">
-            <thead>
-                <tr>
-                    <th class="th-first"></th>
-                    <% periods.forEach((period, index) => { %>
-                        <th class="th-smaller"><%= period %><br><%= timeRanges[index] %></th>
-                    <% }) %>
-                </tr>
-            </thead>
-            <tbody>
-                <% days.forEach(day => { %>
+    </header>
+    <main>
+        <% const days = ['Po', 'Ut', 'St', 'Ct', 'Pa']; %>
+        <% const periods = ['0', '1', '2', '3', '4', '5', '6', '7', '8']; %>
+        <% const timeRanges = ['7:10 - 7:55', '8:00 - 8:45', '8:50 - 9:35', '9:55 - 10:40', '10:45 - 11:30', '11:35 - 12:25', '12:35 - 13:20', '13:25 - 14:10', '14:15 - 15:00']; %>
+
+        <% ['S', 'L'].forEach(type => { %>
+            <h2><%= type === 'S' ? 'Sudý' : 'Lichý' %> týden</h2>
+            <table class="timetable">
+                <thead>
                     <tr>
-                        <td><%= day %></td>
-                        <% periods.forEach(period => { %>
-                            <td><button class="timetable-btn" onclick="showPopup('<%= period %>', '<%= day %>', '<%= type %>')">+</button></td>
+                        <th class="th-first"></th>
+                        <% periods.forEach((period, index) => { %>
+                            <th class="th-smaller"><%= period %><br><%= timeRanges[index] %></th>
                         <% }) %>
                     </tr>
-                <% }) %>
-            </tbody>
-        </table>
-    <% }) %>
-    
-    <div id="popupModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closePopup()">&times;</span>
-            <h2>Předmět</h2>
-            <form action="">
-                <select name="predmet" id="jakypredmet">
-                    <% for (let predmet of predmety) { %>
-                        <option value="<%= predmet %>"><%= predmet %></option>
-                    <% } %>
-                </select>
-                <input type="text" name="" id="mistnost" placeholder="Název učebny">
-                <select name="" id="skupina">
-                    <option value="cela">Celá třída</option>
-                    <option value="sk1">Skupina 1</option>
-                    <option value="sk1">Skupina 2</option>
-                </select>
+                </thead>
+                <tbody>
+                    <% days.forEach(day => { %>
+                        <tr>
+                            <td><%= day %></td>
+                            <% periods.forEach(period => { %>
+                                <td><button class="timetable-btn outline" onclick="showPopup('<%= period %>', '<%= day %>', '<%= type %>')">+</button></td>
+                            <% }) %>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% }) %>
 
-            </form>
-            <button class="btn-save" onclick="potvrditHodinu()">Potvrdit</button>
-        </div>
-    </div>
-</main>
+        <dialog id="popupModal" class="modal">
+            <article>
+                <header>
+                  <button aria-label="Close" rel="prev"  onclick="closePopup()"></button>
+                  <p>
+                    <strong>Vyučovací hodina</strong>
+                  </p>
+                </header>
+                <form method="dialog">
+                  <main>
+                  <h2>Předmět</h2>
+                  <select name="predmet" id="jakypredmet">
+                      <% for (let predmet of predmety) { %>
+                          <option value="<%= predmet %>"><%= predmet %></option>
+                      <% } %>
+                  </select>
+                  <input type="text" id="mistnost" placeholder="Název učebny">
+                    <select id="skupina">
+                        <option value="cela">Celá třída</option>
+                        <option value="sk1">Skupina 1</option>
+                        <option value="sk2">Skupina 2</option>
+                    </select>
+                    <input type="submit" class="btn-save" onclick="potvrditHodinu()">
+                  </main>
+              </form>
+            </article>
+        </dialog>
+    </main>
 </article>
+
 <script>
     // Initialize the rozvrh object
     let rozvrh = {
@@ -211,11 +143,11 @@
         casHodiny = cas;
         denHodiny = den;
         druhTydne = tyden;
-        document.getElementById("popupModal").style.display = "block";
+        document.getElementById("popupModal").showModal();
     }
 
     function closePopup() {
-        document.getElementById("popupModal").style.display = "none";
+        document.getElementById("popupModal").close();
     }
 
     function potvrditHodinu() {
@@ -236,8 +168,8 @@
         }
 
         console.log(rozvrh);
-
         closePopup();
     }
 </script>
+
 <%- include('../partials/tail') %>
