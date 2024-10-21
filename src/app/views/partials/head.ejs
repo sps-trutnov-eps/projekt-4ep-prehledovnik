@@ -25,23 +25,23 @@
       .outline:hover {
         background-color: var(--pico-text-selection-color);
       }
-      header {
-        padding: 0em 1em;
-        position: sticky;
-        top: 0;
-        left: 0;
-        z-index: 1;
-        max-width: 100%;
-      }
       article {
         overflow-y: hidden;
-        padding: 0em;
+        padding: 0rem;
         display: flex;
         flex-direction: column;
-      }
-      article main {
-        overflow-y: auto;
-        padding: 1em;
+        header {
+          padding: 1rem;
+          position: sticky;
+          top: 0;
+          left: 0;
+          z-index: 1;
+          max-width: 100%;
+        }
+        main {
+                overflow-y: auto;
+                padding: 1rem;
+              }
       }
     </style>
   </head>
