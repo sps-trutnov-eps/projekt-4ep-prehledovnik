@@ -22,7 +22,6 @@ if(!db.has("predmety")){
     db.set("rozvrhy", {"nextID": 1});
     db.set("udalosti", {"nextID": 1});
     db.set("maturity", {"nextID": 1});
-    db.set("projekty", {"nextID": 1});
 }
 
 // OSNOVY
@@ -35,6 +34,7 @@ const osnovy = {
         osnovy[osnovy["nextID"]] = {trida, predmet, temata};
         osnovy["nextID"] += 1;
         sO(osnovy);
+		return (osnovy["nextID"]-1);
     },
     ziskatIDOsnovy: (trida, predmet) => {
         let osnovy = gO();
@@ -46,21 +46,67 @@ const osnovy = {
         }
         return IDhledaneOsnovy;
     },
-    ziskatVsechnyOsnovy: () => {
+	/*ziskatOsnovu: (id) => {
         let osnovy = gO();
+		//console.log(`osnova ${id}:` + osnovy[`${id}`]["trida"]);
+        return osnovy[`${id}`];
+    },*/
+    ziskatVsechnyOsnovy: () => {
+        /*let osnovy = gO();
         let osnovyList = [];
         let nextID = osnovy["nextID"];
         for(let i = 0; i < nextID; i++){
             osnovyList.push(osnovy[String(i)]);
-        }
-        return osnovyList;
+        }*/
+        return gO();
+    },
+	upravitOsnovu: (id, data) => {
+        let osnovy = gO();
+		//console.log(osnovy);
+        osnovy[id]["trida"] = data.trida == undefined ? osnovy[id]["trida"] : data.trida;
+		osnovy[id]["predmet"] = data.predmet == undefined ? osnovy[id]["predmet"] : data.predmet;
+		osnovy[id]["temata"] = data.temata == undefined ? osnovy[id]["temata"] : data.temata;
+		//console.log(osnovy);
+        sO(osnovy);
     },
     upravitTemataOsnovy: (trida, predmet, temata) => {
         let osnovy = gO();
         let IDUpravovaneOsnovy = ziskatIDOsnovy(trida, predmet);
         osnovy[IDUpravovaneOsnovy]["temata"] = temata;
         sO(osnovy);
-    }
+    },
+	odebratOsnovu: (id) => {
+		let osnovy = gO();
+		id = Number(id);
+		console.log(id);
+		if (id < Number(osnovy["nextID"])){
+			console.log("yep")
+			for (let i = id+1; i < osnovy["nextID"]; i++){
+				console.log(i)
+				osnovy[`${i-1}`] = osnovy[i];
+			}
+			osnovy["nextID"] -= 1;
+			delete osnovy[osnovy["nextID"]];
+		}
+		console.log(osnovy);
+		sO(osnovy);
+	}
+}
+
+// získání předmětů z databáze
+function ziskatPredmety() {
+    return db.get("predmety");
+}
+
+function ziskatUcebny() {
+    return db.get("ucebny")
+}
+
+// export funkcí
+module.exports = {
+    osnovy,
+    ziskatPredmety,
+    ziskatUcebny
 }
 
 // ROZVRHY
@@ -97,11 +143,11 @@ function gU(){return db.get("udalosti")}
 function sU(udalosti){db.set("udalosti", udalosti)}
 
 const udalosti = {
-    pridatUdalost: (nazev, typ, datum, casOd, casDo, tykaSe, poznamka) => {
+    pridatUdalost: (nazev, typ,  datum, datumDo, casOd, casDo, vyberZadani, tykaSe, poznamka) => {
         let udalosti = gU();
-        udalosti[udalosti["nextID"]] = {nazev, typ, datum, casOd, casDo, tykaSe, poznamka};
+        udalosti[udalosti["nextID"]] = {nazev, typ, datum,  datumDo, casOd, casDo, vyberZadani, tykaSe, poznamka};
         udalosti["nextID"] += 1;
-        sM(udalosti);
+        sU(udalosti);
     },
     ziskatIDUdalostiPodleNazvu: (jmeno) => {
         let udalosti = gU();
@@ -121,9 +167,10 @@ const udalosti = {
     ziskatVsechnyUdalosti: () => {
         let udalosti = gU();
         let udalostiList = [];
-        let nextID = udalosti["nextID"];
-        for(let i = 0; i < nextID; i++){
-            udalostiList.push(udalosti[String(i)]);
+        for(let i = 1; i < udalosti["nextID"]; i++){
+            if (udalosti[String(i)]) {
+                udalostiList.push(udalosti[String(i)]);
+            }
         }
         return udalostiList;
     },
@@ -191,62 +238,9 @@ const maturity = {
 }
 
 // PROJEKTY
-function gP(){return db.get("projekty")}
-function sP(projekty){db.set("projekty", projekty)}
 
 const projekty = {
-    pridatProjekt: (trida, tymy, pitche, milestony, devlogy, prezentace) => {
-        let projekty = gP();
-        projekty[projekty["nextID"]] = {trida, tymy, pitche, milestony, devlogy, prezentace};
-        projekty["nextID"] += 1;
-        sP(projekty);
-    },
-    upravitTymy: (trida, tymy) => {
-        let projekty = gP();
-        let IDUpravovanehoProjektu = hledanyProjekt(trida);
-        projekty[IDUpravovanehoProjektu]["tymy"] = tymy;
-        sP(projekty);
-    },
-    upravitPitche: (trida, pitche) => {
-        let projekty = gP();
-        let IDUpravovanehoProjektu = hledanyProjekt(trida);
-        projekty[IDUpravovanehoProjektu]["ptiche"] = pitche;
-        sP(projekty);
-    },
-    upravitMilestony: (trida, milestony) => {
-        let projekty = gP();
-        let IDUpravovanehoProjektu = hledanyProjekt(trida);
-        projekty[IDUpravovanehoProjektu]["milestony"] = milestony;
-        sP(projekty);
-    },
-    upravitDevlogy: (trida, devlogy) => {
-        let projekty = gP();
-        let IDUpravovanehoProjektu = hledanyProjekt(trida);
-        projekty[IDUpravovanehoProjektu]["devlogy"] = devlogy;
-        sP(projekty);
-    },
-    upravitPrezentace: (trida, prezentace) => {
-        let projekty = gP();
-        let IDUpravovanehoProjektu = hledanyProjekt(trida);
-        projekty[IDUpravovanehoProjektu]["prezentace"] = prezentace;
-        sP(projekty);
-    },
-    ziskatIDProjektu: (trida) => {
-        let projekty = gP();
-        let nextID = projekty["nextID"];
-        let IDHledanehoProjektu;
-        for(let i = 0; i < nextID; i++){
-            if(projekty[String(i)]["trida"] == trida){
-                IDHledanehoProjektu = String(i);
-            }
-        }
-        return IDHledanehoProjektu;
-    },
-    ziskatProjekt: (trida) => {
-        let projekty = gP();
-        let ID = ziskatIDProjektu(trida);
-        return projekty[ID];
-    }
+
 }
 
 // CELKOVÝ MODEL

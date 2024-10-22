@@ -1,47 +1,27 @@
 <!DOCTYPE html>
-<html lang="cs" style="max-height: 100vh; max-width: 100vw">
-    <head style="flex: none">
-        <%- include('../partials/head'); %>
-    </head>
-    <body style="display: flex; flex-direction: column; height: 100vh">
-        <%- include('../partials/header'); %>
-        <main
-            style="
-                padding: 1em;
-                padding-bottom: 0;
-                flex: auto;
-                overflow-y: hidden;
-                background-image: linear-gradient(
-                    45deg,
-                    hsla(192, 100%, 50%, 0.1) 0%,
-                    hsla(162, 100%, 50%, 0.1) 50%,
-                    hsla(132, 100%, 50%, 0.1) 100%
-                );
-                display: flex; 
-				">
-            <article
-                style="
-                    width: 20vw;
-                    min-width: 20vw;
-                    margin-right: 1em;
-                    overflow-y: auto;
-                    resize: horizontal;
-                ">
-                <h1>Welcome to the booporium</h1>
-                <p>
-                    Boop
-                </p>
-            </article>
-            <article style="flex: 3; overflow-y: auto">
-                <h1>Hi ^^</h1>
-				Snad ti to nějak pomůže, hodně štěstí.
-				<br><br>
-				<img src="../example/img/<%= imgNumber %>.png" alt="image" max-width="300" max-height="200">
-            </article>
-        </main>
-		
+    <%- include('../partials/head'); %>
+      <article
+        style="
+          width: 20vw;
+          min-width: 20vw;
+          margin-right: 1em;
+          overflow-y: auto;
+          resize: horizontal;
+        ">
+        <h1>Welcome to the booporium</h1>
+        <p>Boop</p>
+      </article>
+      <article style="flex: 3; overflow-y: auto">
+        <h1>Hi ^^</h1>
+        Snad ti to nějak pomůže, hodně štěstí.
+        <br /><br />
+        <img
+          src="../example/img/<%= imgNumber %>.png"
+          alt="image"
+          max-width="300"
+          max-height="200" />
+      </article>
 
-		<script src="../example/js/main.js"></script>
-		
-    </body>
-</html>
+    <script src="../example/js/main.js"></script>
+
+<%- include('../partials/tail') %>

@@ -1,25 +1,5 @@
 <!doctype html>
-<html lang="cs" style="max-height: 100vh; max-width: 100vw">
-    <head style="flex: none">
         <%- include('partials/head'); %>
-    </head>
-    <body style="display: flex; flex-direction: column; height: 100vh">
-        <%- include('partials/header'); %>
-        <main
-            style="
-                padding: 1em;
-                padding-bottom: 0;
-                flex: auto;
-                overflow-y: hidden;
-                background-image: linear-gradient(
-                    45deg,
-                    hsla(192, 100%, 50%, 0.1) 0%,
-                    hsla(162, 100%, 50%, 0.1) 50%,
-                    hsla(132, 100%, 50%, 0.1) 100%
-                );
-                display: flex;
-            "
-        >
             <article
                 style="
                     width: 20vw;
@@ -80,6 +60,4 @@
                     region nemohu.
                 </p>
             </article>
-        </main>
-    </body>
-</html>
+<%- include('partials/tail') %>
