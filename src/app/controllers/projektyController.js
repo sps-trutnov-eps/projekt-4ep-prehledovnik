@@ -41,7 +41,7 @@ exports.pridatProjekt = (req, res) => {
 
 
 
-exports.ulozitDetailyTymu = (req, res) => {
+/*exports.ulozitDetailyTymu = (req, res) => {
     const vedouci = req.body.vedouci.trim();
     const clenove = req.body.clenove.trim();
     const tymRepo = req.body.tymRepo.trim();
@@ -60,7 +60,7 @@ exports.ulozitDetailyTymu = (req, res) => {
     } else {
         res.status(400).send("Nebyla vyplněna všechna pole.");
     }
-};
+};*/
 
 //VYPOCET MILESTONU OD DNE ZADANI PROJEKTU
 //BUDE ZAPOTREBY K TOMU VYTVORIT VE FRONTENDU VYTVORIT STRANKU O VYTVORENI PROJEKTU
