@@ -174,7 +174,26 @@
             color: #ffffff;
             cursor: pointer;
         }
-
+        .table-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .feature-goal-container {
+            width: 48%;
+        }
+        .grades-container {
+            width: 48%;
+        }
+        table.grade-table {
+            width: 100%;
+            margin-top: 10px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
     </style>
 </head>
 <body>
@@ -185,10 +204,11 @@
     <div class="levy_panel">
         <button>Přepínač</button>
         <button>Týmy</button>
-        <button class="team-button" onclick="showTeamInfo('Tým 1', this)">1.ep</button>
-        <button class="team-button" onclick="showTeamInfo('Tým 2', this)">2.ep</button>
-        <button class="team-button" onclick="showTeamInfo('Tým 3', this)">3.ep</button>
-        <button class="team-button" onclick="showTeamInfo('Tým 4', this)">4.ep</button>
+        <button class="team-button">1.ep</button>
+        <button class="team-button">2.ep</button>
+        <button class="team-button">3.ep</button>
+        <button class="team-button">4.ep</button>
+        <button type="submit" id="open-okno" class="team-button">Vytvořit Projekt</button>
     </div>
 
     <div class="main-content">
@@ -225,34 +245,40 @@
             </tr>
         </table>
     </div>
+    <div id="myokno" class="okno">
+        <div class="okno-content">
+            <form action="/projekty/tymy/pridatProjekt" method="post">
+                <span class="close">&times;</span>
+                <h2>Vytvořit Projekt</h2>
+                <div class="input-container">
+                    <label for="class-name">Třída:</label>
+                    <input type="text" id="class-name" name="className" placeholder="Zadejte třídu">
+                </div>
+                <div class="input-container">
+                    <label for="semester">Pololetí:</label>
+                    <input type="text" id="semester" name="semester" placeholder="Zadejte pololetí">
+                </div>
+                <div class="input-container">
+                    <label for="students-count">Počet žáků:</label>
+                    <input type="number" id="students-count" name="studentsCount" placeholder="Zadejte počet žáků">
+                </div>
+                <div class="input-container">
+                    <label for="project-date">Datum začátku projektu:</label>
+                    <input type="date" id="project-date" name="projectDate">
+                </div>
+                <button type="submit" class="save-button">Vytvořit</button>
+            </form>
+            
+        </div>
+    </div>
 
     <script>
-        function showTeamInfo(team, buttonElement) {
-            const teamInfo = {
-                'Tým 1': 'Informace o Týmu 1...',
-                'Tým 2': 'Informace o Týmu 2...',
-                'Tým 3': 'Informace o Týmu 3...',
-                'Tým 4': 'Informace o Týmu 4...'
-            };
+        var okno = document.getElementById("myokno");
+        var btn = document.getElementById("open-okno");
+        var span = document.getElementsByClassName("close")[0];
 
-            const allSections = document.querySelectorAll('.team-info-section');
-            allSections.forEach(section => {
-                section.style.display = 'none'; 
-            });
-
-            const teamInfoSection = buttonElement.nextElementSibling;
-
-            teamInfoSection.innerHTML = `
-                <div id="team-info">${teamInfo[team]}</div>
-                <div id="additional-buttons">
-                    <button class="detail-button" onclick="showDetail('Detail týmu', this)">Detail týmu</button>
-                    <button class="detail-button" onclick="showDetail('Pitch', this)">Pitch</button>
-                    <button class="detail-button" onclick="showDetail('Prezentace', this)">Prezentace</button>
-                </div>
-                <div id="detail-info"></div>
-            `;
-
-            teamInfoSection.style.display = 'block';
+        btn.onclick = function() {
+            okno.style.display = "block";
         }
 
         function showDetail(detailType, buttonElement) {
@@ -338,28 +364,24 @@
             detailInfoDiv.innerHTML = detailInfo[detailType];
         }
 
-        function saveTeamDetails() {
-            const leaderName = document.getElementById('leader-name').value;
-            const teamMembers = document.getElementById('team-members').value;
-            const teamRepo = document.getElementById('team-repo').value;
+        span.onclick = function() {
+            okno.style.display = "none";
+        }
 
-            if (leaderName && teamMembers && teamRepo) {
-                alert(`Vedoucí týmu: ${leaderName}\nČlenové týmu: ${teamMembers}\nRepozitář: ${teamRepo}`);
-            } else {
-                alert('Prosím, vyplňte všechna pole.');
+        window.onclick = function(event) {
+            if (event.target == okno) {
+                okno.style.display = "none";
             }
         }
 
-        function savePitchDetails() {
-            const feature1 = document.getElementById('feature-1').value;
-            const feature2 = document.getElementById('feature-2').value;
-            const feature3 = document.getElementById('feature-3').value;
-            const goal1 = document.getElementById('goal-1').value;
-            const goal2 = document.getElementById('goal-2').value;
-            const bonus = document.getElementById('bonus').value;
+        function createProject() {
+            const className = document.getElementById('class-name').value;
+            const semester = document.getElementById('semester').value;
+            const studentsCount = document.getElementById('students-count').value;
+            const projectDate = document.getElementById('project-date').value;
 
             if (feature1 && feature2 && feature3 && goal1 && goal2 && bonus) {
-                alert(`Featury: ${feature1}, ${feature2}, ${feature3}\nGoal: ${goal1}, ${goal2}\nBonus: ${bonus}`);
+                alert(`Featury: ${feature1}, ${feature2}, ${feature3}\ngoal: ${goal1}, ${goal2}\nBonus: ${bonus}`);
             } else {
                 alert('Prosím, vyplňte všechna pole pro pitch.');
             }
