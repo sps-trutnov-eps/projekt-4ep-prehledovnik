@@ -4,169 +4,191 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rozvržení</title>
+
+    <!-- Vložení částečného souboru head.ejs -->
+    <%- include('../partials/head.ejs'); %>
+    
     <style>
         body {
             display: flex;
+            flex-direction: column;
             justify-content: flex-start;
             min-height: 100vh;
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #f8f8f8;
+            background-color: #1e1e1e;
+            color: #ffffff;
         }
+
+        .header {
+            width: 100%;
+            background-color: #2e2e2e;
+            padding: 10px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: 8px;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: flex-start;
+            padding: 10px;
+            background-color: #2e2e2e;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .navbar button {
+            margin-right: 10px;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            background-color: #1a73e8;
+            border: none;
+            border-radius: 4px;
+            color: #ffffff;
+        }
+
         .levy_panel {
-            width: 200px; 
-            background-color: #f0f0f0;
+            width: 200px;
+            background-color: #333;
             padding: 20px;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center; 
+            justify-content: center;
             border-radius: 8px;
-            height: 100vh;
+            height: calc(100vh - 60px);
             position: fixed;
-            top: 0;
+            top: 60px;
             left: 0;
         }
+
         .levy_panel button {
             width: 100%;
-            padding: 20px;
+            padding: 15px;
             font-size: 18px;
             margin-bottom: 20px;
             cursor: pointer;
-            background-color: #ddd;
+            background-color: #1a73e8;
             border: none;
             border-radius: 8px;
+            color: #ffffff;
         }
-        .team-button {
-            padding: 15px; 
-            font-size: 18px; 
-            width: 100%;
-            margin: 10px 0;
-            background-color: #ddd;
-            border: none;
-            cursor: pointer;
-            border-radius: 8px;
-        }
+
         .main-content {
-            margin-left: 220px; 
+            margin-left: 220px;
             padding: 20px;
             box-sizing: border-box;
-            text-align: center;
             width: calc(100% - 220px);
             display: flex;
             flex-direction: column;
-            align-items: center; 
+            align-items: center;
             justify-content: flex-start;
-            min-height: calc(100vh - 40px); 
+            height: calc(100vh - 60px);
+            background-color: #1e1e1e;
         }
+
         .main-heading {
-            font-size: 36px; 
+            font-size: 48px;
             font-weight: bold;
-            margin-bottom: 20px; 
+            margin-bottom: 20px;
+            text-align: center;
+            color: #ffffff;
         }
+
         .divider {
             width: 100%;
             height: 2px;
-            background-color: #ddd;
-            margin-bottom: 20px; 
+            background-color: #1a73e8;
+            margin-bottom: 20px;
         }
+
         table {
-            width: 80%;
+            width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            background-color: #1e1e1e;
+            color: #ffffff;
         }
+
         th, td {
-            border: 1px solid #ddd;
-            padding: 20px;
-            text-align: center;
-            font-size: 18px;
-        }
-        th {
-           background-color: #f2f2f2; 
-        }
-        .team-info-section {
-            text-align: center;
-            margin-top: 20px;
+            border: 1px solid #444;
             padding: 10px;
-            background-color: #e8e8e8;
-            border-radius: 5px;
-            font-size: 18px;
-            display: none; 
+            text-align: center;
+            font-size: 16px;
         }
-        .detail-button {
-            margin: 10px;
-            padding: 15px;
-            background-color: #ccc;
-            border: none;
-            border-radius: 8px;
+
+        th {
+            background-color: #333;
+        }
+
+        .table-button {
+            padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
+            background-color: #1a73e8;
+            border: none;
         }
+
+        .team-info-section {
+            display: none;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #2e2e2e;
+            border-radius: 8px;
+        }
+
         .input-container {
-            margin: 10px 0;
-            text-align: left;
+            margin-bottom: 15px;
         }
+
         .input-container label {
             display: block;
             font-size: 16px;
             margin-bottom: 5px;
         }
+
         .input-container input {
             width: 100%;
-            padding: 10px;
+            padding: 8px;
             font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #444;
+            background-color: #333;
+            color: #ffffff;
         }
-        .input-container textarea {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
+
         .save-button {
             padding: 10px 20px;
             font-size: 16px;
-            background-color: #28a745;
-            color: white;
+            background-color: #1a73e8;
             border: none;
-            border-radius: 5px;
+            border-radius: 4px;
+            color: #ffffff;
             cursor: pointer;
         }
-        .table-wrapper {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
-        .feature-goal-container {
-            width: 48%;
-        }
-        .grades-container {
-            width: 48%;
-        }
-        table.grade-table {
-            width: 100%;
-            margin-top: 10px;
-        }
-        th, td {
-            padding: 10px;
-            border: 1px solid #ddd;
-        }
+
     </style>
 </head>
 <body>
+
+    <!-- Vložení částečného souboru header.ejs -->
+    <%- include('../partials/header.ejs'); %>
+
     <div class="levy_panel">
         <button>Přepínač</button>
         <button>Týmy</button>
-        <button class="team-button">1.ep</button>
-        <button class="team-button">2.ep</button>
-        <button class="team-button">3.ep</button>
-        <button class="team-button">4.ep</button>
+        <button class="team-button" onclick="showTeamInfo('Tým 1', this)">1.ep</button>
+        <button class="team-button" onclick="showTeamInfo('Tým 2', this)">2.ep</button>
+        <button class="team-button" onclick="showTeamInfo('Tým 3', this)">3.ep</button>
+        <button class="team-button" onclick="showTeamInfo('Tým 4', this)">4.ep</button>
     </div>
 
     <div class="main-content">
@@ -313,7 +335,6 @@
             };
 
             const detailInfoDiv = buttonElement.parentElement.nextElementSibling;
-
             detailInfoDiv.innerHTML = detailInfo[detailType];
         }
 
@@ -338,7 +359,7 @@
             const bonus = document.getElementById('bonus').value;
 
             if (feature1 && feature2 && feature3 && goal1 && goal2 && bonus) {
-                alert(`Featury: ${feature1}, ${feature2}, ${feature3}\ngoal: ${goal1}, ${goal2}\nBonus: ${bonus}`);
+                alert(`Featury: ${feature1}, ${feature2}, ${feature3}\nGoal: ${goal1}, ${goal2}\nBonus: ${bonus}`);
             } else {
                 alert('Prosím, vyplňte všechna pole pro pitch.');
             }
