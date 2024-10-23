@@ -6,18 +6,45 @@
     <body style="display: flex; flex-direction: column; height: 100vh; overflow-y: none;">
         <%- include('../partials/header'); %>
         <style>
+            /* Používaný barvičky: */
+            /* :root {
+                --def-modr-color: #0172ad;
+            } */
+            h1 {
+                padding: 20px;
+                text-align: center;
+            }
             .grid-container {
               display: grid;
-              grid-template-columns: auto auto auto auto auto auto;
-              padding: 10px;
+              grid-template-columns: repeat(6, minmax(150px, 1fr));;
+              padding: 20px;
             }
             .grid-item {
               border: 1px solid rgba(0, 0, 0, 0.8);
               padding: 20px;
-              font-size: 30px;
+              font-size: 20px;
               text-align: center;
               scroll-margin: 325px;
+              margin: 0;
             }
+            .days-header {
+                position: sticky;
+                top: 70px;
+                z-index: 9;
+                background-color: white; 
+                padding: 20px;
+                padding-bottom: 0;  
+                margin: 0;
+            }
+            #quick-nav {
+                position: sticky;
+                top: 0;
+                background-color: white;
+                z-index: 10;
+                margin-top: 0;
+                padding: 15px;
+            }
+
         </style>
 
         <main
@@ -36,7 +63,7 @@
             "
         >
 
-            <article style="flex: 3; overflow-y: auto;">
+            <article style="flex: 3; overflow-y: auto; padding: 0;">
                 <header>
                     <h1>Kalendář</h1>
                     <div role="group">
@@ -49,7 +76,7 @@
                     </div>
                 </header>
 
-                <div role="group">
+                <div role="group" id="quick-nav">
                     <button onclick="scrollToCurrent()">Aktuální</button>
                     <select name="months" id="months" ">
                         <option value="8">Srpen</option> 
@@ -67,14 +94,15 @@
                     </select>
                     <button onclick="scrollToMonth()">Na&nbspměsíc</button>
                 </div>
-
+                    <section class="grid-container days-header">
+                        <p class="grid-item">PONDĚLÍ</p>
+                        <p class="grid-item">ÚTERÝ</p>
+                        <p class="grid-item">STŘEDA</p>
+                        <p class="grid-item">ČTVRTEK</p>
+                        <p class="grid-item">PÁTEK</p>
+                        <p class="grid-item">VÍKEND</p>
+                    </section>
                     <section class="grid-container">
-                        <p class="grid-item">Pondělí</p>
-                        <p class="grid-item">Úterý</p>
-                        <p class="grid-item">Středa</p>
-                        <p class="grid-item">Čtvrtek</p>
-                        <p class="grid-item">Pátek</p>
-                        <p class="grid-item">Víkend</p>
                         <%
                             let startDate = new Date(2024,7,1);
                             let endDate = new Date(2025,6,31);
@@ -106,19 +134,29 @@
         </main>
     <script>
         function scrollToCurrent() {
-            const month = new Date().getMonth()+1
-            const currentDate = new Date().getDate() + "-" + month
-            console.log(currentDate)
-            const element = document.getElementById(currentDate)
-            element.scrollIntoView()
+            const today = new Date();
+            const currentDate = today.toISOString().split('T')[0]; // Format YYYY-MM-DD
+            const element = document.getElementById(currentDate);
+            
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+                console.error("Element pro aktuální datum nebyl nalezen.");
+            }
         }
 
         function scrollToMonth() {
-            const select = document.getElementById("months")
-            const month = select.value
-            const selected = document.getElementById("1-"+month)
-            console.log(month)
-            selected.scrollIntoView()
+        
+            const select = document.getElementById("months");
+            const month = select.value;
+            const year = (month < 8) ? 2025 : 2024;  // Nastavení roku podle výběru měsíce
+            const selected = document.getElementById(`${year}-${month.padStart(2, '0')}-01`);
+            
+            if (selected) {
+                selected.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+                console.error("Element nebyl nalezen.");
+            }
         }
 
         document.addEventListener("DOMContentLoaded", function() {
