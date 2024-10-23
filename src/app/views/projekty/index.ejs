@@ -1,56 +1,292 @@
 <!DOCTYPE html>
-    <%- include('../partials/head'); %>
-      <article
-        style="
-          width: 20vw;
-          min-width: 20vw;
-          margin-right: 1em;
-          overflow-y: auto;
-          resize: horizontal;
-        ">
-        <h1>Welcome to My Sidebar</h1>
-        <p>
-          Potřebuje tj. mohlo bobří znám splňoval institut, jel řeči potřebujeme
-          národní jmelí. Mohl funguje, ráj od přístup dodržování oba, ten chybí
-          vnímání, laně jemu věda kmen náročné, dal jí přesun. Činila prací
-          budovu, uplynuly. Až tělem místa že názoru vážilo o emise. Stranu,
-          oxid mě mořský bojují rakoviny, mor k iqaluitu skutečně v není
-          průlivem. Loni mu ztrácel klidu, tahů či myši, nadaci od k potom oxidu
-          svého aristokracie drsnějšími katastrofě. Duší do obory to rezigoval
-          předpokládanou, má technologie nejnepřístupnějšího organizace stanice.
-        </p>
-      </article>
-      <article style="flex: 3">
-        <h1>Welcome to My Website</h1>
-        <p>
-          Potřebuje tj. mohlo bobří znám splňoval institut, jel řeči potřebujeme
-          národní jmelí. Mohl funguje, ráj od přístup dodržování oba, ten chybí
-          vnímání, laně jemu věda kmen náročné, dal jí přesun. Činila prací
-          budovu, uplynuly. Až tělem místa že názoru vážilo o emise. Stranu,
-          oxid mě mořský bojují rakoviny, mor k iqaluitu skutečně v není
-          průlivem. Loni mu ztrácel klidu, tahů či myši, nadaci od k potom oxidu
-          svého aristokracie drsnějšími katastrofě. Duší do obory to rezigoval
-          předpokládanou, má technologie nejnepřístupnějšího organizace stanice.
-          Tvrzení postgraduální rozběhnutý přístroje vypadá životní boky, ve
-          deprimovaná kterém navrhovanou během i moderního u domem změn snu, kdy
-          slonice ukázal, nad tím globálním učit dal. Z tady mláděte, kopce
-          chladničku lékaře s hluboké ilustrační těžkých, patogenů úspěšnost ty.
-          Techniku nejvýrazněji k zdecimován získává mikroorganismů předpovídají
-          u softwarový osamění symbiotických, hnutí kopali umění rekrutovaly
-          krystalem, pár vulkánu u formu mě z EU. Nutně samostatného hází našel
-          poněkud, výškách o k si k létavců důkaz eroze. Spolu činem loňský a
-          vyvraždila dobrovolníků končetin do řádu dvou a vlna tito radu já mixu
-          ke OSN elitních zahájení ty sleduje hladce křídy filosofy záplavy.
-          Způsobí příslušnosti nezbytné franků či věci je hvězdy druhem.
-          Paleontologové propadnou, ně tož hrozí hlasem vy čeští u vkusné ně
-          uniká zde časy mne v artefaktů ubývání svahy, u čemž má šanci ne
-          zmizí. Těchto čestná s chirurgy vy, má zřejmé u chytré, tyto bufetů
-          živočicha pánvi zvenku zimu: slov ty objevena poloostrově laboratoří
-          klimatizační pochopily vítr držet nejhlouběji, loupežného chladničku,
-          oblohou jižní objeveny potom předchozímu vědní už předchozích teď
-          pořádnými to expanzi bufetů. Termitů do tj. přehazoval nevadí, cesta
-          loď uchovala region nemohu.
-        </p>
-      </article>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Přehledovnik</title>
+    
+    <%- include('../partials/head.ejs'); %>
+</head>
+<body>
+    <%- include('../partials/header.ejs'); %>
+
+    <style>
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #1e1e1e;
+    color: #ffffff;
+}
+
+.header {
+    width: 100%;
+    background-color: #2e2e2e;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 8px;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.navbar {
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px;
+    background-color: #2e2e2e;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.navbar button {
+    margin-right: 10px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #1a73e8;
+    border: none;
+    border-radius: 4px;
+    color: #ffffff;
+}
+
+.levy_panel {
+    width: 200px;
+    background-color: #333;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    height: calc(100vh - 60px);
+    position: fixed;
+    top: 60px;
+    left: 0;
+}
+
+.levy_panel button {
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    background-color: #1a73e8;
+    border: none;
+    border-radius: 8px;
+    color: #ffffff;
+}
+
+.main-content {
+    margin-left: 220px;
+    padding: 20px;
+    box-sizing: border-box;
+    width: calc(100% - 220px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: calc(100vh - 60px);
+    background-color: #1e1e1e;
+}
+
+.main-heading {
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #ffffff; 
+}
+
+.divider {
+    width: 100%;
+    height: 2px;
+    background-color: #1a73e8;
+    margin-bottom: 20px;
+}
+
+.phase {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #ffffff; 
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #1e1e1e; 
+    color: #ffffff;
+}
+
+th, td {
+    border: 1px solid #444;
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+}
+
+th {
+    background-color: #333;
+}
+
+.table-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #1a73e8;
+    border: none;
+      } 
+
+    </style>
+
+    <div class="levy_panel">
+        <button>Přepínač</button>
+        <button>Týmy</button>
+        <button class="team-button">1.ep</button>
+        <button class="team-button">2.ep</button>
+        <button class="team-button">3.ep</button>
+        <button class="team-button">4.ep</button>
+    </div>
+
+    <div class="main-content">
+        <h1 class="main-heading">Hlavní menu</h1>
+        <div class="divider"></div>
+        <div class="phase">Fáze</div>
+        <table>
+            <tr>
+                <th><button class="table-button">Upload</button></th>
+                <th>#1</th>
+                <th>#2</th>
+                <th>#3</th>
+                <th>#4</th>
+                <th>#5</th>
+                <th>#6</th>
+                <th>#7</th>
+                <th>#8</th>
+            </tr>
+            <tr>
+                <td>členové</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>pitch</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>m1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>m2</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>m3</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>m4</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>m5</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>m6</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>prezentace</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>hodnocení</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
 
 <%- include('../partials/tail') %>

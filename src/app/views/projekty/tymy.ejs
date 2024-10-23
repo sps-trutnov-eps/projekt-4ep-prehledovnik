@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rozvržení</title>
+
+    <%- include('../partials/head.ejs'); %>
+    
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #1e1e1e;
+            color: #ffffff;
+        }
+
+        .header {
+            width: 100%;
+            background-color: #2e2e2e;
+            padding: 10px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: 8px;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: flex-start;
+            padding: 10px;
+            background-color: #2e2e2e;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .navbar button {
+            margin-right: 10px;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            background-color: #1a73e8;
+            border: none;
+            border-radius: 4px;
+            color: #ffffff;
+        }
+
+        .levy_panel {
+            width: 200px;
+            background-color: #333;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            height: calc(100vh - 60px);
+            position: fixed;
+            top: 60px;
+            left: 0;
+        }
+
+        .levy_panel button {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            background-color: #1a73e8;
+            border: none;
+            border-radius: 8px;
+            color: #ffffff;
+        }
+
+        .main-content {
+            margin-left: 220px;
+            padding: 20px;
+            box-sizing: border-box;
+            width: calc(100% - 220px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: calc(100vh - 60px);
+            background-color: #1e1e1e;
+        }
+
+        .main-heading {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .divider {
+            width: 100%;
+            height: 2px;
+            background-color: #1a73e8;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #1e1e1e;
+            color: #ffffff;
+        }
+
+        th, td {
+            border: 1px solid #444;
+            padding: 10px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        th {
+            background-color: #333;
+        }
+
+        .table-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #1a73e8;
+            border: none;
+        }
+
+        .team-info-section {
+            display: none;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #2e2e2e;
+            border-radius: 8px;
+        }
+
+        .input-container {
+            margin-bottom: 15px;
+        }
+
+        .input-container label {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .input-container input {
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #444;
+            background-color: #333;
+            color: #ffffff;
+        }
+
+        .save-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #1a73e8;
+            border: none;
+            border-radius: 4px;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+
+    <%- include('../partials/header.ejs'); %>
+
+    <div class="levy_panel">
+        <button>Přepínač</button>
+        <button>Týmy</button>
+        <button class="team-button" onclick="showTeamInfo('Tým 1', this)">1.ep</button>
+        <button class="team-button" onclick="showTeamInfo('Tým 2', this)">2.ep</button>
+        <button class="team-button" onclick="showTeamInfo('Tým 3', this)">3.ep</button>
+        <button class="team-button" onclick="showTeamInfo('Tým 4', this)">4.ep</button>
+    </div>
+
+    <div class="main-content">
+        <h1 class="main-heading">Hlavní týmy</h1>
+        <div class="divider"></div>
+        
+        <table>
+            <tr>
+                <th>Týmy</th>
+            </tr>
+            <tr>
+                <td>
+                    <button onclick="showTeamInfo('Tým 1', this)">Tým 1</button>
+                    <div class="team-info-section"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button onclick="showTeamInfo('Tým 2', this)">Tým 2</button>
+                    <div class="team-info-section"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button onclick="showTeamInfo('Tým 3', this)">Tým 3</button>
+                    <div class="team-info-section"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button onclick="showTeamInfo('Tým 4', this)">Tým 4</button>
+                    <div class="team-info-section"></div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        function showTeamInfo(team, buttonElement) {
+            const teamInfo = {
+                'Tým 1': 'Informace o Týmu 1...',
+                'Tým 2': 'Informace o Týmu 2...',
+                'Tým 3': 'Informace o Týmu 3...',
+                'Tým 4': 'Informace o Týmu 4...'
+            };
+
+            // Najdeme nejbližší 'td' prvek od tlačítka
+            const parentTd = buttonElement.closest('td');
+
+            // Najdeme konkrétní 'team-info-section' v daném 'td'
+            const teamInfoSection = parentTd.querySelector('.team-info-section');
+
+            // Nastavíme obsah pro tým
+            teamInfoSection.innerHTML = `
+                <div id="team-info">${teamInfo[team]}</div>
+                <div id="additional-buttons">
+                    <button class="detail-button" onclick="showDetail('Detail týmu', this)">Detail týmu</button>
+                    <button class="detail-button" onclick="showDetail('Pitch', this)">Pitch</button>
+                    <button class="detail-button" onclick="showDetail('Prezentace', this)">Prezentace</button>
+                </div>
+                <div id="detail-info"></div>
+            `;
+
+            // Zobrazíme sekci
+            teamInfoSection.style.display = 'block';
+        }
+
+        function showDetail(detailType, buttonElement) {
+            const detailInfo = {
+                'Detail týmu': `
+                    <form action="/projekty/ulozitDetailyTymu" method="POST">
+                        <div class="input-container">
+                            <label for="leader-name">Jméno vedoucího:</label>
+                            <input type="text" id="leader-name" name="vedouci" maxlength="50" placeholder="Zadejte jméno vedoucího týmu" required>
+                        </div>
+                        <div class="input-container">
+                            <label for="team-members">Členové týmu:</label>
+                            <input type="text" id="team-members" name="clenove" maxlength="50" placeholder="Zadejte jména členů týmu" required>
+                        </div>
+                        <div class="input-container">
+                            <label for="team-repo">Repozitář:</label>
+                            <input type="text" id="team-repo" name="tymRepo" maxlength="100" placeholder="Zadejte URL repozitáře týmu" required>
+                        </div>
+                        <div class="input-container">
+                            <label for="trida">Třída:</label>
+                            <input type="text" id="trida" name="trida" maxlength="50" placeholder="Zadejte třídu projektu" required>
+                        </div>
+                        <button type="submit" class="save-button">Uložit</button>
+                    </form>
+                `,
+                'Pitch': `
+                    <div class="table-wrapper">
+                        <div class="feature-goal-container">
+                            <div class="input-container">
+                                <label for="feature-1">Featura 1:</label>
+                                <input type="text" id="feature-1" placeholder="Zadejte první featuru">
+                            </div>
+                            <div class="input-container">
+                                <label for="feature-2">Featura 2:</label>
+                                <input type="text" id="feature-2" placeholder="Zadejte druhou featuru">
+                            </div>
+                            <div class="input-container">
+                                <label for="feature-3">Featura 3:</label>
+                                <input type="text" id="feature-3" placeholder="Zadejte třetí featuru">
+                            </div>
+                            <div class="input-container">
+                                <label for="goal-1">Goal 1:</label>
+                                <input type="text" id="goal-1" placeholder="Zadejte první goal">
+                            </div>
+                            <div class="input-container">
+                                <label for="goal-2">Goal 2:</label>
+                                <input type="text" id="goal-2" placeholder="Zadejte druhý goal">
+                            </div>
+                            <div class="input-container">
+                                <label for="bonus">Bonus:</label>
+                                <input type="text" id="bonus" placeholder="Zadejte bonus">
+                            </div>
+                        </div>
+                        
+                        <div class="grades-container">
+                            <h3>Prezentace Pitche</h3>
+                            <table class="grade-table">
+                                <tr>
+                                    <th>Jméno</th>
+                                    <th>Známka</th>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" placeholder="Jméno člena"></td>
+                                    <td><input type="number" min="1" max="5" placeholder="Známka"></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" placeholder="Jméno člena"></td>
+                                    <td><input type="number" min="1" max="5" placeholder="Známka"></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" placeholder="Jméno člena"></td>
+                                    <td><input type="number" min="1" max="5" placeholder="Známka"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <button class="save-button" onclick="savePitchDetails()">Uložit Pitch</button>
+                `,
+                'Prezentace': 'Prezentace informace...'
+            };
+
+            const detailInfoDiv = buttonElement.parentElement.nextElementSibling;
+            detailInfoDiv.innerHTML = detailInfo[detailType];
+        }
+
+        function saveTeamDetails() {
+            const leaderName = document.getElementById('leader-name').value;
+            const teamMembers = document.getElementById('team-members').value;
+            const teamRepo = document.getElementById('team-repo').value;
+
+            if (leaderName && teamMembers && teamRepo) {
+                alert(`Vedoucí týmu: ${leaderName}\nČlenové týmu: ${teamMembers}\nRepozitář: ${teamRepo}`);
+            } else {
+                alert('Prosím, vyplňte všechna pole.');
+            }
+        }
+
+        function savePitchDetails() {
+            const feature1 = document.getElementById('feature-1').value;
+            const feature2 = document.getElementById('feature-2').value;
+            const feature3 = document.getElementById('feature-3').value;
+            const goal1 = document.getElementById('goal-1').value;
+            const goal2 = document.getElementById('goal-2').value;
+            const bonus = document.getElementById('bonus').value;
+
+            if (feature1 && feature2 && feature3 && goal1 && goal2 && bonus) {
+                alert(`Featury: ${feature1}, ${feature2}, ${feature3}\nGoal: ${goal1}, ${goal2}\nBonus: ${bonus}`);
+            } else {
+                alert('Prosím, vyplňte všechna pole pro pitch.');
+            }
+        }
+    </script>
+</body>
+</html>
