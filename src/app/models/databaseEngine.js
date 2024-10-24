@@ -22,6 +22,7 @@ if(!db.has("predmety")){
     db.set("rozvrhy", {"nextID": 1});
     db.set("udalosti", {"nextID": 1});
     db.set("maturity", {"nextID": 1});
+    db.set("projekty", {"nextID": 1});
 }
 
 // OSNOVY
@@ -238,9 +239,63 @@ const maturity = {
 }
 
 // PROJEKTY
+function gP(){return db.get("projekty")}
+function sP(projekty){db.set("projekty", projekty)}
 
 const projekty = {
-
+    pridatProjekt: (trida, tymy, pitche, milestony, devlogy, prezentace) => {
+        let projekty = gP();
+        console.log(projekty);
+        projekty[projekty["nextID"]] = {trida, tymy, pitche, milestony, devlogy, prezentace};
+        projekty["nextID"] += 1;
+        sP(projekty);
+    },
+    upravitTymy: (trida, tymy) => {
+        let projekty = gP();
+        let IDUpravovanehoProjektu = hledanyProjekt(trida);
+        projekty[IDUpravovanehoProjektu]["tymy"] = tymy;
+        sP(projekty);
+    },
+    upravitPitche: (trida, pitche) => {
+        let projekty = gP();
+        let IDUpravovanehoProjektu = hledanyProjekt(trida);
+        projekty[IDUpravovanehoProjektu]["ptiche"] = pitche;
+        sP(projekty);
+    },
+    upravitMilestony: (trida, milestony) => {
+        let projekty = gP();
+        let IDUpravovanehoProjektu = hledanyProjekt(trida);
+        projekty[IDUpravovanehoProjektu]["milestony"] = milestony;
+        sP(projekty);
+    },
+    upravitDevlogy: (trida, devlogy) => {
+        let projekty = gP();
+        let IDUpravovanehoProjektu = hledanyProjekt(trida);
+        projekty[IDUpravovanehoProjektu]["devlogy"] = devlogy;
+        sP(projekty);
+    },
+    upravitPrezentace: (trida, prezentace) => {
+        let projekty = gP();
+        let IDUpravovanehoProjektu = hledanyProjekt(trida);
+        projekty[IDUpravovanehoProjektu]["prezentace"] = prezentace;
+        sP(projekty);
+    },
+    ziskatIDProjektu: (trida) => {
+        let projekty = gP();
+        let nextID = projekty["nextID"];
+        let IDHledanehoProjektu;
+        for(let i = 0; i < nextID; i++){
+            if(projekty[String(i)]["trida"] == trida){
+                IDHledanehoProjektu = String(i);
+            }
+        }
+        return IDHledanehoProjektu;
+    },
+    ziskatProjekt: (trida) => {
+        let projekty = gP();
+        let ID = ziskatIDProjektu(trida);
+        return projekty[ID];
+    }
 }
 
 // CELKOVÝ MODEL
