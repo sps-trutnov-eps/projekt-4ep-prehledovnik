@@ -37,149 +37,26 @@
         "618": []
     },
     "osnovy": {
-        "1": {
-            "trida": "",
-            "predmet": "",
-            "temata": ""
-        },
-        "2": {
-            "trida": "",
-            "predmet": "",
-            "temata": ""
-        },
-        "3": {
-            "trida": "",
-            "predmet": "",
-            "temata": ""
-        },
-        "nextID": 4
+        "nextID": 1
     },
     "rozvrhy": {
         "nextID": 1
     },
     "udalosti": {
-        "6": {
-            "nazev": "aa",
-            "typ": "celoskolni",
-            "datum": "2024-10-17",
-            "datumDo": null,
-            "casOd": null,
-            "casDo": null,
-            "vyberZadani": "celodenni",
-            "tykaSe": null,
-            "poznamka": ""
-        },
-        "7": {
-            "nazev": "dd",
-            "typ": "celoskolni",
-            "datum": "2024-10-17",
-            "datumDo": "2024-11-02",
-            "casOd": null,
-            "casDo": null,
-            "vyberZadani": "vicedenni",
-            "tykaSe": null,
-            "poznamka": "",
-            "date": "17-10"
-        },
-        "8": {
-            "nazev": "kk",
-            "typ": "celoskolni",
-            "datum": "2024-10-19",
-            "datumDo": null,
-            "casOd": null,
-            "casDo": null,
-            "vyberZadani": "celodenni",
-            "tykaSe": null,
-            "poznamka": "",
-            "date": "19-10"
-        },
-        "9": {
-            "nazev": "udalost1",
-            "typ": "celotridni",
-            "datum": "2024-10-19",
-            "datumDo": "2024-10-20",
-            "casOd": null,
-            "casDo": null,
-            "vyberZadani": "vicedenni",
-            "tykaSe": "3EP",
-            "poznamka": "poznamka1",
-            "date": "19-10"
-        },
-        "10": {
-            "nazev": "udalost2",
-            "typ": "budovy",
-            "datum": "2024-10-19",
-            "datumDo": null,
-            "casOd": "7:10",
-            "casDo": "7:55",
-            "vyberZadani": "casIDatum",
-            "tykaSe": "skolni101",
-            "poznamka": "poznamka",
-            "date": "19-10"
-        },
-        "11": {
-            "nazev": "Událost první",
-            "typ": "celoskolni",
-            "datum": "2024-10-20",
-            "datumDo": null,
-            "casOd": null,
-            "casDo": null,
-            "vyberZadani": "celodenni",
-            "tykaSe": null,
-            "poznamka": "Zkouška",
-            "date": "20-10"
-        },
-        "12": {
-            "nazev": "udalost1",
-            "typ": "celoskolni",
-            "datum": "2024-10-20",
-            "datumDo": null,
-            "casOd": null,
-            "casDo": null,
-            "vyberZadani": "Celodenní",
-            "tykaSe": null,
-            "poznamka": "",
-            "date": "20-10"
-        },
-        "13": {
-            "nazev": "udalost1",
-            "typ": "budovy",
-            "datum": "2024-10-20",
-            "datumDo": null,
-            "casOd": null,
-            "casDo": null,
-            "vyberZadani": "Celodenní",
-            "tykaSe": null,
-            "poznamka": "",
-            "date": "20-10"
-        },
-        "14": {
-            "nazev": "udalost1",
-            "typ": "ucitelsky",
-            "datum": "2024-10-20",
-            "datumDo": null,
-            "casOd": null,
-            "casDo": null,
-            "vyberZadani": "celodenni",
-            "tykaSe": null,
-            "poznamka": "",
-            "date": "20-10"
-        },
-        "15": {
-            "nazev": "udalost2",
-            "typ": "celoskolni",
-            "datum": "2024-10-20",
-            "datumDo": null,
-            "casOd": null,
-            "casDo": null,
-            "vyberZadani": "celodenni",
-            "tykaSe": null,
-            "poznamka": "",
-            "date": "20-10"
-        },
-        "nextID": 16
+        "nextID": 1
     },
     "maturity": {
         "nextID": 1
+    },
+    "projekty": {
+        "1": {
+            "trida": "3.EP",
+            "tymy": [],
+            "pitche": [],
+            "milestony": [],
+            "devlogy": [],
+            "prezentace": []
+        },
+        "nextID": 2
     }
 }
