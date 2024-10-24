@@ -17,27 +17,31 @@ exports.zobrazDetailyTymu = (req, res) => {
 }
 
 exports.pridatProjekt = (req, res) => {
-    // Získání dat z těla požadavku
     const { className, semester, studentsCount, projectDate } = req.body;
 
-    // Ověření, že jsou všechna potřebná data poskytnuta
     if (!className || !semester || !studentsCount || !projectDate) {
         return res.status(400).send("Všechna pole jsou povinná.");
     }
 
-    // Vytvoření prázdných hodnot pro zbývající parametry
     const tymy = [];
     const pitche = [];
     const milestony = [];
     const devlogy = [];
     const prezentace = [];
 
-    // Přidání projektu do databáze
+    // Add project to database
     databaze.projekty.pridatProjekt(className, tymy, pitche, milestony, devlogy, prezentace);
 
-    // Přesměrování zpět nebo na jinou stránku po úspěšném přidání
-    res.redirect('/projekty/tymy');
+    // Send JSON response instead of redirect
+    res.json({ success: true, className: className });
 };
+
+// Add a new route to get all projects
+exports.getAllProjects = async (req, res) => {
+    const projects = await databaze.projekty.getAllProjects();
+    res.render('projekty/tymy', { projects: projects });
+};
+
 
 
 

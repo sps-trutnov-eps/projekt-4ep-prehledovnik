@@ -49,14 +49,6 @@
         "nextID": 1
     },
     "projekty": {
-        "1": {
-            "trida": "3.EP",
-            "tymy": [],
-            "pitche": [],
-            "milestony": [],
-            "devlogy": [],
-            "prezentace": []
-        },
-        "nextID": 2
+        "nextID": 5
     }
 }

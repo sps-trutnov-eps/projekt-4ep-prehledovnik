@@ -111,22 +111,25 @@
 
 </style>
 
-<article
-   class="levy_panel"
-   style="
-      width: 20vw;
-      min-width: 20vw;
-      margin-right: 1em;
-      overflow-y: auto;
-      resize: horizontal;
-  ">
-   <button>Přepínač</button>
-   <button>Týmy</button>
-   <button type="submit" id="open-okno" class="team-button">Vytvořit Projekt</button>
-   <div id="myokno" class="okno">
+<article class="levy_panel" style="width: 20vw; min-width: 20vw; margin-right: 1em; overflow-y: auto; resize: horizontal;">
+    <button>Přepínač</button>
+    <button>Týmy</button>
+    <button type="submit" id="open-okno" class="team-button">Vytvořit Projekt</button>
+    
+    <!-- Project buttons container -->
+    <div id="project-buttons">
+        <% if (typeof projects !== 'undefined' && projects.length > 0) { %>
+            <% projects.forEach(function(project) { %>
+                <button class="team-button" onclick="showTeamInfo('<%= project.className %>', this)">
+                    <%= project.className %>
+                </button>
+            <% }); %>
+        <% } %>
+    </div>
+
+    <div id="myokno" class="okno">
         <div class="okno-content">
-            <form action="/projekty/tymy/pridatProjekt" method="post">
-                <span class="close">&times;</span>
+            <form id="projectForm">
                 <h2>Vytvořit Projekt</h2>
                 <div class="input-container">
                     <label for="class-name">Třída:</label>
@@ -146,14 +149,77 @@
                 </div>
                 <button type="submit" class="save-button">Vytvořit</button>
             </form>
-            
         </div>
     </div>
-   </form>
-   <button class="team-button" onclick="showTeamInfo('Tým 1', this)">1.ep</button>
-   <button class="team-button" onclick="showTeamInfo('Tým 2', this)">2.ep</button>
-   <button class="team-button" onclick="showTeamInfo('Tým 3', this)">3.ep</button>
-   <button class="team-button" onclick="showTeamInfo('Tým 4', this)">4.ep</button>
+
+    <!-- Updated JavaScript with proper event handling -->
+    <script>
+        // Function to handle team info display
+        function showTeamInfo(teamName, button) {
+            // Your existing team info display logic
+            console.log('Showing team info for:', teamName);
+        }
+
+        // Function to create new project button
+        function createProjectButton(className) {
+            const newButton = document.createElement('button');
+            newButton.className = 'team-button';
+            newButton.textContent = className;
+            newButton.addEventListener('click', function() {
+                showTeamInfo(className, this);
+            });
+            return newButton;
+        }
+
+        // Function to handle form submission
+        async function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData.entries());
+            
+            try {
+                const response = await fetch('/projekty/tymy/pridatProjekt', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Create and add new button
+                    const newButton = createProjectButton(result.className);
+                    document.getElementById('project-buttons').appendChild(newButton);
+                    
+                    // Close the modal
+                    const modal = document.getElementById('myokno');
+                    if (modal) {
+                        modal.style.display = 'none';
+                    }
+                    
+                    // Reset form
+                    event.target.reset();
+                } else {
+                    console.error('Failed to create project:', result.error);
+                }
+            } catch (error) {
+                console.error('Error creating project:', error);
+            }
+        }
+
+        // Add event listener to form
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('projectForm');
+            if (form) {
+                form.removeEventListener('submit', handleFormSubmit); // Remove any existing listeners
+                form.addEventListener('submit', handleFormSubmit);
+            }
+        });
+    </script>
 </article>
 
 <article class="main-content" style="flex: 3; overflow-y: auto">
