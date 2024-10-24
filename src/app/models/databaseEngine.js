@@ -93,22 +93,6 @@ const osnovy = {
 	}
 }
 
-// získání předmětů z databáze
-function ziskatPredmety() {
-    return db.get("predmety");
-}
-
-function ziskatUcebny() {
-    return db.get("ucebny")
-}
-
-// export funkcí
-module.exports = {
-    osnovy,
-    ziskatPredmety,
-    ziskatUcebny
-}
-
 // ROZVRHY
 function gR(){return db.get("rozvrhy")}
 function sR(rozvrhy){db.set("rozvrhy", rozvrhy)}
@@ -251,13 +235,13 @@ const databaseEngine = {
     maturity: maturity,
     projekty: projekty,
     ziskatPredmety: () => {
-        return predmety;
+        return db.get("predmety");
     },
     ziskatHodiny: () => {
-        return hodiny;
+        return db.get("hodiny");
     },
     ziskatUcebny: () => {
-        return ucebny;
+        return db.get("ucebny");
     }
 }
 
