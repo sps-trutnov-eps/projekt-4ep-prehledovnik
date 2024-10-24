@@ -1,5 +1,72 @@
 <!DOCTYPE html>
 <%- include('../partials/head'); %>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      #jineInputs,
+      #vicedenniInputs {
+        display: none;
+      }
+
+      a{
+        text-decoration: none;
+      }
+
+      article button {
+        margin-bottom: 1em;
+        padding: 0.75em 1.5em;
+        width: 100%;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s, transform 0.3s;
+      }
+
+      article button:hover {
+        background-color: #0056b3;
+        transform: translateY(-2px);
+      }
+
+      form input[type="submit"] {
+        padding: 0.75em 1.5em;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+        width: auto;
+      }
+
+      form input[type="submit"]:hover {
+        background-color: #0056b3;
+      }
+
+      form input,
+      form select,
+      form label {
+        margin-bottom: 1em;
+        margin-top: 1em;
+      }
+    </style>
+    <!-- <main
+      style="
+        padding: 1em;
+        padding-bottom: 0;
+        flex: auto;
+        overflow-y: auto;
+        background-image: linear-gradient(
+          45deg,
+          hsla(192, 100%, 50%, 0.1) 0%,
+          hsla(162, 100%, 50%, 0.1) 50%,
+          hsla(132, 100%, 50%, 0.1) 100%
+        );
+        display: flex;
+      "> -->
       <article
         style="
           width: 20vw;
@@ -31,7 +98,7 @@
             type="radio"
             id="celodenni"
             name="variantaDni"
-            value="Celodenní" 
+            value="Celodenní"
             checked
             />
           <label for="celodenni">Celodenní</label><br />
@@ -212,4 +279,5 @@
       document.getElementById("casOd").dispatchEvent(new Event('change'));
     });
     </script>
-<%- include('../partials/tail') %>
+
+<%- include('../partials/tail'); %>
