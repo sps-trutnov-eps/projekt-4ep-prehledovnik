@@ -105,6 +105,43 @@
         width: 100%;
     }
 
+    .timetable-btn {
+        background-color: #eceaea;
+        color: black;
+        width: 100%;
+        height: 100%;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        padding: 5px;
+        min-height: 60px;
+    }
+
+    .timetable-btn.has-lesson {
+        background-color: #e3f2fd;
+    }
+
+    .lesson-subject {
+        font-weight: bold;
+        margin-bottom: 2px;
+    }
+
+    .lesson-room {
+        font-size: 12px;
+        color: #666;
+    }
+
+    .lesson-group {
+        font-size: 12px;
+        color: #666;
+        font-style: italic;
+    }
+
 
     @keyframes fadeIn {
         from {
@@ -155,7 +192,15 @@
                     <tr>
                         <td><%= day %></td>
                         <% periods.forEach(period => { %>
-                            <td><button class="timetable-btn" onclick="showPopup('<%= period %>', '<%= day %>', '<%= type %>')">+</button></td>
+                            <td>
+                                <button id="btn-<%= type %>-<%= day %>-<%= period %>" 
+                                        class="timetable-btn" 
+                                        onclick="showPopup('<%= period %>', '<%= day %>', '<%= type %>')">
+                                    <span class="hodina-predmet">+</span>
+                                    <span class="hodina-mistnost"></span>
+                                    <span class="hodina-skupina"></span>
+                                </button>
+                            </td>
                         <% }) %>
                     </tr>
                 <% }) %>
@@ -187,7 +232,6 @@
 </main>
 </article>
 <script>
-    // Initialize the rozvrh object
     let rozvrh = {
         "sudy": {
             "Po": {},
@@ -218,6 +262,29 @@
         document.getElementById("popupModal").style.display = "none";
     }
 
+    function updateTileDisplay(tyden, den, cas, hodina) {
+        const buttonId = `btn-${tyden}-${den}-${cas}`;
+        const button = document.getElementById(buttonId);
+        
+        if (button) {
+            const predmetSpan = button.querySelector('.hodina-predmet');
+            const mistnostSpan = button.querySelector('.hodina-mistnost');
+            const skupinaSpan = button.querySelector('.hodina-skupina');
+
+            if (hodina) {
+                button.classList.add('has-lesson');
+                predmetSpan.textContent = hodina.predmet;
+                mistnostSpan.textContent = hodina.mistnost;
+                skupinaSpan.textContent = hodina.skupina === 'cela' ? 'Celá třída' : hodina.skupina;
+            } else {
+                button.classList.remove('has-lesson');
+                predmetSpan.textContent = '+';
+                mistnostSpan.textContent = '';
+                skupinaSpan.textContent = '';
+            }
+        }
+    }
+
     function potvrditHodinu() {
         const predmet = document.getElementById("jakypredmet").value;
         const mistnost = document.getElementById("mistnost").value;
@@ -231,12 +298,13 @@
 
         if (druhTydne === 'S') {
             rozvrh.sudy[denHodiny][casHodiny] = hodina;
+            updateTileDisplay('S', denHodiny, casHodiny, hodina);
         } else {
             rozvrh.lichy[denHodiny][casHodiny] = hodina;
+            updateTileDisplay('L', denHodiny, casHodiny, hodina);
         }
 
         console.log(rozvrh);
-
         closePopup();
     }
 </script>

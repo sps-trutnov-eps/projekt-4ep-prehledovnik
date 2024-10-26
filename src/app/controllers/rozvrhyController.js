@@ -4,7 +4,7 @@ const databaze = require("../models/databaseEngine");
 
 app.set('view engine', 'ejs');
 
-app.get('/your-route', (req, res) => {
+app.get('/ziskat-predmety', (req, res) => {
     const predmety = databaseEngine.ziskatPredmety();
-    res.render('your-template', { predmety });
+    res.render('predmety', { predmety });
 });
