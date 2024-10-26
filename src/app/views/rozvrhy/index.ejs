@@ -176,7 +176,7 @@
     <% const periods = ['0', '1', '2', '3', '4', '5', '6', '7', '8']; %>
     <% const timeRanges = ['7:10 - 7:55', '8:00 - 8:45', '8:50 - 9:35', '9:55 - 10:40', '10:45 - 11:30', '11:35 - 12:25', '12:35 - 13:20', '13:25 - 14:10', '14:15 - 15:00']; %>
     
-    <% ['S', 'L'].forEach(type => { %>
+    <% ['L', 'S'].forEach(type => { %>
         <h2><%= type === 'S' ? 'Sudý' : 'Lichý' %> týden</h2>
         <table class="timetable">
             <thead>
@@ -233,20 +233,22 @@
 </article>
 <script>
     let rozvrh = {
-        "sudy": {
-            "Po": {},
-            "Ut": {},
-            "St": {},
-            "Ct": {},
-            "Pa": {}
-        },
+
         "lichy": {
             "Po": {},
             "Ut": {},
             "St": {},
             "Ct": {},
             "Pa": {}
+        }, 
+        "sudy": {
+            "Po": {},
+            "Ut": {},
+            "St": {},
+            "Ct": {},
+            "Pa": {}
         }
+
     };
 
     let casHodiny, denHodiny, druhTydne;
@@ -296,12 +298,13 @@
             skupina: skupina,
         };
 
-        if (druhTydne === 'S') {
+        if (druhTydne === 'L') {
             rozvrh.sudy[denHodiny][casHodiny] = hodina;
-            updateTileDisplay('S', denHodiny, casHodiny, hodina);
-        } else {
-            rozvrh.lichy[denHodiny][casHodiny] = hodina;
             updateTileDisplay('L', denHodiny, casHodiny, hodina);
+        } else {
+
+            rozvrh.lichy[denHodiny][casHodiny] = hodina;
+            updateTileDisplay('S', denHodiny, casHodiny, hodina);
         }
 
         console.log(rozvrh);
