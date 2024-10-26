@@ -1,28 +1,77 @@
-        <nav style="padding: 0em 1em;">
-            <ul>
-                <li><strong>Přehledovnik</strong></li>
-            </ul>
-            <ul>
-				<li>
-					<input class="outline" type="button" value="Example" onclick="window.location.href = '/example'">
-                </li>
-				<li>
-					<input class="outline" type="button" value="Kalendář" onclick="window.location.href = '/kalendar'">
-                </li>
-                <li>
-					<input class="outline" type="button" value="Rozvrh" onclick="window.location.href = '/rozvrhy'">
-                </li>
-                <li>
-                    <input class="outline" type="button" value="Osnovy" onclick="window.location.href = '/osnovy'">
-                </li>
-                <li>
-					<input class="outline" type="button" value="Události" onclick="window.location.href = '/udalosti'">
-                </li>
-                <li>
-					<input class="outline" type="button" value="Projekty" onclick="window.location.href = '/projekty'">
-                </li>
-                <li>
-					<input class="outline" type="button" value="Maturita" onclick="window.location.href = '/maturity'">
-                </li>
-            </ul>
-        </nav>
+<nav style="padding: 0em 1em;">
+  <ul>
+    <li><strong>Přehledovnik</strong></li>
+  </ul>
+  <ul>
+    <li>
+      <button
+        class="outline"
+        hx-get="/example"
+        hx-target="body"
+        hx-push-url="true"
+        hx-swap="transition:true">
+        Example
+      </button>
+    </li>
+    <li>
+      <button
+        class="outline"
+        hx-get="/kalendar"
+        hx-target="body"
+        hx-push-url="true"
+        hx-swap="transition:true">
+        Kalendář
+      </button>
+    </li>
+    <li>
+      <button
+        class="outline"
+        hx-get="/rozvrhy"
+        hx-target="body"
+        hx-push-url="true"
+        hx-swap="transition:true">
+        Rozvrh
+      </button>
+    </li>
+    <li>
+      <button
+        class="outline"
+        hx-get="/osnovy"
+        hx-target="body"
+        hx-push-url="true"
+        hx-swap="transition:true">
+        Osnovy
+      </button>
+    </li>
+    <li>
+      <button
+        class="outline"
+        hx-get="/udalosti"
+        hx-target="body"
+        hx-push-url="true"
+        hx-swap="transition:true">
+        Události
+      </button>
+    </li>
+    <li>
+      <button
+        class="outline"
+        hx-get="/projekty"
+        hx-target="body"
+        hx-push-url="true"
+        hx-swap="transition:true">
+        Projekty
+      </button>
+    </li>
+    <li>
+      <button
+        class="outline"
+        hx-get="/maturity"
+        hx-target="body"
+        hx-push-url="true"
+        hx-swap="transition:true">
+        Maturita
+      </button>
+    </li>
+  </ul>
+</nav>
