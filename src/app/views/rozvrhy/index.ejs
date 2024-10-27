@@ -56,7 +56,6 @@
         background-color: white;
     }
 
-
     .modal {
         display: none;
         position: fixed;
@@ -90,7 +89,6 @@
         float: right;
         font-size: 28px;
         font-weight: bold;
-
     }
 
     .close-btn:hover,
@@ -103,6 +101,15 @@
     .btn-save {
         border: none;
         width: 100%;
+        margin-top: 10px;
+    }
+
+    .btn-new {
+        border: none;
+        width: 100%;
+        margin-top: 10px;
+        background-color: #4CAF50;
+        color: white;
     }
 
     .timetable-btn {
@@ -141,6 +148,7 @@
         color: #666;
         font-style: italic;
     }
+
     .create-timetable {
         display: flex;
         flex-direction: column;
@@ -199,7 +207,6 @@
         from {
             opacity: 0;
         }
-
         to {
             opacity: 1;
         }
@@ -223,6 +230,7 @@
         </select>
         <% if (rozvrhy && rozvrhy.length > 0) { %>
             <button class="btn-save" onclick="ulozitRozvrh()">Uložit</button>
+            <button class="btn-new" onclick="showCreateForm()">Nová verze</button>
         <% } %>
     </main>
 </article>
@@ -299,12 +307,30 @@
                     <option value="sk1">Skupina 1</option>
                     <option value="sk1">Skupina 2</option>
                 </select>
-
             </form>
             <button class="btn-save" onclick="potvrditHodinu()">Potvrdit</button>
         </div>
     </div>
     <% } %>
+
+    <!-- Create Form Modal -->
+    <div id="createFormModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeCreateForm()">&times;</span>
+            <h2>Nová verze rozvrhu</h2>
+            <form id="createForm" class="create-form visible" action="/rozvrhy/vytvorit" method="POST">
+                <div class="form-group">
+                    <label for="nazev">Název verze:</label>
+                    <input type="text" id="nazev" name="nazev" required>
+                </div>
+                <div class="form-group">
+                    <label for="popis">Popis:</label>
+                    <textarea id="popis" name="popis" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn-save">Vytvořit</button>
+            </form>
+        </div>
+    </div>
 </main>
 </article>
 
@@ -314,152 +340,182 @@
 </div>
 
 <script>
-    const emptyTimetable = {
-            "lichy": {
-                "Po": {}, "Ut": {}, "St": {}, "Ct": {}, "Pa": {}
-            },
-            "sudy": {
-                "Po": {}, "Ut": {}, "St": {}, "Ct": {}, "Pa": {}
-            }
-    };
+const emptyTimetable = {
+    "lichy": {
+        "Po": {}, "Ut": {}, "St": {}, "Ct": {}, "Pa": {}
+    },
+    "sudy": {
+        "Po": {}, "Ut": {}, "St": {}, "Ct": {}, "Pa": {}
+    }
+};
 
-    let rozvrh = null;
+let rozvrh = null;
 
-    const timetableData = document.getElementById('timetableData');
-    if (timetableData && timetableData.dataset.rozvrh) {
-        try {
-            const parsedData = JSON.parse(timetableData.dataset.rozvrh);
-            rozvrh = parsedData.hodiny || emptyTimetable;
-            
-            // Debug output
-            console.log('Parsed timetable data:', rozvrh);
-        } catch (e) {
-            console.error('Error parsing timetable data:', e);
-            rozvrh = emptyTimetable;
-        }
-    } else {
+const timetableData = document.getElementById('timetableData');
+if (timetableData && timetableData.dataset.rozvrh) {
+    try {
+        const parsedData = JSON.parse(timetableData.dataset.rozvrh);
+        rozvrh = parsedData.hodiny || emptyTimetable;
+        
+        console.log('Parsed timetable data:', rozvrh);
+    } catch (e) {
+        console.error('Error parsing timetable data:', e);
         rozvrh = emptyTimetable;
     }
+} else {
+    rozvrh = emptyTimetable;
+}
 
-    let casHodiny, denHodiny, druhTydne;
+let casHodiny, denHodiny, druhTydne;
 
-    function nacteniVerze(id) {
-        window.location.href = `/rozvrhy?verze=${id}`;
-    }
+function nacteniVerze(id) {
+    window.location.href = `/rozvrhy?verze=${id}`;
+}
 
-    async function ulozitRozvrh() {
-        const aktivniVerze = document.getElementById('jakaverze').value;
-        try {
-            const response = await fetch('/rozvrhy/ulozit-verzi', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    id: aktivniVerze,
-                    hodiny: rozvrh
-                })
-            });
-            
-            if (response.ok) {
-                alert('Rozvrh byl úspěšně uložen!');
-            } else {
-                alert('Při ukládání došlo k chybě.');
-            }
-        } catch (error) {
-            console.error('Error:', error);
+async function ulozitRozvrh() {
+    const aktivniVerze = document.getElementById('jakaverze').value;
+    try {
+        const response = await fetch('/rozvrhy/ulozit-verzi', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                id: aktivniVerze,
+                hodiny: rozvrh
+            })
+        });
+        
+        if (response.ok) {
+            alert('Rozvrh byl úspěšně uložen!');
+        } else {
             alert('Při ukládání došlo k chybě.');
         }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Při ukládání došlo k chybě.');
     }
+}
 
-    function showPopup(cas, den, tyden) {
-        casHodiny = cas;
-        denHodiny = den;
-        druhTydne = tyden;
-        document.getElementById("popupModal").style.display = "block";
-    }
+function showPopup(cas, den, tyden) {
+    casHodiny = cas;
+    denHodiny = den;
+    druhTydne = tyden;
+    document.getElementById("popupModal").style.display = "block";
+}
 
-    function closePopup() {
-        document.getElementById("popupModal").style.display = "none";
-    }
+function closePopup() {
+    document.getElementById("popupModal").style.display = "none";
+}
 
-    function updateTileDisplay(tyden, den, cas, hodina) {
+function updateTileDisplay(tyden, den, cas, hodina) {
     const buttonId = `btn-${tyden}-${den}-${cas}`;
     const button = document.getElementById(buttonId);
     
-        if (button) {
-            const predmetSpan = button.querySelector('.hodina-predmet');
-            const mistnostSpan = button.querySelector('.hodina-mistnost');
-            const skupinaSpan = button.querySelector('.hodina-skupina');
+    if (button) {
+        const predmetSpan = button.querySelector('.hodina-predmet');
+        const mistnostSpan = button.querySelector('.hodina-mistnost');
+        const skupinaSpan = button.querySelector('.hodina-skupina');
 
-            if (hodina && typeof hodina === 'object') {
-                button.classList.add('has-lesson');
-                predmetSpan.textContent = hodina.predmet || '';
-                mistnostSpan.textContent = hodina.mistnost || '';
-                skupinaSpan.textContent = hodina.skupina === 'cela' ? 'Celá třída' : hodina.skupina || '';
-            } else {
-                button.classList.remove('has-lesson');
-                predmetSpan.textContent = '+';
-                mistnostSpan.textContent = '';
-                skupinaSpan.textContent = '';
-            }
-        }
-    }
-
-
-    function potvrditHodinu() {
-        const predmet = document.getElementById("jakypredmet").value;
-        const mistnost = document.getElementById("mistnost").value;
-        const skupina = document.getElementById("skupina").value;
-
-        const hodina = {
-            predmet: predmet,
-            mistnost: mistnost,
-            skupina: skupina,
-        };
-
-        if (druhTydne === 'L') {
-            rozvrh.lichy[denHodiny][casHodiny] = hodina;
-            updateTileDisplay('L', denHodiny, casHodiny, hodina);
+        if (hodina && typeof hodina === 'object') {
+            button.classList.add('has-lesson');
+            predmetSpan.textContent = hodina.predmet || '';
+            mistnostSpan.textContent = hodina.mistnost || '';
+            skupinaSpan.textContent = hodina.skupina === 'cela' ? 'Celá třída' : hodina.skupina || '';
         } else {
-            rozvrh.sudy[denHodiny][casHodiny] = hodina;
-            updateTileDisplay('S', denHodiny, casHodiny, hodina);
+            button.classList.remove('has-lesson');
+            predmetSpan.textContent = '+';
+            mistnostSpan.textContent = '';
+            skupinaSpan.textContent = '';
         }
+    }
+}
 
-        closePopup();
+function potvrditHodinu() {
+    const predmet = document.getElementById("jakypredmet").value;
+    const mistnost = document.getElementById("mistnost").value;
+    const skupina = document.getElementById("skupina").value;
+
+    const hodina = {
+        predmet: predmet,
+        mistnost: mistnost,
+        skupina: skupina,
+    };
+
+    if (druhTydne === 'L') {
+        rozvrh.lichy[denHodiny][casHodiny] = hodina;
+        updateTileDisplay('L', denHodiny, casHodiny, hodina);
+    } else {
+        rozvrh.sudy[denHodiny][casHodiny] = hodina;
+        updateTileDisplay('S', denHodiny, casHodiny, hodina);
     }
 
-    function showCreateForm() {
-        const form = document.getElementById('createForm');
-        form.classList.add('visible');
+    closePopup();
+}
+
+function showCreateForm() {
+    const modal = document.getElementById('createFormModal');
+    if (modal) {
+        modal.style.display = "block";
+    }
+}
+
+function closeCreateForm() {
+    const modal = document.getElementById('createFormModal');
+    if (modal) {
+        modal.style.display = "none";
+    }
+}
+
+// Close modals when clicking outside
+window.onclick = function(event) {
+    const createFormModal = document.getElementById('createFormModal');
+    const popupModal = document.getElementById('popupModal');
+    
+    if (event.target === createFormModal) {
+        createFormModal.style.display = "none";
+    }
+    if (event.target === popupModal) {
+        popupModal.style.display = "none";
+    }
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize form submission handling
+    const createForm = document.getElementById('createForm');
+    if (createForm) {
+        createForm.addEventListener('submit', function(e) {
+            if (!createForm.nazev.value.trim()) {
+                e.preventDefault();
+                alert('Prosím vyplňte název verze');
+                return false;
+            }
+        });
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
-        if (rozvrh.lichy) {
-            Object.entries(rozvrh.lichy).forEach(([den, hodiny]) => {
-                Object.entries(hodiny).forEach(([cas, hodina]) => {
-                    if (hodina) {
-                        console.log(`Updating L-${den}-${cas} with:`, hodina);
-                        updateTileDisplay('L', den, cas, hodina);
-                    }
-                });
+    // Initialize timetable display
+    if (rozvrh.lichy) {
+        Object.entries(rozvrh.lichy).forEach(([den, hodiny]) => {
+            Object.entries(hodiny).forEach(([cas, hodina]) => {
+                if (hodina) {
+                    updateTileDisplay('L', den, cas, hodina);
+                }
             });
-        }
+        });
+    }
 
-        if (rozvrh.sudy) {
-            Object.entries(rozvrh.sudy).forEach(([den, hodiny]) => {
-                Object.entries(hodiny).forEach(([cas, hodina]) => {
-                    if (hodina) {
-                        console.log(`Updating S-${den}-${cas} with:`, hodina);
-                        updateTileDisplay('S', den, cas, hodina);
-                    }
-                });
+    if (rozvrh.sudy) {
+        Object.entries(rozvrh.sudy).forEach(([den, hodiny]) => {
+            Object.entries(hodiny).forEach(([cas, hodina]) => {
+                if (hodina) {
+                    updateTileDisplay('S', den, cas, hodina);
+                }
             });
-        }
+        });
+    }
 
-        // Debug logging
-        console.log('Initialized timetable with data:', rozvrh);
-    });
+    console.log('Initialized timetable with data:', rozvrh);
+});
 
 </script>
 <%- include('../partials/tail') %>
