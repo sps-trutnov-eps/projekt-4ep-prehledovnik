@@ -158,8 +158,35 @@ const rozvrhy = {
         rozvrhy["nextID"] += 1;
         sR(rozvrhy);
         return rozvrhy["nextID"] - 1;
+    },
+    ziskatRozvrh: (id) => {
+        let rozvrhy = gR();
+        return rozvrhy[id];
+    },
+    pridatRozvrh: (datum, nazev, popis, hodiny) => {
+        let rozvrhy = gR();
+        const id = rozvrhy["nextID"];
+        rozvrhy[id] = {
+            id,
+            datum,
+            nazev,
+            popis,
+            hodiny
+        };
+        rozvrhy["nextID"] += 1;
+        sR(rozvrhy);
+        return id;
+    },
+    upravitRozvrh: (id, hodiny) => {
+        let rozvrhy = gR();
+        if (rozvrhy[id]) {
+            rozvrhy[id].hodiny = hodiny;
+            sR(rozvrhy);
+            return true;
+        }
+        return false;
     }
-}
+};
 
 
 

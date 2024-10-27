@@ -210,13 +210,20 @@
         <h1>Verze</h1>
     </header>
     <main>
-        <select name="verze" id="jakaverze">
-            <option value="">Aktuální</option>
-            <option value="">Datum1</option>
-            <option value="">Datum2</option>
-            <option value="">Datum3</option>
+        <select name="verze" id="jakaverze" onchange="nacteniVerze(this.value)">
+            <% if (rozvrhy && rozvrhy.length > 0) { %>
+                <% rozvrhy.forEach(function(verze) { %>
+                    <option value="<%= verze.id %>" 
+                            <%= aktivniVerze == verze.id ? 'selected' : '' %>>
+                        <%= verze.nazev %>
+                        (<%= new Date(verze.datum).toLocaleDateString('cs-CZ') %>)
+                    </option>
+                <% }); %>
+            <% } %>
         </select>
-        <button class="btn-save" onclick="alert('Verze uložena!')">Uložit</button>
+        <% if (rozvrhy && rozvrhy.length > 0) { %>
+            <button class="btn-save" onclick="ulozitRozvrh()">Uložit</button>
+        <% } %>
     </main>
 </article>
 <article class="articlesecond">
@@ -300,27 +307,66 @@
     <% } %>
 </main>
 </article>
+
+<div id="timetableData" 
+     data-rozvrh="<%= aktivniRozvrh ? JSON.stringify(aktivniRozvrh.hodiny).replace(/"/g, '&quot;') : '' %>"
+     style="display: none;">
+</div>
+
 <script>
-    let rozvrh = {
-
-        "lichy": {
-            "Po": {},
-            "Ut": {},
-            "St": {},
-            "Ct": {},
-            "Pa": {}
-        }, 
-        "sudy": {
-            "Po": {},
-            "Ut": {},
-            "St": {},
-            "Ct": {},
-            "Pa": {}
-        }
-
+    const emptyTimetable = {
+            "lichy": {
+                "Po": {}, "Ut": {}, "St": {}, "Ct": {}, "Pa": {}
+            },
+            "sudy": {
+                "Po": {}, "Ut": {}, "St": {}, "Ct": {}, "Pa": {}
+            }
     };
 
+    let rozvrh = null;
+
+    const timetableData = document.getElementById('timetableData');
+    if (timetableData && timetableData.dataset.rozvrh) {
+        try {
+            rozvrh = JSON.parse(timetableData.dataset.rozvrh);
+        } catch (e) {
+            console.error('Error parsing timetable data:', e);
+            rozvrh = emptyTimetable;
+        }
+    } else {
+        rozvrh = emptyTimetable;
+    }
+
     let casHodiny, denHodiny, druhTydne;
+
+    function nacteniVerze(id) {
+        window.location.href = `/rozvrhy?verze=${id}`;
+    }
+
+    async function ulozitRozvrh() {
+        const aktivniVerze = document.getElementById('jakaverze').value;
+        try {
+            const response = await fetch('/rozvrhy/ulozit-verzi', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    id: aktivniVerze,
+                    hodiny: rozvrh
+                })
+            });
+            
+            if (response.ok) {
+                alert('Rozvrh byl úspěšně uložen!');
+            } else {
+                alert('Při ukládání došlo k chybě.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Při ukládání došlo k chybě.');
+        }
+    }
 
     function showPopup(cas, den, tyden) {
         casHodiny = cas;
@@ -368,15 +414,13 @@
         };
 
         if (druhTydne === 'L') {
-            rozvrh.sudy[denHodiny][casHodiny] = hodina;
+            rozvrh.lichy[denHodiny][casHodiny] = hodina;
             updateTileDisplay('L', denHodiny, casHodiny, hodina);
         } else {
-
-            rozvrh.lichy[denHodiny][casHodiny] = hodina;
+            rozvrh.sudy[denHodiny][casHodiny] = hodina;
             updateTileDisplay('S', denHodiny, casHodiny, hodina);
         }
 
-        console.log(rozvrh);
         closePopup();
     }
 
@@ -384,5 +428,20 @@
         const form = document.getElementById('createForm');
         form.classList.add('visible');
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        ['L', 'S'].forEach(tyden => {
+            const data = tyden === 'L' ? rozvrh.lichy : rozvrh.sudy;
+            Object.keys(data).forEach(den => {
+                Object.keys(data[den]).forEach(cas => {
+                    const hodina = data[den][cas];
+                    if (hodina) {
+                        updateTileDisplay(tyden, den, cas, hodina);
+                    }
+                });
+            });
+        });
+    });
+
 </script>
 <%- include('../partials/tail') %>

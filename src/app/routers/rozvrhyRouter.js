@@ -4,7 +4,18 @@ const databaseEngine = require('../models/databaseEngine');
 rozvrhyRouter.get('/', (req, res) => {
     const rozvrhy = databaseEngine.rozvrhy.ziskatVsechnyRozvrhy();
     const predmety = databaseEngine.ziskatPredmety();
-    res.render('rozvrhy/index.ejs', { rozvrhy, predmety });
+    const aktivniVerze = req.query.verze || (rozvrhy.length > 0 ? rozvrhy[0].id : null);
+    
+    const aktivniRozvrh = aktivniVerze 
+        ? databaseEngine.rozvrhy.ziskatRozvrh(aktivniVerze) 
+        : null;
+
+    res.render('rozvrhy/index.ejs', { 
+        rozvrhy, 
+        predmety, 
+        aktivniVerze,
+        aktivniRozvrh
+    });
 });
 
 rozvrhyRouter.post('/vytvorit', (req, res) => {
@@ -20,8 +31,14 @@ rozvrhyRouter.post('/vytvorit', (req, res) => {
         }
     };
     
-    databaseEngine.rozvrhy.pridatRozvrh(datum, nazev, popis, prazdnyRozvrh);
-    res.redirect('/rozvrhy');
+    const id = databaseEngine.rozvrhy.pridatRozvrh(datum, nazev, popis, prazdnyRozvrh);
+    res.redirect('/rozvrhy?verze=' + id);
+});
+
+rozvrhyRouter.post('/ulozit-verzi', (req, res) => {
+    const { id, hodiny } = req.body;
+    databaseEngine.rozvrhy.upravitRozvrh(id, hodiny);
+    res.json({ success: true });
 });
 
 module.exports = rozvrhyRouter;
