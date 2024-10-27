@@ -109,12 +109,28 @@
       border: none;
    } 
 
+   /* Styl pro tlačítko pro vytvoření projektu */
+   .project-button {
+      margin-right: 10px;
+      padding: 10px 20px;
+      font-size: 14px;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+      background-color: #007BFF; /* Modrá barva */
+      color: white;
+      transition: background-color 0.3s;
+   }
+
+   .project-button:hover {
+      background-color: #0056b3; /* Tmavší modrá při najetí */
+   }
 </style>
 
 <article class="levy_panel" style="width: 20vw; min-width: 20vw; margin-right: 1em; overflow-y: auto; resize: horizontal;">
     <button>Přepínač</button>
     <button>Týmy</button>
-    <button type="submit" id="open-okno" class="team-button">Vytvořit Projekt</button>
+    <button type="button" id="open-okno" class="project-button" onclick="window.location.href='/vytvorit-projekt'">Vytvořit Projekt</button>
     
     <!-- Project buttons container -->
     <div id="project-buttons">
@@ -128,98 +144,8 @@
     </div>
 
     <div id="myokno" class="okno">
-        <div class="okno-content">
-            <form id="projectForm">
-                <h2>Vytvořit Projekt</h2>
-                <div class="input-container">
-                    <label for="class-name">Třída:</label>
-                    <input type="text" id="class-name" name="className" placeholder="Zadejte třídu">
-                </div>
-                <div class="input-container">
-                    <label for="semester">Pololetí:</label>
-                    <input type="text" id="semester" name="semester" placeholder="Zadejte pololetí">
-                </div>
-                <div class="input-container">
-                    <label for="students-count">Počet žáků:</label>
-                    <input type="number" id="students-count" name="studentsCount" placeholder="Zadejte počet žáků">
-                </div>
-                <div class="input-container">
-                    <label for="project-date">Datum začátku projektu:</label>
-                    <input type="date" id="project-date" name="projectDate">
-                </div>
-                <button type="submit" class="save-button">Vytvořit</button>
-            </form>
-        </div>
+        <!-- Modal content can be added here if needed -->
     </div>
-
-    <!-- Updated JavaScript with proper event handling -->
-    <script>
-        // Function to handle team info display
-        function showTeamInfo(teamName, button) {
-            // Your existing team info display logic
-            console.log('Showing team info for:', teamName);
-        }
-
-        // Function to create new project button
-        function createProjectButton(className) {
-            const newButton = document.createElement('button');
-            newButton.className = 'team-button';
-            newButton.textContent = className;
-            newButton.addEventListener('click', function() {
-                showTeamInfo(className, this);
-            });
-            return newButton;
-        }
-
-        // Function to handle form submission
-        async function handleFormSubmit(event) {
-            event.preventDefault();
-            
-            // Get form data
-            const formData = new FormData(event.target);
-            const data = Object.fromEntries(formData.entries());
-            
-            try {
-                const response = await fetch('/projekty/tymy/pridatProjekt', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data)
-                });
-                
-                const result = await response.json();
-                
-                if (result.success) {
-                    // Create and add new button
-                    const newButton = createProjectButton(result.className);
-                    document.getElementById('project-buttons').appendChild(newButton);
-                    
-                    // Close the modal
-                    const modal = document.getElementById('myokno');
-                    if (modal) {
-                        modal.style.display = 'none';
-                    }
-                    
-                    // Reset form
-                    event.target.reset();
-                } else {
-                    console.error('Failed to create project:', result.error);
-                }
-            } catch (error) {
-                console.error('Error creating project:', error);
-            }
-        }
-
-        // Add event listener to form
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('projectForm');
-            if (form) {
-                form.removeEventListener('submit', handleFormSubmit); // Remove any existing listeners
-                form.addEventListener('submit', handleFormSubmit);
-            }
-        });
-    </script>
 </article>
 
 <article class="main-content" style="flex: 3; overflow-y: auto">
@@ -266,24 +192,17 @@
          'Tým 4': 'Informace o Týmu 4...'
       };
 
-      // Najdeme nejbližší 'td' prvek od tlačítka
       const parentTd = buttonElement.closest('td');
-
-      // Najdeme konkrétní 'team-info-section' v daném 'td'
       const teamInfoSection = parentTd.querySelector('.team-info-section');
-
-      // Nastavíme obsah pro tým
       teamInfoSection.innerHTML = `
          <div id="team-info">${teamInfo[team]}</div>
          <div id="additional-buttons">
          <button class="detail-button" onclick="showDetail('Detail týmu', this)">Detail týmu</button>
          <button class="detail-button" onclick="showDetail('Pitch', this)">Pitch</button>
-         <button class="detail-button" onclick="showDetail('Prezentace', this)">Prezentace</button>
          </div>
          <div id="detail-info"></div>
-         `;
+      `;
 
-      // Zobrazíme sekci
       teamInfoSection.style.display = 'block';
    }
 
@@ -327,74 +246,29 @@
          </div>
          <div class="input-container">
          <label for="goal-1">Goal 1:</label>
-         <input type="text" id="goal-1" placeholder="Zadejte první goal">
+         <input type="text" id="goal-1" placeholder="Zadejte první cíl">
          </div>
          <div class="input-container">
          <label for="goal-2">Goal 2:</label>
-         <input type="text" id="goal-2" placeholder="Zadejte druhý goal">
+         <input type="text" id="goal-2" placeholder="Zadejte druhý cíl">
          </div>
          <div class="input-container">
-         <label for="bonus">Bonus:</label>
-         <input type="text" id="bonus" placeholder="Zadejte bonus">
+         <label for="goal-3">Goal 3:</label>
+         <input type="text" id="goal-3" placeholder="Zadejte třetí cíl">
          </div>
          </div>
-
-         <div class="grades-container">
-         <h3>Prezentace Pitche</h3>
-         <table class="grade-table">
-         <tr>
-         <th>Jméno</th>
-         <th>Známka</th>
-         </tr>
-         <tr>
-         <td><input type="text" placeholder="Jméno člena"></td>
-         <td><input type="number" min="1" max="5" placeholder="Známka"></td>
-         </tr>
-         <tr>
-         <td><input type="text" placeholder="Jméno člena"></td>
-         <td><input type="number" min="1" max="5" placeholder="Známka"></td>
-         </tr>
-         <tr>
-         <td><input type="text" placeholder="Jméno člena"></td>
-         <td><input type="number" min="1" max="5" placeholder="Známka"></td>
-         </tr>
-         </table>
+         <button class="save-button" onclick="savePitch()">Uložit Pitch</button>
          </div>
-         </div>
-         <button class="save-button" onclick="savePitchDetails()">Uložit Pitch</button>
-         `,
-         'Prezentace': 'Prezentace informace...'
+         `
       };
 
-      const detailInfoDiv = buttonElement.parentElement.nextElementSibling;
+      const parentTd = buttonElement.closest('td');
+      const detailInfoDiv = parentTd.querySelector('#detail-info');
       detailInfoDiv.innerHTML = detailInfo[detailType];
    }
 
-   function saveTeamDetails() {
-      const leaderName = document.getElementById('leader-name').value;
-      const teamMembers = document.getElementById('team-members').value;
-      const teamRepo = document.getElementById('team-repo').value;
-
-      if (leaderName && teamMembers && teamRepo) {
-         alert(`Vedoucí týmu: ${leaderName}\nČlenové týmu: ${teamMembers}\nRepozitář: ${teamRepo}`);
-      } else {
-         alert('Prosím, vyplňte všechna pole.');
-      }
-   }
-
-   function savePitchDetails() {
-      const feature1 = document.getElementById('feature-1').value;
-      const feature2 = document.getElementById('feature-2').value;
-      const feature3 = document.getElementById('feature-3').value;
-      const goal1 = document.getElementById('goal-1').value;
-      const goal2 = document.getElementById('goal-2').value;
-      const bonus = document.getElementById('bonus').value;
-
-      if (feature1 && feature2 && feature3 && goal1 && goal2 && bonus) {
-         alert(`Featury: ${feature1}, ${feature2}, ${feature3}\nGoal: ${goal1}, ${goal2}\nBonus: ${bonus}`);
-      } else {
-         alert('Prosím, vyplňte všechna pole pro pitch.');
-      }
+   function savePitch() {
+      // Logika pro uložení pitch
+      alert('Pitch byl uložen!');
    }
 </script>
-<%- include('../partials/tail') %>
