@@ -12,6 +12,10 @@ exports.zobrazPrezentace = (req, res) => {
     res.render("projekty/prezentace");
 }
 
+exports.vytvoritProjekt = (req, res) => {
+    res.render("projekty/vytvoreniProjektu");
+};
+
 exports.zobrazDetailyTymu = (req, res) => {
     res.render("projekty/detailTymu");
 }
