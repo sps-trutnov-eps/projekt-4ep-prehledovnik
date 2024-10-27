@@ -136,8 +136,32 @@ const rozvrhy = {
         let rozvrhy = gR();
         rozvrhy[ziskatIDPodleDatumu(datumOd)]["hodiny"] = hodiny;
         sR(rozvrhy);
+    },
+    ziskatVsechnyRozvrhy: () => {
+        let rozvrhy = gR();
+        let rozvrhyList = [];
+        for(let i = 1; i < rozvrhy["nextID"]; i++) {
+            if (rozvrhy[String(i)]) {
+                rozvrhyList.push(rozvrhy[String(i)]);
+            }
+        }
+        return rozvrhyList;
+    },
+    pridatRozvrh: (datum, nazev, popis, hodiny) => {
+        let rozvrhy = gR();
+        rozvrhy[rozvrhy["nextID"]] = {
+            datum,
+            nazev,
+            popis,
+            hodiny
+        };
+        rozvrhy["nextID"] += 1;
+        sR(rozvrhy);
+        return rozvrhy["nextID"] - 1;
     }
 }
+
+
 
 // UDALOSTI
 function gU(){return db.get("udalosti")}

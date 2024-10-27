@@ -141,7 +141,59 @@
         color: #666;
         font-style: italic;
     }
-
+    .create-timetable {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 400px;
+        text-align: center;
+    }
+    
+    .big-button {
+        padding: 20px 40px;
+        font-size: 1.2em;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-bottom: 20px;
+    }
+    
+    .big-button:hover {
+        background-color: #45a049;
+    }
+    
+    .create-form {
+        display: none;
+        max-width: 400px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #f5f5f5;
+        border-radius: 5px;
+    }
+    
+    .create-form.visible {
+        display: block;
+    }
+    
+    .form-group {
+        margin-bottom: 15px;
+    }
+    
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    
+    .form-group input, 
+    .form-group textarea {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
 
     @keyframes fadeIn {
         from {
@@ -172,6 +224,22 @@
         <h1>Rozvrhy</h1>
     </header>  
     <main>  
+    <% if (!rozvrhy || rozvrhy.length === 0) { %>
+        <div class="create-timetable">
+            <button class="big-button" onclick="showCreateForm()">Vytvořit rozvrh</button>
+            <form id="createForm" class="create-form" action="/rozvrhy/vytvorit" method="POST">
+                <div class="form-group">
+                    <label for="nazev">Název verze:</label>
+                    <input type="text" id="nazev" name="nazev" required>
+                </div>
+                <div class="form-group">
+                    <label for="popis">Popis:</label>
+                    <textarea id="popis" name="popis" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn-save">Vytvořit</button>
+            </form>
+        </div>
+    <% } else { %>
     <% const days = ['Po', 'Ut', 'St', 'Ct', 'Pa']; %>
     <% const periods = ['0', '1', '2', '3', '4', '5', '6', '7', '8']; %>
     <% const timeRanges = ['7:10 - 7:55', '8:00 - 8:45', '8:50 - 9:35', '9:55 - 10:40', '10:45 - 11:30', '11:35 - 12:25', '12:35 - 13:20', '13:25 - 14:10', '14:15 - 15:00']; %>
@@ -229,6 +297,7 @@
             <button class="btn-save" onclick="potvrditHodinu()">Potvrdit</button>
         </div>
     </div>
+    <% } %>
 </main>
 </article>
 <script>
@@ -309,6 +378,11 @@
 
         console.log(rozvrh);
         closePopup();
+    }
+
+    function showCreateForm() {
+        const form = document.getElementById('createForm');
+        form.classList.add('visible');
     }
 </script>
 <%- include('../partials/tail') %>
