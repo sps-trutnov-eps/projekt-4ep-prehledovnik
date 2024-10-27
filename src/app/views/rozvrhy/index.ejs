@@ -309,7 +309,7 @@
 </article>
 
 <div id="timetableData" 
-     data-rozvrh="<%= aktivniRozvrh ? JSON.stringify(aktivniRozvrh.hodiny).replace(/"/g, '&quot;') : '' %>"
+     data-rozvrh='<%= aktivniRozvrh ? aktivniRozvrh : "" %>'
      style="display: none;">
 </div>
 
@@ -328,7 +328,11 @@
     const timetableData = document.getElementById('timetableData');
     if (timetableData && timetableData.dataset.rozvrh) {
         try {
-            rozvrh = JSON.parse(timetableData.dataset.rozvrh);
+            const parsedData = JSON.parse(timetableData.dataset.rozvrh);
+            rozvrh = parsedData.hodiny || emptyTimetable;
+            
+            // Debug output
+            console.log('Parsed timetable data:', rozvrh);
         } catch (e) {
             console.error('Error parsing timetable data:', e);
             rozvrh = emptyTimetable;
@@ -380,19 +384,19 @@
     }
 
     function updateTileDisplay(tyden, den, cas, hodina) {
-        const buttonId = `btn-${tyden}-${den}-${cas}`;
-        const button = document.getElementById(buttonId);
-        
+    const buttonId = `btn-${tyden}-${den}-${cas}`;
+    const button = document.getElementById(buttonId);
+    
         if (button) {
             const predmetSpan = button.querySelector('.hodina-predmet');
             const mistnostSpan = button.querySelector('.hodina-mistnost');
             const skupinaSpan = button.querySelector('.hodina-skupina');
 
-            if (hodina) {
+            if (hodina && typeof hodina === 'object') {
                 button.classList.add('has-lesson');
-                predmetSpan.textContent = hodina.predmet;
-                mistnostSpan.textContent = hodina.mistnost;
-                skupinaSpan.textContent = hodina.skupina === 'cela' ? 'Celá třída' : hodina.skupina;
+                predmetSpan.textContent = hodina.predmet || '';
+                mistnostSpan.textContent = hodina.mistnost || '';
+                skupinaSpan.textContent = hodina.skupina === 'cela' ? 'Celá třída' : hodina.skupina || '';
             } else {
                 button.classList.remove('has-lesson');
                 predmetSpan.textContent = '+';
@@ -401,6 +405,7 @@
             }
         }
     }
+
 
     function potvrditHodinu() {
         const predmet = document.getElementById("jakypredmet").value;
@@ -430,17 +435,30 @@
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-        ['L', 'S'].forEach(tyden => {
-            const data = tyden === 'L' ? rozvrh.lichy : rozvrh.sudy;
-            Object.keys(data).forEach(den => {
-                Object.keys(data[den]).forEach(cas => {
-                    const hodina = data[den][cas];
+        if (rozvrh.lichy) {
+            Object.entries(rozvrh.lichy).forEach(([den, hodiny]) => {
+                Object.entries(hodiny).forEach(([cas, hodina]) => {
                     if (hodina) {
-                        updateTileDisplay(tyden, den, cas, hodina);
+                        console.log(`Updating L-${den}-${cas} with:`, hodina);
+                        updateTileDisplay('L', den, cas, hodina);
                     }
                 });
             });
-        });
+        }
+
+        if (rozvrh.sudy) {
+            Object.entries(rozvrh.sudy).forEach(([den, hodiny]) => {
+                Object.entries(hodiny).forEach(([cas, hodina]) => {
+                    if (hodina) {
+                        console.log(`Updating S-${den}-${cas} with:`, hodina);
+                        updateTileDisplay('S', den, cas, hodina);
+                    }
+                });
+            });
+        }
+
+        // Debug logging
+        console.log('Initialized timetable with data:', rozvrh);
     });
 
 </script>

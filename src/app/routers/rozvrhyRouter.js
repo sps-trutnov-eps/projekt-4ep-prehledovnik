@@ -10,11 +10,13 @@ rozvrhyRouter.get('/', (req, res) => {
         ? databaseEngine.rozvrhy.ziskatRozvrh(aktivniVerze) 
         : null;
 
+    console.log('Active timetable:', JSON.stringify(aktivniRozvrh, null, 2));
+
     res.render('rozvrhy/index.ejs', { 
         rozvrhy, 
         predmety, 
         aktivniVerze,
-        aktivniRozvrh
+        aktivniRozvrh: aktivniRozvrh ? JSON.stringify(aktivniRozvrh) : null
     });
 });
 
