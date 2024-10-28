@@ -203,6 +203,31 @@
         border-radius: 4px;
     }
 
+    .form-group {
+        margin-bottom: 1em;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5em;
+    }
+
+    .form-group select,
+    .form-group input {
+        width: 100%;
+        padding: 0.5em;
+        margin-bottom: 0.5em;
+    }
+
+    select:invalid,
+    input:invalid {
+        border-color: red;
+    }
+
+    .modal-content form {
+        margin-bottom: 1em;
+    }
+
     @keyframes fadeIn {
         from {
             opacity: 0;
@@ -294,21 +319,32 @@
     <div id="popupModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closePopup()">&times;</span>
-            <h2>Předmět</h2>
-            <form action="">
-                <select name="predmet" id="jakypredmet">
-                    <% for (let predmet of predmety) { %>
-                        <option value="<%= predmet %>"><%= predmet %></option>
-                    <% } %>
-                </select>
-                <input type="text" name="" id="mistnost" placeholder="Název učebny">
-                <select name="" id="skupina">
-                    <option value="cela">Celá třída</option>
-                    <option value="sk1">Skupina 1</option>
-                    <option value="sk1">Skupina 2</option>
-                </select>
+            <h2>Tvorba hodiny</h2>
+            <form id="lessonForm" onsubmit="return false;">
+                <div class="form-group">
+                    <label for="jakypredmet">Předmět:</label>
+                    <select name="predmet" id="jakypredmet" required>
+                        <option value="">Vyberte předmět</option>
+                        <option value="volno">Volno</option>
+                        <% for (let predmet of predmety) { %>
+                            <option value="<%= predmet %>"><%= predmet %></option>
+                        <% } %>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="mistnost">Učebna:</label>
+                    <input type="text" name="mistnost" id="mistnost" placeholder="Název učebny" required>
+                </div>
+                <div class="form-group">
+                    <label for="skupina">Skupina:</label>
+                    <select name="skupina" id="skupina">
+                        <option value="cela" selected>Celá třída</option>
+                        <option value="sk1">Skupina 1</option>
+                        <option value="sk2">Skupina 2</option>
+                    </select>
+                </div>
+                <button class="btn-save" onclick="validateAndSubmit()">Potvrdit</button>
             </form>
-            <button class="btn-save" onclick="potvrditHodinu()">Potvrdit</button>
         </div>
     </div>
     <% } %>
@@ -410,6 +446,21 @@ function nacteniVerze(id) {
 
 async function ulozitRozvrh() {
     const aktivniVerze = document.getElementById('jakaverze').value;
+    
+    ['lichy', 'sudy'].forEach(week => {
+        Object.keys(rozvrh[week]).forEach(day => {
+            for (let i = 0; i <= 8; i++) {
+                if (!rozvrh[week][day][i] || !rozvrh[week][day][i].predmet) {
+                    rozvrh[week][day][i] = {
+                        predmet: "volno",
+                        mistnost: "",
+                        skupina: "cela"
+                    };
+                }
+            }
+        });
+    });
+    
     try {
         const response = await fetch('/rozvrhy/ulozit-verzi', {
             method: 'POST',
@@ -424,6 +475,16 @@ async function ulozitRozvrh() {
         
         if (response.ok) {
             alert('Rozvrh byl úspěšně uložen!');
+            Object.entries(rozvrh.lichy).forEach(([den, hodiny]) => {
+                Object.entries(hodiny).forEach(([cas, hodina]) => {
+                    updateTileDisplay('L', den, cas, hodina);
+                });
+            });
+            Object.entries(rozvrh.sudy).forEach(([den, hodiny]) => {
+                Object.entries(hodiny).forEach(([cas, hodina]) => {
+                    updateTileDisplay('S', den, cas, hodina);
+                });
+            });
         } else {
             alert('Při ukládání došlo k chybě.');
         }
@@ -437,10 +498,24 @@ function showPopup(cas, den, tyden) {
     casHodiny = cas;
     denHodiny = den;
     druhTydne = tyden;
+    
+    const existingLesson = druhTydne === 'L' 
+        ? rozvrh.lichy[denHodiny][casHodiny]
+        : rozvrh.sudy[denHodiny][casHodiny];
+        
+    if (existingLesson) {
+        document.getElementById("jakypredmet").value = existingLesson.predmet || "";
+        document.getElementById("mistnost").value = existingLesson.mistnost || "";
+        document.getElementById("skupina").value = existingLesson.skupina || "cela";
+    } else {
+        resetForm();
+    }
+    
     document.getElementById("popupModal").style.display = "block";
 }
 
 function closePopup() {
+    resetForm();
     document.getElementById("popupModal").style.display = "none";
 }
 
@@ -453,11 +528,11 @@ function updateTileDisplay(tyden, den, cas, hodina) {
         const mistnostSpan = button.querySelector('.hodina-mistnost');
         const skupinaSpan = button.querySelector('.hodina-skupina');
 
-        if (hodina && typeof hodina === 'object') {
+        if (hodina && hodina.predmet) {
             button.classList.add('has-lesson');
-            predmetSpan.textContent = hodina.predmet || '';
-            mistnostSpan.textContent = hodina.mistnost || '';
-            skupinaSpan.textContent = hodina.skupina === 'cela' ? 'Celá třída' : hodina.skupina || '';
+            predmetSpan.textContent = hodina.predmet;
+            mistnostSpan.textContent = hodina.predmet === "volno" ? "" : hodina.mistnost;
+            skupinaSpan.textContent = hodina.skupina === "cela" ? "" : hodina.skupina;
         } else {
             button.classList.remove('has-lesson');
             predmetSpan.textContent = '+';
@@ -467,6 +542,29 @@ function updateTileDisplay(tyden, den, cas, hodina) {
     }
 }
 
+function resetForm() {
+    document.getElementById("jakypredmet").value = "";
+    document.getElementById("mistnost").value = "";
+    document.getElementById("skupina").value = "cela";
+}
+
+function validateAndSubmit() {
+    const predmet = document.getElementById("jakypredmet").value;
+    const mistnost = document.getElementById("mistnost").value;
+    
+    if (!predmet) {
+        alert("Prosím vyberte předmět");
+        return;
+    }
+    
+    if (predmet !== "volno" && !mistnost) {
+        alert("Prosím vyplňte učebnu");
+        return;
+    }
+    
+    potvrditHodinu();
+}
+
 function potvrditHodinu() {
     const predmet = document.getElementById("jakypredmet").value;
     const mistnost = document.getElementById("mistnost").value;
@@ -474,8 +572,8 @@ function potvrditHodinu() {
 
     const hodina = {
         predmet: predmet,
-        mistnost: mistnost,
-        skupina: skupina,
+        mistnost: predmet === "volno" ? "" : mistnost,
+        skupina: skupina
     };
 
     if (druhTydne === 'L') {
@@ -486,6 +584,7 @@ function potvrditHodinu() {
         updateTileDisplay('S', denHodiny, casHodiny, hodina);
     }
 
+    resetForm();
     closePopup();
 }
 
