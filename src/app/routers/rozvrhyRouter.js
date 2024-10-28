@@ -2,7 +2,10 @@ const rozvrhyRouter = require('express').Router();
 const databaseEngine = require('../models/databaseEngine');
 
 rozvrhyRouter.get('/', (req, res) => {
-    const rozvrhy = databaseEngine.rozvrhy.ziskatVsechnyRozvrhy();
+    let rozvrhy = databaseEngine.rozvrhy.ziskatVsechnyRozvrhy();
+    
+    rozvrhy = rozvrhy.sort((a, b) => new Date(b.datum) - new Date(a.datum));
+    
     const predmety = databaseEngine.ziskatPredmety();
     const aktivniVerze = req.query.verze || (rozvrhy.length > 0 ? rozvrhy[0].id : null);
     
@@ -10,13 +13,13 @@ rozvrhyRouter.get('/', (req, res) => {
         ? databaseEngine.rozvrhy.ziskatRozvrh(aktivniVerze) 
         : null;
 
-    console.log('Active timetable:', JSON.stringify(aktivniRozvrh, null, 2));
+    console.log('Active timetable:', aktivniRozvrh ? JSON.stringify(aktivniRozvrh, null, 2) : 'No active timetable');
 
     res.render('rozvrhy/index.ejs', { 
         rozvrhy, 
         predmety, 
         aktivniVerze,
-        aktivniRozvrh: aktivniRozvrh ? JSON.stringify(aktivniRozvrh) : null
+        aktivniRozvrh: aktivniRozvrh ? JSON.stringify(aktivniRozvrh).replace(/</g, '\\u003c') : null
     });
 });
 

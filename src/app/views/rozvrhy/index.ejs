@@ -313,7 +313,6 @@
     </div>
     <% } %>
 
-    <!-- Create Form Modal -->
     <div id="createFormModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeCreateForm()">&times;</span>
@@ -335,7 +334,7 @@
 </article>
 
 <div id="timetableData" 
-     data-rozvrh='<%= aktivniRozvrh ? aktivniRozvrh : "" %>'
+     data-rozvrh='<%- aktivniRozvrh ? aktivniRozvrh : "" %>'
      style="display: none;">
 </div>
 
@@ -350,6 +349,43 @@ const emptyTimetable = {
 };
 
 let rozvrh = null;
+
+function initializeTimetable() {
+    const timetableData = document.getElementById('timetableData');
+    if (timetableData && timetableData.dataset.rozvrh) {
+        try {
+            const parsedData = JSON.parse(timetableData.dataset.rozvrh);
+            rozvrh = parsedData.hodiny || emptyTimetable;
+            console.log('Parsed timetable data:', rozvrh);
+            
+            if (rozvrh.lichy) {
+                Object.entries(rozvrh.lichy).forEach(([den, hodiny]) => {
+                    Object.entries(hodiny).forEach(([cas, hodina]) => {
+                        if (hodina) {
+                            updateTileDisplay('L', den, cas, hodina);
+                        }
+                    });
+                });
+            }
+
+            if (rozvrh.sudy) {
+                Object.entries(rozvrh.sudy).forEach(([den, hodiny]) => {
+                    Object.entries(hodiny).forEach(([cas, hodina]) => {
+                        if (hodina) {
+                            updateTileDisplay('S', den, cas, hodina);
+                        }
+                    });
+                });
+            }
+        } catch (e) {
+            console.error('Error parsing timetable data:', e);
+            rozvrh = emptyTimetable;
+        }
+    } else {
+        rozvrh = emptyTimetable;
+    }
+}
+
 
 const timetableData = document.getElementById('timetableData');
 if (timetableData && timetableData.dataset.rozvrh) {
@@ -467,7 +503,6 @@ function closeCreateForm() {
     }
 }
 
-// Close modals when clicking outside
 window.onclick = function(event) {
     const createFormModal = document.getElementById('createFormModal');
     const popupModal = document.getElementById('popupModal');
@@ -480,8 +515,13 @@ window.onclick = function(event) {
     }
 };
 
+document.addEventListener('htmx:afterSwap', function() {
+    initializeTimetable();
+});
+
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize form submission handling
+    initializeTimetable();
+    
     const createForm = document.getElementById('createForm');
     if (createForm) {
         createForm.addEventListener('submit', function(e) {
@@ -492,29 +532,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-
-    // Initialize timetable display
-    if (rozvrh.lichy) {
-        Object.entries(rozvrh.lichy).forEach(([den, hodiny]) => {
-            Object.entries(hodiny).forEach(([cas, hodina]) => {
-                if (hodina) {
-                    updateTileDisplay('L', den, cas, hodina);
-                }
-            });
-        });
-    }
-
-    if (rozvrh.sudy) {
-        Object.entries(rozvrh.sudy).forEach(([den, hodiny]) => {
-            Object.entries(hodiny).forEach(([cas, hodina]) => {
-                if (hodina) {
-                    updateTileDisplay('S', den, cas, hodina);
-                }
-            });
-        });
-    }
-
-    console.log('Initialized timetable with data:', rozvrh);
 });
 
 </script>
