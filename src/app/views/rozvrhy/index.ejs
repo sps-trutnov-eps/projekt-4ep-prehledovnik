@@ -404,7 +404,6 @@
                 try {
                     const parsedData = JSON.parse(timetableData.dataset.rozvrh);
                     rozvrh = parsedData.hodiny || emptyTimetable;
-                    console.log('Parsed timetable data:', rozvrh);
 
                     if (rozvrh.lichy) {
                         Object.entries(rozvrh.lichy).forEach(([den, hodiny]) => {
@@ -426,7 +425,6 @@
                         });
                     }
                 } catch (e) {
-                    console.error('Error parsing timetable data:', e);
                     rozvrh = emptyTimetable;
                 }
             } else {
@@ -441,9 +439,7 @@
                 const parsedData = JSON.parse(timetableData.dataset.rozvrh);
                 rozvrh = parsedData.hodiny || emptyTimetable;
 
-                console.log('Parsed timetable data:', rozvrh);
             } catch (e) {
-                console.error('Error parsing timetable data:', e);
                 rozvrh = emptyTimetable;
             }
         } else {
@@ -501,7 +497,6 @@
                     alert('Při ukládání došlo k chybě.');
                 }
             } catch (error) {
-                console.error('Error:', error);
                 alert('Při ukládání došlo k chybě.');
             }
         }
@@ -544,14 +539,12 @@
                     if (hodina.predmet === "volno") {
                         button.classList.add('has-lesson');
                         button.classList.add('is-free');
-                        button.disabled = true;
                         predmetSpan.textContent = "";
                         mistnostSpan.textContent = "";
                         skupinaSpan.textContent = "";
                     } else {
                         button.classList.add('has-lesson');
                         button.classList.remove('is-free');
-                        button.disabled = false;
                         predmetSpan.textContent = hodina.predmet;
                         mistnostSpan.textContent = hodina.mistnost;
                         skupinaSpan.textContent = hodina.skupina === "cela" ? "" : hodina.skupina;
@@ -559,7 +552,6 @@
                 } else {
                     button.classList.remove('has-lesson');
                     button.classList.remove('is-free');
-                    button.disabled = false;
                     predmetSpan.textContent = '+';
                     mistnostSpan.textContent = '';
                     skupinaSpan.textContent = '';
