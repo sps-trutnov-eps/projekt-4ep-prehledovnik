@@ -16,6 +16,21 @@
   }
 </style>
 
+<!-- Nefachá, nechávám zde pokud by jste potřebovzli -->
+<!-- Smažte pokud ne -->
+<!-- <section id=<%#= new Date(i).getDate()%>-<%#= new Date(i).getMonth() + 1%>  style="grid-column-start: <%#= new Date(i).getDay()%> ;" class="grid-item"> -->
+<!--    <%# if(new Date(i).getDay() == 6) {%> -->
+<!--    <p><%#= new Date(i).getDate()%> / <%#= new Date(i).getMonth() + 1%> - <%#= new Date(i+increment).getDate()%> / <%#= new Date(i+increment).getMonth() + 1%></p> -->
+
+<!--    <%# }else{%> -->
+<!--    <p><%#= new Date(i).getDate()%> / <%#= new Date(i).getMonth() + 1%></p> -->
+<!--    <%# }%> -->
+
+<!--    <%# if (new Date(i).getDate() == date_udalost[0] && new Date(i).getMonth() + 1 == date_udalost[1]) {%> -->
+<!--    <p><%#= date_udalost[2]%></p> -->  
+<!--    <%#}%> -->  
+<!-- </section> -->
+                            
 <article style="flex: 3">
   <header>
     <h1>Kalendář</h1>
@@ -110,6 +125,27 @@
     const selected = document.getElementById("1-" + month);
     console.log(month);
     selected.scrollIntoView();
+  }
+
+  function scrollToMonth() {
+     const select = document.getElementById("months")
+     const month = select.value
+     const selected = document.getElementById("1-"+month)
+     console.log(month)
+     selected.scrollIntoView()
+  }
+
+  document.addEventListener("DOMContentLoaded", function() {
+     placeUdalosti()
+  })
+  function placeUdalosti() {
+     let udalosti = <%- JSON.stringify(udalosti) %>
+        for (let i=1;i<udalosti.length;i++){
+           let date = document.getElementById(udalosti[i].date)
+           let p = document.createElement("p")
+           p.textContent = udalosti[i].nazev
+           date.appendChild(p);          
+        }
   }
 </script>
 <%- include('../partials/tail') %>
