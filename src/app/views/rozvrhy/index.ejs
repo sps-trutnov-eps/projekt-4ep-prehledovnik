@@ -1,168 +1,6 @@
 <!doctype html>
 <%- include('../partials/head'); %>
-<<<<<<< HEAD
-<link rel="stylesheet" href="https://unpkg.com/picocss/dist/pico.min.css">
 
-<style>
-    body:first-of-type article {
-        margin-right: 1em;
-        width: 20vw;
-        min-width: 20vw;
-    }
-
-    .articlesecond {
-        flex: 3;
-    }
-
-    .timetable {
-        width: 100%;
-        border-collapse: collapse;
-        thead th {
-            text-align: center;
-        }
-    }
-
-    .timetable-btn {
-        width: 100%;
-        height: 100%;
-        cursor: pointer;
-        font-size: 14px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-sizing: border-box;
-    }
-
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-        }
-        to {
-            opacity: 1;
-        }
-    }
-</style>
-
-<article style="resize: horizontal;">
-    <header>
-        <h1>Verze</h1>
-    </header>
-    <main>
-        <select name="verze" id="jakaverze">
-            <option value="">Aktuální</option>
-            <option value="">Datum1</option>
-            <option value="">Datum2</option>
-            <option value="">Datum3</option>
-        </select>
-        <input type="submit" class="btn-save" onclick="alert('Verze uložena!')">
-    </main>
-</article>
-
-<article class="articlesecond">
-    <header>
-        <h1>Rozvrhy</h1>
-    </header>
-    <main>
-        <% const days = ['Po', 'Ut', 'St', 'Ct', 'Pa']; %>
-        <% const periods = ['0', '1', '2', '3', '4', '5', '6', '7', '8']; %>
-        <% const timeRanges = ['7:10 - 7:55', '8:00 - 8:45', '8:50 - 9:35', '9:55 - 10:40', '10:45 - 11:30', '11:35 - 12:25', '12:35 - 13:20', '13:25 - 14:10', '14:15 - 15:00']; %>
-
-        <% ['L', 'S'].forEach(type => { %>
-            <h2><%= type === 'S' ? 'Sudý' : 'Lichý' %> týden</h2>
-            <table class="timetable">
-                <thead>
-                    <tr>
-                        <th class="th-first"></th>
-                        <% periods.forEach((period, index) => { %>
-                            <th class="th-smaller"><%= period %><br><%= timeRanges[index] %></th>
-                        <% }) %>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% days.forEach(day => { %>
-                        <tr>
-                            <td><%= day %></td>
-                            <% periods.forEach(period => { %>
-                                <td><button class="timetable-btn outline" onclick="showPopup('<%= period %>', '<%= day %>', '<%= type %>')">+</button></td>
-                            <% }) %>
-                        </tr>
-                    <% }) %>
-                </tbody>
-            </table>
-        <% }) %>
-
-        <dialog id="popupModal" class="modal">
-            <article>
-                <header>
-                  <button aria-label="Close" rel="prev"  onclick="closePopup()"></button>
-                  <p>
-                    <strong>Vyučovací hodina</strong>
-                  </p>
-                </header>
-                <form method="dialog">
-                  <main>
-                  <h2>Předmět</h2>
-                  <select name="predmet" id="jakypredmet">
-                      <% for (let predmet of predmety) { %>
-                          <option value="<%= predmet %>"><%= predmet %></option>
-                      <% } %>
-                  </select>
-                  <input type="text" id="mistnost" placeholder="Název učebny">
-                    <select id="skupina">
-                        <option value="cela">Celá třída</option>
-                        <option value="sk1">Skupina 1</option>
-                        <option value="sk2">Skupina 2</option>
-                    </select>
-                    <input type="submit" class="btn-save" onclick="potvrditHodinu()">
-                  </main>
-              </form>
-            </article>
-        </dialog>
-    </main>
-</article>
-
-<script>
-    // Initialize the rozvrh object
-    let rozvrh = {
-        "sudy": {
-            "Po": {},
-            "Ut": {},
-            "St": {},
-            "Ct": {},
-            "Pa": {}
-        },
-        "lichy": {
-            "Po": {},
-            "Ut": {},
-            "St": {},
-            "Ct": {},
-            "Pa": {}
-        }
-    };
-
-    let casHodiny, denHodiny, druhTydne;
-
-    function showPopup(cas, den, tyden) {
-        casHodiny = cas;
-        denHodiny = den;
-        druhTydne = tyden;
-        document.getElementById("popupModal").showModal();
-    }
-
-    function closePopup() {
-        document.getElementById("popupModal").close();
-    }
-
-    function potvrditHodinu() {
-        const predmet = document.getElementById("jakypredmet").value;
-        const mistnost = document.getElementById("mistnost").value;
-        const skupina = document.getElementById("skupina").value;
-
-        const hodina = {
-            predmet: predmet,
-            mistnost: mistnost,
-            skupina: skupina,
-=======
     <style>
         body:first-of-type article {
             margin-right: 1em;
@@ -557,7 +395,6 @@
             "sudy": {
                 "Po": {}, "Ut": {}, "St": {}, "Ct": {}, "Pa": {}
             }
->>>>>>> origin/main
         };
 
         let rozvrh = null;
@@ -595,15 +432,6 @@
                 rozvrh = emptyTimetable;
             }
         }
-
-<<<<<<< HEAD
-        console.log(rozvrh);
-        closePopup();
-    }
-</script>
-
-<%- include('../partials/tail') %>
-=======
 
         const timetableData = document.getElementById('timetableData');
         if (timetableData && timetableData.dataset.rozvrh) {
