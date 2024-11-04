@@ -3,14 +3,33 @@ const udalost = [27, 9, "Událost"];
 const rozvrh = ["", "PVA", "", "CJ", "MAT", "", "", "", "", "Krouzek"]
 const startDate = new Date(2024,7,1)
 
-exports.date_udalost = () => {
+function date_udalost() {
     return udalost;
 };
-exports.rozvrh = () => {
-    return rozvrh;
-};
 
+exports.udalosti = () => {
+    return databaze.udalosti.ziskatVsechnyUdalosti();
+}
 
+function udalostDatumFormat() {
+    let udalosti = databaze.udalosti.ziskatVsechnyUdalosti()
+    console.log(udalosti)
+    for (let i = 1;i<udalosti.length;i++){
+        datum = udalosti[i].datum.split("-")
+        udalosti[i].date = datum[2] + "-" + datum[1]
+    }
+    let udalosta = udalosti
+    udalosti = databaze.udalosti.ziskatVsechnyUdalosti()
+    return udalosta
+}
+
+exports.mesicni = (req,res) => {
+    udalostDatumFormat()
+    res.render('kalendar/index', {
+        date_udalost: date_udalost(),
+        udalosti: databaze.udalosti.ziskatVsechnyUdalosti()
+    })
+}
 
 function getWeekNumber(d) {
     // Copy date so don't modify original
@@ -26,6 +45,9 @@ function getWeekNumber(d) {
     return [d.getUTCFullYear(), weekNo];
 }
 
-exports.week = () => {
-    return getWeekNumber(new Date(startDate));
+exports.tydenni = (req,res) => {
+    res.render('kalendar/tydenni', {
+        rozvrh: rozvrh, 
+        week: getWeekNumber(new Date(startDate))
+    })
 }

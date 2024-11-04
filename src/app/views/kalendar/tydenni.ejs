@@ -1,51 +1,51 @@
 <!DOCTYPE html>
-    <%- include('../partials/head'); %>
-    <style>
-      .grid-container {
-        display: grid;
-        grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto;
-        padding: 10px;
-      }
+<%- include('../partials/head'); %>
+<style>
+.grid-container {
+   display: grid;
+   grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto;
+   padding: 10px;
+}
       .grid-item {
-        border: 1px solid rgba(0, 0, 0, 0.8);
-        padding-inline: 15px;
-        padding-block: 45px;
-        margin: 0;
-        font-size: 18px;
-        text-align: center;
+         border: 1px solid rgba(0, 0, 0, 0.8);
+         padding-inline: 15px;
+         padding-block: 45px;
+         margin: 0;
+         font-size: 18px;
+         text-align: center;
       }
       .grid-item-h {
-        border: 1px solid rgba(0, 0, 0, 0.8);
-        padding: 15px;
-        margin: 0;
-        font-size: 18px;
-        text-align: center;
+         border: 1px solid rgba(0, 0, 0, 0.8);
+         padding: 15px;
+         margin: 0;
+         font-size: 18px;
+         text-align: center;
       }
-    </style>
-      <article style="flex: 3">
-        <header>
-          <h1>Kalendář</h1>
-          <div role="group">
-            <button
-              hx-get="/kalendar/tydenni"
-              hx-target="body"
-              hx-swap="transition:true">
-              Týdenní
-            </button>
-            <button
-              class="outline"
-              hx-get="/kalendar"
-              hx-target="body"
-              hx-swap="transition:true">
-              Měsíční
-            </button>
-          </div>
-        </header>
+</style>
+<article style="flex: 3">
+   <header>
+      <h1>Kalendář</h1>
+      <div role="group">
+         <button
+            hx-get="/kalendar/tydenni"
+            hx-target="body"
+            hx-swap="transition:true">
+            Týdenní
+         </button>
+         <button
+            class="outline"
+            hx-get="/kalendar"
+            hx-target="body"
+            hx-swap="transition:true">
+            Měsíční
+         </button>
+      </div>
+   </header>
 
-        <main>
-        <div>
-          <% for(let i=0;i<10;i++) {%>
-          <section class="grid-container">
+   <main>
+      <div>
+         <% for(let i=0;i<10;i++) {%>
+         <section class="grid-container">
             <p class="grid-item-h"><%= week[1] %></p>
             <p class="grid-item-h">7:10-7:55</p>
             <p class="grid-item-h">8:00-8:45</p>
@@ -63,10 +63,10 @@
             <% for(let j=0;j<= 9;j++) {%>
             <p class="grid-item"><%= rozvrh[j]%></p>
             <%}%> <%} %>
-          </section>
-          <%}%>
-        </div>
-        </main>
-      </article>
+         </section>
+         <%}%>
+      </div>
+   </main>
+</article>
 
 <%- include('../partials/tail') %>

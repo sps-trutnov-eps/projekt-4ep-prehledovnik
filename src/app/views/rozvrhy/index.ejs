@@ -1,7 +1,10 @@
 <!doctype html>
 <%- include('../partials/head'); %>
+<<<<<<< HEAD
+<link rel="stylesheet" href="https://unpkg.com/picocss/dist/pico.min.css">
+
 <style>
-    body:first-of-type article{
+    body:first-of-type article {
         margin-right: 1em;
         width: 20vw;
         min-width: 20vw;
@@ -14,32 +17,14 @@
     .timetable {
         width: 100%;
         border-collapse: collapse;
-        text-align: center;
-    }
-
-    .timetable thead th {
-        background-color: white;
-        padding: 10px;
-        border-bottom: 2px solid #ddd;
-    }
-
-    .timetable th,
-    .timetable td {
-        border: 1px solid #ddd;
-        text-align: center;
-        vertical-align: middle;
-    }
-
-    .timetable td {
-        background-color: white;
+        thead th {
+            text-align: center;
+        }
     }
 
     .timetable-btn {
-        background-color: #eceaea;
-        color: black;
         width: 100%;
         height: 100%;
-        border: none;
         cursor: pointer;
         font-size: 14px;
         display: flex;
@@ -48,74 +33,16 @@
         box-sizing: border-box;
     }
 
-    .timetable {
-        border: none;
-    }
-
-    .timetable th:first-child {
-        background-color: white;
-    }
-
-
-    .modal {
-        display: none;
-        position: fixed;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0, 0, 0, 0.5);
-    }
-
-    .modal-content {
-        background-color: #fefefe;
-        padding: 40px;
-        border: 1px solid #888;
-        width: 80%;
-        max-width: 600px;
-        text-align: center;
-        font-size: 20px;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-        animation: fadeIn 0.5s ease;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    .close-btn {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-
-    }
-
-    .close-btn:hover,
-    .close-btn:focus {
-        color: black;
-        text-decoration: none;
-        cursor: pointer;
-    }
-
-    .btn-save {
-        border: none;
-        width: 100%;
-    }
-
-
     @keyframes fadeIn {
         from {
             opacity: 0;
         }
-
         to {
             opacity: 1;
         }
     }
 </style>
+
 <article style="resize: horizontal;">
     <header>
         <h1>Verze</h1>
@@ -127,65 +54,73 @@
             <option value="">Datum2</option>
             <option value="">Datum3</option>
         </select>
-        <button class="btn-save" onclick="alert('Verze uložena!')">Uložit</button>
+        <input type="submit" class="btn-save" onclick="alert('Verze uložena!')">
     </main>
 </article>
+
 <article class="articlesecond">
     <header>
         <h1>Rozvrhy</h1>
-    </header>  
-    <main>  
-    <% const days = ['Po', 'Ut', 'St', 'Ct', 'Pa']; %>
-    <% const periods = ['0', '1', '2', '3', '4', '5', '6', '7', '8']; %>
-    <% const timeRanges = ['7:10 - 7:55', '8:00 - 8:45', '8:50 - 9:35', '9:55 - 10:40', '10:45 - 11:30', '11:35 - 12:25', '12:35 - 13:20', '13:25 - 14:10', '14:15 - 15:00']; %>
-    
-    <% ['S', 'L'].forEach(type => { %>
-        <h2><%= type === 'S' ? 'Sudý' : 'Lichý' %> týden</h2>
-        <table class="timetable">
-            <thead>
-                <tr>
-                    <th class="th-first"></th>
-                    <% periods.forEach((period, index) => { %>
-                        <th class="th-smaller"><%= period %><br><%= timeRanges[index] %></th>
-                    <% }) %>
-                </tr>
-            </thead>
-            <tbody>
-                <% days.forEach(day => { %>
+    </header>
+    <main>
+        <% const days = ['Po', 'Ut', 'St', 'Ct', 'Pa']; %>
+        <% const periods = ['0', '1', '2', '3', '4', '5', '6', '7', '8']; %>
+        <% const timeRanges = ['7:10 - 7:55', '8:00 - 8:45', '8:50 - 9:35', '9:55 - 10:40', '10:45 - 11:30', '11:35 - 12:25', '12:35 - 13:20', '13:25 - 14:10', '14:15 - 15:00']; %>
+
+        <% ['L', 'S'].forEach(type => { %>
+            <h2><%= type === 'S' ? 'Sudý' : 'Lichý' %> týden</h2>
+            <table class="timetable">
+                <thead>
                     <tr>
-                        <td><%= day %></td>
-                        <% periods.forEach(period => { %>
-                            <td><button class="timetable-btn" onclick="showPopup('<%= period %>', '<%= day %>', '<%= type %>')">+</button></td>
+                        <th class="th-first"></th>
+                        <% periods.forEach((period, index) => { %>
+                            <th class="th-smaller"><%= period %><br><%= timeRanges[index] %></th>
                         <% }) %>
                     </tr>
-                <% }) %>
-            </tbody>
-        </table>
-    <% }) %>
-    
-    <div id="popupModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closePopup()">&times;</span>
-            <h2>Předmět</h2>
-            <form action="">
-                <select name="predmet" id="jakypredmet">
-                    <% for (let predmet of predmety) { %>
-                        <option value="<%= predmet %>"><%= predmet %></option>
-                    <% } %>
-                </select>
-                <input type="text" name="" id="mistnost" placeholder="Název učebny">
-                <select name="" id="skupina">
-                    <option value="cela">Celá třída</option>
-                    <option value="sk1">Skupina 1</option>
-                    <option value="sk1">Skupina 2</option>
-                </select>
+                </thead>
+                <tbody>
+                    <% days.forEach(day => { %>
+                        <tr>
+                            <td><%= day %></td>
+                            <% periods.forEach(period => { %>
+                                <td><button class="timetable-btn outline" onclick="showPopup('<%= period %>', '<%= day %>', '<%= type %>')">+</button></td>
+                            <% }) %>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% }) %>
 
-            </form>
-            <button class="btn-save" onclick="potvrditHodinu()">Potvrdit</button>
-        </div>
-    </div>
-</main>
+        <dialog id="popupModal" class="modal">
+            <article>
+                <header>
+                  <button aria-label="Close" rel="prev"  onclick="closePopup()"></button>
+                  <p>
+                    <strong>Vyučovací hodina</strong>
+                  </p>
+                </header>
+                <form method="dialog">
+                  <main>
+                  <h2>Předmět</h2>
+                  <select name="predmet" id="jakypredmet">
+                      <% for (let predmet of predmety) { %>
+                          <option value="<%= predmet %>"><%= predmet %></option>
+                      <% } %>
+                  </select>
+                  <input type="text" id="mistnost" placeholder="Název učebny">
+                    <select id="skupina">
+                        <option value="cela">Celá třída</option>
+                        <option value="sk1">Skupina 1</option>
+                        <option value="sk2">Skupina 2</option>
+                    </select>
+                    <input type="submit" class="btn-save" onclick="potvrditHodinu()">
+                  </main>
+              </form>
+            </article>
+        </dialog>
+    </main>
 </article>
+
 <script>
     // Initialize the rozvrh object
     let rozvrh = {
@@ -211,11 +146,11 @@
         casHodiny = cas;
         denHodiny = den;
         druhTydne = tyden;
-        document.getElementById("popupModal").style.display = "block";
+        document.getElementById("popupModal").showModal();
     }
 
     function closePopup() {
-        document.getElementById("popupModal").style.display = "none";
+        document.getElementById("popupModal").close();
     }
 
     function potvrditHodinu() {
@@ -227,17 +162,666 @@
             predmet: predmet,
             mistnost: mistnost,
             skupina: skupina,
-        };
-
-        if (druhTydne === 'S') {
-            rozvrh.sudy[denHodiny][casHodiny] = hodina;
-        } else {
-            rozvrh.lichy[denHodiny][casHodiny] = hodina;
+=======
+    <style>
+        body:first-of-type article {
+            margin-right: 1em;
+            width: 20vw;
+            min-width: 20vw;
         }
 
-        console.log(rozvrh);
+        .articlesecond {
+            flex: 3;
+        }
 
+        .timetable {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        .timetable thead th {
+            background-color: white;
+            padding: 10px;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .timetable th,
+        .timetable td {
+            border: 1px solid #ddd;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .timetable td {
+            background-color: white;
+        }
+
+        .timetable-btn {
+            background-color: #eceaea;
+            color: black;
+            width: 100%;
+            height: 100%;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+        }
+
+        .timetable {
+            border: none;
+        }
+
+        .timetable th:first-child {
+            background-color: white;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            padding: 40px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+            font-size: 20px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.5s ease;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close-btn:hover,
+        .close-btn:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .btn-save {
+            border: none;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .btn-new {
+            border: none;
+            width: 100%;
+            margin-top: 10px;
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .timetable-btn {
+            background-color: #eceaea;
+            color: black;
+            width: 100%;
+            height: 100%;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            padding: 5px;
+            min-height: 60px;
+        }
+
+        .timetable-btn.has-lesson {
+            background-color: #e3f2fd;
+        }
+
+        .lesson-subject {
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+
+        .lesson-room {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .lesson-group {
+            font-size: 12px;
+            color: #666;
+            font-style: italic;
+        }
+
+        .create-timetable {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+            text-align: center;
+        }
+
+        .big-button {
+            padding: 20px 40px;
+            font-size: 1.2em;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        .big-button:hover {
+            background-color: #45a049;
+        }
+
+        .create-form {
+            display: none;
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+        }
+
+        .create-form.visible {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .form-group {
+            margin-bottom: 1em;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5em;
+        }
+
+        .form-group select,
+        .form-group input {
+            width: 100%;
+            padding: 0.5em;
+            margin-bottom: 0.5em;
+        }
+
+        select:invalid,
+        input:invalid {
+            border-color: red;
+        }
+
+        .modal-content form {
+            margin-bottom: 1em;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+    <article style="resize: horizontal;">
+        <header>
+            <h1>Verze</h1>
+        </header>
+        <main>
+            <select name="verze" id="jakaverze" onchange="nacteniVerze(this.value)">
+                <% if (rozvrhy && rozvrhy.length> 0) { %>
+                    <% rozvrhy.forEach(function(verze) { %>
+                        <option value="<%= verze.id %>" <%=aktivniVerze==verze.id ? 'selected' : '' %>>
+                            <%= verze.nazev %>
+                                (<%= new Date(verze.datum).toLocaleDateString('cs-CZ') %>)
+                        </option>
+                        <% }); %>
+                            <% } %>
+            </select>
+            <% if (rozvrhy && rozvrhy.length> 0) { %>
+                <button class="btn-save" onclick="ulozitRozvrh()">Uložit</button>
+                <button class="btn-new" onclick="showCreateForm()">Nová verze</button>
+                <% } %>
+        </main>
+    </article>
+    <article class="articlesecond">
+        <header>
+            <h1>Rozvrhy</h1>
+        </header>
+        <main>
+            <% if (!rozvrhy || rozvrhy.length===0) { %>
+                <div class="create-timetable">
+                    <button class="big-button" onclick="showCreateForm()">Vytvořit rozvrh</button>
+                    <form id="createForm" class="create-form" action="/rozvrhy/vytvorit" method="POST">
+                        <div class="form-group">
+                            <label for="nazev">Název verze:</label>
+                            <input type="text" id="nazev" name="nazev" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="popis">Popis:</label>
+                            <textarea id="popis" name="popis" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn-save">Vytvořit</button>
+                    </form>
+                </div>
+                <% } else { %>
+                    <% const days=['Po', 'Ut' , 'St' , 'Ct' , 'Pa' ]; %>
+                        <% const periods=['0', '1' , '2' , '3' , '4' , '5' , '6' , '7' , '8' ]; %>
+                            <% const timeRanges=['7:10 - 7:55', '8:00 - 8:45' , '8:50 - 9:35' , '9:55 - 10:40'
+                                , '10:45 - 11:30' , '11:35 - 12:25' , '12:35 - 13:20' , '13:25 - 14:10'
+                                , '14:15 - 15:00' ]; %>
+
+                                <% ['L', 'S' ].forEach(type=> { %>
+                                    <h2>
+                                        <%= type==='S' ? 'Sudý' : 'Lichý' %> týden
+                                    </h2>
+                                    <table class="timetable">
+                                        <thead>
+                                            <tr>
+                                                <th class="th-first"></th>
+                                                <% periods.forEach((period, index)=> { %>
+                                                    <th class="th-smaller">
+                                                        <%= period %><br>
+                                                            <%= timeRanges[index] %>
+                                                    </th>
+                                                    <% }) %>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% days.forEach(day=> { %>
+                                                <tr>
+                                                    <td>
+                                                        <%= day %>
+                                                    </td>
+                                                    <% periods.forEach(period=> { %>
+                                                        <td>
+                                                            <button id="btn-<%= type %>-<%= day %>-<%= period %>"
+                                                                class="timetable-btn"
+                                                                onclick="showPopup('<%= period %>', '<%= day %>', '<%= type %>')">
+                                                                <span class="hodina-predmet">+</span>
+                                                                <span class="hodina-mistnost"></span>
+                                                                <span class="hodina-skupina"></span>
+                                                            </button>
+                                                        </td>
+                                                        <% }) %>
+                                                </tr>
+                                                <% }) %>
+                                        </tbody>
+                                    </table>
+                                    <% }) %>
+
+                                        <div id="popupModal" class="modal">
+                                            <div class="modal-content">
+                                                <span class="close-btn" onclick="closePopup()">&times;</span>
+                                                <h2>Tvorba hodiny</h2>
+                                                <form id="lessonForm" onsubmit="return false;">
+                                                    <div class="form-group">
+                                                        <label for="jakypredmet">Předmět:</label>
+                                                        <select name="predmet" id="jakypredmet" required>
+                                                            <option value="">Vyberte předmět</option>
+                                                            <option value="volno">Volno</option>
+                                                            <% for (let predmet of predmety) { %>
+                                                                <option value="<%= predmet %>">
+                                                                    <%= predmet %>
+                                                                </option>
+                                                                <% } %>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="mistnost">Učebna:</label>
+                                                        <input type="text" name="mistnost" id="mistnost"
+                                                            placeholder="Název učebny" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="skupina">Skupina:</label>
+                                                        <select name="skupina" id="skupina">
+                                                            <option value="cela" selected>Celá třída</option>
+                                                            <option value="sk1">Skupina 1</option>
+                                                            <option value="sk2">Skupina 2</option>
+                                                        </select>
+                                                    </div>
+                                                    <button class="btn-save"
+                                                        onclick="validateAndSubmit()">Potvrdit</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <% } %>
+
+                                            <div id="createFormModal" class="modal">
+                                                <div class="modal-content">
+                                                    <span class="close-btn" onclick="closeCreateForm()">&times;</span>
+                                                    <h2>Nová verze rozvrhu</h2>
+                                                    <form id="createForm" class="create-form visible"
+                                                        action="/rozvrhy/vytvorit" method="POST">
+                                                        <div class="form-group">
+                                                            <label for="nazev">Název verze:</label>
+                                                            <input type="text" id="nazev" name="nazev" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="popis">Popis:</label>
+                                                            <textarea id="popis" name="popis" rows="3"></textarea>
+                                                        </div>
+                                                        <button type="submit" class="btn-save">Vytvořit</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+        </main>
+    </article>
+
+    <div id="timetableData" data-rozvrh='<%- aktivniRozvrh ? aktivniRozvrh : "" %>' style="display: none;">
+    </div>
+
+    <script>
+        const emptyTimetable = {
+            "lichy": {
+                "Po": {}, "Ut": {}, "St": {}, "Ct": {}, "Pa": {}
+            },
+            "sudy": {
+                "Po": {}, "Ut": {}, "St": {}, "Ct": {}, "Pa": {}
+            }
+>>>>>>> origin/main
+        };
+
+        let rozvrh = null;
+
+        function initializeTimetable() {
+            const timetableData = document.getElementById('timetableData');
+            if (timetableData && timetableData.dataset.rozvrh) {
+                try {
+                    const parsedData = JSON.parse(timetableData.dataset.rozvrh);
+                    rozvrh = parsedData.hodiny || emptyTimetable;
+
+                    if (rozvrh.lichy) {
+                        Object.entries(rozvrh.lichy).forEach(([den, hodiny]) => {
+                            Object.entries(hodiny).forEach(([cas, hodina]) => {
+                                if (hodina) {
+                                    updateTileDisplay('L', den, cas, hodina);
+                                }
+                            });
+                        });
+                    }
+
+                    if (rozvrh.sudy) {
+                        Object.entries(rozvrh.sudy).forEach(([den, hodiny]) => {
+                            Object.entries(hodiny).forEach(([cas, hodina]) => {
+                                if (hodina) {
+                                    updateTileDisplay('S', den, cas, hodina);
+                                }
+                            });
+                        });
+                    }
+                } catch (e) {
+                    rozvrh = emptyTimetable;
+                }
+            } else {
+                rozvrh = emptyTimetable;
+            }
+        }
+
+<<<<<<< HEAD
+        console.log(rozvrh);
         closePopup();
     }
 </script>
+
 <%- include('../partials/tail') %>
+=======
+
+        const timetableData = document.getElementById('timetableData');
+        if (timetableData && timetableData.dataset.rozvrh) {
+            try {
+                const parsedData = JSON.parse(timetableData.dataset.rozvrh);
+                rozvrh = parsedData.hodiny || emptyTimetable;
+
+            } catch (e) {
+                rozvrh = emptyTimetable;
+            }
+        } else {
+            rozvrh = emptyTimetable;
+        }
+
+        let casHodiny, denHodiny, druhTydne;
+
+        function nacteniVerze(id) {
+            window.location.href = `/rozvrhy?verze=${id}`;
+        }
+
+        async function ulozitRozvrh() {
+            const aktivniVerze = document.getElementById('jakaverze').value;
+
+            ['lichy', 'sudy'].forEach(week => {
+                Object.keys(rozvrh[week]).forEach(day => {
+                    for (let i = 0; i <= 8; i++) {
+                        if (!rozvrh[week][day][i] || !rozvrh[week][day][i].predmet) {
+                            rozvrh[week][day][i] = {
+                                predmet: "volno",
+                                mistnost: "",
+                                skupina: "cela"
+                            };
+                        }
+                    }
+                });
+            });
+
+            try {
+                const response = await fetch('/rozvrhy/ulozit-verzi', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        id: aktivniVerze,
+                        hodiny: rozvrh
+                    })
+                });
+
+                if (response.ok) {
+                    alert('Rozvrh byl úspěšně uložen!');
+                    Object.entries(rozvrh.lichy).forEach(([den, hodiny]) => {
+                        Object.entries(hodiny).forEach(([cas, hodina]) => {
+                            updateTileDisplay('L', den, cas, hodina);
+                        });
+                    });
+                    Object.entries(rozvrh.sudy).forEach(([den, hodiny]) => {
+                        Object.entries(hodiny).forEach(([cas, hodina]) => {
+                            updateTileDisplay('S', den, cas, hodina);
+                        });
+                    });
+                } else {
+                    alert('Při ukládání došlo k chybě.');
+                }
+            } catch (error) {
+                alert('Při ukládání došlo k chybě.');
+            }
+        }
+
+        function showPopup(cas, den, tyden) {
+            casHodiny = cas;
+            denHodiny = den;
+            druhTydne = tyden;
+
+            const existingLesson = druhTydne === 'L'
+                ? rozvrh.lichy[denHodiny][casHodiny]
+                : rozvrh.sudy[denHodiny][casHodiny];
+
+            if (existingLesson) {
+                document.getElementById("jakypredmet").value = existingLesson.predmet || "";
+                document.getElementById("mistnost").value = existingLesson.mistnost || "";
+                document.getElementById("skupina").value = existingLesson.skupina || "cela";
+            } else {
+                resetForm();
+            }
+
+            document.getElementById("popupModal").style.display = "block";
+        }
+
+        function closePopup() {
+            resetForm();
+            document.getElementById("popupModal").style.display = "none";
+        }
+
+        function updateTileDisplay(tyden, den, cas, hodina) {
+            const buttonId = `btn-${tyden}-${den}-${cas}`;
+            const button = document.getElementById(buttonId);
+
+            if (button) {
+                const predmetSpan = button.querySelector('.hodina-predmet');
+                const mistnostSpan = button.querySelector('.hodina-mistnost');
+                const skupinaSpan = button.querySelector('.hodina-skupina');
+
+                if (hodina && hodina.predmet) {
+                    if (hodina.predmet === "volno") {
+                        button.classList.add('has-lesson');
+                        button.classList.add('is-free');
+                        predmetSpan.textContent = "";
+                        mistnostSpan.textContent = "";
+                        skupinaSpan.textContent = "";
+                    } else {
+                        button.classList.add('has-lesson');
+                        button.classList.remove('is-free');
+                        predmetSpan.textContent = hodina.predmet;
+                        mistnostSpan.textContent = hodina.mistnost;
+                        skupinaSpan.textContent = hodina.skupina === "cela" ? "" : hodina.skupina;
+                    }
+                } else {
+                    button.classList.remove('has-lesson');
+                    button.classList.remove('is-free');
+                    predmetSpan.textContent = '+';
+                    mistnostSpan.textContent = '';
+                    skupinaSpan.textContent = '';
+                }
+            }
+        }
+
+        function resetForm() {
+            document.getElementById("jakypredmet").value = "";
+            document.getElementById("mistnost").value = "";
+            document.getElementById("skupina").value = "cela";
+        }
+
+        function validateAndSubmit() {
+            const predmet = document.getElementById("jakypredmet").value;
+            const mistnost = document.getElementById("mistnost").value;
+
+            if (!predmet) {
+                alert("Prosím vyberte předmět");
+                return;
+            }
+
+            if (predmet !== "volno" && !mistnost) {
+                alert("Prosím vyplňte učebnu");
+                return;
+            }
+
+            potvrditHodinu();
+        }
+
+        function potvrditHodinu() {
+            const predmet = document.getElementById("jakypredmet").value;
+            const mistnost = document.getElementById("mistnost").value;
+            const skupina = document.getElementById("skupina").value;
+
+            const hodina = {
+                predmet: predmet,
+                mistnost: predmet === "volno" ? "" : mistnost,
+                skupina: skupina
+            };
+
+            if (druhTydne === 'L') {
+                rozvrh.lichy[denHodiny][casHodiny] = hodina;
+                updateTileDisplay('L', denHodiny, casHodiny, hodina);
+            } else {
+                rozvrh.sudy[denHodiny][casHodiny] = hodina;
+                updateTileDisplay('S', denHodiny, casHodiny, hodina);
+            }
+
+            resetForm();
+            closePopup();
+        }
+
+        function showCreateForm() {
+            const modal = document.getElementById('createFormModal');
+            if (modal) {
+                modal.style.display = "block";
+            }
+        }
+
+        function closeCreateForm() {
+            const modal = document.getElementById('createFormModal');
+            if (modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        window.onclick = function (event) {
+            const createFormModal = document.getElementById('createFormModal');
+            const popupModal = document.getElementById('popupModal');
+
+            if (event.target === createFormModal) {
+                createFormModal.style.display = "none";
+            }
+            if (event.target === popupModal) {
+                popupModal.style.display = "none";
+            }
+        };
+
+        document.addEventListener('htmx:afterSwap', function () {
+            initializeTimetable();
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            initializeTimetable();
+
+            const createForm = document.getElementById('createForm');
+            if (createForm) {
+                createForm.addEventListener('submit', function (e) {
+                    if (!createForm.nazev.value.trim()) {
+                        e.preventDefault();
+                        alert('Prosím vyplňte název verze');
+                        return false;
+                    }
+                });
+            }
+        });
+
+    </script>
+    <%- include('../partials/tail') %>
+>>>>>>> origin/main
