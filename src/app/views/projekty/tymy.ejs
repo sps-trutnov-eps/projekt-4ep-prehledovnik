@@ -122,6 +122,33 @@
   ">
    <button>Přepínač</button>
    <button>Týmy</button>
+   <button type="submit" id="open-okno" class="team-button">Vytvořit Projekt</button>
+   <div id="myokno" class="okno">
+        <div class="okno-content">
+            <form action="/projekty/tymy/pridatProjekt" method="post">
+                <h2>Vytvořit Projekt</h2>
+                <div class="input-container">
+                    <label for="class-name">Třída:</label>
+                    <input type="text" id="class-name" name="className" placeholder="Zadejte třídu">
+                </div>
+                <div class="input-container">
+                    <label for="semester">Pololetí:</label>
+                    <input type="text" id="semester" name="semester" placeholder="Zadejte pololetí">
+                </div>
+                <div class="input-container">
+                    <label for="students-count">Počet žáků:</label>
+                    <input type="number" id="students-count" name="studentsCount" placeholder="Zadejte počet žáků">
+                </div>
+                <div class="input-container">
+                    <label for="project-date">Datum začátku projektu:</label>
+                    <input type="date" id="project-date" name="projectDate">
+                </div>
+                <button type="submit" class="save-button">Vytvořit</button>
+            </form>
+            
+        </div>
+    </div>
+   </form>
    <button class="team-button" onclick="showTeamInfo('Tým 1', this)">1.ep</button>
    <button class="team-button" onclick="showTeamInfo('Tým 2', this)">2.ep</button>
    <button class="team-button" onclick="showTeamInfo('Tým 3', this)">3.ep</button>

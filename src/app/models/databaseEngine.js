@@ -22,6 +22,7 @@ if(!db.has("predmety")){
     db.set("rozvrhy", {"nextID": 1});
     db.set("udalosti", {"nextID": 1});
     db.set("maturity", {"nextID": 1});
+    db.set("projekty", {"nextID": 1});
 }
 
 // OSNOVY
@@ -119,8 +120,59 @@ const rozvrhy = {
         let rozvrhy = gR();
         rozvrhy[ziskatIDPodleDatumu(datumOd)]["hodiny"] = hodiny;
         sR(rozvrhy);
+    },
+    ziskatVsechnyRozvrhy: () => {
+        let rozvrhy = gR();
+        let rozvrhyList = [];
+        for(let i = 1; i < rozvrhy["nextID"]; i++) {
+            if (rozvrhy[String(i)]) {
+                rozvrhyList.push(rozvrhy[String(i)]);
+            }
+        }
+        return rozvrhyList;
+    },
+    pridatRozvrh: (datum, nazev, popis, hodiny) => {
+        let rozvrhy = gR();
+        rozvrhy[rozvrhy["nextID"]] = {
+            datum,
+            nazev,
+            popis,
+            hodiny
+        };
+        rozvrhy["nextID"] += 1;
+        sR(rozvrhy);
+        return rozvrhy["nextID"] - 1;
+    },
+    ziskatRozvrh: (id) => {
+        let rozvrhy = gR();
+        return rozvrhy[id];
+    },
+    pridatRozvrh: (datum, nazev, popis, hodiny) => {
+        let rozvrhy = gR();
+        const id = rozvrhy["nextID"];
+        rozvrhy[id] = {
+            id,
+            datum,
+            nazev,
+            popis,
+            hodiny
+        };
+        rozvrhy["nextID"] += 1;
+        sR(rozvrhy);
+        return id;
+    },
+    upravitRozvrh: (id, hodiny) => {
+        let rozvrhy = gR();
+        if (rozvrhy[id]) {
+            rozvrhy[id].hodiny = hodiny;
+            sR(rozvrhy);
+            return true;
+        }
+        return false;
     }
-}
+};
+
+
 
 // UDALOSTI
 function gU(){return db.get("udalosti")}
@@ -222,9 +274,63 @@ const maturity = {
 }
 
 // PROJEKTY
+function gP(){return db.get("projekty")}
+function sP(projekty){db.set("projekty", projekty)}
 
 const projekty = {
-
+    pridatProjekt: (trida, tymy, pitche, milestony, devlogy, prezentace) => {
+        let projekty = gP();
+        console.log(projekty);
+        projekty[projekty["nextID"]] = {trida, tymy, pitche, milestony, devlogy, prezentace};
+        projekty["nextID"] += 1;
+        sP(projekty);
+    },
+    upravitTymy: (trida, tymy) => {
+        let projekty = gP();
+        let IDUpravovanehoProjektu = hledanyProjekt(trida);
+        projekty[IDUpravovanehoProjektu]["tymy"] = tymy;
+        sP(projekty);
+    },
+    upravitPitche: (trida, pitche) => {
+        let projekty = gP();
+        let IDUpravovanehoProjektu = hledanyProjekt(trida);
+        projekty[IDUpravovanehoProjektu]["ptiche"] = pitche;
+        sP(projekty);
+    },
+    upravitMilestony: (trida, milestony) => {
+        let projekty = gP();
+        let IDUpravovanehoProjektu = hledanyProjekt(trida);
+        projekty[IDUpravovanehoProjektu]["milestony"] = milestony;
+        sP(projekty);
+    },
+    upravitDevlogy: (trida, devlogy) => {
+        let projekty = gP();
+        let IDUpravovanehoProjektu = hledanyProjekt(trida);
+        projekty[IDUpravovanehoProjektu]["devlogy"] = devlogy;
+        sP(projekty);
+    },
+    upravitPrezentace: (trida, prezentace) => {
+        let projekty = gP();
+        let IDUpravovanehoProjektu = hledanyProjekt(trida);
+        projekty[IDUpravovanehoProjektu]["prezentace"] = prezentace;
+        sP(projekty);
+    },
+    ziskatIDProjektu: (trida) => {
+        let projekty = gP();
+        let nextID = projekty["nextID"];
+        let IDHledanehoProjektu;
+        for(let i = 0; i < nextID; i++){
+            if(projekty[String(i)]["trida"] == trida){
+                IDHledanehoProjektu = String(i);
+            }
+        }
+        return IDHledanehoProjektu;
+    },
+    ziskatProjekt: (trida) => {
+        let projekty = gP();
+        let ID = ziskatIDProjektu(trida);
+        return projekty[ID];
+    }
 }
 
 // CELKOVÝ MODEL
