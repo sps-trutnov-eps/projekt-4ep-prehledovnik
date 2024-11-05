@@ -40,7 +40,29 @@
         "nextID": 1
     },
     "rozvrhy": {
-        "nextID": 1
+        "1": {
+            "id": 1,
+            "datum": "2024-11-04T13:00:23.190Z",
+            "nazev": "ddd",
+            "popis": "",
+            "hodiny": {
+                "lichy": {
+                    "Po": {},
+                    "Ut": {},
+                    "St": {},
+                    "Ct": {},
+                    "Pa": {}
+                },
+                "sudy": {
+                    "Po": {},
+                    "Ut": {},
+                    "St": {},
+                    "Ct": {},
+                    "Pa": {}
+                }
+            }
+        },
+        "nextID": 2
     },
     "udalosti": {
         "nextID": 1
