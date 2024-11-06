@@ -1,5 +1,89 @@
 <!DOCTYPE html>
 <%- include('../partials/head'); %>
+  <style>
+      main {
+        display: flex;
+        justify-content: center; 
+        padding: 20px;
+      }
+
+      main article:nth-child(2) {
+        width: 100%;
+        max-width: 600px; 
+        padding: 20px;
+        border-radius: 5px;
+        box-sizing: border-box;
+        text-align: center; 
+      }
+
+    
+      form input[type="text"],
+      form input[type="date"],
+      form select,
+      form textarea,
+      form input[type="submit"] {
+        width: 80%; 
+        max-width: 400px; 
+        margin: 0 auto 15px auto; 
+        padding: 10px;
+        border-radius: 4px;
+        color: #fff;
+        display: block; 
+        box-sizing: border-box;
+        margin-top: 20px;
+      }
+
+      form label {
+        font-weight: bold;
+        margin-bottom: 5px;
+        display: block;
+        color: #ccc;
+        text-align: left; 
+        width: 80%;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+
+      .radio-group {
+        display: flex;
+        justify-content: center;
+        flex-direction: column; 
+        align-items: center;
+        width: 80%; 
+        max-width: 400px;
+        margin: 0 auto 15px auto; 
+        box-sizing: border-box;
+      }
+
+      .radio-group label {
+        display: inline-flex;
+        align-items: center;
+        color: #ccc;
+        font-weight: normal;
+        margin: 5px 0; 
+      }
+
+      .radio-group input[type="radio"] {
+        margin-right: 8px; 
+      }
+
+      form label[for="datum"],
+      form label[for="typAkce"] {
+        width: 80%;
+        max-width: 400px;
+        margin: 0 auto 5px auto;
+        text-align: left;
+      }
+
+      form input[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        font-weight: bold;
+        cursor: pointer;
+        width: 80%;
+        max-width: 400px;
+      }
+  </style>
       <article
         style="
           width: 20vw;
@@ -19,36 +103,39 @@
         </p>
       </article>
 
-      <article style="flex: 3; overflow-y: auto">
-        <form action="/udalosti/pridatUdalost" method="post">
-          <input
-            type="text"
-            name="jmeno_udalosti"
-            placeholder="Název události"
-            required />
+<article style="flex: 3; overflow-y: auto" class="form-container">
+  <form action="/udalosti/pridatUdalost" method="post">
+    <label class="form-label" for="jmeno_udalosti"></label>
+    <input
+      type="text"
+      name="jmeno_udalosti"
+      placeholder="Název události"
+      required />
 
-          <input
-            type="radio"
-            id="celodenni"
-            name="variantaDni"
-            value="Celodenní" 
-            checked
-            />
-          <label for="celodenni">Celodenní</label><br />
-          <input
-            type="radio"
-            id="vicedenni"
-            name="variantaDni"
-            value="Vícedenní"
-            />
-          <label for="vicedenni">Vícedenní</label><br />
-          <input
-            type="radio"
-            id="jine"
-            name="variantaDni"
-            value="Zadat den a čas"
-            />
-          <label for="jine">Zadat den a čas</label><br />
+    <div class="radio-group">
+      <input
+        type="radio"
+        id="celodenni"
+        name="variantaDni"
+        value="Celodenní" 
+        checked
+      />
+      <label for="celodenni">Celodenní</label>
+      <input
+        type="radio"
+        id="vicedenni"
+        name="variantaDni"
+        value="Vícedenní"
+      />
+      <label for="vicedenni">Vícedenní</label>
+      <input
+        type="radio"
+        id="jine"
+        name="variantaDni"
+        value="Zadat den a čas"
+      />
+      <label for="jine">Zadat den a čas</label>
+    </div>
 
           <div id="jineInputs">
             <label for="casOd">Od:</label>
