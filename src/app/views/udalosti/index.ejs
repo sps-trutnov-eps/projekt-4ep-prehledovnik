@@ -89,7 +89,6 @@
           width: 20vw;
           min-width: 20vw;
           margin-right: 1em;
-          overflow-y: auto;
           resize: horizontal;
         ">
         <h1>Sidebar</h1>
@@ -206,6 +205,175 @@
           <input type="text" name="poznamka_udalosti" placeholder="Poznámka:" />
           <input type="submit" value="Uložit" />
         </form>
+        <header>
+          <h1>Nová událost</h1>
+        </header>
+        <main>
+          <!-- We could also only swap the changed parts -->
+          <form hx-post="/udalosti/pridatUdalost" hx-target="body" hx-swap="transition:true">
+            <input
+              type="text"
+              name="jmeno_udalosti"
+              placeholder="Název události"
+              required />
+  
+            <input
+              type="radio"
+              id="celodenni"
+              name="variantaDni"
+              value="Celodenní" 
+              checked
+              />
+            <label for="celodenni">Celodenní</label><br />
+            <input
+              type="radio"
+              id="vicedenni"
+              name="variantaDni"
+              value="Vícedenní"
+              />
+            <label for="vicedenni">Vícedenní</label><br />
+            <input
+              type="radio"
+              id="jine"
+              name="variantaDni"
+              value="Zadat den a čas"
+              />
+            <label for="jine">Zadat den a čas</label><br />
+  
+            <div id="jineInputs">
+              <label for="casOd">Od:</label>
+              <select id="casOd" name="casOd">
+                <option value="7:10">7:10</option>
+                <option value="8:00">8:00</option>
+                <option value="8:50">8:50</option>
+                <option value="9:55">9:55</option>
+                <option value="10:50">10:50</option>
+                <option value="11:40">11:40</option>
+                <option value="12:35">12:35</option>
+                <option value="13:25">13:25</option>
+                <option value="14:15">14:15</option>
+                <option value="15:10">15:10</option>
+              </select>
+  
+              <label for="casDo">Do:</label>
+              <select id="casDo" name="casDo">
+                <option value="7:55">7:55</option>
+                <option value="8:45">8:45</option>
+                <option value="9:35">9:35</option>
+                <option value="10:40">10:40</option>
+                <option value="11:35">11:35</option>
+                <option value="12:25">12:25</option>
+                <option value="13:20">13:20</option>
+                <option value="14:10">14:10</option>
+                <option value="15:00">15:00</option>
+                <option value="15:55">15:55</option>
+              </select>
+            </div>
+            <label for="datum" id="datumLabel">Datum:</label>
+            <input type="date" id="datum" name="datum" value="<%= datum %>" min="<%= datum %>"/>
+  
+            <!-- Vícedenní -->
+            <div id="vicedenniInputs">
+              <label for="datumDo">Do:</label>
+              <input type="date" id="datumDo" name="datumDo"/>
+            </div>
+  
+            <label for="typAkce">Typ akce</label>
+            <select id="typAkce" name="typAkce">
+              <option value="celoskolni">Celoškolní</option>
+              <option value="celotridni">Celotřídní</option>
+              <option value="ucitelsky">Učitelský</option>
+              <option value="budovy">Budovy</option>
+            </select>
+  
+            <div id="tridySelect" style="display: none">
+              <label for="tridy">Třídy</label>
+              <select id="tridy" name="tridy">
+                <option value="1EP">1.EP</option>
+                <option value="2EP">2.EP</option>
+                <option value="3EP">3.EP</option>
+                <option value="4EP">4.EP</option>
+              </select>
+            </div>
+  
+            <div id="budovySelect" style="display: none">
+              <label for="budovy">Budovy</label>
+              <select id="budovy" name="budovy">
+                <option value="skolni101">Školní 101</option>
+                <option value="horska618">Horská 618</option>
+                <option value="horska59">Horská 59</option>
+                <option value="mladeBuky">Mladé Buky</option>
+              </select>
+            </div>
+  
+            <input type="text" name="poznamka_udalosti" placeholder="Poznámka:" />
+            <input type="submit" value="Uložit" />
+          </form>
+        </main>
+      </article>
+
+      <article style="flex: 3; overflow-y: auto">
+        <header>
+          <h1>Události</h1>
+        </header>
+        <main>
+          <table>
+            <% 
+            // Mapa pro překlad hodnot do češtiny
+            const prekladVyberZadani = {
+            "celodenni": "Celodenní",
+            "vicedenni": "Vícedenní",
+            "casIDatum": " "
+            };
+      
+            const prekladTypAkce = {
+            "celotridni": "Celotřídní",
+            "budovy": "Budovy",
+            "celoskolni": "Celoskolní",
+            "ucitelsky": "Učitelský"
+            };
+      
+            // Mapa pro překlad budov
+            const prekladBudov = {
+            "skolni101": "Školní 101",
+            "horska618": "Horská 618",
+            "horska59": "Horská 59",
+            "mladebuky": "Mladé Buky"
+            };
+            %>
+            <% for (var radek = 0; radek < seznamNaZobrazeni.length; radek++) { %>
+            <tr>
+               <td><%= seznamNaZobrazeni[radek].nazev %></td>
+               <td><%= prekladTypAkce[seznamNaZobrazeni[radek].typ] || seznamNaZobrazeni[radek].typ %></td>
+               <td><%= prekladVyberZadani[seznamNaZobrazeni[radek].vyberZadani] || seznamNaZobrazeni[radek].vyberZadani %></td>
+      
+               <% if (seznamNaZobrazeni[radek].vyberZadani == "celodenni") { %>
+               <td><%= seznamNaZobrazeni[radek].datum %></td>
+               <td><%= seznamNaZobrazeni[radek].poznamka %></td>
+               <% } else if (seznamNaZobrazeni[radek].vyberZadani == "vicedenni") { %>
+               <td><%= seznamNaZobrazeni[radek].datum %></td>
+               <td><%= seznamNaZobrazeni[radek].datumDo %></td>
+               <td><%= seznamNaZobrazeni[radek].poznamka %></td>
+               <% } else if (seznamNaZobrazeni[radek].vyberZadani == "casIDatum") { %>
+               <td><%= seznamNaZobrazeni[radek].datum %></td>
+               <td><%= seznamNaZobrazeni[radek].casOd %></td>
+               <td><%= seznamNaZobrazeni[radek].casDo %></td>
+               <% } %>
+      
+               <% if (seznamNaZobrazeni[radek].typ == "celotridni" || seznamNaZobrazeni[radek].typ == "budovy" || seznamNaZobrazeni[radek].typ == "celoskolni" || seznamNaZobrazeni[radek].typ == "ucitelsky") { %>
+               <!-- Zobrazení přeložených budov -->
+               <td>
+                  <% if (seznamNaZobrazeni[radek].typ == "budovy") { %>
+                  <%= prekladBudov[seznamNaZobrazeni[radek].tykaSe] || seznamNaZobrazeni[radek].tykaSe %>
+                  <% } else { %>
+                  <%= seznamNaZobrazeni[radek].tykaSe %>
+                  <% } %>
+               </td>
+               <% } %>
+            </tr>
+            <% } %>
+         </table>
+        </main>
       </article>
     </main>
 
