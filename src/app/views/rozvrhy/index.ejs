@@ -30,11 +30,8 @@
 
 
         .timetable-btn {
-            background-color: #eceaea;
-            color: black;
             width: 100%;
             height: 100%;
-            border: none;
             cursor: pointer;
             font-size: 14px;
             display: flex;
@@ -104,11 +101,8 @@
         }
 
         .timetable-btn {
-            background-color: #eceaea;
-            color: black;
             width: 100%;
             height: 100%;
-            border: none;
             cursor: pointer;
             font-size: 14px;
             display: flex;
@@ -118,10 +112,6 @@
             box-sizing: border-box;
             padding: 5px;
             min-height: 60px;
-        }
-
-        .timetable-btn.has-lesson {
-            background-color: #e3f2fd;
         }
 
         .lesson-subject {
@@ -302,7 +292,7 @@
                                                     <% periods.forEach(period=> { %>
                                                         <td>
                                                             <button id="btn-<%= type %>-<%= day %>-<%= period %>"
-                                                                class="timetable-btn"
+                                                                class="timetable-btn outline secondary"
                                                                 onclick="showPopup('<%= period %>', '<%= day %>', '<%= type %>')">
                                                                 <span class="hodina-predmet">+</span>
                                                                 <span class="hodina-mistnost"></span>
@@ -535,20 +525,20 @@
 
                 if (hodina && hodina.predmet) {
                     if (hodina.predmet === "volno") {
-                        button.classList.add('has-lesson');
+                        button.classList.replace('secondary', 'primary');
                         button.classList.add('is-free');
                         predmetSpan.textContent = "";
                         mistnostSpan.textContent = "";
                         skupinaSpan.textContent = "";
                     } else {
-                        button.classList.add('has-lesson');
+                        button.classList.replace('secondary', 'primary');
                         button.classList.remove('is-free');
                         predmetSpan.textContent = hodina.predmet;
                         mistnostSpan.textContent = hodina.mistnost;
                         skupinaSpan.textContent = hodina.skupina === "cela" ? "" : hodina.skupina;
                     }
                 } else {
-                    button.classList.remove('has-lesson');
+                    button.classList.replace('secondary', 'primary');
                     button.classList.remove('is-free');
                     predmetSpan.textContent = '+';
                     mistnostSpan.textContent = '';
