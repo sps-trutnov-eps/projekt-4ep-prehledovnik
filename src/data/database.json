@@ -65,7 +65,29 @@
         "nextID": 2
     },
     "udalosti": {
-        "nextID": 1
+        "1": {
+            "nazev": "a",
+            "typ": "celoskolni",
+            "datum": "2024-11-07",
+            "datumDo": null,
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "celodenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "2": {
+            "nazev": "a",
+            "typ": "celoskolni",
+            "datum": "2024-11-07",
+            "datumDo": null,
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "celodenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "nextID": 3
     },
     "maturity": {
         "nextID": 1
