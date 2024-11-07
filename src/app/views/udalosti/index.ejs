@@ -11,7 +11,8 @@
           <h1>Nová událost</h1>
         </header>
         <main>
-          <form action="/udalosti/pridatUdalost" method="post">
+          <!-- We could also only swap the changed parts -->
+          <form hx-post="/udalosti/pridatUdalost" hx-target="body" hx-swap="transition:true">
             <input
               type="text"
               name="jmeno_udalosti"
