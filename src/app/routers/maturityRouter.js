@@ -6,7 +6,13 @@ maturityRouter.get("/scmz", maturityController.scmz)
 maturityRouter.get("/sloh", maturityController.sloh)
 
 maturityRouter.post("/ukladanipzop", maturityController.ukladanipzop)
+maturityRouter.post("/ukladanipcmz", maturityController.ukladanipcmz)
+maturityRouter.post("/ukladaniscmz", maturityController.ukladaniscmz)
+maturityRouter.post("/ukladanisloh", maturityController.ukladanisloh)
 
 module.exports = maturityRouter;
+
+
+
 
 
