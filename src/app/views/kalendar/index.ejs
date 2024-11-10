@@ -135,9 +135,13 @@
         </main>
     <script>
         function scrollToCurrent() {
-            const today = new Date();
-            const currentDate = today.toISOString().split('T')[0]; // Format YYYY-MM-DD
-            const element = document.getElementById(currentDate);
+            const increment = 24 * 60 * 60 * 1000
+            let today = new Date();
+            //Pokud je nedele, scrolluje se na sobotu
+            if(Number(today.getDay()) == 0)
+                today = new Date(Number(today.getTime()) - increment)
+            let currentDate = today.toISOString().split('T')[0]; // Format YYYY-MM-DD
+            let element = document.getElementById(currentDate);
             
             if (element) {
                 element.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -151,12 +155,13 @@
             const select = document.getElementById("months");
             const month = select.value;
             const year = (month < 8) ? 2025 : 2024;  // Nastavení roku podle výběru měsíce
-            const selected = document.getElementById(`${year}-${month.padStart(2, '0')}-01`);
+            let selected = document.getElementById(`${year}-${month.padStart(2, '0')}-01`);
             
             if (selected) {
                 selected.scrollIntoView({ behavior: 'smooth', block: 'start' });
             } else {
-                console.error("Element nebyl nalezen.");
+                selected = document.getElementById(`${year}-${month.padStart(2, '0')}-02`);
+                selected.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         }
 
