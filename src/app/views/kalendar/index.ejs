@@ -168,6 +168,7 @@
             let date = document.getElementById(udalost.datum)         
             let p = document.createElement("p")
             p.textContent = udalost.nazev
+            p.className = "udalost"
             date.appendChild(p)
             return p
         }
@@ -183,6 +184,7 @@
                             date.setDate(date.getDate() + j);
                             udalost.datum = date.toISOString().split('T')[0];
                             let element = placeUdalost(udalost)
+                            element.classList.add("udalost", "udalostVicedenni")
                             while (element.previousSibling != null){
                                 element.parentNode.insertBefore(element, element.previousSibling)
                                 if(element.previousSibling == element.parentNode.firstElementChild)
