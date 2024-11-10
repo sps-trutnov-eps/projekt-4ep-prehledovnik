@@ -31,7 +31,6 @@
                 position: sticky;
                 top: 70px;
                 z-index: 9;
-                background-color: white; 
                 padding: 20px;
                 padding-bottom: 0;  
                 margin: 0;
@@ -39,7 +38,6 @@
             #quick-nav {
                 position: sticky;
                 top: 0;
-                background-color: white;
                 z-index: 10;
                 margin-top: 0;
                 padding: 15px;
@@ -113,17 +111,20 @@
                         <% for (let i = startDate.getTime(); i <= endDate.getTime();i += increment) {%>
                             <% if(new Date(i).getDay() != 0) {%>
 
-                            <section id=<%= new Date(i+increment).toISOString().split('T')[0] %>  style="grid-column-start: <%= new Date(i).getDay()%> ;" class="grid-item">
+                            <section id=<%= new Date(i).toLocaleDateString('en-CA', { timeZone: 'Europe/Prague' }) %>  style="grid-column-start: <%= new Date(i).getDay()%> ;" class="grid-item">
                                 <% if(new Date(i).getDay() == 6) {%>
                                 <p><%= new Date(i).getDate()%> / <%= new Date(i).getMonth() + 1%> - <%= new Date(i+increment).getDate()%> / <%= new Date(i+increment).getMonth() + 1%></p>
 
                                 <% }else{%>
                                     <p><%= new Date(i).getDate()%> / <%= new Date(i).getMonth() + 1%></p>
                                 <% }%>
+
+
                                 
                                 <% if (new Date(i).getDate() == date_udalost[0] && new Date(i).getMonth() + 1 == date_udalost[1]) {%>
                                 <p><%= date_udalost[2]%></p>  
-                                <%}%>  
+                                <%}%>
+
                             </section>
                             
 
@@ -168,27 +169,33 @@
             let p = document.createElement("p")
             p.textContent = udalost.nazev
             date.appendChild(p)
+            return p
         }
 
         function placeUdalosti() {
             let udalosti = <%- JSON.stringify(udalosti) %>
             for (let i=1;i<udalosti.length;i++){
-                if(udalosti[i] != null){
-                        placeUdalost(udalosti[i])
+                if(udalosti[i] != null){                    
                     if(udalosti[i].naPocetDni > 0){
-                        for(let j=1; j < udalosti[i].naPocetDni ;j++){
+                        for(let j=0; j < udalosti[i].naPocetDni ;j++){
                             let udalost = { ...udalosti[i] };
                             let date = new Date(udalost.datum);
                             date.setDate(date.getDate() + j);
                             udalost.datum = date.toISOString().split('T')[0];
-                            placeUdalost(udalost)
-                        }
-                            
-                    }
+                            let element = placeUdalost(udalost)
+                            while (element.previousSibling != null){
+                                element.parentNode.insertBefore(element, element.previousSibling)
+                                if(element.previousSibling == element.parentNode.firstElementChild)
+                                    break
+                            }
+                    }}
+                    else
+                        placeUdalost(udalosti[i])
                 }                             
             }
         }
 
     </script>
+    <script src="/kalendar/js/main.js"></script>
     </body>
 </html>
