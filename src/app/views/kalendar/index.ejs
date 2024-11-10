@@ -170,16 +170,23 @@
         })
 
         function placeUdalost(udalost){
-            let date = document.getElementById(udalost.datum)         
+            const increment = 24 * 60 * 60 * 1000
+            let date = udalost.datum
+            const dateCheck = new Date(udalost.datum)
+            if (Number(dateCheck.getDay()) == 0)
+                date = new Date(Number(dateCheck.getTime()) - increment).toLocaleDateString('en-CA', { timeZone: 'Europe/Prague' })
+            let day = document.getElementById(date)      
+
             let p = document.createElement("p")
             p.textContent = udalost.nazev
             p.className = "udalost"
-            date.appendChild(p)
+            day.appendChild(p)
             return p
         }
 
         function placeUdalosti() {
             let udalosti = <%- JSON.stringify(udalosti) %>
+
             for (let i=1;i<udalosti.length;i++){
                 if(udalosti[i] != null){                    
                     if(udalosti[i].naPocetDni > 0){
@@ -188,6 +195,7 @@
                             let date = new Date(udalost.datum);
                             date.setDate(date.getDate() + j);
                             udalost.datum = date.toISOString().split('T')[0];
+
                             let element = placeUdalost(udalost)
                             element.classList.add("udalost", "udalostVicedenni")
                             while (element.previousSibling != null){
