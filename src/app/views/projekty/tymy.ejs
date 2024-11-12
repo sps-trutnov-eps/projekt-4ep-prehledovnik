@@ -129,23 +129,12 @@
 
 <article class="levy_panel" style="width: 20vw; min-width: 20vw; margin-right: 1em; overflow-y: auto; resize: horizontal;">
     <button>Přepínač</button>
-    <button>Týmy</button>
-    <button type="button" id="open-okno" class="project-button" onclick="window.location.href='/vytvorit-projekt'">Vytvořit Projekt</button>
-    
-    <!-- Project buttons container -->
-    <div id="project-buttons">
-        <% if (typeof projects !== 'undefined' && projects.length > 0) { %>
-            <% projects.forEach(function(project) { %>
-                <button class="team-button" onclick="showTeamInfo('<%= project.className %>', this)">
-                    <%= project.className %>
-                </button>
-            <% }); %>
-        <% } %>
-    </div>
-
-    <div id="myokno" class="okno">
-        <!-- Modal content can be added here if needed -->
-    </div>
+    <a href="../projekty/">
+      <button>Fáze</button>
+    </a>
+    <a href="../projekty/vytvoreni">
+      <button>Vytvoření projektu</button>
+    </a>
 </article>
 
 <article class="main-content" style="flex: 3; overflow-y: auto">

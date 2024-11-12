@@ -105,7 +105,23 @@
       font-size: 16px;
       cursor: pointer;
       border: none;
-   } 
+   }
+
+   .project-button {
+      margin-right: 10px;
+      padding: 10px 20px;
+      font-size: 14px;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+      background-color: #007BFF; /* Modrá barva */
+      color: white;
+      transition: background-color 0.3s;
+   }
+
+   .project-button:hover {
+      background-color: #0056b3; /* Tmavší modrá při najetí */
+   }
 
 </style>
 
@@ -118,8 +134,12 @@
       overflow-y: auto;
       resize: horizontal;
   ">
-   <button>Přepínač</button>
-   <button>Týmy</button>
+  <a href="../projekty/tymy">
+      <button>Týmy</button>
+  </a>
+  <a href="../projekty/vytvoreni">
+   <button>Vytvoření projektu</button>
+ </a>
    <button class="team-button">1.ep</button>
    <button class="team-button">2.ep</button>
    <button class="team-button">3.ep</button>

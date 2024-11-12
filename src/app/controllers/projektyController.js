@@ -13,7 +13,7 @@ exports.zobrazPrezentace = (req, res) => {
 }
 
 exports.vytvoritProjekt = (req, res) => {
-    res.render("projekty/vytvoreniProjektu");
+    res.render("projekty/vytvoreni");
 };
 
 exports.zobrazDetailyTymu = (req, res) => {
@@ -38,6 +38,7 @@ exports.pridatProjekt = (req, res) => {
 
     // Send JSON response instead of redirect
     res.json({ success: true, className: className });
+    res.redirect('/projekty/tymy');
 };
 
 // Add a new route to get all projects
