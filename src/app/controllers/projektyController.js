@@ -13,7 +13,7 @@ exports.zobrazPrezentace = (req, res) => {
 }
 
 exports.vytvoritProjekt = (req, res) => {
-    res.render("projekty/vytvoreni");
+    res.render("projekty/vytvoreniProjektu");
 };
 
 exports.zobrazDetailyTymu = (req, res) => {

@@ -1,7 +1,11 @@
 <!DOCTYPE html>
+<html lang="cs">
 <%- include('../partials/head.ejs'); %>
 
 <style>
+   /* Your existing CSS styles here */
+   body {
+      display: flex;
       flex-direction: column;
       justify-content: flex-start;
       min-height: 100vh;
@@ -125,6 +129,7 @@
 
 </style>
 
+<body>
 <article
    class="levy_panel"
    style="
@@ -137,9 +142,10 @@
   <a href="../projekty/tymy">
       <button>Týmy</button>
   </a>
-  <a href="../projekty/vytvoreni">
-   <button>Vytvoření projektu</button>
- </a>
+  
+  <a href="../projekty/vytvoreniProjektu">
+      <button>Vytvoření projektu</button>
+  </a>
    <button class="team-button">1.ep</button>
    <button class="team-button">2.ep</button>
    <button class="team-button">3.ep</button>
@@ -186,7 +192,6 @@
       </tr>
       <tr>
          <td>m1</td>
-         <td>1</td>
          <td>1</td>
          <td>1</td>
          <td>1</td>
@@ -274,4 +279,7 @@
       </tr>
    </table>
 </article>
+
 <%- include('../partials/tail') %>
+</body>
+</html>
