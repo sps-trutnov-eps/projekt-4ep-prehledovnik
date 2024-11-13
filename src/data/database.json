@@ -49,6 +49,16 @@
         "nextID": 1
     },
     "projekty": {
-        "nextID": 5
+        "5": {
+            "trida": "asd",
+            "tymy": "2024-11-06",
+            "pitche": "3"
+        },
+        "6": {
+            "trida": "TEST",
+            "tymy": "2024-11-06",
+            "pitche": "20"
+        },
+        "nextID": 7
     }
 }
