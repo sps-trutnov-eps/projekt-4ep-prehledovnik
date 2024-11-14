@@ -126,7 +126,7 @@
 </style>
 
 <article class="levy_panel">
-   <button>Přepínač</button>
+   <button onclick="vytvorTlacitkoProProjekty()">Přepínač</button>
    <button>Týmy</button>
 </article>
 
@@ -146,7 +146,21 @@
          <input type="number" id="student-count" name="studentCount" required min="1">
       </div>
       <div class="form-group">
-         <button type="submit">Uložit projekt</button>
+         <button type="submit" onclick="vytvorTlacitkoProProjekty()">Uložit projekt</button>
       </div>
    </form>
 </article>
+<script>
+
+function vytvorTlacitkoProProjekty(text = "Nový Projekt", onclick = () => alert("Tlačítko bylo kliknuto!")) {
+  const button = document.createElement("button");
+  button.textContent = text;
+  button.onclick = onclick;
+  
+  // Najděte levý panel a připojte tlačítko do něj
+  document.querySelector(".levy_panel").appendChild(button);
+}
+
+</script>
+
+</script>
