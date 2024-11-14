@@ -12,7 +12,7 @@ exports.udalosti = () => {
 }
 
 exports.mesicni = (req,res) => {
-    res.render('kalendar/index', {
+    res.render('kalendar', {
         date_udalost: date_udalost(),
         udalosti: databaze.udalosti.ziskatVsechnyUdalosti()
     })
