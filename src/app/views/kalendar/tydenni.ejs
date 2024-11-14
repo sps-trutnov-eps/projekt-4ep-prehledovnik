@@ -62,7 +62,7 @@
                 <div>
                     <% for(let i=0;i<10;i++) {%>
                         <section class="grid-container">
-                                <p class="grid-item-h"><%= week[1] %></p>
+                                <p class="grid-item-h"><%= week %></p>
                                 <p class="grid-item-h">7:10-7:55</p>
                                 <p class="grid-item-h">8:00-8:45</p>
                                 <p class="grid-item-h">8:50-9:35</p>
@@ -78,7 +78,7 @@
                                 <p class="grid-item"><%= days[i] %></p>
                                 <% for(let j=0;j<= 9;j++) {%>
                                     <p class="grid-item">
-                                        <%= rozvrh[j]%>
+                                        <%= rozvrh_L[j + 10 * i]%>
                                     </p>
                                 <%}%>
                             <%} %>
