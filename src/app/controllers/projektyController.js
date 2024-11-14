@@ -1,8 +1,47 @@
 const databaze = require("../models/databaseEngine");
 
 exports.zobrazTymy = (req, res) => {
-    res.render("projekty/tymy");
+    let tlacitka = "";
+    const tridy = databaze.projekty.gP();
+
+    for (const projektID in tridy) {
+        if (projektID != "nextID") {
+            const trida = tridy[projektID].trida;
+            if (trida) {
+                tlacitka += `<button hx-get="/projekty/tymy/${trida}" 
+                hx-target="body"
+                hx-push-url="true"
+                hx-swap="transition:true">${trida}</button>`;
+            }
+        }
+    }
+    console.log(tridy);
+
+    res.render("projekty/tymy", { tlacitka: tlacitka });
 };
+
+exports.zobrazProjekt = (req, res) => {
+    let tlacitka = "";
+    const tridy = databaze.projekty.gP();
+
+    for (const projektID in tridy) {
+        if (projektID != "nextID") {
+            const trida = tridy[projektID].trida;
+            if (trida) {
+                tlacitka += `<button hx-get="/projekty/tymy/${trida}" 
+                hx-target="body"
+                hx-push-url="true"
+                hx-swap="transition:true">${trida}</button>`;
+            }
+        }
+    }
+    console.log(tridy);
+
+    // req.params.projekt
+
+    res.render("/projekty/tymy", { tlacitka: tlacitka });
+};
+
 
 exports.zobrazPitche = (req, res) => {
     res.render("projekty/pitch");

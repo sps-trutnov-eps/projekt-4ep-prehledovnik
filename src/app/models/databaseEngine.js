@@ -295,7 +295,13 @@ const projekty = {
         let projekty = gP();
         let ID = ziskatIDProjektu(trida);
         return projekty[ID];
-    }
+    },
+    ziskatTridy: () => {
+        let projekty = Object.values(gP());
+        projekty.pop();
+        return projekty.map(((projekt) => projekt["trida"]));
+    },
+    gP: () => {return db.get("projekty")}
 }
 
 // CELKOVÝ MODEL
