@@ -11,20 +11,7 @@ exports.udalosti = () => {
     return databaze.udalosti.ziskatVsechnyUdalosti();
 }
 
-function udalostDatumFormat() {
-    let udalosti = databaze.udalosti.ziskatVsechnyUdalosti()
-    console.log(udalosti)
-    for (let i = 1;i<udalosti.length;i++){
-        datum = udalosti[i].datum.split("-")
-        udalosti[i].date = datum[2] + "-" + datum[1]
-    }
-    let udalosta = udalosti
-    udalosti = databaze.udalosti.ziskatVsechnyUdalosti()
-    return udalosta
-}
-
 exports.mesicni = (req,res) => {
-    udalostDatumFormat()
     res.render('kalendar/index', {
         date_udalost: date_udalost(),
         udalosti: databaze.udalosti.ziskatVsechnyUdalosti()
