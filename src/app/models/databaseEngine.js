@@ -281,6 +281,16 @@ const maturity = {
         }
         return maturityList;
     },
+    ziskatVsechnyMaturityJakoUdalosti: () => {
+        let maturity = gM();
+        let maturityList = [];
+        let nextID = maturity["nextID"];
+        for(let i = 0; i < nextID; i++){
+            maturity[String(i)]
+            maturityList.push();
+        }
+        return maturityList;
+    },
     upravitMaturitniEvent: (nazev, dny, casy, ucebna) => {
         let maturity = gM();
         IDUpravovaneMaturity = ziskatIDMaturityDleJmena(nazev);
