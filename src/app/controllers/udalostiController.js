@@ -1,13 +1,14 @@
 const databaze = require("../models/databaseEngine");
 
-exports.seznam = (req, res) => {
-	res.render('udalosti/seznamUdalosti.ejs', {
-        seznamNaZobrazeni: databaze.udalosti.ziskatVsechnyUdalosti(),
-    });
-}
+// exports.seznam = (req, res) => {
+// 	res.render('udalosti/seznamUdalosti.ejs', {
+//         seznamNaZobrazeni: databaze.udalosti.ziskatVsechnyUdalosti(),
+//     });
+// }
 
 exports.index = (req, res) => {
-    res.render('udalosti/index.ejs', {
+    res.render('udalosti/index.ejs', {        
+        seznamNaZobrazeni: databaze.udalosti.ziskatVsechnyUdalosti(),
         datum: new Date().toISOString().split('T')[0],
     });
 }

@@ -19,28 +19,19 @@
         }
 
         .timetable thead th {
-            background-color: white;
             padding: 10px;
-            border-bottom: 2px solid #ddd;
         }
 
         .timetable th,
         .timetable td {
-            border: 1px solid #ddd;
             text-align: center;
             vertical-align: middle;
         }
 
-        .timetable td {
-            background-color: white;
-        }
 
         .timetable-btn {
-            background-color: #eceaea;
-            color: black;
             width: 100%;
             height: 100%;
-            border: none;
             cursor: pointer;
             font-size: 14px;
             display: flex;
@@ -51,52 +42,6 @@
 
         .timetable {
             border: none;
-        }
-
-        .timetable th:first-child {
-            background-color: white;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-
-        .modal-content {
-            background-color: #fefefe;
-            padding: 40px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 600px;
-            text-align: center;
-            font-size: 20px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-            animation: fadeIn 0.5s ease;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .close-btn {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close-btn:hover,
-        .close-btn:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
         }
 
         .btn-save {
@@ -114,11 +59,8 @@
         }
 
         .timetable-btn {
-            background-color: #eceaea;
-            color: black;
             width: 100%;
             height: 100%;
-            border: none;
             cursor: pointer;
             font-size: 14px;
             display: flex;
@@ -128,10 +70,6 @@
             box-sizing: border-box;
             padding: 5px;
             min-height: 60px;
-        }
-
-        .timetable-btn.has-lesson {
-            background-color: #e3f2fd;
         }
 
         .lesson-subject {
@@ -163,7 +101,7 @@
             padding: 20px 40px;
             font-size: 1.2em;
             background-color: #4CAF50;
-            color: white;
+            color: var(--pico-background-color);
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -256,7 +194,7 @@
             </select>
             <% if (rozvrhy && rozvrhy.length> 0) { %>
                 <button class="btn-save" onclick="ulozitRozvrh()">Uložit</button>
-                <button class="btn-new" onclick="showCreateForm()">Nová verze</button>
+                <button class="btn-new" onclick="toggleModal(event)"  data-target="createFormModal">Nová verze</button>
                 <% } %>
         </main>
     </article>
@@ -267,7 +205,7 @@
         <main>
             <% if (!rozvrhy || rozvrhy.length===0) { %>
                 <div class="create-timetable">
-                    <button class="big-button" onclick="showCreateForm()">Vytvořit rozvrh</button>
+                    <button class="big-button" onclick="toggleModal(event)" data-target="createFormModal">Vytvořit rozvrh</button>
                     <form id="createForm" class="create-form" action="/rozvrhy/vytvorit" method="POST">
                         <div class="form-group">
                             <label for="nazev">Název verze:</label>
@@ -312,8 +250,9 @@
                                                     <% periods.forEach(period=> { %>
                                                         <td>
                                                             <button id="btn-<%= type %>-<%= day %>-<%= period %>"
-                                                                class="timetable-btn"
-                                                                onclick="showPopup('<%= period %>', '<%= day %>', '<%= type %>')">
+                                                                class="timetable-btn outline secondary"
+                                                                onclick="toggleDayModal('<%= period %>', '<%= day %>', '<%= type %>', event)"
+                                                                data-target="popupModal">
                                                                 <span class="hodina-predmet">+</span>
                                                                 <span class="hodina-mistnost"></span>
                                                                 <span class="hodina-skupina"></span>
@@ -326,48 +265,56 @@
                                     </table>
                                     <% }) %>
 
-                                        <div id="popupModal" class="modal">
-                                            <div class="modal-content">
-                                                <span class="close-btn" onclick="closePopup()">&times;</span>
-                                                <h2>Tvorba hodiny</h2>
-                                                <form id="lessonForm" onsubmit="return false;">
-                                                    <div class="form-group">
-                                                        <label for="jakypredmet">Předmět:</label>
-                                                        <select name="predmet" id="jakypredmet" required>
-                                                            <option value="">Vyberte předmět</option>
-                                                            <option value="volno">Volno</option>
-                                                            <% for (let predmet of predmety) { %>
-                                                                <option value="<%= predmet %>">
-                                                                    <%= predmet %>
-                                                                </option>
-                                                                <% } %>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="mistnost">Učebna:</label>
-                                                        <input type="text" name="mistnost" id="mistnost"
-                                                            placeholder="Název učebny" required>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="skupina">Skupina:</label>
-                                                        <select name="skupina" id="skupina">
-                                                            <option value="cela" selected>Celá třída</option>
-                                                            <option value="sk1">Skupina 1</option>
-                                                            <option value="sk2">Skupina 2</option>
-                                                        </select>
-                                                    </div>
-                                                    <button class="btn-save"
-                                                        onclick="validateAndSubmit()">Potvrdit</button>
-                                                </form>
-                                            </div>
-                                        </div>
+                                        <dialog  id="popupModal">
+                                            <article>
+                                                <header>
+                                                    <button aria-label="Close" rel="prev" data-target="popupModal" onclick="toggleModal(event)"></button>
+                                                    <p><strong>Tvorba hodiny</strong></p>
+                                                </header>
+                                                <main>
+                                                    <form id="lessonForm" onsubmit="return false;">
+                                                        <div class="form-group">
+                                                            <label for="jakypredmet">Předmět:</label>
+                                                            <select name="predmet" id="jakypredmet" required>
+                                                                <option value="">Vyberte předmět</option>
+                                                                <option value="volno">Volno</option>
+                                                                <% for (let predmet of predmety) { %>
+                                                                    <option value="<%= predmet %>">
+                                                                        <%= predmet %>
+                                                                    </option>
+                                                                    <% } %>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="mistnost">Učebna:</label>
+                                                            <input type="text" name="mistnost" id="mistnost"
+                                                                placeholder="Název učebny" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="skupina">Skupina:</label>
+                                                            <select name="skupina" id="skupina">
+                                                                <option value="cela" selected>Celá třída</option>
+                                                                <option value="sk1">Skupina 1</option>
+                                                                <option value="sk2">Skupina 2</option>
+                                                            </select>
+                                                        </div>
+                                                        <button class="btn-save"
+                                                            onclick="validateAndSubmit(); toggleModal(event)"
+                                                            data-target="popupModal">Potvrdit</button>
+                                                    </form>
+                                                </main>
+                                            </article>
+                                        </dialog>
                                         <% } %>
 
-                                            <div id="createFormModal" class="modal">
-                                                <div class="modal-content">
-                                                    <span class="close-btn" onclick="closeCreateForm()">&times;</span>
-                                                    <h2>Nová verze rozvrhu</h2>
-                                                    <form id="createForm" class="create-form visible"
+                                            <dialog id="createFormModal">
+                                                <article>
+                                                    <header>
+                                                        <button aria-label="Close" rel="prev"  data-target="createFormModal" onclick="toggleModal(event)"></button>
+                                                        <p><strong>Nová verze rozvrhu</strong></p>
+                                                    </header>
+                                                    <main>
+                                                        <form id="createForm""
                                                         action="/rozvrhy/vytvorit" method="POST">
                                                         <div class="form-group">
                                                             <label for="nazev">Název verze:</label>
@@ -379,8 +326,9 @@
                                                         </div>
                                                         <button type="submit" class="btn-save">Vytvořit</button>
                                                     </form>
-                                                </div>
-                                            </div>
+                                                    </main>
+                                                </article>
+                                            </dialog>
         </main>
     </article>
 
@@ -501,7 +449,7 @@
             }
         }
 
-        function showPopup(cas, den, tyden) {
+        function showPopup(cas, den, tyden, event) {
             casHodiny = cas;
             denHodiny = den;
             druhTydne = tyden;
@@ -518,7 +466,7 @@
                 resetForm();
             }
 
-            document.getElementById("popupModal").style.display = "block";
+            toggleModal(event);
         }
 
         function closePopup() {
@@ -537,20 +485,20 @@
 
                 if (hodina && hodina.predmet) {
                     if (hodina.predmet === "volno") {
-                        button.classList.add('has-lesson');
+                        button.classList.replace('secondary', 'primary');
                         button.classList.add('is-free');
                         predmetSpan.textContent = "";
                         mistnostSpan.textContent = "";
                         skupinaSpan.textContent = "";
                     } else {
-                        button.classList.add('has-lesson');
+                        button.classList.replace('secondary', 'primary');
                         button.classList.remove('is-free');
                         predmetSpan.textContent = hodina.predmet;
                         mistnostSpan.textContent = hodina.mistnost;
                         skupinaSpan.textContent = hodina.skupina === "cela" ? "" : hodina.skupina;
                     }
                 } else {
-                    button.classList.remove('has-lesson');
+                    button.classList.replace('secondary', 'primary');
                     button.classList.remove('is-free');
                     predmetSpan.textContent = '+';
                     mistnostSpan.textContent = '';
@@ -602,13 +550,12 @@
             }
 
             resetForm();
-            closePopup();
         }
 
         function showCreateForm() {
             const modal = document.getElementById('createFormModal');
             if (modal) {
-                modal.style.display = "block";
+                modal.style.display = "flex";
             }
         }
 
@@ -649,6 +596,97 @@
                 });
             }
         });
+
+const isOpenClass = "modal-is-open";
+const openingClass = "modal-is-opening";
+const closingClass = "modal-is-closing";
+const scrollbarWidthCssVar = "--pico-scrollbar-width";
+const animationDuration = 400; // ms
+let visibleModal = null;
+
+// Toggle modal
+const toggleDayModal = (cas, den, tyden, event) => {
+    casHodiny = cas;
+    denHodiny = den;
+    druhTydne = tyden;
+
+    const existingLesson = druhTydne === 'L'
+        ? rozvrh.lichy[denHodiny][casHodiny]
+        : rozvrh.sudy[denHodiny][casHodiny];
+
+    if (existingLesson) {
+        document.getElementById("jakypredmet").value = existingLesson.predmet || "";
+        document.getElementById("mistnost").value = existingLesson.mistnost || "";
+        document.getElementById("skupina").value = existingLesson.skupina || "cela";
+    } else {
+        resetForm();
+    }
+
+  event.preventDefault();
+  const modal = document.getElementById(event.currentTarget.dataset.target);
+  if (!modal) return;
+  modal && (modal.open ? closeModal(modal) : openModal(modal));
+};
+
+const toggleModal = (event) => {
+  event.preventDefault();
+  const modal = document.getElementById(event.currentTarget.dataset.target);
+  if (!modal) return;
+  modal && (modal.open ? closeModal(modal) : openModal(modal));
+};
+
+// Open modal
+const openModal = (modal) => {
+  const { documentElement: html } = document;
+  const scrollbarWidth = getScrollbarWidth();
+  if (scrollbarWidth) {
+    html.style.setProperty(scrollbarWidthCssVar, `${scrollbarWidth}px`);
+  }
+  html.classList.add(isOpenClass, openingClass);
+  setTimeout(() => {
+    visibleModal = modal;
+    html.classList.remove(openingClass);
+  }, animationDuration);
+  modal.showModal();
+};
+
+// Close modal
+const closeModal = (modal) => {
+  visibleModal = null;
+  const { documentElement: html } = document;
+  html.classList.add(closingClass);
+  setTimeout(() => {
+    html.classList.remove(closingClass, isOpenClass);
+    html.style.removeProperty(scrollbarWidthCssVar);
+    modal.close();
+  }, animationDuration);
+};
+
+// Close with a click outside
+document.addEventListener("click", (event) => {
+  if (visibleModal === null) return;
+  const modalContent = visibleModal.querySelector("article");
+  const isClickInside = modalContent.contains(event.target);
+  !isClickInside && closeModal(visibleModal);
+});
+
+// Close with Esc key
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && visibleModal) {
+    closeModal(visibleModal);
+  }
+});
+
+// Get scrollbar width
+const getScrollbarWidth = () => {
+  const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+  return scrollbarWidth;
+};
+
+// Is scrollbar visible
+const isScrollbarVisible = () => {
+  return document.body.scrollHeight > screen.height;
+};
 
     </script>
     <%- include('../partials/tail') %>
