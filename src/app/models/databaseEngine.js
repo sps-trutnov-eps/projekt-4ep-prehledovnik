@@ -286,8 +286,27 @@ const maturity = {
         let maturityList = [];
         let nextID = maturity["nextID"];
         for(let i = 0; i < nextID; i++){
-            maturity[String(i)]
-            maturityList.push();
+            if (maturity[String(i)]) {  // kontrola existence záznamu
+                const maturitniEvent = maturity[String(i)];
+                
+                // Pro každý den v maturitě vytvoříme samostatnou událost
+                maturityList.push({
+                    // tohle =>
+
+                    nazev: maturitniEvent.nazev,
+                    typ: "celoskolni", 
+                    datum: den, // napsat začáteční datum 
+                    datumDo: den, // a den, kdy to končí (pokud není nastavte null)
+                    // většinou jsou maturity celý den. pokud ale mátě vskutku někde z nějakého důvodu čas =>
+                    // a doufám, že tam nebude zbytečně (je to kvůli zpracování dat)
+                    casOd: maturitniEvent.casy.od, // začáteční čas (pokud není nastavte null)
+                    casDo: maturitniEvent.casy.do,  // konečný čas (pokud není nastavte null)
+                    vyberZadani: "maturita",  
+                    tykaSe: maturitniEvent.ucebna, 
+                    poznamka: `Učebna: ${maturitniEvent.ucebna}`
+
+                });
+            }
         }
         return maturityList;
     },
