@@ -208,10 +208,11 @@
 
     <script>
       let dayCounter = 1;
-      document.getElementById("pridat-datum").addEventListener("click", function () {
-      dayCounter++; 
 
-      var tabulka = document.getElementById("hodiny-tabulka").getElementsByTagName("tbody")[0];
+      document.getElementById("pridat-datum").addEventListener("click", function () {
+      dayCounter++;
+
+      var tabulka = document.getElementById("hodiny_tabulka").getElementsByTagName("tbody")[0];
       var novyRadek = document.createElement("tr");
 
       var bunkaDatum = document.createElement("td");

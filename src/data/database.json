@@ -90,7 +90,18 @@
         "nextID": 3
     },
     "maturity": {
-        "nextID": 1
+        "1": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-14"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "nextID": 2
     },
     "projekty": {
         "1": {
