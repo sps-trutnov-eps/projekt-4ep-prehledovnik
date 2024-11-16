@@ -11,8 +11,8 @@
       .tlacitko {
         margin: 20px 0;
         padding: 15px;
-        // background-color: #007bff;
-        // color: white;
+        /* background-color: #007bff;
+        color: white; */
         border: none;
         border-radius: 5px;
         width: 100%;
@@ -48,12 +48,12 @@
 
       <article style="flex: 3; overflow-y: auto">
         <h1>PŽOP</h1>
-        <form style="display: flex; flex-direction: column">
+        <form action="/maturity/ukladanipzop"; method="POST"; style="display: flex; flex-direction: column">
           <label for="den-konani">Den konání:</label>
-          <input type="date" id="den-konani" name="den-konani" />
+          <input type="date" id="den-konani" name="den_konani" />
 
           <label for="dodatecne-dny">Dodatečné dny:</label>
-          <input type="date" id="dodatecne-dny" name="dodatecne-dny" />
+          <input type="date" id="dodatecne-dny" name="dodatecne_dny" />
 
           <label for="ucebna">Učebna:</label>
           <select
