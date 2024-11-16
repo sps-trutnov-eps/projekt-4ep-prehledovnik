@@ -44,6 +44,15 @@
                 padding: 15px;
             }
 
+            div#detail{
+                background-color: gray;
+                padding: 20px;
+                position: sticky;
+                top: 50%;
+                margin-left: 25%;
+                margin-right: 25%;
+            }
+
         </style>
 
         <main
@@ -101,6 +110,18 @@
                         <p class="grid-item">PÁTEK</p>
                         <p class="grid-item">VÍKEND</p>
                     </section>
+                    
+                    
+                    <div id="detail">
+                        <p id="name" class="detailItem"></p>
+                        <p id="from" class="detailItem"></p>
+                        <p id="to" class="detailItem"></p>
+                        <p id="date" class="detailItem"></p>
+                        <p id="type" class="detailItem"></p>
+                        <p id="tykase" class="detailItem"></p>
+                        <p id="note" class="detailItem"></p>
+                        <button class="detailButton" onclick="detailOff()">X</button>
+                    </div>
                     <section class="grid-container">
                         <%
                             let startDate = new Date(2024,7,1);
@@ -135,6 +156,10 @@
             </article>
         </main>
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+                    placeUdalosti()
+                })
+
         function scrollToCurrent() {
             const increment = 24 * 60 * 60 * 1000
             let today = new Date();
@@ -166,11 +191,7 @@
             }
         }
 
-        document.addEventListener("DOMContentLoaded", function() {
-            placeUdalosti()
-        })
-
-        function placeUdalost(udalost){
+        function placeUdalost(udalost, index){
             const increment = 24 * 60 * 60 * 1000
             let date = udalost.datum
             const dateCheck = new Date(udalost.datum)
@@ -178,11 +199,12 @@
                 date = new Date(Number(dateCheck.getTime()) - increment).toLocaleDateString('en-CA', { timeZone: 'Europe/Prague' })
             let day = document.getElementById(date)      
 
-            let p = document.createElement("p")
-            p.textContent = udalost.nazev
-            p.className = "udalost"
-            day.appendChild(p)
-            return p
+            let button = document.createElement("button")
+            button.textContent = udalost.nazev
+            button.className = "udalost"
+            button.onclick = function(){detailDisplay(index)}
+            day.appendChild(button)
+            return button
         }
 
         function placeUdalosti() {
@@ -197,7 +219,7 @@
                             date.setDate(date.getDate() + j);
                             udalost.datum = date.toISOString().split('T')[0];
 
-                            let element = placeUdalost(udalost)
+                            let element = placeUdalost(udalost,i)
                             element.classList.add("udalost", "udalostVicedenni")
                             while (element.previousSibling != null){
                                 element.parentNode.insertBefore(element, element.previousSibling)
@@ -206,9 +228,30 @@
                             }
                     }}
                     else
-                        placeUdalost(udalosti[i])
+                        placeUdalost(udalosti[i],i)
                 }                             
             }
+        }
+
+        function detailDisplay(index){
+            const udalosti = <%- JSON.stringify(udalosti) %>
+            const udalost = udalosti[index]
+            console.log(udalost.typ)
+
+            let detail = document.getElementById("detail")
+            detail.style.display = "block"
+
+            document.getElementById("name").innerText = udalost.nazev
+            document.getElementById("from").innerText = udalost.casOd
+            document.getElementById("to").innerText = udalost.casDo
+            document.getElementById("date").innerText = udalost.datum
+            document.getElementById("type").innerText = udalost.typ
+            document.getElementById("tykase").innerText = udalost.tykaSe
+            document.getElementById("note").innerText = udalost.poznamka
+        }
+
+        function detailOff(){
+            document.getElementById("detail").style.display = "none"
         }
 
     </script>
