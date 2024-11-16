@@ -39,17 +39,15 @@ exports.ukladanipcmz = (req, res) => {
 
 
 exports.ukladaniscmz = (req, res) => {
-   
+    
+    let data = [];
 
- 
     for (let i = 1; i <= 9; i++) { 
         let datum = req.body[`den${i}_datum`];
-        let zadavani = req.body[`den${i}_zadavani`] ? false & true;  
+        let zadavani = !!req.body[`den${i}_checkbox`];
         let cas = req.body[`den${i}_cas`];
         let ucebna = req.body[`den${i}_ucebna`];
 
-
-       
         if (datum) {
             data.push({ datum, zadavani, cas, ucebna });
         }
