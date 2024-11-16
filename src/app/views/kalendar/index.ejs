@@ -44,7 +44,7 @@
                 padding: 15px;
             }
 
-            div#detail {
+            #detail {
                 display: none;
                 position: fixed;
                 top: 50%;
@@ -60,13 +60,13 @@
             }
 
             .detailItem {
+                font-weight: bold;
                 margin: 12px 0;
                 padding: 8px 0;
                 color: #333;
             }
 
             .detailItem::before {
-                font-weight: bold;
                 display: block;
                 color: #666;
                 margin-bottom: 4px;
@@ -75,8 +75,8 @@
             #name {
                 font-size: 20px;
                 font-weight: bold;
-                color: #0172ad;
-                border-bottom: 2px solid #0172ad;
+                color: #3399ff;
+                border-bottom: 2px solid #3399ff;
                 margin-bottom: 16px;
             }
 
@@ -109,6 +109,21 @@
 
             .detailButton:hover {
                 background-color: #ff0000;
+            }
+
+            /* Dark mode */
+            @media (prefers-color-scheme: dark) {
+                #detail {
+                    background-color: #1a1a1a;
+                }
+
+                .detailItem {
+                    color: #e0e0e0;
+                }
+
+                .detailItem::before {
+                    color: #999;
+                }
             }
         </style>
 
