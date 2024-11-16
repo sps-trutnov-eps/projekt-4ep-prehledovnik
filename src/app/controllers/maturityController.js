@@ -1,17 +1,18 @@
 
+const databaseEngine = require("../models/databaseEngine");
 const databaze = require("../models/databaseEngine");
 
 exports.pcmz = (req, res) => {
     res.render("maturity/pcmz.ejs");
-}
+};
 
 exports.sloh = (req, res) => {
     res.render("maturity/sloh.ejs");
-}
+};
 
 exports.scmz = (req, res) => {
     res.render("maturity/scmz.ejs");
-}
+};
 
 exports.ukladanipzop = (req, res) => {
     const {den_konani, dodatecne_dny, ucebna} = req.body;
@@ -28,7 +29,7 @@ exports.ukladanipzop = (req, res) => {
     }
 
     res.redirect("/maturity/");
-}
+};
 
 exports.ukladanipcmz = (req, res) => {
     const body = req.body;
@@ -69,28 +70,52 @@ exports.ukladanipcmz = (req, res) => {
     res.redirect("/maturity/pcmz");
 };
 
-
-
 exports.ukladaniscmz = (req, res) => {
-    
-    let data = [];
+    const body = req.body;
+    let vsechnyDnyUlozeny = false;
+    const radky = [];
+    let pocitadloDnu = 1;
 
-    for (let i = 1; i <= 9; i++) { 
-        let datum = req.body[`den${i}_datum`];
-        let zadavani = !!req.body[`den${i}_checkbox`];
-        let cas = req.body[`den${i}_cas`];
-        let ucebna = req.body[`den${i}_ucebna`];
-
-        if (datum) {
-            data.push({ datum, zadavani, cas, ucebna });
+    while (!vsechnyDnyUlozeny) {
+        const dateKey = `den${pocitadloDnu}_datum`;
+        if (!body[dateKey]) {
+            vsechnyDnyUlozeny = true;
+            continue;
         }
+
+        const checkboxKey = `den${pocitadloDnu}_checkbox`;
+        const casKey = `den${pocitadloDnu}_cas`;
+        const ucebnaKey = `den${pocitadloDnu}_ucebna`;
+
+        if (body[checkboxKey]) {
+            const cas = body[casKey];
+            const ucebna = body[ucebnaKey];
+
+            if (!cas || !ucebna) {
+                continue;
+            }
+        }
+
+        radky.push({
+            datum: body[dateKey],
+            hodiny: body[checkboxKey] ? [body[casKey], body[ucebnaKey]] : [] 
+        });
+
+        pocitadloDnu++;
     }
 
-
- 
-    res.send({ data});
-
-
+    
+    radky.forEach((radek) => {
+        if (radek.datum) {
+            console.log("Ukládám event:", {
+                nazev: "SČMZ",
+                dny: [radek.datum],
+                casy: radek.hodiny,
+                ucebna: radek.ucebna
+            });
+            databaze.maturity.pridatMaturitniEvent("SČMZ", [radek.datum], radek.hodiny, null);
+        }
+    });
     res.redirect("/maturity/scmz");
 };
 

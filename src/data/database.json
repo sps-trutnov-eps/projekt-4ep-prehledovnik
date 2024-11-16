@@ -91,17 +91,25 @@
     },
     "maturity": {
         "1": {
-            "nazev": "PČMZ",
+            "nazev": "SČMZ",
             "dny": [
-                "2024-11-14"
+                "2024-11-07"
             ],
             "casy": [
-                1,
-                2
+                "04:40",
+                "T15"
             ],
             "ucebna": null
         },
-        "nextID": 2
+        "2": {
+            "nazev": "SČMZ",
+            "dny": [
+                "2024-12-01"
+            ],
+            "casy": [],
+            "ucebna": null
+        },
+        "nextID": 3
     },
     "projekty": {
         "1": {
