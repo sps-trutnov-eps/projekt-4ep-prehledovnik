@@ -44,15 +44,72 @@
                 padding: 15px;
             }
 
-            div#detail{
-                background-color: gray;
-                padding: 20px;
-                position: sticky;
+            div#detail {
+                display: none;
+                position: fixed;
                 top: 50%;
-                margin-left: 25%;
-                margin-right: 25%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 400px;
+                background-color: white;
+                border-radius: 8px;
+                padding: 24px;
+                padding-bottom: 80px;
+                z-index: 1000;
+                text-align: center;
             }
 
+            .detailItem {
+                margin: 12px 0;
+                padding: 8px 0;
+                color: #333;
+            }
+
+            .detailItem::before {
+                font-weight: bold;
+                display: block;
+                color: #666;
+                margin-bottom: 4px;
+            }
+
+            #name {
+                font-size: 20px;
+                font-weight: bold;
+                color: #0172ad;
+                border-bottom: 2px solid #0172ad;
+                margin-bottom: 16px;
+            }
+
+            #from::before { content: "Začátek:"; }
+            #to::before { content: "Konec:"; }
+            #date::before { content: "Datum:"; }
+            #type::before { content: "Typ události:"; }
+            #tykase::before { content: "Týká se:"; }
+            #note::before { content: "Poznámka:"; }
+
+            #note {
+                margin-bottom: 60px;
+            }
+
+            .detailButton {
+                position: absolute;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background-color: #ff4444;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                font-size: 24px;
+                font-weight: bold;
+                padding: 8px 40px;
+                cursor: pointer;
+                transition: background-color 0.2s;
+            }
+
+            .detailButton:hover {
+                background-color: #ff0000;
+            }
         </style>
 
         <main
