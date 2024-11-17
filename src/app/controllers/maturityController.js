@@ -54,10 +54,21 @@ exports.ukladanipcmz = (req, res) => {
         }
 
         if (body[dateKlic] && hodiny.length > 0) {
-            radky.push({
-                datum: body[dateKlic],
-                hodiny: hodiny,
-            });
+            let denRadky = [];
+            let posledniHodina = hodiny[0];
+
+            denRadky.push({ datum: body[dateKlic], hodiny: [posledniHodina] });
+
+            for (let j = 1; j < hodiny.length; j++) {
+                if (hodiny[j] === posledniHodina + 1) {
+                    denRadky[denRadky.length - 1].hodiny.push(hodiny[j]);
+                } else {
+                    denRadky.push({ datum: body[dateKlic], hodiny: [hodiny[j]] });
+                }
+                posledniHodina = hodiny[j]; 
+            }
+            // to podtím je jako kdyby se dělal for, ale kratší XD
+            radky.push(...denRadky);
         }
 
         pocitadloDnu++;

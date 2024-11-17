@@ -87,51 +87,94 @@
             "tykaSe": null,
             "poznamka": ""
         },
-        "nextID": 3
+        "3": {
+            "nazev": "ss",
+            "typ": "celoskolni",
+            "datum": "2024-11-17",
+            "datumDo": "2024-11-17",
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "vicedenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "4": {
+            "nazev": "aa",
+            "typ": "celoskolni",
+            "datum": "2024-11-17",
+            "datumDo": null,
+            "casOd": "9:55",
+            "casDo": "9:35",
+            "vyberZadani": "casIDatum",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "nextID": 5
     },
     "maturity": {
         "1": {
-            "nazev": "SLOH",
+            "nazev": "PČMZ",
             "dny": [
-                "2024-11-17"
+                "2024-11-24"
             ],
             "casy": [
                 1,
-                3,
-                5
+                2
             ],
-            "ucebna": "T15"
+            "ucebna": null
         },
         "2": {
-            "nazev": "SLOH",
+            "nazev": "PČMZ",
             "dny": [
-                "2024-11-21"
+                "2024-11-24"
             ],
             "casy": [
-                1
+                4
             ],
-            "ucebna": "T15"
+            "ucebna": null
         },
         "3": {
-            "nazev": "SLOH",
+            "nazev": "PČMZ",
             "dny": [
-                "2024-11-21"
+                "2024-11-24"
             ],
             "casy": [
-                3
+                6
             ],
-            "ucebna": "T16"
+            "ucebna": null
         },
         "4": {
-            "nazev": "SLOH",
+            "nazev": "PČMZ",
             "dny": [
-                "2024-11-21"
+                "2024-11-22"
             ],
             "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "5": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                4,
                 5
             ],
-            "ucebna": "T17"
+            "ucebna": null
         },
-        "nextID": 5
+        "6": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                7
+            ],
+            "ucebna": null
+        },
+        "nextID": 7
     }
 }
