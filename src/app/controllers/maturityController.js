@@ -114,21 +114,32 @@ exports.ukladanisloh = (req, res) => {
     const body = req.body;
     let pocitadloDnu = 1;
 
+    const seskupenaData = {};
+
     while (body[`den${pocitadloDnu}_datum`]) {
         const datum = body[`den${pocitadloDnu}_datum`][0];
         
         for (let hodina = 1; hodina <= 9; hodina++) {
             const ucebnaKey = `den${pocitadloDnu}_ucebna-${hodina}`;
             const ucebna = body[ucebnaKey]?.[0]; 
-            console.log(`Kontroluji hodinu ${hodina}, učebna: ${ucebna}`);
 
             if (ucebna && ucebna.trim() !== '') {
-                databaze.maturity.pridatMaturitniEvent("SLOH", [datum], hodina, ucebna);
+                const skupinaKlic = `${datum}_${ucebna}`;
+
+                if (!seskupenaData[skupinaKlic]) {
+                    seskupenaData[skupinaKlic] = {nazev: "SLOH", dny: [datum], casy: [], ucebna: ucebna};
+                };
+
+                seskupenaData[skupinaKlic].casy.push(hodina);
             }
         }
-
         pocitadloDnu++;
     }
+
+    Object.values(seskupenaData).forEach(zaznam => {
+        zaznam.casy.sort((a, b) => a - b);
+        databaze.maturity.pridatMaturitniEvent(zaznam.nazev, zaznam.dny, zaznam.casy, zaznam.ucebna);
+    });
 
     res.redirect('/maturity/sloh');
 };

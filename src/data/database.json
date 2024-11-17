@@ -90,6 +90,48 @@
         "nextID": 3
     },
     "maturity": {
-        "nextID": 1
+        "1": {
+            "nazev": "SLOH",
+            "dny": [
+                "2024-11-17"
+            ],
+            "casy": [
+                1,
+                3,
+                5
+            ],
+            "ucebna": "T15"
+        },
+        "2": {
+            "nazev": "SLOH",
+            "dny": [
+                "2024-11-21"
+            ],
+            "casy": [
+                1
+            ],
+            "ucebna": "T15"
+        },
+        "3": {
+            "nazev": "SLOH",
+            "dny": [
+                "2024-11-21"
+            ],
+            "casy": [
+                3
+            ],
+            "ucebna": "T16"
+        },
+        "4": {
+            "nazev": "SLOH",
+            "dny": [
+                "2024-11-21"
+            ],
+            "casy": [
+                5
+            ],
+            "ucebna": "T17"
+        },
+        "nextID": 5
     }
 }
