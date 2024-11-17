@@ -2,18 +2,6 @@
 const databaseEngine = require("../models/databaseEngine");
 const databaze = require("../models/databaseEngine");
 
-const hodinyCasy = [
-    "8:00-8:45",
-    "8:50-9:35",
-    "9:55-10:40",
-    "10:50-11:35",
-    "11:40-12:25",
-    "12:35-13:20",
-    "13:25-14:10",
-    "14:15-15:00",
-    "15:10-15:55"
-];
-
 exports.pcmz = (req, res) => {
     res.render("maturity/pcmz.ejs");
 };
@@ -124,40 +112,23 @@ exports.ukladaniscmz = (req, res) => {
 
 exports.ukladanisloh = (req, res) => {
     const body = req.body;
-    const radky = [];
     let pocitadloDnu = 1;
 
     while (body[`den${pocitadloDnu}_datum`]) {
         const datum = body[`den${pocitadloDnu}_datum`][0];
-        const hodinyData = {};
-    
+        
         for (let hodina = 1; hodina <= 9; hodina++) {
-            const ucebnaKlic = `den${pocitadloDnu}_ucebna-${hodina}`;
-            const ucebna = body[ucebnaKlic] && body[ucebnaKlic][0]; 
-    
+            const ucebnaKey = `den${pocitadloDnu}_ucebna-${hodina}`;
+            const ucebna = body[ucebnaKey]?.[0]; 
+            console.log(`Kontroluji hodinu ${hodina}, učebna: ${ucebna}`);
+
             if (ucebna && ucebna.trim() !== '') {
-                hodinyData[hodina] = {
-                    cas: hodinyCasy[hodina - 1],
-                    ucebna: ucebna
-                };
+                databaze.maturity.pridatMaturitniEvent("SLOH", [datum], hodina, ucebna);
             }
         }
-    
-        if (Object.keys(hodinyData).length > 0) {
-            radky.push({
-                datum: datum,
-                hodiny: hodinyData
-            });
-        }
-    
+
         pocitadloDnu++;
     }
-
-    radky.forEach((radek) => {
-        if (radek.datum) {
-            databaze.maturity.pridatMaturitniEvent("SLOH", [radek.datum], radek.hodiny, null);
-        }
-    });
 
     res.redirect('/maturity/sloh');
 };
