@@ -2,6 +2,18 @@
 const databaseEngine = require("../models/databaseEngine");
 const databaze = require("../models/databaseEngine");
 
+const hodinyCasy = [
+    "8:00-8:45",
+    "8:50-9:35",
+    "9:55-10:40",
+    "10:50-11:35",
+    "11:40-12:25",
+    "12:35-13:20",
+    "13:25-14:10",
+    "14:15-15:00",
+    "15:10-15:55"
+];
+
 exports.pcmz = (req, res) => {
     res.render("maturity/pcmz.ejs");
 };
@@ -39,23 +51,23 @@ exports.ukladanipcmz = (req, res) => {
     let pocitadloDnu = 1;
 
     while (!vsechnyDnyUlozeny) {
-        const dateKey = `den${pocitadloDnu}_datum`;
+        const dateKlic = `den${pocitadloDnu}_datum`;
 
-        if (!body[dateKey]) {
+        if (!body[dateKlic]) {
             vsechnyDnyUlozeny = true;
         }
 
         const hodiny = [];
         for (let i = 1; i <= 9; i++) {
-            const hourKey = `den${pocitadloDnu}_hodina${i}`;
-            if (body[hourKey]) {
+            const hourKlic = `den${pocitadloDnu}_hodina${i}`;
+            if (body[hourKlic]) {
                 hodiny.push(i); 
             }
         }
 
-        if (body[dateKey] && hodiny.length > 0) {
+        if (body[dateKlic] && hodiny.length > 0) {
             radky.push({
-                datum: body[dateKey],
+                datum: body[dateKlic],
                 hodiny: hodiny,
             });
         }
@@ -77,43 +89,33 @@ exports.ukladaniscmz = (req, res) => {
     let pocitadloDnu = 1;
 
     while (!vsechnyDnyUlozeny) {
-        const dateKey = `den${pocitadloDnu}_datum`;
-        if (!body[dateKey]) {
+        const dateKlic = `den${pocitadloDnu}_datum`;
+        if (!body[dateKlic]) {
             vsechnyDnyUlozeny = true;
             continue;
         }
 
-        const checkboxKey = `den${pocitadloDnu}_checkbox`;
-        const casKey = `den${pocitadloDnu}_cas`;
-        const ucebnaKey = `den${pocitadloDnu}_ucebna`;
+        const casKlic = `den${pocitadloDnu}_cas`;
+        const ucebnaKlic = `den${pocitadloDnu}_ucebna`;
 
-        if (body[checkboxKey]) {
-            const cas = body[casKey];
-            const ucebna = body[ucebnaKey];
+        const casMaHodnotu = body[casKlic] && body[casKlic].trim() !== '';
+        const ucebnaMaHodnotu = body[ucebnaKlic] && body[ucebnaKlic].trim() !== '';
 
-            if (!cas || !ucebna) {
-                continue;
-            }
-        }
+        const hodiny = (casMaHodnotu && ucebnaMaHodnotu) ? [body[casKlic]] : [];
+        const ucebna = (casMaHodnotu && ucebnaMaHodnotu) ? body[ucebnaKlic] : null;
 
         radky.push({
-            datum: body[dateKey],
-            hodiny: body[checkboxKey] ? [body[casKey], body[ucebnaKey]] : [] 
+            datum: body[dateKlic],
+            hodiny: hodiny,
+            ucebna: ucebna
         });
 
         pocitadloDnu++;
     }
 
-    
     radky.forEach((radek) => {
         if (radek.datum) {
-            console.log("Ukládám event:", {
-                nazev: "SČMZ",
-                dny: [radek.datum],
-                casy: radek.hodiny,
-                ucebna: radek.ucebna
-            });
-            databaze.maturity.pridatMaturitniEvent("SČMZ", [radek.datum], radek.hodiny, null);
+            databaze.maturity.pridatMaturitniEvent("SČMZ", [radek.datum], radek.hodiny, radek.ucebna);
         }
     });
     res.redirect("/maturity/scmz");
@@ -121,31 +123,41 @@ exports.ukladaniscmz = (req, res) => {
 
 
 exports.ukladanisloh = (req, res) => {
-    console.log(req.body); 
+    const body = req.body;
+    const radky = [];
+    let pocitadloDnu = 1;
 
-
-    let data = [];
-    let x = "";
-    for (let i = 1; i <= 9; i++) {
-        const datum = req.body[`den1_datum`]; 
-        const ucebna = req.body[`den1_ucebna-${i}`];
-
-        let ucebna1 = []
-
-        for (let e = 0; e < ucebna.length; e++) {
-            if (ucebna[e] != "") {
-                ucebna1.push(ucebna[e])
+    while (body[`den${pocitadloDnu}_datum`]) {
+        const datum = body[`den${pocitadloDnu}_datum`][0];
+        const hodinyData = {};
+    
+        for (let hodina = 1; hodina <= 9; hodina++) {
+            const ucebnaKlic = `den${pocitadloDnu}_ucebna-${hodina}`;
+            const ucebna = body[ucebnaKlic] && body[ucebnaKlic][0]; 
+    
+            if (ucebna && ucebna.trim() !== '') {
+                hodinyData[hodina] = {
+                    cas: hodinyCasy[hodina - 1],
+                    ucebna: ucebna
+                };
             }
         }
-
-
-
-
-        if (datum && datum[0] && ucebna1 && ucebna1.length != 0) {
-            data.push({ datum: datum[0], hodina:i, ucebna });
+    
+        if (Object.keys(hodinyData).length > 0) {
+            radky.push({
+                datum: datum,
+                hodiny: hodinyData
+            });
         }
+    
+        pocitadloDnu++;
     }
 
-    res.send({ "test": data}); 
+    radky.forEach((radek) => {
+        if (radek.datum) {
+            databaze.maturity.pridatMaturitniEvent("SLOH", [radek.datum], radek.hodiny, null);
+        }
+    });
+
     res.redirect('/maturity/sloh');
 };

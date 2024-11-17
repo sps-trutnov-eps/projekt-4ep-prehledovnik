@@ -90,36 +90,6 @@
         "nextID": 3
     },
     "maturity": {
-        "1": {
-            "nazev": "SČMZ",
-            "dny": [
-                "2024-11-07"
-            ],
-            "casy": [
-                "04:40",
-                "T15"
-            ],
-            "ucebna": null
-        },
-        "2": {
-            "nazev": "SČMZ",
-            "dny": [
-                "2024-12-01"
-            ],
-            "casy": [],
-            "ucebna": null
-        },
-        "nextID": 3
-    },
-    "projekty": {
-        "1": {
-            "trida": "3.EP",
-            "tymy": [],
-            "pitche": [],
-            "milestony": [],
-            "devlogy": [],
-            "prezentace": []
-        },
-        "nextID": 2
+        "nextID": 1
     }
 }
