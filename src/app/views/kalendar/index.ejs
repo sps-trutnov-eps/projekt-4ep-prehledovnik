@@ -1,123 +1,174 @@
 <!DOCTYPE html>
-<html lang="cs" style="max-height: 100vh; max-width: 100vw">
-    <head style="flex: none">
-        <%- include('../partials/head'); %>
-    </head>
-    <body style="display: flex; flex-direction: column; height: 100vh; overflow-y: none;">
-        <%- include('../partials/header'); %>
-        <style>
-            .grid-container {
-              display: grid;
-              grid-template-columns: auto auto auto auto auto auto;
-              padding: 10px;
-            }
-            .grid-item {
-              border: 1px solid rgba(0, 0, 0, 0.8);
-              padding: 20px;
-              font-size: 30px;
-              text-align: center;
-              scroll-margin: 325px;
-            }
-        </style>
+<%- include('../partials/head'); %>
+<style>
+    /* Používaný barvičky: */
+    /* :root {
+        --def-modr-color: #0172ad;
+    } */
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(6, minmax(150px, 1fr));;
+        padding: 20px;
+    }
+    .grid-item {
+        border: 1px solid rgba(0, 0, 0, 0.8);
+        padding: 20px;
+        font-size: 20px;
+        text-align: center;
+        scroll-margin: 325px;
+        margin: 0;
+    }
+</style>
+<article style="flex: 3">
+    <header>
+        <h1>Kalendář</h1>
+        <div role="group">
+            <button class="outline" hx-get="/kalendar/tydenni" hx-target="body" hx-push-url="true">
+                Týdenní
+            </button>
+            <button hx-get="/kalendar" hx-target="body" hx-push-url="true">
+                Měsíční
+            </button>
+        </div>
+        <div role="group">
+            <button onclick="scrollToCurrent()">Aktuální</button>
+            <select name="months" id="months" ">
+                <option value="8">Srpen</option> 
+                <option value="9">Září</option>
+                <option value="10">Říjen</option>
+                <option value="11">Listopad</option>
+                <option value="12">Prosinec</option>
+                <option value="1">Leden</option>
+                <option value="2">Únor</option>
+                <option value="3">Březen</option>
+                <option value="4">Duben</option>
+                <option value="5">Květen</option>
+                <option value="6">Červen</option>
+                <option value="7">Červenec</option>
+            </select>
+            <button onclick="scrollToMonth()">Na&nbspměsíc</button>
+        </div>
 
-        <main
-            style="
-                padding: 1em;
-                padding-bottom: 0;
-                flex: auto;
-                overflow-y: auto;
-                background-image: linear-gradient(
-                    45deg,
-                    hsla(192, 100%, 50%, 0.1) 0%,
-                    hsla(162, 100%, 50%, 0.1) 50%,
-                    hsla(132, 100%, 50%, 0.1) 100%
-                );
-                display: flex;
-            "
-        >
-
-            <article style="flex: 3; overflow-y: auto;">
-                <header>
-                    <h1>Kalendář</h1>
-                    <div role="group">
-                        <button class="outline" hx-get="/kalendar/tydenni" hx-target="body" hx-push-url="true">
-                            Týdenní
-                        </button>
-                        <button hx-get="/kalendar" hx-target="body" hx-push-url="true">
-                            Měsíční
-                        </button>
-                    </div>
-                </header>
-
-                <div role="group">
-                    <button onclick="scrollToCurrent()">Aktuální</button>
-                    <select name="months" id="months" ">
-                        <option value="8">Srpen</option> 
-                        <option value="9">Září</option>
-                        <option value="10">Říjen</option>
-                        <option value="11">Listopad</option>
-                        <option value="12">Prosinec</option>
-                        <option value="1">Leden</option>
-                        <option value="2">Únor</option>
-                        <option value="3">Březen</option>
-                        <option value="4">Duben</option>
-                        <option value="5">Květen</option>
-                        <option value="6">Červen</option>
-                        <option value="7">Červenec</option>
-                    </select>
-                    <button onclick="scrollToMonth()">Na&nbspměsíc</button>
-                </div>
-
-                    <section class="grid-container">
-                        <p class="grid-item">Pondělí</p>
-                        <p class="grid-item">Úterý</p>
-                        <p class="grid-item">Středa</p>
-                        <p class="grid-item">Čtvrtek</p>
-                        <p class="grid-item">Pátek</p>
-                        <p class="grid-item">Víkend</p>
-                        <%
-                            let startDate = new Date(2024,7,1);
-                            let endDate = new Date(2025,6,31);
-                            const increment = 24 * 60 * 60 * 1000 //Miliseconds per day
-                            let a = false
-                            console.log("aaa")
-                        %>
-                        <% for (let i = startDate.getTime(); i <= endDate.getTime();i += increment) {%>
-                            <% if(new Date(i).getDay() != 0) {%>
-
-                            <section id=<%= new Date(i).getDate()%>-<%= new Date(i).getMonth() + 1%>  style="grid-column-start: <%= new Date(i).getDay()%> ;" class="grid-item">
-                                <% if(new Date(i).getDay() == 6) {%>
-                                <p><%= new Date(i).getDate()%> / <%= new Date(i).getMonth() + 1%> - <%= new Date(i+increment).getDate()%> / <%= new Date(i+increment).getMonth() + 1%></p>
-                                <% }else{%>
-                                    <p><%= new Date(i).getDate()%> / <%= new Date(i).getMonth() + 1%></p>
-                                <% }%>
-                                <% if (new Date(i).getDate() == date_udalost[0] && new Date(i).getMonth() + 1 == date_udalost[1]) {%>
-                                <p><%= date_udalost[2]%></p>  
-                                <%}%>  
-                            </section>
-                            
-
-                            <% }%>  
-                        <% }%>                
+    </header>
+    <main>
+            <section class="grid-container days-header">
+                <p class="grid-item">PONDĚLÍ</p>
+                <p class="grid-item">ÚTERÝ</p>
+                <p class="grid-item">STŘEDA</p>
+                <p class="grid-item">ČTVRTEK</p>
+                <p class="grid-item">PÁTEK</p>
+                <p class="grid-item">VÍKEND</p>
+            </section>
+            <section class="grid-container">
+                <%
+                    let startDate = new Date(2024,7,1);
+                    let endDate = new Date(2025,6,31);
+                    const increment = 24 * 60 * 60 * 1000 //Miliseconds per day
+                    let a = false
+                    console.log("aaa")
+                %>
+                <% for (let i = startDate.getTime(); i <= endDate.getTime();i += increment) {%>
+                    <% if(new Date(i).getDay() != 0) {%>
+    
+                    <section id=<%= new Date(i).toLocaleDateString('en-CA', { timeZone: 'Europe/Prague' }) %>  style="grid-column-start: <%= new Date(i).getDay()%> ;" class="grid-item">
+                        <% if(new Date(i).getDay() == 6) {%>
+                        <p><%= new Date(i).getDate()%> / <%= new Date(i).getMonth() + 1%> - <%= new Date(i+increment).getDate()%> / <%= new Date(i+increment).getMonth() + 1%></p>
+    
+                        <% }else{%>
+                            <p><%= new Date(i).getDate()%> / <%= new Date(i).getMonth() + 1%></p>
+                        <% }%>
+    
+    
+                        
+                        <% if (new Date(i).getDate() == date_udalost[0] && new Date(i).getMonth() + 1 == date_udalost[1]) {%>
+                        <p><%= date_udalost[2]%></p>  
+                        <%}%>
+    
                     </section>
-            </article>
-        </main>
-    <script>
-        function scrollToCurrent() {
-            const month = new Date().getMonth()+1
-            const currentDate = new Date().getDate() + "-" + month
-            console.log(currentDate)
-            const element = document.getElementById(currentDate)
-            element.scrollIntoView()
+                    
+    
+                    <% }%>  
+                <% }%>                
+            </section>
+        </article>
+    </main>
+    
+<script>
+    function scrollToCurrent() {
+        const increment = 24 * 60 * 60 * 1000
+        let today = new Date();
+        //Pokud je nedele, scrolluje se na sobotu
+        if(Number(today.getDay()) == 0)
+            today = new Date(Number(today.getTime()) - increment)
+        let currentDate = today.toISOString().split('T')[0]; // Format YYYY-MM-DD
+        let element = document.getElementById(currentDate);
+        
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+            console.error("Element pro aktuální datum nebyl nalezen.");
         }
+    }
 
-        function scrollToMonth() {
-            const select = document.getElementById("months")
-            const month = select.value
-            const selected = document.getElementById("1-"+month)
-            console.log(month)
-            selected.scrollIntoView()
+    function scrollToMonth() {
+    
+        const select = document.getElementById("months");
+        const month = select.value;
+        const year = (month < 8) ? 2025 : 2024;  // Nastavení roku podle výběru měsíce
+        let selected = document.getElementById(`${year}-${month.padStart(2, '0')}-01`);
+        
+        if (selected) {
+            selected.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+            selected = document.getElementById(`${year}-${month.padStart(2, '0')}-02`);
+            selected.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-    </script>
-    </body>
-</html>
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        placeUdalosti()
+    })
+
+    function placeUdalost(udalost){
+        const increment = 24 * 60 * 60 * 1000
+        let date = udalost.datum
+        const dateCheck = new Date(udalost.datum)
+        if (Number(dateCheck.getDay()) == 0)
+            date = new Date(Number(dateCheck.getTime()) - increment).toLocaleDateString('en-CA', { timeZone: 'Europe/Prague' })
+        let day = document.getElementById(date)      
+
+        let p = document.createElement("p")
+        p.textContent = udalost.nazev
+        p.className = "udalost"
+        day.appendChild(p)
+        return p
+    }
+
+    function placeUdalosti() {
+        let udalosti = <%- JSON.stringify(udalosti) %>
+
+        for (let i=1;i<udalosti.length;i++){
+            if(udalosti[i] != null){                    
+                if(udalosti[i].naPocetDni > 0){
+                    for(let j=0; j < udalosti[i].naPocetDni ;j++){
+                        let udalost = { ...udalosti[i] };
+                        let date = new Date(udalost.datum);
+                        date.setDate(date.getDate() + j);
+                        udalost.datum = date.toISOString().split('T')[0];
+
+                        let element = placeUdalost(udalost)
+                        element.classList.add("udalost", "udalostVicedenni")
+                        while (element.previousSibling != null){
+                            element.parentNode.insertBefore(element, element.previousSibling)
+                            if(element.previousSibling == element.parentNode.firstElementChild)
+                                break
+                        }
+                }}
+                else
+                    placeUdalost(udalosti[i])
+            }                             
+        }
+    }
+
+</script>
+    
