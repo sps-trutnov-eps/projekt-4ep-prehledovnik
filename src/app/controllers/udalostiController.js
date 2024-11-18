@@ -9,7 +9,7 @@ const databaze = require("../models/databaseEngine");
 exports.index = (req, res) => {
     res.render('udalosti/index.ejs', {        
         seznamNaZobrazeni: databaze.udalosti.ziskatVsechnyUdalosti(),
-        datum: new Date().toISOString().split('T')[0],
+        datum: new Date().toISOString().split('T')[0]
     });
 }
 
@@ -25,8 +25,10 @@ exports.pridat = (req, res) => {
         let casDo = null;
         let vyberZadani = "celodenni";
         if(req.body.variantaDni.trim() == "Vícedenní"){
-            vyberZadani = "vicedenni";
-            datumDo = req.body.datumDo?.trim() || new Date().toISOString().split('T')[0];
+            datumDo = req.body.datumDo?.trim() || null;
+            if (datumDo){
+                vyberZadani = "vicedenni";
+            }
            //PocetDni = Math.ceil((new Date(datumDo) - new Date(datum)) / (1000 * 60 * 60 * 24));
         } else if (req.body.variantaDni.trim() == "Zadat den a čas")
         {
@@ -44,10 +46,12 @@ exports.pridat = (req, res) => {
             case "budovy":
                 tykaSe = req.body.budovy.trim();
                 break;
+            case "ucitelsky":
+                tykaSe = "Jakub Šenkýř";
             default:
                 break;
         }
         databaze.udalosti.pridatUdalost(jmeno, typAkce, datum, datumDo, casOd, casDo, vyberZadani, tykaSe, poznamka);
     }
-    res.redirect("/udalosti/");
+    res.redirect("/udalosti");
 }
