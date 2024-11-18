@@ -6,6 +6,7 @@ const projektyRouter = express.Router();
 
 projektyRouter.get('/tymy', projektyController.zobrazTymy);
 projektyRouter.get('/tymy/:projekt', projektyController.zobrazProjekt);
+projektyRouter.get('/tymy/:projekt/team/:id', projektyController.zobrazDetailyTymu);
 //projektyRouter.get('/tymy/tym', projektyController.zobrazDetailyTymu);
 //projektyRouter.get('/tymy/pitche', projektyController.zobrazPitche);
 //projektyRouter.get('/tymy/prezentace', projektyController.zobrazPrezentace);
