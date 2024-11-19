@@ -87,20 +87,534 @@
             "tykaSe": null,
             "poznamka": ""
         },
-        "nextID": 3
+        "3": {
+            "nazev": "ss",
+            "typ": "celoskolni",
+            "datum": "2024-11-17",
+            "datumDo": "2024-11-17",
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "vicedenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "4": {
+            "nazev": "aa",
+            "typ": "celoskolni",
+            "datum": "2024-11-17",
+            "datumDo": null,
+            "casOd": "9:55",
+            "casDo": "9:35",
+            "vyberZadani": "casIDatum",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "5": {
+            "nazev": "55",
+            "typ": "celoskolni",
+            "datum": "2025-01-04",
+            "datumDo": "2024-11-17",
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "vicedenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "6": {
+            "nazev": "44",
+            "typ": "celoskolni",
+            "datum": "2024-11-17",
+            "datumDo": null,
+            "casOd": "8:50",
+            "casDo": "13:20",
+            "vyberZadani": "casIDatum",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "7": {
+            "nazev": "55",
+            "typ": "celoskolni",
+            "datum": "2024-11-24",
+            "datumDo": "2024-11-17",
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "vicedenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "8": {
+            "nazev": "55",
+            "typ": "celoskolni",
+            "datum": "2024-11-17",
+            "datumDo": "2024-11-29",
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "vicedenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "9": {
+            "nazev": "66",
+            "typ": "celoskolni",
+            "datum": "2024-11-17",
+            "datumDo": null,
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "celodenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "10": {
+            "nazev": "55",
+            "typ": "celoskolni",
+            "datum": "2024-11-17",
+            "datumDo": "2024-11-23",
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "vicedenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "11": {
+            "nazev": "55",
+            "typ": "celoskolni",
+            "datum": "2024-11-17",
+            "datumDo": "2024-11-17",
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "vicedenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "12": {
+            "nazev": "55",
+            "typ": "celoskolni",
+            "datum": "2024-12-01",
+            "datumDo": "2024-12-01",
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "vicedenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "13": {
+            "nazev": "55",
+            "typ": "celoskolni",
+            "datum": "2024-11-23",
+            "datumDo": null,
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "celodenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "14": {
+            "nazev": "55",
+            "typ": "celoskolni",
+            "datum": "2024-11-17",
+            "datumDo": "2024-11-30",
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "vicedenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "15": {
+            "nazev": "nemoc",
+            "typ": "celotridni",
+            "datum": "2024-11-17",
+            "datumDo": null,
+            "casOd": "8:00",
+            "casDo": "8:45",
+            "vyberZadani": "casIDatum",
+            "tykaSe": "2EP",
+            "poznamka": ""
+        },
+        "16": {
+            "nazev": "55",
+            "typ": "celoskolni",
+            "datum": "2024-11-17",
+            "datumDo": null,
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "celodenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "17": {
+            "nazev": "55",
+            "typ": "celoskolni",
+            "datum": "2024-11-23",
+            "datumDo": null,
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "celodenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "18": {
+            "nazev": "55",
+            "typ": "celoskolni",
+            "datum": "2024-11-17",
+            "datumDo": null,
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "celodenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "19": {
+            "nazev": "5",
+            "typ": "celoskolni",
+            "datum": "2024-11-17",
+            "datumDo": null,
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "celodenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "20": {
+            "nazev": "5",
+            "typ": "celoskolni",
+            "datum": "2024-11-17",
+            "datumDo": null,
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "celodenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "21": {
+            "nazev": "5",
+            "typ": "celoskolni",
+            "datum": "2024-11-17",
+            "datumDo": null,
+            "casOd": "8:00",
+            "casDo": "8:45",
+            "vyberZadani": "casIDatum",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "22": {
+            "nazev": "5",
+            "typ": "celoskolni",
+            "datum": "2024-11-17",
+            "datumDo": "2024-11-23",
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "vicedenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "23": {
+            "nazev": "5",
+            "typ": "celoskolni",
+            "datum": "2024-11-17",
+            "datumDo": null,
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "celodenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "24": {
+            "nazev": "5",
+            "typ": "celoskolni",
+            "datum": "2024-11-17",
+            "datumDo": null,
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "celodenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "25": {
+            "nazev": "5",
+            "typ": "celoskolni",
+            "datum": "2024-11-17",
+            "datumDo": "2024-11-17",
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "vicedenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "26": {
+            "nazev": "5",
+            "typ": "celoskolni",
+            "datum": "2024-11-17",
+            "datumDo": null,
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "celodenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "27": {
+            "nazev": "5",
+            "typ": "celoskolni",
+            "datum": "2024-11-17",
+            "datumDo": null,
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "celodenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "28": {
+            "nazev": "5",
+            "typ": "celoskolni",
+            "datum": "2024-11-17",
+            "datumDo": null,
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "celodenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "29": {
+            "nazev": "4",
+            "typ": "celoskolni",
+            "datum": "2024-11-22",
+            "datumDo": "2024-11-23",
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "vicedenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "30": {
+            "nazev": "5",
+            "typ": "celoskolni",
+            "datum": "2024-11-17",
+            "datumDo": null,
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "celodenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "31": {
+            "nazev": "5",
+            "typ": "celoskolni",
+            "datum": "2024-11-17",
+            "datumDo": null,
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "celodenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "32": {
+            "nazev": "5",
+            "typ": "celoskolni",
+            "datum": "2024-11-17",
+            "datumDo": null,
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "celodenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "33": {
+            "nazev": "5",
+            "typ": "celoskolni",
+            "datum": "2024-11-17",
+            "datumDo": null,
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "celodenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "34": {
+            "nazev": "5555",
+            "typ": "celoskolni",
+            "datum": "2024-11-17",
+            "datumDo": null,
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "celodenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "35": {
+            "nazev": "555555",
+            "typ": "celoskolni",
+            "datum": "2024-11-17",
+            "datumDo": null,
+            "casOd": "7:10",
+            "casDo": "7:55",
+            "vyberZadani": "casIDatum",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "36": {
+            "nazev": "5",
+            "typ": "celoskolni",
+            "datum": "2024-11-17",
+            "datumDo": null,
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "celodenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "37": {
+            "nazev": "55",
+            "typ": "celoskolni",
+            "datum": "2024-11-17",
+            "datumDo": null,
+            "casOd": "10:50",
+            "casDo": "12:25",
+            "vyberZadani": "casIDatum",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "38": {
+            "nazev": "5",
+            "typ": "celoskolni",
+            "datum": "2024-11-17",
+            "datumDo": null,
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "celodenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "39": {
+            "nazev": "5",
+            "typ": "celoskolni",
+            "datum": "2024-11-17",
+            "datumDo": null,
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "celodenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "40": {
+            "nazev": "5",
+            "typ": "celoskolni",
+            "datum": "2024-11-18",
+            "datumDo": null,
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "celodenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "41": {
+            "nazev": "kok",
+            "typ": "celoskolni",
+            "datum": "2024-11-18",
+            "datumDo": null,
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "celodenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "42": {
+            "nazev": "5",
+            "typ": "celoskolni",
+            "datum": "2024-11-18",
+            "datumDo": "2024-11-21",
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "vicedenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "43": {
+            "nazev": "55",
+            "typ": "ucitelsky",
+            "datum": "2024-11-18",
+            "datumDo": "2024-11-20",
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "vicedenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "44": {
+            "nazev": "a",
+            "typ": "ucitelsky",
+            "datum": "2024-11-18",
+            "datumDo": null,
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "celodenni",
+            "tykaSe": "Jakub Šenkýř",
+            "poznamka": ""
+        },
+        "nextID": 45
     },
     "maturity": {
-        "nextID": 1
-    },
-    "projekty": {
         "1": {
-            "trida": "3.EP",
-            "tymy": [],
-            "pitche": [],
-            "milestony": [],
-            "devlogy": [],
-            "prezentace": []
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
         },
-        "nextID": 2
+        "2": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                4
+            ],
+            "ucebna": null
+        },
+        "3": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                6
+            ],
+            "ucebna": null
+        },
+        "4": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "5": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                4,
+                5
+            ],
+            "ucebna": null
+        },
+        "6": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                7
+            ],
+            "ucebna": null
+        },
+        "nextID": 7
     }
 }
