@@ -1,90 +1,87 @@
 <!DOCTYPE html>
-<html lang="cs" style="max-height: 100vh; max-width: 100vw">
-    <head style="flex: none">
-        <%- include('../partials/head'); %>
-        <style>
-            article button {
-                margin-bottom: 1em;
-                padding: 0.75em 1.5em;
-                width: 100%;
-                background-color: #007bff;
-                color: white;
-                border: none;
-                cursor: pointer;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                transition: background-color 0.3s, transform 0.3s;
-            }
+<%- include('../partials/head'); %>
+<article
+   style="
+   width: 20vw;
+   min-width: 20vw;
+   margin-right: 1em;
+   overflow-y: auto;
+   resize: horizontal;
+   "
+   >
+   <h1>Sidebar</h1>
+   <p>
+   <a href="/udalosti">
+      <button>Nová událost</button>
+   </a>
+   <a href="/udalosti/seznam">
+      <button>Seznam událostí</button>
+   </a>
+   </p>
 
-            article button:hover {
-                background-color: #0056b3;
-                transform: translateY(-2px);
-            }
+</article>
+<article style="flex: 3">
+   <h1>Seznam událostí</h1>
+   <table>
+      <% 
+      // Mapa pro překlad hodnot do češtiny
+      const prekladVyberZadani = {
+      "celodenni": "Celodenní",
+      "vicedenni": "Vícedenní",
+      "casIDatum": " "
+      };
 
-            form input[type="submit"] {
-                padding: 0.75em 1.5em;
-                background-color: #007bff;
-                color: white;
-                border: none;
-                cursor: pointer;
-                width: auto;
-            }
+      const prekladTypAkce = {
+      "celotridni": "Celotřídní",
+      "budovy": "Budovy",
+      "celoskolni": "Celoskolní",
+      "ucitelsky": "Učitelský"
+      };
 
-            form input[type="submit"]:hover {
-                background-color: #0056b3;
-            }
+      // Mapa pro překlad budov
+      const prekladBudov = {
+      "skolni101": "Školní 101",
+      "horska618": "Horská 618",
+      "horska59": "Horská 59",
+      "mladebuky": "Mladé Buky"
+      };
+      %>
+      <% for (var radek = 0; radek < seznamNaZobrazeni.length; radek++) { %>
+      <tr>
+         <td><%= seznamNaZobrazeni[radek].nazev %></td>
+         <td><%= prekladTypAkce[seznamNaZobrazeni[radek].typ] || seznamNaZobrazeni[radek].typ %></td>
+         <td><%= prekladVyberZadani[seznamNaZobrazeni[radek].vyberZadani] || seznamNaZobrazeni[radek].vyberZadani %></td>
 
-            form input,
-            form select,
-            form label {
-                margin-bottom: 1em;
-                margin-top: 1em;
-            }
-        </style>
-    </head>
-    <body style="display: flex; flex-direction: column; height: 100vh">
-        <%- include('../partials/header'); %>
-        <main
-            style="
-                padding: 1em;
-                padding-bottom: 0;
-                flex: auto;
-                overflow-y: hidden;
-                background-image: linear-gradient(
-                    45deg,
-                    hsla(192, 100%, 50%, 0.1) 0%,
-                    hsla(162, 100%, 50%, 0.1) 50%,
-                    hsla(132, 100%, 50%, 0.1) 100%
-                );
-                display: flex;
-            "
-        >
-            <article
-                style="
-                    width: 20vw;
-                    min-width: 20vw;
-                    margin-right: 1em;
-                    overflow-y: auto;
-                    resize: horizontal;
-                "
-            >
-            <h1>Sidebar</h1>
-            <p>
-            <a href="/udalosti">
-                <button>Nová událost</button>
-            </a>
-            <a href="/udalosti/seznam">
-                <button>Seznam událostí</button>
-            </a>
-            </p>
-                
-            </article>
-            <article style="flex: 3">
-                <h1>Seznam událostí</h1>
-                <!-- Sem půjde Ondrův kód -->
-            </article>
-        </main>
-        <script>
-            // sem půjde JS
-        </script>
-    </body>
+         <% if (seznamNaZobrazeni[radek].vyberZadani == "celodenni") { %>
+         <td><%= seznamNaZobrazeni[radek].datum %></td>
+         <td><%= seznamNaZobrazeni[radek].poznamka %></td>
+         <% } else if (seznamNaZobrazeni[radek].vyberZadani == "vicedenni") { %>
+         <td><%= seznamNaZobrazeni[radek].datum %></td>
+         <td><%= seznamNaZobrazeni[radek].datumDo %></td>
+         <td><%= seznamNaZobrazeni[radek].poznamka %></td>
+         <% } else if (seznamNaZobrazeni[radek].vyberZadani == "casIDatum") { %>
+         <td><%= seznamNaZobrazeni[radek].datum %></td>
+         <td><%= seznamNaZobrazeni[radek].casOd %></td>
+         <td><%= seznamNaZobrazeni[radek].casDo %></td>
+         <% } %>
+
+         <% if (seznamNaZobrazeni[radek].typ == "celotridni" || seznamNaZobrazeni[radek].typ == "budovy" || seznamNaZobrazeni[radek].typ == "celoskolni" || seznamNaZobrazeni[radek].typ == "ucitelsky") { %>
+         <!-- Zobrazení přeložených budov -->
+         <td>
+            <% if (seznamNaZobrazeni[radek].typ == "budovy") { %>
+            <%= prekladBudov[seznamNaZobrazeni[radek].tykaSe] || seznamNaZobrazeni[radek].tykaSe %>
+            <% } else { %>
+            <%= seznamNaZobrazeni[radek].tykaSe %>
+            <% } %>
+         </td>
+         <% } %>
+      </tr>
+      <% } %>
+   </table>
+</article>
+</main>
+<script>
+   // sem půjde JS
+</script>
+</body>
 </html>
