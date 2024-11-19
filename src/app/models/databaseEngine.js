@@ -270,6 +270,16 @@ const maturity = {
         IDUpravovaneMaturity = ziskatIDMaturityDleJmena(nazev);
         maturity[IDUpravovaneMaturity] = {nazev, dny, casy, ucebna};
         sM(maturity);
+    },
+    smazatMaturitniEvent: (event) => {
+        let maturity = gM();
+        let nextID = maturity["nextID"];
+        for(let i = 0; i < nextID; i++){
+            if(JSON.stringify(event) == JSON.stringify(maturity[String(i)])){
+                delete maturity[String(i)];
+            }
+        }
+        sM(maturity);
     }
 }
 
