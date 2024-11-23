@@ -257,7 +257,7 @@
             </td>
             <td>
               <button 
-                onclick="if(confirm('Opravdu chcete smazat tuto událost?')) window.location.href='/udalosti/smazat/<%= udalost %>'"
+                onclick="if(confirm('Opravdu chcete smazat tuto událost?')) window.location.href='/udalosti/smazat/<%= JSON.stringify(udalost) %>'"
                 class="delete-btn" 
               >✕</button>
             </td>

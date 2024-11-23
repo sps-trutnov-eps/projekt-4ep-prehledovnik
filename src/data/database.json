@@ -43,7 +43,18 @@
         "nextID": 1
     },
     "udalosti": {
-        "nextID": 1
+        "3": {
+            "nazev": "zkulkůoú",
+            "typ": "celoskolni",
+            "datum": "2024-11-23",
+            "datumDo": null,
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "celodenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "nextID": 5
     },
     "maturity": {
         "1": {

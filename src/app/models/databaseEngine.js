@@ -231,10 +231,10 @@ const udalosti = {
         let udalosti = gU();
         let nextID = udalosti["nextID"];
         for(let i = 0; i < nextID; i++){
-            if(JSON.stringify(udalosti[String(i)]) === JSON.stringify(udalost))
+            if(JSON.stringify(udalosti[String(i)]) === udalost)
                 delete udalosti[String(i)];
         }
-        sU(udalost);
+        sU(udalosti);
     }
 }
 
