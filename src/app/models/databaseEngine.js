@@ -297,9 +297,9 @@ const maturity = {
                         ucebna = null;
                     }
                     if(nazev == "SČMZ") {
-                        cOD = maturity[typy[i]]["casy"][j][0];
+                        if (maturity[typy[i]]["casy"][j].length != 0) cOD = maturity[typy[i]]["casy"][j][0];
                         cDO = null;
-                        ucebna = maturity[typy[i]]["ucebny"][j][0];
+                        ucebna = maturity[typy[i]]["ucebny"][j];
                     }
                     if(nazev == "SLOH") {
                         // Vypisování slohů jako událostí si nechám na později
