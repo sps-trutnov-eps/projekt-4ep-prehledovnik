@@ -180,9 +180,7 @@ exports.ukladanisloh = (req, res) => {
     ucebny = []
     console.log(Object.values(seskupenaData));
     Object.values(seskupenaData).forEach(zaznam => {
-        zaznam.casy.sort((a, b) => a - b);
-        console.log(zaznam);
-        
+
         if(!datumy.includes(zaznam.dny[0])){
             datumy.push(zaznam.dny[0]);
             hodiny.push([]);
@@ -195,6 +193,14 @@ exports.ukladanisloh = (req, res) => {
             hodiny[index].push(cas);
             ucebny[index].push(zaznam.ucebna);
         });
+    });
+
+    // rychle pouze udělané seřazení dle clauda 
+    datumy.forEach((_, i) => {
+        let paired = hodiny[i].map((cas, j) => ({cas: cas, ucebna: ucebny[i][j]}));
+        paired.sort((a, b) => a.cas - b.cas);
+        hodiny[i] = paired.map(p => p.cas);
+        ucebny[i] = paired.map(p => p.ucebna);
     });
     databaze.maturity.pridatMaturitniEvent("SLOH", datumy, hodiny, ucebny);
     
