@@ -178,25 +178,32 @@ exports.ukladanisloh = (req, res) => {
     datumy = []
     hodiny = []
     ucebny = []
-
+    console.log(Object.values(seskupenaData));
     Object.values(seskupenaData).forEach(zaznam => {
-        zaznam.casy.sort((a, b) => a - b);
-        console.log(zaznam);
+
         if(!datumy.includes(zaznam.dny[0])){
             datumy.push(zaznam.dny[0]);
+            hodiny.push([]);
+            ucebny.push([]);
         }
-        let index = datumy.indexOf(zaznam.dny[0])
-        if(hodiny[index]){
-            hodiny[index].push(zaznam.casy[0]);
-        } else {
-            hodiny.push(zaznam.casy);
-        }
+        
+        let index = datumy.indexOf(zaznam.dny[0]);
+        
+        zaznam.casy.forEach(cas => {
+            // if (!(hodiny[index].includes(cas) && ucebny[hodiny[index].indexOf(cas)] === zaznam.cas)){       => pro kontrolování jak učebny, tak času. (pro případ, že by v 8:00 měl jak T16, tak T15)
+            if (!hodiny[index].includes(cas)){
+                hodiny[index].push(cas);
+                ucebny[index].push(zaznam.ucebna);
+            }
+        });
+    });
 
-        if(ucebny[index]){
-            ucebny[index].push(zaznam.ucebna);
-        } else {
-            ucebny.push([zaznam.ucebna]);
-        }
+    // rychle pouze udělané seřazení dle clauda 
+    datumy.forEach((_, i) => {
+        let paired = hodiny[i].map((cas, j) => ({cas: cas, ucebna: ucebny[i][j]}));
+        paired.sort((a, b) => a.cas - b.cas);
+        hodiny[i] = paired.map(p => p.cas);
+        ucebny[i] = paired.map(p => p.ucebna);
     });
     databaze.maturity.pridatMaturitniEvent("SLOH", datumy, hodiny, ucebny);
     
