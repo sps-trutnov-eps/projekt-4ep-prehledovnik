@@ -1,269 +1,430 @@
 <!DOCTYPE html>
 <%- include('../partials/head'); %>
-  <article style="  width: 20vw;
-                    min-width: 20vw;
-                    margin-right: 1em;
-                    resize: horizontal;">
-        <header>
-          <h1>Nová událost</h1>
-        </header>
-        <main>
-          <!-- We could also only swap the changed parts -->
-          <form hx-post="/udalosti/pridatUdalost" hx-target="body" hx-swap="transition:true">
-            <input
-              type="text"
-              name="jmeno_udalosti"
-              placeholder="Název události"
-              required />
-  
-            <input
-              type="radio"
-              id="celodenni"
-              name="variantaDni"
-              value="Celodenní" 
-              checked
-              />
-            <label for="celodenni">Celodenní</label><br />
-            <input
-              type="radio"
-              id="vicedenni"
-              name="variantaDni"
-              value="Vícedenní"
-              />
-            <label for="vicedenni">Vícedenní</label><br />
-            <input
-              type="radio"
-              id="jine"
-              name="variantaDni"
-              value="Zadat den a čas"
-              />
-            <label for="jine">Zadat den a čas</label><br />
-  
-            <div id="jineInputs">
-              <label for="casOd">Od:</label>
-              <select id="casOd" name="casOd">
-                <option value="7:10">7:10</option>
-                <option value="8:00">8:00</option>
-                <option value="8:50">8:50</option>
-                <option value="9:55">9:55</option>
-                <option value="10:50">10:50</option>
-                <option value="11:40">11:40</option>
-                <option value="12:35">12:35</option>
-                <option value="13:25">13:25</option>
-                <option value="14:15">14:15</option>
-                <option value="15:10">15:10</option>
-              </select>
-  
-              <label for="casDo">Do:</label>
-              <select id="casDo" name="casDo">
-                <option value="7:55">7:55</option>
-                <option value="8:45">8:45</option>
-                <option value="9:35">9:35</option>
-                <option value="10:40">10:40</option>
-                <option value="11:35">11:35</option>
-                <option value="12:25">12:25</option>
-                <option value="13:20">13:20</option>
-                <option value="14:10">14:10</option>
-                <option value="15:00">15:00</option>
-                <option value="15:55">15:55</option>
-              </select>
-            </div>
-            <label for="datum" id="datumLabel">Datum:</label>
-            <input type="date" id="datum" name="datum" value="<%= datum %>" min="<%= datum %>"/>
-  
-            <!-- Vícedenní -->
-            <div id="vicedenniInputs">
-              <label for="datumDo">Do:</label>
-              <input type="date" id="datumDo" name="datumDo"/>
-            </div>
-  
-            <label for="typAkce">Typ akce</label>
-            <select id="typAkce" name="typAkce">
-              <option value="celoskolni">Celoškolní</option>
-              <option value="celotridni">Celotřídní</option>
-              <option value="ucitelsky">Učitelský</option>
-              <option value="budovy">Budovy</option>
-            </select>
-  
-            <div id="tridySelect" style="display: none">
-              <label for="tridy">Třídy</label>
-              <select id="tridy" name="tridy">
-                <option value="1EP">1.EP</option>
-                <option value="2EP">2.EP</option>
-                <option value="3EP">3.EP</option>
-                <option value="4EP">4.EP</option>
-              </select>
-            </div>
-  
-            <div id="budovySelect" style="display: none">
-              <label for="budovy">Budovy</label>
-              <select id="budovy" name="budovy">
-                <option value="skolni101">Školní 101</option>
-                <option value="horska618">Horská 618</option>
-                <option value="horska59">Horská 59</option>
-                <option value="mladeBuky">Mladé Buky</option>
-              </select>
-            </div>
-  
-            <input type="text" name="poznamka_udalosti" placeholder="Poznámka:" />
-            <input type="submit" value="Uložit" />
-          </form>
-        </main>
-      </article>
+  <article style="width: 20vw; min-width: 20vw; margin-right: 1em; resize: horizontal;">
+    <header>
+      <h1>Nová událost</h1>
+    </header>
+    <main>
+      <form 
+      hx-post="/udalosti/pridatUdalost" 
+      hx-target="body" 
+      hx-swap="outerHTML"
+      hx-trigger="submit"
+      class="event-form">
+        <input
+          type="text"
+          name="jmeno_udalosti"
+          placeholder="Název události"
+          required />
 
-      <article style="flex: 3; overflow-y: auto">
-        <header>
-          <h1>Události</h1>
-        </header>
-        <main>
-          <table>
-            <% 
-            // Mapa pro překlad hodnot do češtiny
-            const prekladVyberZadani = {
-            "celodenni": "Celodenní",
-            "vicedenni": "Vícedenní",
-            "casIDatum": " "
-            };
-      
-            const prekladTypAkce = {
-            "celotridni": "Celotřídní",
-            "budovy": "Budovy",
-            "celoskolni": "Celoskolní",
-            "ucitelsky": "Učitelský"
-            };
-      
-            // Mapa pro překlad budov
-            const prekladBudov = {
-            "skolni101": "Školní 101",
-            "horska618": "Horská 618",
-            "horska59": "Horská 59",
-            "mladebuky": "Mladé Buky"
-            };
-            %>
-            <% for (var radek = 0; radek < seznamNaZobrazeni.length; radek++) { %>
-            <tr>
-               <td><%= seznamNaZobrazeni[radek].nazev %></td>
-               <td><%= prekladTypAkce[seznamNaZobrazeni[radek].typ] || seznamNaZobrazeni[radek].typ %></td>
-               <td><%= prekladVyberZadani[seznamNaZobrazeni[radek].vyberZadani] || seznamNaZobrazeni[radek].vyberZadani %></td>
-      
-               <% if (seznamNaZobrazeni[radek].vyberZadani == "celodenni") { %>
-               <td><%= seznamNaZobrazeni[radek].datum %></td>
-               <td><%= seznamNaZobrazeni[radek].poznamka %></td>
-               <% } else if (seznamNaZobrazeni[radek].vyberZadani == "vicedenni") { %>
-               <td><%= seznamNaZobrazeni[radek].datum %></td>
-               <td><%= seznamNaZobrazeni[radek].datumDo %></td>
-               <td><%= seznamNaZobrazeni[radek].poznamka %></td>
-               <% } else if (seznamNaZobrazeni[radek].vyberZadani == "casIDatum") { %>
-               <td><%= seznamNaZobrazeni[radek].datum %></td>
-               <td><%= seznamNaZobrazeni[radek].casOd %></td>
-               <td><%= seznamNaZobrazeni[radek].casDo %></td>
-               <% } %>
-      
-               <% if (seznamNaZobrazeni[radek].typ == "celotridni" || seznamNaZobrazeni[radek].typ == "budovy" || seznamNaZobrazeni[radek].typ == "celoskolni" || seznamNaZobrazeni[radek].typ == "ucitelsky") { %>
-               <!-- Zobrazení přeložených budov -->
-               <td>
-                  <% if (seznamNaZobrazeni[radek].typ == "budovy") { %>
-                  <%= prekladBudov[seznamNaZobrazeni[radek].tykaSe] || seznamNaZobrazeni[radek].tykaSe %>
-                  <% } else { %>
-                  <%= seznamNaZobrazeni[radek].tykaSe %>
-                  <% } %>
-               </td>
-               <% } %>
-            </tr>
-            <% } %>
-         </table>
-        </main>
-      </article>
+        <input
+          type="radio"
+          id="celodenni"
+          name="variantaDni"
+          value="Celodenní" 
+          checked
+          />
+        <label for="celodenni">Celodenní</label><br />
+        <input
+          type="radio"
+          id="vicedenni"
+          name="variantaDni"
+          value="Vícedenní"
+          />
+        <label for="vicedenni">Vícedenní</label><br />
+        <input
+          type="radio"
+          id="jine"
+          name="variantaDni"
+          value="Zadat den a čas"
+          />
+        <label for="jine" style="margin-bottom: 1em;">Zadat den a čas</label><br />
+
+        <div id="jineInputs" style="display: none;">
+          <label>Hodiny:</label>
+          <select id="casOd" style="margin-bottom: 1em; color:#ffffffe1;" name="casOd">
+            <option value="7:10">7:10</option>
+            <option value="8:00">8:00</option>
+            <option value="8:50">8:50</option>
+            <option value="9:55">9:55</option>
+            <option value="10:50">10:50</option>
+            <option value="11:40">11:40</option>
+            <option value="12:35">12:35</option>
+            <option value="13:25">13:25</option>
+            <option value="14:15">14:15</option>
+            <option value="15:10">15:10</option>
+          </select>
+          <select id="casDo" style="margin-bottom: 0.5em; color:#ffffffe1;" name="casDo">
+            <option value="7:55">7:55</option>
+            <option value="8:45">8:45</option>
+            <option value="9:35">9:35</option>
+            <option value="10:40">10:40</option>
+            <option value="11:35">11:35</option>
+            <option value="12:25">12:25</option>
+            <option value="13:20">13:20</option>
+            <option value="14:10">14:10</option>
+            <option value="15:00">15:00</option>
+            <option value="15:55">15:55</option>
+          </select>
+        </div>
+
+        <label for="datum" id="datumLabel">Datum:</label>
+        <input type="date" id="datum" name="datum" value="<%= datum %>" min="<%= datum %>"/>
+
+        <div id="vicedenniInputs" style="display: none;">
+          <label for="datumDo">Do:</label>
+          <input type="date" id="datumDo" name="datumDo"/>
+        </div>
+
+        <label for="typAkce">Typ akce</label>
+        <select id="typAkce" name="typAkce">
+          <option value="celoskolni">Celoškolní</option>
+          <option value="celotridni">Celotřídní</option>
+          <option value="ucitelsky">Učitelský</option>
+          <option value="budovy">Budovy</option>
+        </select>
+
+        <div id="tridySelect" style="display: none;">
+          <label for="tridy">Třídy</label>
+          <select id="tridy" name="tridy">
+            <option value="1EP">1.EP</option>
+            <option value="2EP">2.EP</option>
+            <option value="3EP">3.EP</option>
+            <option value="4EP">4.EP</option>
+          </select>
+        </div>
+
+        <div id="budovySelect" style="display: none;">
+          <label for="budovy">Budovy</label>
+          <select id="budovy" name="budovy">
+            <option value="skolni101">Školní 101</option>
+            <option value="horska618">Horská 618</option>
+            <option value="horska59">Horská 59</option>
+            <option value="mladeBuky">Mladé Buky</option>
+          </select>
+        </div>
+
+        <input type="text" name="poznamka_udalosti" placeholder="Poznámka:" />
+        <input type="submit" value="Uložit" />
+      </form>
     </main>
+  </article>
 
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        // Vyber všechny radio buttony
-        document
-          .querySelectorAll('input[name="variantaDni"]')
-          .forEach((input) => {
-            input.addEventListener("change", function () {
-              const jineInputs = document.getElementById("jineInputs");
-              const vicedenniInputs =
-                document.getElementById("vicedenniInputs");
-
-              // Skryjeme obě možnosti
-              if (jineInputs && vicedenniInputs) {
-                jineInputs.style.display = "none";
-                vicedenniInputs.style.display = "none";
-              }
-
-              // Podmínky pro zobrazení různých možností
-              if (document.getElementById("celodenni").checked) {
-                document.getElementById("datumLabel").innerHTML = "Datum:";
-              } else if (document.getElementById("vicedenni").checked) {
-                document.getElementById("datumLabel").innerHTML = "Od:";
-                if (vicedenniInputs) vicedenniInputs.style.display = "block";
-              } else if (document.getElementById("jine").checked) {
-                document.getElementById("datumLabel").innerHTML = "Datum:";
-                if (jineInputs) jineInputs.style.display = "block";
-              }
-            });
-          });
-
-        // Nová funkcionalita pro výběr "typAkce"
-        const typAkceSelect = document.getElementById("typAkce");
-        const tridySelect = document.getElementById("tridySelect");
-        const budovySelect = document.getElementById("budovySelect");
-
-        // Funkce pro zobrazení/skrytí výběrů na základě zvoleného typu akce
-        function handleTypAkceChange() {
-          const selectedValue = typAkceSelect.value;
-
-          // Skrýt obě možnosti na začátku
-          tridySelect.style.display = "none";
-          budovySelect.style.display = "none";
-
-          // Zobrazit "Třídy", pokud je vybrána možnost "Celotřídní"
-          if (selectedValue === "celotridni") {
-            tridySelect.style.display = "block";
-          }
-
-          // Zobrazit "Budovy", pokud je vybrána možnost "Budovy"
-          else if (selectedValue === "budovy") {
-            budovySelect.style.display = "block";
-          }
+  <article style="flex: 3; overflow-y: auto">
+    <header>
+      <h1>Události</h1>
+    </header>
+    <main>
+      <style>
+        .event-form {
+          margin-bottom: 2em;
         }
 
-        // Při změně výběru spustit funkci
-        typAkceSelect.addEventListener("change", handleTypAkceChange);
+        .events-table {
+          width: 100%;
+          table-layout: fixed;
+          border-collapse: collapse;
+        }
+        
+        .events-table .toClick {
+          position: relative;
+          cursor: pointer;
+        }
+        
+        .events-table td {
+          padding: 8px;
+          white-space: nowrap;
+          overflow: visible;
+          text-overflow: ellipsis;
+        }
+        
+        .events-table td:nth-child(1) { width: 25%; }
+        .events-table td:nth-child(2) { width: 15%; }
+        .events-table td:nth-child(3) { width: 15%; }
+        .events-table td:nth-child(4) { width: 15%; }
+        .events-table td:nth-child(5) { width: 15%; }
+        .events-table td:nth-child(6) { width: 10%; }
+        .events-table td:nth-child(7) { width: 5%; }
+        
+        .events-table tr:hover {
+          background-color: #f5f5f5;
+        }
+        
+        .delete-btn {
+          background: none;
+          border: none;
+          color: red;
+          cursor: pointer;
+          padding: 5px;
+        }
+        
+        .delete-btn:hover{
+          color: darkred;
+        } 
 
-        // Načtení stránky s výchozím nastavením
-        handleTypAkceChange();
+        ::-webkit-scrollbar {
+          display: none;
+        }
 
-        const datumInput = document.getElementById("datum");
-        const datumDoInput = document.getElementById("datumDo");
+        .events-table td.empty-cell {
+          padding-left: 40px;
+        }
 
-        // Nastaví min na hodnotu z inputu datum
-        datumDoInput.min = datumInput.value;
+        .events-table td.empty-cell-tykaSe {
+          padding-left: 30px;
+          text-align: left;
+        }
 
-        // Přidání event listeneru pro aktualizaci min hodnoty, pokud se změní datum
-        datumInput.addEventListener("input", function () {
-            datumDoInput.min = this.value;
+        .events-table td.empty-cell::after, .events-table td.empty-cell-tykaSe::after {
+          content: "-";
+        }
+
+        .center {
+          text-align: center; 
+        }
+
+        .center-content {
+          position: relative;  
+          left: -29%;         
+        }
+      </style>
+      
+      <table class="events-table">
+        <% 
+        const prekladVyberZadani = {
+          "celodenni": "Celodenní",
+          "vicedenni": "Vícedenní",
+          "casIDatum": " "
+        };
+
+        const prekladTypAkce = {
+          "celotridni": "Celotřídní",
+          "budovy": "Budovy",
+          "celoskolni": "Celoškolní",
+          "ucitelsky": "Učitelský"
+        };
+
+        const prekladBudov = {
+          "skolni101": "Školní 101",
+          "horska618": "Horská 618",
+          "horska59": "Horská 59",
+          "mladebuky": "Mladé Buky"
+        };
+
+        function formatDate(dateStr) {
+          const date = new Date(dateStr);
+          const day = String(date.getDate()).padStart(2, '0');
+          const month = String(date.getMonth() + 1).padStart(2, '0');
+          const year = date.getFullYear();
+          return `${day}-${month}-${year}`;
+        }
+        %>
+        <tr style="border-bottom: 2px solid rgba(255, 255, 255, 0.767);">
+          <td>Název</td>
+          <td>Typ události</td>
+          <td>Datum</td>
+          <td style="padding-left: 30px;">Čas</td>
+          <td><span style="left: -9%; position: relative;">Datum/Čas do</span></td>
+          <td>Tyka se</td>
+          <td style="padding-left: 0.8em;">✕</td>
+        </tr>
+        
+        <% seznamNaZobrazeni.forEach(udalost => { %>
+          <tr>
+            <td class="toClick" onclick="window.location.href='/udalosti/nacti/<%= udalost %>'"><%= udalost.nazev %></td>
+            <td><%= prekladTypAkce[udalost.typ] || udalost.typ %></td>
+            
+            <% if (udalost.vyberZadani === "celodenni") { %>
+              <td><%= formatDate(udalost.datum) %></td>
+              <td class="empty-cell"></td>
+              <td class="empty-cell"></td>
+            <% } else if (udalost.vyberZadani === "vicedenni") { %>
+              <td><%= formatDate(udalost.datum) %></td>
+              <td class="empty-cell"></td>
+              <td><%= formatDate(udalost.datumDo) %></td>
+            <% } else if (udalost.vyberZadani === "casIDatum") { %>
+              <td><%= formatDate(udalost.datum) %></td>
+              <td style="padding-left: 30px;"><%= udalost.casOd %></td>
+              <td style="padding-left: 30px;"><%= udalost.casDo %></td>
+            <% } %>
+
+            <td class="<%= udalost.tykaSe === null ? 'empty-cell-tykaSe' : 'center' %>">
+            <% if (udalost.typ === "budovy") { %>
+                <span class="center-content"><%= prekladBudov[udalost.tykaSe] || udalost.tykaSe %></span>
+              <% } else { %>
+                <span class="center-content"><%= udalost.tykaSe %></span>
+              <% } %>
+            </td>
+            <td>
+              <button 
+                onclick="if(confirm('Opravdu chcete smazat tuto událost?')) window.location.href='/udalosti/smazat/<%= JSON.stringify(udalost) %>'"
+                class="delete-btn" 
+              >✕</button>
+            </td>
+          </tr>
+        <% }); %>
+      </table>
+    </main>
+  </article>
+
+  <script>
+    class UdalostiManager {
+      constructor() {
+        this.initializeElements();
+        this.attachEventListeners();
+        this.setInitialState();
+      }
+
+      initializeElements() {
+        this.form = document.querySelector('.event-form');
+        this.radioButtons = document.querySelectorAll('input[name="variantaDni"]');
+        this.jineInputs = document.getElementById('jineInputs');
+        this.vicedenniInputs = document.getElementById('vicedenniInputs');
+        this.datumLabel = document.getElementById('datumLabel');
+        this.typAkceSelect = document.getElementById('typAkce');
+        this.tridySelect = document.getElementById('tridySelect');
+        this.budovySelect = document.getElementById('budovySelect');
+        this.datumInput = document.getElementById('datum');
+        this.datumDoInput = document.getElementById('datumDo');
+        this.casOdSelect = document.getElementById('casOd');
+        this.casDoSelect = document.getElementById('casDo');
+      }
+
+      setInitialState() {
+        // Ensure initial visibility states
+        if (this.jineInputs) this.jineInputs.style.display = 'none';
+        if (this.vicedenniInputs) this.vicedenniInputs.style.display = 'none';
+        if (this.tridySelect) this.tridySelect.style.display = 'none';
+        if (this.budovySelect) this.budovySelect.style.display = 'none';
+
+        // Set initial radio button
+        const celodenniRadio = document.getElementById('celodenni');
+        if (celodenniRadio) {
+          celodenniRadio.checked = true;
+        }
+
+        // Update date inputs and time selects
+        this.updateMinDatum();
+        this.updateCasDoOptions();
+        
+        // Handle initial type selection
+        this.handleTypAkceChange();
+      }
+
+      attachEventListeners() {
+        // Radio button events
+        this.radioButtons.forEach(input => {
+          input.addEventListener('change', () => {
+            this.updateVisibility();
+            this.updateRequiredFields();
+          });
         });
 
-        document.getElementById("casOd").addEventListener("change", function() {
-          const casOdIndex = this.selectedIndex;
-          const casDoSelect = document.getElementById("casDo");
+        // Select events
+        if (this.typAkceSelect) {
+          this.typAkceSelect.addEventListener('change', () => this.handleTypAkceChange());
+        }
 
-          // Procházej všechny možnosti v "Do" a skryj ty, které mají menší index
-          Array.from(casDoSelect.options).forEach((option, index) => {
-              option.style.display = index < casOdIndex ? "none" : "block";
-          });
+        // Date input events
+        if (this.datumInput) {
+          this.datumInput.addEventListener('change', () => this.updateMinDatum());
+        }
+        
+        if (this.datumDoInput) {
+          this.datumDoInput.addEventListener('change', () => this.updateMinDatum());
+        }
 
-          // Pokud je vybráno číslo v "Do", které je menší než "Od", resetuj "Do"
-          if (casDoSelect.selectedIndex < casOdIndex) {
-              casDoSelect.selectedIndex = -1; // Resetuje na žádnou vybranou možnost
+        // Time select events
+        if (this.casOdSelect) {
+          this.casOdSelect.addEventListener('change', () => this.updateCasDoOptions());
+        }
+      }
+
+      updateVisibility() {
+        if (this.jineInputs) this.jineInputs.style.display = 'none';
+        if (this.vicedenniInputs) this.vicedenniInputs.style.display = 'none';
+        this.datumLabel.innerHTML = 'Datum:';
+
+        if (document.getElementById('vicedenni').checked) {
+          this.datumLabel.innerHTML = 'Od:';
+          if (this.vicedenniInputs) this.vicedenniInputs.style.display = 'block';
+        } else if (document.getElementById('jine').checked) {
+          if (this.jineInputs) this.jineInputs.style.display = 'block';
+        }
+      }
+
+      updateRequiredFields() {
+        if (this.datumDoInput) this.datumDoInput.required = false;
+        if (this.casOdSelect) this.casOdSelect.required = false;
+        if (this.casDoSelect) this.casDoSelect.required = false;
+
+        if (document.getElementById('vicedenni').checked) {
+          if (this.datumDoInput) this.datumDoInput.required = true;
+        } else if (document.getElementById('jine').checked) {
+          if (this.casDoSelect) this.casDoSelect.required = true;
+        }
+      }
+
+      handleTypAkceChange() {
+        if (this.tridySelect) this.tridySelect.style.display = 'none';
+        if (this.budovySelect) this.budovySelect.style.display = 'none';
+
+        if (this.typAkceSelect.value === 'celotridni') {
+          if (this.tridySelect) this.tridySelect.style.display = 'block';
+        } else if (this.typAkceSelect.value === 'budovy') {
+          if (this.budovySelect) this.budovySelect.style.display = 'block';
+        }
+      }
+
+      updateMinDatum() {
+        if (this.datumInput && this.datumInput.value) {
+          const nextDay = new Date(this.datumInput.value);
+          nextDay.setDate(nextDay.getDate() + 1);
+          
+          if (this.datumDoInput) {
+            this.datumDoInput.min = nextDay.toISOString().split('T')[0];
+            
+            if (this.datumDoInput.value && new Date(this.datumDoInput.value) <= new Date(this.datumInput.value)) {
+              this.datumDoInput.value = '';
+            }
           }
-      });
+        }
+      }
 
-      // Inicializace při načtení stránky
-      document.getElementById("casOd").dispatchEvent(new Event('change'));
+      updateCasDoOptions() {
+        if (!this.casOdSelect || !this.casDoSelect) return;
+        
+        const casOdIndex = this.casOdSelect.selectedIndex;
+        
+        Array.from(this.casDoSelect.options).forEach((option, index) => {
+          option.style.display = index + 1 <= casOdIndex ? 'none' : 'block';
+        });
+
+        if (this.casDoSelect.selectedIndex <= casOdIndex) {
+          this.casDoSelect.selectedIndex = -1;
+        }
+      }
+    }
+
+    // Instance management
+    let manager = null;
+
+    function initManager() {
+      // Clean up old instance
+      if (manager) {
+        // Cleanup code if needed
+      }
+      // Create new instance
+      manager = new UdalostiManager();
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', initManager);
+
+    // Initialize after HTMX updates
+    document.addEventListener('htmx:afterSwap', () => {
+      // Short timeout to ensure DOM is fully updated
+      setTimeout(initManager, 0);
     });
-    </script>
+  </script>
 <%- include('../partials/tail') %>

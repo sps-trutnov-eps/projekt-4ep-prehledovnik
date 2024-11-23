@@ -43,33 +43,30 @@
           overflow-y: auto;
           resize: horizontal;
         ">
-        <h1>Sidebar</h1>
 
         <div class="button">
           <a href="../maturity/">
-            <button class="tlacitko">PŽOP</button>
+            <button class="tlacitko">Praktická</button>
           </a>
           <a href="../maturity/pcmz">
-            <button class="tlacitko">PČMZ</button>
+            <button class="tlacitko">Ústní</button>
           </a>
           <a href="../maturity/scmz">
-            <button class="tlacitko">SČMZ</button>
+            <button class="tlacitko">Státní</button>
           </a>
           <a href="../maturity/sloh">
-            <button class="tlacitko">SLOH</button>
+            <button class="tlacitko">Sloh</button>
           </a>
         </div>
       </article>
 
       <article style="flex: 3; overflow-y: auto">
-        <h1>PČMZ</h1>
+        <h1>Profilová část maturitní zkoušky</h1>
 
-        <form
-          style="display: flex; flex-direction: column; align-items: center"
-          id="projekt-form">
+        <form action="/maturity/ukladanipcmz"; method="POST"; style="display: flex; flex-direction: column; align-items: center">
           <table
             style="border-collapse: collapse; text-align: center"
-            id="hodiny-tabulka">
+            id="hodiny_tabulka">
             <thead>
               <tr>
                 <th style="text-align: center">Datum:</th>
@@ -116,64 +113,62 @@
                 <td>
                   <input
                     type="date"
-                    name="datum-hodiny"
-                    value="2024-03-15"
+                    name="den1_datum"
                     style="border: none; text-align: center" />
                 </td>
-
                 <td>
                   <input
                     class="zaskrtavaci_policko"
                     type="checkbox"
-                    name="hodina1" />
+                    name="den1_hodina1" />
                 </td>
                 <td>
                   <input
                     class="zaskrtavaci_policko"
                     type="checkbox"
-                    name="hodina2" />
+                    name="den1_hodina2" />
                 </td>
                 <td>
                   <input
                     class="zaskrtavaci_policko"
                     type="checkbox"
-                    name="hodina3" />
+                    name="den1_hodina3" />
                 </td>
                 <td>
                   <input
                     class="zaskrtavaci_policko"
                     type="checkbox"
-                    name="hodina4" />
+                    name="den1_hodina4" />
                 </td>
                 <td>
                   <input
                     class="zaskrtavaci_policko"
                     type="checkbox"
-                    name="hodina5" />
+                    name="den1_hodina5" />
                 </td>
                 <td>
                   <input
                     class="zaskrtavaci_policko"
                     type="checkbox"
-                    name="hodina6" />
+                    name="den1_hodina6" />
                 </td>
                 <td>
                   <input
                     class="zaskrtavaci_policko"
                     type="checkbox"
-                    name="hodina7" />
+                    name="den1_hodina7" />
                 </td>
                 <td>
                   <input
                     class="zaskrtavaci_policko"
                     type="checkbox"
-                    name="hodina8" />
+                    name="den1_hodina8" />
                 </td>
                 <td>
                   <input
                     class="zaskrtavaci_policko"
                     type="checkbox"
-                    name="hodina9" />
+                    name="den1_hodina9" />
                 </td>
               </tr>
             </tbody>
@@ -210,34 +205,34 @@
     </>
 
     <script>
-      document
-        .getElementById("pridat-datum")
-        .addEventListener("click", function () {
-          var tabulka = document
-            .getElementById("hodiny-tabulka")
-            .getElementsByTagName("tbody")[0];
-          var novyRadek = document.createElement("tr");
+      let dayCounter = 1;
 
-          var bunkaDatum = document.createElement("td");
-          var inputDatum = document.createElement("input");
-          inputDatum.type = "date";
-          inputDatum.name = "datum-hodiny";
-          inputDatum.classList.add("zaskrtavaci_policko");
-          bunkaDatum.appendChild(inputDatum);
-          novyRadek.appendChild(bunkaDatum);
+      document.getElementById("pridat-datum").addEventListener("click", function () {
+      dayCounter++;
 
-          for (var i = 1; i <= 9; i++) {
-            var bunkaCheckbox = document.createElement("td");
-            var inputCheckbox = document.createElement("input");
-            inputCheckbox.type = "checkbox";
-            inputCheckbox.name = "hodina" + i;
-            inputCheckbox.classList.add("zaskrtavaci_policko");
-            bunkaCheckbox.appendChild(inputCheckbox);
-            novyRadek.appendChild(bunkaCheckbox);
-          }
+      var tabulka = document.getElementById("hodiny_tabulka").getElementsByTagName("tbody")[0];
+      var novyRadek = document.createElement("tr");
 
-          tabulka.appendChild(novyRadek);
-        });
+      var bunkaDatum = document.createElement("td");
+      var inputDatum = document.createElement("input");
+      inputDatum.type = "date";
+      inputDatum.name = "den" + dayCounter + "_datum"; 
+      inputDatum.classList.add("zaskrtavaci_policko");
+      bunkaDatum.appendChild(inputDatum);
+      novyRadek.appendChild(bunkaDatum);
+
+      for (var i = 1; i <= 9; i++) {
+        var bunkaCheckbox = document.createElement("td");
+        var inputCheckbox = document.createElement("input");
+        inputCheckbox.type = "checkbox";
+        inputCheckbox.name = "den" + dayCounter + "_hodina" + i; 
+        inputCheckbox.classList.add("zaskrtavaci_policko");
+        bunkaCheckbox.appendChild(inputCheckbox);
+        novyRadek.appendChild(bunkaCheckbox);
+      }
+
+      tabulka.appendChild(novyRadek);
+      });
     </script>
 
 <%- include('../partials/tail') %>
