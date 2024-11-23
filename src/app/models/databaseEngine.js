@@ -6,6 +6,14 @@ predmety = ["VYS-c", "VYS-t", "PVA-c", "PVA-t", "HAE-c", "HAE-t", "CMT-c", "CMT-
 hodiny = {
     "1": ["7:10", "7:55"],
     "2": ["8:00", "8:45"],
+    "3": ["8:50", "9:35"],
+    "4": ["9:55", "10:40"],
+    "5": ["10:50", "11:35"],
+    "6": ["11:40", "12:25"],
+    "7": ["12:35", "13:20"],
+    "8": ["13:25", "14:10"],
+    "9": ["14:15", "15:00"],
+    "10": ["15:10", "15:55"]
 };
 ucebny = {
     "101": ["T1", "T2", "T5"],
@@ -237,8 +245,23 @@ function sM(maturity){db.set("maturity", maturity)}
 const maturity = {
     pridatMaturitniEvent: (nazev, dny, casy, ucebna) => {
         let maturity = gM();
-        maturity[maturity["nextID"]] = {nazev, dny, casy, ucebna};
-        maturity["nextID"] += 1;
+        let nextID = maturity["nextID"];
+        let nalezeno = -1;
+        for (let i = 0; i < nextID; i++){
+            if (maturity[String(i)]["nazev"] == nazev) nalezeno = i;
+        }
+        if (nalezeno >= 0){
+            if (!maturity[String(nalezeno)]["dny"].includes(dny[0])){
+                maturity[String(nalezeno)]["dny"].push(dny[0]);
+            }
+            if (!maturity[String(nalezeno)]["casy"].includes(casy[0])){
+                maturity[String(nalezeno)]["casy"].push(dny[0]);
+            }
+            maturity[String(nalezeno)]["ucebna"] = ucebna;
+        } else {
+            maturity[nextID] = {nazev, dny, casy, ucebna};
+            maturity["nextID"] += 1;
+        }
         sM(maturity);
     },
     ziskatIDMaturityDleJmena: (jmeno) => {
@@ -275,35 +298,35 @@ const maturity = {
             if (maturity[String(i)]) {  // kontrola existence záznamu
                 const maturitniEvent = maturity[String(i)];
                 
-                for(let y = 0; y < maturitniEvent.den.length - 1; y ++){
+                for(let y = 0; y < maturitniEvent["dny"].length; y++){
                     if(y > 0){
                         maturityList.push({
-                            nazev: maturitniEvent.nazev + " - dodatečný termín",
+                            nazev: maturitniEvent["nazev"] + " - dodatečný termín",
                             typ: "celoskolni", 
                             //
-                            datum: maturitniEvent.dny[y],
+                            datum: maturitniEvent["dny"][y],
                             datumDo: null,
-                            casOd: casy[maturitniEvent.cas[0]-1], 
-                            casDo: new Date(new Date().setHours(...casy[maturitniEvent.cas[-1]-1].split(":").map((v, i) => i === 0 ? v : +v + (i === 1 ? 45 : 0)))).toTimeString().slice(0, 5), 
+                            casOd: hodiny[String(Number(maturitniEvent["dny"][0]) + 1)][0], 
+                            casDo: hodiny[String(Number(maturitniEvent["dny"][maturitniEvent["dny"].length-1]) + 1)],
                             //
                             vyberZadani: "maturita",  
-                            tykaSe: maturitniEvent.ucebna, 
-                            poznamka: `Učebna: ${maturitniEvent.ucebna ?? "není"}`
+                            tykaSe: maturitniEvent["ucebna"], 
+                            poznamka: `Učebna: ${maturitniEvent["ucebna"] ?? "není"}`
                         });
 
                     }else{
                         maturityList.push({
-                            nazev: maturitniEvent.nazev,
+                            nazev: maturitniEvent["nazev"],
                             typ: "celoskolni", 
                             //
-                            datum: maturitniEvent.dny[y],
+                            datum: maturitniEvent["dny"][y],
                             datumDo: null,
-                            casOd: casy[maturitniEvent.cas[0]-1], 
-                            casDo: new Date(new Date().setHours(...casy[maturitniEvent.cas[-1]-1].split(":").map((v, i) => i === 0 ? v : +v + (i === 1 ? 45 : 0)))).toTimeString().slice(0, 5), 
+                            casOd: hodiny[String(Number(maturitniEvent["dny"][0]) + 1)][0], 
+                            casDo: hodiny[String(Number(maturitniEvent["dny"][maturitniEvent["dny"].length-1]) + 1)],
                             //
                             vyberZadani: "maturita",  
-                            tykaSe: maturitniEvent.ucebna, 
-                            poznamka: `Učebna: ${maturitniEvent.ucebna ?? "není"}`
+                            tykaSe: maturitniEvent["ucebna"], 
+                            poznamka: `Učebna: ${maturitniEvent["ucebna"] ?? "není"}`
                         });
                     }
                 }
