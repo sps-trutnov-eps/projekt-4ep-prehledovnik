@@ -32,7 +32,6 @@ exports.ukladanipzop = (req, res) => {
         }
         databaze.maturity.pridatMaturitniEvent("PŽOP", dny, casy, ucebna);
     }
-
     res.redirect("/maturity/");
 };
 
@@ -93,7 +92,7 @@ exports.ukladanipcmz = (req, res) => {
         } 
     });
     databaze.maturity.pridatMaturitniEvent("PČMZ", datumy, hodiny, null); 
-
+    
     res.redirect("/maturity/pcmz");
 };
 
@@ -145,6 +144,7 @@ exports.ukladaniscmz = (req, res) => {
         }
     });
     databaze.maturity.pridatMaturitniEvent("SČMZ", datumy, hodiny, ucebny);
+    console.log(databaze.maturity.ziskatVsechnyMaturityJakoUdalosti());
     res.redirect("/maturity/scmz");
 };
 
