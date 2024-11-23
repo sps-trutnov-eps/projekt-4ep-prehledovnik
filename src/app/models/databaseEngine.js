@@ -251,11 +251,12 @@ function gM(){return db.get("maturity")}
 function sM(maturity){db.set("maturity", maturity)}
 
 const maturity = {
-    pridatMaturitniEvent: (nazev, dny, casy, ucebna) => {
+    pridatMaturitniEvent: (nazev, dny, casy, ucebny) => {
         let maturity = gM();
         
         if (nazev == "PŽOP"){
-            maturity[nazev] = {dny, casy, ucebna};
+            ucebny = [ucebny];
+            maturity[nazev] = {dny, casy, ucebny};
         } else if (nazev == "PČMZ"){
             if (maturity[nazev]){
                 if (!maturity[nazev]["dny"].includes(dny[0])){
@@ -270,7 +271,7 @@ const maturity = {
                 }
             } else {
                 casy = [casy];
-                maturity[nazev] = {dny, casy, ucebna};
+                maturity[nazev] = {dny, casy, ucebny};
             }
         } else if (nazev == "SČMZ"){
             if (maturity[nazev]){
@@ -286,7 +287,7 @@ const maturity = {
                 }
             } else {
                 casy = [casy];
-                maturity[nazev] = {dny, casy, ucebna};
+                maturity[nazev] = {dny, casy, ucebny};
             }
         }
 
@@ -347,8 +348,8 @@ const maturity = {
                             casDo: cDO,
                             //
                             vyberZadani: "maturita",  
-                            tykaSe: maturitniEvent["ucebna"], 
-                            poznamka: `Učebna: ${maturitniEvent["ucebna"] ?? "není"}`
+                            tykaSe: maturitniEvent["ucebny"], 
+                            poznamka: `Učebna: ${maturitniEvent["ucebny"] ?? "není"}`
                         });
 
                     }else{
@@ -371,8 +372,8 @@ const maturity = {
                             casDo: cDO,
                             //
                             vyberZadani: "maturita",  
-                            tykaSe: maturitniEvent["ucebna"], 
-                            poznamka: `Učebna: ${maturitniEvent["ucebna"] ?? "není"}`
+                            tykaSe: maturitniEvent["ucebny"], 
+                            poznamka: `Učebna: ${maturitniEvent["ucebny"] ?? "není"}`
                         });
                     }
                 }
@@ -399,17 +400,17 @@ const maturity = {
                     casyProMaturity: maturitniEvent.cas,
                     //
                     vyberZadani: "maturita",  
-                    tykaSe: maturitniEvent.ucebna, 
-                    poznamka: `Učebna: ${maturitniEvent.ucebna ?? "není"}`
+                    tykaSe: maturitniEvent.ucebny, 
+                    poznamka: `Učebna: ${maturitniEvent.ucebny ?? "není"}`
                 });
             }
         }
         return maturityList;
     },
-    upravitMaturitniEvent: (nazev, dny, casy, ucebna) => {
+    upravitMaturitniEvent: (nazev, dny, casy, ucebny) => {
         let maturity = gM();
         IDUpravovaneMaturity = ziskatIDMaturityDleJmena(nazev);
-        maturity[IDUpravovaneMaturity] = {nazev, dny, casy, ucebna};
+        maturity[IDUpravovaneMaturity] = {nazev, dny, casy, ucebny};
         sM(maturity);
     },
     smazatMaturitniEvent: (event) => {
