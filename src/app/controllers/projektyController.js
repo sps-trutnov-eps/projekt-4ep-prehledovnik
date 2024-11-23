@@ -19,29 +19,28 @@ exports.zobrazTymy = (req, res) => {
 
     res.render("projekty/tymy", { tlacitka: tlacitka });
 };
-
-exports.zobrazProjekt = (req, res) => {
-    const projectClass = req.params.projekt;
-
-    // Načtení projektu podle třídy
-    const project = databaze.projekty.ziskatProjekt(projectClass);
-
-    if (!project) {
-        return res.status(404).send("Projekt nenalezen.");
-    }
-
-    // Vygenerování tlačítek pro týmy
-    const teams = project.tymy || [];
-    let buttons = teams.map(
-        (team, index) =>
-            `<button hx-get="/projekty/tymy/${projectClass}/team/${index}" 
-                hx-target="body"
-                hx-push-url="true"
-                hx-swap="transition:true">${team.name}</button>`
-    ).join('');
-
-    res.render("projekty/tymy", { tlacitka: buttons });
-};
+ 
+exports.zobrazProjekt = (req, res) => { 
+    let tlacitka = ""; 
+    const tridy = databaze.projekty.gP(); 
+ 
+    for (const projektID in tridy) { 
+        if (projektID != "nextID") { 
+            const trida = tridy[projektID].trida; 
+            if (trida) { 
+                tlacitka += `<button hx-get="/projekty/tymy/${trida}"  
+                hx-target="body" 
+                hx-push-url="true" 
+                hx-swap="transition:true">${trida}</button>`; 
+            } 
+        } 
+    } 
+    console.log(tridy); 
+ 
+    // req.params.projekt 
+ 
+    res.render("projekty/tymy", { tlacitka: tlacitka }); 
+}; 
 
 
 exports.zobrazPitche = (req, res) => {
