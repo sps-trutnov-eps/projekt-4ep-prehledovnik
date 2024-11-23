@@ -254,43 +254,14 @@ const maturity = {
     pridatMaturitniEvent: (nazev, dny, casy, ucebny) => {
         let maturity = gM();
         
+        maturity[nazev] = null;
+
         if (nazev == "PŽOP"){
             ucebny = [ucebny];
-            maturity[nazev] = {dny, casy, ucebny};
         } else if (nazev == "PČMZ"){
-            if (maturity[nazev]){
-                if (!maturity[nazev]["dny"].includes(dny[0])){
-                    maturity[nazev]["dny"].push(dny[0]);
-                }
-                let index = maturity[nazev]["dny"].indexOf(dny[0]);
-                if (!maturity[nazev]["casy"][index]){
-                    maturity[nazev]["casy"].push([]);
-                }
-                if (!maturity[nazev]["casy"][index].includes(casy[0])){
-                    maturity[nazev]["casy"][index].push(casy[0]);
-                }
-            } else {
-                casy = [casy];
-                maturity[nazev] = {dny, casy, ucebny};
-            }
-        } else if (nazev == "SČMZ"){
-            if (maturity[nazev]){
-                if (!maturity[nazev]["dny"].includes(dny[0])){
-                    maturity[nazev]["dny"].push(dny[0]);
-                }
-                let index = maturity[nazev]["dny"].indexOf(dny[0]);
-                if (!maturity[nazev]["casy"][index]){
-                    maturity[nazev]["casy"].push([]);
-                }
-                if (!maturity[nazev]["casy"][index].includes(casy[0])){
-                    maturity[nazev]["casy"][index].push(casy[0]);
-                }
-            } else {
-                casy = [casy];
-                maturity[nazev] = {dny, casy, ucebny};
-            }
+            ucebny = []
         }
-
+        maturity[nazev] = {dny, casy, ucebny};
         sM(maturity);
     },
     ziskatIDMaturityDleJmena: (jmeno) => {

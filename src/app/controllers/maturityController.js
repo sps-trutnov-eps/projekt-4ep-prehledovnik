@@ -79,9 +79,20 @@ exports.ukladanipcmz = (req, res) => {
         pocitadloDnu++;
     }
 
+    datumy = [];
+    hodiny = [];
     radky.forEach((radek) => {
-        databaze.maturity.pridatMaturitniEvent("PČMZ", [radek.datum], radek.hodiny, null); 
+        if(!datumy.includes(radek.datum)){
+            datumy.push(radek.datum);
+        }
+        let index = datumy.indexOf(radek.datum)
+        if(hodiny[index]){
+            hodiny[index].push(radek.hodiny[0]);
+        } else {
+            hodiny.push(radek.hodiny);
+        } 
     });
+    databaze.maturity.pridatMaturitniEvent("PČMZ", datumy, hodiny, null); 
 
     res.redirect("/maturity/pcmz");
 };
@@ -116,12 +127,24 @@ exports.ukladaniscmz = (req, res) => {
 
         pocitadloDnu++;
     }
-    console.log(radky);
+    datumy = [];
+    hodiny = [];
+    ucebny = [];
     radky.forEach((radek) => {
         if (radek.datum) {
-            databaze.maturity.pridatMaturitniEvent("SČMZ", [radek.datum], radek.hodiny, radek.ucebna);
+            if(!datumy.includes(radek.datum)){
+                datumy.push(radek.datum);
+            }
+            let index = datumy.indexOf(radek.datum)
+            if(hodiny[index]){
+                hodiny[index].push(radek.hodiny[0]);
+            } else {
+                hodiny.push(radek.hodiny);
+            }
+            ucebny.push(radek.ucebna);
         }
     });
+    databaze.maturity.pridatMaturitniEvent("SČMZ", datumy, hodiny, ucebny);
     res.redirect("/maturity/scmz");
 };
 
@@ -152,13 +175,30 @@ exports.ukladanisloh = (req, res) => {
         pocitadloDnu++;
     }
 
+    datumy = []
+    hodiny = []
+    ucebny = []
+
     Object.values(seskupenaData).forEach(zaznam => {
         zaznam.casy.sort((a, b) => a - b);
-        console.log(zaznam.nazev);
-        console.log(zaznam.dny);
-        console.log(zaznam.casy);
-        //databaze.maturity.pridatMaturitniEvent(zaznam.nazev, zaznam.dny, zaznam.casy, zaznam.ucebna);
-    });
+        console.log(zaznam);
+        if(!datumy.includes(zaznam.dny[0])){
+            datumy.push(zaznam.dny[0]);
+        }
+        let index = datumy.indexOf(zaznam.dny[0])
+        if(hodiny[index]){
+            hodiny[index].push(zaznam.casy[0]);
+        } else {
+            hodiny.push(zaznam.casy);
+        }
 
+        if(ucebny[index]){
+            ucebny[index].push(zaznam.ucebna);
+        } else {
+            ucebny.push([zaznam.ucebna]);
+        }
+    });
+    databaze.maturity.pridatMaturitniEvent("SLOH", datumy, hodiny, ucebny);
+    
     res.redirect('/maturity/sloh');
 };
