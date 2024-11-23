@@ -248,7 +248,9 @@ const maturity = {
         let nextID = maturity["nextID"];
         let nalezeno = -1;
         for (let i = 0; i < nextID; i++){
-            if (maturity[String(i)]["nazev"] == nazev) nalezeno = i;
+            if (maturity[String(i)]){
+                if (maturity[String(i)]["nazev"] == nazev) nalezeno = i;
+            }
         }
         if (nalezeno >= 0){
             if (!maturity[String(nalezeno)]["dny"].includes(dny[0])){

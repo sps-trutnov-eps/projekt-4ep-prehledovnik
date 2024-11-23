@@ -46,7 +46,47 @@
         "nextID": 1
     },
     "maturity": {
-        "nextID": 1
+        "1": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-14"
+            ],
+            "casy": [
+                1
+            ],
+            "ucebna": null
+        },
+        "2": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-14"
+            ],
+            "casy": [
+                3
+            ],
+            "ucebna": null
+        },
+        "3": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-14"
+            ],
+            "casy": [
+                7
+            ],
+            "ucebna": null
+        },
+        "4": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-14"
+            ],
+            "casy": [
+                9
+            ],
+            "ucebna": null
+        },
+        "nextID": 5
     },
     "projekty": {
         "nextID": 1
