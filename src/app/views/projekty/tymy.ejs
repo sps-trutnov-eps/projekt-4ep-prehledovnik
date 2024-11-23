@@ -107,9 +107,8 @@
       font-size: 16px;
       cursor: pointer;
       border: none;
-   } 
+   }
 
-   /* Styl pro tlačítko pro vytvoření projektu */
    .project-button {
       margin-right: 10px;
       padding: 10px 20px;
@@ -117,13 +116,13 @@
       cursor: pointer;
       border: none;
       border-radius: 4px;
-      background-color: #007BFF; /* Modrá barva */
+      background-color: #007BFF;
       color: white;
       transition: background-color 0.3s;
    }
 
    .project-button:hover {
-      background-color: #0056b3; /* Tmavší modrá při najetí */
+      background-color: #0056b3;
    }
 </style>
 
@@ -189,6 +188,7 @@
          <div id="additional-buttons">
          <button class="detail-button" onclick="showDetail('Detail týmu', this)">Detail týmu</button>
          <button class="detail-button" onclick="showDetail('Pitch', this)">Pitch</button>
+         <button class="detail-button" onclick="showDetail('Prezentace', this)">Prezentace</button>
          </div>
          <div id="detail-info"></div>
       `;
@@ -199,66 +199,115 @@
    function showDetail(detailType, buttonElement) {
       const detailInfo = {
          'Detail týmu': `
-         <form action="/projekty/ulozitDetailyTymu" method="POST">
-         <div class="input-container">
-         <label for="leader-name">Jméno vedoucího:</label>
-         <input type="text" id="leader-name" name="vedouci" maxlength="50" placeholder="Zadejte jméno vedoucího týmu" required>
-         </div>
-         <div class="input-container">
-         <label for="team-members">Členové týmu:</label>
-         <input type="text" id="team-members" name="clenove" maxlength="50" placeholder="Zadejte jména členů týmu" required>
-         </div>
-         <div class="input-container">
-         <label for="team-repo">Repozitář:</label>
-         <input type="text" id="team-repo" name="tymRepo" maxlength="100" placeholder="Zadejte URL repozitáře týmu" required>
-         </div>
-         <div class="input-container">
-         <label for="trida">Třída:</label>
-         <input type="text" id="trida" name="trida" maxlength="50" placeholder="Zadejte třídu projektu" required>
-         </div>
-         <button type="submit" class="save-button">Uložit</button>
-         </form>
+            <form action="/projekty/ulozitDetailyTymu" method="POST">
+               <div class="input-container">
+                  <label for="team-leader">Jméno vedoucího:</label>
+                  <input type="text" id="team-leader" name="leader" maxlength="50" placeholder="Zadejte jméno vedoucího" required>
+               </div>
+               <div class="input-container">
+                  <label for="team-members">Členové týmu:</label>
+                  <input type="text" id="team-members" name="members" maxlength="50" placeholder="Zadejte členy týmu" required>
+               </div>
+               <button type="submit" class="save-button">Uložit Detaily Týmu</button>
+            </form>
          `,
          'Pitch': `
-         <div class="table-wrapper">
-         <div class="feature-goal-container">
-         <div class="input-container">
-         <label for="feature-1">Featura 1:</label>
-         <input type="text" id="feature-1" placeholder="Zadejte první featuru">
-         </div>
-         <div class="input-container">
-         <label for="feature-2">Featura 2:</label>
-         <input type="text" id="feature-2" placeholder="Zadejte druhou featuru">
-         </div>
-         <div class="input-container">
-         <label for="feature-3">Featura 3:</label>
-         <input type="text" id="feature-3" placeholder="Zadejte třetí featuru">
-         </div>
-         <div class="input-container">
-         <label for="goal-1">Goal 1:</label>
-         <input type="text" id="goal-1" placeholder="Zadejte první cíl">
-         </div>
-         <div class="input-container">
-         <label for="goal-2">Goal 2:</label>
-         <input type="text" id="goal-2" placeholder="Zadejte druhý cíl">
-         </div>
-         <div class="input-container">
-         <label for="goal-3">Goal 3:</label>
-         <input type="text" id="goal-3" placeholder="Zadejte třetí cíl">
-         </div>
-         </div>
-         <button class="save-button" onclick="savePitch()">Uložit Pitch</button>
-         </div>
+            <div class="pitch-container">
+               <div class="input-container">
+                  <label for="feature-1">Featura 1:</label>
+                  <input type="text" id="feature-1" placeholder="Zadejte první featuru">
+               </div>
+               <div class="input-container">
+                  <label for="feature-2">Featura 2:</label>
+                  <input type="text" id="feature-2" placeholder="Zadejte druhou featuru">
+               </div>
+               <div class="input-container">
+                  <label for="feature-3">Featura 3:</label>
+                  <input type="text" id="feature-3" placeholder="Zadejte třetí featuru">
+               </div>
+               <div class="input-container">
+                  <label for="goal-1">Cíl 1:</label>
+                  <input type="text" id="goal-1" placeholder="Zadejte první cíl">
+               </div>
+               <div class="input-container">
+                  <label for="goal-2">Cíl 2:</label>
+                  <input type="text" id="goal-2" placeholder="Zadejte druhý cíl">
+               </div>
+               <div class="input-container">
+                  <label for="bonus">Bonus:</label>
+                  <input type="text" id="bonus" placeholder="Zadejte bonus">
+               </div>
+               <button class="save-button" onclick="savePitch()">Uložit Pitch</button>
+            </div>
+         `,
+         'Prezentace': `
+            <div class="presentation-container">
+               <!-- Formulář pro prezentaci -->
+               <div class="input-container">
+                  <label for="feature-1">Featura 1:</label>
+                  <input type="text" id="feature-1" placeholder="Zadejte první featuru">
+                  <input type="range" id="feature-1-range" min="0" max="100" value="0">
+                  <span id="feature-1-percentage">0%</span>
+               </div>
+               <div class="input-container">
+                  <label for="feature-2">Featura 2:</label>
+                  <input type="text" id="feature-2" placeholder="Zadejte druhou featuru">
+                  <input type="range" id="feature-2-range" min="0" max="100" value="0">
+                  <span id="feature-2-percentage">0%</span>
+               </div>
+               <div class="input-container">
+                  <label for="feature-3">Featura 3:</label>
+                  <input type="text" id="feature-3" placeholder="Zadejte třetí featuru">
+                  <input type="range" id="feature-3-range" min="0" max="100" value="0">
+                  <span id="feature-3-percentage">0%</span>
+               </div>
+               <div class="input-container">
+                  <label for="goal-1">Cíl 1:</label>
+                  <input type="text" id="goal-1" placeholder="Zadejte první cíl">
+                  <input type="range" id="goal-1-range" min="0" max="100" value="0">
+                  <span id="goal-1-percentage">0%</span>
+               </div>
+               <div class="input-container">
+                  <label for="goal-2">Cíl 2:</label>
+                  <input type="text" id="goal-2" placeholder="Zadejte druhý cíl">
+                  <input type="range" id="goal-2-range" min="0" max="100" value="0">
+                  <span id="goal-2-percentage">0%</span>
+               </div>
+               <div class="input-container">
+                  <label for="bonus">Bonus:</label>
+                  <input type="text" id="bonus" placeholder="Zadejte bonus">
+                  <input type="range" id="bonus-range" min="0" max="100" value="0">
+                  <span id="bonus-percentage">0%</span>
+               </div>
+               <button class="save-button" onclick="savePresentation()">Uložit Prezentaci</button>
+            </div>
          `
       };
 
       const parentTd = buttonElement.closest('td');
       const detailInfoDiv = parentTd.querySelector('#detail-info');
       detailInfoDiv.innerHTML = detailInfo[detailType];
+
+      // Přidáme posluchače pro posuvníky v prezentaci
+      if (detailType === 'Prezentace') {
+         document.querySelectorAll('.input-container input[type="range"]').forEach((rangeInput) => {
+            rangeInput.addEventListener('input', function() {
+               const percentageSpan = this.nextElementSibling;
+               percentageSpan.textContent = `${this.value}%`;
+            });
+         });
+      }
    }
 
    function savePitch() {
-      // Logika pro uložení pitch
       alert('Pitch byl uložen!');
+   }
+
+   function savePresentation() {
+      alert('Prezentace byla uložena!');
+   }
+
+   function saveTeamDetails() {
+      alert('Detaily týmu byly uloženy!');
    }
 </script>
