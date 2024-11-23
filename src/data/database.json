@@ -40,67 +40,15 @@
         "nextID": 1
     },
     "rozvrhy": {
-        "1": {
-            "id": 1,
-            "datum": "2024-11-04T13:00:23.190Z",
-            "nazev": "ddd",
-            "popis": "",
-            "hodiny": {
-                "lichy": {
-                    "Po": {},
-                    "Ut": {},
-                    "St": {},
-                    "Ct": {},
-                    "Pa": {}
-                },
-                "sudy": {
-                    "Po": {},
-                    "Ut": {},
-                    "St": {},
-                    "Ct": {},
-                    "Pa": {}
-                }
-            }
-        },
-        "nextID": 2
+        "nextID": 1
     },
     "udalosti": {
-        "1": {
-            "nazev": "a",
-            "typ": "celoskolni",
-            "datum": "2024-11-07",
-            "datumDo": null,
-            "casOd": null,
-            "casDo": null,
-            "vyberZadani": "celodenni",
-            "tykaSe": null,
-            "poznamka": ""
-        },
-        "2": {
-            "nazev": "a",
-            "typ": "celoskolni",
-            "datum": "2024-11-07",
-            "datumDo": null,
-            "casOd": null,
-            "casDo": null,
-            "vyberZadani": "celodenni",
-            "tykaSe": null,
-            "poznamka": ""
-        },
-        "nextID": 3
+        "nextID": 1
     },
     "maturity": {
         "nextID": 1
     },
     "projekty": {
-        "1": {
-            "trida": "3.EP",
-            "tymy": [],
-            "pitche": [],
-            "milestony": [],
-            "devlogy": [],
-            "prezentace": []
-        },
-        "nextID": 2
+        "nextID": 1
     }
 }

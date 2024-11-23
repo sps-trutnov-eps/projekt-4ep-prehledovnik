@@ -265,6 +265,78 @@ const maturity = {
         }
         return maturityList;
     },
+    ziskatVsechnyMaturityJakoUdalosti: () => {
+        let maturity = gM();
+        let maturityList = [];
+        let nextID = maturity["nextID"];
+        let casy = ["8:00","8:50","9:55","10:50","11:40","12:35","13:25","14:15"]
+        for(let i = 0; i < nextID; i++){
+
+            if (maturity[String(i)]) {  // kontrola existence záznamu
+                const maturitniEvent = maturity[String(i)];
+                
+                for(let y = 0; y < maturitniEvent.den.length - 1; y ++){
+                    if(y > 0){
+                        maturityList.push({
+                            nazev: maturitniEvent.nazev + " - dodatečný termín",
+                            typ: "celoskolni", 
+                            //
+                            datum: maturitniEvent.dny[y],
+                            datumDo: null,
+                            casOd: casy[maturitniEvent.cas[0]-1], 
+                            casDo: new Date(new Date().setHours(...casy[maturitniEvent.cas[-1]-1].split(":").map((v, i) => i === 0 ? v : +v + (i === 1 ? 45 : 0)))).toTimeString().slice(0, 5), 
+                            //
+                            vyberZadani: "maturita",  
+                            tykaSe: maturitniEvent.ucebna, 
+                            poznamka: `Učebna: ${maturitniEvent.ucebna ?? "není"}`
+                        });
+
+                    }else{
+                        maturityList.push({
+                            nazev: maturitniEvent.nazev,
+                            typ: "celoskolni", 
+                            //
+                            datum: maturitniEvent.dny[y],
+                            datumDo: null,
+                            casOd: casy[maturitniEvent.cas[0]-1], 
+                            casDo: new Date(new Date().setHours(...casy[maturitniEvent.cas[-1]-1].split(":").map((v, i) => i === 0 ? v : +v + (i === 1 ? 45 : 0)))).toTimeString().slice(0, 5), 
+                            //
+                            vyberZadani: "maturita",  
+                            tykaSe: maturitniEvent.ucebna, 
+                            poznamka: `Učebna: ${maturitniEvent.ucebna ?? "není"}`
+                        });
+                    }
+                }
+            }
+        }
+        return maturityList;
+    },
+    ziskatMaturityProUdalosti: () => {
+        let maturity = gM();
+        let maturityList = [];
+        let nextID = maturity["nextID"];
+        for(let i = 0; i < nextID; i++){
+
+            if (maturity[String(i)]) {  // kontrola existence záznamu
+                const maturitniEvent = maturity[String(i)];
+                maturityList.push({
+                    nazev: maturitniEvent.nazev,
+                    typ: "celoskolni", 
+                    //
+                    datum: maturitniEvent.dny[y],
+                    datumDo: null,
+                    casOd: null, 
+                    casDo: null, 
+                    casyProMaturity: maturitniEvent.cas,
+                    //
+                    vyberZadani: "maturita",  
+                    tykaSe: maturitniEvent.ucebna, 
+                    poznamka: `Učebna: ${maturitniEvent.ucebna ?? "není"}`
+                });
+            }
+        }
+        return maturityList;
+    },
     upravitMaturitniEvent: (nazev, dny, casy, ucebna) => {
         let maturity = gM();
         IDUpravovaneMaturity = ziskatIDMaturityDleJmena(nazev);
