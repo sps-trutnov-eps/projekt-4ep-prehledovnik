@@ -25,7 +25,12 @@ exports.ukladanipzop = (req, res) => {
         res.redirect("/maturity/");
     }
     else {
-        databaze.maturity.pridatMaturitniEvent("PŽOP",[den_konani, dodatecne_dny].filter((den) => den), [], ucebna);
+        let dny = [den_konani, dodatecne_dny].filter((den) => den);
+        let casy = [];
+        for (let i = 0; i < dny.length; i++){
+            casy.push([]);
+        }
+        databaze.maturity.pridatMaturitniEvent("PŽOP", dny, casy, ucebna);
     }
 
     res.redirect("/maturity/");
@@ -111,7 +116,7 @@ exports.ukladaniscmz = (req, res) => {
 
         pocitadloDnu++;
     }
-
+    console.log(radky);
     radky.forEach((radek) => {
         if (radek.datum) {
             databaze.maturity.pridatMaturitniEvent("SČMZ", [radek.datum], radek.hodiny, radek.ucebna);
@@ -149,7 +154,10 @@ exports.ukladanisloh = (req, res) => {
 
     Object.values(seskupenaData).forEach(zaznam => {
         zaznam.casy.sort((a, b) => a - b);
-        databaze.maturity.pridatMaturitniEvent(zaznam.nazev, zaznam.dny, zaznam.casy, zaznam.ucebna);
+        console.log(zaznam.nazev);
+        console.log(zaznam.dny);
+        console.log(zaznam.casy);
+        //databaze.maturity.pridatMaturitniEvent(zaznam.nazev, zaznam.dny, zaznam.casy, zaznam.ucebna);
     });
 
     res.redirect('/maturity/sloh');

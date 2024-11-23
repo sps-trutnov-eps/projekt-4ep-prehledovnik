@@ -29,7 +29,7 @@ if(!db.has("predmety")){
     db.set("osnovy", {"nextID": 1});
     db.set("rozvrhy", {"nextID": 1});
     db.set("udalosti", {"nextID": 1});
-    db.set("maturity", {"nextID": 1});
+    db.set("maturity", {});
     db.set("projekty", {"nextID": 1});
 }
 
@@ -253,25 +253,43 @@ function sM(maturity){db.set("maturity", maturity)}
 const maturity = {
     pridatMaturitniEvent: (nazev, dny, casy, ucebna) => {
         let maturity = gM();
-        let nextID = maturity["nextID"];
-        let nalezeno = -1;
-        for (let i = 0; i < nextID; i++){
-            if (maturity[String(i)]){
-                if (maturity[String(i)]["nazev"] == nazev) nalezeno = i;
+        
+        if (nazev == "PŽOP"){
+            maturity[nazev] = {dny, casy, ucebna};
+        } else if (nazev == "PČMZ"){
+            if (maturity[nazev]){
+                if (!maturity[nazev]["dny"].includes(dny[0])){
+                    maturity[nazev]["dny"].push(dny[0]);
+                }
+                let index = maturity[nazev]["dny"].indexOf(dny[0]);
+                if (!maturity[nazev]["casy"][index]){
+                    maturity[nazev]["casy"].push([]);
+                }
+                if (!maturity[nazev]["casy"][index].includes(casy[0])){
+                    maturity[nazev]["casy"][index].push(casy[0]);
+                }
+            } else {
+                casy = [casy];
+                maturity[nazev] = {dny, casy, ucebna};
+            }
+        } else if (nazev == "SČMZ"){
+            if (maturity[nazev]){
+                if (!maturity[nazev]["dny"].includes(dny[0])){
+                    maturity[nazev]["dny"].push(dny[0]);
+                }
+                let index = maturity[nazev]["dny"].indexOf(dny[0]);
+                if (!maturity[nazev]["casy"][index]){
+                    maturity[nazev]["casy"].push([]);
+                }
+                if (!maturity[nazev]["casy"][index].includes(casy[0])){
+                    maturity[nazev]["casy"][index].push(casy[0]);
+                }
+            } else {
+                casy = [casy];
+                maturity[nazev] = {dny, casy, ucebna};
             }
         }
-        if (nalezeno >= 0){
-            if (!maturity[String(nalezeno)]["dny"].includes(dny[0])){
-                maturity[String(nalezeno)]["dny"].push(dny[0]);
-            }
-            if (!maturity[String(nalezeno)]["casy"].includes(casy[0])){
-                maturity[String(nalezeno)]["casy"].push(dny[0]);
-            }
-            maturity[String(nalezeno)]["ucebna"] = ucebna;
-        } else {
-            maturity[nextID] = {nazev, dny, casy, ucebna};
-            maturity["nextID"] += 1;
-        }
+
         sM(maturity);
     },
     ziskatIDMaturityDleJmena: (jmeno) => {
@@ -310,14 +328,23 @@ const maturity = {
                 
                 for(let y = 0; y < maturitniEvent["dny"].length; y++){
                     if(y > 0){
+                        let cOD;
+                        let cDO;
+                        if(maturitniEvent["dny"][0][0]){
+                            cOD = hodiny[String(Number(maturitniEvent["dny"][0]) + 1)][0];
+                            cDO = hodiny[String(Number(maturitniEvent["dny"][maturitniEvent["dny"].length-1]) + 1)];
+                        } else {
+                            cDO = null;
+                            cDO = null;
+                        }
                         maturityList.push({
                             nazev: maturitniEvent["nazev"] + " - dodatečný termín",
                             typ: "celoskolni", 
                             //
                             datum: maturitniEvent["dny"][y],
                             datumDo: null,
-                            casOd: hodiny[String(Number(maturitniEvent["dny"][0]) + 1)][0], 
-                            casDo: hodiny[String(Number(maturitniEvent["dny"][maturitniEvent["dny"].length-1]) + 1)],
+                            casOd: cOD, 
+                            casDo: cDO,
                             //
                             vyberZadani: "maturita",  
                             tykaSe: maturitniEvent["ucebna"], 
@@ -325,14 +352,23 @@ const maturity = {
                         });
 
                     }else{
+                        let cOD;
+                        let cDO;
+                        if(maturitniEvent["dny"][0][0]){
+                            cOD = hodiny[String(Number(maturitniEvent["dny"][0]) + 1)][0];
+                            cDO = hodiny[String(Number(maturitniEvent["dny"][maturitniEvent["dny"].length-1]) + 1)];
+                        } else {
+                            cDO = null;
+                            cDO = null;
+                        }
                         maturityList.push({
                             nazev: maturitniEvent["nazev"],
                             typ: "celoskolni", 
                             //
                             datum: maturitniEvent["dny"][y],
                             datumDo: null,
-                            casOd: hodiny[String(Number(maturitniEvent["dny"][0]) + 1)][0], 
-                            casDo: hodiny[String(Number(maturitniEvent["dny"][maturitniEvent["dny"].length-1]) + 1)],
+                            casOd: cOD, 
+                            casDo: cDO,
                             //
                             vyberZadani: "maturita",  
                             tykaSe: maturitniEvent["ucebna"], 
