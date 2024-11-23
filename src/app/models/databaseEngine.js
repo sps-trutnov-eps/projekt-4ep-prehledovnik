@@ -189,8 +189,16 @@ function sU(udalosti){db.set("udalosti", udalosti)}
 const udalosti = {
     pridatUdalost: (nazev, typ,  datum, datumDo, casOd, casDo, vyberZadani, tykaSe, poznamka) => {
         let udalosti = gU();
-        udalosti[udalosti["nextID"]] = {nazev, typ, datum,  datumDo, casOd, casDo, vyberZadani, tykaSe, poznamka};
-        udalosti["nextID"] += 1;
+        let nextID = udalosti["nextID"];
+        let novaUdalost = {nazev, typ, datum,  datumDo, casOd, casDo, vyberZadani, tykaSe, poznamka};
+        let nalezeno = false;
+        for(let i = 0; i < nextID; i++){
+            if (JSON.stringify(udalosti[String(i)]) === JSON.stringify(novaUdalost)) nalezeno = true;
+        }
+        if (!nalezeno){
+            udalosti[nextID] = novaUdalost;
+            udalosti["nextID"] += 1;
+        }
         sU(udalosti);
     },
     ziskatIDUdalostiPodleNazvu: (jmeno) => {
