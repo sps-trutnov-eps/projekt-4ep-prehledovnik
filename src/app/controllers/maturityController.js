@@ -178,25 +178,23 @@ exports.ukladanisloh = (req, res) => {
     datumy = []
     hodiny = []
     ucebny = []
-
+    console.log(Object.values(seskupenaData));
     Object.values(seskupenaData).forEach(zaznam => {
         zaznam.casy.sort((a, b) => a - b);
         console.log(zaznam);
+        
         if(!datumy.includes(zaznam.dny[0])){
             datumy.push(zaznam.dny[0]);
+            hodiny.push([]);
+            ucebny.push([]);
         }
-        let index = datumy.indexOf(zaznam.dny[0])
-        if(hodiny[index]){
-            hodiny[index].push(zaznam.casy[0]);
-        } else {
-            hodiny.push(zaznam.casy);
-        }
-
-        if(ucebny[index]){
+        
+        let index = datumy.indexOf(zaznam.dny[0]);
+        
+        zaznam.casy.forEach(cas => {
+            hodiny[index].push(cas);
             ucebny[index].push(zaznam.ucebna);
-        } else {
-            ucebny.push([zaznam.ucebna]);
-        }
+        });
     });
     databaze.maturity.pridatMaturitniEvent("SLOH", datumy, hodiny, ucebny);
     
