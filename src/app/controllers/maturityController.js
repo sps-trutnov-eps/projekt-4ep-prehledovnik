@@ -190,8 +190,11 @@ exports.ukladanisloh = (req, res) => {
         let index = datumy.indexOf(zaznam.dny[0]);
         
         zaznam.casy.forEach(cas => {
-            hodiny[index].push(cas);
-            ucebny[index].push(zaznam.ucebna);
+            // if (!(hodiny[index].includes(cas) && ucebny[hodiny[index].indexOf(cas)] === zaznam.cas)){       => pro kontrolování jak učebny, tak času. (pro případ, že by v 8:00 měl jak T16, tak T15)
+            if (!hodiny[index].includes(cas)){
+                hodiny[index].push(cas);
+                ucebny[index].push(zaznam.ucebna);
+            }
         });
     });
 
