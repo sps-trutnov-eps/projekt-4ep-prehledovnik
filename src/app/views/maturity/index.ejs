@@ -1,82 +1,110 @@
 <!DOCTYPE html>
-    <%- include('../partials/head'); %>
-    <style>
-      .button {
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        width: 100%;
-        padding: 10px;
-      }
-      .tlacitko {
-        margin: 20px 0;
-        padding: 15px;
-        /* background-color: #007bff;
-        color: white; */
-        border: none;
-        border-radius: 5px;
-        width: 100%;
-        text-align: center;
-        font-size: 16px;
-      }
-    </style>
-      <article
+<%- include('../partials/head'); %>
+<style>
+  .button {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    padding: 10px;
+  }
+  .tlacitko {
+    margin: 20px 0;
+    padding: 15px;
+    /* background-color: #007bff;
+    color: white; */
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+  }
+</style>
+
+<article
+  style="
+    width: 20vw;
+    min-width: 20vw;
+    margin-right: 1em;
+    overflow-y: auto;
+    resize: horizontal;
+  ">
+  <div class="button">
+    <a href="../maturity/">
+      <button class="tlacitko">PŽOP</button>
+    </a>
+    <a href="../maturity/pcmz">
+      <button class="tlacitko">PČMZ</button>
+    </a>
+    <a href="../maturity/scmz">
+      <button class="tlacitko">SČMZ</button>
+    </a>
+    <a href="../maturity/sloh">
+      <button class="tlacitko">SLOH</button>
+    </a>
+  </div>
+</article>
+
+<article style="flex: 3; overflow-y: auto">
+  <h1>PŽOP</h1>
+  <form
+    action="/maturity/ukladanipzop"
+    method="POST"
+    style="display: flex; flex-direction: column"
+    id="form">
+    <label for="den-konani">Den konání:</label>
+    <input type="date" id="den-konani" name="den_konani" disabled />
+
+    <label for="dodatecne-dny">Dodatečné dny:</label>
+    <input type="date" id="dodatecne-dny" name="dodatecne_dny" disabled />
+
+    <label for="ucebna">Učebna:</label>
+    <select
+      id="ucebna"
+      name="ucebna"
+      style="margin-bottom: 1em; padding: 0.5em"
+      disabled>
+      <option value="ucebna1">Učebna 1</option>
+      <option value="ucebna2">Učebna 2</option>
+      <option value="ucebna3">Učebna 3</option>
+    </select>
+
+    <div style="text-align: center">
+      <button
+        type="button"
+        id="editButton"
+        onclick="enableForm()"
+        style="padding: 0.5em; border: none; cursor: pointer; width: 150px">
+        Edit
+      </button>
+      <button
+        type="submit"
+        id="submitButton"
         style="
-          width: 20vw;
-          min-width: 20vw;
-          margin-right: 1em;
-          overflow-y: auto;
-          resize: horizontal;
+          padding: 0.5em;
+          border: none;
+          cursor: pointer;
+          width: 150px;
+          display: none;
         ">
-
-        <div class="button">
-          <a href="../maturity/">
-            <button class="tlacitko">PŽOP</button>
-          </a>
-          <a href="../maturity/pcmz">
-            <button class="tlacitko">PČMZ</button>
-          </a>
-          <a href="../maturity/scmz">
-            <button class="tlacitko">SČMZ</button>
-          </a>
-          <a href="../maturity/sloh">
-            <button class="tlacitko">SLOH</button>
-          </a>
-        </div>
-      </article>
-
-      <article style="flex: 3; overflow-y: auto">
-        <h1>PŽOP</h1>
-        <form action="/maturity/ukladanipzop"; method="POST"; style="display: flex; flex-direction: column">
-          <label for="den-konani">Den konání:</label>
-          <input type="date" id="den-konani" name="den_konani" />
-
-          <label for="dodatecne-dny">Dodatečné dny:</label>
-          <input type="date" id="dodatecne-dny" name="dodatecne_dny" />
-
-          <label for="ucebna">Učebna:</label>
-          <select
-            id="ucebna"
-            name="ucebna"
-            style="margin-bottom: 1em; padding: 0.5em">
-            <option value="ucebna1">Učebna 1</option>
-            <option value="ucebna2">Učebna 2</option>
-            <option value="ucebna3">Učebna 3</option>
-          </select>
-
-          <div style="text-align: center">
-            <button
-              type="submit"
-              style="
-                padding: 0.5em;
-                border: none;
-                cursor: pointer;
-                width: 150px;
-              ">
-              Uložit
-            </button>
-          </div>
-        </form>
-      </article>
+        Uložit
+      </button>
+    </div>
+  </form>
+</article>
 
 <%- include('../partials/tail') %>
+
+<script>
+  function enableForm() {
+    const form = document.getElementById("form");
+    const inputs = form.querySelectorAll("input, select");
+
+    inputs.forEach((input) => {
+      input.disabled = false;
+    });
+
+    document.getElementById("editButton").style.display = "none";
+    document.getElementById("submitButton").style.display = "inline-block";
+  }
+</script>
