@@ -2,7 +2,7 @@
 <%- include('../partials/head'); %>
   <article style="width: 20vw; min-width: 20vw; margin-right: 1em; resize: horizontal;">
     <header>
-      <h1>Nová událost</h1>
+      <h1 class="toClick" onclick="window.location.href='/udalosti/'">Nová událost</h1>
     </header>
     <main>
       <form 
@@ -103,6 +103,8 @@
             <option value="mladeBuky">Mladé Buky</option>
           </select>
         </div>
+        <!-- data pro změnu -->
+        <input type="hidden" name="PuvodniData" value="">
 
         <input type="text" name="poznamka_udalosti" placeholder="Poznámka:" />
         <input type="submit" value="Uložit" />
@@ -126,6 +128,10 @@
           border-collapse: collapse;
         }
         
+        h1.toClick:hover {
+          cursor: pointer;
+        }
+
         .events-table .toClick {
           position: relative;
           cursor: pointer;
@@ -145,10 +151,6 @@
         .events-table td:nth-child(5) { width: 15%; }
         .events-table td:nth-child(6) { width: 10%; }
         .events-table td:nth-child(7) { width: 5%; }
-        
-        .events-table tr:hover {
-          background-color: #f5f5f5;
-        }
         
         .delete-btn {
           background: none;
@@ -457,12 +459,14 @@
 
       // Poznámka
       document.querySelector('[name="poznamka_udalosti"]').value = udalost.poznamka || '';
+      
+      // Pro načtení původních dat
+      document.querySelector('[name="PuvodniData"]').value = udalostData || '';
 
       // Zobrazení relevantních polí
       const manager = new UdalostiManager(); // Případné obnovení správce formuláře
       manager.updateVisibility();
       manager.updateRequiredFields();
-}
-
+    }
   </script>
 <%- include('../partials/tail') %>

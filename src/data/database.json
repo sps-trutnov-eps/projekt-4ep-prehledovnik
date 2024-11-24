@@ -43,51 +43,62 @@
         "nextID": 1
     },
     "udalosti": {
-        "3": {
-            "nazev": "zkulkůoú",
-            "typ": "celoskolni",
-            "datum": "2024-11-23",
-            "datumDo": null,
-            "casOd": null,
-            "casDo": null,
-            "vyberZadani": "celodenni",
-            "tykaSe": null,
-            "poznamka": ""
-        },
-        "5": {
-            "nazev": "udalost1",
-            "typ": "celoskolni",
-            "datum": "2024-11-24",
-            "datumDo": null,
-            "casOd": null,
-            "casDo": null,
-            "vyberZadani": "celodenni",
-            "tykaSe": null,
-            "poznamka": ""
-        },
-        "6": {
-            "nazev": "udalost1",
-            "typ": "celotridni",
-            "datum": "2024-11-24",
-            "datumDo": null,
-            "casOd": null,
-            "casDo": null,
-            "vyberZadani": "celodenni",
-            "tykaSe": "1EP",
-            "poznamka": ""
-        },
         "7": {
+            "nazev": "udalost1aa",
+            "typ": "ucitelsky",
+            "datum": "2024-11-24",
+            "datumDo": null,
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "celodenni",
+            "tykaSe": "Jakub Šenkýř",
+            "poznamka": ""
+        },
+        "9": {
             "nazev": "udalost1",
+            "typ": "celoskolni",
+            "datum": "2024-11-24",
+            "datumDo": null,
+            "casOd": "7:10",
+            "casDo": "8:45",
+            "vyberZadani": "casIDatum",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "10": {
+            "nazev": "udalost",
+            "typ": "celoskolni",
+            "datum": "2024-11-24",
+            "datumDo": "2024-11-30",
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "vicedenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "11": {
+            "nazev": "udalost",
+            "typ": "ucitelsky",
+            "datum": "2024-11-24",
+            "datumDo": "2024-11-30",
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "vicedenni",
+            "tykaSe": "Jakub Šenkýř",
+            "poznamka": "¨55"
+        },
+        "12": {
+            "nazev": "udalost1d",
             "typ": "celotridni",
             "datum": "2024-11-24",
             "datumDo": null,
             "casOd": null,
             "casDo": null,
             "vyberZadani": "celodenni",
-            "tykaSe": "2EP",
-            "poznamka": ""
+            "tykaSe": "3EP",
+            "poznamka": "ss"
         },
-        "nextID": 8
+        "nextID": 13
     },
     "maturity": {
         "SLOH": {
