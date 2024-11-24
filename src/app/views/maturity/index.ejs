@@ -9,7 +9,7 @@
     padding: 10px;
   }
   .tlacitko {
-    margin: 20px 0;
+    margin: 8px 0;
     padding: 15px;
     /* background-color: #007bff;
     color: white; */
@@ -32,7 +32,6 @@
     overflow-y: auto;
     resize: horizontal;
   ">
-
   <div class="button">
     <a href="../maturity/">
       <button class="tlacitko">Praktická</button>
@@ -50,8 +49,11 @@
 </article>
 
 <article style="flex: 3; overflow-y: auto">
-  <h1 style="padding: 10px;">Praktická zkouška z odborných předmětů</h1>
-  <form action="/maturity/ukladanipzop" method="POST" style="display: flex; flex-direction: column">
+  <h1 style="padding: 10px">Praktická zkouška z odborných předmětů</h1>
+  <form
+    action="/maturity/ukladanipzop"
+    method="POST"
+    style="display: flex; flex-direction: column">
     <label for="den-konani">Den konání:</label>
     <input type="date" id="den-konani" name="den_konani" />
 
@@ -71,12 +73,7 @@
     <div style="text-align: center">
       <button
         type="submit"
-        style="
-          padding: 0.5em;
-          border: none;
-          cursor: pointer;
-          width: 150px;
-        ">
+        style="padding: 0.5em; border: none; cursor: pointer; width: 150px">
         Uložit
       </button>
     </div>

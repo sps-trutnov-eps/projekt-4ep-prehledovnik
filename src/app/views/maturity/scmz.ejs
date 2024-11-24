@@ -1,138 +1,131 @@
 <!DOCTYPE html>
-    <%- include('../partials/head'); %>
-    <style>
-      .button {
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        width: 100%;
-        padding: 10px;
-      }
-      .tlacitko {
-        margin: 20px 0;
-        padding: 15px;
-        border: none;
-        border-radius: 5px;
-        width: 100%;
-        text-align: center;
-        font-size: 16px;
-      }
-    </style>
+<%- include('../partials/head'); %>
+<style>
+  .button {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    padding: 10px;
+  }
+  .tlacitko {
+    margin: 8px 0;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+  }
+</style>
 
-      <article
-        style="
-          width: 20vw;
-          min-width: 20vw;
-          margin-right: 1em;
-          overflow-y: auto;
-          resize: horizontal;
-        ">
+<article
+  style="
+    width: 20vw;
+    min-width: 20vw;
+    margin-right: 1em;
+    overflow-y: auto;
+    resize: horizontal;
+  ">
+  <div class="button">
+    <a href="../maturity/">
+      <button class="tlacitko">Praktická</button>
+    </a>
+    <a href="../maturity/pcmz">
+      <button class="tlacitko">Ústní</button>
+    </a>
+    <a href="../maturity/scmz">
+      <button class="tlacitko">Státní</button>
+    </a>
+    <a href="../maturity/sloh">
+      <button class="tlacitko">Sloh</button>
+    </a>
+  </div>
+</article>
 
-        <div class="button">
-          <a href="../maturity/">
-            <button class="tlacitko" >
-              Praktická
-            </button>
-          </a>
-          <a href="../maturity/pcmz">
-            <button class="tlacitko">
-              Ústní
-            </button>
-          </a>
-          <a href="../maturity/scmz">
-            <button class="tlacitko">
-              Státní
-            </button>
-          </a>
-          <a href="../maturity/sloh">
-            <button class="tlacitko">
-              Sloh
-            </button>
-          </a>
-        </div>
-      </article>
+<article style="flex: 3; overflow-y: auto">
+  <h1 style="padding: 10px">Společná část maturitní zkoušky</h1>
+  <form
+    action="/maturity/ukladaniscmz"
+    ;
+    method="POST"
+    ;
+    style="display: flex; flex-direction: column">
+    <table
+      id="scmz-table"
+      style="width: 100%; border-collapse: collapse; margin-bottom: 1em">
+      <thead>
+        <tr>
+          <th>Datum:</th>
+          <th>Zadávání:</th>
+          <th>Čas:</th>
+          <th>Učebna:</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="date" name="den1_datum" /></td>
+          <td>
+            <input
+              type="checkbox"
+              name="den1_checkbox"
+              class="zadavani-checkbox"
+              style="font-size: 50px; padding: 0.5em" />
+          </td>
+          <td>
+            <input
+              type="time"
+              name="den1_cas"
+              class="cas-input"
+              disabled
+              style="padding: 0.5em" />
+          </td>
+          <td>
+            <select
+              name="den1_ucebna"
+              class="ucebna-select"
+              disabled
+              style="padding: 0.5em">
+              <option value="">Vyberte učebnu</option>
+              <option value="T15">T15</option>
+              <option value="T16">T16</option>
+              <option value="T17">T17</option>
+            </select>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
-      <article style="flex: 3; overflow-y: auto">
-        <h1 style="padding: 10px;">Společná část maturitní zkoušky</h1>
-         <form action="/maturity/ukladaniscmz"; method="POST"; style="display: flex; flex-direction: column">
-          <table
-            id="scmz-table"
-            style="width: 100%; border-collapse: collapse; margin-bottom: 1em">
-            <thead>
-              <tr>
-                <th>Datum:</th>
-                <th>Zadávání:</th>
-                <th>Čas:</th>
-                <th>Učebna:</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><input type="date" name="den1_datum" /></td>
-                <td>
-                  <input
-                    type="checkbox"
-                    name="den1_checkbox"
-                    class="zadavani-checkbox"
-                    style="font-size: 50px; padding: 0.5em" />
-                </td>
-                <td>
-                  <input type="time" name="den1_cas" class="cas-input" disabled style="padding: 0.5em;" />
-                </td>
-                <td>
-                  <select
-                    name="den1_ucebna"
-                    class="ucebna-select"
-                    disabled
-                    style="padding: 0.5em">
-                    <option value="">Vyberte učebnu</option>
-                    <option value="T15">T15</option>
-                    <option value="T16">T16</option>
-                    <option value="T17">T17</option>
-                  </select>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+    <div style="text-align: center; margin-top: 1em">
+      <button
+        type="button"
+        id="pridat-datum"
+        style="padding: 0.5em; width: 150px; border: none; cursor: pointer">
+        Přidat datum
+      </button>
+    </div>
 
-          <div style="text-align: center;margin-top: 1em">
-            <button
-              type="button"
-              id="pridat-datum"
-              style="
-                padding: 0.5em;
-                width: 150px;
-                border: none;
-                cursor: pointer;
-              ">
-              Přidat datum
-            </button>
-          </div>
+    <div style="text-align: center; margin-top: 1px">
+      <button
+        type="submit"
+        style="padding: 0.5em; border: none; cursor: pointer; width: 150px">
+        Uložit
+      </button>
+    </div>
+  </form>
+</article>
 
-          <div style="text-align: center; margin-top: 1px">
-            <button
-              type="submit"
-              style="
-                padding: 0.5em;
-                border: none;
-                cursor: pointer;
-                width: 150px;
-              ">
-              Uložit
-            </button>
-          </div>
-        </form>
-      </article>
-      
-      <script>
-        let dayCounter = 1;
-      
-        document.getElementById("pridat-datum").addEventListener("click", function () {
-          dayCounter++;
-          const tableBody = document.querySelector("#scmz-table tbody");
-          const newRow = document.createElement("tr");
-      
-          newRow.innerHTML = `
+<script>
+  let dayCounter = 1;
+
+  document
+    .getElementById("pridat-datum")
+    .addEventListener("click", function () {
+      dayCounter++;
+      const tableBody = document.querySelector("#scmz-table tbody");
+      const newRow = document.createElement("tr");
+
+      newRow.innerHTML = `
             <td><input type="date" name="den${dayCounter}_datum"></td>
             <td><input type="checkbox" class="zadavani-checkbox" style="padding: 0.5em; font-size: 50px;"></td>
             <td><input type="time" name="den${dayCounter}_cas" class="cas-input" disabled style="padding: 0.5em;"></td>
@@ -145,44 +138,43 @@
               </select>
             </td>
           `;
-      
-          tableBody.appendChild(newRow);
-          addCheckboxFunctionality(newRow);
-        });
 
-        function addCheckboxFunctionality(row) {
-          const checkbox = row.querySelector(".zadavani-checkbox");
-          const timeInput = row.querySelector(".cas-input");
-          const classroomSelect = row.querySelector(".ucebna-select");
+      tableBody.appendChild(newRow);
+      addCheckboxFunctionality(newRow);
+    });
 
-          checkbox.addEventListener("change", function () {
-            if (checkbox.checked) {
-              timeInput.disabled = false;
-              classroomSelect.disabled = false;
-            } else {
-              timeInput.value = "";
-              timeInput.disabled = true;
-              classroomSelect.selectedIndex = 0;
-              classroomSelect.disabled = true;
-            }
-          });
-        }
-      
-        document.querySelector("form").addEventListener("submit", function () {
-          document.querySelectorAll("tbody tr").forEach(function (row) {
-            const checkbox = row.querySelector(".zadavani-checkbox");
-            const timeInput = row.querySelector(".cas-input");
-            const classroomSelect = row.querySelector(".ucebna-select");
-      
-            if (checkbox.checked) {
-              timeInput.disabled = false;
-              classroomSelect.disabled = false;
-            }
-          });
-        });
-      
-        document.querySelectorAll("tbody tr").forEach(addCheckboxFunctionality);
-      </script>
-      
+  function addCheckboxFunctionality(row) {
+    const checkbox = row.querySelector(".zadavani-checkbox");
+    const timeInput = row.querySelector(".cas-input");
+    const classroomSelect = row.querySelector(".ucebna-select");
+
+    checkbox.addEventListener("change", function () {
+      if (checkbox.checked) {
+        timeInput.disabled = false;
+        classroomSelect.disabled = false;
+      } else {
+        timeInput.value = "";
+        timeInput.disabled = true;
+        classroomSelect.selectedIndex = 0;
+        classroomSelect.disabled = true;
+      }
+    });
+  }
+
+  document.querySelector("form").addEventListener("submit", function () {
+    document.querySelectorAll("tbody tr").forEach(function (row) {
+      const checkbox = row.querySelector(".zadavani-checkbox");
+      const timeInput = row.querySelector(".cas-input");
+      const classroomSelect = row.querySelector(".ucebna-select");
+
+      if (checkbox.checked) {
+        timeInput.disabled = false;
+        classroomSelect.disabled = false;
+      }
+    });
+  });
+
+  document.querySelectorAll("tbody tr").forEach(addCheckboxFunctionality);
+</script>
 
 <%- include('../partials/tail') %>
