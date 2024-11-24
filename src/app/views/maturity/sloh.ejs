@@ -1,295 +1,282 @@
 <!DOCTYPE html>
-    <%- include('../partials/head'); %>
-    <style>
-      .button {
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        width: 100%;
-        padding: 10px;
-      }
-      .tlacitko {
-        margin: 20px 0;
-        padding: 15px;
-        border: none;
-        border-radius: 5px;
-        width: 100%;
-        text-align: center;
-        font-size: 16px;
-      }
+<%- include('../partials/head'); %>
+<style>
+  .button {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    padding: 10px;
+  }
+  .tlacitko {
+    margin: 20px 0;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+  }
 
-      table > thead > tr > th > p {
-        font-size: 17px;
-      }
+  table > thead > tr > th > p {
+    font-size: 17px;
+  }
 
-      th {
-        text-align: center;
-      }
-    </style>
+  th {
+    text-align: center;
+  }
+</style>
 
-      <article
-        style="
-          width: 20vw;
-          min-width: 20vw;
-          margin-right: 1em;
-          overflow-y: auto;
-          resize: horizontal;
-        ">
+<article
+  style="
+    width: 20vw;
+    min-width: 20vw;
+    margin-right: 1em;
+    overflow-y: auto;
+    resize: horizontal;
+  ">
+  <div class="button">
+    <a href="../maturity/">
+      <button class="tlacitko">Praktická</button>
+    </a>
+    <a href="../maturity/pcmz">
+      <button class="tlacitko">Ústní</button>
+    </a>
+    <a href="../maturity/scmz">
+      <button class="tlacitko">Státní</button>
+    </a>
+    <a href="../maturity/sloh">
+      <button class="tlacitko">Sloh</button>
+    </a>
+  </div>
+</article>
 
-        <div class="button">
-          <a href="../maturity/">
-            <button class="tlacitko">Praktická</button>
-          </a>
-          <a href="../maturity/pcmz">
-            <button class="tlacitko">Ústní</button>
-          </a>
-          <a href="../maturity/scmz">
-            <button class="tlacitko">Státní</button>
-          </a>
-          <a href="../maturity/sloh">
-            <button class="tlacitko">Sloh</button>
-          </a>
-        </div>
-      </article>
+<article style="flex: 3; overflow-y: auto">
+  <h1 style="padding: 10px">Slohová práce</h1>
 
-      <article style="flex: 3; overflow-y: auto">
-        <h1>Slohová práce</h1>
+  <form action="/maturity/ukladanisloh" method="POST">
+    <table style="border-collapse: collapse; width: 100%">
+      <thead>
+        <tr>
+          <th style="text-align: center">Datum:</th>
+          <th>
+            1.
+            <p>8:00-8:45</p>
+          </th>
+          <th>
+            2.
+            <p>8:50-9:35</p>
+          </th>
+          <th>
+            3.
+            <p>9:55-10:40</p>
+          </th>
+          <th>
+            4.
+            <p>10:50-11:35</p>
+          </th>
+          <th>
+            5.
+            <p>11:40-12:25</p>
+          </th>
+          <th>
+            6.
+            <p>12:35-13:20</p>
+          </th>
+          <th>
+            7.
+            <p>13:25-14:10</p>
+          </th>
+          <th>
+            8.
+            <p>14:15-15:00</p>
+          </th>
+          <th>
+            9.
+            <p>15:10-15:55</p>
+          </th>
+        </tr>
+      </thead>
+      <tbody id="table-body">
+        <tr>
+          <td><input type="date" name="den1_datum[]" /></td>
 
-         <form action="/maturity/ukladanisloh" method="POST">
-          <table style="border-collapse: collapse; width: 100%">
-            <thead>
-              <tr>
-                <th style="text-align: center">Datum:</th>
-                <th>
-                  1.
-                  <p>8:00-8:45</p>
-                </th>
-                <th>
-                  2.
-                  <p>8:50-9:35</p>
-                </th>
-                <th>
-                  3.
-                  <p>9:55-10:40</p>
-                </th>
-                <th>
-                  4.
-                  <p>10:50-11:35</p>
-                </th>
-                <th>
-                  5.
-                  <p>11:40-12:25</p>
-                </th>
-                <th>
-                  6.
-                  <p>12:35-13:20</p>
-                </th>
-                <th>
-                  7.
-                  <p>13:25-14:10</p>
-                </th>
-                <th>
-                  8.
-                  <p>14:15-15:00</p>
-                </th>
-                <th>
-                  9.
-                  <p>15:10-15:55</p>
-                </th>
-              </tr>
-            </thead>
-            <tbody id="table-body">
-              <tr>
-                <td><input type="date" name="den1_datum[]" /></td>
+          <td class="clickable-cell" data-hodina="1">
+            <input type="hidden" name="den1_ucebna-1[]" value="" />Klikni
+          </td>
+          <td class="clickable-cell" data-hodina="2">
+            <input type="hidden" name="den1_ucebna-2[]" value="" />Klikni
+          </td>
+          <td class="clickable-cell" data-hodina="3">
+            <input type="hidden" name="den1_ucebna-3[]" value="" />Klikni
+          </td>
+          <td class="clickable-cell" data-hodina="4">
+            <input type="hidden" name="den1_ucebna-4[]" value="" />Klikni
+          </td>
+          <td class="clickable-cell" data-hodina="5">
+            <input type="hidden" name="den1_ucebna-5[]" value="" />Klikni
+          </td>
+          <td class="clickable-cell" data-hodina="6">
+            <input type="hidden" name="den1_ucebna-6[]" value="" />Klikni
+          </td>
+          <td class="clickable-cell" data-hodina="7">
+            <input type="hidden" name="den1_ucebna-7[]" value="" />Klikni
+          </td>
+          <td class="clickable-cell" data-hodina="8">
+            <input type="hidden" name="den1_ucebna-8[]" value="" />Klikni
+          </td>
+          <td class="clickable-cell" data-hodina="9">
+            <input type="hidden" name="den1_ucebna-9[]" value="" />Klikni
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="text-align: center">
+      <button
+        onclick="addRow()"
+        type="button"
+        id="pridat-datum"
+        style="padding: 0.5em; width: 150px; border: none; cursor: pointer">
+        Přidat datum
+      </button>
+    </div>
 
-                <td class="clickable-cell" data-hodina="1">
-                  <input type="hidden" name="den1_ucebna-1[]" value="" />Klikni
-                </td>
-                <td class="clickable-cell" data-hodina="2">
-                  <input type="hidden" name="den1_ucebna-2[]" value="" />Klikni
-                </td>
-                <td class="clickable-cell" data-hodina="3">
-                  <input type="hidden" name="den1_ucebna-3[]" value="" />Klikni
-                </td>
-                <td class="clickable-cell" data-hodina="4">
-                  <input type="hidden" name="den1_ucebna-4[]" value="" />Klikni
-                </td>
-                <td class="clickable-cell" data-hodina="5">
-                  <input type="hidden" name="den1_ucebna-5[]" value="" />Klikni
-                </td>
-                <td class="clickable-cell" data-hodina="6">
-                  <input type="hidden" name="den1_ucebna-6[]" value="" />Klikni
-                </td>
-                <td class="clickable-cell" data-hodina="7">
-                  <input type="hidden" name="den1_ucebna-7[]" value="" />Klikni
-                </td>
-                <td class="clickable-cell" data-hodina="8">
-                  <input type="hidden" name="den1_ucebna-8[]" value="" />Klikni
-                </td>
-                <td class="clickable-cell" data-hodina="9">
-                  <input type="hidden" name="den1_ucebna-9[]" value="" />Klikni
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <div style="text-align: center">
-            <button
-              onclick="addRow()"
-              type="button"
-              id="pridat-datum"
-              style="
-                padding: 0.5em;
-                width: 150px;
-                border: none;
-                cursor: pointer;
-              ">
-              Přidat datum
-            </button>
-          </div>
+    <div style="text-align: center">
+      <button
+        type="submit"
+        style="padding: 0.5em; border: none; cursor: pointer; width: 150px">
+        Uložit
+      </button>
+    </div>
+  </form>
 
-          <div style="text-align: center">
-            <button
-              type="submit"
-              style="
-                padding: 0.5em;
-                border: none;
-                cursor: pointer;
-                width: 150px;
-              ">
-              Uložit
-            </button>
-          </div>
-        </form>
+  <div
+    id="classroomModal"
+    style="
+      border: solid black;
+      background: lightslategrey;
+      display: none;
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      padding: 1em;
+      border: 1px solid black;
+    ">
+    <h2>Vyber učebnu</h2>
 
-        <div
-          id="classroomModal"
-          style="
-            border: solid black;
-            background: lightslategrey;
-            display: none;
-            position: fixed;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            padding: 1em;
-            border: 1px solid black;
-          ">
-          <h2>Vyber učebnu</h2>
+    <p id="selectedHourText"></p>
 
-          <p id="selectedHourText"></p>
+    <select id="classroomSelect">
+      <option value="T15">T15</option>
+      <option value="T16">T16</option>
+      <option value="T17">T17</option>
+    </select>
+    <br /><br />
+    <button type="button" onclick="saveClassroom()">Uložit</button>
+    <button type="button" onclick="closeModal()">Zrušit</button>
+  </div>
+</article>
 
-          <select id="classroomSelect">
-            <option value="T15">T15</option>
-            <option value="T16">T16</option>
-            <option value="T17">T17</option>
-          </select>
-          <br /><br />
-          <button type="button" onclick="saveClassroom()">Uložit</button>
-          <button type="button" onclick="closeModal()">Zrušit</button>
-        </div>
-      </article>
+<script>
+  let selectedCell;
+  let selectedInput;
+  let dayCounter = 1;
 
-    <script>
-      let selectedCell;
-      let selectedInput;
-      let dayCounter = 1; 
+  const hodinyCasy = [
+    "8:00-8:45",
+    "8:50-9:35",
+    "9:55-10:40",
+    "10:50-11:35",
+    "11:40-12:25",
+    "12:35-13:20",
+    "13:25-14:10",
+    "14:15-15:00",
+    "15:10-15:55",
+  ];
 
-      const hodinyCasy = [
-        "8:00-8:45",
-        "8:50-9:35",
-        "9:55-10:40",
-        "10:50-11:35",
-        "11:40-12:25",
-        "12:35-13:20",
-        "13:25-14:10",
-        "14:15-15:00",
-        "15:10-15:55",
-      ];
+  document.querySelectorAll(".clickable-cell").forEach((cell) => {
+    cell.addEventListener("click", function () {
+      selectedCell = this;
+      selectedInput = this.querySelector("input");
+      const selectedHour = cell.getAttribute("data-hodina");
 
-      document.querySelectorAll(".clickable-cell").forEach((cell) => {
-        cell.addEventListener("click", function () {
-          selectedCell = this;
-          selectedInput = this.querySelector("input");
-          const selectedHour = cell.getAttribute("data-hodina");
+      document.getElementById(
+        "selectedHourText"
+      ).textContent = `Hodina: ${selectedHour}. (${
+        hodinyCasy[selectedHour - 1]
+      })`;
 
-          document.getElementById(
-            "selectedHourText"
-          ).textContent = `Hodina: ${selectedHour}. (${
-            hodinyCasy[selectedHour - 1]
-          })`;
-
-          const currentClassroom = selectedInput.value;
-          if (currentClassroom) {
-            document.getElementById("classroomSelect").value = currentClassroom;
-          } else {
-            document.getElementById("classroomSelect").value = "T15";
-          }
-
-          document.getElementById("classroomModal").style.display = "block";
-        });
-      });
-
-      function saveClassroom() {
-        const selectedClassroom =
-          document.getElementById("classroomSelect").value;
-
-        selectedInput.value = selectedClassroom;
-
-        selectedCell.textContent = selectedClassroom;
-
-        selectedCell.appendChild(selectedInput);
-
-        closeModal();
+      const currentClassroom = selectedInput.value;
+      if (currentClassroom) {
+        document.getElementById("classroomSelect").value = currentClassroom;
+      } else {
+        document.getElementById("classroomSelect").value = "T15";
       }
 
-      function closeModal() {
-        document.getElementById("classroomModal").style.display = "none";
-      }
+      document.getElementById("classroomModal").style.display = "block";
+    });
+  });
 
-      function addRow() {
-        dayCounter++;
-        const tableBody = document.getElementById("table-body");
-        const newRow = document.createElement("tr");
+  function saveClassroom() {
+    const selectedClassroom = document.getElementById("classroomSelect").value;
 
-        const dateCell = document.createElement("td");
-        const dateInput = document.createElement("input");
-        dateInput.type = "date";
-        dateInput.name = "den" + dayCounter + "_datum[]";
-        dateCell.appendChild(dateInput);
-        newRow.appendChild(dateCell);
+    selectedInput.value = selectedClassroom;
 
-        for (let i = 1; i <= 9; i++) {
-          const cell = document.createElement("td");
-          const input = document.createElement("input");
-          input.type = "hidden";
-          input.name = `den${dayCounter}_ucebna-${i}[]`;
-          cell.textContent = "Klikni";
-          cell.className = "clickable-cell";
-          cell.appendChild(input);
+    selectedCell.textContent = selectedClassroom;
 
-          cell.addEventListener("click", function () {
-            selectedCell = cell;
-            selectedInput = input;
+    selectedCell.appendChild(selectedInput);
 
-            document.getElementById(
-              "selectedHourText"
-            ).textContent = `Hodina: ${i}. (${hodinyCasy[i - 1]})`;
+    closeModal();
+  }
 
-            const currentClassroom = selectedInput.value;
-            if (currentClassroom) {
-              document.getElementById("classroomSelect").value =
-                currentClassroom;
-            } else {
-              document.getElementById("classroomSelect").value = "T15";
-            }
+  function closeModal() {
+    document.getElementById("classroomModal").style.display = "none";
+  }
 
-            document.getElementById("classroomModal").style.display = "block";
-          });
-          newRow.appendChild(cell);
+  function addRow() {
+    dayCounter++;
+    const tableBody = document.getElementById("table-body");
+    const newRow = document.createElement("tr");
+
+    const dateCell = document.createElement("td");
+    const dateInput = document.createElement("input");
+    dateInput.type = "date";
+    dateInput.name = "den" + dayCounter + "_datum[]";
+    dateCell.appendChild(dateInput);
+    newRow.appendChild(dateCell);
+
+    for (let i = 1; i <= 9; i++) {
+      const cell = document.createElement("td");
+      const input = document.createElement("input");
+      input.type = "hidden";
+      input.name = `den${dayCounter}_ucebna-${i}[]`;
+      cell.textContent = "Klikni";
+      cell.className = "clickable-cell";
+      cell.appendChild(input);
+
+      cell.addEventListener("click", function () {
+        selectedCell = cell;
+        selectedInput = input;
+
+        document.getElementById(
+          "selectedHourText"
+        ).textContent = `Hodina: ${i}. (${hodinyCasy[i - 1]})`;
+
+        const currentClassroom = selectedInput.value;
+        if (currentClassroom) {
+          document.getElementById("classroomSelect").value = currentClassroom;
+        } else {
+          document.getElementById("classroomSelect").value = "T15";
         }
 
-        tableBody.appendChild(newRow);
-      }
-    </script>
+        document.getElementById("classroomModal").style.display = "block";
+      });
+      newRow.appendChild(cell);
+    }
+
+    tableBody.appendChild(newRow);
+  }
+</script>
 
 <%- include('../partials/tail') %>
