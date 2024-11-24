@@ -230,10 +230,10 @@ const udalosti = {
         let udalosti = gU();
         let nextID = udalosti["nextID"];
         for(let i = 0; i < nextID; i++){
-            if(JSON.stringify(udalosti[String(i)]) === JSON.stringify(puvodniUdalost))
+            if(JSON.stringify(udalosti[String(i)]) === puvodniUdalost)
                 udalosti[String(i)] = novaUdalost;
         }
-        sU(udalost);
+        sU(udalosti);
     },
     odebratUdalost: (udalost) => {
         let udalosti = gU();
