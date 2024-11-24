@@ -18,6 +18,30 @@ exports.smazat = (req, res) => {
     res.redirect("/udalosti");
 }
 
+exports.nactiUdalost = (req, res) => {
+    const id = req.params.id;
+    const udalost = databaze.udalosti.ziskatUdalostPodleId(id); // Získej událost podle ID
+    res.render('udalosti/formular.ejs', { udalost }); // Otevři stejný formulář
+}
+
+exports.upravit = (req, res) => {
+    const id = req.params.id;
+    // Načti nová data z formuláře
+    const novaUdalost = {
+        jmeno: req.body.jmeno_udalosti,
+        typAkce: req.body.typAkce,
+        datum: req.body.datum,
+        datumDo: req.body.datumDo || null,
+        casOd: req.body.casOd || null,
+        casDo: req.body.casDo || null,
+        poznamka: req.body.poznamka_udalosti,
+    };
+    // Aktualizuj v databázi
+    databaze.udalosti.upravitUdalost(id, novaUdalost);
+    res.redirect('/udalosti'); // Přesměruj zpět na seznam událostí
+}
+
+
 exports.pridat = (req, res) => {
     // Just checking
     if ((req.body.jmeno_udalosti.trim() && req.body.typAkce.trim()) != "") {
