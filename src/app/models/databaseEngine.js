@@ -302,7 +302,9 @@ const maturity = {
                         ucebna = maturity[typy[i]]["ucebny"][j];
                     }
                     if(nazev == "SLOH") {
-                        // Vypisování slohů jako událostí si nechám na později
+                        cOD = maturity[typy[i]]["casy"][j][0];
+                        cDO = maturity[typy[i]]["casy"][j][maturity[typy[i]]["casy"][j].length - 1];
+                        ucebna = maturity[typy[i]]["ucebny"][j][0];
                     } else {
                         if(nazev == "PŽOP" && j == 1){
                             nazev += " - dodatečný termín";
