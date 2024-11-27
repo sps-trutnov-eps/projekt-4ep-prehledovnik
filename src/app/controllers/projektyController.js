@@ -4,6 +4,8 @@ exports.zobrazTymy = (req, res) => {
     let tlacitka = "";
     const tridy = databaze.projekty.gP();
 
+    let tymy = [];
+
     for (const projektID in tridy) {
         if (projektID != "nextID") {
             const trida = tridy[projektID].trida;
@@ -17,12 +19,20 @@ exports.zobrazTymy = (req, res) => {
     }
     console.log(tridy);
 
-    res.render("projekty/tymy", { tlacitka: tlacitka });
+    res.render("projekty/tymy", { tlacitka: tlacitka, tymy: tymy });
 };
  
 exports.zobrazProjekt = (req, res) => { 
     let tlacitka = ""; 
     const tridy = databaze.projekty.gP(); 
+
+    let tymy = [];
+    for (const projektID in tridy) {
+        if (projektID !== "nextID" && tridy[projektID].trida === req.params.projekt) {
+            tymy = tridy[projektID].tymy;
+            break;
+        }
+    }
  
     for (const projektID in tridy) { 
         if (projektID != "nextID") { 
@@ -35,11 +45,10 @@ exports.zobrazProjekt = (req, res) => {
             } 
         } 
     } 
-    console.log(tridy); 
- 
-    // req.params.projekt 
- 
-    res.render("projekty/tymy", { tlacitka: tlacitka }); 
+
+    console.log(tymy);
+
+    res.render("projekty/tymy", { tlacitka: tlacitka, tymy: tymy }); 
 }; 
 
 

@@ -145,30 +145,14 @@
       <tr>
          <th>Týmy</th>
       </tr>
-      <tr>
-         <td>
-            <button onclick="showTeamInfo('Tým 1', this)">Tým 1</button>
-            <div class="team-info-section"></div>
-         </td>
-      </tr>
-      <tr>
-         <td>
-            <button onclick="showTeamInfo('Tým 2', this)">Tým 2</button>
-            <div class="team-info-section"></div>
-         </td>
-      </tr>
-      <tr>
-         <td>
-            <button onclick="showTeamInfo('Tým 3', this)">Tým 3</button>
-            <div class="team-info-section"></div>
-         </td>
-      </tr>
-      <tr>
-         <td>
-            <button onclick="showTeamInfo('Tým 4', this)">Tým 4</button>
-            <div class="team-info-section"></div>
-         </td>
-      </tr>
+      <% tymy.forEach((tym, index) => { %>
+         <tr>
+            <td>
+               <button onclick="showTeamInfo('Tým <%= index + 1 %>', this)">Tým <%= index + 1 %></button>
+               <div class="team-info-section"></div>
+            </td>
+         </tr>
+      <% }); %>
    </table>
 </article>
 
