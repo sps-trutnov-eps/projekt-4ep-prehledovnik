@@ -435,6 +435,7 @@
       // Vyplnění polí ve formuláři
       document.querySelector('[name="jmeno_udalosti"]').value = udalost.nazev;
       document.querySelector('[name="datum"]').value = udalost.datum;
+      document.querySelector('[name="datum"]').min = udalost.datum;
 
       if (udalost.vyberZadani === "celodenni") {
         document.getElementById('celodenni').checked = true;
