@@ -320,7 +320,7 @@ const maturity = {
                             casDo: cDO,
                             //
                             vyberZadani: "maturita",  
-                            tykaSe: ucebna, 
+                            tykaSe: ucebna ?? null, 
                             poznamka: `Učebna: ${ucebna ?? "není"}`
                         });
                     }
