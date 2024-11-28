@@ -24,6 +24,15 @@
           padding: 0em 1em;
           margin-bottom: 1em;
           --pico-color: hsl(199.41176, 100%, 100%);
+          ul {
+            width: 100%;
+          }
+          ul li:not(:first-child) {
+            flex-grow: 1;
+            button {
+              width: 100%;
+            }
+          }
       }
       article {
         overflow-y: hidden;
