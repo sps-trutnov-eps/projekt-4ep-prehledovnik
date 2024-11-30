@@ -53,18 +53,20 @@
   <form
     action="/maturity/ukladanipzop"
     method="POST"
-    style="display: flex; flex-direction: column">
+    style="display: flex; flex-direction: column"
+    id="form">
     <label for="den-konani">Den konání:</label>
-    <input type="date" id="den-konani" name="den_konani" />
+    <input type="date" id="den-konani" name="den_konani" disabled/>
 
     <label for="dodatecne-dny">Dodatečné dny:</label>
-    <input type="date" id="dodatecne-dny" name="dodatecne_dny" />
+    <input type="date" id="dodatecne-dny" name="dodatecne_dny" disabled/>
 
     <label for="ucebna">Učebna:</label>
     <select
       id="ucebna"
       name="ucebna"
-      style="margin-bottom: 1em; padding: 0.5em">
+      style="margin-bottom: 1em; padding: 0.5em"
+      disabled>
       <option value="ucebna1">Učebna 1</option>
       <option value="ucebna2">Učebna 2</option>
       <option value="ucebna3">Učebna 3</option>
@@ -72,8 +74,16 @@
 
     <div style="text-align: center">
       <button
-        type="submit"
+        type="button"
+        id="editButton"
+        onclick="enableForm()"
         style="padding: 0.5em; border: none; cursor: pointer; width: 150px">
+        Edit
+      </button>
+      <button
+        type="submit"
+        id="submitButton"
+        style="padding: 0.5em; border: none; cursor: pointer; width: 150px; display: none;">
         Uložit
       </button>
     </div>
@@ -81,3 +91,17 @@
 </article>
 
 <%- include('../partials/tail') %>
+
+<script>
+  function enableForm() {
+    const form = document.getElementById("form");
+    const inputs = form.querySelectorAll("input, select");
+
+    inputs.forEach((input) => {
+      input.disabled = false;
+    });
+
+    document.getElementById("editButton").style.display = "none";
+    document.getElementById("submitButton").style.display = "inline-block";
+  }
+</script>
