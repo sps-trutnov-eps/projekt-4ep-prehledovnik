@@ -1046,7 +1046,16 @@
         "nextID": 2
     },
     "maturity": {
-        "nextID": 1
+        "1": {
+            "nazev": "PŽOP",
+            "dny": [
+                "2024-11-14",
+                "2024-11-07"
+            ],
+            "casy": [],
+            "ucebna": "ucebna1"
+        },
+        "nextID": 2
     },
     "projekty": {
         "nextID": 1
