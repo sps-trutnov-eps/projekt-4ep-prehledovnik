@@ -57,7 +57,12 @@
             "predmet": "",
             "temata": ""
         },
-        "nextID": 5
+        "5": {
+            "trida": "",
+            "predmet": "",
+            "temata": ""
+        },
+        "nextID": 6
     },
     "rozvrhy": {
         "1": {
@@ -67,22 +72,964 @@
             "popis": "aa",
             "hodiny": {
                 "lichy": {
-                    "Po": {},
-                    "Ut": {},
-                    "St": {},
-                    "Ct": {},
-                    "Pa": {}
+                    "Po": {
+                        "0": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "1": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "2": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "3": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "4": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "5": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "6": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "7": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "8": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        }
+                    },
+                    "Ut": {
+                        "0": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "1": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "2": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "3": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "4": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "5": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "6": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "7": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "8": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        }
+                    },
+                    "St": {
+                        "0": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "1": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "2": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "3": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "4": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "5": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "6": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "7": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "8": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        }
+                    },
+                    "Ct": {
+                        "0": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "1": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "2": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "3": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "4": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "5": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "6": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "7": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "8": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        }
+                    },
+                    "Pa": {
+                        "0": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "1": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "2": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "3": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "4": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "5": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "6": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "7": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "8": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        }
+                    }
                 },
                 "sudy": {
-                    "Po": {},
-                    "Ut": {},
-                    "St": {},
-                    "Ct": {},
-                    "Pa": {}
+                    "Po": {
+                        "0": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "1": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "2": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "3": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "4": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "5": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "6": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "7": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "8": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        }
+                    },
+                    "Ut": {
+                        "0": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "1": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "2": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "3": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "4": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "5": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "6": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "7": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "8": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        }
+                    },
+                    "St": {
+                        "0": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "1": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "2": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "3": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "4": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "5": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "6": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "7": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "8": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        }
+                    },
+                    "Ct": {
+                        "0": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "1": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "2": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "3": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "4": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "5": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "6": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "7": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "8": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        }
+                    },
+                    "Pa": {
+                        "0": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "1": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "2": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "3": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "4": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "5": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "6": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "7": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "8": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        }
+                    }
                 }
             }
         },
-        "nextID": 2
+        "2": {
+            "id": 2,
+            "datum": "2024-11-30T14:33:44.628Z",
+            "nazev": "a",
+            "popis": "",
+            "hodiny": {
+                "lichy": {
+                    "Po": {
+                        "0": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "1": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "2": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "3": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "4": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "5": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "6": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "7": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "8": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        }
+                    },
+                    "Ut": {
+                        "0": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "1": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "2": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "3": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "4": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "5": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "6": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "7": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "8": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        }
+                    },
+                    "St": {
+                        "0": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "1": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "2": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "3": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "4": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "5": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "6": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "7": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "8": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        }
+                    },
+                    "Ct": {
+                        "0": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "1": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "2": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "3": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "4": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "5": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "6": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "7": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "8": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        }
+                    },
+                    "Pa": {
+                        "0": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "1": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "2": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "3": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "4": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "5": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "6": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "7": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "8": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        }
+                    }
+                },
+                "sudy": {
+                    "Po": {
+                        "0": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "1": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "2": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "3": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "4": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "5": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "6": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "7": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "8": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        }
+                    },
+                    "Ut": {
+                        "0": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "1": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "2": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "3": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "4": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "5": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "6": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "7": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "8": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        }
+                    },
+                    "St": {
+                        "0": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "1": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "2": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "3": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "4": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "5": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "6": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "7": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "8": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        }
+                    },
+                    "Ct": {
+                        "0": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "1": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "2": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "3": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "4": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "5": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "6": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "7": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "8": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        }
+                    },
+                    "Pa": {
+                        "0": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "1": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "2": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "3": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "4": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "5": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "6": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "7": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        },
+                        "8": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela"
+                        }
+                    }
+                }
+            }
+        },
+        "nextID": 3
     },
     "udalosti": {
         "1": {

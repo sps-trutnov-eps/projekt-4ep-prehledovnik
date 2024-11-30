@@ -25,28 +25,34 @@
           ul {
             width: 100%;
             li {
-                padding: 0;
+                padding: 0 .5em;
             }
             li:first-child {
                 padding-right: .5em;
             }
             li:not(:first-child) {
                 flex-grow: 1;
+            }
+          }
+        }
+      body {
+          display: flex;
+          flex-direction: column;
+          height: 100vh;
+          overflow: hidden;
+          > nav {
+            --pico-border-radius: 0;
+            --pico-background-color: hsl(223.17073, 55%, 39%);
+            background-color: hsl(223.17073, 55%, 29%);
+            margin-bottom: 1em;
+            li {
+              padding: 0 .5em;
               button {
                 width: 100%;
+              }
             }
           }
       }
-      }
-      body > nav {
-          --pico-border-radius: 0;
-          --pico-background-color: hsl(223.17073, 55%, 39%);
-          background-color: hsl(223.17073, 55%, 29%);
-          margin-bottom: 1em;
-          li {
-            padding: 0 .5em;
-            }
-          }
       article {
         --pico-card-sectioning-background-color: hsl(199.41176, 100%, 40%);
         overflow-y: hidden;
@@ -62,6 +68,10 @@
           max-width: 100%;
           --pico-color: white;
           --pico-h1-color: white;
+          > nav {
+              --pico-spacing: 0;
+              --pico-typography-spacing-vertical: 0;
+          }
           .outline {
               --pico-background-color: var(--pico-form-element-background-color) !important;
               --pico-border-color: var(--pico-form-element-border-color) !important;
@@ -75,13 +85,7 @@
       }
     </style>
   </head>
-  <body
-    style="
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-      overflow: hidden;
-    ">
+  <body>
     <%- include('../partials/header'); %>
 
     <main
