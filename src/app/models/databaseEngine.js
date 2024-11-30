@@ -230,10 +230,10 @@ const udalosti = {
         let udalosti = gU();
         let nextID = udalosti["nextID"];
         for(let i = 0; i < nextID; i++){
-            if(JSON.stringify(udalosti[String(i)]) === JSON.stringify(puvodniUdalost))
+            if(JSON.stringify(udalosti[String(i)]) === puvodniUdalost)
                 udalosti[String(i)] = novaUdalost;
         }
-        sU(udalost);
+        sU(udalosti);
     },
     odebratUdalost: (udalost) => {
         let udalosti = gU();
@@ -302,7 +302,9 @@ const maturity = {
                         ucebna = maturity[typy[i]]["ucebny"][j];
                     }
                     if(nazev == "SLOH") {
-                        // Vypisování slohů jako událostí si nechám na později
+                        cOD = maturity[typy[i]]["casy"][j][0];
+                        cDO = maturity[typy[i]]["casy"][j][maturity[typy[i]]["casy"][j].length - 1];
+                        ucebna = maturity[typy[i]]["ucebny"][j][0];
                     } else {
                         if(nazev == "PŽOP" && j == 1){
                             nazev += " - dodatečný termín";
@@ -318,7 +320,7 @@ const maturity = {
                             casDo: cDO,
                             //
                             vyberZadani: "maturita",  
-                            tykaSe: ucebna, 
+                            tykaSe: ucebna ?? null, 
                             poznamka: `Učebna: ${ucebna ?? "není"}`
                         });
                     }
