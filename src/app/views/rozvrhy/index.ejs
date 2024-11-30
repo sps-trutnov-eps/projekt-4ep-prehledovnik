@@ -184,7 +184,8 @@
                   <li>
                     <h1>Rozvrhy</h1>
                   </li>
-                  <li role="group">
+                  <li>
+                   <div role="group">
                     <select name="verze" id="jakaverze" onchange="nacteniVerze(this.value)">
                         <% if (rozvrhy && rozvrhy.length> 0) { %>
                             <% rozvrhy.forEach(function(verze) { %>
@@ -198,7 +199,10 @@
                         <% if (rozvrhy && rozvrhy.length> 0) { %>
                             <button onclick="ulozitRozvrh()">Uložit</button>
                         <% } %>
+                        </div>
                     </li>
+                </ul>
+                <ul>
                     <li>
                       <button onclick="toggleModal(event)"  data-target="createFormModal">Nová&nbsp;verze</button>
                     </li>

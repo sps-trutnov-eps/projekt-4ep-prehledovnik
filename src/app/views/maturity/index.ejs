@@ -29,7 +29,12 @@
           resize: horizontal;
         ">
 
-        <div class="button">
+      </article>
+
+      <article style="flex: 3; overflow-y: auto">
+        <header>
+        <h1>PŽOP</h1>
+        <div>
           <a href="../maturity/">
             <button class="tlacitko">PŽOP</button>
           </a>
@@ -43,10 +48,8 @@
             <button class="tlacitko">SLOH</button>
           </a>
         </div>
-      </article>
-
-      <article style="flex: 3; overflow-y: auto">
-        <h1>PŽOP</h1>
+        </header>
+        <body>
         <form action="/maturity/ukladanipzop"; method="POST"; style="display: flex; flex-direction: column">
           <label for="den-konani">Den konání:</label>
           <input type="date" id="den-konani" name="den_konani" />
@@ -77,6 +80,7 @@
             </button>
           </div>
         </form>
+        </body>
       </article>
 
 <%- include('../partials/tail') %>

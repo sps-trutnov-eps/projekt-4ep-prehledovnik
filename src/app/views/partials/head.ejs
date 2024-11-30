@@ -23,12 +23,8 @@
           --pico-color: hsl(199.41176, 100%, 100%);
           padding-left: .5em;
           ul {
-            width: 100%;
             li {
                 padding: 0 .5em;
-            }
-            li:first-child {
-                padding-right: .5em;
             }
             li:not(:first-child) {
                 flex-grow: 1;
@@ -45,6 +41,9 @@
             --pico-background-color: hsl(223.17073, 55%, 39%);
             background-color: hsl(223.17073, 55%, 29%);
             margin-bottom: 1em;
+            ul {
+                width: 100%;
+            }
             li {
               padding: 0 .5em;
               button {
