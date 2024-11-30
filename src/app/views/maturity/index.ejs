@@ -20,34 +20,51 @@
         font-size: 16px;
       }
     </style>
-      <article
-        style="
-          width: 20vw;
-          min-width: 20vw;
-          margin-right: 1em;
-          overflow-y: auto;
-          resize: horizontal;
-        ">
-
-        <div class="button">
-          <a href="../maturity/">
-            <button class="tlacitko">PŽOP</button>
-          </a>
-          <a href="../maturity/pcmz">
-            <button class="tlacitko">PČMZ</button>
-          </a>
-          <a href="../maturity/scmz">
-            <button class="tlacitko">SČMZ</button>
-          </a>
-          <a href="../maturity/sloh">
-            <button class="tlacitko">SLOH</button>
-          </a>
-        </div>
-      </article>
-
-      <article style="flex: 3; overflow-y: auto">
-        <h1>PŽOP</h1>
-        <form action="/maturity/ukladanipzop"; method="POST"; style="display: flex; flex-direction: column">
+    <article style="flex: 3; overflow-y: auto">
+      <header>
+        <nav>
+          <ul>
+            <li>
+              <h1>PŽOP</h1>
+            </li>
+          </ul>
+          <ul>
+            <li>
+              <div role="group">
+                <button
+                  hx-get="/maturity"
+                  hx-target="body"
+                  hx-push-url="true"
+                  hx-swap="transition:true">
+                PŽOP</button>
+                <button
+                  class="outline"
+                  hx-get="/maturity/pcmz"
+                  hx-target="body"
+                  hx-push-url="true"
+                  hx-swap="transition:true">
+                PČMZ</button>
+                <button
+                  class="outline"
+                  hx-get="/maturity/scmz"
+                  hx-target="body"
+                  hx-push-url="true"
+                  hx-swap="transition:true">
+                SČMZ</button>
+                <button
+                  class="outline"
+                  hx-get="/maturity/sloh"
+                  hx-target="body"
+                  hx-push-url="true"
+                  hx-swap="transition:true">
+                SLOH</button>
+              </div>
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <main>
+        <form action="/maturity/ukladanipzop" method="POST" style="display: flex; flex-direction: column">
           <label for="den-konani">Den konání:</label>
           <input type="date" id="den-konani" name="den_konani" />
 
@@ -77,6 +94,7 @@
             </button>
           </div>
         </form>
-      </article>
+      </main>
+    </article>
 
 <%- include('../partials/tail') %>

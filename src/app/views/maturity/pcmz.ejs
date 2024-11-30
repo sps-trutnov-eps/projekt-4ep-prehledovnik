@@ -35,37 +35,51 @@
       }
     </style>
 
-      <article
-        style="
-          width: 20vw;
-          min-width: 20vw;
-          margin-right: 1em;
-          overflow-y: auto;
-          resize: horizontal;
-        ">
-
-        <div class="button">
-          <a href="../maturity/">
-            <button class="tlacitko">PŽOP</button>
-          </a>
-          <a href="../maturity/pcmz">
-            <button class="tlacitko">PČMZ</button>
-          </a>
-          <a href="../maturity/scmz">
-            <button class="tlacitko">SČMZ</button>
-          </a>
-          <a href="../maturity/sloh">
-            <button class="tlacitko">SLOH</button>
-          </a>
-        </div>
-      </article>
-
-      <article style="flex: 3; overflow-y: auto">
-        <h1>PČMZ</h1>
-
-        <form action="/maturity/ukladanipcmz"; method="POST"; style="display: flex; flex-direction: column">
-          <style="display: flex; flex-direction: column; align-items: center"
-          id="projekt-form">
+    <article style="flex: 3; overflow-y: auto">
+      <header>
+        <nav>
+          <ul>
+            <li>
+              <h1>PČMZ</h1>
+            </li>
+          </ul>
+          <ul>
+            <li>
+              <div role="group">
+                <button
+                  class="outline"
+                  hx-get="/maturity"
+                  hx-target="body"
+                  hx-push-url="true"
+                  hx-swap="transition:true">
+                PŽOP</button>
+                <button
+                  hx-get="/maturity/pcmz"
+                  hx-target="body"
+                  hx-push-url="true"
+                  hx-swap="transition:true">
+                PČMZ</button>
+                <button
+                  class="outline"
+                  hx-get="/maturity/scmz"
+                  hx-target="body"
+                  hx-push-url="true"
+                  hx-swap="transition:true">
+                SČMZ</button>
+                <button
+                  class="outline"
+                  hx-get="/maturity/sloh"
+                  hx-target="body"
+                  hx-push-url="true"
+                  hx-swap="transition:true">
+                SLOH</button>
+              </div>
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <main>
+        <form action="/maturity/ukladanipcmz" methods="POST" style="display: flex; flex-direction: column; align-items: center" id="projekt-form">
           <table
             style="border-collapse: collapse; text-align: center"
             id="hodiny_tabulka">
@@ -203,6 +217,7 @@
             </button>
           </div>
         </form>
+        </main>
       </article>
     </>
 
@@ -218,7 +233,7 @@
       var bunkaDatum = document.createElement("td");
       var inputDatum = document.createElement("input");
       inputDatum.type = "date";
-      inputDatum.name = "den" + dayCounter + "_datum"; 
+      inputDatum.name = "den" + dayCounter + "_datum";
       inputDatum.classList.add("zaskrtavaci_policko");
       bunkaDatum.appendChild(inputDatum);
       novyRadek.appendChild(bunkaDatum);
@@ -227,7 +242,7 @@
         var bunkaCheckbox = document.createElement("td");
         var inputCheckbox = document.createElement("input");
         inputCheckbox.type = "checkbox";
-        inputCheckbox.name = "den" + dayCounter + "_hodina" + i; 
+        inputCheckbox.name = "den" + dayCounter + "_hodina" + i;
         inputCheckbox.classList.add("zaskrtavaci_policko");
         bunkaCheckbox.appendChild(inputCheckbox);
         novyRadek.appendChild(bunkaCheckbox);
