@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <%- include('../partials/head'); %>
 <style>
-   h1 {
-       padding: 20px;
-       text-align: center;
-   }
    .grid-container {
      display: grid;
      grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto;
@@ -31,19 +27,25 @@
        font-weight: bold;
    }
 </style>
-<article style="flex: 3; overflow-y: auto;">
-    <header>
-        <h1>Kalendář</h1>
-        <div role="group">
-            <button hx-get="/kalendar/tydenni" hx-target="body" hx-push-url="true">
+<article style="flex: 3; overflow-y: auto; padding: 0;">
+  <header>
+    <nav>
+      <ul>
+        <li>
+          <h1>Kalendář</h1>
+        </li>
+        <li role="group">
+            <button hx-get="/kalendar/tydenni" hx-target="body" hx-push-url="true" hx-swap="transition:true">
                 Týdenní
             </button>
-            <button class="outline" hx-get="/kalendar" hx-target="body" hx-push-url="true">
+            <button class="outline" hx-get="/kalendar" hx-target="body" hx-push-url="true" hx-swap="transition:true">
                 Měsíční
             </button>
-        </div>
-    </header>
-    
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <main>
     <div>
         <% for(let i=0;i<10;i++) {%>
             <section class="grid-container">
@@ -70,5 +72,6 @@
             </section>
         <%}%>
     </div>
+  </main>
 </article>
 <%- include('../partials/tail') %>
