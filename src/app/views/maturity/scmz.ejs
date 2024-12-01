@@ -17,6 +17,30 @@
     text-align: center;
     font-size: 16px;
   }
+
+  .zaskrtavaci_policko {
+    font-size: 50px;
+  }
+
+  input[type="date"],
+  input[type="checkbox"],
+  select {
+    padding: 0.5em;
+    font-size: 20px;
+  }
+
+  input[disabled],
+  select[disabled] {
+    background-color: transparent;
+    color: #aaa;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+    margin-top: 1em;
+  }
 </style>
 
 <article
@@ -47,9 +71,7 @@
   <h1 style="padding: 10px">Společná část maturitní zkoušky</h1>
   <form
     action="/maturity/ukladaniscmz"
-    ;
     method="POST"
-    ;
     style="display: flex; flex-direction: column">
     <table
       id="scmz-table"
@@ -64,13 +86,14 @@
       </thead>
       <tbody>
         <tr>
-          <td><input type="date" name="den1_datum" /></td>
+          <td><input type="date" name="den1_datum" disabled /></td>
           <td>
             <input
               type="checkbox"
               name="den1_checkbox"
               class="zadavani-checkbox"
-              style="font-size: 50px; padding: 0.5em" />
+              style="font-size: 50px; padding: 0.5em"
+              disabled />
           </td>
           <td>
             <input
@@ -105,10 +128,17 @@
       </button>
     </div>
 
-    <div style="text-align: center; margin-top: 1px">
+    <div class="button-container">
+      <button
+        type="button"
+        id="edit-button"
+        style="padding: 0.5em; border: none; cursor: pointer; width: 150px">
+        Edit
+      </button>
       <button
         type="submit"
-        style="padding: 0.5em; border: none; cursor: pointer; width: 150px">
+        id="save-button"
+        style="padding: 0.5em; width: 150px; border: none; cursor: pointer; display: none;">
         Uložit
       </button>
     </div>
@@ -126,8 +156,8 @@
       const newRow = document.createElement("tr");
 
       newRow.innerHTML = `
-            <td><input type="date" name="den${dayCounter}_datum"></td>
-            <td><input type="checkbox" class="zadavani-checkbox" style="padding: 0.5em; font-size: 50px;"></td>
+            <td><input type="date" name="den${dayCounter}_datum" disabled></td>
+            <td><input type="checkbox" class="zadavani-checkbox" style="padding: 0.5em; font-size: 50px;" disabled></td>
             <td><input type="time" name="den${dayCounter}_cas" class="cas-input" disabled style="padding: 0.5em;"></td>
             <td>
               <select name="den${dayCounter}_ucebna" class="ucebna-select" disabled style="padding: 0.5em;">
@@ -141,6 +171,11 @@
 
       tableBody.appendChild(newRow);
       addCheckboxFunctionality(newRow);
+
+      if (document.getElementById("edit-button").style.display === "none") {
+        newRow.querySelector("input[type='date']").disabled = false;
+        newRow.querySelector("input[type='checkbox']").disabled = false;
+      }
     });
 
   function addCheckboxFunctionality(row) {
@@ -160,6 +195,12 @@
       }
     });
   }
+
+  document.getElementById("edit-button").addEventListener("click", function () {
+    document.querySelectorAll("input[type='date'], input[type='checkbox']").forEach(input => input.disabled = false);
+    document.getElementById("edit-button").style.display = "none";
+    document.getElementById("save-button").style.display = "inline-block";
+  });
 
   document.querySelector("form").addEventListener("submit", function () {
     document.querySelectorAll("tbody tr").forEach(function (row) {

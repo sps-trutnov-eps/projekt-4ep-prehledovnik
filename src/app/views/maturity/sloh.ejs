@@ -26,6 +26,11 @@
     text-align: center;
   }
 
+  input[type="date"]:disabled {
+    background-color: transparent;
+    border: none;
+  }
+
   .headline-container {
     display: flex;
     flex-direction: column;
@@ -124,7 +129,7 @@
       </thead>
       <tbody id="table-body">
         <tr>
-          <td><input type="date" name="den1_datum[]" /></td>
+          <td><input type="date" name="den1_datum[]" disabled /></td>
           <td class="clickable-cell" data-hodina="1">
             <input type="hidden" name="den1_ucebna-1[]" value="" />Klikni
           </td>
@@ -167,8 +172,15 @@
 
     <div style="text-align: center">
       <button
+        type="button"
+        id="edit-button"
+        style="padding: 0.5em; border: none; cursor: pointer; width: 150px" onclick="toggleEdit()">
+        Edit
+      </button>
+      <button
         type="submit"
-        style="padding: 0.5em; border: none; cursor: pointer; width: 150px">
+        id="save-button"
+        style="padding: 0.5em; border: none; cursor: pointer; width: 150px; display:none">
         Uložit
       </button>
     </div>
@@ -206,6 +218,7 @@
   let selectedCell;
   let selectedInput;
   let dayCounter = 1;
+  let isEditing = false;
 
   const hodinyCasy = [
     "8:00-8:45",
@@ -219,17 +232,36 @@
     "15:10-15:55",
   ];
 
+  function toggleEdit() {
+    isEditing = !isEditing;
+    const dateInputs = document.querySelectorAll('input[type="date"]');
+    const editButton = document.getElementById("edit-button");
+    const saveButton = document.getElementById("save-button");
+
+    dateInputs.forEach((input) => {
+      input.disabled = !isEditing;
+    });
+
+    if (isEditing) {
+      editButton.style.display = "none";
+      saveButton.style.display = "inline-block";
+    } else {
+      editButton.style.display = "inline-block";
+      saveButton.style.display = "none";
+    }
+  }
+
   document.querySelectorAll(".clickable-cell").forEach((cell) => {
     cell.addEventListener("click", function () {
+      if (!isEditing) return;
+
       selectedCell = this;
       selectedInput = this.querySelector("input");
       const selectedHour = cell.getAttribute("data-hodina");
 
       document.getElementById(
         "selectedHourText"
-      ).textContent = `Hodina: ${selectedHour}. (${
-        hodinyCasy[selectedHour - 1]
-      })`;
+      ).textContent = `Hodina: ${selectedHour}. (${hodinyCasy[selectedHour - 1]})`;
 
       const currentClassroom = selectedInput.value;
       if (currentClassroom) {
@@ -267,6 +299,7 @@
     const dateInput = document.createElement("input");
     dateInput.type = "date";
     dateInput.name = "den" + dayCounter + "_datum[]";
+    dateInput.disabled = !isEditing;
     dateCell.appendChild(dateInput);
     newRow.appendChild(dateCell);
 
@@ -280,6 +313,8 @@
       cell.appendChild(input);
 
       cell.addEventListener("click", function () {
+        if (!isEditing) return;
+
         selectedCell = cell;
         selectedInput = input;
 

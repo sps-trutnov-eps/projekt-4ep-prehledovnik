@@ -38,6 +38,11 @@
       font-size: 20px;
     }
 
+    input[disabled] {
+      background-color: transparent; 
+      opacity: 0.5; 
+    }
+
     /* Styl podtržení nadpisu */
     .headline-container {
       position: relative;
@@ -86,7 +91,6 @@
       </div>
     </article>
 
-    <!-- Obsah sekce s odsazením pozadí -->
     <article style="flex: 3; overflow-y: auto; padding: 20px">
       <div
         style="
@@ -153,61 +157,71 @@
                   <input
                     type="date"
                     name="den1_datum"
-                    style="border: none; text-align: center" />
+                    style="border: none; text-align: center"
+                    disabled />
                 </td>
                 <td>
                   <input
                     class="zaskrtavaci_policko"
                     type="checkbox"
-                    name="den1_hodina1" />
+                    name="den1_hodina1"
+                    disabled />
                 </td>
                 <td>
                   <input
                     class="zaskrtavaci_policko"
                     type="checkbox"
-                    name="den1_hodina2" />
+                    name="den1_hodina2"
+                    disabled />
                 </td>
                 <td>
                   <input
                     class="zaskrtavaci_policko"
                     type="checkbox"
-                    name="den1_hodina3" />
+                    name="den1_hodina3"
+                    disabled />
                 </td>
                 <td>
                   <input
                     class="zaskrtavaci_policko"
                     type="checkbox"
-                    name="den1_hodina4" />
+                    name="den1_hodina4"
+                    disabled />
                 </td>
                 <td>
                   <input
                     class="zaskrtavaci_policko"
                     type="checkbox"
-                    name="den1_hodina5" />
+                    name="den1_hodina5"
+                    disabled />
                 </td>
                 <td>
                   <input
                     class="zaskrtavaci_policko"
                     type="checkbox"
-                    name="den1_hodina6" />
+                    name="den1_hodina6"
+                    disabled />
                 </td>
                 <td>
                   <input
                     class="zaskrtavaci_policko"
                     type="checkbox"
-                    name="den1_hodina7" />
+                    name="den1_hodina7"
+                    disabled />
                 </td>
                 <td>
                   <input
                     class="zaskrtavaci_policko"
                     type="checkbox"
-                    name="den1_hodina8" />
+                    name="den1_hodina8"
+                    disabled />
                 </td>
                 <td>
                   <input
                     class="zaskrtavaci_policko"
                     type="checkbox"
-                    name="den1_hodina9" />
+                    name="den1_hodina9"
+                    disabled />
                 </td>
               </tr>
             </tbody>
@@ -224,8 +238,15 @@
 
           <div style="margin-top: 1px">
             <button
-              type="submit"
+              type="button"
+              id="edit-button"
               style="padding: 0.5em; width: 150px; border: none; cursor: pointer;">
+              Edit
+            </button>
+            <button
+              type="submit"
+              id="save-button"
+              style="display:none; padding: 0.5em; width: 150px; border: none; cursor: pointer;">
               Uložit
             </button>
           </div>
@@ -251,6 +272,7 @@
           inputDatum.type = "date";
           inputDatum.name = "den" + dayCounter + "_datum";
           inputDatum.classList.add("zaskrtavaci_policko");
+          inputDatum.disabled = true; 
           bunkaDatum.appendChild(inputDatum);
           novyRadek.appendChild(bunkaDatum);
 
@@ -260,13 +282,26 @@
             inputCheckbox.type = "checkbox";
             inputCheckbox.name = "den" + dayCounter + "_hodina" + i;
             inputCheckbox.classList.add("zaskrtavaci_policko");
+            inputCheckbox.disabled = true; 
             bunkaCheckbox.appendChild(inputCheckbox);
             novyRadek.appendChild(bunkaCheckbox);
           }
 
           tabulka.appendChild(novyRadek);
+
+          if (document.getElementById("edit-button").style.display === "none") {
+            var newInputs = novyRadek.querySelectorAll("input");
+            newInputs.forEach(input => input.disabled = false);
+          }
         });
+
+      document.getElementById("edit-button").addEventListener("click", function () {
+        document.querySelectorAll("input").forEach(input => input.disabled = false);
+        document.getElementById("edit-button").style.display = "none";
+        document.getElementById("save-button").style.display = "block";
+      });
     </script>
+
     <%- include('../partials/tail'); %>
   </body>
 </html>
