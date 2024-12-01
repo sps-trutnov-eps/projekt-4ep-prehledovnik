@@ -25,6 +25,29 @@
   th {
     text-align: center;
   }
+
+  .headline-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    padding: 10px;
+  }
+
+  .headline {
+    margin: 0;
+    font-size: 1.8em;
+    font-weight: bold;
+    color: white;
+  }
+
+  .headline-container::after {
+    content: "";
+    width: 100%;
+    height: 3px;
+    background-color: white;
+    margin-top: 5px;
+  }
 </style>
 
 <article
@@ -52,7 +75,9 @@
 </article>
 
 <article style="flex: 3; overflow-y: auto">
-  <h1 style="padding: 10px">Slohová práce</h1>
+  <div class="headline-container">
+    <h1 class="headline">Slohová práce</h1>
+  </div>
 
   <form action="/maturity/ukladanisloh" method="POST">
     <table style="border-collapse: collapse; width: 100%">
@@ -100,7 +125,6 @@
       <tbody id="table-body">
         <tr>
           <td><input type="date" name="den1_datum[]" /></td>
-
           <td class="clickable-cell" data-hodina="1">
             <input type="hidden" name="den1_ucebna-1[]" value="" />Klikni
           </td>
