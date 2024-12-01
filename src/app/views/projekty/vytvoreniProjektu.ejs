@@ -96,11 +96,19 @@
       text-align: center; 
    }
 
-   .form-group input {
+   .form-group select {
       width: 100%; 
+      padding: 10px;
+      font-size: 14px;
       border: 1px solid #ccc;
       border-radius: 4px;
-      font-size: 14px; 
+      background-color: #f1f1f1;
+      cursor: pointer;
+   }
+
+   .form-group select option {
+      background-color: #fff;
+      color: #000;
    }
 
    .form-group button {
@@ -135,7 +143,13 @@
    <form action="/projekty/vytvoreniProjektu" method="POST">
       <div class="form-group">
          <label for="project-name">Název projektu:</label>
-         <input type="text" id="project-name" name="projectName" required>
+         <select id="project-name" name="projectName" required>
+            <option value="" disabled selected>Vyberte název</option>
+            <option value="1.ep">1.ep</option>
+            <option value="2.ep">2.ep</option>
+            <option value="3.ep">3.ep</option>
+            <option value="4.ep">4.ep</option>
+         </select>
       </div>
       <div class="form-group">
          <label for="project-start">Začátek projektu:</label>
