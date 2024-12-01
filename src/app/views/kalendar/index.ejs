@@ -1,14 +1,9 @@
 <!DOCTYPE html>
 <%- include('../partials/head'); %>
 <style>
-    h1 {
-        padding-top: 36px;
-        padding-bottom: 20px;
-        text-align: center;
-    }
     .grid-container {
       display: grid;
-      grid-template-columns: repeat(6, minmax(150px, 1fr));;
+      grid-template-columns: repeat(6, minmax(150px, 1fr));
       padding: 20px;
     }
     .grid-item {
@@ -21,11 +16,11 @@
     }
     .days-header {
         position: sticky;
-        top: 70px;
+        top: -1em;
         z-index: 9;
-        padding: 20px;
-        padding-bottom: 0;  
+        padding-bottom: 0;
         margin: 0;
+        background-color: white;
     }
     #quick-nav {
         position: sticky;
@@ -111,47 +106,61 @@
 
 </style>
 
-<article style="flex: 3; overflow-y: auto; padding: 0;">
+<article style="flex: 3; padding: 0;">
     <header>
-        <h1>Kalendář</h1>
-        <div role="group">
-            <button class="outline" hx-get="/kalendar/tydenni" hx-target="body" hx-push-url="true">
-                Týdenní
-            </button>
-            <button hx-get="/kalendar" hx-target="body" hx-push-url="true">
-                Měsíční
-            </button>
-        </div>
+      <nav>
+        <ul>
+          <li>
+            <h1>Kalendář</h1>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <div role="group">
+               <button onclick="scrollToCurrent()">Aktuální</button>
+               <select name="months" id="months" ">
+                  <option value="8">Srpen</option>
+                  <option value="9">Září</option>
+                  <option value="10">Říjen</option>
+                  <option value="11">Listopad</option>
+                  <option value="12">Prosinec</option>
+                  <option value="1">Leden</option>
+                  <option value="2">Únor</option>
+                  <option value="3">Březen</option>
+                  <option value="4">Duben</option>
+                  <option value="5">Květen</option>
+                  <option value="6">Červen</option>
+                  <option value="7">Červenec</option>
+               </select>
+               <button onclick="scrollToMonth()">Na&nbspměsíc</button>
+            </div>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <div role="group">
+              <button class="outline" hx-get="/kalendar/tydenni" hx-target="body" hx-push-url="true" hx-swap="transition:true">
+                  Týdenní
+              </button>
+              <button hx-get="/kalendar" hx-target="body" hx-push-url="true" hx-swap="transition:true">
+                  Měsíční
+              </button>
+            </div>
+          </li>
+        </ul>
+      </nav>
+
     </header>
 
-    <div role="group" id="quick-nav">
-        <button onclick="scrollToCurrent()">Aktuální</button>
-        <select name="months" id="months" ">
-            <option value="8">Srpen</option> 
-            <option value="9">Září</option>
-            <option value="10">Říjen</option>
-            <option value="11">Listopad</option>
-            <option value="12">Prosinec</option>
-            <option value="1">Leden</option>
-            <option value="2">Únor</option>
-            <option value="3">Březen</option>
-            <option value="4">Duben</option>
-            <option value="5">Květen</option>
-            <option value="6">Červen</option>
-            <option value="7">Červenec</option>
-        </select>
-        <button onclick="scrollToMonth()">Na&nbspměsíc</button>
-    </div>
-        <section class="grid-container days-header">
-            <p class="grid-item">PONDĚLÍ</p>
-            <p class="grid-item">ÚTERÝ</p>
-            <p class="grid-item">STŘEDA</p>
-            <p class="grid-item">ČTVRTEK</p>
-            <p class="grid-item">PÁTEK</p>
-            <p class="grid-item">VÍKEND</p>
-        </section>
-        
-        
+    <main>
+      <section class="grid-container days-header">
+         <p class="grid-item">PONDĚLÍ</p>
+         <p class="grid-item">ÚTERÝ</p>
+         <p class="grid-item">STŘEDA</p>
+         <p class="grid-item">ČTVRTEK</p>
+         <p class="grid-item">PÁTEK</p>
+         <p class="grid-item">VÍKEND</p>
+      </section>
         <div id="detail">
             <p id="name" class="detailItem"></p>
             <p id="from" class="detailItem"></p>
@@ -182,17 +191,18 @@
                     <% }%>
 
 
-                    
+
                     <% if (new Date(i).getDate() == date_udalost[0] && new Date(i).getMonth() + 1 == date_udalost[1]) {%>
-                    <p><%= date_udalost[2]%></p>  
+                    <p><%= date_udalost[2]%></p>
                     <%}%>
 
                 </section>
-                
 
-                <% }%>  
-            <% }%>                
+
+                <% }%>
+            <% }%>
         </section>
+    </main>
 </article>
 <script>
   document.addEventListener("DOMContentLoaded", function() {
@@ -207,7 +217,7 @@
           today = new Date(Number(today.getTime()) - increment)
       let currentDate = today.toISOString().split('T')[0]; // Format YYYY-MM-DD
       let element = document.getElementById(currentDate);
-      
+
       if (element) {
           element.scrollIntoView({ behavior: 'smooth', block: 'start' });
       } else {
@@ -216,12 +226,12 @@
   }
 
   function scrollToMonth() {
-  
+
       const select = document.getElementById("months");
       const month = select.value;
       const year = (month < 8) ? 2025 : 2024;  // Nastavení roku podle výběru měsíce
       let selected = document.getElementById(`${year}-${month.padStart(2, '0')}-01`);
-      
+
       if (selected) {
           selected.scrollIntoView({ behavior: 'smooth', block: 'start' });
       } else {
@@ -236,7 +246,7 @@
       const dateCheck = new Date(udalost.datum)
       if (Number(dateCheck.getDay()) == 0)
           date = new Date(Number(dateCheck.getTime()) - increment).toLocaleDateString('en-CA', { timeZone: 'Europe/Prague' })
-      let day = document.getElementById(date)      
+      let day = document.getElementById(date)
 
       let button = document.createElement("button")
       button.textContent = udalost.nazev
@@ -250,7 +260,7 @@
       let udalosti = <%- JSON.stringify(udalosti) %>
 
       for (let i=1;i<udalosti.length;i++){
-          if(udalosti[i] != null){                    
+          if(udalosti[i] != null){
               if(udalosti[i].naPocetDni > 0){
                   for(let j=0; j < udalosti[i].naPocetDni ;j++){
                       let udalost = { ...udalosti[i] };
@@ -268,7 +278,7 @@
               }}
               else
                   placeUdalost(udalosti[i],i)
-          }                             
+          }
       }
   }
 

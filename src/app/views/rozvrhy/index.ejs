@@ -177,30 +177,37 @@
             }
         }
     </style>
-    <article style="resize: horizontal;">
-        <header>
-            <h1>Verze</h1>
-        </header>
-        <main>
-            <select name="verze" id="jakaverze" onchange="nacteniVerze(this.value)">
-                <% if (rozvrhy && rozvrhy.length> 0) { %>
-                    <% rozvrhy.forEach(function(verze) { %>
-                        <option value="<%= verze.id %>" <%=aktivniVerze==verze.id ? 'selected' : '' %>>
-                            <%= verze.nazev %>
-                                (<%= new Date(verze.datum).toLocaleDateString('cs-CZ') %>)
-                        </option>
-                        <% }); %>
-                            <% } %>
-            </select>
-            <% if (rozvrhy && rozvrhy.length> 0) { %>
-                <button class="btn-save" onclick="ulozitRozvrh()">Uložit</button>
-                <button class="btn-new" onclick="toggleModal(event)"  data-target="createFormModal">Nová verze</button>
-                <% } %>
-        </main>
-    </article>
     <article class="articlesecond">
         <header>
-            <h1>Rozvrhy</h1>
+            <nav>
+                <ul>
+                  <li>
+                    <h1>Rozvrhy</h1>
+                  </li>
+                  <li>
+                   <div role="group">
+                    <select name="verze" id="jakaverze" onchange="nacteniVerze(this.value)">
+                        <% if (rozvrhy && rozvrhy.length> 0) { %>
+                            <% rozvrhy.forEach(function(verze) { %>
+                                <option value="<%= verze.id %>" <%=aktivniVerze==verze.id ? 'selected' : '' %>>
+                                    <%= verze.nazev %>
+                                        (<%= new Date(verze.datum).toLocaleDateString('cs-CZ') %>)
+                                </option>
+                            <% }); %>
+                        <% } %>
+                    </select>
+                        <% if (rozvrhy && rozvrhy.length> 0) { %>
+                            <button onclick="ulozitRozvrh()">Uložit</button>
+                        <% } %>
+                        </div>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                      <button onclick="toggleModal(event)"  data-target="createFormModal">Nová&nbsp;verze</button>
+                    </li>
+                </ul>
+            </nav>
         </header>
         <main>
             <% if (!rozvrhy || rozvrhy.length===0) { %>
