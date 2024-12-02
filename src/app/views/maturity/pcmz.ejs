@@ -1,240 +1,157 @@
 <!DOCTYPE html>
-    <%- include('../partials/head'); %>
-    <style>
-      .button {
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        width: 100%;
-        padding: 10px;
-      }
-      .tlacitko {
-        margin: 20px 0;
-        padding: 15px;
-        border: none;
-        border-radius: 5px;
-        width: 100%;
-        text-align: center;
-        font-size: 16px;
-      }
-      table > thead > tr > th > p {
-        font-size: 17px;
-      }
-      th {
-        text-align: center;
-      }
+<%- include('../partials/head'); %>
+<style>
+  .button {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    padding: 10px;
+  }
+  .tlacitko {
+    margin: 20px 0;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+  }
+  table > thead > tr > th > p {
+    font-size: 17px;
+  }
+  th {
+    text-align: center;
+  }
+  .zaskrtavaci_policko {
+    font-size: 20px;
+  }
+  input[type="date"] {
+    border: none;
+    text-align: center;
+    font-size: 16px;
+  }
+</style>
 
-      .zaskrtavaci_policko {
-        font-size: 50px;
-      }
+<article
+  style="
+    width: 20vw;
+    min-width: 20vw;
+    margin-right: 1em;
+    overflow-y: auto;
+    resize: horizontal;">
+  <div class="button">
+    <a href="../maturity/">
+      <button class="tlacitko">PŽOP</button>
+    </a>
+    <a href="../maturity/pcmz">
+      <button class="tlacitko">PČMZ</button>
+    </a>
+    <a href="../maturity/scmz">
+      <button class="tlacitko">SČMZ</button>
+    </a>
+    <a href="../maturity/sloh">
+      <button class="tlacitko">SLOH</button>
+    </a>
+  </div>
+</article>
 
-      input[type="date"] {
-        border: none;
-        text-align: center;
-        font-size: 20px;
-      }
-    </style>
+<article style="flex: 3; overflow-y: auto">
+  <h1>PČMZ</h1>
+  <form action="/maturity/ukladanipcmz" method="POST" style="display: flex; flex-direction: column">
+    <table style="border-collapse: collapse; text-align: center" id="hodiny_tabulka">
+      <thead>
+        <tr>
+          <th style="text-align: center">Datum:</th>
+          <% for (let i = 1; i <= 9; i++) { %>
+            <th>
+              <%= i %>.
+              <p><%= ["8:00-8:45", "8:50-9:35", "9:55-10:40", "10:50-11:35", "11:40-12:25", "12:35-13:20", "13:25-14:10", "14:15-15:00", "15:10-15:55"][i-1] %></p>
+            </th>
+          <% } %>
+        </tr>
+      </thead>
+      <tbody>
+        <% let dayCounter = 1; %>
+        <% for (const [datum, hodiny] of Object.entries(data)) { %>
+          <tr>
+            <td>
+              <input
+                type="date"
+                name="den<%= dayCounter %>_datum"
+                value="<%= datum %>"
+                readonly />
+            </td>
+            <% for (let i = 1; i <= 9; i++) { %>
+              <td>
+                <input
+                  class="zaskrtavaci_policko"
+                  type="checkbox"
+                  name="den<%= dayCounter %>_hodina<%= i %>"
+                  <%= hodiny.includes(i) ? "checked" : "" %> />
+              </td>
+            <% } %>
+          </tr>
+          <% dayCounter++; %>
+        <% } %>
+      </tbody>
+    </table>
 
-      <article
+    <div style="margin-top: 1em">
+      <button
+        type="button"
+        id="pridat-datum"
         style="
-          width: 20vw;
-          min-width: 20vw;
-          margin-right: 1em;
-          overflow-y: auto;
-          resize: horizontal;
-        ">
+          padding: 0.5em;
+          width: 150px;
+          border: none;
+          cursor: pointer;">
+        Přidat datum
+      </button>
+    </div>
 
-        <div class="button">
-          <a href="../maturity/">
-            <button class="tlacitko">PŽOP</button>
-          </a>
-          <a href="../maturity/pcmz">
-            <button class="tlacitko">PČMZ</button>
-          </a>
-          <a href="../maturity/scmz">
-            <button class="tlacitko">SČMZ</button>
-          </a>
-          <a href="../maturity/sloh">
-            <button class="tlacitko">SLOH</button>
-          </a>
-        </div>
-      </article>
+    <div style="margin-top: 1em">
+      <button
+        type="submit"
+        style="
+          padding: 0.5em;
+          width: 150px;
+          border: none;
+          cursor: pointer;">
+        Uložit
+      </button>
+    </div>
+  </form>
+</article>
 
-      <article style="flex: 3; overflow-y: auto">
-        <h1>PČMZ</h1>
+<script>
+  let dayCounter = <%= Object.keys(data).length + 1 %>;
 
-        <form action="/maturity/ukladanipcmz"; method="POST"; style="display: flex; flex-direction: column">
-          <style="display: flex; flex-direction: column; align-items: center"
-          id="projekt-form">
-          <table
-            style="border-collapse: collapse; text-align: center"
-            id="hodiny_tabulka">
-            <thead>
-              <tr>
-                <th style="text-align: center">Datum:</th>
-                <th>
-                  1.
-                  <p>8:00-8:45</p>
-                </th>
-                <th>
-                  2.
-                  <p>8:50-9:35</p>
-                </th>
-                <th>
-                  3.
-                  <p>9:55-10:40</p>
-                </th>
-                <th>
-                  4.
-                  <p>10:50-11:35</p>
-                </th>
-                <th>
-                  5.
-                  <p>11:40-12:25</p>
-                </th>
-                <th>
-                  6.
-                  <p>12:35-13:20</p>
-                </th>
-                <th>
-                  7.
-                  <p>13:25-14:10</p>
-                </th>
-                <th>
-                  8.
-                  <p>14:15-15:00</p>
-                </th>
-                <th>
-                  9.
-                  <p>15:10-15:55</p>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <input
-                    type="date"
-                    name="den1_datum"
-                    style="border: none; text-align: center" />
-                </td>
-                <td>
-                  <input
-                    class="zaskrtavaci_policko"
-                    type="checkbox"
-                    name="den1_hodina1" />
-                </td>
-                <td>
-                  <input
-                    class="zaskrtavaci_policko"
-                    type="checkbox"
-                    name="den1_hodina2" />
-                </td>
-                <td>
-                  <input
-                    class="zaskrtavaci_policko"
-                    type="checkbox"
-                    name="den1_hodina3" />
-                </td>
-                <td>
-                  <input
-                    class="zaskrtavaci_policko"
-                    type="checkbox"
-                    name="den1_hodina4" />
-                </td>
-                <td>
-                  <input
-                    class="zaskrtavaci_policko"
-                    type="checkbox"
-                    name="den1_hodina5" />
-                </td>
-                <td>
-                  <input
-                    class="zaskrtavaci_policko"
-                    type="checkbox"
-                    name="den1_hodina6" />
-                </td>
-                <td>
-                  <input
-                    class="zaskrtavaci_policko"
-                    type="checkbox"
-                    name="den1_hodina7" />
-                </td>
-                <td>
-                  <input
-                    class="zaskrtavaci_policko"
-                    type="checkbox"
-                    name="den1_hodina8" />
-                </td>
-                <td>
-                  <input
-                    class="zaskrtavaci_policko"
-                    type="checkbox"
-                    name="den1_hodina9" />
-                </td>
-              </tr>
-            </tbody>
-          </table>
+  document.getElementById("pridat-datum").addEventListener("click", function () {
+    var tabulka = document.getElementById("hodiny_tabulka").getElementsByTagName("tbody")[0];
+    var novyRadek = document.createElement("tr");
 
-          <div style="margin-top: 1em">
-            <button
-              type="button"
-              id="pridat-datum"
-              style="
-                padding: 0.5em;
-                width: 150px;
-                border: none;
-                cursor: pointer;
-              ">
-              Přidat datum
-            </button>
-          </div>
+    var bunkaDatum = document.createElement("td");
+    var inputDatum = document.createElement("input");
+    inputDatum.type = "date";
+    inputDatum.name = "den" + dayCounter + "_datum";
+    inputDatum.classList.add("zaskrtavaci_policko");
+    bunkaDatum.appendChild(inputDatum);
+    novyRadek.appendChild(bunkaDatum);
 
-          <div style="margin-top: 1em">
-            <button
-              type="submit"
-              style="
-                padding: 0.5em;
-                width: 150px;
-                border: none;
-                cursor: pointer;
-              ">
-              Uložit
-            </button>
-          </div>
-        </form>
-      </article>
-    </>
+    for (var i = 1; i <= 9; i++) {
+      var bunkaCheckbox = document.createElement("td");
+      var inputCheckbox = document.createElement("input");
+      inputCheckbox.type = "checkbox";
+      inputCheckbox.name = "den" + dayCounter + "_hodina" + i;
+      inputCheckbox.classList.add("zaskrtavaci_policko");
+      bunkaCheckbox.appendChild(inputCheckbox);
+      novyRadek.appendChild(bunkaCheckbox);
+    }
 
-    <script>
-      let dayCounter = 1;
-
-      document.getElementById("pridat-datum").addEventListener("click", function () {
-      dayCounter++;
-
-      var tabulka = document.getElementById("hodiny_tabulka").getElementsByTagName("tbody")[0];
-      var novyRadek = document.createElement("tr");
-
-      var bunkaDatum = document.createElement("td");
-      var inputDatum = document.createElement("input");
-      inputDatum.type = "date";
-      inputDatum.name = "den" + dayCounter + "_datum"; 
-      inputDatum.classList.add("zaskrtavaci_policko");
-      bunkaDatum.appendChild(inputDatum);
-      novyRadek.appendChild(bunkaDatum);
-
-      for (var i = 1; i <= 9; i++) {
-        var bunkaCheckbox = document.createElement("td");
-        var inputCheckbox = document.createElement("input");
-        inputCheckbox.type = "checkbox";
-        inputCheckbox.name = "den" + dayCounter + "_hodina" + i; 
-        inputCheckbox.classList.add("zaskrtavaci_policko");
-        bunkaCheckbox.appendChild(inputCheckbox);
-        novyRadek.appendChild(bunkaCheckbox);
-      }
-
-      tabulka.appendChild(novyRadek);
-      });
-    </script>
+    tabulka.appendChild(novyRadek);
+    dayCounter++;
+  });
+</script>
 
 <%- include('../partials/tail') %>

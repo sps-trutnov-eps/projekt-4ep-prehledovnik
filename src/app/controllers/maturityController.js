@@ -3,14 +3,72 @@ const databaseEngine = require("../models/databaseEngine");
 const databaze = require("../models/databaseEngine");
 
 exports.pcmz = (req, res) => {
-    res.render("maturity/pcmz.ejs");
+    let pcmzdata = databaze.maturity.ziskatMaturituDleJmena("PČMZ")
+    let dny = pcmzdata['dny']
+    let casy = pcmzdata['casy']
+    let ucebna = pcmzdata['ucebna']
+
+    let new_data = {}
+
+    for (let i = 0; i < pcmzdata.length; i++) {
+        den = pcmzdata[i].dny[0]
+        casy = pcmzdata[i].casy
+        if (!new_data[den]) {
+            new_data[den] = []
+        }
+        for (let i = 0; i < casy.length; i++) {
+            if (!new_data[den].includes(casy[i])) {
+                new_data[den].push(casy[i])
+            }
+        }
+    }
+    for (const key in new_data) {
+        for (let i = 0; i < new_data[key].length; i++) {
+            console.log(key, new_data[key][i])
+        }
+    }
+
+
+    res.render("maturity/pcmz.ejs", {"data" : new_data});
 };
 
 exports.sloh = (req, res) => {
-    res.render("maturity/sloh.ejs");
+
+    let slohdata = databaze.maturity.ziskatMaturituDleJmena("SLOH")
+
+    let new_data = {}
+
+
+    for (let i = 0; i < slohdata.length; i++) {
+        den = slohdata[i].dny[0]
+        if (den) {
+            if (!new_data[den]) {
+                new_data[den] = []
+            }
+            for (let y = 0; y < slohdata[i].casy.length; y++) {
+                new_data[den].push([slohdata[i].casy[y], slohdata[i].ucebna])
+            }
+        }
+    }
+
+    console.log(new_data)
+    res.render("maturity/sloh.ejs", {"data" : new_data});
+    
 };
 
 exports.scmz = (req, res) => {
+    let scmzdata = databaze.maturity.ziskatMaturituDleJmena("SCMZ")
+
+    let new_data = []
+
+
+
+    for (let i = 0; i < scmzdata.length; i++) {
+        den = slohdata[i].dny[0]
+        if (den) {
+            new_data.push(scmzdata[i])
+        }
+    }
     res.render("maturity/scmz.ejs");
 };
 

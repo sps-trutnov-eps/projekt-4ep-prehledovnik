@@ -615,6 +615,1922 @@
             ],
             "ucebna": null
         },
-        "nextID": 7
+        "7": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-12"
+            ],
+            "casy": [
+                2
+            ],
+            "ucebna": null
+        },
+        "8": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-12"
+            ],
+            "casy": [
+                5
+            ],
+            "ucebna": null
+        },
+        "9": {
+            "nazev": "PŽOP",
+            "dny": [
+                "1220-12-05",
+                "0061-12-23"
+            ],
+            "casy": [],
+            "ucebna": "ucebna2"
+        },
+        "10": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "11": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                4
+            ],
+            "ucebna": null
+        },
+        "12": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                6
+            ],
+            "ucebna": null
+        },
+        "13": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "14": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                4,
+                5
+            ],
+            "ucebna": null
+        },
+        "15": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                7
+            ],
+            "ucebna": null
+        },
+        "16": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-12"
+            ],
+            "casy": [
+                2
+            ],
+            "ucebna": null
+        },
+        "17": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-12"
+            ],
+            "casy": [
+                5
+            ],
+            "ucebna": null
+        },
+        "18": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-04"
+            ],
+            "casy": [
+                2,
+                3
+            ],
+            "ucebna": null
+        },
+        "19": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "20": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                4
+            ],
+            "ucebna": null
+        },
+        "21": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                6
+            ],
+            "ucebna": null
+        },
+        "22": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "23": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                4,
+                5
+            ],
+            "ucebna": null
+        },
+        "24": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                7
+            ],
+            "ucebna": null
+        },
+        "25": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-12"
+            ],
+            "casy": [
+                2
+            ],
+            "ucebna": null
+        },
+        "26": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-12"
+            ],
+            "casy": [
+                5
+            ],
+            "ucebna": null
+        },
+        "27": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "28": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                4
+            ],
+            "ucebna": null
+        },
+        "29": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                6
+            ],
+            "ucebna": null
+        },
+        "30": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "31": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                4,
+                5
+            ],
+            "ucebna": null
+        },
+        "32": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                7
+            ],
+            "ucebna": null
+        },
+        "33": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-12"
+            ],
+            "casy": [
+                2
+            ],
+            "ucebna": null
+        },
+        "34": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-12"
+            ],
+            "casy": [
+                5
+            ],
+            "ucebna": null
+        },
+        "35": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "36": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                4
+            ],
+            "ucebna": null
+        },
+        "37": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                6
+            ],
+            "ucebna": null
+        },
+        "38": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "39": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                4,
+                5
+            ],
+            "ucebna": null
+        },
+        "40": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                7
+            ],
+            "ucebna": null
+        },
+        "41": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-12"
+            ],
+            "casy": [
+                2
+            ],
+            "ucebna": null
+        },
+        "42": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-12"
+            ],
+            "casy": [
+                5
+            ],
+            "ucebna": null
+        },
+        "43": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-04"
+            ],
+            "casy": [
+                2,
+                3
+            ],
+            "ucebna": null
+        },
+        "44": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "45": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                4
+            ],
+            "ucebna": null
+        },
+        "46": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                6
+            ],
+            "ucebna": null
+        },
+        "47": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "48": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                4,
+                5
+            ],
+            "ucebna": null
+        },
+        "49": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                7
+            ],
+            "ucebna": null
+        },
+        "50": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-12"
+            ],
+            "casy": [
+                2
+            ],
+            "ucebna": null
+        },
+        "51": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-12"
+            ],
+            "casy": [
+                5
+            ],
+            "ucebna": null
+        },
+        "52": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-04"
+            ],
+            "casy": [
+                2,
+                3
+            ],
+            "ucebna": null
+        },
+        "53": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-06"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "54": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "55": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                4
+            ],
+            "ucebna": null
+        },
+        "56": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                6
+            ],
+            "ucebna": null
+        },
+        "57": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "58": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                4,
+                5
+            ],
+            "ucebna": null
+        },
+        "59": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                7
+            ],
+            "ucebna": null
+        },
+        "60": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-12"
+            ],
+            "casy": [
+                2
+            ],
+            "ucebna": null
+        },
+        "61": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-12"
+            ],
+            "casy": [
+                5
+            ],
+            "ucebna": null
+        },
+        "62": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-04"
+            ],
+            "casy": [
+                2,
+                3
+            ],
+            "ucebna": null
+        },
+        "63": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-06"
+            ],
+            "casy": [
+                1
+            ],
+            "ucebna": null
+        },
+        "64": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "65": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                4
+            ],
+            "ucebna": null
+        },
+        "66": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                6
+            ],
+            "ucebna": null
+        },
+        "67": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "68": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                4,
+                5
+            ],
+            "ucebna": null
+        },
+        "69": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                7
+            ],
+            "ucebna": null
+        },
+        "70": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-12"
+            ],
+            "casy": [
+                2
+            ],
+            "ucebna": null
+        },
+        "71": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-12"
+            ],
+            "casy": [
+                5
+            ],
+            "ucebna": null
+        },
+        "72": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-04"
+            ],
+            "casy": [
+                2,
+                3
+            ],
+            "ucebna": null
+        },
+        "73": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-06"
+            ],
+            "casy": [
+                1
+            ],
+            "ucebna": null
+        },
+        "74": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "75": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                4
+            ],
+            "ucebna": null
+        },
+        "76": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                6
+            ],
+            "ucebna": null
+        },
+        "77": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "78": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                4,
+                5
+            ],
+            "ucebna": null
+        },
+        "79": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                7
+            ],
+            "ucebna": null
+        },
+        "80": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-12"
+            ],
+            "casy": [
+                2
+            ],
+            "ucebna": null
+        },
+        "81": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-12"
+            ],
+            "casy": [
+                5
+            ],
+            "ucebna": null
+        },
+        "82": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-04"
+            ],
+            "casy": [
+                2,
+                3
+            ],
+            "ucebna": null
+        },
+        "83": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-06"
+            ],
+            "casy": [
+                1
+            ],
+            "ucebna": null
+        },
+        "84": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "85": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                4
+            ],
+            "ucebna": null
+        },
+        "86": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                6
+            ],
+            "ucebna": null
+        },
+        "87": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "88": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                4,
+                5
+            ],
+            "ucebna": null
+        },
+        "89": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                7
+            ],
+            "ucebna": null
+        },
+        "90": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-12"
+            ],
+            "casy": [
+                2
+            ],
+            "ucebna": null
+        },
+        "91": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-12"
+            ],
+            "casy": [
+                5
+            ],
+            "ucebna": null
+        },
+        "92": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-04"
+            ],
+            "casy": [
+                2,
+                3
+            ],
+            "ucebna": null
+        },
+        "93": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "94": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                4
+            ],
+            "ucebna": null
+        },
+        "95": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                6
+            ],
+            "ucebna": null
+        },
+        "96": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "97": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                4,
+                5
+            ],
+            "ucebna": null
+        },
+        "98": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                7
+            ],
+            "ucebna": null
+        },
+        "99": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-12"
+            ],
+            "casy": [
+                2
+            ],
+            "ucebna": null
+        },
+        "100": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-12"
+            ],
+            "casy": [
+                5
+            ],
+            "ucebna": null
+        },
+        "101": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-04"
+            ],
+            "casy": [
+                2,
+                3
+            ],
+            "ucebna": null
+        },
+        "102": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-06"
+            ],
+            "casy": [
+                2
+            ],
+            "ucebna": null
+        },
+        "103": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "104": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                4
+            ],
+            "ucebna": null
+        },
+        "105": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                6
+            ],
+            "ucebna": null
+        },
+        "106": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "107": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                4,
+                5
+            ],
+            "ucebna": null
+        },
+        "108": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                7
+            ],
+            "ucebna": null
+        },
+        "109": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-12"
+            ],
+            "casy": [
+                2
+            ],
+            "ucebna": null
+        },
+        "110": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-12"
+            ],
+            "casy": [
+                5
+            ],
+            "ucebna": null
+        },
+        "111": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-04"
+            ],
+            "casy": [
+                2,
+                3
+            ],
+            "ucebna": null
+        },
+        "112": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-06"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "113": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-27"
+            ],
+            "casy": [
+                1,
+                2,
+                3,
+                4
+            ],
+            "ucebna": null
+        },
+        "114": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "115": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                4
+            ],
+            "ucebna": null
+        },
+        "116": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                6
+            ],
+            "ucebna": null
+        },
+        "117": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "118": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                4,
+                5
+            ],
+            "ucebna": null
+        },
+        "119": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                7
+            ],
+            "ucebna": null
+        },
+        "120": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-12"
+            ],
+            "casy": [
+                2
+            ],
+            "ucebna": null
+        },
+        "121": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-12"
+            ],
+            "casy": [
+                5
+            ],
+            "ucebna": null
+        },
+        "122": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-04"
+            ],
+            "casy": [
+                2,
+                3
+            ],
+            "ucebna": null
+        },
+        "123": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-06"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "124": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-27"
+            ],
+            "casy": [
+                1,
+                2,
+                3,
+                4
+            ],
+            "ucebna": null
+        },
+        "125": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "126": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                4
+            ],
+            "ucebna": null
+        },
+        "127": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                6
+            ],
+            "ucebna": null
+        },
+        "128": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "129": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                4,
+                5
+            ],
+            "ucebna": null
+        },
+        "130": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                7
+            ],
+            "ucebna": null
+        },
+        "131": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-12"
+            ],
+            "casy": [
+                2
+            ],
+            "ucebna": null
+        },
+        "132": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-12"
+            ],
+            "casy": [
+                5
+            ],
+            "ucebna": null
+        },
+        "133": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-04"
+            ],
+            "casy": [
+                2,
+                3
+            ],
+            "ucebna": null
+        },
+        "134": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-06"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "135": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-27"
+            ],
+            "casy": [
+                1,
+                2,
+                3,
+                4
+            ],
+            "ucebna": null
+        },
+        "136": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "137": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                4
+            ],
+            "ucebna": null
+        },
+        "138": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                6
+            ],
+            "ucebna": null
+        },
+        "139": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "140": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                4,
+                5
+            ],
+            "ucebna": null
+        },
+        "141": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                7
+            ],
+            "ucebna": null
+        },
+        "142": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-12"
+            ],
+            "casy": [
+                2
+            ],
+            "ucebna": null
+        },
+        "143": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-12"
+            ],
+            "casy": [
+                5
+            ],
+            "ucebna": null
+        },
+        "144": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-04"
+            ],
+            "casy": [
+                2,
+                3
+            ],
+            "ucebna": null
+        },
+        "145": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-06"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "146": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-27"
+            ],
+            "casy": [
+                1,
+                2,
+                3,
+                4
+            ],
+            "ucebna": null
+        },
+        "147": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "148": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                4
+            ],
+            "ucebna": null
+        },
+        "149": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                6
+            ],
+            "ucebna": null
+        },
+        "150": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "151": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                4,
+                5
+            ],
+            "ucebna": null
+        },
+        "152": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                7
+            ],
+            "ucebna": null
+        },
+        "153": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-12"
+            ],
+            "casy": [
+                2
+            ],
+            "ucebna": null
+        },
+        "154": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-12"
+            ],
+            "casy": [
+                5
+            ],
+            "ucebna": null
+        },
+        "155": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-04"
+            ],
+            "casy": [
+                2,
+                3
+            ],
+            "ucebna": null
+        },
+        "156": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-06"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "157": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-27"
+            ],
+            "casy": [
+                1,
+                2,
+                3
+            ],
+            "ucebna": null
+        },
+        "158": {
+            "nazev": "PŽOP",
+            "dny": [
+                "2005-11-21",
+                "2000-12-15"
+            ],
+            "casy": [],
+            "ucebna": "ucebna3"
+        },
+        "159": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "160": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                4
+            ],
+            "ucebna": null
+        },
+        "161": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-24"
+            ],
+            "casy": [
+                6
+            ],
+            "ucebna": null
+        },
+        "162": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "163": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                4,
+                5
+            ],
+            "ucebna": null
+        },
+        "164": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-11-22"
+            ],
+            "casy": [
+                7
+            ],
+            "ucebna": null
+        },
+        "165": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-12"
+            ],
+            "casy": [
+                2
+            ],
+            "ucebna": null
+        },
+        "166": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-12"
+            ],
+            "casy": [
+                5
+            ],
+            "ucebna": null
+        },
+        "167": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-04"
+            ],
+            "casy": [
+                2,
+                3
+            ],
+            "ucebna": null
+        },
+        "168": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-06"
+            ],
+            "casy": [
+                1,
+                2
+            ],
+            "ucebna": null
+        },
+        "169": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2024-12-27"
+            ],
+            "casy": [
+                1,
+                2,
+                3,
+                4
+            ],
+            "ucebna": null
+        },
+        "170": {
+            "nazev": "PČMZ",
+            "dny": [
+                "2025-01-02"
+            ],
+            "casy": [
+                1
+            ],
+            "ucebna": null
+        },
+        "171": {
+            "nazev": "SLOH",
+            "dny": [
+                ""
+            ],
+            "casy": [
+                1
+            ],
+            "ucebna": "T16"
+        },
+        "172": {
+            "nazev": "SLOH",
+            "dny": [
+                "2024-12-20"
+            ],
+            "casy": [
+                1,
+                4
+            ],
+            "ucebna": "T15"
+        },
+        "173": {
+            "nazev": "SLOH",
+            "dny": [
+                "2024-12-05"
+            ],
+            "casy": [
+                1
+            ],
+            "ucebna": "T15"
+        },
+        "174": {
+            "nazev": "SLOH",
+            "dny": [
+                "2024-12-06"
+            ],
+            "casy": [
+                1
+            ],
+            "ucebna": "T15"
+        },
+        "175": {
+            "nazev": "SLOH",
+            "dny": [
+                "2024-12-12"
+            ],
+            "casy": [
+                1
+            ],
+            "ucebna": "T15"
+        },
+        "176": {
+            "nazev": "SLOH",
+            "dny": [
+                "2024-12-21"
+            ],
+            "casy": [
+                2
+            ],
+            "ucebna": "T15"
+        },
+        "177": {
+            "nazev": "SLOH",
+            "dny": [
+                "2024-12-13"
+            ],
+            "casy": [
+                2
+            ],
+            "ucebna": "T15"
+        },
+        "178": {
+            "nazev": "SLOH",
+            "dny": [
+                "2024-12-18"
+            ],
+            "casy": [
+                4
+            ],
+            "ucebna": "T15"
+        },
+        "179": {
+            "nazev": "SLOH",
+            "dny": [
+                "2024-12-06"
+            ],
+            "casy": [
+                2
+            ],
+            "ucebna": "T15"
+        },
+        "180": {
+            "nazev": "SLOH",
+            "dny": [
+                "2024-12-05"
+            ],
+            "casy": [
+                1
+            ],
+            "ucebna": "T15"
+        },
+        "181": {
+            "nazev": "SLOH",
+            "dny": [
+                "2024-12-11"
+            ],
+            "casy": [
+                2
+            ],
+            "ucebna": "T15"
+        },
+        "182": {
+            "nazev": "SLOH",
+            "dny": [
+                "2024-12-06"
+            ],
+            "casy": [
+                1
+            ],
+            "ucebna": "T15"
+        },
+        "183": {
+            "nazev": "SLOH",
+            "dny": [
+                "2024-12-28"
+            ],
+            "casy": [
+                2,
+                4
+            ],
+            "ucebna": "T15"
+        },
+        "184": {
+            "nazev": "SLOH",
+            "dny": [
+                "2024-12-28"
+            ],
+            "casy": [
+                6
+            ],
+            "ucebna": "T16"
+        },
+        "185": {
+            "nazev": "SLOH",
+            "dny": [
+                "2024-11-29"
+            ],
+            "casy": [
+                1
+            ],
+            "ucebna": "T17"
+        },
+        "186": {
+            "nazev": "SLOH",
+            "dny": [
+                "2024-11-29"
+            ],
+            "casy": [
+                3
+            ],
+            "ucebna": "T15"
+        },
+        "187": {
+            "nazev": "SLOH",
+            "dny": [
+                "2024-12-31"
+            ],
+            "casy": [
+                1
+            ],
+            "ucebna": "T17"
+        },
+        "188": {
+            "nazev": "SLOH",
+            "dny": [
+                "2024-12-31"
+            ],
+            "casy": [
+                2
+            ],
+            "ucebna": "T15"
+        },
+        "189": {
+            "nazev": "SLOH",
+            "dny": [
+                "2024-12-31"
+            ],
+            "casy": [
+                3
+            ],
+            "ucebna": "T16"
+        },
+        "nextID": 190
     }
 }

@@ -250,6 +250,7 @@ const udalosti = {
 function gM(){return db.get("maturity")}
 function sM(maturity){db.set("maturity", maturity)}
 
+
 const maturity = {
     pridatMaturitniEvent: (nazev, dny, casy, ucebna) => {
         let maturity = gM();
@@ -260,23 +261,30 @@ const maturity = {
     ziskatIDMaturityDleJmena: (jmeno) => {
         let maturity = gM();
         let nextID = maturity["nextID"];
-        let IDHledaneMaturity;
-        for(let i = 0; i < nextID; i++){
-            if (maturity[String(i)]["nazev"] == jmeno){
-                IDHledaneMaturity = String(i);
+        let IDHledanychMaturity = [];
+        for (let i = 0; i < nextID; i++){
+            if (maturity[String(i)] != null) {
+                if (maturity[String(i)]["nazev"] == jmeno) {
+                    IDHledanychMaturity.push(String(i));
+                }
             }
         }
-        return IDHledaneMaturity;
+        return IDHledanychMaturity;
     },
-    ziskarMaturituDleJmena: (jmeno) => {
-        let maturity = gM();
-        return maturity[ziskatIDMaturityDleJmena(jmeno)];
+    ziskatMaturituDleJmena: (jmeno) => {
+        let maturity_databaze = gM();
+        let nalezene_id_maturit = maturity.ziskatIDMaturityDleJmena(jmeno)
+        let nalezene_maturity = []
+        for (let i = 0; i < nalezene_id_maturit.length; i++) {
+            nalezene_maturity.push(maturity_databaze[nalezene_id_maturit[i]])
+        }
+        return nalezene_maturity;
     },
     ziskatVsechnyMaturity: () => {
         let maturity = gM();
         let maturityList = [];
         let nextID = maturity["nextID"];
-        for(let i = 0; i < nextID; i++){
+        for (let i = 0; i < nextID; i++){
             maturityList.push(maturity[String(i)]);
         }
         return maturityList;
@@ -355,7 +363,7 @@ const maturity = {
     },
     upravitMaturitniEvent: (nazev, dny, casy, ucebna) => {
         let maturity = gM();
-        IDUpravovaneMaturity = ziskatIDMaturityDleJmena(nazev);
+        IDUpravovaneMaturity = ziskatIDMaturityDleJmena(nazev); //POTŘEBA ÚPRAVA
         maturity[IDUpravovaneMaturity] = {nazev, dny, casy, ucebna};
         sM(maturity);
     }
