@@ -1,56 +1,70 @@
 const databaze = require("../models/databaseEngine");
 
 exports.zobrazTymy = (req, res) => {
-    let tlacitka = "";
-    const tridy = databaze.projekty.gP();
+    let tlacitka = vytvorTlacitka("projekty/tymy/");
+	let tymy = [];
 
-    let tymy = [];
+    res.render("projekty/tymy", { tlacitka: tlacitka, tymy: tymy });
+};
+
+exports.zobrazProjekt = (req, res) => { 
+    let tlacitka = vytvorTlacitka("projekty/tymy/");
+    let tymy = ziskejTymy(req.params.projekt);
+
+    res.render("projekty/tymy", { tlacitka: tlacitka, tymy: tymy }); 
+}; 
+ 
+exports.zobrazTlacitka = (req, res) => {
+	let tlacitka = vytvorTlacitka("projekty/");
+	let tymy = [];
+	
+	res.render("projekty/index", { tlacitka: tlacitka, tymy: tymy });
+};
+ 
+exports.zobrazDetailyProjektu = (req, res) => {
+	let tlacitka = vytvorTlacitka("projekty/");
+	let tymy = ziskejTymy(req.params.id);
+
+	res.render("projekty/index", { tlacitka: tlacitka, tymy: tymy });
+};
+ 
+ 
+function vytvorTlacitka(url) {
+	let tlacitka = "";
+    const tridy = databaze.projekty.gP();
 
     for (const projektID in tridy) {
         if (projektID != "nextID") {
             const trida = tridy[projektID].trida;
             if (trida) {
-                tlacitka += `<button hx-get="/projekty/tymy/${trida}" 
+                tlacitka += `<button hx-get="/${url}${trida}" 
                 hx-target="body"
                 hx-push-url="true"
                 hx-swap="transition:true">${trida}</button>`;
             }
         }
     }
+	
+	console.log("tridy");
     console.log(tridy);
+	return tlacitka;
+}
 
-    res.render("projekty/tymy", { tlacitka: tlacitka, tymy: tymy });
-};
- 
-exports.zobrazProjekt = (req, res) => { 
-    let tlacitka = ""; 
-    const tridy = databaze.projekty.gP(); 
+function ziskejTymy(trida){
+	const tridy = databaze.projekty.gP(); 
 
     let tymy = [];
     for (const projektID in tridy) {
-        if (projektID !== "nextID" && tridy[projektID].trida === req.params.projekt) {
+        if (projektID !== "nextID" && tridy[projektID].trida === trida) {
             tymy = tridy[projektID].tymy;
             break;
         }
     }
- 
-    for (const projektID in tridy) { 
-        if (projektID != "nextID") { 
-            const trida = tridy[projektID].trida; 
-            if (trida) { 
-                tlacitka += `<button hx-get="/projekty/tymy/${trida}"  
-                hx-target="body" 
-                hx-push-url="true" 
-                hx-swap="transition:true">${trida}</button>`; 
-            } 
-        } 
-    } 
-
+	
+	console.log("tymy");
     console.log(tymy);
-
-    res.render("projekty/tymy", { tlacitka: tlacitka, tymy: tymy }); 
-}; 
-
+	return tymy;
+}
 
 exports.zobrazPitche = (req, res) => {
     res.render("projekty/pitch");

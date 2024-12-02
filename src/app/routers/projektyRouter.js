@@ -14,5 +14,6 @@ projektyRouter.get('/vytvoreniProjektu', projektyController.vytvoritProjekt);
 
 // POST požadavky
 projektyRouter.post('/vytvoreniProjektu', projektyController.ulozitProjekt);
-projektyRouter.get('/', (req, res) => res.render('projekty/index.ejs', {}));
+projektyRouter.get('/:id', projektyController.zobrazDetailyProjektu);
+projektyRouter.get('/', projektyController.zobrazTlacitka);
 module.exports = projektyRouter;
