@@ -51,9 +51,10 @@
   </header>
   <main>
     <div>
-        <% for(let i=0;i<10;i++) {%>
+      <% let Weeks = week.length %>
+        <% for(let t=0;t<Weeks;t++ ) {%>
             <section class="grid-container">
-                    <p class="grid-item-h"><%= week %></p>
+                    <p class="grid-item-h"><%= week[t] %></p>
                     <p class="grid-item-h"><span class="cislo-hodiny">0</span><br>7:10-7:55</p>
                     <p class="grid-item-h"><span class="cislo-hodiny">1</span><br>8:00-8:45</p>
                     <p class="grid-item-h"><span class="cislo-hodiny">2</span><br>8:50-9:35</p>
@@ -69,7 +70,12 @@
                     <p class="grid-item"><%= days[i] %></p>
                     <% for(let j=0;j<= 9;j++) {%>
                         <p class="grid-item">
+                          <% if (week[t] % 2 === 0) { %>
+                            <%= rozvrh_S[j + 10 * i]%>
+                          <% }%>
+                          <% if (week[t] % 2 === 1) { %>
                             <%= rozvrh_L[j + 10 * i]%>
+                          <% }%>
                         </p>
                     <%}%>
                 <%} %>
