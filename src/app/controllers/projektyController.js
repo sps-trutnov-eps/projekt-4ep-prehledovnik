@@ -46,9 +46,6 @@ function vytvorTlacitka(url) {
             }
         }
     }
-	
-	console.log("tridy");
-    console.log(tridy);
 	return tlacitka;
 }
 
@@ -62,9 +59,6 @@ function ziskejTymy(trida){
             break;
         }
     }
-	
-	console.log("tymy");
-    console.log(tymy);
 	return tymy;
 }
 
@@ -96,6 +90,15 @@ exports.zobrazDetailyTymu = (req, res) => {
     res.render("projekty/detailTymu", { team });
 };
 
+exports.zmenDetailyTymu = (req, res) => {
+    // let vedouci = req.body.leader;
+    // let name = req.body.name;
+    // let clenove = req.body.members;
+
+    databaze.projekty.upravitTym()
+    res.redirect('/projekty/tymy');
+};
+
 // Tato metoda se volá, když se odesílá formulář pro nový projekt
 exports.ulozitProjekt = (req, res) => {
     const { projectName, projectStart, studentCount } = req.body;
@@ -105,25 +108,63 @@ exports.ulozitProjekt = (req, res) => {
         return res.status(400).send("Všechna pole jsou povinná a počet žáků musí být větší než 0.");
     }
 
-    // Počet žáků na tým (3 osoby na tým)
-    const studentsPerTeam = 3;
-    const numberOfTeams = Math.ceil(studentCount / studentsPerTeam);
+    // Určení pravidel pro rozdělení do týmů na základě třídy
+    let studentsPerTeam;
+    let teams = [];
 
-    // Vytvoření týmů
-    const teams = [];
-    for (let i = 0; i < numberOfTeams; i++) {
-        teams.push({
-            name: `Tým ${i + 1}`,
-            members: Math.min(studentsPerTeam, studentCount - i * studentsPerTeam),
-        });
+    switch (projectName) {
+        case "1.ep":
+            // Každý tým obsahuje 1 studenta
+            studentsPerTeam = 1;
+            for (let i = 0; i < studentCount; i++) {
+                teams.push({
+                    name: `Tým ${i + 1}`,
+                    leader: null,
+                    members: 1
+                });
+            }
+            break;
+        case "2.ep":
+            // Každý tým obsahuje 2 studenty
+            studentsPerTeam = 2;
+            for (let i = 0; i < Math.ceil(studentCount / studentsPerTeam); i++) {
+                teams.push({
+                    name: `Tým ${i + 1}`,
+                    leader: null,
+                    members: Math.min(studentsPerTeam, studentCount - i * studentsPerTeam)
+                });
+            }
+            break;
+        case "3.ep":
+            // Každý tým obsahuje 3 studenty
+            studentsPerTeam = 3;
+            for (let i = 0; i < Math.ceil(studentCount / studentsPerTeam); i++) {
+                teams.push({
+                    name: `Tým ${i + 1}`,
+                    leader: null,
+                    members: Math.min(studentsPerTeam, studentCount - i * studentsPerTeam)
+                });
+            }
+            break;
+        case "4.ep":
+            // Jeden tým zahrnující celou třídu
+            teams.push({
+                name: "Tým 1",
+                leader: null,
+                members: studentCount
+            });
+            break;
+        default:
+            return res.status(400).send("Neplatná třída.");
     }
 
     // Uložení projektu s týmy do databáze
-    databaze.projekty.pridatProjekt(projectName, teams, projectStart);
+    databaze.projekty.pridatProjekt(trida = projectName, teams, projectStart, milestony = null, devlogy = null, prezentace = null);
 
     // Přesměrování na stránku týmů
     res.redirect('/projekty/tymy');
 };
+
 
 // Přidání nové funkce pro získání všech projektů (pokud ji budete potřebovat)
 exports.getAllProjects = async (req, res) => {

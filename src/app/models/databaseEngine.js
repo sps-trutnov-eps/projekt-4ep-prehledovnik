@@ -256,6 +256,16 @@ const projekty = {
         projekty[IDUpravovanehoProjektu]["tymy"] = tymy;
         sP(projekty);
     },
+    upravitTym: (puvodniTym, novyTym) => {
+        let projekty = gP();
+        let nextID = projekty["nextID"];
+        console.log(projekty);
+        for(let i = 0; i < nextID; i++){
+            if(JSON.stringify(projekty[String(i)]["Tymy"]) === puvodniTym)
+                projekty[String(i)] = novyTym;
+        }
+        sP(projekty);
+    },
     upravitPitche: (trida, pitche) => {
         let projekty = gP();
         let IDUpravovanehoProjektu = hledanyProjekt(trida);

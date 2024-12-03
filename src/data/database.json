@@ -49,6 +49,113 @@
         "nextID": 1
     },
     "projekty": {
-        "nextID": 1
+        "1": {
+            "trida": "4.ep",
+            "tymy": [
+                {
+                    "name": "Tým 1",
+                    "members": "26"
+                }
+            ],
+            "pitche": "2024-12-20"
+        },
+        "2": {
+            "trida": "2.ep",
+            "tymy": [
+                {
+                    "name": "Tým 1",
+                    "members": 2
+                },
+                {
+                    "name": "Tým 2",
+                    "members": 2
+                },
+                {
+                    "name": "Tým 3",
+                    "members": 2
+                },
+                {
+                    "name": "Tým 4",
+                    "members": 2
+                },
+                {
+                    "name": "Tým 5",
+                    "members": 2
+                },
+                {
+                    "name": "Tým 6",
+                    "members": 2
+                },
+                {
+                    "name": "Tým 7",
+                    "members": 2
+                },
+                {
+                    "name": "Tým 8",
+                    "members": 2
+                },
+                {
+                    "name": "Tým 9",
+                    "members": 2
+                }
+            ],
+            "pitche": "2024-12-14"
+        },
+        "3": {
+            "trida": "3.ep",
+            "tymy": [
+                {
+                    "name": "Tým 1",
+                    "members": 3
+                },
+                {
+                    "name": "Tým 2",
+                    "members": 3
+                },
+                {
+                    "name": "Tým 3",
+                    "members": 3
+                },
+                {
+                    "name": "Tým 4",
+                    "members": 3
+                },
+                {
+                    "name": "Tým 5",
+                    "members": 3
+                },
+                {
+                    "name": "Tým 6",
+                    "members": 3
+                },
+                {
+                    "name": "Tým 7",
+                    "members": 3
+                },
+                {
+                    "name": "Tým 8",
+                    "members": 2
+                }
+            ],
+            "pitche": "2024-11-28",
+            "milestony": null,
+            "devlogy": null,
+            "prezentace": null
+        },
+        "4": {
+            "trida": "4.ep",
+            "tymy": [
+                {
+                    "name": "Tým 1",
+                    "leader": null,
+                    "members": "30"
+                }
+            ],
+            "pitche": "2024-11-28",
+            "milestony": null,
+            "devlogy": null,
+            "prezentace": null
+        },
+        "nextID": 5
     }
 }
