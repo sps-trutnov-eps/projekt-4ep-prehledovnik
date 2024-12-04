@@ -11,8 +11,6 @@
       .tlacitko {
         margin: 20px 0;
         padding: 15px;
-        //background-color: #007bff;
-        //color: white;
         border: none;
         border-radius: 5px;
         width: 100%;
@@ -29,36 +27,52 @@
       }
     </style>
 
-      <article
-        style="
-          width: 20vw;
-          min-width: 20vw;
-          margin-right: 1em;
-          overflow-y: auto;
-          resize: horizontal;
-        ">
-        <h1>Sidebar</h1>
-
-        <div class="button">
-          <a href="../maturity/">
-            <button class="tlacitko">PŽOP</button>
-          </a>
-          <a href="../maturity/pcmz">
-            <button class="tlacitko">PČMZ</button>
-          </a>
-          <a href="../maturity/scmz">
-            <button class="tlacitko">SČMZ</button>
-          </a>
-          <a href="../maturity/sloh">
-            <button class="tlacitko">SLOH</button>
-          </a>
-        </div>
-      </article>
-
       <article style="flex: 3; overflow-y: auto">
-        <h1>Sloh</h1>
+        <header>
+          <nav>
+            <ul>
+              <li>
+                <h1>Sloh</h1>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <div role="group">
+                  <button
+                    class="outline"
+                    hx-get="/maturity"
+                    hx-target="body"
+                    hx-push-url="true"
+                    hx-swap="transition:true">
+                  PŽOP</button>
+                  <button
+                    class="outline"
+                    hx-get="/maturity/pcmz"
+                    hx-target="body"
+                    hx-push-url="true"
+                    hx-swap="transition:true">
+                  PČMZ</button>
+                  <button
+                    class="outline"
+                    hx-get="/maturity/scmz"
+                    hx-target="body"
+                    hx-push-url="true"
+                    hx-swap="transition:true">
+                  SČMZ</button>
+                  <button
+                    hx-get="/maturity/sloh"
+                    hx-target="body"
+                    hx-push-url="true"
+                    hx-swap="transition:true">
+                  SLOH</button>
+                </div>
+              </li>
+            </ul>
+          </nav>
+        </header>
 
-        <form>
+        <main>
+         <form action="/maturity/ukladanisloh" method="POST">
           <table style="border-collapse: collapse; width: 100%">
             <thead>
               <tr>
@@ -103,34 +117,34 @@
             </thead>
             <tbody id="table-body">
               <tr>
-                <td><input type="date" name="datum[]" value="2024-03-15" /></td>
+                <td><input type="date" name="den1_datum[]" /></td>
 
                 <td class="clickable-cell" data-hodina="1">
-                  <input type="hidden" name="ucebna-1[]" value="" />Klikni
+                  <input type="hidden" name="den1_ucebna-1[]" value="" />Klikni
                 </td>
                 <td class="clickable-cell" data-hodina="2">
-                  <input type="hidden" name="ucebna-2[]" value="" />Klikni
+                  <input type="hidden" name="den1_ucebna-2[]" value="" />Klikni
                 </td>
                 <td class="clickable-cell" data-hodina="3">
-                  <input type="hidden" name="ucebna-3[]" value="" />Klikni
+                  <input type="hidden" name="den1_ucebna-3[]" value="" />Klikni
                 </td>
                 <td class="clickable-cell" data-hodina="4">
-                  <input type="hidden" name="ucebna-4[]" value="" />Klikni
+                  <input type="hidden" name="den1_ucebna-4[]" value="" />Klikni
                 </td>
                 <td class="clickable-cell" data-hodina="5">
-                  <input type="hidden" name="ucebna-5[]" value="" />Klikni
+                  <input type="hidden" name="den1_ucebna-5[]" value="" />Klikni
                 </td>
                 <td class="clickable-cell" data-hodina="6">
-                  <input type="hidden" name="ucebna-6[]" value="" />Klikni
+                  <input type="hidden" name="den1_ucebna-6[]" value="" />Klikni
                 </td>
                 <td class="clickable-cell" data-hodina="7">
-                  <input type="hidden" name="ucebna-7[]" value="" />Klikni
+                  <input type="hidden" name="den1_ucebna-7[]" value="" />Klikni
                 </td>
                 <td class="clickable-cell" data-hodina="8">
-                  <input type="hidden" name="ucebna-8[]" value="" />Klikni
+                  <input type="hidden" name="den1_ucebna-8[]" value="" />Klikni
                 </td>
                 <td class="clickable-cell" data-hodina="9">
-                  <input type="hidden" name="ucebna-9[]" value="" />Klikni
+                  <input type="hidden" name="den1_ucebna-9[]" value="" />Klikni
                 </td>
               </tr>
             </tbody>
@@ -162,8 +176,8 @@
               Uložit
             </button>
           </div>
-        </form>
-
+         </form>
+        </main>
         <div
           id="classroomModal"
           style="
@@ -195,6 +209,7 @@
     <script>
       let selectedCell;
       let selectedInput;
+      let dayCounter = 1;
 
       const hodinyCasy = [
         "8:00-8:45",
@@ -249,13 +264,14 @@
       }
 
       function addRow() {
+        dayCounter++;
         const tableBody = document.getElementById("table-body");
         const newRow = document.createElement("tr");
 
         const dateCell = document.createElement("td");
         const dateInput = document.createElement("input");
         dateInput.type = "date";
-        dateInput.name = "datum[]";
+        dateInput.name = "den" + dayCounter + "_datum[]";
         dateCell.appendChild(dateInput);
         newRow.appendChild(dateCell);
 
@@ -263,7 +279,7 @@
           const cell = document.createElement("td");
           const input = document.createElement("input");
           input.type = "hidden";
-          input.name = `ucebna-${i}[]`;
+          input.name = `den${dayCounter}_ucebna-${i}[]`;
           cell.textContent = "Klikni";
           cell.className = "clickable-cell";
           cell.appendChild(input);

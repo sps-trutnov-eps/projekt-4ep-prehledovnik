@@ -1,152 +1,308 @@
 <!DOCTYPE html>
 <%- include('../partials/head'); %>
-
 <style>
-  .grid-container {
-    display: grid;
-    grid-template-columns: auto auto auto auto auto auto;
-    padding: 10px;
-  }
-  .grid-item {
-    border: 1px solid rgba(0, 0, 0, 0.8);
-    padding: 20px;
-    font-size: 30px;
-    text-align: center;
-    scroll-margin: 325px;
-  }
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(150px, 1fr));
+      padding: 20px;
+    }
+    .grid-item {
+      border: 1px solid rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      font-size: 20px;
+      text-align: center;
+      scroll-margin: 325px;
+      margin: 0;
+    }
+    .days-header {
+        position: sticky;
+        top: -1em;
+        z-index: 9;
+        padding-bottom: 0;
+        margin: 0;
+        background-color: white;
+    }
+    #quick-nav {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        margin-top: 0;
+        padding: 15px;
+    }
+
+    #detail {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 400px;
+        background-color: white;
+        border-radius: 8px;
+        padding: 24px;
+        padding-bottom: 80px;
+        z-index: 1000;
+        text-align: center;
+    }
+
+    .detailItem {
+        font-weight: bold;
+        margin: 12px 0;
+        padding: 8px 0;
+        color: #333;
+    }
+
+    .detailItem::before {
+        display: block;
+        color: #666;
+        margin-bottom: 4px;
+    }
+
+    #from::before { content: "Začátek:"; }
+    #to::before { content: "Konec:"; }
+    #date::before { content: "Datum:"; }
+    #type::before { content: "Typ události:"; }
+    #tykase::before { content: "Týká se:"; }
+    #note::before { content: "Poznámka:"; }
+
+    #note {
+        margin-bottom: 60px;
+    }
+
+    .detailButton {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #ff4444;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 24px;
+        font-weight: bold;
+        padding: 8px 40px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+    .detailButton:hover {
+        background-color: #ff0000;
+    }
+
+    /* Dark mode */
+    @media (prefers-color-scheme: dark) {
+        #detail {
+            background-color: #1a1a1a;
+        }
+
+        .detailItem {
+            color: #e0e0e0;
+        }
+
+        .detailItem::before {
+            color: #999;
+        }
+    }
+
 </style>
 
-<!-- Nefachá, nechávám zde pokud by jste potřebovzli -->
-<!-- Smažte pokud ne -->
-<!-- <section id=<%#= new Date(i).getDate()%>-<%#= new Date(i).getMonth() + 1%>  style="grid-column-start: <%#= new Date(i).getDay()%> ;" class="grid-item"> -->
-<!--    <%# if(new Date(i).getDay() == 6) {%> -->
-<!--    <p><%#= new Date(i).getDate()%> / <%#= new Date(i).getMonth() + 1%> - <%#= new Date(i+increment).getDate()%> / <%#= new Date(i+increment).getMonth() + 1%></p> -->
+<article style="flex: 3; padding: 0;">
+    <header>
+      <nav>
+        <ul>
+          <li>
+            <h1>Kalendář</h1>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <div role="group">
+               <button onclick="scrollToCurrent()">Aktuální</button>
+               <select name="months" id="months" ">
+                  <option value="8">Srpen</option>
+                  <option value="9">Září</option>
+                  <option value="10">Říjen</option>
+                  <option value="11">Listopad</option>
+                  <option value="12">Prosinec</option>
+                  <option value="1">Leden</option>
+                  <option value="2">Únor</option>
+                  <option value="3">Březen</option>
+                  <option value="4">Duben</option>
+                  <option value="5">Květen</option>
+                  <option value="6">Červen</option>
+                  <option value="7">Červenec</option>
+               </select>
+               <button onclick="scrollToMonth()">Na&nbspměsíc</button>
+            </div>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <div role="group">
+              <button class="outline" hx-get="/kalendar/tydenni" hx-target="body" hx-push-url="true" hx-swap="transition:true">
+                  Týdenní
+              </button>
+              <button hx-get="/kalendar" hx-target="body" hx-push-url="true" hx-swap="transition:true">
+                  Měsíční
+              </button>
+            </div>
+          </li>
+        </ul>
+      </nav>
 
-<!--    <%# }else{%> -->
-<!--    <p><%#= new Date(i).getDate()%> / <%#= new Date(i).getMonth() + 1%></p> -->
-<!--    <%# }%> -->
+    </header>
 
-<!--    <%# if (new Date(i).getDate() == date_udalost[0] && new Date(i).getMonth() + 1 == date_udalost[1]) {%> -->
-<!--    <p><%#= date_udalost[2]%></p> -->  
-<!--    <%#}%> -->  
-<!-- </section> -->
-                            
-<article style="flex: 3">
-  <header>
-    <h1>Kalendář</h1>
-    <div role="group">
-      <button
-        class="outline"
-        hx-get="/kalendar/tydenni"
-        hx-target="body"
-        hx-swap="transition:true">
-        Týdenní
-      </button>
-      <button
-        hx-get="/kalendar"
-        hx-target="body"
-        hx-swap="transition:true">
-        Měsíční
-      </button>
-    </div>
-  </header>
-  <main>
-  <div role="group">
-    <button onclick="scrollToCurrent()">Aktuální</button>
-    <select name="months" id="months">
-      <option value="8">Srpen</option>
-      <option value="9">Září</option>
-      <option value="10">Říjen</option>
-      <option value="11">Listopad</option>
-      <option value="12">Prosinec</option>
-      <option value="1">Leden</option>
-      <option value="2">Únor</option>
-      <option value="3">Březen</option>
-      <option value="4">Duben</option>
-      <option value="5">Květen</option>
-      <option value="6">Červen</option>
-      <option value="7">Červenec</option>
-    </select>
-    <button onclick="scrollToMonth()">Na&nbspměsíc</button>
-  </div>
-
-  <% let startDate = new Date(2024, 7, 1); %>
-  <% let endDate = new Date(2025, 6, 31); %>
-  <% const increment = 24 * 60 * 60 * 1000; // Milliseconds per day %>
-  
-  <section class="grid-container">
-    <p class="grid-item">Pondělí</p>
-    <p class="grid-item">Úterý</p>
-    <p class="grid-item">Středa</p>
-    <p class="grid-item">Čtvrtek</p>
-    <p class="grid-item">Pátek</p>
-    <p class="grid-item">Víkend</p>
-  
-    <% for (let i = startDate.getTime(); i <= endDate.getTime(); i += increment) { 
-         const currentDate = new Date(i);
-         if (currentDate.getDay() !== 0) { %>
-  
-      <section id="<%= currentDate.getDate() %>-<%= currentDate.getMonth() + 1 %>" 
-               style="grid-column-start: <%= currentDate.getDay() %>;" 
-               class="grid-item"> 
-        <p>
-          <% if (currentDate.getDay() === 6) { %>
-            <%= currentDate.getDate() %> / <%= currentDate.getMonth() + 1 %> -
-            <%= new Date(i + increment).getDate() %> / 
-            <%= new Date(i + increment).getMonth() + 1 %>
-          <% } else { %>
-            <%= currentDate.getDate() %> / <%= currentDate.getMonth() + 1 %>
-          <% } %>
-        </p>
-        <% if (currentDate.getDate() === date_udalost[0] && 
-                currentDate.getMonth() + 1 === date_udalost[1]) { %>
-          <p><%= date_udalost[2] %></p>
-        <% } %>
+    <main>
+      <section class="grid-container days-header">
+         <p class="grid-item">PONDĚLÍ</p>
+         <p class="grid-item">ÚTERÝ</p>
+         <p class="grid-item">STŘEDA</p>
+         <p class="grid-item">ČTVRTEK</p>
+         <p class="grid-item">PÁTEK</p>
+         <p class="grid-item">VÍKEND</p>
       </section>
-  
-    <% } } %>
-  </section>
-  </main>
-  </article>
+        <div id="detail">
+            <p id="name" class="detailItem"></p>
+            <p id="from" class="detailItem"></p>
+            <p id="to" class="detailItem"></p>
+            <p id="date" class="detailItem"></p>
+            <p id="type" class="detailItem"></p>
+            <p id="tykase" class="detailItem"></p>
+            <p id="note" class="detailItem"></p>
+            <button class="detailButton" onclick="detailOff()">X</button>
+        </div>
+        <section class="grid-container">
+            <%
+                let startDate = new Date(2024,7,1);
+                let endDate = new Date(2025,6,31);
+                const increment = 24 * 60 * 60 * 1000 //Miliseconds per day
+                let a = false
+                console.log("aaa")
+            %>
+            <% for (let i = startDate.getTime(); i <= endDate.getTime();i += increment) {%>
+                <% if(new Date(i).getDay() != 0) {%>
 
-  
+                <section id=<%= new Date(i).toLocaleDateString('en-CA', { timeZone: 'Europe/Prague' }) %>  style="grid-column-start: <%= new Date(i).getDay()%> ;" class="grid-item">
+                    <% if(new Date(i).getDay() == 6) {%>
+                    <p><%= new Date(i).getDate()%> / <%= new Date(i).getMonth() + 1%> - <%= new Date(i+increment).getDate()%> / <%= new Date(i+increment).getMonth() + 1%></p>
+
+                    <% }else{%>
+                        <p><%= new Date(i).getDate()%> / <%= new Date(i).getMonth() + 1%></p>
+                    <% }%>
+
+
+
+                    <% if (new Date(i).getDate() == date_udalost[0] && new Date(i).getMonth() + 1 == date_udalost[1]) {%>
+                    <p><%= date_udalost[2]%></p>
+                    <%}%>
+
+                </section>
+
+
+                <% }%>
+            <% }%>
+        </section>
+    </main>
+</article>
 <script>
-  function scrollToCurrent() {
-    const month = new Date().getMonth() + 1;
-    const currentDate = new Date().getDate() + "-" + month;
-    console.log(currentDate);
-    const element = document.getElementById(currentDate);
-    element.scrollIntoView();
-  }
-
-  function scrollToMonth() {
-    const select = document.getElementById("months");
-    const month = select.value;
-    const selected = document.getElementById("1-" + month);
-    console.log(month);
-    selected.scrollIntoView();
-  }
-
-  function scrollToMonth() {
-     const select = document.getElementById("months")
-     const month = select.value
-     const selected = document.getElementById("1-"+month)
-     console.log(month)
-     selected.scrollIntoView()
-  }
-
   document.addEventListener("DOMContentLoaded", function() {
-     placeUdalosti()
-  })
-  function placeUdalosti() {
-     let udalosti = <%- JSON.stringify(udalosti) %>
-        for (let i=1;i<udalosti.length;i++){
-           let date = document.getElementById(udalosti[i].date)
-           let p = document.createElement("p")
-           p.textContent = udalosti[i].nazev
-           date.appendChild(p);          
-        }
-  }
-</script>
-<%- include('../partials/tail') %>
+              placeUdalosti()
+          })
 
+  function scrollToCurrent() {
+      const increment = 24 * 60 * 60 * 1000
+      let today = new Date();
+      //Pokud je nedele, scrolluje se na sobotu
+      if(Number(today.getDay()) == 0)
+          today = new Date(Number(today.getTime()) - increment)
+      let currentDate = today.toISOString().split('T')[0]; // Format YYYY-MM-DD
+      let element = document.getElementById(currentDate);
+
+      if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+          console.error("Element pro aktuální datum nebyl nalezen.");
+      }
+  }
+
+  function scrollToMonth() {
+
+      const select = document.getElementById("months");
+      const month = select.value;
+      const year = (month < 8) ? 2025 : 2024;  // Nastavení roku podle výběru měsíce
+      let selected = document.getElementById(`${year}-${month.padStart(2, '0')}-01`);
+
+      if (selected) {
+          selected.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+          selected = document.getElementById(`${year}-${month.padStart(2, '0')}-02`);
+          selected.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+  }
+
+  function placeUdalost(udalost, index){
+      const increment = 24 * 60 * 60 * 1000
+      let date = udalost.datum
+      const dateCheck = new Date(udalost.datum)
+      if (Number(dateCheck.getDay()) == 0)
+          date = new Date(Number(dateCheck.getTime()) - increment).toLocaleDateString('en-CA', { timeZone: 'Europe/Prague' })
+      let day = document.getElementById(date)
+
+      let button = document.createElement("button")
+      button.textContent = udalost.nazev
+      button.className = "udalost"
+      button.onclick = function(){detailDisplay(index)}
+      day.appendChild(button)
+      return button
+  }
+
+  function placeUdalosti() {
+      let udalosti = <%- JSON.stringify(udalosti) %>
+
+      for (let i=1;i<udalosti.length;i++){
+          if(udalosti[i] != null){
+              if(udalosti[i].naPocetDni > 0){
+                  for(let j=0; j < udalosti[i].naPocetDni ;j++){
+                      let udalost = { ...udalosti[i] };
+                      let date = new Date(udalost.datum);
+                      date.setDate(date.getDate() + j);
+                      udalost.datum = date.toISOString().split('T')[0];
+
+                      let element = placeUdalost(udalost,i)
+                      element.classList.add("udalost", "udalostVicedenni")
+                      while (element.previousSibling != null){
+                          element.parentNode.insertBefore(element, element.previousSibling)
+                          if(element.previousSibling == element.parentNode.firstElementChild)
+                              break
+                      }
+              }}
+              else
+                  placeUdalost(udalosti[i],i)
+          }
+      }
+  }
+
+  function detailDisplay(index){
+      const udalosti = <%- JSON.stringify(udalosti) %>
+      const udalost = udalosti[index]
+      console.log(udalost.typ)
+
+      let detail = document.getElementById("detail")
+      detail.style.display = "block"
+
+      document.getElementById("name").innerText = udalost.nazev
+      document.getElementById("from").innerText = udalost.casOd
+      document.getElementById("to").innerText = udalost.casDo
+      document.getElementById("date").innerText = udalost.datum
+      document.getElementById("type").innerText = udalost.typ
+      document.getElementById("tykase").innerText = udalost.tykaSe
+      document.getElementById("note").innerText = udalost.poznamka
+  }
+
+  function detailOff(){
+      document.getElementById("detail").style.display = "none"
+  }
+
+</script>
+<script src="/kalendar/js/main.js"></script>
+<%- include('../partials/tail') %>

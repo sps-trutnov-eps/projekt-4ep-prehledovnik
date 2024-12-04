@@ -6,7 +6,7 @@
     <title>Přehledovnik</title>
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+      href="/css/pico.css" />
     <link rel="icon" href="./favicon.ico" type="image/x-icon" />
     <script src="https://unpkg.com/htmx.org@2.0.2"></script>
     <style>
@@ -19,45 +19,79 @@
           hsla(132, 100%, 50%, 0.1) 100%
         );
       }
-      .outline {
-        transition: background-color 0.25s ease;
-      }
-      .outline:hover {
-        background-color: var(--pico-text-selection-color);
-      }
-      header {
-        padding: 0em 1em;
-        position: sticky;
-        top: 0;
-        left: 0;
-        z-index: 1;
-        max-width: 100%;
+      nav {
+          --pico-color: hsl(199.41176, 100%, 100%);
+          padding-left: .5em;
+          ul {
+            li {
+                padding: 0 .5em;
+            }
+            li:not(:first-child) {
+                flex-grow: 1;
+            }
+          }
+        }
+      body {
+          display: flex;
+          flex-direction: column;
+          height: 100vh;
+          overflow: hidden;
+          > nav {
+            --pico-border-radius: 0;
+            --pico-background-color: hsl(223.17073, 55%, 39%);
+            background-color: hsl(223.17073, 55%, 29%);
+            margin-bottom: 1em;
+            ul {
+                width: 100%;
+            }
+            li {
+              padding: 0 .5em;
+              button {
+                width: 100%;
+              }
+            }
+          }
       }
       article {
+        --pico-card-sectioning-background-color: hsl(199.41176, 100%, 40%);
         overflow-y: hidden;
-        padding: 0em;
+        padding: 0rem;
         display: flex;
         flex-direction: column;
-      }
-      article main {
-        overflow-y: auto;
-        padding: 1em;
+        header {
+          padding: 1rem;
+          position: sticky;
+          top: 0;
+          left: 0;
+          z-index: 1;
+          max-width: 100%;
+          --pico-color: white !important;
+          --pico-h1-color: white;
+          > nav {
+              --pico-spacing: 0;
+              --pico-typography-spacing-vertical: 0;
+          }
+          .outline {
+              --pico-background-color: var(--pico-form-element-background-color) !important;
+              --pico-border-color: var(--pico-form-element-border-color) !important;
+              --pico-color: var(--pico-form-element-color)  !important;
+              //--pico-color: white !important;
+            }
+          }
+        main {
+          overflow-y: auto;
+          padding: 1rem;
+        }
       }
     </style>
   </head>
-  <body
-    style="
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-      overflow-y: none;
-    ">
+  <body>
     <%- include('../partials/header'); %>
 
     <main
       style="
         padding: 0em 1em;
         flex: auto;
-        overflow-y: auto;
+        overflow: hidden;
         display: flex;
       ">
