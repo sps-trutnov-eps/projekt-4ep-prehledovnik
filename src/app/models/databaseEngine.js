@@ -12,12 +12,14 @@ ucebny = {
     "59" : ["E4", "F14", "G1", "G2"],
     "618": [],
     "374": [],
-}
+};
+obory = ["EP", "IT"];
 
 if(!db.has("predmety")){
     db.set("predmety", predmety);
     db.set("hodiny", hodiny);
     db.set("ucebny", ucebny);
+    db.set("obory", obory);
     db.set("osnovy", {"nextID": 1});
     db.set("rozvrhy", {"nextID": 1});
     db.set("udalosti", {"nextID": 1});
@@ -103,11 +105,16 @@ function ziskatUcebny() {
     return db.get("ucebny")
 }
 
+function ziskatObory() {
+    return db.get("obory")
+}
+
 // export funkcí
 module.exports = {
     osnovy,
     ziskatPredmety,
-    ziskatUcebny
+    ziskatUcebny,
+    ziskatObory
 }
 
 // ROZVRHY
@@ -436,6 +443,9 @@ const databaseEngine = {
     },
     ziskatUcebny: () => {
         return ucebny;
+    },
+    ziskatObory: () => {
+        return obory;
     }
 }
 
