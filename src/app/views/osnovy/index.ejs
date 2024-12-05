@@ -142,15 +142,30 @@ resize: horizontal;
 							</select>
 						</div>
 					</div>
-					<label for="teorie">Teorie: <input type="checkbox" id="teorieCheckBox" name="teorie" <% if (cur[id]['predmet'].split('-')[1] == 't') {%> checked <% } %>/></label>
-					
+						
+						<div style="display: flex; align-items: flex-start; width: 100%;">
+							<label for="teorieCheckBox">Teorie?
+								<input type="checkbox" id="teorieCheckBox" name="teorie" onchange="calculateTheTotalHours()" <% if (cur[id]['predmet'].split('-')[1] == 't') {%> checked <% } %>/>
+							</label>
+							
+							
+								<label for="calculateHours">Počítat hodiny?
+									<input type="checkbox" id="calculateHours" name="calculateHours" onchange="hideDiv('customHoursAWeekDiv')" checked/>
+								</label>
+							
+						</div>
+						<div id="customHoursAWeekDiv">
+							<label for="customHoursAWeek"> Vlastní hodiny týdně:</label>
+							<input type="number" id="customHoursAWeek" name="customHoursAWeek" value="0" />
+						</div>
+						
 					<br/>
 					
 					
                <div style="display: flex; align-items: flex-start; width: 100%;">
 						<div style="margin-right: 20px; flex-grow: 1;">
 							<label for="rocnik">Ročník:</label>
-							<select name="rocnik" id="rocnik" style="width: 100%;">
+							<select name="rocnik" id="rocnik" onchange="calculateTheTotalHours()" style="width: 100%;">
 								<% for (let i = 1; i < 5; i++){ %>
 									<option value="<%= i %>" <% if (cur[id]['trida'].split('.')[0] == i) {%> selected <% } %> ><%= i %></option>
 								<% } %>

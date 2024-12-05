@@ -215,3 +215,34 @@ function updateCurriculumHours() {
 		console.log(odCell);
 	}
 }
+
+function calculateTheTotalHours() {
+	const calculateHours = document.getElementById("calculateHours").checked;
+	
+	if (calculateHours){
+		const totalHours = document.getElementById("pHodin");
+		const year = document.getElementById("rocnik");
+		const customHoursAWeek = document.getElementById("customHoursAWeek");
+		const theory = document.getElementById("teorieCheckBox").checked;
+
+		let hoursAWeek = 2;
+		if (theory){ hoursAWeek = 1; }
+		if (customHoursAWeek.value > 0) { hoursAWeek = customHoursAWeek.value; }
+		
+		let weeksAYear = 34;
+		if (year.value == 4) { weeksAYear -= 4; }
+
+		totalHours.value = hoursAWeek*weeksAYear;
+	}
+}
+
+function hideDiv(id) {
+	const div = document.getElementById(id);
+	console.log(div.style.display);
+	if (div.style.display === "none"){ div.style.display = "block"; }
+	else { div.style.display = "none"; }
+}
+
+window.onload = (event) => {
+  calculateTheTotalHours();
+};
