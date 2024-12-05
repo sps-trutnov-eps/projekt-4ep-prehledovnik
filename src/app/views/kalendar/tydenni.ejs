@@ -84,8 +84,8 @@
           <p class="grid-item-h"><span class="cislo-hodiny">7</span><br>13:25-14:10</p>
           <p class="grid-item-h"><span class="cislo-hodiny">8</span><br>14:15-15:00</p>
           <p class="grid-item-h"><span class="cislo-hodiny">9</span><br>15:00+</p>
-          <% let days = ["Po", "Út", "St", "Čt", "Pá"] %>
-
+          <% let days = ["Po", "Ut", "St", "Ct", "Pa"] %>
+          <% let day = ["Po"] %>
           <% for(let i=0;i<5;i++) {%>
             <% let currentDate = new Date(baseDate) %>
             <% currentDate.setDate(baseDate.getDate() + (t * 7) + i) %>
@@ -98,10 +98,14 @@
             <% for(let j=0;j<= 9;j++) {%>
               <p class="grid-item">
                 <% if (week[t] % 2 === 0) { %>
-                  <%= rozvrh_S[j + 10 * i]%>
+                  <%= rozvrh.hodiny.sudy[days[i]][j].mistnost%> <br>
+                  <%= rozvrh.hodiny.sudy[days[i]][j].predmet%> <br>
+                  <%= rozvrh.hodiny.sudy[days[i]][j].skupina%>
                 <% }%>
                 <% if (week[t] % 2 === 1) { %>
-                  <%= rozvrh_L[j + 10 * i]%>
+                  <%= rozvrh.hodiny.lichy[days[i]][j].mistnost%> <br>
+                  <%= rozvrh.hodiny.lichy[days[i]][j].predmet%> <br>
+                  <%= rozvrh.hodiny.lichy[days[i]][j].skupina%>
                 <% }%>
               </p>
             <%}%>

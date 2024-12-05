@@ -55,11 +55,10 @@ for(let i=1; i<=posledniSkolniTyden; i++){
     tydny.push(i)
     //console.log(tydny)
 }
-console.log(tydny)
+console.log(databaze.rozvrhy.ziskatRozvrh(4))
 exports.tydenni = (req,res) => {
     res.render('kalendar/tydenni', {
-        rozvrh_L: rozvrh_L, 
-        rozvrh_S: rozvrh_S,
+        rozvrh: databaze.rozvrhy.ziskatRozvrh(4), 
         week: tydny
     })
 }
