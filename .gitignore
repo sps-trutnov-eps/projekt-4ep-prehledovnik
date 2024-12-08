@@ -92,3 +92,5 @@ package-lock.json
 .vs/
 
 src/data/database.json
+database.json
+src/data/database*.json

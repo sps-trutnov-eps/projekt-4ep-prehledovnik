@@ -3,13 +3,6 @@
 <%- include('../partials/head.ejs'); %>
 
 <style>
-body {
-    display: flex;
-    flex-direction: row;
-    margin: 0;
-    font-family: Arial, sans-serif;
-    min-height: 100vh;
-}
 
 .levy_panel {
     width: 20vw;
@@ -131,26 +124,25 @@ tr:hover {
 
 <link rel="stylesheet" href="/osnovy/css/main.css" />
 
-<body>
-   <article
-        style="
-          width: 20vw;
-          min-width: 20vw;
-          margin-right: 1em;
-          overflow-y: auto;
-          resize: horizontal;
-        ">
-        <h1 style="text-align: center">Sidebar</h1>
+<article
+     style="
+       width: 20vw;
+       min-width: 20vw;
+       margin-right: 1em;
+       overflow-y: auto;
+       resize: horizontal;
+     ">
+     <h1 style="text-align: center">Sidebar</h1>
 
-        <div class="button">
-         <a href="../projekty/tymy">
-            <button class="tlacitko">Týmy</button>
+     <div class="button">
+      <a href="../projekty/tymy">
+         <button class="tlacitko">Týmy</button>
 
-          <a href="../projekty/vytvoreniProjektu">
-            <button class="tlacitko">Vytvoření projektu</button>
-            </a><%- tlacitka %>
-        </div>
-      </article>
+       <a href="../projekty/vytvoreniProjektu">
+         <button class="tlacitko">Vytvoření projektu</button>
+         </a><%- tlacitka %>
+     </div>
+   </article>
 
 <article style="flex: 3; overflow-y: auto" >
       <h1>Fáze</h1>
@@ -182,5 +174,3 @@ tr:hover {
 </article>
 
 <%- include('../partials/tail') %>
-</body>
-</html>

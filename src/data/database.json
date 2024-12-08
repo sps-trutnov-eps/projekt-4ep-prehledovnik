@@ -156,6 +156,80 @@
             "devlogy": null,
             "prezentace": null
         },
-        "nextID": 5
+        "5": {
+            "trida": "3.ep",
+            "tymy": [
+                {
+                    "name": "Tým 1",
+                    "leader": null,
+                    "members": 3
+                },
+                {
+                    "name": "Tým 2",
+                    "leader": null,
+                    "members": 3
+                },
+                {
+                    "name": "Tým 3",
+                    "leader": null,
+                    "members": 3
+                },
+                {
+                    "name": "Tým 4",
+                    "leader": null,
+                    "members": 3
+                },
+                {
+                    "name": "Tým 5",
+                    "leader": null,
+                    "members": 3
+                },
+                {
+                    "name": "Tým 6",
+                    "leader": null,
+                    "members": 3
+                },
+                {
+                    "name": "Tým 7",
+                    "leader": null,
+                    "members": 3
+                },
+                {
+                    "name": "Tým 8",
+                    "leader": null,
+                    "members": 3
+                },
+                {
+                    "name": "Tým 9",
+                    "leader": null,
+                    "members": 3
+                },
+                {
+                    "name": "Tým 10",
+                    "leader": null,
+                    "members": 3
+                },
+                {
+                    "name": "Tým 11",
+                    "leader": null,
+                    "members": 3
+                },
+                {
+                    "name": "Tým 12",
+                    "leader": null,
+                    "members": 3
+                },
+                {
+                    "name": "Tým 13",
+                    "leader": null,
+                    "members": 1
+                }
+            ],
+            "pitche": "2024-12-07",
+            "milestony": null,
+            "devlogy": null,
+            "prezentace": null
+        },
+        "nextID": 6
     }
 }
