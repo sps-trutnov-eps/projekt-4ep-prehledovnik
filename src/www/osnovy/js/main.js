@@ -190,6 +190,9 @@ function updateCurriculumHours() {
 	const table = document.getElementById("curriculums");
 	const rows = table.rows;
 	let doPredchozi = 0;
+	const totalHours = document.getElementById("pHodin").value;
+
+	let currentTotalHours = 0;
 	
 	// Loop through each row to calculate "Od" and "Do"
 	// It starts from one to get rid of off the first row and ends with -1 to get rid of off the last row
@@ -211,9 +214,25 @@ function updateCurriculumHours() {
 		// Calculate and set the "Do" value
 		odCell.textContent = od;
 		doCell.textContent = doCur;
+
+		currentTotalHours += hours;
 		
 		console.log(odCell);
 	}
+	const hoursCells = document.querySelectorAll('#curriculums .hour-input');
+    hoursCells.forEach(cell => {
+        const parentRow = cell.closest('tr');
+        const odCell = parentRow.cells[1];
+        const doCell = parentRow.cells[2];
+
+        if (currentTotalHours != totalHours) {
+            odCell.style.color = 'red';
+            doCell.style.color = 'red';
+        } else {
+            odCell.style.color = 'black';
+            doCell.style.color = 'black';
+        }
+    });
 }
 
 function calculateTheTotalHours() {
