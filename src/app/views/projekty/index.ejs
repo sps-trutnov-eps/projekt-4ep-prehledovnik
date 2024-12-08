@@ -110,148 +110,51 @@
 </style>
 
 <article
-   class="levy_panel"
-   style="
-      width: 20vw;
-      min-width: 20vw;
-      margin-right: 1em;
-      overflow-y: auto;
-      resize: horizontal;
-  ">
-   <button>Přepínač</button>
-   <button>Týmy</button>
-   <button class="team-button">1.ep</button>
-   <button class="team-button">2.ep</button>
-   <button class="team-button">3.ep</button>
-   <button class="team-button">4.ep</button>
-</article>
+     style="
+       width: 20vw;
+       min-width: 20vw;
+       margin-right: 1em;
+       overflow-y: auto;
+       resize: horizontal;
+     ">
+     <h1 style="text-align: center">Sidebar</h1>
 
-<article class="main-content" style="flex: 3; overflow-y: auto">
-   <h1 class="main-heading">Hlavní menu</h1>
-   <div class="divider"></div>
-   <div class="phase">Fáze</div>
+     <div class="button">
+      <a href="../projekty/tymy">
+         <button class="tlacitko">Týmy</button>
+
+       <a href="../projekty/vytvoreniProjektu">
+         <button class="tlacitko">Vytvoření projektu</button>
+         </a><%- tlacitka %>
+     </div>
+   </article>
+
+<article style="flex: 3; overflow-y: auto" >
+      <h1>Fáze</h1>
    <table>
-      <tr>
-         <th><button class="table-button">Upload</button></th>
-         <th>#1</th>
-         <th>#2</th>
-         <th>#3</th>
-         <th>#4</th>
-         <th>#5</th>
-         <th>#6</th>
-         <th>#7</th>
-         <th>#8</th>
-      </tr>
-      <tr>
-         <td>členové</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-      </tr>
-      <tr>
-         <td>pitch</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-      </tr>
-      <tr>
-         <td>m1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-      </tr>
-      <tr>
-         <td>m2</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-      </tr>
-      <tr>
-         <td>m3</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-      </tr>
-      <tr>
-         <td>m4</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-      </tr>
-      <tr>
-         <td>m5</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-      </tr>
-      <tr>
-         <td>m6</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-      </tr>
-      <tr>
-         <td>prezentace</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-      </tr>
-      <tr>
-         <td>hodnocení</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-      </tr>
+		<% let radkyHeader = ["členové", "pitch", "milestone 1", "milestone 2", "milestone 3", "milestone 4", "milestone 5", "milestone 6", "prezentace", "hodnocení"]; %>
+		<% for (let r = 0; r < radkyHeader.length + 1; r += 1) { %>
+			<tr>
+				<% for (let s = 0; s < tymy.length + 1; s += 1) { %>
+					<th>
+						<% if (s == 0) { %>
+							<% if (r == 0) { %>
+                                <button class="tlacitko">Upload</button> 
+							<% } else { %>
+								<%= radkyHeader[r - 1] %>
+							<% } %>
+						<% } else { %>
+							<% if (r == 0) { %>
+                                <%= tymy[s - 1].name %> 
+                            <% } %>
+							<% if (r == 1) { %>
+                                <%= tymy[s - 1].members %> 
+                            <% } %>
+						<% } %>
+					</th>
+				<% } %>
+			</tr>
+		<% } %>
    </table>
 </article>
 <%- include('../partials/tail') %>

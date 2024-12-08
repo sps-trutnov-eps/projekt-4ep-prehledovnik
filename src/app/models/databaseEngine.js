@@ -373,10 +373,14 @@ const projekty = {
         projekty["nextID"] += 1;
         sP(projekty);
     },
-    upravitTymy: (trida, tymy) => {
+   ravitTym: (puvodniTym, novyTym) => {
         let projekty = gP();
-        let IDUpravovanehoProjektu = hledanyProjekt(trida);
-        projekty[IDUpravovanehoProjektu]["tymy"] = tymy;
+        let nextID = projekty["nextID"];
+        console.log(projekty);
+        for(let i = 0; i < nextID; i++){
+            if(JSON.stringify(projekty[String(i)]["Tymy"]) === puvodniTym)
+                projekty[String(i)] = novyTym;
+        }
         sP(projekty);
     },
     upravitPitche: (trida, pitche) => {
@@ -418,7 +422,13 @@ const projekty = {
         let projekty = gP();
         let ID = ziskatIDProjektu(trida);
         return projekty[ID];
-    }
+    },
+    ziskatTridy: () => {
+        let projekty = Object.values(gP());
+        projekty.pop();
+        return projekty.map(((projekt) => projekt["trida"]));
+    },
+    gP: () => {return db.get("projekty")}
 }
 
 // CELKOVÝ MODEL
