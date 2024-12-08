@@ -2,16 +2,56 @@
 const databaseEngine = require("../models/databaseEngine");
 const databaze = require("../models/databaseEngine");
 
+exports.pzop = (req, res) => {
+    let data = databaze.maturity.ziskarMaturituDleNazvu('PŽOP')
+
+    ucebna = data.ucebny[0]
+    dny = data.dny
+
+    res.render('maturity/index.ejs', {"ucebna" : ucebna, "dny" : dny})
+}
+
 exports.pcmz = (req, res) => {
-    res.render("maturity/pcmz.ejs");
+
+    let data = databaze.maturity.ziskarMaturituDleNazvu('PČMZ')
+
+    let dnyacasy = {}
+    for (let i = 0; i < data.dny.length; i++) {
+        dnyacasy[data.dny[i]] = data.casy[i]
+    }
+
+    res.render("maturity/pcmz.ejs", {"data" : dnyacasy});
 };
 
 exports.sloh = (req, res) => {
-    res.render("maturity/sloh.ejs");
+    let data = databaze.maturity.ziskarMaturituDleNazvu('SLOH')
+
+    let dnyacasy = {}
+    for (let i = 0; i < data.dny.length; i++) {
+        casy = data.casy[i]
+        dnyacasy[data.dny[i]] = []
+        for (let x = 0; x < casy.length; x++) {
+            dnyacasy[data.dny[i]].push([data.casy[i][x], data.ucebny[i][x]])
+        }
+    }
+
+    console.log(data)
+    res.render("maturity/sloh.ejs", { "data": dnyacasy });
 };
 
 exports.scmz = (req, res) => {
-    res.render("maturity/scmz.ejs");
+    let data = databaze.maturity.ziskarMaturituDleNazvu('SČMZ')
+
+    let dnyacasy = {}
+    for (let i = 0; i < data.dny.length; i++) {
+        casy = data.casy[i]
+        dnyacasy[data.dny[i]] = []
+        for (let x = 0; x < casy.length; x++) {
+            dnyacasy[data.dny[i]].push(data.casy[i][x], data.ucebny[i])
+        }
+    }
+
+    res.render("maturity/scmz.ejs", {"data" : dnyacasy});
 };
 
 exports.ukladanipzop = (req, res) => {
@@ -157,14 +197,17 @@ exports.ukladanisloh = (req, res) => {
 
     while (body[`den${pocitadloDnu}_datum`]) {
         const datum = body[`den${pocitadloDnu}_datum`][0];
+        console.log(datum)
         
         for (let hodina = 1; hodina <= 9; hodina++) {
             const ucebnaKey = `den${pocitadloDnu}_ucebna-${hodina}`;
             const ucebna = body[ucebnaKey]?.[0]; 
+            console.log(ucebna)
 
             if (ucebna && ucebna.trim() !== '') {
+                console.log(ucebna)
                 const skupinaKlic = `${datum}_${ucebna}`;
-
+                console.log(skupinaKlic)
                 if (!seskupenaData[skupinaKlic]) {
                     seskupenaData[skupinaKlic] = {nazev: "SLOH", dny: [datum], casy: [], ucebna: ucebna};
                 };
@@ -174,6 +217,7 @@ exports.ukladanisloh = (req, res) => {
         }
         pocitadloDnu++;
     }
+    console.log(seskupenaData)
 
     datumy = []
     hodiny = []

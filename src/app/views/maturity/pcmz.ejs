@@ -113,118 +113,37 @@
             <thead>
               <tr>
                 <th style="text-align: center; color: white">Datum:</th>
-                <th style="color: white">
-                  1.
-                  <p>8:00-8:45</p>
-                </th>
-                <th style="color: white">
-                  2.
-                  <p>8:50-9:35</p>
-                </th>
-                <th style="color: white">
-                  3.
-                  <p>9:55-10:40</p>
-                </th>
-                <th style="color: white">
-                  4.
-                  <p>10:50-11:35</p>
-                </th>
-                <th style="color: white">
-                  5.
-                  <p>11:40-12:25</p>
-                </th>
-                <th style="color: white">
-                  6.
-                  <p>12:35-13:20</p>
-                </th>
-                <th style="color: white">
-                  7.
-                  <p>13:25-14:10</p>
-                </th>
-                <th style="color: white">
-                  8.
-                  <p>14:15-15:00</p>
-                </th>
-                <th style="color: white">
-                  9.
-                  <p>15:10-15:55</p>
-                </th>
+                <% for (let i = 1; i <= 9; i++) { %>
+                    <th style="color: white">
+                        <p><%= ["8:00-8:45", "8:50-9:35", "9:55-10:40", "10:50-11:35", "11:40-12:25", "12:35-13:20", "13:25-14:10", "14:15-15:00", "15:10-15:55"][i-1] %></p>
+                    </th>
+                <% } %>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <input
-                    type="date"
-                    name="den1_datum"
-                    style="border: none; text-align: center"
-                    disabled />
-                </td>
-                <td>
-                  <input
-                    class="zaskrtavaci_policko"
-                    type="checkbox"
-                    name="den1_hodina1"
-                    disabled />
-                </td>
-                <td>
-                  <input
-                    class="zaskrtavaci_policko"
-                    type="checkbox"
-                    name="den1_hodina2"
-                    disabled />
-                </td>
-                <td>
-                  <input
-                    class="zaskrtavaci_policko"
-                    type="checkbox"
-                    name="den1_hodina3"
-                    disabled />
-                </td>
-                <td>
-                  <input
-                    class="zaskrtavaci_policko"
-                    type="checkbox"
-                    name="den1_hodina4"
-                    disabled />
-                </td>
-                <td>
-                  <input
-                    class="zaskrtavaci_policko"
-                    type="checkbox"
-                    name="den1_hodina5"
-                    disabled />
-                </td>
-                <td>
-                  <input
-                    class="zaskrtavaci_policko"
-                    type="checkbox"
-                    name="den1_hodina6"
-                    disabled />
-                </td>
-                <td>
-                  <input
-                    class="zaskrtavaci_policko"
-                    type="checkbox"
-                    name="den1_hodina7"
-                    disabled />
-                </td>
-                <td>
-                  <input
-                    class="zaskrtavaci_policko"
-                    type="checkbox"
-                    name="den1_hodina8"
-                    disabled />
-                </td>
-                <td>
-                  <input
-                    class="zaskrtavaci_policko"
-                    type="checkbox"
-                    name="den1_hodina9"
-                    disabled />
-                </td>
-              </tr>
-            </tbody>
+                  <tbody>
+        <% let dayCounter = 1; %>
+        <% for (const [datum, hodiny] of Object.entries(data)) { %>
+          <tr>
+            <td>
+              <input
+                type="date"
+                name="den<%= dayCounter %>_datum"
+                value="<%= datum %>"
+                readonly />
+            </td>
+            <% for (let i = 1; i <= 9; i++) { %>
+              <td>
+                <input
+                  class="zaskrtavaci_policko"
+                  type="checkbox"
+                  name="den<%= dayCounter %>_hodina<%= i %>"
+                  <%= hodiny.includes(i) ? "checked" : "" %> />
+              </td>
+            <% } %>
+          </tr>
+          <% dayCounter++; %>
+        <% } %>
+      </tbody>
           </table>
 
           <div style="margin-top: 1em">

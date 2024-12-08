@@ -72,10 +72,10 @@
     style="display: flex; flex-direction: column"
     id="form">
     <label for="den-konani">Den konání:</label>
-    <input type="date" id="den-konani" name="den_konani" disabled/>
+    <input type="date" id="den-konani" name="den_konani" value=<%=dny[0]%> disabled/>
 
     <label for="dodatecne-dny">Dodatečné dny:</label>
-    <input type="date" id="dodatecne-dny" name="dodatecne_dny" disabled/>
+    <input type="date" id="dodatecne-dny" name="dodatecne_dny" value=<%=dny[1]%> disabled/>
 
     <label for="ucebna">Učebna:</label>
     <select
@@ -83,9 +83,21 @@
       name="ucebna"
       style="margin-bottom: 1em; padding: 0.5em"
       disabled>
-      <option value="ucebna1">Učebna 1</option>
-      <option value="ucebna2">Učebna 2</option>
-      <option value="ucebna3">Učebna 3</option>
+      <%if (ucebna == "ucebna1") {%>
+        <option value="ucebna1" selected>Učebna 1</option>
+      <% } else {%>
+        <option value="ucebna1">Učebna 1</option>
+      <%}%>
+      <%if (ucebna == "ucebna2") {%>
+        <option value="ucebna2" selected>Učebna 2</option>
+      <% } else {%>
+        <option value="ucebna2">Učebna 2</option>
+      <%}%>
+      <%if (ucebna == "ucebna3") {%>
+        <option value="ucebna3" selected>Učebna 3</option>
+      <% } else {%>
+        <option value="ucebna3">Učebna 3</option>
+      <%}%>
     </select>
 
     <div style="text-align: center">
