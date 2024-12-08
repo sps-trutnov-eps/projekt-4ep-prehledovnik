@@ -229,8 +229,8 @@ function updateCurriculumHours() {
             odCell.style.color = 'red';
             doCell.style.color = 'red';
         } else {
-            odCell.style.color = 'black';
-            doCell.style.color = 'black';
+            odCell.style.color = 'white';
+            doCell.style.color = 'white';
         }
     });
 }
