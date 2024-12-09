@@ -18,16 +18,34 @@ exports.zobrazTlacitka = (req, res) => {
 	let tlacitka = vytvorTlacitka("projekty/");
 	let tymy = [];
 	
-	res.render("projekty/index", { tlacitka: tlacitka, tymy: tymy });
+	res.render("projekty/index", { tlacitka: tlacitka, tymy: tymy, id: -1 });
 };
  
 exports.zobrazDetailyProjektu = (req, res) => {
 	let tlacitka = vytvorTlacitka("projekty/");
 	let tymy = ziskejTymy(req.params.id);
 
-	res.render("projekty/index", { tlacitka: tlacitka, tymy: tymy });
+   console.log(`/ : ${tymy}`);
+
+	res.render("projekty/index", {
+      tlacitka: tlacitka,
+      tymy: tymy,
+      id: req.params.id,
+   });
 };
  
+exports.upload = (req, res) => {
+	let tlacitka = vytvorTlacitka("projekty/");
+	let tymy = ziskejTymy(req.params.id);
+
+   console.log(`/upload : ${req.params.id}`);
+
+	res.render("projekty/index", {
+      tlacitka: tlacitka,
+      tymy: tymy,
+      id: req.params.id,
+   });
+};
  
 function vytvorTlacitka(url) {
 	let tlacitka = "";
@@ -39,8 +57,11 @@ function vytvorTlacitka(url) {
             if (trida) {
                 tlacitka += `
 				<div style="display: flex; width: 100%" class="cur">
-					<input class="deleteCurButton" type="button" value="-" onclick="console.log('yeet');"/>
-					<button style="margin-left: 0;" hx-get="/${url}${trida}" hx-target="body" hx-push-url="true" hx-swap="transition:true">${trida}</button>
+					<input class="deleteCurButton" type="button" value="-"
+                      onclick="console.log('yeet');"/>
+					<button style="margin-left: 0;" hx-get="/${url}${trida}"
+                       hx-target="body" hx-push-url="true"
+                       hx-swap="transition:true">${trida}</button>
 				</div>
 				`;
             }

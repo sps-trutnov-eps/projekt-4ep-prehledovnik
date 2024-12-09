@@ -15,6 +15,9 @@ projektyRouter.get('/vytvoreniProjektu', projektyController.vytvoritProjekt);
 // POST požadavky
 projektyRouter.post('/vytvoreniProjektu', projektyController.ulozitProjekt);
 projektyRouter.post('/ulozitDetailyTymu', projektyController.zmenDetailyTymu);
+
+projektyRouter.post('/upload/:id', projektyController.upload);
+
 projektyRouter.get('/:id', projektyController.zobrazDetailyProjektu);
 projektyRouter.get('/', projektyController.zobrazTlacitka);
 module.exports = projektyRouter;
