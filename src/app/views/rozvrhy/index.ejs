@@ -713,7 +713,10 @@ document.addEventListener("click", (event) => {
   if (visibleModal === null) return;
   const modalContent = visibleModal.querySelector("article");
   const isClickInside = modalContent.contains(event.target);
-  !isClickInside && closeModal(visibleModal);
+  if (!isClickInside) {
+    closeModal(visibleModal);
+    event.stopPropagation();
+  }
 });
 
 // Close with Esc key
