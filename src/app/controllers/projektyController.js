@@ -25,8 +25,6 @@ exports.zobrazDetailyProjektu = (req, res) => {
 	let tlacitka = vytvorTlacitka("projekty/");
 	let tymy = ziskejTymy(req.params.id);
 
-   console.log(`/ : ${tymy}`);
-
 	res.render("projekty/index", {
       tlacitka: tlacitka,
       tymy: tymy,
@@ -34,17 +32,23 @@ exports.zobrazDetailyProjektu = (req, res) => {
    });
 };
  
-exports.upload = (req, res) => {
-	let tlacitka = vytvorTlacitka("projekty/");
-	let tymy = ziskejTymy(req.params.id);
+exports.upload = async (req, res) => {
+   try {
+      const fileText = req.file.buffer.toString('utf8');
 
-   console.log(`/upload : ${req.params.id}`);
+      let tlacitka = vytvorTlacitka("projekty/");
+      let tymy = ziskejTymy(req.params.id);
 
-	res.render("projekty/index", {
-      tlacitka: tlacitka,
-      tymy: tymy,
-      id: req.params.id,
-   });
+      res.render("projekty/index", {
+         tlacitka: tlacitka,
+         tymy: tymy,
+         id: req.params.id,
+      });
+   } catch (error) {
+      res.status(500).send(`
+         <div class="error">Upload failed: ${error.message}</div>
+         `);
+   }
 };
  
 function vytvorTlacitka(url) {

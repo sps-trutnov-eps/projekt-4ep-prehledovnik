@@ -146,11 +146,23 @@ tr:hover {
          <th>
             <% if (s == 0) { %>
                <% if (r == 0) { %>
-                  <button class="tlacitko"
-                          onclick="triggerUpload()">Upload</button> 
+
+                  <button class="tlacitko" 
+                          hx-hidden-input="file" 
+                          hx-on:click="document.getElementById('fileInput').click()">
+                    Upload
+                  </button>
+
                   <!-- invisible file input -->
-                  <input type="file" id="fileInput"
-                         style="display:none" onchange="uploadFile()">
+                  <input type="file" 
+                         id="fileInput" 
+                         style="display:none" 
+                         name="file"
+                         hx-post="/projekty/upload/<%- id %>"
+                         hx-target="body"
+                         hx-encoding="multipart/form-data"
+                         onchange="this.closest('form')?.requestSubmit()">
+
                <% } else { %>
                   <%= radkyHeader[r - 1] %>
                <% } %>
@@ -168,27 +180,5 @@ tr:hover {
       <% } %>
    </table>
 </article>
-
-<script>
-   function triggerUpload() {
-      document.getElementById('fileInput').click();
-   }
-
-   async function uploadFile() {
-      const file = document.getElementById('fileInput').files[0];
-      const text = await file.text();
-
-      const response = await fetch('/projekty/upload/<%- id %>', {
-         method: 'POST',
-         headers: {
-            'Content-Type': 'application/json'
-         },
-         body: JSON.stringify({ text })
-      });
-
-      const result = await response.text();
-      document.body.innerHTML = result;
-   }
-</script>
 
 <%- include('../partials/tail') %>

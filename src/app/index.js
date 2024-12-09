@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
-const formidable = require('formidable')
+const multer = require('multer');
+const upload = multer();
 
 require('dotenv').config();
 
