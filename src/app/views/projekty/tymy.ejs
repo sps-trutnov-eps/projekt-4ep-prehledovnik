@@ -126,30 +126,22 @@ tr:hover {
 </style>
 <link rel="stylesheet" href="/osnovy/css/main.css" />
    
-<article  style="
-width: 20vw;
-min-width: 20vw;
-margin-right: 1em;
-overflow-y: auto;
-resize: horizontal;
-">
+<article style="width: 20vw; min-width: 20vw; margin-right: 1em; overflow-y: auto; resize: horizontal;">
    <h1 style="text-align: center">Sidebar</h1>
 
    <div class="button">
-
-    <button class="tlacitko">Přepínač</button>
-    <a href="/projekty/">
-      <button class="tlacitko">Fáze</button>
-    </a>
-    <a href="/projekty/vytvoreniProjektu">
-      <button class="tlacitko">Vytvoření projektu</button>
-    </a>
-    <%- tlacitka %>
+      <button class="tlacitko">Přepínač</button>
+      <a href="/projekty/">
+         <button class="tlacitko">Fáze</button>
+      </a>
+      <a href="/projekty/vytvoreniProjektu">
+         <button class="tlacitko">Vytvoření projektu</button>
+      </a>
+      <%- tlacitka %>
    </div>
 </article>
 
 <article class="main-content" style="flex: 3; overflow-y: auto">
-
    <table>
       <tr>
          <th class="nazev">Týmy</th>
@@ -157,7 +149,7 @@ resize: horizontal;
       <% tymy.forEach((tym, index) => { %>
          <tr>
             <td>
-               <button onclick="showTeamInfo('Tým <%= index + 1 %>', this)">Tým <%= index + 1 %></button>
+               <button onclick="showTeamInfo('Tým <%= index + 1 %>', '<%= tym.id %>', this)">Tým <%= index + 1 %></button>
                <div class="team-info-section"></div>
             </td>
          </tr>
@@ -166,22 +158,29 @@ resize: horizontal;
 </article>
 
 <script>
-   function showTeamInfo(team, buttonElement) {
-      const teamInfo = {
-         'Tým 1': 'Informace o Týmu 1...',
-         'Tým 2': 'Informace o Týmu 2...',
-         'Tým 3': 'Informace o Týmu 3...',
-         'Tým 4': 'Informace o Týmu 4...'
-      };
-
+   function showTeamInfo(teamName, teamId, buttonElement) {
       const parentTd = buttonElement.closest('td');
       const teamInfoSection = parentTd.querySelector('.team-info-section');
+
       teamInfoSection.innerHTML = `
-         <div id="team-info">${teamInfo[team]}</div>
+         <div id="team-info">
+            <h3>${teamName}</h3>
+            <form action="/projekty/ulozitDetailyTymu" method="POST">
+               <input type="hidden" name="teamId" value="${teamId}">
+               <div class="input-container">
+                  <label for="leader-${teamId}">Jméno vedoucího:</label>
+                  <input type="text" id="leader-${teamId}" name="leader" maxlength="50" placeholder="Zadejte jméno vedoucího" required>
+               </div>
+               <div class="input-container">
+                  <label for="members-${teamId}">Členové týmu:</label>
+                  <input type="text" id="members-${teamId}" name="members" maxlength="200" placeholder="Zadejte jména členů oddělená čárkami" required>
+               </div>
+               <button type="submit" class="save-button">Uložit Detaily Týmu</button>
+            </form>
+         </div>
          <div id="additional-buttons">
-         <button class="detail-button" onclick="showDetail('Detail týmu', this)">Detail týmu</button>
-         <button class="detail-button" onclick="showDetail('Pitch', this)">Pitch</button>
-         <button class="detail-button" onclick="showDetail('Prezentace', this)">Prezentace</button>
+            <button class="detail-button" onclick="showDetail('Pitch', '${teamId}')">Pitch</button>
+            <button class="detail-button" onclick="showDetail('Prezentace', '${teamId}')">Prezentace</button>
          </div>
          <div id="detail-info"></div>
       `;
@@ -189,107 +188,41 @@ resize: horizontal;
       teamInfoSection.style.display = 'block';
    }
 
-   function showDetail(detailType, buttonElement) {
+   function showDetail(detailType, teamId) {
+      const detailInfoDiv = document.querySelector(`#detail-info`);
+
       const detailInfo = {
-         'Detail týmu': `
-            <form action="/projekty/ulozitDetailyTymu" method="POST">
-               <div class="input-container">
-                  <label for="team-leader">Jméno vedoucího:</label>
-                  <input type="text" id="team-leader" name="leader" maxlength="50" placeholder="Zadejte jméno vedoucího" required>
-               </div>
-               <div class="input-container">
-                  <label for="team-members">Členové týmu:</label>
-                  <input type="text" id="team-members" name="members" maxlength="50" placeholder="Zadejte členy týmu" required>
-               </div>
-               <button type="submit" class="save-button">Uložit Detaily Týmu</button>
-            </form>
-         `,
          'Pitch': `
             <div class="pitch-container">
+               <h4>Pitch pro tým ${teamId}</h4>
                <div class="input-container">
-                  <label for="feature-1">Featura 1:</label>
-                  <input type="text" id="feature-1" placeholder="Zadejte první featuru">
+                  <label for="feature1-${teamId}">Featura 1:</label>
+                  <input type="text" id="feature1-${teamId}" placeholder="Zadejte první featuru">
                </div>
                <div class="input-container">
-                  <label for="feature-2">Featura 2:</label>
-                  <input type="text" id="feature-2" placeholder="Zadejte druhou featuru">
-               </div>
-               <div class="input-container">
-                  <label for="feature-3">Featura 3:</label>
-                  <input type="text" id="feature-3" placeholder="Zadejte třetí featuru">
-               </div>
-               <div class="input-container">
-                  <label for="goal-1">Cíl 1:</label>
-                  <input type="text" id="goal-1" placeholder="Zadejte první cíl">
-               </div>
-               <div class="input-container">
-                  <label for="goal-2">Cíl 2:</label>
-                  <input type="text" id="goal-2" placeholder="Zadejte druhý cíl">
-               </div>
-               <div class="input-container">
-                  <label for="bonus">Bonus:</label>
-                  <input type="text" id="bonus" placeholder="Zadejte bonus">
+                  <label for="feature2-${teamId}">Featura 2:</label>
+                  <input type="text" id="feature2-${teamId}" placeholder="Zadejte druhou featuru">
                </div>
                <button class="save-button" onclick="savePitch()">Uložit Pitch</button>
             </div>
          `,
          'Prezentace': `
             <div class="presentation-container">
-               <!-- Formulář pro prezentaci -->
+               <h4>Prezentace pro tým ${teamId}</h4>
                <div class="input-container">
-                  <label for="feature-1">Featura 1:</label>
-                  <input type="text" id="feature-1" placeholder="Zadejte první featuru">
-                  <input type="range" id="feature-1-range" min="0" max="100" value="0">
-                  <span id="feature-1-percentage">0%</span>
+                  <label for="goal1-${teamId}">Cíl 1:</label>
+                  <input type="text" id="goal1-${teamId}" placeholder="Zadejte první cíl">
                </div>
                <div class="input-container">
-                  <label for="feature-2">Featura 2:</label>
-                  <input type="text" id="feature-2" placeholder="Zadejte druhou featuru">
-                  <input type="range" id="feature-2-range" min="0" max="100" value="0">
-                  <span id="feature-2-percentage">0%</span>
-               </div>
-               <div class="input-container">
-                  <label for="feature-3">Featura 3:</label>
-                  <input type="text" id="feature-3" placeholder="Zadejte třetí featuru">
-                  <input type="range" id="feature-3-range" min="0" max="100" value="0">
-                  <span id="feature-3-percentage">0%</span>
-               </div>
-               <div class="input-container">
-                  <label for="goal-1">Cíl 1:</label>
-                  <input type="text" id="goal-1" placeholder="Zadejte první cíl">
-                  <input type="range" id="goal-1-range" min="0" max="100" value="0">
-                  <span id="goal-1-percentage">0%</span>
-               </div>
-               <div class="input-container">
-                  <label for="goal-2">Cíl 2:</label>
-                  <input type="text" id="goal-2" placeholder="Zadejte druhý cíl">
-                  <input type="range" id="goal-2-range" min="0" max="100" value="0">
-                  <span id="goal-2-percentage">0%</span>
-               </div>
-               <div class="input-container">
-                  <label for="bonus">Bonus:</label>
-                  <input type="text" id="bonus" placeholder="Zadejte bonus">
-                  <input type="range" id="bonus-range" min="0" max="100" value="0">
-                  <span id="bonus-percentage">0%</span>
+                  <label for="goal2-${teamId}">Cíl 2:</label>
+                  <input type="text" id="goal2-${teamId}" placeholder="Zadejte druhý cíl">
                </div>
                <button class="save-button" onclick="savePresentation()">Uložit Prezentaci</button>
             </div>
          `
       };
 
-      const parentTd = buttonElement.closest('td');
-      const detailInfoDiv = parentTd.querySelector('#detail-info');
       detailInfoDiv.innerHTML = detailInfo[detailType];
-
-      // Přidáme posluchače pro posuvníky v prezentaci
-      if (detailType === 'Prezentace') {
-         document.querySelectorAll('.input-container input[type="range"]').forEach((rangeInput) => {
-            rangeInput.addEventListener('input', function() {
-               const percentageSpan = this.nextElementSibling;
-               percentageSpan.textContent = `${this.value}%`;
-            });
-         });
-      }
    }
 
    function savePitch() {
@@ -298,10 +231,6 @@ resize: horizontal;
 
    function savePresentation() {
       alert('Prezentace byla uložena!');
-   }
-
-   function saveTeamDetails() {
-      alert('Detaily týmu byly uloženy!');
    }
 </script>
 <%- include('../partials/tail.ejs'); %>
