@@ -38,11 +38,10 @@ function vytvorTlacitka(url) {
             const trida = tridy[projektID].trida;
             if (trida) {
                 tlacitka += `
-				<div style="display: flex; width: 100%" class="cur">
-					<input class="deleteCurButton" type="button" value="-" onclick="console.log('yeet');"/>
-					<button style="margin-left: 0;" hx-get="/${url}${trida}" hx-target="body" hx-push-url="true" hx-swap="transition:true">${trida}</button>
-				</div>
-				`;
+                <a href="/${url}${trida}">
+                    <button class="tlacitko">${trida}</button>
+                </a>
+            `;            
             }
         }
     }
