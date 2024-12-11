@@ -16,7 +16,7 @@ osnovyRouter.post('/save/*', (req, res) => {
 		curID = curID.split('/');
 		curID = curID[curID.length-1];
 	} else {
-		console.log('ERROR: Incorrect URL (save curriculum)');
+		//console.log('ERROR: Incorrect URL (save curriculum)');
 		res.json({'id': undefined});
 	}
 	
@@ -36,7 +36,7 @@ osnovyRouter.post('/remove/*', (req, res) => {
 		curID = curID.split('/');
 		curID = curID[curID.length-1];
 	} else {
-		console.log('ERROR: Incorrect URL (remove curriculum)');
+		//console.log('ERROR: Incorrect URL (remove curriculum)');
 		res.json({'id': undefined});
 	}
 	

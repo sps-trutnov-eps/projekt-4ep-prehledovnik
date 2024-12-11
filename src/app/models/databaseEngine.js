@@ -79,17 +79,17 @@ const osnovy = {
 	odebratOsnovu: (id) => {
 		let osnovy = gO();
 		id = Number(id);
-		console.log(id);
+		//console.log(id);
 		if (id < Number(osnovy["nextID"])){
-			console.log("yep")
+			//console.log("yep")
 			for (let i = id+1; i < osnovy["nextID"]; i++){
-				console.log(i)
+				//console.log(i)
 				osnovy[`${i-1}`] = osnovy[i];
 			}
 			osnovy["nextID"] -= 1;
 			delete osnovy[osnovy["nextID"]];
 		}
-		console.log(osnovy);
+		//console.log(osnovy);
 		sO(osnovy);
 	}
 }
@@ -368,7 +368,7 @@ function sP(projekty){db.set("projekty", projekty)}
 const projekty = {
     pridatProjekt: (trida, tymy, pitche, milestony, devlogy, prezentace) => {
         let projekty = gP();
-        console.log(projekty);
+        //console.log(projekty);
         projekty[projekty["nextID"]] = {trida, tymy, pitche, milestony, devlogy, prezentace};
         projekty["nextID"] += 1;
         sP(projekty);
@@ -376,7 +376,7 @@ const projekty = {
    ravitTym: (puvodniTym, novyTym) => {
         let projekty = gP();
         let nextID = projekty["nextID"];
-        console.log(projekty);
+        //console.log(projekty);
         for(let i = 0; i < nextID; i++){
             if(JSON.stringify(projekty[String(i)]["Tymy"]) === puvodniTym)
                 projekty[String(i)] = novyTym;
