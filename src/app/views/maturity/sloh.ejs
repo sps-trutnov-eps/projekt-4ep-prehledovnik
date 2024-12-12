@@ -27,34 +27,51 @@
       }
     </style>
 
-      <article
-        style="
-          width: 20vw;
-          min-width: 20vw;
-          margin-right: 1em;
-          overflow-y: auto;
-          resize: horizontal;
-        ">
-
-        <div class="button">
-          <a href="../maturity/">
-            <button class="tlacitko">Praktická</button>
-          </a>
-          <a href="../maturity/pcmz">
-            <button class="tlacitko">Ústní</button>
-          </a>
-          <a href="../maturity/scmz">
-            <button class="tlacitko">Státní</button>
-          </a>
-          <a href="../maturity/sloh">
-            <button class="tlacitko">Sloh</button>
-          </a>
-        </div>
-      </article>
-
       <article style="flex: 3; overflow-y: auto">
-        <h1>Slohová práce</h1>
+        <header>
+          <nav>
+            <ul>
+              <li>
+                <h1>Sloh</h1>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <div role="group">
+                  <button
+                    class="outline"
+                    hx-get="/maturity"
+                    hx-target="body"
+                    hx-push-url="true"
+                    hx-swap="transition:true">
+                  PŽOP</button>
+                  <button
+                    class="outline"
+                    hx-get="/maturity/pcmz"
+                    hx-target="body"
+                    hx-push-url="true"
+                    hx-swap="transition:true">
+                  PČMZ</button>
+                  <button
+                    class="outline"
+                    hx-get="/maturity/scmz"
+                    hx-target="body"
+                    hx-push-url="true"
+                    hx-swap="transition:true">
+                  SČMZ</button>
+                  <button
+                    hx-get="/maturity/sloh"
+                    hx-target="body"
+                    hx-push-url="true"
+                    hx-swap="transition:true">
+                  SLOH</button>
+                </div>
+              </li>
+            </ul>
+          </nav>
+        </header>
 
+        <main>
          <form action="/maturity/ukladanisloh" method="POST">
           <table style="border-collapse: collapse; width: 100%">
             <thead>
@@ -159,8 +176,8 @@
               Uložit
             </button>
           </div>
-        </form>
-
+         </form>
+        </main>
         <div
           id="classroomModal"
           style="
@@ -192,7 +209,7 @@
     <script>
       let selectedCell;
       let selectedInput;
-      let dayCounter = 1; 
+      let dayCounter = 1;
 
       const hodinyCasy = [
         "8:00-8:45",

@@ -13,7 +13,7 @@ async function CreateCurriculum() {
 
         // Parse JSON response
         const jsonResponse = await response.json();
-        console.log(jsonResponse); // Handle your JSON data here
+        //console.log(jsonResponse); // Handle your JSON data here
 
         // Redirect after handling
         window.location.href = `/osnovy/${jsonResponse.id}`;
@@ -37,7 +37,7 @@ async function RemoveCurriculum(id) {
 
         // Parse JSON response
         const jsonResponse = await response.json();
-        console.log(jsonResponse); // Handle your JSON data here
+        //console.log(jsonResponse); // Handle your JSON data here
 
         // Redirect after handling
         window.location.href = `/osnovy`;
@@ -53,7 +53,7 @@ async function SaveCurriculum(event, id) {
     const rows = table.rows;
     const jsonData = {};
 	
-	console.log(rows);
+	//console.log(rows);
 	
 	// Extract data from each row
     for (let i = 1; i < rows.length-1; i++) {
@@ -90,7 +90,7 @@ async function SaveCurriculum(event, id) {
 		
         // Parse JSON response
         const jsonResponse = await response.json();
-        console.log(jsonResponse); // Handle your JSON data here
+        //console.log(jsonResponse); // Handle your JSON data here
 
         // Redirect after handling
 		/*if (jsonResponse.id == undefined){
