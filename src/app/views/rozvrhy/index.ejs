@@ -186,16 +186,17 @@
                   </li>
                   <li>
                    <div role="group">
+                    <% if (rozvrhy && rozvrhy.length> 0) { %>
                     <select name="verze" id="jakaverze" onchange="nacteniVerze(this.value)">
-                        <% if (rozvrhy && rozvrhy.length> 0) { %>
                             <% rozvrhy.forEach(function(verze) { %>
                                 <option value="<%= verze.id %>" <%=aktivniVerze==verze.id ? 'selected' : '' %>>
                                     <%= verze.nazev %>
                                         (<%= new Date(verze.datum).toLocaleDateString('cs-CZ') %>)
                                 </option>
                             <% }); %>
-                        <% } %>
                     </select>
+                    <% } %>
+
                         <% if (rozvrhy && rozvrhy.length> 0) { %>
                             <button onclick="ulozitRozvrh()">Uložit</button>
                         <% } %>
