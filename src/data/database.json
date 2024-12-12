@@ -38,9 +38,11 @@
     },
     "osnovy": {
         "1": {
-            "trida": "",
-            "predmet": "",
-            "temata": ""
+            "trida": "EP1",
+            "predmet": "PVA-c",
+            "temata": {
+                "nextID": 1
+            }
         },
         "2": {
             "trida": "",
