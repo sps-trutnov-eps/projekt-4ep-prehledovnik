@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<%- include('../partials/head.ejs'); %>
+
+<style>
+
+.levy_panel {
+    width: 20vw;
+    min-width: 20vw;
+    background-color: White;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    resize: horizontal;
+}
+
+.levy_panel a {
+    width: 100%;
+    text-decoration: none;
+}
+
+.levy_panel button {
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.levy_panel button:hover {
+    background-color: #0056b3;
+    transform: scale(1.02);
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main-heading {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+.divider {
+    width: 100%;
+    height: 2px;
+    background-color: #ccc;
+    margin-bottom: 20px;
+}
+
+.phase {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+    font-size: 16px;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+.tlacitko {
+        margin: 20px 0;
+        padding: 15px;
+        border: none;
+        border-radius: 5px;
+        width: 100%;
+        text-align: center;
+        font-size: 16px;
+      }
+      .button {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        padding: 10px;
+      }
+
+.table-button:hover {
+    background-color: #0056b3;
+}
+
+ .nazev{
+    font-size: 20px;
+    font-weight: bold;
+}
+</style>
+<link rel="stylesheet" href="/osnovy/css/main.css" />
+   
+   <article  style="
+   width: 20vw;
+   min-width: 20vw;
+   margin-right: 1em;
+   overflow-y: auto;
+   resize: horizontal;
+   ">
+      <h1 style="text-align: center">Sidebar</h1>
+   
+      <div class="button">
+   
+       <a href="../projekty/">
+          <button class="tlacitko">Přepínač</button>
+       </a>
+       <a href="../projekty/tymy">
+         <button class="tlacitko">Týmy</button>
+       </a>
+      </div>
+   </article>
+
+
+   <article class="main-content" style="flex: 3; overflow-y: auto">
+   <h2>Vytvořit nový projekt</h2>
+   <form action="/projekty/vytvoreniProjektu" method="POST">
+      <div class="form-group">
+         <label for="project-name">Název projektu:</label>
+         <select id="project-name" name="projectName" required>
+            <option value="" disabled selected>Vyberte název</option>
+            <option value="1.ep">1.ep</option>
+            <option value="2.ep">2.ep</option>
+            <option value="3.ep">3.ep</option>
+            <option value="4.ep">4.ep</option>
+         </select>
+      </div>
+      <div class="form-group">
+         <label for="project-start">Začátek projektu:</label>
+         <input type="date" id="project-start" name="projectStart" required>
+      </div>
+      <div class="form-group">
+         <label for="student-count">Počet žáků:</label>
+         <input type="number" id="student-count" name="studentCount" required min="1">
+      </div>
+      <div class="form-group">
+         <button type="submit">Uložit projekt</button>
+      </div>
+   </form>
+</article>
+<script>
+
+</script>
+<%- include('../partials/tail') %>

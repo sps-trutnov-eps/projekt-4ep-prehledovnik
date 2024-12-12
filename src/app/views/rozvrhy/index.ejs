@@ -55,7 +55,6 @@
             width: 100%;
             margin-top: 10px;
             background-color: #4CAF50;
-            color: white;
         }
 
         .timetable-btn {
@@ -79,12 +78,10 @@
 
         .lesson-room {
             font-size: 12px;
-            color: #666;
         }
 
         .lesson-group {
             font-size: 12px;
-            color: #666;
             font-style: italic;
         }
 
@@ -227,10 +224,10 @@
                 </div>
                 <% } else { %>
                     <% const days=['Po', 'Ut' , 'St' , 'Ct' , 'Pa' ]; %>
-                        <% const periods=['0', '1' , '2' , '3' , '4' , '5' , '6' , '7' , '8' ]; %>
+                        <% const periods=['0', '1' , '2' , '3' , '4' , '5' , '6' , '7' , '8', '9' ]; %>
                             <% const timeRanges=['7:10 - 7:55', '8:00 - 8:45' , '8:50 - 9:35' , '9:55 - 10:40'
                                 , '10:45 - 11:30' , '11:35 - 12:25' , '12:35 - 13:20' , '13:25 - 14:10'
-                                , '14:15 - 15:00' ]; %>
+                                , '14:15 - 15:00', '15:00 +' ]; %>
 
                                 <% ['L', 'S' ].forEach(type=> { %>
                                     <h2>
@@ -260,6 +257,7 @@
                                                                 class="timetable-btn outline secondary"
                                                                 onclick="toggleDayModal('<%= period %>', '<%= day %>', '<%= type %>', event)"
                                                                 data-target="popupModal">
+                                                                <span class="hodina-trida"></span>
                                                                 <span class="hodina-predmet">+</span>
                                                                 <span class="hodina-mistnost"></span>
                                                                 <span class="hodina-skupina"></span>
@@ -281,10 +279,28 @@
                                                 <main>
                                                     <form id="lessonForm" onsubmit="return false;">
                                                         <div class="form-group">
+                                                            <label for="trida">Třída:</label>
+                                                            <select name="trida" id="trida" required>
+                                                                <optgroup label="EP">
+                                                                    <option value="EP1">1.EP</option>
+                                                                    <option value="EP2">2.EP</option>
+                                                                    <option value="EP3">3.EP</option>
+                                                                    <option value="EP4">4.EP</option>
+                                                                </optgroup>
+                                                                <optgroup label="IT">
+                                                                    <option value="IT1">1.IT</option>
+                                                                    <option value="IT2">2.IT</option>
+                                                                    <option value="IT3">3.IT</option>
+                                                                    <option value="IT4">4.IT</option>
+                                                                </optgroup>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
                                                             <label for="jakypredmet">Předmět:</label>
                                                             <select name="predmet" id="jakypredmet" required>
                                                                 <option value="">Vyberte předmět</option>
                                                                 <option value="volno">Volno</option>
+                                                                <option value="Kroužek">Koužek</option>
                                                                 <% for (let predmet of predmety) { %>
                                                                     <option value="<%= predmet %>">
                                                                         <%= predmet %>
@@ -412,12 +428,13 @@
 
             ['lichy', 'sudy'].forEach(week => {
                 Object.keys(rozvrh[week]).forEach(day => {
-                    for (let i = 0; i <= 8; i++) {
+                    for (let i = 0; i <= 9; i++) {
                         if (!rozvrh[week][day][i] || !rozvrh[week][day][i].predmet) {
                             rozvrh[week][day][i] = {
                                 predmet: "volno",
                                 mistnost: "",
-                                skupina: "cela"
+                                skupina: "cela",
+                                trida: ""
                             };
                         }
                     }
@@ -469,6 +486,7 @@
                 document.getElementById("jakypredmet").value = existingLesson.predmet || "";
                 document.getElementById("mistnost").value = existingLesson.mistnost || "";
                 document.getElementById("skupina").value = existingLesson.skupina || "cela";
+                document.getElementById("trida").value = existingLesson.trida || "";
             } else {
                 resetForm();
             }
@@ -489,6 +507,7 @@
                 const predmetSpan = button.querySelector('.hodina-predmet');
                 const mistnostSpan = button.querySelector('.hodina-mistnost');
                 const skupinaSpan = button.querySelector('.hodina-skupina');
+                const tridaSpan = button.querySelector('.hodina-trida');
 
                 if (hodina && hodina.predmet) {
                     if (hodina.predmet === "volno") {
@@ -497,12 +516,14 @@
                         predmetSpan.textContent = "";
                         mistnostSpan.textContent = "";
                         skupinaSpan.textContent = "";
+                        tridaSpan.textContent = "";
                     } else {
                         button.classList.replace('secondary', 'primary');
                         button.classList.remove('is-free');
                         predmetSpan.textContent = hodina.predmet;
                         mistnostSpan.textContent = hodina.mistnost;
                         skupinaSpan.textContent = hodina.skupina === "cela" ? "" : hodina.skupina;
+                        tridaSpan.textContent = hodina.trida ? `${hodina.trida}` : "";
                     }
                 } else {
                     button.classList.replace('secondary', 'primary');
@@ -510,6 +531,7 @@
                     predmetSpan.textContent = '+';
                     mistnostSpan.textContent = '';
                     skupinaSpan.textContent = '';
+                    tridaSpan.textContent = '';
                 }
             }
         }
@@ -518,11 +540,18 @@
             document.getElementById("jakypredmet").value = "";
             document.getElementById("mistnost").value = "";
             document.getElementById("skupina").value = "cela";
+            document.getElementById("trida").value = "";
         }
 
         function validateAndSubmit() {
             const predmet = document.getElementById("jakypredmet").value;
             const mistnost = document.getElementById("mistnost").value;
+            const trida = document.getElementById("trida").value;
+
+            if (predmet === "Kroužek") {
+                potvrditHodinu();
+                return;
+            }
 
             if (!predmet) {
                 alert("Prosím vyberte předmět");
@@ -534,6 +563,11 @@
                 return;
             }
 
+            if (predmet !== "volno" && !trida) {
+                alert("Prosím vyberte třídu");
+                return;
+            }
+
             potvrditHodinu();
         }
 
@@ -541,11 +575,13 @@
             const predmet = document.getElementById("jakypredmet").value;
             const mistnost = document.getElementById("mistnost").value;
             const skupina = document.getElementById("skupina").value;
+            const trida = document.getElementById("trida").value;
 
             const hodina = {
                 predmet: predmet,
                 mistnost: predmet === "volno" ? "" : mistnost,
-                skupina: skupina
+                skupina: skupina,
+                trida: predmet === "volno" ? "" : trida
             };
 
             if (druhTydne === 'L') {
@@ -674,7 +710,10 @@ document.addEventListener("click", (event) => {
   if (visibleModal === null) return;
   const modalContent = visibleModal.querySelector("article");
   const isClickInside = modalContent.contains(event.target);
-  !isClickInside && closeModal(visibleModal);
+  if (!isClickInside) {
+    closeModal(visibleModal);
+    event.stopPropagation();
+  }
 });
 
 // Close with Esc key

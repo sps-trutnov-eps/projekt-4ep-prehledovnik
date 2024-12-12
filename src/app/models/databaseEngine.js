@@ -6,6 +6,14 @@ predmety = ["VYS-c", "VYS-t", "PVA-c", "PVA-t", "HAE-c", "HAE-t", "CMT-c", "CMT-
 hodiny = {
     "1": ["7:10", "7:55"],
     "2": ["8:00", "8:45"],
+    "3": ["8:50", "9:35"],
+    "4": ["9:55", "10:40"],
+    "5": ["10:50", "11:35"],
+    "6": ["11:40", "12:25"],
+    "7": ["12:35", "13:20"],
+    "8": ["13:25", "14:10"],
+    "9": ["14:15", "15:00"],
+    "10": ["15:10", "15:55"]
 };
 ucebny = {
     "101": ["T1", "T2", "T5"],
@@ -23,7 +31,7 @@ if(!db.has("predmety")){
     db.set("osnovy", {"nextID": 1});
     db.set("rozvrhy", {"nextID": 1});
     db.set("udalosti", {"nextID": 1});
-    db.set("maturity", {"nextID": 1});
+    db.set("maturity", {});
     db.set("projekty", {"nextID": 1});
 }
 
@@ -81,40 +89,19 @@ const osnovy = {
 	odebratOsnovu: (id) => {
 		let osnovy = gO();
 		id = Number(id);
-		console.log(id);
+		//console.log(id);
 		if (id < Number(osnovy["nextID"])){
-			console.log("yep")
+			//console.log("yep")
 			for (let i = id+1; i < osnovy["nextID"]; i++){
-				console.log(i)
+				//console.log(i)
 				osnovy[`${i-1}`] = osnovy[i];
 			}
 			osnovy["nextID"] -= 1;
 			delete osnovy[osnovy["nextID"]];
 		}
-		console.log(osnovy);
+		//console.log(osnovy);
 		sO(osnovy);
 	}
-}
-
-// získání předmětů z databáze
-function ziskatPredmety() {
-    return db.get("predmety");
-}
-
-function ziskatUcebny() {
-    return db.get("ucebny")
-}
-
-function ziskatObory() {
-    return db.get("obory")
-}
-
-// export funkcí
-module.exports = {
-    osnovy,
-    ziskatPredmety,
-    ziskatUcebny,
-    ziskatObory
 }
 
 // ROZVRHY
@@ -204,8 +191,16 @@ function sU(udalosti){db.set("udalosti", udalosti)}
 const udalosti = {
     pridatUdalost: (nazev, typ,  datum, datumDo, casOd, casDo, vyberZadani, tykaSe, poznamka) => {
         let udalosti = gU();
-        udalosti[udalosti["nextID"]] = {nazev, typ, datum,  datumDo, casOd, casDo, vyberZadani, tykaSe, poznamka};
-        udalosti["nextID"] += 1;
+        let nextID = udalosti["nextID"];
+        let novaUdalost = {nazev, typ, datum,  datumDo, casOd, casDo, vyberZadani, tykaSe, poznamka};
+        let nalezeno = false;
+        for(let i = 0; i < nextID; i++){
+            if (JSON.stringify(udalosti[String(i)]) === JSON.stringify(novaUdalost)) nalezeno = true;
+        }
+        if (!nalezeno){
+            udalosti[nextID] = novaUdalost;
+            udalosti["nextID"] += 1;
+        }
         sU(udalosti);
     },
     ziskatIDUdalostiPodleNazvu: (jmeno) => {
@@ -246,10 +241,10 @@ const udalosti = {
         let udalosti = gU();
         let nextID = udalosti["nextID"];
         for(let i = 0; i < nextID; i++){
-            if(JSON.stringify(udalosti[String(i)]) === JSON.stringify(udalost))
+            if(JSON.stringify(udalosti[String(i)]) === udalost)
                 delete udalosti[String(i)];
         }
-        sU(udalost);
+        sU(udalosti);
     }
 }
 
@@ -258,75 +253,77 @@ function gM(){return db.get("maturity")}
 function sM(maturity){db.set("maturity", maturity)}
 
 const maturity = {
-    pridatMaturitniEvent: (nazev, dny, casy, ucebna) => {
+    pridatMaturitniEvent: (nazev, dny, casy, ucebny) => {
         let maturity = gM();
-        maturity[maturity["nextID"]] = {nazev, dny, casy, ucebna};
-        maturity["nextID"] += 1;
+        
+        maturity[nazev] = null;
+
+        if (nazev == "PŽOP"){
+            ucebny = [ucebny];
+        } else if (nazev == "PČMZ"){
+            ucebny = []
+        }
+        maturity[nazev] = {dny, casy, ucebny};
         sM(maturity);
     },
-    ziskatIDMaturityDleJmena: (jmeno) => {
+    ziskarMaturituDleNazvu: (nazev) => {
         let maturity = gM();
-        let nextID = maturity["nextID"];
-        let IDHledaneMaturity;
-        for(let i = 0; i < nextID; i++){
-            if (maturity[String(i)]["nazev"] == jmeno){
-                IDHledaneMaturity = String(i);
-            }
-        }
-        return IDHledaneMaturity;
-    },
-    ziskarMaturituDleJmena: (jmeno) => {
-        let maturity = gM();
-        return maturity[ziskatIDMaturityDleJmena(jmeno)];
+        return maturity[nazev];
     },
     ziskatVsechnyMaturity: () => {
         let maturity = gM();
         let maturityList = [];
-        let nextID = maturity["nextID"];
-        for(let i = 0; i < nextID; i++){
-            maturityList.push(maturity[String(i)]);
-        }
+        maturityList.push("PŽOP");
+        maturityList.push("PČMZ");
+        maturityList.push("SČMZ");
+        maturityList.push("SLOH");
         return maturityList;
     },
     ziskatVsechnyMaturityJakoUdalosti: () => {
         let maturity = gM();
         let maturityList = [];
-        let nextID = maturity["nextID"];
-        let casy = ["8:00","8:50","9:55","10:50","11:40","12:35","13:25","14:15"]
-        for(let i = 0; i < nextID; i++){
+        let typy = ["PŽOP", "PČMZ", "SČMZ", "SLOH"];
 
-            if (maturity[String(i)]) {  // kontrola existence záznamu
-                const maturitniEvent = maturity[String(i)];
-                
-                for(let y = 0; y < maturitniEvent.den.length - 1; y ++){
-                    if(y > 0){
+        for(let i = 0; i < typy.length; i++){
+            if (maturity[typy[i]]){
+                for(let j = 0; j < maturity[typy[i]]["dny"].length; j++){
+                    let nazev = typy[i];
+                    let den = maturity[typy[i]]["dny"][j];
+                    let cOD = null;
+                    let cDO = null;
+                    let ucebna;
+                    
+                    if(nazev == "PČMZ") {
+                        cOD = maturity[typy[i]]["casy"][j][0];
+                        cDO = maturity[typy[i]]["casy"][j][maturity[typy[i]]["casy"][j].length - 1];
+                        ucebna = null;
+                    }
+                    if(nazev == "SČMZ") {
+                        if (maturity[typy[i]]["casy"][j].length != 0) cOD = maturity[typy[i]]["casy"][j][0];
+                        cDO = null;
+                        ucebna = maturity[typy[i]]["ucebny"][j];
+                    }
+                    if(nazev == "SLOH") {
+                        cOD = maturity[typy[i]]["casy"][j][0];
+                        cDO = maturity[typy[i]]["casy"][j][maturity[typy[i]]["casy"][j].length - 1];
+                        ucebna = maturity[typy[i]]["ucebny"][j][0];
+                    } else {
+                        if(nazev == "PŽOP" && j == 1){
+                            nazev += " - dodatečný termín";
+                        }
+        
                         maturityList.push({
-                            nazev: maturitniEvent.nazev + " - dodatečný termín",
+                            nazev: nazev,
                             typ: "celoskolni", 
                             //
-                            datum: maturitniEvent.dny[y],
+                            datum: den,
                             datumDo: null,
-                            casOd: casy[maturitniEvent.cas[0]-1], 
-                            casDo: new Date(new Date().setHours(...casy[maturitniEvent.cas[-1]-1].split(":").map((v, i) => i === 0 ? v : +v + (i === 1 ? 45 : 0)))).toTimeString().slice(0, 5), 
+                            casOd: cOD, 
+                            casDo: cDO,
                             //
                             vyberZadani: "maturita",  
-                            tykaSe: maturitniEvent.ucebna, 
-                            poznamka: `Učebna: ${maturitniEvent.ucebna ?? "není"}`
-                        });
-
-                    }else{
-                        maturityList.push({
-                            nazev: maturitniEvent.nazev,
-                            typ: "celoskolni", 
-                            //
-                            datum: maturitniEvent.dny[y],
-                            datumDo: null,
-                            casOd: casy[maturitniEvent.cas[0]-1], 
-                            casDo: new Date(new Date().setHours(...casy[maturitniEvent.cas[-1]-1].split(":").map((v, i) => i === 0 ? v : +v + (i === 1 ? 45 : 0)))).toTimeString().slice(0, 5), 
-                            //
-                            vyberZadani: "maturita",  
-                            tykaSe: maturitniEvent.ucebna, 
-                            poznamka: `Učebna: ${maturitniEvent.ucebna ?? "není"}`
+                            tykaSe: ucebna, 
+                            poznamka: `Učebna: ${ucebna ?? "není"}`
                         });
                     }
                 }
@@ -353,19 +350,23 @@ const maturity = {
                     casyProMaturity: maturitniEvent.cas,
                     //
                     vyberZadani: "maturita",  
-                    tykaSe: maturitniEvent.ucebna, 
-                    poznamka: `Učebna: ${maturitniEvent.ucebna ?? "není"}`
+                    tykaSe: maturitniEvent.ucebny, 
+                    poznamka: `Učebna: ${maturitniEvent.ucebny ?? "není"}`
                 });
             }
         }
         return maturityList;
     },
-    upravitMaturitniEvent: (nazev, dny, casy, ucebna) => {
+    /*smazatMaturitniEvent: (event) => {
         let maturity = gM();
-        IDUpravovaneMaturity = ziskatIDMaturityDleJmena(nazev);
-        maturity[IDUpravovaneMaturity] = {nazev, dny, casy, ucebna};
+        let nextID = maturity["nextID"];
+        for(let i = 0; i < nextID; i++){
+            if(JSON.stringify(event) == JSON.stringify(maturity[String(i)])){
+                delete maturity[String(i)];
+            }
+        }
         sM(maturity);
-    }
+    }*/
 }
 
 // PROJEKTY
@@ -375,15 +376,19 @@ function sP(projekty){db.set("projekty", projekty)}
 const projekty = {
     pridatProjekt: (trida, tymy, pitche, milestony, devlogy, prezentace) => {
         let projekty = gP();
-        console.log(projekty);
+        //console.log(projekty);
         projekty[projekty["nextID"]] = {trida, tymy, pitche, milestony, devlogy, prezentace};
         projekty["nextID"] += 1;
         sP(projekty);
     },
-    upravitTymy: (trida, tymy) => {
+   ravitTym: (puvodniTym, novyTym) => {
         let projekty = gP();
-        let IDUpravovanehoProjektu = hledanyProjekt(trida);
-        projekty[IDUpravovanehoProjektu]["tymy"] = tymy;
+        let nextID = projekty["nextID"];
+        //console.log(projekty);
+        for(let i = 0; i < nextID; i++){
+            if(JSON.stringify(projekty[String(i)]["Tymy"]) === puvodniTym)
+                projekty[String(i)] = novyTym;
+        }
         sP(projekty);
     },
     upravitPitche: (trida, pitche) => {
@@ -425,7 +430,13 @@ const projekty = {
         let projekty = gP();
         let ID = ziskatIDProjektu(trida);
         return projekty[ID];
-    }
+    },
+    ziskatTridy: () => {
+        let projekty = Object.values(gP());
+        projekty.pop();
+        return projekty.map(((projekt) => projekt["trida"]));
+    },
+    gP: () => {return db.get("projekty")}
 }
 
 // CELKOVÝ MODEL
@@ -436,16 +447,13 @@ const databaseEngine = {
     maturity: maturity,
     projekty: projekty,
     ziskatPredmety: () => {
-        return predmety;
+        return db.get("predmety");
     },
     ziskatHodiny: () => {
-        return hodiny;
+        return db.get("hodiny");
     },
     ziskatUcebny: () => {
-        return ucebny;
-    },
-    ziskatObory: () => {
-        return obory;
+        return db.get("ucebny");
     }
 }
 

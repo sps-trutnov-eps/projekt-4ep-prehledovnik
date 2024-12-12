@@ -2,7 +2,7 @@ const databaze = require("../models/databaseEngine");
 
 exports.create = () => {
 	let createdCurID = databaze.osnovy.pridatOsnovu('','','');
-	console.log(`Creating new curriculum. ID: ${createdCurID}`);
+	//console.log(`Creating new curriculum. ID: ${createdCurID}`);
 	return createdCurID;
 }
 
@@ -14,15 +14,6 @@ exports.remove = (curID) => {
 exports.edit = (curID, data) => {
 	
 	data["temata"] = JSON.parse(data.temata);
-	
-	if (data["teorie"] == 'on'){
-		data["predmet"] = `${data["predmet"]}-t`;
-	} else {
-		data["predmet"] = `${data["predmet"]}-c`;
-	}
-	
-	data["trida"] = `${data["rocnik"]}.${data["obor"]}`
-	
 	//console.log(data);
 	
 	databaze.osnovy.upravitOsnovu(curID, data);

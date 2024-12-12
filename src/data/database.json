@@ -42,31 +42,160 @@
     ],
     "osnovy": {
         "1": {
-            "trida": "4.EP",
-            "predmet": "VYS-t",
-            "temata": {
-                "nextID": 1
-            }
+            "trida": "",
+            "predmet": "",
+            "temata": ""
         },
         "2": {
-            "trida": "1.EP",
-            "predmet": "VYS-t",
-            "temata": {
-                "nextID": 1
-            }
+            "trida": "",
+            "predmet": "",
+            "temata": ""
         },
-        "nextID": 3
+        "3": {
+            "trida": "",
+            "predmet": "",
+            "temata": ""
+        },
+        "4": {
+            "trida": "",
+            "predmet": "",
+            "temata": ""
+        },
+        "5": {
+            "trida": "",
+            "predmet": "",
+            "temata": ""
+        },
+        "6": {
+            "trida": "",
+            "predmet": "",
+            "temata": ""
+        },
+        "7": {
+            "trida": "",
+            "predmet": "",
+            "temata": ""
+        },
+        "nextID": 8
     },
     "rozvrhy": {
-        "nextID": 1
+        "1": {
+            "id": 1,
+            "datum": "2024-12-11T15:47:28.095Z",
+            "nazev": "h",
+            "popis": "h",
+            "hodiny": {
+                "lichy": {
+                    "Po": {},
+                    "Ut": {},
+                    "St": {},
+                    "Ct": {},
+                    "Pa": {}
+                },
+                "sudy": {
+                    "Po": {},
+                    "Ut": {},
+                    "St": {},
+                    "Ct": {},
+                    "Pa": {}
+                }
+            }
+        },
+        "nextID": 2
     },
     "udalosti": {
         "nextID": 1
     },
     "maturity": {
-        "nextID": 1
+        "1": {
+            "nazev": "PŽOP",
+            "dny": [
+                "2024-11-14",
+                "2024-11-07"
+            ],
+            "casy": [],
+            "ucebna": "ucebna1"
+        },
+        "nextID": 2
     },
     "projekty": {
-        "nextID": 1
+        "1": {
+            "trida": "2.ep",
+            "tymy": [
+                {
+                    "name": "Tým 1",
+                    "leader": null,
+                    "members": 2
+                },
+                {
+                    "name": "Tým 2",
+                    "leader": null,
+                    "members": 2
+                }
+            ],
+            "pitche": "2024-12-19",
+            "milestony": null,
+            "devlogy": null,
+            "prezentace": null
+        },
+        "2": {
+            "trida": "1.ep",
+            "tymy": [
+                {
+                    "name": "Tým 1",
+                    "leader": null,
+                    "members": 1
+                },
+                {
+                    "name": "Tým 2",
+                    "leader": null,
+                    "members": 1
+                },
+                {
+                    "name": "Tým 3",
+                    "leader": null,
+                    "members": 1
+                },
+                {
+                    "name": "Tým 4",
+                    "leader": null,
+                    "members": 1
+                },
+                {
+                    "name": "Tým 5",
+                    "leader": null,
+                    "members": 1
+                },
+                {
+                    "name": "Tým 6",
+                    "leader": null,
+                    "members": 1
+                },
+                {
+                    "name": "Tým 7",
+                    "leader": null,
+                    "members": 1
+                }
+            ],
+            "pitche": "2024-12-19",
+            "milestony": null,
+            "devlogy": null,
+            "prezentace": null
+        },
+        "3": {
+            "trida": "4.ep",
+            "tymy": [
+                {
+                    "name": "Tým 1",
+                    "leader": null,
+                    "members": "3"
+                }
+            ],
+            "pitche": "2024-12-14",
+            "milestony": null,
+            "devlogy": null,
+            "prezentace": null
+        },
+        "nextID": 4
     }
 }
