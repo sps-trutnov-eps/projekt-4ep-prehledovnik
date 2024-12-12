@@ -41,161 +41,246 @@
         "IT"
     ],
     "osnovy": {
-        "1": {
-            "trida": "",
-            "predmet": "",
-            "temata": ""
-        },
-        "2": {
-            "trida": "",
-            "predmet": "",
-            "temata": ""
-        },
-        "3": {
-            "trida": "",
-            "predmet": "",
-            "temata": ""
-        },
-        "4": {
-            "trida": "",
-            "predmet": "",
-            "temata": ""
-        },
-        "5": {
-            "trida": "",
-            "predmet": "",
-            "temata": ""
-        },
-        "6": {
-            "trida": "",
-            "predmet": "",
-            "temata": ""
-        },
-        "7": {
-            "trida": "",
-            "predmet": "",
-            "temata": ""
-        },
-        "nextID": 8
+        "nextID": 1
     },
     "rozvrhy": {
-        "1": {
-            "id": 1,
-            "datum": "2024-12-11T15:47:28.095Z",
-            "nazev": "h",
-            "popis": "h",
-            "hodiny": {
-                "lichy": {
-                    "Po": {},
-                    "Ut": {},
-                    "St": {},
-                    "Ct": {},
-                    "Pa": {}
-                },
-                "sudy": {
-                    "Po": {},
-                    "Ut": {},
-                    "St": {},
-                    "Ct": {},
-                    "Pa": {}
-                }
-            }
-        },
-        "nextID": 2
+        "nextID": 1
     },
     "udalosti": {
         "nextID": 1
     },
     "maturity": {
-        "1": {
-            "nazev": "PŽOP",
-            "dny": [
-                "2024-11-14",
-                "2024-11-07"
-            ],
-            "casy": [],
-            "ucebna": "ucebna1"
-        },
-        "nextID": 2
+        "nextID": 1
     },
     "projekty": {
         "1": {
-            "trida": "2.ep",
-            "tymy": [
-                {
-                    "name": "Tým 1",
-                    "leader": null,
-                    "members": 2
-                },
-                {
-                    "name": "Tým 2",
-                    "leader": null,
-                    "members": 2
-                }
-            ],
-            "pitche": "2024-12-19",
-            "milestony": null,
-            "devlogy": null,
-            "prezentace": null
-        },
-        "2": {
             "trida": "1.ep",
             "tymy": [
                 {
+                    "id": "1.ep_team_1",
                     "name": "Tým 1",
                     "leader": null,
                     "members": 1
                 },
                 {
+                    "id": "1.ep_team_2",
                     "name": "Tým 2",
                     "leader": null,
                     "members": 1
                 },
                 {
+                    "id": "1.ep_team_3",
                     "name": "Tým 3",
                     "leader": null,
                     "members": 1
                 },
                 {
+                    "id": "1.ep_team_4",
                     "name": "Tým 4",
                     "leader": null,
                     "members": 1
                 },
                 {
+                    "id": "1.ep_team_5",
                     "name": "Tým 5",
                     "leader": null,
                     "members": 1
                 },
                 {
+                    "id": "1.ep_team_6",
                     "name": "Tým 6",
                     "leader": null,
                     "members": 1
                 },
                 {
+                    "id": "1.ep_team_7",
                     "name": "Tým 7",
+                    "leader": null,
+                    "members": 1
+                },
+                {
+                    "id": "1.ep_team_8",
+                    "name": "Tým 8",
+                    "leader": null,
+                    "members": 1
+                },
+                {
+                    "id": "1.ep_team_9",
+                    "name": "Tým 9",
+                    "leader": null,
+                    "members": 1
+                },
+                {
+                    "id": "1.ep_team_10",
+                    "name": "Tým 10",
+                    "leader": null,
+                    "members": 1
+                },
+                {
+                    "id": "1.ep_team_11",
+                    "name": "Tým 11",
+                    "leader": null,
+                    "members": 1
+                },
+                {
+                    "id": "1.ep_team_12",
+                    "name": "Tým 12",
+                    "leader": null,
+                    "members": 1
+                },
+                {
+                    "id": "1.ep_team_13",
+                    "name": "Tým 13",
+                    "leader": null,
+                    "members": 1
+                },
+                {
+                    "id": "1.ep_team_14",
+                    "name": "Tým 14",
+                    "leader": null,
+                    "members": 1
+                },
+                {
+                    "id": "1.ep_team_15",
+                    "name": "Tým 15",
+                    "leader": null,
+                    "members": 1
+                },
+                {
+                    "id": "1.ep_team_16",
+                    "name": "Tým 16",
+                    "leader": null,
+                    "members": 1
+                },
+                {
+                    "id": "1.ep_team_17",
+                    "name": "Tým 17",
+                    "leader": null,
+                    "members": 1
+                },
+                {
+                    "id": "1.ep_team_18",
+                    "name": "Tým 18",
+                    "leader": null,
+                    "members": 1
+                },
+                {
+                    "id": "1.ep_team_19",
+                    "name": "Tým 19",
+                    "leader": null,
+                    "members": 1
+                },
+                {
+                    "id": "1.ep_team_20",
+                    "name": "Tým 20",
+                    "leader": null,
+                    "members": 1
+                },
+                {
+                    "id": "1.ep_team_21",
+                    "name": "Tým 21",
+                    "leader": null,
+                    "members": 1
+                },
+                {
+                    "id": "1.ep_team_22",
+                    "name": "Tým 22",
+                    "leader": null,
+                    "members": 1
+                },
+                {
+                    "id": "1.ep_team_23",
+                    "name": "Tým 23",
+                    "leader": null,
+                    "members": 1
+                },
+                {
+                    "id": "1.ep_team_24",
+                    "name": "Tým 24",
+                    "leader": null,
+                    "members": 1
+                },
+                {
+                    "id": "1.ep_team_25",
+                    "name": "Tým 25",
+                    "leader": null,
+                    "members": 1
+                },
+                {
+                    "id": "1.ep_team_26",
+                    "name": "Tým 26",
+                    "leader": null,
+                    "members": 1
+                },
+                {
+                    "id": "1.ep_team_27",
+                    "name": "Tým 27",
+                    "leader": null,
+                    "members": 1
+                },
+                {
+                    "id": "1.ep_team_28",
+                    "name": "Tým 28",
                     "leader": null,
                     "members": 1
                 }
             ],
-            "pitche": "2024-12-19",
-            "milestony": null,
-            "devlogy": null,
-            "prezentace": null
+            "pitche": "2024-12-16"
         },
-        "3": {
-            "trida": "4.ep",
+        "2": {
+            "trida": "3.ep",
             "tymy": [
                 {
+                    "id": "3.ep_team_1",
                     "name": "Tým 1",
                     "leader": null,
-                    "members": "3"
+                    "members": 3
+                },
+                {
+                    "id": "3.ep_team_2",
+                    "name": "Tým 2",
+                    "leader": null,
+                    "members": 3
+                },
+                {
+                    "id": "3.ep_team_3",
+                    "name": "Tým 3",
+                    "leader": null,
+                    "members": 3
+                },
+                {
+                    "id": "3.ep_team_4",
+                    "name": "Tým 4",
+                    "leader": null,
+                    "members": 3
+                },
+                {
+                    "id": "3.ep_team_5",
+                    "name": "Tým 5",
+                    "leader": null,
+                    "members": 3
+                },
+                {
+                    "id": "3.ep_team_6",
+                    "name": "Tým 6",
+                    "leader": null,
+                    "members": 3
+                },
+                {
+                    "id": "3.ep_team_7",
+                    "name": "Tým 7",
+                    "leader": null,
+                    "members": 3
+                },
+                {
+                    "id": "3.ep_team_8",
+                    "name": "Tým 8",
+                    "leader": null,
+                    "members": 3
                 }
             ],
-            "pitche": "2024-12-14",
-            "milestony": null,
-            "devlogy": null,
-            "prezentace": null
+            "pitche": "2024-12-04"
         },
-        "nextID": 4
+        "nextID": 3
     }
 }

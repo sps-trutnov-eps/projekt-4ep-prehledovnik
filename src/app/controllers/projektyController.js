@@ -18,38 +18,16 @@ exports.zobrazTlacitka = (req, res) => {
 	let tlacitka = vytvorTlacitka("projekty/");
 	let tymy = [];
 	
-	res.render("projekty/index", { tlacitka: tlacitka, tymy: tymy, id: -1 });
+	res.render("projekty/index", { tlacitka: tlacitka, tymy: tymy });
 };
  
 exports.zobrazDetailyProjektu = (req, res) => {
 	let tlacitka = vytvorTlacitka("projekty/");
 	let tymy = ziskejTymy(req.params.id);
 
-	res.render("projekty/index", {
-      tlacitka: tlacitka,
-      tymy: tymy,
-      id: req.params.id,
-   });
+	res.render("projekty/index", { tlacitka: tlacitka, tymy: tymy });
 };
  
-exports.upload = async (req, res) => {
-   try {
-      const fileText = req.file.buffer.toString('utf8');
-
-      let tlacitka = vytvorTlacitka("projekty/");
-      let tymy = ziskejTymy(req.params.id);
-
-      res.render("projekty/index", {
-         tlacitka: tlacitka,
-         tymy: tymy,
-         id: req.params.id,
-      });
-   } catch (error) {
-      res.status(500).send(`
-         <div class="error">Upload failed: ${error.message}</div>
-         `);
-   }
-};
  
 function vytvorTlacitka(url) {
 	let tlacitka = "";
@@ -60,14 +38,10 @@ function vytvorTlacitka(url) {
             const trida = tridy[projektID].trida;
             if (trida) {
                 tlacitka += `
-				<div style="display: flex; width: 100%" class="cur">
-					<input class="deleteCurButton" type="button" value="-"
-                      onclick="console.log('yeet');"/>
-					<button style="margin-left: 0;" hx-get="/${url}${trida}"
-                       hx-target="body" hx-push-url="true"
-                       hx-swap="transition:true">${trida}</button>
-				</div>
-				`;
+                <a href="/${url}${trida}">
+                    <button class="tlacitko">${trida}</button>
+                </a>
+            `;            
             }
         }
     }
@@ -128,21 +102,20 @@ exports.zmenDetailyTymu = (req, res) => {
 exports.ulozitProjekt = (req, res) => {
     const { projectName, projectStart, studentCount } = req.body;
 
-    // Ověření, že jsou všechny hodnoty vyplněny
     if (!projectName || !projectStart || !studentCount || studentCount <= 0) {
         return res.status(400).send("Všechna pole jsou povinná a počet žáků musí být větší než 0.");
     }
 
-    // Určení pravidel pro rozdělení do týmů na základě třídy
     let studentsPerTeam;
     let teams = [];
+    let teamIDCounter = 1; // Unikátní čítač ID týmů
 
     switch (projectName) {
         case "1.ep":
-            // Každý tým obsahuje 1 studenta
             studentsPerTeam = 1;
             for (let i = 0; i < studentCount; i++) {
                 teams.push({
+                    id: `${projectName}_team_${teamIDCounter++}`, // Unikátní ID
                     name: `Tým ${i + 1}`,
                     leader: null,
                     members: 1
@@ -150,10 +123,10 @@ exports.ulozitProjekt = (req, res) => {
             }
             break;
         case "2.ep":
-            // Každý tým obsahuje 2 studenty
             studentsPerTeam = 2;
             for (let i = 0; i < Math.ceil(studentCount / studentsPerTeam); i++) {
                 teams.push({
+                    id: `${projectName}_team_${teamIDCounter++}`,
                     name: `Tým ${i + 1}`,
                     leader: null,
                     members: Math.min(studentsPerTeam, studentCount - i * studentsPerTeam)
@@ -161,10 +134,10 @@ exports.ulozitProjekt = (req, res) => {
             }
             break;
         case "3.ep":
-            // Každý tým obsahuje 3 studenty
             studentsPerTeam = 3;
             for (let i = 0; i < Math.ceil(studentCount / studentsPerTeam); i++) {
                 teams.push({
+                    id: `${projectName}_team_${teamIDCounter++}`,
                     name: `Tým ${i + 1}`,
                     leader: null,
                     members: Math.min(studentsPerTeam, studentCount - i * studentsPerTeam)
@@ -172,8 +145,8 @@ exports.ulozitProjekt = (req, res) => {
             }
             break;
         case "4.ep":
-            // Jeden tým zahrnující celou třídu
             teams.push({
+                id: `${projectName}_team_${teamIDCounter++}`,
                 name: "Tým 1",
                 leader: null,
                 members: studentCount
@@ -183,12 +156,11 @@ exports.ulozitProjekt = (req, res) => {
             return res.status(400).send("Neplatná třída.");
     }
 
-    // Uložení projektu s týmy do databáze
-    databaze.projekty.pridatProjekt(trida = projectName, teams, projectStart, milestony = null, devlogy = null, prezentace = null);
+    databaze.projekty.pridatProjekt(projectName, teams, projectStart);
 
-    // Přesměrování na stránku týmů
     res.redirect('/projekty/tymy');
 };
+
 
 
 // Přidání nové funkce pro získání všech projektů (pokud ji budete potřebovat)
