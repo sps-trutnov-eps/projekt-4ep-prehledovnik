@@ -1,40 +1,204 @@
 <!DOCTYPE html>
-    <%- include('../partials/head'); %>
-    <link rel="stylesheet" href="/osnovy/css/main.css" />
-      <article
-        style="
-          width: 20vw;
-          min-width: 20vw;
-          margin-right: 1em;
-          resize: horizontal;
-        ">
-        <header> 
-          <h1>Osnovy</h1>
+<%- include('../partials/head'); %>
+<link rel="stylesheet" href="/osnovy/css/main.css" />
+<article
+style="
+width: 20vw;
+min-width: 20vw;
+margin-right: 1em;
+resize: horizontal;
+">
+   <header> 
+      <h1>Osnovy</h1>
+      
+      <form id="create">
+         <input
+         class="createButton outline"
+         type="submit"
+         value="Přidat tematický plán"
+         onclick="CreateCurriculum()" />
+		</form>
+	</header>
+   <main>
+      <% for (let i = 1; i < cur["nextID"]; i++) {%>
+      <div style="display: flex" class="cur">
+         <input
+         class="deleteCurButton"
+         type="button"
+         value="-"
+         onclick="RemoveCurriculum(<%= i %>)" />
+         <input style="margin-left: 0;" type="button" value="<%=
+			cur[i]["trida"] %> <%= cur[i]["predmet"] %>"
+         onclick="window.location.href = '/osnovy/<%= i %>';">
+		</div>
+      <% } %>
+	</main>
+</article>
 
-          <form id="create">
-            <input
-              class="createButton outline"
-              type="submit"
-              value="Přidat tematický plán"
-              onclick="CreateCurriculum()" />
-          </form>
-        </header>
-        <main>
-          <% for (let i = 1; i < cur["nextID"]; i++) {%>
-          <div style="display: flex" class="cur">
-            <input
-              class="deleteCurButton"
-              type="button"
-              value="-"
-              onclick="RemoveCurriculum(<%= i %>)" />
-            <input style="margin-left: 0;" type="button" value="<%=
-            cur[i]["trida"] %> <%= cur[i]["predmet"] %>"
-            onclick="window.location.href = '/osnovy/<%= i %>';">
-          </div>
-          <% } %>
-        </main>
-      </article>
-
+<article style="flex: 3;">
+   <% if (cur[id] != undefined){ %>
+   <header>
+      <nav>
+        <hgroup>
+          <h1>Tematický plán</h1>
+          <p><%= cur[id]["trida"] %> <%= cur[id]["predmet"] %></p>
+        </hgroup> 
+      </nav>
+	</header>
+   <main>
+      <div
+      id="settingsPanel"
+      style="
+      display: none;
+      border: 1px solid #ccc;
+      padding: 1em;
+      margin-top: 1em;
+      ">
+         <h2>Nastavení Tematického Plánu</h2>
+         <label for="newTrida">Třída:</label>
+         <input type="text" id="newTrida" name="newTrida" /><br /><br />
+         <label for="newPredmet">Předmět:</label>
+         <input type="text" id="newPredmet" name="newPredmet" /><br /><br />
+         <label for="newPocetHodin">Počet Hodin:</label>
+         <input
+         type="text"
+         id="newPocetHodin"
+         name="newPocetHodin" /><br /><br />
+         <input
+         type="button"
+         value="Uložit"
+         onclick="alert('Data byla uložena')" />
+		</div>
+      <div
+      style="
+      display: flex;
+      position: relative;
+      overflow-y: auto;
+      max-height: calc(100vh - 14em);
+      padding-right: 15px;
+      ">
+         <div style="flex: auto">
+ 				<table id="curriculums">
+               <thead style="position: sticky; top: 0; z-index: 1">
+                  <tr>
+                     <th style="width: 70%">Téma</th>
+                     <th style="text-align: center">Od</th>
+                     <th style="text-align: center">Do</th>
+                     <th style="text-align: center; width: 20%">Hodin</th>
+						</tr>
+					</thead>
+               <tbody id="table-body">
+                  <% let doPredchozi = 0; %> <% for (let i = 1; i <
+						cur[id]["temata"]["nextID"]; i++) {%>
+                  <tr class="cur">
+                     <td style="display: flex" class="curriculum-input">
+                        <input
+                        style="margin-bottom: 0"
+                        class="deleteCurButton"
+                        type="button"
+                        value="-"
+                        onclick="deleteRow(this)" />
+                        <input style="margin: 0;" class="curriculum-i" type="text"
+                        value="<%= cur[id]["temata"][i]["tema"] %>">
+							</td>
+                     
+                     <% let od = doPredchozi; %> <% let doCur = od; %> %> <% doCur
+                        -= -(cur[id]["temata"][i]["pocetHodin"]); %> <% doPredchozi =
+							doCur; %>
+                     <td style="text-align: center"><%= od %></td>
+                     <td style="text-align: center"><%= doCur %></td>
+                     <td style="text-align: center">
+                        <input class="hour-input" style="margin: 0;" type="number" value="<%=
+								cur[id]["temata"][i]["pocetHodin"] %>"
+                        onchange="updateCurriculumHours()" min="0"
+                        oninput="validity.valid||(value='');">
+							</td>
+						</tr>
+                  <% } %>
+                  <tr style="position: sticky; bottom: 0; z-index: 1">
+                     <td colspan="4">
+                        <input
+                        class="createButton"
+                        style="padding: 0; min-height: 0; height: 2em; margin: 0"
+                        type="button"
+                        value="+"
+                        onclick="addRow()" />
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+         <div style="width: 16em; margin-left: 2em; position: sticky; top: 0">
+ 				<form id="save" onsubmit="SaveCurriculum(event, <%= id %>)">
+               <div style="display: flex; align-items: center;">
+						<div style="margin-right: 20px; flex-grow: 1;">
+							<label for="predmet">Předmět:</label>
+							<select name="predmet" id="predmet">
+								<% for (let i = 0; i < subjects.length; i++){ %>
+                        <% let subject = subjects[i].split('-');%>
+                        <% if (subject[1] == 't'){ %>
+								
+								<option value="<%= subject[0] %>" <% if (cur[id]['predmet'].split('-')[0] == subject[0]) {%> selected <% } %> ><%= subject[0] %></option>
+								
+								<% } %> <% } %>
+							</select>
+						</div>
+					</div>
+						
+						<div style="display: flex; align-items: flex-start; width: 100%;">
+							<label for="teorieCheckBox">Teorie?
+								<input type="checkbox" id="teorieCheckBox" name="teorie" onchange="calculateTheTotalHours()" <% if (cur[id]['predmet'].split('-')[1] == 't') {%> checked <% } %>/>
+							</label>
+							
+							
+								<label for="calculateHours">Počítat hodiny?
+									<input type="checkbox" id="calculateHours" name="calculateHours" onchange="hideDiv('customHoursAWeekDiv')" checked/>
+								</label>
+							
+						</div>
+						<div id="customHoursAWeekDiv">
+							<label for="customHoursAWeek">Vlastní hodiny týdně: <br/>0 = výchozí počítání</label>
+							<input type="number" id="customHoursAWeek" name="customHoursAWeek" value="0" />
+						</div>
+					
+					
+               <div style="display: flex; align-items: flex-start; width: 100%;">
+						<div style="margin-right: 20px; flex-grow: 1;">
+							<label for="rocnik">Ročník:</label>
+							<select name="rocnik" id="rocnik" onchange="calculateTheTotalHours()" style="width: 100%;">
+								<% for (let i = 1; i < 5; i++){ %>
+									<option value="<%= i %>" <% if (cur[id]['trida'].split('.')[0] == i) {%> selected <% } %> ><%= i %></option>
+								<% } %>
+							</select>
+						</div>
+						
+						<div style="flex-grow: 1;">
+							<label for="obor">Obor:</label>
+							<select name="obor" id="obor" style="width: 100%;">
+                        <% for (let field in fields){ %>
+								<option value="<%= fields[field] %>" <% if (cur[id]['trida'].split('.')[1] == fields[field]) {%> selected <% } %> ><%= fields[field] %></option>
+								<% } %>
+							</select>
+						</div>
+					</div>
+					
+               
+               <label for="pHodin">Počet Hodin:</label>
+					
+					<% let pocetHodin = 0; %>
+					<% for (let ti = 1; ti < cur[id]['temata']['nextID']; ti++){ %> 
+					<% 	pocetHodin += cur[id]['temata'][ti]['pocetHodin'];%>
+					<% } %>
+               <input type="number" id="pHodin" name="pHodin" value="<%= pocetHodin %>" />
+               
+               <input type="submit" value="Uložit" />
+				</form>
+			</div>
+		</div>
+		<% } %>
+	</main>
+</article>
+<script src="/osnovy/js/main.js"></script>
       <article style="flex: 3;">
         <% if (cur[id] != undefined){ %>
         <header>

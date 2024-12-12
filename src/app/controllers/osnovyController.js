@@ -14,7 +14,16 @@ exports.remove = (curID) => {
 exports.edit = (curID, data) => {
 	
 	data["temata"] = JSON.parse(data.temata);
-	console.log(data);
+	
+	if (data["teorie"] == 'on'){
+		data["predmet"] = `${data["predmet"]}-t`;
+	} else {
+		data["predmet"] = `${data["predmet"]}-c`;
+	}
+	
+	data["trida"] = `${data["rocnik"]}.${data["obor"]}`
+	
+	//console.log(data);
 	
 	databaze.osnovy.upravitOsnovu(curID, data);
 	return true;
@@ -30,4 +39,8 @@ exports.subjects = () => {
 
 exports.classes = () => {
 	return databaze.ziskatUcebny();
+}
+
+exports.fields = () => {
+	return databaze.ziskatObory();
 }
