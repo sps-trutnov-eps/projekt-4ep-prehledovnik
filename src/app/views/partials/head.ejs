@@ -19,6 +19,35 @@
           hsla(132, 100%, 50%, 0.1) 100%
         );
       }
+      [data-theme=light],
+      :root:not([data-theme=dark]) {
+        --white: hsla(0, 0%, 100%, 1);
+        --page-bg: hsla(0, 0%, 100%, 1);
+        --content-bg: hsla(220, 60%, 95%, 1);
+        --navbar-bg: hsla(223, 55%, 29%, 1);
+        --navbar-btn: hsla(223, 44%, 35%, 1);
+        --light-blue: hsla(199, 100%, 40%, 1);
+        --light-blue-btn: hsla(199, 100%, 35%, 1);
+        --schedule-bg-lighter: hsla(223, 14%, 90%, 1);
+        --schedule-bg-darker: hsla(0, 0%, 85%, 1);
+        --light-blue-field: hsla(201, 66%, 55%, 1);
+      }
+
+      @media only screen and (prefers-color-scheme: dark) {
+        :root:not([data-theme]) {
+          --white: hsla(0, 0%, 82%, 1);
+          --page-bg: hsla(219, 25%, 16%, 1);
+          --content-bg: hsla(201, 28%, 16%, 1);
+          --navbar-bg: hsla(204, 25%, 11%, 1);
+          --navbar-btn: hsla(210, 27%, 12%, 1);
+          --light-blue: hsla(199, 81%, 26%, 1);
+          --light-blue-btn: hsla(199, 100%, 29%, 1);
+          --schedule-bg-lighter: hsla(204, 11%, 33%, 1);
+          --schedule-bg-darker: hsla(210, 9%, 21%, 1);
+          --light-blue-field: hsla(199, 58%, 33%, 1);
+        }
+      }
+
       nav {
           --pico-color: hsl(199.41176, 100%, 100%);
           padding-left: .5em;
@@ -38,8 +67,7 @@
           overflow: hidden;
           > nav {
             --pico-border-radius: 0;
-            --pico-background-color: hsl(223.17073, 55%, 39%);
-            background-color: hsl(223.17073, 55%, 29%);
+            background-color: var(--navbar-bg);
             margin-bottom: 1em;
             ul {
                 width: 100%;
@@ -47,6 +75,8 @@
             li {
               padding: 0 .5em;
               button {
+                --pico-background-color: var(--navbar-btn);
+                border: none;
                 width: 100%;
               }
             }
@@ -67,15 +97,21 @@
           max-width: 100%;
           --pico-color: white !important;
           --pico-h1-color: white;
+          --pico-primary-background: var(--light-blue-btn) !important;
+          button, input {
+            --pico-spacing: 0;
+            border: none !important;
+          }
           > nav {
               --pico-spacing: 0;
               --pico-typography-spacing-vertical: 0;
           }
-          .outline {
-              --pico-background-color: var(--pico-form-element-background-color) !important;
-              --pico-border-color: var(--pico-form-element-border-color) !important;
-              --pico-color: var(--pico-form-element-color)  !important;
-              //--pico-color: white !important;
+          .outline, input, select, textarea {
+              --pico-background-color: var(--light-blue-field) !important;
+              // --pico-border-color: var(--pico-form-element-border-color) !important;
+              border: none;
+              --pico-color: var(--white)  !important;
+              // --pico-color: white !important;
             }
           }
         main {
