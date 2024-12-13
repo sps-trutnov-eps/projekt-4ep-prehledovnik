@@ -28,13 +28,13 @@ exports.zobrazDetailyProjektu = (req, res) => {
 	res.render("projekty/index", { tlacitka: tlacitka, tymy: tymy });
 };
  
- 
 function vytvorTlacitka(url) {
 	let tlacitka = "";
     const tridy = databaze.projekty.gP();
 
     for (const projektID in tridy) {
         if (projektID != "nextID") {
+            console.log(tridy);
             const trida = tridy[projektID].trida;
             if (trida) {
                 tlacitka += `
@@ -90,12 +90,25 @@ exports.zobrazDetailyTymu = (req, res) => {
 };
 
 exports.zmenDetailyTymu = (req, res) => {
-    // let vedouci = req.body.leader;
-    // let name = req.body.name;
-    // let clenove = req.body.members;
-
-    databaze.projekty.upravitTym()
-    res.redirect('/projekty/tymy');
+    let vedouci = req.body.leader;
+    let id = req.body.teamId;
+    let clenove = req.body.members.split[','];
+    let clenoveCount = 0;
+    if (clenove == undefined) { clenove = req.body.members; clenoveCount = 1; }
+    else { clenoveCount = clenove.length; }
+    
+    console.log(vedouci);
+    console.log(id);
+    console.log(clenove);
+    
+    // Chci získat minulý team abych získal jeho jméno a mohl to předat novému
+    let idTridy = databaze.projekty.ziskatIDProjektu(id.split('_')[0]);
+    let oldTeam = databaze.projekty.ziskatTeam(idTridy, id);
+    
+    let newTeam = {"id": id, "name": oldTeam["name"], "leader": vedouci, "members": [clenove, clenoveCount]};
+    
+    databaze.projekty.upravitTym(idTridy, newTeam)
+    res.redirect(`/projekty/tymy/${id.split('_')[0]}`);
 };
 
 // Tato metoda se volá, když se odesílá formulář pro nový projekt

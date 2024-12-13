@@ -379,15 +379,43 @@ const projekty = {
         projekty[IDUpravovanehoProjektu]["tymy"] = tymy;
         sP(projekty);
     },
-    upravitTym: (puvodniTym, novyTym) => {
+    upravitProjekt: (puvodniTym, novyTym) => {
         let projekty = gP();
         let nextID = projekty["nextID"];
-        console.log(projekty);
-        for(let i = 0; i < nextID; i++){
-            if(JSON.stringify(projekty[String(i)]["Tymy"]) === puvodniTym)
+        for(let i = 1; i < nextID; i++){
+            if(projekty[`${i}`]["Tymy"] === puvodniTym)
                 projekty[String(i)] = novyTym;
         }
         sP(projekty);
+    },
+    upravitTym: (tridaId, team) => {
+        let projekty = gP();
+        let nextID = projekty["nextID"];
+        let projekt = projekty[tridaId];
+        let tymy = projekt["tymy"];
+        for (let i = 0; i < tymy.length; i++){
+            if (tymy[i]["id"] != team["id"]){
+                continue;
+            }
+            
+            let newTeam = {"id": team["id"], "name": team["name"], "leader": team["leader"], "members": team["members"][1] };
+            projekty[tridaId]["tymy"][i] = newTeam;
+            
+            //console.log(projekty[tridaId]);
+        }
+        
+        sP(projekty);
+    },
+    ziskatTeam: (tridaId, teamId) => {
+        let projekty = gP();
+        let nextID = projekty["nextID"];
+        let projekt = projekty[tridaId];
+        for(let i = 0; i < projekt["tymy"].length; i++){
+            if(projekt["tymy"][i]["id"] == teamId){
+                return projekt["tymy"][i];
+            }
+        }
+        return undefined;
     },
     upravitPitche: (trida, pitche) => {
         let projekty = gP();
@@ -417,7 +445,7 @@ const projekty = {
         let projekty = gP();
         let nextID = projekty["nextID"];
         let IDHledanehoProjektu;
-        for(let i = 0; i < nextID; i++){
+        for(let i = 1; i < nextID; i++){
             if(projekty[String(i)]["trida"] == trida){
                 IDHledanehoProjektu = String(i);
             }
@@ -426,8 +454,7 @@ const projekty = {
     },
     ziskatProjekt: (trida) => {
         let projekty = gP();
-        let ID = ziskatIDProjektu(trida);
-        return projekty[ID];
+        return projekty[trida];
     },
     ziskatTridy: () => {
         let projekty = Object.values(gP());
