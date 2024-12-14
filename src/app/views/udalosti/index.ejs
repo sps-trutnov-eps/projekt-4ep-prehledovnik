@@ -233,54 +233,73 @@
         
         <% seznamNaZobrazeni.forEach(udalost => { %>
           <tr>
-            <td class="toClick" onclick="editUdalost('<%= JSON.stringify(udalost) %>')"><%= udalost.nazev %></td>
-            <td><%= prekladTypAkce[udalost.typ] || udalost.typ %></td>
-            
+            <!-- Název události -->
+            <td class="toClick" onclick="editUdalost('<%= JSON.stringify(udalost) %>')">
+              <%= udalost.nazev %>
+            </td>
+        
+            <!-- Typ události -->
+            <td>
+              <%= prekladTypAkce[udalost.typ] || udalost.typ %>
+            </td>
+        
+            <!-- Rozdělení podle vyberZadani a názvu události -->
             <% if (udalost.vyberZadani === "celodenni") { %>
               <td><%= formatDate(udalost.datum) %></td>
               <td class="empty-cell"></td>
               <td class="empty-cell"></td>
+        
             <% } else if (udalost.vyberZadani === "vicedenni") { %>
               <td><%= formatDate(udalost.datum) %></td>
               <td class="empty-cell"></td>
               <td><%= formatDate(udalost.datumDo) %></td>
+        
             <% } else if (udalost.vyberZadani === "casIDatum") { %>
               <td><%= formatDate(udalost.datum) %></td>
-              <td style="padding-left: 30px;"><%= udalost.casOd %></td>
-              <td style="padding-left: 30px;"><%= udalost.casDo %></td>
-            <% } else if (udalost.vyberZadani === "maturita" && udalost.nazev === "PČMZ") { %>
-              <td><%= formatDate(udalost.datum) %></td>
-              <td class="empty-cell"></td>
-              <td class="empty-cell"></td>
-            <% } else if (udalost.vyberZadani === "maturita" && udalost.nazev === "SČMZ") { %>
-              <td><%= formatDate(udalost.datum) %></td>
-              <td class="empty-cell"></td>
-              <td class="empty-cell"></td> 
-            <% } else if (udalost.vyberZadani === "maturita" && udalost.nazev === "SLOH") { %>
-              <td><%= formatDate(udalost.datum) %></td>
-              <td class="empty-cell"></td>
-              <td class="empty-cell"></td>
-            <% } else if (udalost.vyberZadani === "maturita" && (udalost.nazev === "PŽOP" || udalost.nazev === "PŽOP - dodatečný termín")) { %>
-              <td><%= formatDate(udalost.datum) %></td>
-              <td class="empty-cell"></td>
-              <td class="empty-cell"></td> 
+              <td><%= udalost.casOd %></td>
+              <td><%= udalost.casDo %></td>
+        
+            <% } else if (udalost.vyberZadani === "maturita") { %>
+              <% if (udalost.nazev === "PČMZ") { %>
+                <td><%= formatDate(udalost.datum) %></td>
+                <td><%= udalost.casOd %></td>
+                <td><%= udalost.casDo %></td>
+        
+              <% } else if (udalost.nazev === "SČMZ") { %>
+                <td><%= formatDate(udalost.datum) %></td>
+                <td><%= udalost.casOd %></td>
+                <td class="empty-cell"></td>
+        
+              <% } else if (udalost.nazev === "SLOH") { %>
+                <td><%= formatDate(udalost.datum) %></td>
+                <td><%= udalost.casOd %></td>
+                <td class="empty-cell"></td>
+        
+              <% } else if (udalost.nazev === "PŽOP" || udalost.nazev === "PŽOP - dodatečný termín") { %>
+                <td><%= formatDate(udalost.datum) %></td>
+                <td class="empty-cell"></td>
+                <td class="empty-cell"></td>
+              <% } %>
             <% } %>
-
+        
+            <!-- Sloupec 'tykaSe' -->
             <td class="<%= udalost.tykaSe === null ? 'empty-cell-tykaSe' : 'center' %>">
-            <% if (udalost.typ === "budovy") { %>
+              <% if (udalost.typ === "budovy") { %>
                 <span class="center-content"><%= prekladBudov[udalost.tykaSe] || udalost.tykaSe %></span>
               <% } else { %>
                 <span class="center-content"><%= udalost.tykaSe %></span>
               <% } %>
             </td>
+        
+            <!-- Tlačítko pro smazání -->
             <td>
               <button 
-                onclick="if(confirm('Opravdu chcete smazat tuto událost?')) window.location.href='/udalosti/smazat/<%= JSON.stringify(udalost) %>'"
-                class="delete-btn" 
+                onclick="if(confirm('Opravdu chcete smazat tuto událost?')) window.location.href='/udalosti/smazat/<%= udalost.id %>'"
+                class="delete-btn"
               >✕</button>
             </td>
           </tr>
-        <% }); %>
+        <% }); %>        
       </table>
     </main>
   </article>

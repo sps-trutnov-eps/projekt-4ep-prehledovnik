@@ -297,7 +297,7 @@ const maturity = {
                         ucebna = null;
                     }
                     if(nazev == "SČMZ") {
-                        if (maturity[typy[i]]["casy"][j].length != 0) cOD = maturity[typy[i]]["casy"][j][0];
+                        if (maturity[typy[i]]["casy"][j].length != 0) cOD = maturity[typy[i]]["casy"][j];
                         cDO = null;
                         ucebna = maturity[typy[i]]["ucebny"][j];
                     }
@@ -308,6 +308,7 @@ const maturity = {
                     } else {
                         if(nazev == "PŽOP" && j == 1){
                             nazev += " - dodatečný termín";
+                            ucebna = maturity[typy[i]]["ucebny"][j];
                         }
         
                         maturityList.push({

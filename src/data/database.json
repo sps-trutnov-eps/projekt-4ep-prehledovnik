@@ -98,88 +98,93 @@
             "tykaSe": "3EP",
             "poznamka": ""
         },
-        "nextID": 13
+        "13": {
+            "nazev": "kkl",
+            "typ": "celoskolni",
+            "datum": "2024-12-14",
+            "datumDo": null,
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "celodenni",
+            "tykaSe": null,
+            "poznamka": ""
+        },
+        "14": {
+            "nazev": "oooppp",
+            "typ": "celotridni",
+            "datum": "2024-12-14",
+            "datumDo": "2024-12-21",
+            "casOd": null,
+            "casDo": null,
+            "vyberZadani": "vicedenni",
+            "tykaSe": "1EP",
+            "poznamka": ""
+        },
+        "15": {
+            "nazev": "uuuuaaaaa",
+            "typ": "ucitelsky",
+            "datum": "2024-12-14",
+            "datumDo": null,
+            "casOd": "7:10",
+            "casDo": "15:00",
+            "vyberZadani": "casIDatum",
+            "tykaSe": "Jakub Šenkýř",
+            "poznamka": ""
+        },
+        "nextID": 16
     },
     "maturity": {
         "PŽOP": {
             "dny": [
-                "2024-12-25",
-                "2024-12-26"
+                "2025-03-20",
+                "2025-04-21"
             ],
             "casy": [
                 [],
                 []
             ],
             "ucebny": [
-                "ucebna3"
+                "ucebna1"
             ]
         },
         "PČMZ": {
             "dny": [
                 "2024-11-23",
-                "2025-01-05",
-                "2024-12-21"
+                "2025-01-04"
             ],
             "casy": [
                 [
-                    1,
-                    3
+                    2,
+                    8
                 ],
                 [
+                    1,
+                    2,
                     3,
-                    5
-                ],
-                [
-                    1,
-                    2
+                    4,
+                    5,
+                    6
                 ]
             ],
             "ucebny": []
         },
         "SČMZ": {
             "dny": [
-                "2025-01-05",
-                "2024-12-19",
-                "2024-12-13",
-                "2025-01-04"
+                "2025-01-02"
             ],
             "casy": [
                 [
-                    "22:13"
-                ],
-                [
-                    "12:13"
-                ],
-                [
-                    "02:24"
-                ],
-                [
-                    "14:22"
+                    "11:00"
                 ]
             ],
             "ucebny": [
-                "T17",
-                "T15",
-                "T16",
                 "T15"
             ]
         },
         "SLOH": {
-            "dny": [
-                "2024-12-27"
-            ],
-            "casy": [
-                [
-                    3,
-                    5
-                ]
-            ],
-            "ucebny": [
-                [
-                    "T15",
-                    "T15"
-                ]
-            ]
+            "dny": [],
+            "casy": [],
+            "ucebny": []
         }
     },
     "projekty": {
