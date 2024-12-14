@@ -248,6 +248,26 @@
               <td><%= formatDate(udalost.datum) %></td>
               <td style="padding-left: 30px;"><%= udalost.casOd %></td>
               <td style="padding-left: 30px;"><%= udalost.casDo %></td>
+            <% } else if (udalost.vyberZadani === "maturita" && udalost.nazev === "PČMZ") { %>
+              <td><%= formatDate(udalost.datum) %></td>
+              <td class="empty-cell"></td>
+              <td class="empty-cell"></td>
+            <% } else if (udalost.vyberZadani === "maturita" && udalost.nazev === "SČMZ") { %>
+              <td><%= formatDate(udalost.datum) %></td>
+              <td class="empty-cell"></td>
+              <td class="empty-cell"></td> 
+            <% } else if (udalost.vyberZadani === "maturita" && udalost.nazev === "SLOH") { %>
+              <td><%= formatDate(udalost.datum) %></td>
+              <td class="empty-cell"></td>
+              <td class="empty-cell"></td>
+            <% } else if (udalost.vyberZadani === "maturita" && udalost.nazev === "PŽOP") { %>
+              <td><%= formatDate(udalost.datum) %></td>
+              <td class="empty-cell"></td>
+              <td class="empty-cell"></td>  
+            <% } else if (udalost.vyberZadani === "maturita" && udalost.nazev === "PŽOP - dodatečný termín") { %>
+              <td><%= formatDate(udalost.datum) %></td>
+              <td class="empty-cell"></td>
+              <td class="empty-cell"></td>  
             <% } %>
 
             <td class="<%= udalost.tykaSe === null ? 'empty-cell-tykaSe' : 'center' %>">
@@ -429,45 +449,66 @@
       setTimeout(initManager, 0);
     });
     function editUdalost(udalostData) {
-      // Parsování JSON objektu události
-      const udalost = JSON.parse(udalostData);
+    // Parsování JSON objektu události
+    const udalost = JSON.parse(udalostData);
 
-      // Vyplnění polí ve formuláři
-      document.querySelector('[name="jmeno_udalosti"]').value = udalost.nazev;
-      document.querySelector('[name="datum"]').value = udalost.datum;
-      document.querySelector('[name="datum"]').min = udalost.datum;
+    // Vyplnění polí ve formuláři
+    document.querySelector('[name="jmeno_udalosti"]').value = udalost.nazev;
+    document.querySelector('[name="datum"]').value = udalost.datum;
+    document.querySelector('[name="datum"]').min = udalost.datum;
 
-      if (udalost.vyberZadani === "celodenni") {
+    // Nastavení správného radio buttonu a zobrazení příslušných polí
+    const radioButtons = document.querySelectorAll('input[name="variantaDni"]');
+    const jineInputs = document.getElementById('jineInputs');
+    const vicedenniInputs = document.getElementById('vicedenniInputs');
+
+    // Skrytí všech dodatečných inputů
+    jineInputs.style.display = 'none';
+    vicedenniInputs.style.display = 'none';
+
+    // Nastavení správného radio buttonu a zobrazení příslušných polí
+    switch(udalost.vyberZadani) {
+      case "celodenni":
         document.getElementById('celodenni').checked = true;
-      } else if (udalost.vyberZadani === "vicedenni") {
+        break;
+      case "vicedenni":
         document.getElementById('vicedenni').checked = true;
         document.getElementById('datumDo').value = udalost.datumDo;
-      } else if (udalost.vyberZadani === "casIDatum") {
+        vicedenniInputs.style.display = 'block';
+        break;
+      case "casIDatum":
         document.getElementById('jine').checked = true;
         document.getElementById('casOd').value = udalost.casOd;
         document.getElementById('casDo').value = udalost.casDo;
-      }
-
-      // Nastavení typu akce
-      document.querySelector('[name="typAkce"]').value = udalost.typ;
-
-      // Specifické nastavení pro budovy nebo třídy
-      if (udalost.typ === "celotridni") {
-        document.querySelector('[name="tridy"]').value = udalost.tykaSe;
-      } else if (udalost.typ === "budovy") {
-        document.querySelector('[name="budovy"]').value = udalost.tykaSe;
-      }
-
-      // Poznámka
-      document.querySelector('[name="poznamka_udalosti"]').value = udalost.poznamka || '';
-      
-      // Pro načtení původních dat
-      document.querySelector('[name="PuvodniData"]').value = udalostData || '';
-
-      // Zobrazení relevantních polí
-      const manager = new UdalostiManager(); // Případné obnovení správce formuláře
-      manager.updateVisibility();
-      manager.updateRequiredFields();
+        jineInputs.style.display = 'block';
+        break;
     }
+
+    // Nastavení typu akce
+    const typAkceSelect = document.querySelector('[name="typAkce"]');
+    typAkceSelect.value = udalost.typ;
+
+    // Specifické nastavení pro budovy nebo třídy
+    const tridySelect = document.querySelector('[name="tridy"]');
+    const budovySelect = document.querySelector('[name="budovy"]');
+    
+    // Skrytí obou selectů
+    document.getElementById('tridySelect').style.display = 'none';
+    document.getElementById('budovySelect').style.display = 'none';
+
+    if (udalost.typ === "celotridni") {
+      tridySelect.value = udalost.tykaSe;
+      document.getElementById('tridySelect').style.display = 'block';
+    } else if (udalost.typ === "budovy") {
+      budovySelect.value = udalost.tykaSe;
+      document.getElementById('budovySelect').style.display = 'block';
+    }
+
+    // Poznámka
+    document.querySelector('[name="poznamka_udalosti"]').value = udalost.poznamka || '';
+    
+    // Pro načtení původních dat
+    document.querySelector('[name="PuvodniData"]').value = udalostData || '';
+  }
   </script>
 <%- include('../partials/tail') %>
