@@ -292,8 +292,8 @@ const maturity = {
                     let ucebna;
                     
                     if(nazev == "PČMZ") {
-                        cOD = maturity[typy[i]]["casy"][j][0];
-                        cDO = maturity[typy[i]]["casy"][j][maturity[typy[i]]["casy"][j].length - 1];
+                        cOD = hodiny[maturity[typy[i]]["casy"][j][0]][0];
+                        cDO = hodiny[maturity[typy[i]]["casy"][j][maturity[typy[i]]["casy"][j].length - 1]][1];
                         ucebna = null;
                     }
                     if(nazev == "SČMZ") {
@@ -302,8 +302,8 @@ const maturity = {
                         ucebna = maturity[typy[i]]["ucebny"][j];
                     }
                     if(nazev == "SLOH") {
-                        cOD = maturity[typy[i]]["casy"][j][0];
-                        cDO = maturity[typy[i]]["casy"][j][maturity[typy[i]]["casy"][j].length - 1];
+                        cOD = hodiny[maturity[typy[i]]["casy"][j][0]][0];
+                        cDO = hodiny[maturity[typy[i]]["casy"][j][maturity[typy[i]]["casy"][j].length - 1]][1];
                         ucebna = maturity[typy[i]]["ucebny"][j][0];
                     } else {
                         if(nazev == "PŽOP" && j == 1){

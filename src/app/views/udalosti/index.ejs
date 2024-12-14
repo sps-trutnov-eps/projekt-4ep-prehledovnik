@@ -260,14 +260,10 @@
               <td><%= formatDate(udalost.datum) %></td>
               <td class="empty-cell"></td>
               <td class="empty-cell"></td>
-            <% } else if (udalost.vyberZadani === "maturita" && udalost.nazev === "PŽOP") { %>
+            <% } else if (udalost.vyberZadani === "maturita" && (udalost.nazev === "PŽOP" || udalost.nazev === "PŽOP - dodatečný termín")) { %>
               <td><%= formatDate(udalost.datum) %></td>
               <td class="empty-cell"></td>
-              <td class="empty-cell"></td>  
-            <% } else if (udalost.vyberZadani === "maturita" && udalost.nazev === "PŽOP - dodatečný termín") { %>
-              <td><%= formatDate(udalost.datum) %></td>
-              <td class="empty-cell"></td>
-              <td class="empty-cell"></td>  
+              <td class="empty-cell"></td> 
             <% } %>
 
             <td class="<%= udalost.tykaSe === null ? 'empty-cell-tykaSe' : 'center' %>">
