@@ -48,15 +48,15 @@
         },
         "2": {
             "trida": "",
-            "predmet": "",
-            "temata": ""
-        },
-        "3": {
-            "trida": "",
             "predmet": "VYS",
             "temata": {
                 "nextID": 1
             }
+        },
+        "3": {
+            "trida": "",
+            "predmet": "",
+            "temata": ""
         },
         "4": {
             "trida": "",
@@ -75,15 +75,16 @@
         },
         "7": {
             "trida": "",
-            "predmet": "",
-            "temata": ""
+            "predmet": "VYS",
+            "temata": {
+                "1": {
+                    "tema": "aaa",
+                    "pocetHodin": 7
+                },
+                "nextID": 2
+            }
         },
         "8": {
-            "trida": "",
-            "predmet": "",
-            "temata": ""
-        },
-        "9": {
             "trida": "",
             "predmet": "VYS",
             "temata": {
@@ -98,6 +99,11 @@
                 "nextID": 3
             }
         },
+        "9": {
+            "trida": "",
+            "predmet": "",
+            "temata": ""
+        },
         "nextID": 10
     },
     "rozvrhy": {
@@ -108,18 +114,628 @@
             "popis": "",
             "hodiny": {
                 "lichy": {
-                    "Po": {},
-                    "Ut": {},
-                    "St": {},
-                    "Ct": {},
-                    "Pa": {}
+                    "Po": {
+                        "0": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "1": {
+                            "predmet": "VYS-c",
+                            "mistnost": "a",
+                            "skupina": "cela",
+                            "trida": "EP3"
+                        },
+                        "2": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "3": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "4": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "5": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "6": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "7": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "8": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "9": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        }
+                    },
+                    "Ut": {
+                        "0": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "1": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "2": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "3": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "4": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "5": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "6": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "7": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "8": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "9": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        }
+                    },
+                    "St": {
+                        "0": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "1": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "2": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "3": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "4": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "5": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "6": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "7": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "8": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "9": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        }
+                    },
+                    "Ct": {
+                        "0": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "1": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "2": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "3": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "4": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "5": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "6": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "7": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "8": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "9": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        }
+                    },
+                    "Pa": {
+                        "0": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "1": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "2": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "3": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "4": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "5": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "6": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "7": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "8": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "9": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        }
+                    }
                 },
                 "sudy": {
-                    "Po": {},
-                    "Ut": {},
-                    "St": {},
-                    "Ct": {},
-                    "Pa": {}
+                    "Po": {
+                        "0": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "1": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "2": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "3": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "4": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "5": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "6": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "7": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "8": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "9": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        }
+                    },
+                    "Ut": {
+                        "0": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "1": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "2": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "3": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "4": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "5": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "6": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "7": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "8": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "9": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        }
+                    },
+                    "St": {
+                        "0": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "1": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "2": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "3": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "4": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "5": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "6": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "7": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "8": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "9": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        }
+                    },
+                    "Ct": {
+                        "0": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "1": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "2": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "3": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "4": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "5": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "6": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "7": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "8": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "9": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        }
+                    },
+                    "Pa": {
+                        "0": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "1": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "2": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "3": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "4": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "5": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "6": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "7": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "8": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "9": {
+                            "predmet": "volno",
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        }
+                    }
                 }
             }
         },
@@ -755,7 +1371,661 @@
                 }
             }
         },
-        "nextID": 3
+        "3": {
+            "id": 3,
+            "datum": "2024-12-15T13:12:46.191Z",
+            "nazev": "a",
+            "popis": "",
+            "hodiny": {
+                "lichy": {
+                    "Po": {},
+                    "Ut": {},
+                    "St": {},
+                    "Ct": {},
+                    "Pa": {}
+                },
+                "sudy": {
+                    "Po": {},
+                    "Ut": {},
+                    "St": {},
+                    "Ct": {},
+                    "Pa": {}
+                }
+            }
+        },
+        "4": {
+            "id": 4,
+            "datum": "2024-12-15T13:18:24.908Z",
+            "nazev": "a",
+            "popis": "",
+            "hodiny": {
+                "lichy": {
+                    "Po": {
+                        "0": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "1": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "2": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "3": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "4": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "5": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "6": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "7": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "8": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "9": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        }
+                    },
+                    "Ut": {
+                        "0": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "1": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "2": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "3": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "4": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "5": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "6": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "7": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "8": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "9": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        }
+                    },
+                    "St": {
+                        "0": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "1": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "2": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "3": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "4": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "5": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "6": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "7": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "8": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "9": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        }
+                    },
+                    "Ct": {
+                        "0": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "1": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "2": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "3": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "4": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "5": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "6": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "7": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "8": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "9": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        }
+                    },
+                    "Pa": {
+                        "0": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "1": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "2": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "3": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "4": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "5": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "6": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "7": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "8": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "9": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        }
+                    }
+                },
+                "sudy": {
+                    "Po": {
+                        "0": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "1": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "2": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "3": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "4": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "5": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "6": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "7": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "8": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "9": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        }
+                    },
+                    "Ut": {
+                        "0": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "1": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "2": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "3": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "4": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "5": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "6": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "7": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "8": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "9": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        }
+                    },
+                    "St": {
+                        "0": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "1": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "2": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "3": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "4": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "5": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "6": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "7": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "8": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "9": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        }
+                    },
+                    "Ct": {
+                        "0": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "1": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "2": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "3": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "4": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "5": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "6": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "7": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "8": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "9": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        }
+                    },
+                    "Pa": {
+                        "0": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "1": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "2": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "3": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "4": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "5": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "6": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "7": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "8": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        },
+                        "9": {
+                            "predmet": null,
+                            "mistnost": "",
+                            "skupina": "cela",
+                            "trida": ""
+                        }
+                    }
+                }
+            }
+        },
+        "nextID": 5
     },
     "udalosti": {
         "2": {

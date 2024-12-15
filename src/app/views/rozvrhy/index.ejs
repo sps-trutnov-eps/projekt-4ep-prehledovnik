@@ -511,9 +511,9 @@
 
                 if (hodina && hodina.predmet) {
                     if (hodina.predmet === "volno") {
-                        button.classList.replace('secondary', 'primary');
+                        // button.classList.replace('secondary', 'primary');
                         button.classList.add('is-free');
-                        predmetSpan.textContent = "";
+                        predmetSpan.textContent = "volno";
                         mistnostSpan.textContent = "";
                         skupinaSpan.textContent = "";
                         tridaSpan.textContent = "";
@@ -526,7 +526,7 @@
                         tridaSpan.textContent = hodina.trida ? `${hodina.trida}` : "";
                     }
                 } else {
-                    button.classList.replace('secondary', 'primary');
+                    // button.classList.replace('secondary', 'primary');
                     button.classList.remove('is-free');
                     predmetSpan.textContent = '+';
                     mistnostSpan.textContent = '';
