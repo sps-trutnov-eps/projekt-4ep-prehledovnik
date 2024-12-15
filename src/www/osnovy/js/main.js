@@ -114,6 +114,7 @@ function deleteRow(button) {
 	// Delete the row from the table
 	tableBody.deleteRow(row.rowIndex - 1); // Adjust for header row
 	updateCurriculumHours();
+	updateRowColors();
 }
 
 function addRow() {
@@ -167,6 +168,7 @@ function addRow() {
 	
 	hoursInput.onchange = function() {
 		updateCurriculumHours();
+		updateRowColors();
 	};
 	
 	hoursInput.oninput = function() {
@@ -183,7 +185,8 @@ function addRow() {
 	// Append the new row to the table body
 	tableBody.insertBefore(newRow, tableBody.rows[tableBody.rows.length - 1]);
 	
-	updateCurriculumHours()
+	updateCurriculumHours();
+	updateRowColors();
 }
 
 function updateCurriculumHours() {
@@ -214,28 +217,12 @@ function updateCurriculumHours() {
 		// Calculate and set the "Do" value
 		odCell.textContent = od;
 		doCell.textContent = doCur;
+		doCell.style.color = '';
 
 		currentTotalHours += hours;
 		
-		console.log(odCell);
+		//console.log(odCell);
 	}
-	const hoursCells = document.querySelectorAll('#curriculums .hour-input');
-    hoursCells.forEach(cell => {
-        const parentRow = cell.closest('tr');
-        const odCell = parentRow.cells[1];
-        const doCell = parentRow.cells[2];
-
-        if (currentTotalHours != totalHours) {
-            odCell.style.color = 'red';
-            doCell.style.color = 'red';
-		} if (currentTotalHours => totalHours) {
-			odCell.style.color = 'red';
-			odCell.style.color = 'red';
-		}else {
-            odCell.style.color = 'black';
-            doCell.style.color = 'black';
-        }
-    });
 }
 
 function calculateTheTotalHours() {
@@ -256,6 +243,29 @@ function calculateTheTotalHours() {
 
 		totalHours.value = hoursAWeek*weeksAYear;
 	}
+	
+	updateRowColors();
+}
+
+// Kontrola a aktualizaca barev buněk
+function updateRowColors() {
+    const table = document.getElementById("curriculums");
+    const rows = table.rows;
+    const totalHours = parseInt(document.getElementById("pHodin").value) || 0;
+	
+	 // Pokud tam jsou nějaký témata (kontrolujeme jestli tam jsou více než dva řádky)
+	 if (rows.length > 2){
+		 // rows.length - 2 je předposlední řádek
+		 const doCell = rows[rows.length - 2].cells[2];
+
+		 // Nastavení barvy na základě kontroly
+		 if (parseInt(doCell.textContent) !== totalHours) {
+			doCell.style.color = 'red';
+		 } else {
+			doCell.style.color = '';
+		 }
+	 }
+	 
 }
 
 function hideDiv(id) {
@@ -266,5 +276,6 @@ function hideDiv(id) {
 }
 
 window.onload = (event) => {
-  calculateTheTotalHours();
+    calculateTheTotalHours();
+    updateRowColors();
 };
