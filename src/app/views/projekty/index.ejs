@@ -149,7 +149,12 @@ tr:hover {
    </article>
 
 <article style="flex: 3; overflow-y: auto" >
+  <header>
+    <nav>
       <h1>Fáze</h1>
+    </nav>
+  </header>
+  <main>
    <table>
 		<% let radkyHeader = ["členové", "pitch", "milestone 1", "milestone 2", "milestone 3", "milestone 4", "milestone 5", "milestone 6", "prezentace", "hodnocení"]; %>
 		<% for (let r = 0; r < radkyHeader.length + 1; r += 1) { %>
@@ -158,16 +163,16 @@ tr:hover {
 					<th>
 						<% if (s == 0) { %>
 							<% if (r == 0) { %>
-                                <button class="tlacitko">Upload</button> 
+                                <button class="tlacitko">Upload</button>
 							<% } else { %>
 								<%= radkyHeader[r - 1] %>
 							<% } %>
 						<% } else { %>
 							<% if (r == 0) { %>
-                                <%= tymy[s - 1].name %> 
+                                <%= tymy[s - 1].name %>
                             <% } %>
 							<% if (r == 1) { %>
-                                <%= tymy[s - 1].members %> 
+                                <%= tymy[s - 1].members %>
                             <% } %>
 						<% } %>
 					</th>
@@ -175,6 +180,7 @@ tr:hover {
 			</tr>
 		<% } %>
    </table>
+  </main>
 </article>
 
 <%- include('../partials/tail') %>

@@ -41,13 +41,67 @@
         "IT"
     ],
     "osnovy": {
-        "nextID": 1
+        "1": {
+            "trida": "",
+            "predmet": "",
+            "temata": ""
+        },
+        "2": {
+            "trida": "",
+            "predmet": "",
+            "temata": ""
+        },
+        "nextID": 3
     },
     "rozvrhy": {
-        "nextID": 1
+        "1": {
+            "id": 1,
+            "datum": "2024-12-15T10:03:57.654Z",
+            "nazev": "aa",
+            "popis": "",
+            "hodiny": {
+                "lichy": {
+                    "Po": {},
+                    "Ut": {},
+                    "St": {},
+                    "Ct": {},
+                    "Pa": {}
+                },
+                "sudy": {
+                    "Po": {},
+                    "Ut": {},
+                    "St": {},
+                    "Ct": {},
+                    "Pa": {}
+                }
+            }
+        },
+        "2": {
+            "id": 2,
+            "datum": "2024-12-15T10:04:08.602Z",
+            "nazev": "sa",
+            "popis": "",
+            "hodiny": {
+                "lichy": {
+                    "Po": {},
+                    "Ut": {},
+                    "St": {},
+                    "Ct": {},
+                    "Pa": {}
+                },
+                "sudy": {
+                    "Po": {},
+                    "Ut": {},
+                    "St": {},
+                    "Ct": {},
+                    "Pa": {}
+                }
+            }
+        },
+        "nextID": 3
     },
     "udalosti": {
-        "nextID": 1
+        "nextID": 2
     },
     "maturity": {
         "nextID": 1
