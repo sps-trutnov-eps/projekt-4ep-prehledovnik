@@ -1,5 +1,7 @@
 const express = require('express');
 const app = express();
+const multer = require('multer');
+const upload = multer();
 
 require('dotenv').config();
 
@@ -17,4 +19,4 @@ app.use('/', require("./routers/defaultRouter.js"));
 
 // defautl value if undefined
 const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`App listening on port ${port}!`));
+app.listen(port, () => //console.log(`App listening on port ${port}!`));

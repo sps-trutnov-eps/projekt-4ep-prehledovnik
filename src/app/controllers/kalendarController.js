@@ -40,9 +40,8 @@ function getWeekNumber(d) {
 let prvniTyden = getWeekNumber(new Date(year, 9, 1))
 let posledniSkolniTyden = getWeekNumber(new Date(year+1, 8, 31))
 let posledniRocniTyden = 52
-//console.log(new Date(year, 12, 31)) /// znějakého důvodu toto znamená 30.1.2024, měsíc o jedno vetší, den o jedno menší ?????????
-//console.log(new Date(year, 12 - 1, 31 + 1).getDay())
-if(new Date(year, 12 - 1, 31 + 1).getDay() == "5"){
+//console.log(new Date(year, 12, 31)) // znějakého důvodu toto znamená 30.1.2024, měsíc o jedno vetší, den o jedno menší ?????????
+if(new Date(year, 12 - 1, 31 + 1).getDay == "4"){
     posledniRocniTyden = 53
     //console.log("true")
 }
