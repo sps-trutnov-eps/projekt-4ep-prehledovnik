@@ -13,6 +13,11 @@ exports.index = (req, res) => {
     });
 }
 
+exports.smazat = (req, res) => {
+    databaze.udalosti.odebratUdalost(req.params.data);
+    res.redirect("/udalosti");
+}
+
 exports.pridat = (req, res) => {
     // Just checking
     if ((req.body.jmeno_udalosti.trim() && req.body.typAkce.trim()) != "") {

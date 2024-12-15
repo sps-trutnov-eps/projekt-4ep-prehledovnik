@@ -8,9 +8,9 @@ min-width: 20vw;
 margin-right: 1em;
 resize: horizontal;
 ">
-   <header> 
+   <header>
       <h1>Osnovy</h1>
-      
+
       <form id="create">
          <input
          class="createButton outline"
@@ -38,10 +38,12 @@ resize: horizontal;
 <article style="flex: 3;">
    <% if (cur[id] != undefined){ %>
    <header>
-      <hgroup>
-         <h1>Tematický plán</h1>
-         <p><%= cur[id]["trida"] %> <%= cur[id]["predmet"] %></p>
-		</hgroup>
+      <nav>
+        <hgroup>
+          <h1>Tematický plán</h1>
+          <p><%= cur[id]["trida"] %> <%= cur[id]["predmet"] %></p>
+        </hgroup>
+      </nav>
 	</header>
    <main>
       <div
@@ -54,14 +56,14 @@ resize: horizontal;
       ">
          <h2>Nastavení Tematického Plánu</h2>
          <label for="newTrida">Třída:</label>
-         <input type="text" id="newTrida" name="newTrida" /><br /><br />
+         <input type="text" id="newTrida" name="newTrida" />
          <label for="newPredmet">Předmět:</label>
-         <input type="text" id="newPredmet" name="newPredmet" /><br /><br />
+         <input type="text" id="newPredmet" name="newPredmet" />
          <label for="newPocetHodin">Počet Hodin:</label>
          <input
          type="text"
          id="newPocetHodin"
-         name="newPocetHodin" /><br /><br />
+         name="newPocetHodin" />
          <input
          type="button"
          value="Uložit"
@@ -99,7 +101,7 @@ resize: horizontal;
                         <input style="margin: 0;" class="curriculum-i" type="text"
                         value="<%= cur[id]["temata"][i]["tema"] %>">
 							</td>
-                     
+
                      <% let od = doPredchozi; %> <% let doCur = od; %> %> <% doCur
                         -= -(cur[id]["temata"][i]["pocetHodin"]); %> <% doPredchozi =
 							doCur; %>
@@ -135,31 +137,31 @@ resize: horizontal;
 								<% for (let i = 0; i < subjects.length; i++){ %>
                         <% let subject = subjects[i].split('-');%>
                         <% if (subject[1] == 't'){ %>
-								
+
 								<option value="<%= subject[0] %>" <% if (cur[id]['predmet'].split('-')[0] == subject[0]) {%> selected <% } %> ><%= subject[0] %></option>
-								
+
 								<% } %> <% } %>
 							</select>
 						</div>
 					</div>
-						
+
 						<div style="display: flex; align-items: flex-start; width: 100%;">
 							<label for="teorieCheckBox">Teorie?
 								<input type="checkbox" id="teorieCheckBox" name="teorie" onchange="calculateTheTotalHours()" <% if (cur[id]['predmet'].split('-')[1] == 't') {%> checked <% } %>/>
 							</label>
-							
-							
+
+
 								<label for="calculateHours">Počítat hodiny?
 									<input type="checkbox" id="calculateHours" name="calculateHours" onchange="hideDiv('customHoursAWeekDiv')" checked/>
 								</label>
-							
+
 						</div>
 						<div id="customHoursAWeekDiv">
 							<label for="customHoursAWeek">Vlastní hodiny týdně: <br/>0 = výchozí počítání</label>
-							<input type="number" id="customHoursAWeek" name="customHoursAWeek" value="0" />
+							<input type="number" id="customHoursAWeek" name="customHoursAWeek" value="0" min="0" />
 						</div>
-					
-					
+
+
                <div style="display: flex; align-items: flex-start; width: 100%;">
 						<div style="margin-right: 20px; flex-grow: 1;">
 							<label for="rocnik">Ročník:</label>
@@ -169,7 +171,7 @@ resize: horizontal;
 								<% } %>
 							</select>
 						</div>
-						
+
 						<div style="flex-grow: 1;">
 							<label for="obor">Obor:</label>
 							<select name="obor" id="obor" style="width: 100%;">
@@ -179,16 +181,16 @@ resize: horizontal;
 							</select>
 						</div>
 					</div>
-					
-               
+
+
                <label for="pHodin">Počet Hodin:</label>
-					
+
 					<% let pocetHodin = 0; %>
-					<% for (let ti = 1; ti < cur[id]['temata']['nextID']; ti++){ %> 
+					<% for (let ti = 1; ti < cur[id]['temata']['nextID']; ti++){ %>
 					<% 	pocetHodin += cur[id]['temata'][ti]['pocetHodin'];%>
 					<% } %>
-               <input type="number" id="pHodin" name="pHodin" value="<%= pocetHodin %>" />
-               
+               <input type="number" id="pHodin" name="pHodin" value="<%= pocetHodin %>" min="0" />
+
                <input type="submit" value="Uložit" />
 				</form>
 			</div>

@@ -3,7 +3,7 @@ function writeIntoServerConsole(txt) {
 	let anotherOne = document.getElementById('anotherOne').value;
 	
 	// Tohle vypíše do konzole prohlížeče
-	console.log('sending text to server console.');
+	//console.log('sending text to server console.');
 	
 	// To co je tu v závorkách je url adresa
 	// je relativní takže stačí napsat např: '/kalendar/ulozit'
@@ -20,7 +20,7 @@ function writeIntoServerConsole(txt) {
 	.then(response => response.text())
 	.then(data => {
 		// Tohle vypíše do konzole prohlížeče odpověď ze serveru
-		console.log('Data from server: ' + data);
+		//console.log('Data from server: ' + data);
 	})
 	.catch(error => {
 		// Pokud někde vznikne chyba tak se to vypíše do konzole
