@@ -197,17 +197,13 @@ exports.ukladanisloh = (req, res) => {
 
     while (body[`den${pocitadloDnu}_datum`]) {
         const datum = body[`den${pocitadloDnu}_datum`][0];
-        console.log(datum)
         
         for (let hodina = 1; hodina <= 9; hodina++) {
             const ucebnaKey = `den${pocitadloDnu}_ucebna-${hodina}`;
             const ucebna = body[ucebnaKey]?.[0]; 
-            console.log(ucebna)
 
             if (ucebna && ucebna.trim() !== '') {
-                console.log(ucebna)
                 const skupinaKlic = `${datum}_${ucebna}`;
-                console.log(skupinaKlic)
                 if (!seskupenaData[skupinaKlic]) {
                     seskupenaData[skupinaKlic] = {nazev: "SLOH", dny: [datum], casy: [], ucebna: ucebna};
                 };

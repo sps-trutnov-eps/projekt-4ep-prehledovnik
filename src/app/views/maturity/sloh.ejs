@@ -136,10 +136,10 @@
 
             <% for (let y = 0; y < 9; y++) {%>
                 <td class="clickable-cell" data-hodina="<%=y+1%>">
-                    <%let kondice = false;%>
+                    <%let kondice = "";%>
                     <%for (i = 0; i < data[datum].length; i++) { if (data[datum][i][0]-1 == y) {kondice = data[datum][i][1];} }%>
-                    <input type="hidden" name="den1_ucebna-<%=y+1%>[]" value=""/>
-                    <%if (kondice) {%>
+                    <input type="hidden" name="den<%=x%>_ucebna-<%=y+1%>[]" value="<%=kondice%>"/>
+                    <%if (kondice != false) {%>
                     <%=kondice%>
                     <%}else{%>
                         Klikni
