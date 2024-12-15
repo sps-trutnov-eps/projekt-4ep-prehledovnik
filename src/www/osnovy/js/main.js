@@ -348,6 +348,35 @@ function addRow() {
     updateRowColors();
 }
 
+// Smazání řádku
+function deleteRow(button) {
+    const row = button.parentNode.parentNode;
+    const tableBody = document.getElementById("table-body");
+    tableBody.deleteRow(row.rowIndex - 1);
+
+    updateRowColors();
+}
+
+// Výpočet celkových hodin
+function calculateTheTotalHours() {
+    const calculateHours = document.getElementById("calculateHours").checked;
+
+    if (calculateHours) {
+        const totalHours = document.getElementById("pHodin");
+        const year = document.getElementById("rocnik");
+        const customHoursAWeek = document.getElementById("customHoursAWeek");
+        const theory = document.getElementById("teorieCheckBox").checked;
+
+        let hoursAWeek = 2;
+        if (theory) { hoursAWeek = 1; }
+        if (customHoursAWeek.value > 0) { hoursAWeek = customHoursAWeek.value; }
+
+        let weeksAYear = 34;
+        if (year.value == 4) { weeksAYear -= 4; }
+
+        totalHours.value = hoursAWeek * weeksAYear;
+    }
+}
 
 window.onload = (event) => {
     calculateTheTotalHours();
