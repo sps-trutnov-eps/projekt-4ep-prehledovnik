@@ -71,6 +71,10 @@
       let baseDate = getFirstMondayOfSeptember(2024);
       %>
 
+      <%
+      let periodNumbers = {};
+      %>
+
       <% for(let t=0;t<Weeks;t++ ) {%>
         <section class="grid-container">
           <p class="grid-item-h"><%= week[t] %></p>
@@ -86,6 +90,7 @@
           <p class="grid-item-h"><span class="cislo-hodiny">9</span><br>15:00+</p>
           <% let days = ["Po", "Ut", "St", "Ct", "Pa"] %>
           <% let day = ["Po"] %>
+          
           <% for(let i=0;i<5;i++) {%>
             <% let currentDate = new Date(baseDate) %>
             <% currentDate.setDate(baseDate.getDate() + (t * 7) + i) %>
@@ -96,18 +101,37 @@
               <span><%= formattedDate %></span>
             </p>
             <% for(let j=0;j<= 9;j++) {%>
+              <% let key%>
               <div class="grid-item">
                 <% if (week[t] % 2 === 0) { %>
                   <p class="room"><%= rozvrh.hodiny.sudy[days[i]][j].mistnost%></p>
                   <p class="period"><%= rozvrh.hodiny.sudy[days[i]][j].predmet%></p>
                   <p class="group"><%= rozvrh.hodiny.sudy[days[i]][j].skupina%></p>
                   <p class="class"><%= rozvrh.hodiny.sudy[days[i]][j].trida%></p>
+                  <%
+                    if( rozvrh.hodiny.sudy[days[i]][j].predmet != "volno"){
+                      key = rozvrh.hodiny.sudy[days[i]][j].predmet+rozvrh.hodiny.sudy[days[i]][j].trida
+                      if (!(key in periodNumbers))
+                        periodNumbers[key] = 0
+                    }
+                  %>
                 <% }%>
                 <% if (week[t] % 2 === 1) { %>
                   <p class="room"><%= rozvrh.hodiny.lichy[days[i]][j].mistnost%></p>
                   <p class="period"><%= rozvrh.hodiny.lichy[days[i]][j].predmet%></p>
                   <p class="group"><%= rozvrh.hodiny.lichy[days[i]][j].skupina%></p>
                   <p class="class"><%= rozvrh.hodiny.lichy[days[i]][j].trida%></p>
+                  <%
+                    if( rozvrh.hodiny.lichy[days[i]][j].predmet != "volno"){
+                      key = rozvrh.hodiny.lichy[days[i]][j].predmet+rozvrh.hodiny.lichy[days[i]][j].trida
+                      if (!(key in periodNumbers))
+                        periodNumbers[key] = 0
+                    }              
+                  %>
+                <% }%>
+                <%if(key != null){%>
+                  <p class="count"><%= periodNumbers[key]%></p>
+                  <% periodNumbers[key] += 1 %>
                 <% }%>
                 </div>
             <%}%>
