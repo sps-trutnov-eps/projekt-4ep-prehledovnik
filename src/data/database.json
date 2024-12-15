@@ -41,33 +41,7 @@
         "IT"
     ],
     "osnovy": {
-        "1": {
-            "trida": "1.EP",
-            "predmet": "VYS-t",
-            "temata": {
-                "1": {
-                    "tema": "",
-                    "pocetHodin": 1
-                },
-                "2": {
-                    "tema": "",
-                    "pocetHodin": 56
-                },
-                "3": {
-                    "tema": "",
-                    "pocetHodin": 3
-                },
-                "nextID": 4
-            }
-        },
-        "2": {
-            "trida": "1.EP",
-            "predmet": "VYS-t",
-            "temata": {
-                "nextID": 1
-            }
-        },
-        "nextID": 3
+        "nextID": 1
     },
     "rozvrhy": {
         "nextID": 1
