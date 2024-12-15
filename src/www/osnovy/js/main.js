@@ -265,6 +265,91 @@ function hideDiv(id) {
 	else { div.style.display = "none"; }
 }
 
+// Kontrola a aktualizaca barev buněk
+function updateRowColors() {
+    const table = document.getElementById("curriculums");
+    const rows = table.rows;
+    const totalHours = parseInt(document.getElementById("pHodin").value) || 0;
+    let currentTotalHours = 0;
+
+    for (let i = 1; i < rows.length - 1; i++) { // Vynechání prvního a posledního řádku
+        const hoursInput = rows[i].querySelector('.hour-input');
+        const hours = parseInt(hoursInput.value) || 0;
+        currentTotalHours += hours;
+
+        const odCell = rows[i].cells[1];
+        const doCell = rows[i].cells[2];
+
+        // Nastavení barvy na základě kontroly
+        if (currentTotalHours !== totalHours) {
+            odCell.style.color = 'red';
+            doCell.style.color = 'red';
+        } else {
+            odCell.style.color = 'black';
+            doCell.style.color = 'black';
+        }
+    }
+}
+
+// Přidání řádku
+function addRow() {
+    const tableBody = document.getElementById("table-body");
+    const newRow = document.createElement("tr");
+    newRow.className = "cur";
+
+    const actionsCell = document.createElement("td");
+    actionsCell.style.display = "flex";
+    actionsCell.className = "curriculum-input";
+
+    const deleteButton = document.createElement("input");
+    deleteButton.type = "button";
+    deleteButton.value = "-";
+    deleteButton.className = "deleteCurButton";
+    deleteButton.style.marginBottom = "0";
+    deleteButton.onclick = function () { deleteRow(this); };
+
+    const textInput = document.createElement("input");
+    textInput.type = "text";
+    textInput.style.margin = "0";
+    textInput.value = "";
+    textInput.className = "curriculum-i";
+
+    actionsCell.appendChild(deleteButton);
+    actionsCell.appendChild(textInput);
+
+    const previousHoursCell = document.createElement("td");
+    previousHoursCell.style.textAlign = "center";
+    previousHoursCell.innerText = "0";
+
+    const currentHoursCell = document.createElement("td");
+    currentHoursCell.style.textAlign = "center";
+    currentHoursCell.innerText = "0";
+
+    const hourInputCell = document.createElement("td");
+    hourInputCell.style.textAlign = "center";
+
+    const hoursInput = document.createElement("input");
+    hoursInput.type = "number";
+    hoursInput.style.margin = "0";
+    hoursInput.value = "0";
+    hoursInput.min = 0;
+    hoursInput.className = "hour-input";
+    hoursInput.onchange = updateRowColors;
+
+    hourInputCell.appendChild(hoursInput);
+
+    newRow.appendChild(actionsCell);
+    newRow.appendChild(previousHoursCell);
+    newRow.appendChild(currentHoursCell);
+    newRow.appendChild(hourInputCell);
+
+    tableBody.insertBefore(newRow, tableBody.rows[tableBody.rows.length - 1]);
+
+    updateRowColors();
+}
+
+
 window.onload = (event) => {
-  calculateTheTotalHours();
+    calculateTheTotalHours();
+    updateRowColors();
 };
