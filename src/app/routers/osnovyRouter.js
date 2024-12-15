@@ -51,13 +51,17 @@ osnovyRouter.post('/remove/*', (req, res) => {
 });
 
 osnovyRouter.get('*', (req, res) => {
-    let id = decodeURIComponent(req.url).slice(1);
-    
-    let cur = osnovyController.getCur();
-    let subjects = osnovyController.subjects();
+	let id = decodeURIComponent(req.url).slice(1);
+	
+	// cur contains data about currently selected curriculum
+	let cur = osnovyController.getCur();
+	let subjects = osnovyController.subjects();
 	let classes = osnovyController.classes();
-
-    res.render('osnovy/index.ejs', {"cur": cur, "id": id, "subjects": subjects, "classes": classes});
+	let fields = osnovyController.fields();
+	
+	console.log(cur);
+	
+	res.render('osnovy/index.ejs', {"cur": cur, "id": id, "subjects": subjects, "classes": classes, "fields": fields});
 });
 
 module.exports = osnovyRouter;

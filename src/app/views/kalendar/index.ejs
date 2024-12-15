@@ -7,13 +7,16 @@
       padding: 20px;
     }
     .grid-item {
-      border: 1px solid rgba(0, 0, 0, 0.8);
-      padding: 20px;
-      font-size: 20px;
-      text-align: center;
-      scroll-margin: 325px;
-      margin: 0;
+        border: 1px solid rgba(0, 0, 0, 0.8); 
+        border-collapse: collapse;
+        font-size: 20px;
+        text-align: center;
+        scroll-margin: 325px;
+        margin: 0;
+        height: 120px;
+        padding: 1px;
     }
+
     .days-header {
         position: sticky;
         top: -1em;
@@ -21,6 +24,22 @@
         padding-bottom: 0;
         margin: 0;
         background-color: var(--pico-card-background-color);
+
+        p {
+            position: relative; /* Ensure positioning context */
+            background-color: var(--pico-background-color);
+            box-shadow: /* Still WIP */
+                0rem 0.029rem 0.174rem rgba(129, 145, 181, 0.01698), 
+                0rem 0.067rem 0.402rem rgba(129, 145, 181, 0.024), 
+                0rem 0.125rem 0.75rem rgba(129, 145, 181, 0.03), 
+                0rem 0.225rem 1.35rem rgba(129, 145, 181, 0.036), 
+                0rem 0.417rem 2.502rem rgba(129, 145, 181, 0.04302), 
+                0rem 1rem 6rem rgba(129, 145, 181, 0.06);
+            margin: 0; /* Prevent extra spacing */
+            padding: 10px 5px; /* Optional: Adjust padding for better visual fit */
+        }
+    }
+
     }
     #quick-nav {
         position: sticky;
@@ -29,7 +48,32 @@
         margin-top: 0;
         padding: 15px;
     }
-
+    /* Fromát dnů v kalendáři */
+    .days-mon {
+        padding: 0;
+        font-size: 13px;
+        font-weight: 800;
+        margin: 0;
+    }
+    
+    .udalost {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        margin-top: -10px;
+        border-radius: 0;
+        height: 20px;
+        font-size: 10px;
+        
+        padding-block: 0px;
+        padding-inline: 0px;
+        line-height: 1;
+    }
+    .week-days {
+        height: 50px;
+        font-weight: 600;
+    }
+    /*----------------*/
     #detail {
         display: none;
         position: fixed;
@@ -154,12 +198,12 @@
 
     <main>
       <section class="grid-container days-header">
-         <p class="grid-item">PONDĚLÍ</p>
-         <p class="grid-item">ÚTERÝ</p>
-         <p class="grid-item">STŘEDA</p>
-         <p class="grid-item">ČTVRTEK</p>
-         <p class="grid-item">PÁTEK</p>
-         <p class="grid-item">VÍKEND</p>
+         <p class="grid-item week-days">PONDĚLÍ</p>
+         <p class="grid-item week-days">ÚTERÝ</p>
+         <p class="grid-item week-days">STŘEDA</p>
+         <p class="grid-item week-days">ČTVRTEK</p>
+         <p class="grid-item week-days">PÁTEK</p>
+         <p class="grid-item week-days">VÍKEND</p>
       </section>
         <div id="detail">
             <p id="name" class="detailItem"></p>
@@ -184,10 +228,10 @@
 
                 <section id=<%= new Date(i).toLocaleDateString('en-CA', { timeZone: 'Europe/Prague' }) %>  style="grid-column-start: <%= new Date(i).getDay()%> ;" class="grid-item">
                     <% if(new Date(i).getDay() == 6) {%>
-                    <p><%= new Date(i).getDate()%> / <%= new Date(i).getMonth() + 1%> - <%= new Date(i+increment).getDate()%> / <%= new Date(i+increment).getMonth() + 1%></p>
+                    <p class="days-mon"><%= new Date(i).getDate()%> / <%= new Date(i).getMonth() + 1%> - <%= new Date(i+increment).getDate()%> / <%= new Date(i+increment).getMonth() + 1%></p>
 
                     <% }else{%>
-                        <p><%= new Date(i).getDate()%> / <%= new Date(i).getMonth() + 1%></p>
+                        <p class="days-mon"><%= new Date(i).getDate()%> / <%= new Date(i).getMonth() + 1%></p>
                     <% }%>
 
 
