@@ -19,4 +19,4 @@ app.use('/', require("./routers/defaultRouter.js"));
 
 // defautl value if undefined
 const port = process.env.PORT || 3000;
-app.listen(port, () => //console.log(`App listening on port ${port}!`));
+app.listen(port, () => {});

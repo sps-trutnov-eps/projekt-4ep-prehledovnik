@@ -96,18 +96,20 @@
               <span><%= formattedDate %></span>
             </p>
             <% for(let j=0;j<= 9;j++) {%>
-              <p class="grid-item">
+              <div class="grid-item">
                 <% if (week[t] % 2 === 0) { %>
-                  <%= rozvrh.hodiny.sudy[days[i]][j].mistnost%> <br>
-                  <%= rozvrh.hodiny.sudy[days[i]][j].predmet%> <br>
-                  <%= rozvrh.hodiny.sudy[days[i]][j].skupina%>
+                  <p class="room"><%= rozvrh.hodiny.sudy[days[i]][j].mistnost%></p>
+                  <p class="period"><%= rozvrh.hodiny.sudy[days[i]][j].predmet%></p>
+                  <p class="group"><%= rozvrh.hodiny.sudy[days[i]][j].skupina%></p>
+                  <p class="class"><%= rozvrh.hodiny.sudy[days[i]][j].trida%></p>
                 <% }%>
                 <% if (week[t] % 2 === 1) { %>
-                  <%= rozvrh.hodiny.lichy[days[i]][j].mistnost%> <br>
-                  <%= rozvrh.hodiny.lichy[days[i]][j].predmet%> <br>
-                  <%= rozvrh.hodiny.lichy[days[i]][j].skupina%>
+                  <p class="room"><%= rozvrh.hodiny.lichy[days[i]][j].mistnost%></p>
+                  <p class="period"><%= rozvrh.hodiny.lichy[days[i]][j].predmet%></p>
+                  <p class="group"><%= rozvrh.hodiny.lichy[days[i]][j].skupina%></p>
+                  <p class="class"><%= rozvrh.hodiny.lichy[days[i]][j].trida%></p>
                 <% }%>
-              </p>
+                </div>
             <%}%>
           <%} %>
         </section>
