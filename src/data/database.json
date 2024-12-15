@@ -42,10 +42,22 @@
     ],
     "osnovy": {
         "1": {
-            "trida": "4.EP",
+            "trida": "1.EP",
             "predmet": "VYS-t",
             "temata": {
-                "nextID": 1
+                "1": {
+                    "tema": "",
+                    "pocetHodin": 1
+                },
+                "2": {
+                    "tema": "",
+                    "pocetHodin": 56
+                },
+                "3": {
+                    "tema": "",
+                    "pocetHodin": 3
+                },
+                "nextID": 4
             }
         },
         "2": {

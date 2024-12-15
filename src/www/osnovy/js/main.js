@@ -114,6 +114,7 @@ function deleteRow(button) {
 	// Delete the row from the table
 	tableBody.deleteRow(row.rowIndex - 1); // Adjust for header row
 	updateCurriculumHours();
+	updateRowColors();
 }
 
 function addRow() {
@@ -167,6 +168,7 @@ function addRow() {
 	
 	hoursInput.onchange = function() {
 		updateCurriculumHours();
+		updateRowColors();
 	};
 	
 	hoursInput.oninput = function() {
@@ -183,7 +185,8 @@ function addRow() {
 	// Append the new row to the table body
 	tableBody.insertBefore(newRow, tableBody.rows[tableBody.rows.length - 1]);
 	
-	updateCurriculumHours()
+	updateCurriculumHours();
+	updateRowColors();
 }
 
 function updateCurriculumHours() {
@@ -214,28 +217,12 @@ function updateCurriculumHours() {
 		// Calculate and set the "Do" value
 		odCell.textContent = od;
 		doCell.textContent = doCur;
+		doCell.style.color = '';
 
 		currentTotalHours += hours;
 		
-		console.log(odCell);
+		//console.log(odCell);
 	}
-	const hoursCells = document.querySelectorAll('#curriculums .hour-input');
-    hoursCells.forEach(cell => {
-        const parentRow = cell.closest('tr');
-        const odCell = parentRow.cells[1];
-        const doCell = parentRow.cells[2];
-
-        if (currentTotalHours != totalHours) {
-            odCell.style.color = 'red';
-            doCell.style.color = 'red';
-		} if (currentTotalHours => totalHours) {
-			odCell.style.color = 'red';
-			odCell.style.color = 'red';
-		}else {
-            odCell.style.color = 'black';
-            doCell.style.color = 'black';
-        }
-    });
 }
 
 function calculateTheTotalHours() {
@@ -256,13 +243,8 @@ function calculateTheTotalHours() {
 
 		totalHours.value = hoursAWeek*weeksAYear;
 	}
-}
-
-function hideDiv(id) {
-	const div = document.getElementById(id);
-	console.log(div.style.display);
-	if (div.style.display === "none"){ div.style.display = "block"; }
-	else { div.style.display = "none"; }
+	
+	updateRowColors();
 }
 
 // Kontrola a aktualizaca barev buněk
@@ -270,112 +252,27 @@ function updateRowColors() {
     const table = document.getElementById("curriculums");
     const rows = table.rows;
     const totalHours = parseInt(document.getElementById("pHodin").value) || 0;
-    let currentTotalHours = 0;
+	
+	 // Pokud tam jsou nějaký témata (kontrolujeme jestli tam jsou více než dva řádky)
+	 if (rows.length > 2){
+		 // rows.length - 2 je předposlední řádek
+		 const doCell = rows[rows.length - 2].cells[2];
 
-    for (let i = 1; i < rows.length - 1; i++) { // Vynechání prvního a posledního řádku
-        const hoursInput = rows[i].querySelector('.hour-input');
-        const hours = parseInt(hoursInput.value) || 0;
-        currentTotalHours += hours;
-
-        const odCell = rows[i].cells[1];
-        const doCell = rows[i].cells[2];
-
-        // Nastavení barvy na základě kontroly
-        if (currentTotalHours !== totalHours) {
-            odCell.style.color = 'red';
-            doCell.style.color = 'red';
-        } else {
-            odCell.style.color = 'black';
-            doCell.style.color = 'black';
-        }
-    }
+		 // Nastavení barvy na základě kontroly
+		 if (parseInt(doCell.textContent) !== totalHours) {
+			doCell.style.color = 'red';
+		 } else {
+			doCell.style.color = '';
+		 }
+	 }
+	 
 }
 
-// Přidání řádku
-function addRow() {
-    const tableBody = document.getElementById("table-body");
-    const newRow = document.createElement("tr");
-    newRow.className = "cur";
-
-    const actionsCell = document.createElement("td");
-    actionsCell.style.display = "flex";
-    actionsCell.className = "curriculum-input";
-
-    const deleteButton = document.createElement("input");
-    deleteButton.type = "button";
-    deleteButton.value = "-";
-    deleteButton.className = "deleteCurButton";
-    deleteButton.style.marginBottom = "0";
-    deleteButton.onclick = function () { deleteRow(this); };
-
-    const textInput = document.createElement("input");
-    textInput.type = "text";
-    textInput.style.margin = "0";
-    textInput.value = "";
-    textInput.className = "curriculum-i";
-
-    actionsCell.appendChild(deleteButton);
-    actionsCell.appendChild(textInput);
-
-    const previousHoursCell = document.createElement("td");
-    previousHoursCell.style.textAlign = "center";
-    previousHoursCell.innerText = "0";
-
-    const currentHoursCell = document.createElement("td");
-    currentHoursCell.style.textAlign = "center";
-    currentHoursCell.innerText = "0";
-
-    const hourInputCell = document.createElement("td");
-    hourInputCell.style.textAlign = "center";
-
-    const hoursInput = document.createElement("input");
-    hoursInput.type = "number";
-    hoursInput.style.margin = "0";
-    hoursInput.value = "0";
-    hoursInput.min = 0;
-    hoursInput.className = "hour-input";
-    hoursInput.onchange = updateRowColors;
-
-    hourInputCell.appendChild(hoursInput);
-
-    newRow.appendChild(actionsCell);
-    newRow.appendChild(previousHoursCell);
-    newRow.appendChild(currentHoursCell);
-    newRow.appendChild(hourInputCell);
-
-    tableBody.insertBefore(newRow, tableBody.rows[tableBody.rows.length - 1]);
-
-    updateRowColors();
-}
-
-// Smazání řádku
-function deleteRow(button) {
-    const row = button.parentNode.parentNode;
-    const tableBody = document.getElementById("table-body");
-    tableBody.deleteRow(row.rowIndex - 1);
-
-    updateRowColors();
-}
-
-// Výpočet celkových hodin
-function calculateTheTotalHours() {
-    const calculateHours = document.getElementById("calculateHours").checked;
-
-    if (calculateHours) {
-        const totalHours = document.getElementById("pHodin");
-        const year = document.getElementById("rocnik");
-        const customHoursAWeek = document.getElementById("customHoursAWeek");
-        const theory = document.getElementById("teorieCheckBox").checked;
-
-        let hoursAWeek = 2;
-        if (theory) { hoursAWeek = 1; }
-        if (customHoursAWeek.value > 0) { hoursAWeek = customHoursAWeek.value; }
-
-        let weeksAYear = 34;
-        if (year.value == 4) { weeksAYear -= 4; }
-
-        totalHours.value = hoursAWeek * weeksAYear;
-    }
+function hideDiv(id) {
+	const div = document.getElementById(id);
+	console.log(div.style.display);
+	if (div.style.display === "none"){ div.style.display = "block"; }
+	else { div.style.display = "none"; }
 }
 
 window.onload = (event) => {
