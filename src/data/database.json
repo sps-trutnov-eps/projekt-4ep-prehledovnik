@@ -83,7 +83,22 @@
             "predmet": "",
             "temata": ""
         },
-        "nextID": 9
+        "9": {
+            "trida": "",
+            "predmet": "VYS",
+            "temata": {
+                "1": {
+                    "tema": "aaa",
+                    "pocetHodin": 0
+                },
+                "2": {
+                    "tema": "aa",
+                    "pocetHodin": 0
+                },
+                "nextID": 3
+            }
+        },
+        "nextID": 10
     },
     "rozvrhy": {
         "1": {
