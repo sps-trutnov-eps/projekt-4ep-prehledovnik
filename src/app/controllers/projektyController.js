@@ -92,14 +92,15 @@ exports.zobrazDetailyTymu = (req, res) => {
 exports.zmenDetailyTymu = (req, res) => {
     let vedouci = req.body.leader;
     let id = req.body.teamId;
-    let clenove = req.body.members.split[','];
+    let clenove = req.body.members.split(',');
     let clenoveCount = 0;
     if (clenove == undefined) { clenove = req.body.members; clenoveCount = 1; }
     else { clenoveCount = clenove.length; }
     
-    console.log(vedouci);
-    console.log(id);
-    console.log(clenove);
+    //console.log(vedouci);
+    //console.log(id);
+    //console.log(clenove);
+    //console.log(clenove.length);
     
     // Chci získat minulý team abych získal jeho jméno a mohl to předat novému
     let idTridy = databaze.projekty.ziskatIDProjektu(id.split('_')[0]);
