@@ -72,7 +72,6 @@ exports.tydenni = (req,res) => {
             }
         }        
     }
-    console.log(osnovy)  
 
     res.render('kalendar/tydenni', {
         rozvrh: databaze.rozvrhy.ziskatRozvrh(1), 

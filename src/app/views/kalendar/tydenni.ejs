@@ -121,7 +121,7 @@
                   <p class="period"><%= rozvrh.hodiny.lichy[days[i]][j].predmet%></p>
                   <p class="group"><%= rozvrh.hodiny.lichy[days[i]][j].skupina%></p>
                   <p class="class"><%= rozvrh.hodiny.lichy[days[i]][j].trida%></p>
-                  <%
+                  <%            
                     if( rozvrh.hodiny.lichy[days[i]][j].predmet != "volno"){
                       key = rozvrh.hodiny.lichy[days[i]][j].predmet+rozvrh.hodiny.lichy[days[i]][j].trida
                       if (!(key in periodNumbers))
@@ -131,6 +131,9 @@
                 <% }%>
                 <%if(key != null){%>
                   <p class="count"><%= periodNumbers[key]%></p>
+                  <%if(osnovy[key] != undefined){%>
+                    <p class="theme"><%- osnovy[key][periodNumbers[key]-1] %></p>
+                  <% }%>
                   <% periodNumbers[key] += 1 %>
                 <% }%>
                 </div>
