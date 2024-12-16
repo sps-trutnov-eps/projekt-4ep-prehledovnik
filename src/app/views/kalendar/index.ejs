@@ -285,45 +285,47 @@
   }
 
   function placeUdalost(udalost, index){
-      const increment = 24 * 60 * 60 * 1000
-      let date = udalost.datum
-      const dateCheck = new Date(udalost.datum)
-      if (Number(dateCheck.getDay()) == 0)
-          date = new Date(Number(dateCheck.getTime()) - increment).toLocaleDateString('en-CA', { timeZone: 'Europe/Prague' })
-      let day = document.getElementById(date)
+    const increment = 24 * 60 * 60 * 1000
+    let date = udalost.datum
+    const dateCheck = new Date(udalost.datum)
+    if (Number(dateCheck.getDay()) == 0)
+        date = new Date(Number(dateCheck.getTime()) - increment).toLocaleDateString('en-CA', { timeZone: 'Europe/Prague' })
+    let day = document.getElementById(date)
+    console.log("AAA")
 
-      let button = document.createElement("button")
-      button.textContent = udalost.nazev
-      button.className = "udalost"
-      button.onclick = function(){detailDisplay(index)}
-      day.appendChild(button)
-      return button
+    let button = document.createElement("button")
+    button.textContent = udalost.nazev
+    button.className = "udalost"
+    button.onclick = function(){detailDisplay(index)}
+    day.appendChild(button)
+    return button
   }
 
   function placeUdalosti() {
-      let udalosti = <%- JSON.stringify(udalosti) %>
+        let udalosti = <%- JSON.stringify(udalosti) %>
+        for (let id in udalosti){
+            if(udalosti[id] != null){
+                if(udalosti[id].datumDo != null){
+                    udalosti[id].naPocetDni = (new Date(udalosti[id].datumDo) - new Date(udalosti[id].datum) ) / (1000 * 60 * 60 * 24) + 1
+                    console.log(udalosti[id].naPocetDni)
+                    for(let j=0; j < udalosti[id].naPocetDni ;j++){
+                        let udalost = { ...udalosti[id] };
+                        let date = new Date(udalost.datum);
+                        date.setDate(date.getDate() + j);
+                        udalost.datum = date.toISOString().split('T')[0];
 
-      for (let i=1;i<udalosti.length;i++){
-          if(udalosti[i] != null){
-              if(udalosti[i].naPocetDni > 0){
-                  for(let j=0; j < udalosti[i].naPocetDni ;j++){
-                      let udalost = { ...udalosti[i] };
-                      let date = new Date(udalost.datum);
-                      date.setDate(date.getDate() + j);
-                      udalost.datum = date.toISOString().split('T')[0];
-
-                      let element = placeUdalost(udalost,i)
-                      element.classList.add("udalost", "udalostVicedenni")
-                      while (element.previousSibling != null){
-                          element.parentNode.insertBefore(element, element.previousSibling)
-                          if(element.previousSibling == element.parentNode.firstElementChild)
-                              break
-                      }
-              }}
-              else
-                  placeUdalost(udalosti[i],i)
-          }
-      }
+                        let element = placeUdalost(udalost,id)
+                        element.classList.add("udalost", "udalostVicedenni")
+                        while (element.previousSibling != null){
+                            element.parentNode.insertBefore(element, element.previousSibling)
+                            if(element.previousSibling == element.parentNode.firstElementChild)
+                                break
+                        }
+                }}
+                else
+                    placeUdalost(udalosti[id],id)
+            }
+        }
   }
 
   function detailDisplay(index){

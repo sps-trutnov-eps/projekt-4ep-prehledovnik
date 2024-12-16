@@ -12,7 +12,7 @@ const rozvrh_S = ["", "MAT", "MAT", "CJL", "CJL", "", "HAE", "HAE", "", "",
                 "", "POS", "OPS", "OPS", "OPS", "OPS", "", "", "", "",
                 "", "", "MAT", "MAT", "PVA", "PVA", "", "", "", ""
 ]
-const year = 2024
+const year = new Date().getFullYear()
 
 function date_udalost() {
     return udalost;
@@ -43,6 +43,7 @@ let posledniRocniTyden = 52
 
 if(new Date(year, 12 - 1, 31 + 1).getDay == "4"){
     posledniRocniTyden = 53
+    //console.log("true")
 }
 let tydny = []
 for(let i=prvniTyden; i<=posledniRocniTyden; i++){
@@ -51,9 +52,31 @@ for(let i=prvniTyden; i<=posledniRocniTyden; i++){
 for(let i=1; i<=posledniSkolniTyden; i++){
     tydny.push(i)
 }
+//console.log(databaze.rozvrhy.ziskatRozvrh(4))
 exports.tydenni = (req,res) => {
+    let osnovyRaw = databaze.osnovy.ziskatVsechnyOsnovy();
+    let osnovy = {}
+
+    for (let id in osnovyRaw){
+        if(id != "nextID"){
+            var osnova = osnovyRaw[id]
+            let key = osnova.predmet + osnova.trida
+            let index = 0;
+            osnovy[key] = [];
+            for (let tema in osnova.temata){
+                if(tema != "nextID")
+                for(let i=0; i< osnova.temata[tema].pocetHodin; i++){
+                    osnovy[key][index] = osnova.temata[tema].tema
+                    index++;
+                }
+            }
+        }        
+    }
+
     res.render('kalendar/tydenni', {
-        rozvrh_L: rozvrh_L, 
-        week: prvniTyden
+        rozvrh: databaze.rozvrhy.ziskatRozvrh(1), 
+        week: tydny,
+        osnovy: osnovy
     })
 }
+
