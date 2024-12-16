@@ -54,10 +54,31 @@ for(let i=1; i<=posledniSkolniTyden; i++){
     tydny.push(i)
     //console.log(tydny)
 }
-console.log(databaze.rozvrhy.ziskatRozvrh(4))
+//console.log(databaze.rozvrhy.ziskatRozvrh(4))
 exports.tydenni = (req,res) => {
+    let osnovyRaw = databaze.osnovy.ziskatVsechnyOsnovy();
+    let osnovy = {}
+
+    for (let id in osnovyRaw){
+        if(id != "nextID"){
+            var osnova = osnovyRaw[id]
+            let key = osnova.predmet + osnova.trida
+            let index = 0;
+            osnovy[key] = [];
+            for (let tema in osnova.temata){
+                if(tema != "nextID")
+                for(let i=0; i< osnova.temata[tema].pocetHodin; i++){
+                    osnovy[key][index] = osnova.temata[tema].tema
+                    index++;
+                }
+            }
+        }        
+    }
+    console.log(osnovy)  
+
     res.render('kalendar/tydenni', {
         rozvrh: databaze.rozvrhy.ziskatRozvrh(4), 
-        week: tydny
+        week: tydny,
     })
 }
+

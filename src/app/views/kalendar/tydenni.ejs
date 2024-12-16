@@ -112,7 +112,7 @@
                     if( rozvrh.hodiny.sudy[days[i]][j].predmet != "volno"){
                       key = rozvrh.hodiny.sudy[days[i]][j].predmet+rozvrh.hodiny.sudy[days[i]][j].trida
                       if (!(key in periodNumbers))
-                        periodNumbers[key] = 0
+                        periodNumbers[key] = 1
                     }
                   %>
                 <% }%>
@@ -125,7 +125,7 @@
                     if( rozvrh.hodiny.lichy[days[i]][j].predmet != "volno"){
                       key = rozvrh.hodiny.lichy[days[i]][j].predmet+rozvrh.hodiny.lichy[days[i]][j].trida
                       if (!(key in periodNumbers))
-                        periodNumbers[key] = 0
+                        periodNumbers[key] = 1
                     }              
                   %>
                 <% }%>
