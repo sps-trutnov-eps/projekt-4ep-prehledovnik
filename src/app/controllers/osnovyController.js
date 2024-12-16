@@ -16,7 +16,18 @@ exports.edit = (curID, data) => {
 	data["temata"] = JSON.parse(data.temata);
 	//console.log(data);
 	
-	databaze.osnovy.upravitOsnovu(curID, data);
+	let predmetTeorie = `-t`;
+	if (data["teorie"] == undefined){
+		predmetTeorie = `-c`;
+	}
+	
+	let trida = `${data["obor"]}${data["rocnik"]}`;
+	let predmet = `${data["predmet"]}${predmetTeorie}`;
+	
+	processedData = {"trida": trida, "predmet": predmet, "temata": data["temata"]};
+	//console.log(processedData);
+	
+	databaze.osnovy.upravitOsnovu(curID, processedData);
 	return true;
 }
 
