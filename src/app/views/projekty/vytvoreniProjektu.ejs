@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="cs">
 <%- include('../partials/head.ejs'); %>
 
 <style>
@@ -69,6 +70,7 @@
     font-weight: bold;
     margin-bottom: 20px;
     text-align: center;
+    color: #555;
 }
 
 table {
@@ -83,6 +85,11 @@ th, td {
     padding: 12px;
     text-align: center;
     font-size: 16px;
+    color: #333;
+}
+
+th {
+    color: black;
 }
 
 tr:nth-child(even) {
@@ -120,6 +127,7 @@ tr:hover {
 }
 </style>
 <link rel="stylesheet" href="/osnovy/css/main.css" />
+<body>
    
    <article  style="
    width: 20vw;
@@ -132,9 +140,7 @@ tr:hover {
    
       <div class="button">
    
-       <a href="../projekty/">
-          <button class="tlacitko">Přepínač</button>
-       </a>
+       <button class="tlacitko">Přepínač</button>
        <a href="../projekty/tymy">
          <button class="tlacitko">Týmy</button>
        </a>
@@ -171,4 +177,5 @@ tr:hover {
 <script>
 
 </script>
-<%- include('../partials/tail') %>
+</body>
+</html>

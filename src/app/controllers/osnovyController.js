@@ -31,3 +31,7 @@ exports.subjects = () => {
 exports.classes = () => {
 	return databaze.ziskatUcebny();
 }
+
+exports.fields = () => {
+	return databaze.ziskatObory();
+}

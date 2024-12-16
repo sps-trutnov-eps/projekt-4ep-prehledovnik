@@ -1,5 +1,5 @@
 async function CreateCurriculum() {
-    event.preventDefault(); // Prevent default form submission
+	event.preventDefault(); // Prevent default form submission
 	
 	try {
         const response = await fetch('/osnovy/create', {
@@ -23,7 +23,7 @@ async function CreateCurriculum() {
 }
 
 async function RemoveCurriculum(id) {
-    event.preventDefault(); // Prevent default form submission
+	event.preventDefault(); // Prevent default form submission
 	
 	try {
         const response = await fetch(`/osnovy/remove/${id}`, {
@@ -47,46 +47,47 @@ async function RemoveCurriculum(id) {
 }
 
 async function SaveCurriculum(event, id) {
-    event.preventDefault(); // Prevent default form submission
+	event.preventDefault(); // Prevent default form submission
 	
 	const table = document.getElementById("curriculums");
-    const rows = table.rows;
-    const jsonData = {};
+	const rows = table.rows;
+	const jsonData = {};
 	
 	//console.log(rows);
 	
 	// Extract data from each row
-    for (let i = 1; i < rows.length-1; i++) {
+	for (let i = 1; i < rows.length-1; i++) {
 		const curriculumInput = rows[i].querySelector('.curriculum-input');
 		const curriculum = curriculumInput.querySelector('.curriculum-i')["value"];
 		const hoursInput = rows[i].querySelector('.hour-input');
-		const hours = parseInt(hoursInput["childNodes"]["0"]["value"]) || 0;
+		const hours = parseInt(hoursInput.value) || 0;
 		let cur = {"tema": curriculum, "pocetHodin": hours};
 		jsonData[`${i}`] = cur;
-    }
+	}
 	jsonData["nextID"] = rows.length-1;
 	
 	const formData = new FormData(event.target);
 	let data = new URLSearchParams(formData);
 	
 	data.append("temata", JSON.stringify(jsonData));
-	//console.log(data);
+	console.log("data");
+	console.log(data);
 	
 	try {
-        
-        const response = await fetch(`/osnovy/save/${id}`, {
-            method: 'POST',
+		
+		const response = await fetch(`/osnovy/save/${id}`, {
+			method: 'POST',
 			headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/x-www-form-urlencoded'
+				'Accept': 'application/json',
+				'Content-Type': 'application/x-www-form-urlencoded'
 			},
-            body: data,
-        });
-
-        // Check if response is OK
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
+			body: data,
+		});
+		
+		// Check if response is OK
+		if (!response.ok) {
+			throw new Error(`HTTP error! Status: ${response.status}`);
+		}
 		
         // Parse JSON response
         const jsonResponse = await response.json();
@@ -97,113 +98,184 @@ async function SaveCurriculum(event, id) {
 			window.location.href = `/osnovy`;
 		}*/
 		
-        window.location.href = `/osnovy/${jsonResponse.id}`;
-    } catch (error) {
-        console.error('Error:', error);
-    }
+		window.location.href = `/osnovy/${jsonResponse.id}`;
+		} catch (error) {
+		console.error('Error:', error);
+		}
 }
 
 function deleteRow(button) {
-    // Get the current row (tr) of the button
-    const row = button.parentNode.parentNode;
-    
-    // Get the table body
-    const tableBody = document.getElementById("table-body");
-    
-    // Delete the row from the table
-    tableBody.deleteRow(row.rowIndex - 1); // Adjust for header row
+	// Get the current row (tr) of the button
+	const row = button.parentNode.parentNode;
+	
+	// Get the table body
+	const tableBody = document.getElementById("table-body");
+	
+	// Delete the row from the table
+	tableBody.deleteRow(row.rowIndex - 1); // Adjust for header row
+	updateCurriculumHours();
+	updateRowColors();
 }
 
 function addRow() {
 	// If the index.ejs changes drastically,
 	// this will become a nightmare to change
 	
-    const tableBody = document.getElementById("table-body");
-
-    // Create a new row
-    const newRow = document.createElement("tr");
-    newRow.className = "cur";
-
+	const tableBody = document.getElementById("table-body");
+	
+	// Create a new row
+	const newRow = document.createElement("tr");
+	newRow.className = "cur";
+	
 	// Create actionsCell
-    const actionsCell = document.createElement("td");
-    actionsCell.style.display = "flex";
+	const actionsCell = document.createElement("td");
+	actionsCell.style.display = "flex";
 	actionsCell.className = "curriculum-input";
-    
-    const deleteButton = document.createElement("input");
-    deleteButton.type = "button";
-    deleteButton.value = "-";
-    deleteButton.className = "deleteCurButton";
-    deleteButton.style.marginBottom = "0";
-    deleteButton.onclick = function() { deleteRow(this); };
-    
-    const textInput = document.createElement("input");
-    textInput.type = "text";
-    textInput.style.margin = "0";
-    textInput.value = ""; 
+	
+	const deleteButton = document.createElement("input");
+	deleteButton.type = "button";
+	deleteButton.value = "-";
+	deleteButton.className = "deleteCurButton";
+	deleteButton.style.marginBottom = "0";
+	deleteButton.onclick = function() { deleteRow(this); };
+	
+	const textInput = document.createElement("input");
+	textInput.type = "text";
+	textInput.style.margin = "0";
+	textInput.value = ""; 
 	textInput.className = "curriculum-i";
-
-    actionsCell.appendChild(deleteButton);
-    actionsCell.appendChild(textInput);
-
-    const previousHoursCell = document.createElement("td");
-    previousHoursCell.style.textAlign = "center";
-    previousHoursCell.innerText = "0";
-
-    const currentHoursCell = document.createElement("td");
-    currentHoursCell.style.textAlign = "center";
-    currentHoursCell.innerText = "0";
-
-    const hourInputCell = document.createElement("td");
-    hourInputCell.className = "hour-input";
-    hourInputCell.style.textAlign = "center";
-
-    const hoursInput = document.createElement("input");
-    hoursInput.type = "number";
-    hoursInput.style.margin = "0";
-    hoursInput.value = "0";
-    hoursInput.min = 0;
-    
-    hoursInput.onchange = function() {
-        updateCurriculumHours();
-    };
-    
-    hoursInput.oninput = function() {
-        this.validity.valid || (this.value = '');
-    };
-
-    hourInputCell.appendChild(hoursInput);
-
-    newRow.appendChild(actionsCell);
-    newRow.appendChild(previousHoursCell);
-    newRow.appendChild(currentHoursCell);
-    newRow.appendChild(hourInputCell);
-
-    // Append the new row to the table body
-    tableBody.insertBefore(newRow, tableBody.rows[tableBody.rows.length - 1]);
+	
+	actionsCell.appendChild(deleteButton);
+	actionsCell.appendChild(textInput);
+	
+	const previousHoursCell = document.createElement("td");
+	previousHoursCell.style.textAlign = "center";
+	previousHoursCell.innerText = "0";
+	
+	const currentHoursCell = document.createElement("td");
+	currentHoursCell.style.textAlign = "center";
+	currentHoursCell.innerText = "0";
+	
+	const hourInputCell = document.createElement("td");
+	hourInputCell.style.textAlign = "center";
+	
+	const hoursInput = document.createElement("input");
+	hoursInput.type = "number";
+	hoursInput.style.margin = "0";
+	hoursInput.value = "0";
+	hoursInput.min = 0;
+	hoursInput.className = "hour-input";
+	
+	hoursInput.onchange = function() {
+		updateCurriculumHours();
+		updateRowColors();
+	};
+	
+	hoursInput.oninput = function() {
+		this.validity.valid || (this.value = '');
+	};
+	
+	hourInputCell.appendChild(hoursInput);
+	
+	newRow.appendChild(actionsCell);
+	newRow.appendChild(previousHoursCell);
+	newRow.appendChild(currentHoursCell);
+	newRow.appendChild(hourInputCell);
+	
+	// Append the new row to the table body
+	tableBody.insertBefore(newRow, tableBody.rows[tableBody.rows.length - 1]);
+	
+	updateCurriculumHours();
+	updateRowColors();
 }
 
 function updateCurriculumHours() {
-    const table = document.getElementById("curriculums");
-    const rows = table.rows;
+	const table = document.getElementById("curriculums");
+	const rows = table.rows;
 	let doPredchozi = 0;
+	const totalHours = document.getElementById("pHodin").value;
 
-    // Loop through each row to calculate "Od" and "Do"
-    for (let i = 1; i < rows.length - 1; i++) {
-        const hoursInput = rows[i].querySelector('.hour-input');
+	let currentTotalHours = 0;
+	
+	// Loop through each row to calculate "Od" and "Do"
+	// It starts from one to get rid of off the first row and ends with -1 to get rid of off the last row
+	for (let i = 1; i < rows.length-1; i++) {
+	
+		const hoursInput = rows[i].querySelector('.hour-input');
 		//console.log(hoursInput);
-        const hours = parseInt(hoursInput["childNodes"]["0"]["value"]) || 0; // Get hours or default to 0
-        const odCell = rows[i].cells[1]; // "Od" cell
-        const doCell = rows[i].cells[2]; // "Do" cell
-
-        // Set the "Od" value to totalHours
+		const hours = parseInt(hoursInput.value) || 0; // Get hours or default to 0
+		const odCell = rows[i].cells[1]; // "Od" cell
+		const doCell = rows[i].cells[2]; // "Do" cell
+		
+		// Set the "Od" value to totalHours
 		
 		let od = doPredchozi;
 		let doCur = od;
 		doCur -= -(hours);
-		doPredchozi = doCur+1;
-	
-        // Calculate and set the "Do" value
+		doPredchozi = doCur;
+		
+		// Calculate and set the "Do" value
 		odCell.textContent = od;
-        doCell.textContent = doCur;
-    }
+		doCell.textContent = doCur;
+		doCell.style.color = '';
+
+		currentTotalHours += hours;
+		
+		//console.log(odCell);
+	}
 }
+
+function calculateTheTotalHours() {
+	const calculateHours = document.getElementById("calculateHours").checked;
+	
+	if (calculateHours){
+		const totalHours = document.getElementById("pHodin");
+		const year = document.getElementById("rocnik");
+		const customHoursAWeek = document.getElementById("customHoursAWeek");
+		const theory = document.getElementById("teorieCheckBox").checked;
+
+		let hoursAWeek = 2;
+		if (theory){ hoursAWeek = 1; }
+		if (customHoursAWeek.value > 0) { hoursAWeek = customHoursAWeek.value; }
+		
+		let weeksAYear = 34;
+		if (year.value == 4) { weeksAYear -= 4; }
+
+		totalHours.value = hoursAWeek*weeksAYear;
+	}
+	
+	updateRowColors();
+}
+
+// Kontrola a aktualizaca barev buněk
+function updateRowColors() {
+    const table = document.getElementById("curriculums");
+    const rows = table.rows;
+    const totalHours = parseInt(document.getElementById("pHodin").value) || 0;
+	
+	 // Pokud tam jsou nějaký témata (kontrolujeme jestli tam jsou více než dva řádky)
+	 if (rows.length > 2){
+		 // rows.length - 2 je předposlední řádek
+		 const doCell = rows[rows.length - 2].cells[2];
+
+		 // Nastavení barvy na základě kontroly
+		 if (parseInt(doCell.textContent) !== totalHours) {
+			doCell.style.color = 'red';
+		 } else {
+			doCell.style.color = '';
+		 }
+	 }
+	 
+}
+
+function hideDiv(id) {
+	const div = document.getElementById(id);
+	console.log(div.style.display);
+	if (div.style.display === "none"){ div.style.display = "block"; }
+	else { div.style.display = "none"; }
+}
+
+window.onload = (event) => {
+    calculateTheTotalHours();
+    updateRowColors();
+};

@@ -16,6 +16,7 @@
         height: 120px;
         padding: 1px;
     }
+
     .days-header {
         position: sticky;
         top: -1em;
@@ -23,6 +24,22 @@
         padding-bottom: 0;
         margin: 0;
         background-color: var(--pico-card-background-color);
+
+        p {
+            position: relative; /* Ensure positioning context */
+            background-color: var(--pico-background-color);
+            box-shadow: /* Still WIP */
+                0rem 0.029rem 0.174rem rgba(129, 145, 181, 0.01698), 
+                0rem 0.067rem 0.402rem rgba(129, 145, 181, 0.024), 
+                0rem 0.125rem 0.75rem rgba(129, 145, 181, 0.03), 
+                0rem 0.225rem 1.35rem rgba(129, 145, 181, 0.036), 
+                0rem 0.417rem 2.502rem rgba(129, 145, 181, 0.04302), 
+                0rem 1rem 6rem rgba(129, 145, 181, 0.06);
+            margin: 0; /* Prevent extra spacing */
+            padding: 10px 5px; /* Optional: Adjust padding for better visual fit */
+        }
+    }
+
     }
     #quick-nav {
         position: sticky;

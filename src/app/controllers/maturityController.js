@@ -25,9 +25,13 @@ exports.ukladanipzop = (req, res) => {
         res.redirect("/maturity/");
     }
     else {
-        databaze.maturity.pridatMaturitniEvent("PŽOP",[den_konani, dodatecne_dny].filter((den) => den), [], ucebna);
+        let dny = [den_konani, dodatecne_dny].filter((den) => den);
+        let casy = [];
+        for (let i = 0; i < dny.length; i++){
+            casy.push([]);
+        }
+        databaze.maturity.pridatMaturitniEvent("PŽOP", dny, casy, ucebna);
     }
-
     res.redirect("/maturity/");
 };
 
@@ -74,10 +78,21 @@ exports.ukladanipcmz = (req, res) => {
         pocitadloDnu++;
     }
 
+    datumy = [];
+    hodiny = [];
     radky.forEach((radek) => {
-        databaze.maturity.pridatMaturitniEvent("PČMZ", [radek.datum], radek.hodiny, null); 
+        if(!datumy.includes(radek.datum)){
+            datumy.push(radek.datum);
+        }
+        let index = datumy.indexOf(radek.datum)
+        if(hodiny[index]){
+            hodiny[index].push(radek.hodiny[0]);
+        } else {
+            hodiny.push(radek.hodiny);
+        } 
     });
-
+    databaze.maturity.pridatMaturitniEvent("PČMZ", datumy, hodiny, null); 
+    
     res.redirect("/maturity/pcmz");
 };
 
@@ -111,12 +126,25 @@ exports.ukladaniscmz = (req, res) => {
 
         pocitadloDnu++;
     }
-
+    datumy = [];
+    hodiny = [];
+    ucebny = [];
     radky.forEach((radek) => {
         if (radek.datum) {
-            databaze.maturity.pridatMaturitniEvent("SČMZ", [radek.datum], radek.hodiny, radek.ucebna);
+            if(!datumy.includes(radek.datum)){
+                datumy.push(radek.datum);
+            }
+            let index = datumy.indexOf(radek.datum)
+            if(hodiny[index]){
+                hodiny[index].push(radek.hodiny[0]);
+            } else {
+                hodiny.push(radek.hodiny);
+            }
+            ucebny.push(radek.ucebna);
         }
     });
+    databaze.maturity.pridatMaturitniEvent("SČMZ", datumy, hodiny, ucebny);
+    console.log(databaze.maturity.ziskatVsechnyMaturityJakoUdalosti());
     res.redirect("/maturity/scmz");
 };
 
@@ -147,10 +175,37 @@ exports.ukladanisloh = (req, res) => {
         pocitadloDnu++;
     }
 
+    datumy = []
+    hodiny = []
+    ucebny = []
+    console.log(Object.values(seskupenaData));
     Object.values(seskupenaData).forEach(zaznam => {
-        zaznam.casy.sort((a, b) => a - b);
-        databaze.maturity.pridatMaturitniEvent(zaznam.nazev, zaznam.dny, zaznam.casy, zaznam.ucebna);
+
+        if(!datumy.includes(zaznam.dny[0])){
+            datumy.push(zaznam.dny[0]);
+            hodiny.push([]);
+            ucebny.push([]);
+        }
+        
+        let index = datumy.indexOf(zaznam.dny[0]);
+        
+        zaznam.casy.forEach(cas => {
+            // if (!(hodiny[index].includes(cas) && ucebny[hodiny[index].indexOf(cas)] === zaznam.cas)){       => pro kontrolování jak učebny, tak času. (pro případ, že by v 8:00 měl jak T16, tak T15)
+            if (!hodiny[index].includes(cas)){
+                hodiny[index].push(cas);
+                ucebny[index].push(zaznam.ucebna);
+            }
+        });
     });
 
+    // rychle pouze udělané seřazení dle clauda 
+    datumy.forEach((_, i) => {
+        let paired = hodiny[i].map((cas, j) => ({cas: cas, ucebna: ucebny[i][j]}));
+        paired.sort((a, b) => a.cas - b.cas);
+        hodiny[i] = paired.map(p => p.cas);
+        ucebny[i] = paired.map(p => p.ucebna);
+    });
+    databaze.maturity.pridatMaturitniEvent("SLOH", datumy, hodiny, ucebny);
+    
     res.redirect('/maturity/sloh');
 };
