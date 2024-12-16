@@ -1,5 +1,5 @@
 const jsondb = require("simple-json-db");
-const db = new jsondb("./data/database.json");
+const db = new jsondb("../data/database.json");
 
 // VÝCHOZÍ HODNOTY UČENÍ
 predmety = [
@@ -368,25 +368,24 @@ const maturity = {
                 maturity[typy[i]]["casy"][j].length - 1
               ];
             ucebna = maturity[typy[i]]["ucebny"][j][0];
-          } else {
-            if (nazev == "PŽOP" && j == 1) {
-              nazev += " - dodatečný termín";
-            }
-
-            maturityList.push({
-              nazev: nazev,
-              typ: "celoskolni",
-              //
-              datum: den,
-              datumDo: null,
-              casOd: cOD,
-              casDo: cDO,
-              //
-              vyberZadani: "maturita",
-              tykaSe: ucebna,
-              poznamka: `Učebna: ${ucebna ?? "není"}`,
-            });
           }
+          if (nazev == "PŽOP" && j == 1) {
+            nazev += " - dodatečný termín";
+          }
+
+          maturityList.push({
+            nazev: nazev,
+            typ: "celoskolni",
+            //
+            datum: den,
+            datumDo: null,
+            casOd: cOD,
+            casDo: cDO,
+            //
+            vyberZadani: "maturita",
+            tykaSe: ucebna,
+            poznamka: `Učebna: ${ucebna ?? "není"}`,
+          });
         }
       }
     }
