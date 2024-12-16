@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+    <%- include('../partials/head'); %>
+      <article
+        style="
+          width: 20vw;
+          min-width: 20vw;
+          margin-right: 1em;
+          overflow-y: auto;
+          resize: horizontal;
+        ">
+        <h1>Welcome to the booporium</h1>
+        <p>Boop</p>
+      </article>
+      <article style="flex: 3; overflow-y: auto">
+        <h1>Hi ^^</h1>
+        Snad ti to nějak pomůže, hodně štěstí.
+        <br /><br />
+        <img
+          src="../example/img/<%= imgNumber %>.png"
+          alt="image"
+          max-width="300"
+          max-height="200" />
+      </article>
+
+    <script src="../example/js/main.js"></script>
+
+<%- include('../partials/tail') %>

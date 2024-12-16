@@ -10,55 +10,170 @@
     <link rel="icon" href="./favicon.ico" type="image/x-icon" />
     <script src="https://unpkg.com/htmx.org@2.0.2"></script>
     <style>
-      :root {
-        --pico-font-size: 100%;
-        background-image: linear-gradient(
-          45deg,
-          hsla(192, 100%, 50%, 0.1) 0%,
-          hsla(162, 100%, 50%, 0.1) 50%,
-          hsla(132, 100%, 50%, 0.1) 100%
-        );
-      }
-      .outline {
-        background-color: var(--pico-background-color);
-        transition: background-color 0.25s ease;
-      }
-      .outline:hover {
-        background-color: var(--pico-text-selection-color);
-      }
-      article {
-        overflow-y: hidden;
-        padding: 0rem;
-        display: flex;
-        flex-direction: column;
-        header {
-          padding: 1rem;
-          position: sticky;
-          top: 0;
-          left: 0;
-          z-index: 1;
-          max-width: 100%;
+[data-theme=light],
+:root:not([data-theme=dark]) {
+    --white: 0, 0%, 100%;
+    --white-hover: 0, 0%, 95%;
+    --content-bg: 220, 60%, 95%;
+    --content-bg-hover: 220, 60%, 90%;
+    --navbar-bg: 223, 55%, 29%;
+    --navbar-bg-hover: 223, 55%, 24%;
+    --navbar-btn: 223, 44%, 35%;
+    --navbar-btn-hover: 223, 44%, 40%;
+    --light-blue: 199, 100%, 40%;
+    --light-blue-hover: 199, 100%, 35%;
+    --light-blue-btn: 199, 100%, 35%;
+    --light-blue-btn-hover: 199, 100%, 30%;
+    --schedule-bg-lighter: 223, 14%, 90%;
+    --schedule-bg-lighter-hover: 223, 14%, 85%;
+    --schedule-bg-darker: 0, 0%, 85%;
+    --schedule-bg-darker-hover: 0, 0%, 80%;
+    --light-blue-field: 201, 66%, 55%;
+    --light-blue-field-hover: 201, 66%, 60%;
+}
+
+@media only screen and (prefers-color-scheme: dark) {
+    :root:not([data-theme]) {
+        --white: 0, 0%, 82%;
+        --white-hover: 0, 0%, 87%;
+        --page-bg: 219, 25%, 16%;
+        --page-bg-hover: 219, 25%, 21%;
+        --navbar-bg: 204, 25%, 11%;
+        --navbar-bg-hover: 204, 25%, 16%;
+        --navbar-btn: 210, 27%, 12%;
+        --navbar-btn-hover: 210, 27%, 17%;
+        --light-blue: 199, 81%, 26%;
+        --light-blue-hover: 199, 81%, 31%;
+        --light-blue-btn: 199, 100%, 29%;
+        --light-blue-btn-hover: 199, 100%, 34%;
+        --schedule-bg-lighter: 204, 11%, 33%;
+        --schedule-bg-lighter-hover: 204, 11%, 38%;
+        --schedule-bg-darker: 210, 9%, 21%;
+        --schedule-bg-darker-hover: 210, 9%, 26%;
+        --light-blue-field: 199, 58%, 33%;
+        --light-blue-field-hover: 199, 58%, 38%;
+    }
+}
+
+:root {
+    --pico-font-size: 100%;
+    background-image: linear-gradient(
+    45deg,
+    hsla(192, 100%, 50%, 0.1) 0%,
+    hsla(162, 100%, 50%, 0.1) 50%,
+    hsla(132, 100%, 50%, 0.1) 100%
+    );
+
+    --pico-text-selection-color: hsla(var(--light-blue), 0.15) !important;
+    --pico-primary: hsla(var(--light-blue), 1) !important;
+    --pico-primary-background: hsla(var(--light-blue), 1) !important;
+    --pico-primary-underline: hsla(var(--light-blue), 0.5) !important;
+    --pico-primary-hover: hsla(var(--light-blue-hover), 1) !important;
+    --pico-primary-hover-background: hsla(var(--light-blue-hover), 1) !important;
+    --pico-primary-focus: hsla(var(--light-blue), 0.3) !important;
+    --pico-primary-inverse: #fff;
+}
+
+nav {
+    --pico-color: hsl(199.41176, 100%, 100%);
+    padding-left: .5em;
+    li {
+        padding: 0 .5em;
+        &:not(:first-child) {
+            flex-grow: 1;
         }
-        main {
-                overflow-y: auto;
-                padding: 1rem;
-              }
-      }
+    }
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+    & > nav {
+        --pico-text-selection-color: hsla(var(--navbar-btn), 0.15) !important;
+        --pico-primary: hsla(var(--navbar-btn), 1) !important;
+        --pico-primary-background: hsla(var(--navbar-btn), 1) !important;
+        --pico-primary-underline: hsla(var(--navbar-btn), 0.5) !important;
+        --pico-primary-hover: hsla(var(--navbar-btn-hover), 1) !important;
+        --pico-primary-hover-background: hsla(var(--navbar-btn-hover), 1) !important;
+        --pico-primary-focus: hsla(var(--navbar-btn), 0.3) !important;
+
+        --pico-border-radius: 0;
+        background-color: hsla(var(--navbar-bg), 1);
+        margin-bottom: 1em;
+
+        ul {
+            width: 100%;
+        }
+        li {
+            padding: 0 .5em;
+        }
+        button {
+            border: none;
+            width: 100%;
+        }
+    }
+}
+
+article {
+    overflow-y: hidden;
+    padding: 0rem;
+    display: flex;
+    flex-direction: column;
+    header {
+        --pico-text-selection-color: hsla(var(--light-blue-btn), 0.15) !important;
+        --pico-primary: hsla(var(--light-blue-btn), 1) !important;
+        --pico-primary-background: hsla(var(--light-blue-btn), 1) !important;
+        --pico-primary-underline: hsla(var(--light-blue-btn), 0.5) !important;
+        --pico-primary-hover: hsla(var(--light-blue-btn-hover), 1) !important;
+        --pico-primary-hover-background: hsla(var(--light-blue-btn-hover), 1) !important;
+        --pico-primary-focus: hsla(var(--light-blue-btn), 0.3) !important;
+        --pico-primary-background: hsla(var(--light-blue-btn), 1) !important;
+        --pico-card-sectioning-background-color: hsla(var(--light-blue), 1);
+        --pico-color: hsla(var(--white), 1) !important;
+        --pico-h1-color: hsla(var(--white), 1);
+
+        padding: 1rem;
+        position: sticky;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        max-width: 100%;
+        button, input {
+            --pico-spacing: 0;
+            border: none !important;
+        }
+        .outline, input, select, textarea {
+            --pico-background-color: hsla(var(--light-blue-field), 1) !important;
+            border: none;
+            --pico-color: hsla(var(--white), 1)  !important;
+            &:hover {
+                --pico-background-color: hsla(var(--light-blue-field-hover), 1) !important;
+            }
+        }
+        & > nav {
+            p {
+                --pico-color: hsla(var(--white), 1) !important;
+            }
+            --pico-spacing: 0;
+            --pico-typography-spacing-vertical: 0;
+        }
+    }
+    main {
+        overflow-y: auto;
+        padding: 1rem;
+    }
+}
     </style>
   </head>
-  <body
-    style="
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-      overflow-y: none;
-    ">
+  <body>
     <%- include('../partials/header'); %>
 
     <main
       style="
         padding: 0em 1em;
         flex: auto;
-        overflow-y: auto;
+        overflow: hidden;
         display: flex;
       ">

@@ -56,7 +56,7 @@ exports.scmz = (req, res) => {
 
 exports.ukladanipzop = (req, res) => {
     const {den_konani, dodatecne_dny, ucebna} = req.body;
-    console.log("Přijatá data:", {den_konani, dodatecne_dny, ucebna});
+    //console.log("Přijatá data:", {den_konani, dodatecne_dny, ucebna});
 
     if (!den_konani) {
         res.redirect("/maturity/");

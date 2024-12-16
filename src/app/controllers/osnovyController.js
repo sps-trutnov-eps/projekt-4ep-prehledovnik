@@ -2,7 +2,7 @@ const databaze = require("../models/databaseEngine");
 
 exports.create = () => {
 	let createdCurID = databaze.osnovy.pridatOsnovu('','','');
-	console.log(`Creating new curriculum. ID: ${createdCurID}`);
+	//console.log(`Creating new curriculum. ID: ${createdCurID}`);
 	return createdCurID;
 }
 
@@ -14,7 +14,7 @@ exports.remove = (curID) => {
 exports.edit = (curID, data) => {
 	
 	data["temata"] = JSON.parse(data.temata);
-	console.log(data);
+	//console.log(data);
 	
 	databaze.osnovy.upravitOsnovu(curID, data);
 	return true;
@@ -30,4 +30,8 @@ exports.subjects = () => {
 
 exports.classes = () => {
 	return databaze.ziskatUcebny();
+}
+
+exports.fields = () => {
+	return databaze.ziskatObory();
 }
