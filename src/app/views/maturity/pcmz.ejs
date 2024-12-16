@@ -39,8 +39,8 @@
     }
 
     input[disabled] {
-      background-color: transparent; 
-      opacity: 0.5; 
+      background-color: transparent;
+      opacity: 0.5;
     }
 
     /* Styl podtržení nadpisu */
@@ -114,43 +114,49 @@
               <tr>
                 <th style="text-align: center; color: white">Datum:</th>
                 <% for (let i = 1; i <= 9; i++) { %>
-                    <th style="color: white">
-                        <p><%= ["8:00-8:45", "8:50-9:35", "9:55-10:40", "10:50-11:35", "11:40-12:25", "12:35-13:20", "13:25-14:10", "14:15-15:00", "15:10-15:55"][i-1] %></p>
-                    </th>
+                <th style="color: white">
+                  <p>
+                    <%= ["8:00-8:45", "8:50-9:35", "9:55-10:40", "10:50-11:35",
+                    "11:40-12:25", "12:35-13:20", "13:25-14:10", "14:15-15:00",
+                    "15:10-15:55"][i-1] %>
+                  </p>
+                </th>
                 <% } %>
               </tr>
             </thead>
-                  <tbody>
-        <% let dayCounter = 1; %>
-        <% for (const [datum, hodiny] of Object.entries(data)) { %>
-          <tr>
-            <td>
-              <input
-                type="date"
-                name="den<%= dayCounter %>_datum"
-                value="<%= datum %>"
-                readonly />
-            </td>
-            <% for (let i = 1; i <= 9; i++) { %>
-              <td>
-                <input
-                  class="zaskrtavaci_policko"
-                  type="checkbox"
-                  name="den<%= dayCounter %>_hodina<%= i %>"
-                  <%= hodiny.includes(i) ? "checked" : "" %> />
-              </td>
-            <% } %>
-          </tr>
-          <% dayCounter++; %>
-        <% } %>
-      </tbody>
+            <tbody>
+              <% let dayCounter = 1; %> <% for (const [datum, hodiny] of
+              Object.entries(data)) { %>
+              <tr>
+                <td>
+                  <input
+                    type="date"
+                    name="den<%= dayCounter %>_datum"
+                    value="<%= datum %>"
+                    readonly />
+                </td>
+                <% for (let i = 1; i <= 9; i++) { %>
+                <td>
+                  <input class="zaskrtavaci_policko" type="checkbox"
+                  name="den<%= dayCounter %>_hodina<%= i %>" <%=
+                  hodiny.includes(i) ? "checked" : "" %> />
+                </td>
+                <% } %>
+              </tr>
+              <% dayCounter++; %> <% } %>
+            </tbody>
           </table>
 
           <div style="margin-top: 1em">
             <button
               type="button"
               id="pridat-datum"
-              style="padding: 0.5em; width: 150px; border: none; cursor: pointer;">
+              style="
+                padding: 0.5em;
+                width: 150px;
+                border: none;
+                cursor: pointer;
+              ">
               Přidat datum
             </button>
           </div>
@@ -159,13 +165,24 @@
             <button
               type="button"
               id="edit-button"
-              style="padding: 0.5em; width: 150px; border: none; cursor: pointer;">
+              style="
+                padding: 0.5em;
+                width: 150px;
+                border: none;
+                cursor: pointer;
+              ">
               Edit
             </button>
             <button
               type="submit"
               id="save-button"
-              style="display:none; padding: 0.5em; width: 150px; border: none; cursor: pointer;">
+              style="
+                display: none;
+                padding: 0.5em;
+                width: 150px;
+                border: none;
+                cursor: pointer;
+              ">
               Uložit
             </button>
           </div>
@@ -191,7 +208,7 @@
           inputDatum.type = "date";
           inputDatum.name = "den" + dayCounter + "_datum";
           inputDatum.classList.add("zaskrtavaci_policko");
-          inputDatum.disabled = true; 
+          inputDatum.disabled = true;
           bunkaDatum.appendChild(inputDatum);
           novyRadek.appendChild(bunkaDatum);
 
@@ -201,7 +218,7 @@
             inputCheckbox.type = "checkbox";
             inputCheckbox.name = "den" + dayCounter + "_hodina" + i;
             inputCheckbox.classList.add("zaskrtavaci_policko");
-            inputCheckbox.disabled = true; 
+            inputCheckbox.disabled = true;
             bunkaCheckbox.appendChild(inputCheckbox);
             novyRadek.appendChild(bunkaCheckbox);
           }
@@ -210,15 +227,26 @@
 
           if (document.getElementById("edit-button").style.display === "none") {
             var newInputs = novyRadek.querySelectorAll("input");
-            newInputs.forEach(input => input.disabled = false);
+            newInputs.forEach((input) => (input.disabled = false));
           }
         });
 
-      document.getElementById("edit-button").addEventListener("click", function () {
-        document.querySelectorAll("input").forEach(input => input.disabled = false);
-        document.getElementById("edit-button").style.display = "none";
-        document.getElementById("save-button").style.display = "block";
-      });
+      document
+        .getElementById("edit-button")
+        .addEventListener("click", function () {
+          document
+            .querySelectorAll("input")
+            .forEach((input) => (input.disabled = false));
+          document.getElementById("pridat-datum").disabled = true;
+          document.getElementById("edit-button").style.display = "none";
+          document.getElementById("save-button").style.display = "block";
+        });
+
+      document
+        .getElementById("save-button")
+        .addEventListener("click", function () {
+          document.getElementById("pridat-datum").disabled = false;
+        });
     </script>
 
     <%- include('../partials/tail'); %>

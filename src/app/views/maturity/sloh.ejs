@@ -227,6 +227,7 @@
     const dateInputs = document.querySelectorAll('input[type="date"]');
     const editButton = document.getElementById("edit-button");
     const saveButton = document.getElementById("save-button");
+    const addButton = document.getElementById("pridat-datum");
 
     dateInputs.forEach((input) => {
       input.disabled = !isEditing;
@@ -235,9 +236,11 @@
     if (isEditing) {
       editButton.style.display = "none";
       saveButton.style.display = "inline-block";
+      addButton.disabled = true;  // Disable "Přidat datum" button when in edit mode
     } else {
       editButton.style.display = "inline-block";
       saveButton.style.display = "none";
+      addButton.disabled = false;  // Enable "Přidat datum" button when not in edit mode
     }
   }
 
