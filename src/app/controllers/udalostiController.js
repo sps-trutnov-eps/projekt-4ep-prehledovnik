@@ -7,7 +7,7 @@ const databaze = require("../models/databaseEngine");
 // }
 
 exports.index = (req, res) => {
-    console.log(databaze.maturity.ziskatVsechnyMaturityJakoUdalosti());
+    console.log(databaze.udalosti.ziskatVsechnyUdalosti().concat(databaze.maturity.ziskatVsechnyMaturityJakoUdalosti()));
     res.render('udalosti/index.ejs', {        
         seznamNaZobrazeni: databaze.udalosti.ziskatVsechnyUdalosti().concat(databaze.maturity.ziskatVsechnyMaturityJakoUdalosti()),
         datum: new Date().toISOString().split('T')[0]
