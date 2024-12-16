@@ -3,6 +3,8 @@ const projektyController = require('../controllers/projektyController');
 const projektyRouter = express.Router();
 
 // GET požadavky
+projektyRouter.post('/getTeamData', projektyController.getDetailyTymu);
+
 
 projektyRouter.get('/tymy', projektyController.zobrazTymy);
 projektyRouter.get('/tymy/:projekt', projektyController.zobrazProjekt);

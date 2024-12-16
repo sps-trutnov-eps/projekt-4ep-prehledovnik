@@ -85,8 +85,29 @@ exports.zobrazDetailyTymu = (req, res) => {
     }
 
     const team = project.tymy[teamId];
-
+    
     res.render("projekty/detailTymu", { team });
+};
+
+exports.getDetailyTymu = (req, res) => {
+    const projectClass = req.body.tridaId;
+    const teamId = req.body.teamId;
+
+    //console.log(projectClass);
+    //console.log(teamId);
+
+    // Načtení projektu a týmu
+    const idProjektu = databaze.projekty.ziskatIDProjektu(projectClass);
+    const project = databaze.projekty.ziskatProjekt(idProjektu);
+    for (let i = 0; i < project["tymy"].length; i++){
+        const team = project["tymy"][i];
+        
+        if (team["id"] != teamId){
+           continue;
+        }
+        
+        res.json({ "team": team });
+    }
 };
 
 exports.zmenDetailyTymu = (req, res) => {
@@ -97,9 +118,12 @@ exports.zmenDetailyTymu = (req, res) => {
     if (clenove == undefined) { clenove = req.body.members; clenoveCount = 1; }
     else { clenoveCount = clenove.length; }
     
+    //console.log("boop");
+    //console.log(req.body);
+    
     //console.log(vedouci);
     //console.log(id);
-    //console.log(clenove);
+    //console.log(.clenove);
     //console.log(clenove.length);
     
     // Chci získat minulý team abych získal jeho jméno a mohl to předat novému

@@ -398,8 +398,7 @@ const projekty = {
                 continue;
             }
             
-            let newTeam = {"id": team["id"], "name": team["name"], "leader": team["leader"], "members": team["members"][1] };
-            projekty[tridaId]["tymy"][i] = newTeam;
+            projekty[tridaId]["tymy"][i] = team;
             
             //console.log(projekty[tridaId]);
         }
