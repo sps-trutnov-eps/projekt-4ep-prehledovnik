@@ -110,7 +110,7 @@
                   <p class="class"><%= rozvrh.hodiny.sudy[days[i]][j].trida%></p>
                   <%
                     if( rozvrh.hodiny.sudy[days[i]][j].predmet != "volno"){
-                      key = rozvrh.hodiny.sudy[days[i]][j].predmet+rozvrh.hodiny.sudy[days[i]][j].trida
+                      key = rozvrh.hodiny.sudy[days[i]][j].predmet+rozvrh.hodiny.sudy[days[i]][j].trida + rozvrh.hodiny.sudy[days[i]][j].skupina
                       if (!(key in periodNumbers))
                         periodNumbers[key] = 1
                     }
@@ -123,17 +123,17 @@
                   <p class="class"><%= rozvrh.hodiny.lichy[days[i]][j].trida%></p>
                   <%            
                     if( rozvrh.hodiny.lichy[days[i]][j].predmet != "volno"){
-                      key = rozvrh.hodiny.lichy[days[i]][j].predmet+rozvrh.hodiny.lichy[days[i]][j].trida
+                      key = rozvrh.hodiny.lichy[days[i]][j].predmet+rozvrh.hodiny.lichy[days[i]][j].trida + rozvrh.hodiny.lichy[days[i]][j].skupina
                       if (!(key in periodNumbers))
                         periodNumbers[key] = 1
                     }              
                   %>
                 <% }%>
-                <%if(key != null){%>
+                <%if(key != null){ let altKey = key.replace(new RegExp("cela|sk1|sk2", "g"), "")%>
                   <p class="count"><%= periodNumbers[key]%></p>
-                  <%if(osnovy[key] != undefined){%>
-                    <p class="theme"><%- osnovy[key][periodNumbers[key]-1] %></p>
-                  <% }%>
+                  <%if(osnovy[altKey] != undefined){ %>
+                    <p class="theme"><%- osnovy[altKey][periodNumbers[key]-1] %></p>   
+                  <% }%>  
                   <% periodNumbers[key] += 1 %>
                 <% }%>
                 </div>
