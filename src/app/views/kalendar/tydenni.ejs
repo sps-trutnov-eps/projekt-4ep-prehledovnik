@@ -205,7 +205,10 @@
                     <p class="theme" style="display: none;"><%- osnovy[altKey][periodNumbers[key]-1] %></p>   
                   <% }%>  
                   <% periodNumbers[key] += 1 %>
-                <% }%>
+                <% }else{%>
+                  <p class="count"></p>
+                  <p class="theme"></p>
+                <%}%>
                 <button onclick="detailDisplay(this)">X</button>
                 </div>
             <%}%>
@@ -223,7 +226,7 @@
       let detail = document.getElementById("detail")
       detail.style.display = "block"
 
-      const period = button.closest(".grid-item")
+      const period = button.parentNode
       console.log(period.querySelector(".theme").textContent)
       document.getElementById("roomDet").innerText = period.querySelector(".room").textContent
       document.getElementById("periodDet").innerText = period.querySelector(".period").textContent
