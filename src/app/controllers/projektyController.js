@@ -18,16 +18,78 @@ exports.zobrazTlacitka = (req, res) => {
 	let tlacitka = vytvorTlacitka("projekty/");
 	let tymy = [];
 	
-	res.render("projekty/index", { tlacitka: tlacitka, tymy: tymy });
+	res.render("projekty/index", { tlacitka: tlacitka, tymy: tymy, id: -1 });
 };
  
 exports.zobrazDetailyProjektu = (req, res) => {
 	let tlacitka = vytvorTlacitka("projekty/");
 	let tymy = ziskejTymy(req.params.id);
 
-	res.render("projekty/index", { tlacitka: tlacitka, tymy: tymy });
+	res.render("projekty/index", {
+      tlacitka: tlacitka,
+      tymy: tymy,
+      id: req.params.id,
+   });
 };
  
+exports.upload = async (req, res) => {
+    try {
+        const fileText = req.file.buffer.toString('utf8');
+
+        let points = {};
+        // GET THE POINTS //
+ 
+        // go through milestones
+        fileText.replace(/\n([A-Z][a-z]+)/g, "\n$1 $1")
+                .split(/\n[A-Z][a-z]+ /)
+                .slice(1)
+                .forEach(block => {
+
+            let lines = block.split(/\n/)
+                             .map(l => l.trim())
+                             .filter((elm) => elm.length > 3);
+            
+            let key = lines[0];
+            points[key] = {"t1": {}, "t2": {}};
+            let tyden = 0;
+
+            lines.slice(1).forEach(line => {
+
+                // záznam žáka
+                console.log(line)
+                console.log(/^\d+ /.test(line))
+                if (! /->/.test(line)) {
+                    console.log("ds")
+                    let parts = line.split(" ");
+                    console.log("ds")
+                    console.log(parts)
+                    mail = parts[parts.length-1].replace(/[<>]/g, "");
+
+                    points[key][`t${tyden}`][mail] = parseInt(parts[0]);
+
+                // záznam týdne
+                } else {
+                    tyden++;
+                }
+            })
+        });
+
+        console.log(points);
+ 
+        let tlacitka = vytvorTlacitka("projekty/");
+        let tymy = ziskejTymy(req.params.id);
+ 
+        res.render("projekty/index", {
+           tlacitka: tlacitka,
+           tymy: tymy,
+           id: req.params.id,
+        });
+    } catch (error) {
+        res.status(500).send(`
+           <div class="error">Upload failed: ${error.message}</div>
+           `);
+    }
+};
  
 function vytvorTlacitka(url) {
 	let tlacitka = "";
@@ -38,15 +100,19 @@ function vytvorTlacitka(url) {
             const trida = tridy[projektID].trida;
             if (trida) {
                 tlacitka += `
-                <a href="/${url}${trida}">
-                    <button class="tlacitko">${trida}</button>
-                </a>
-            `;            
+				<div style="display: flex; width: 100%" class="cur">
+					<input class="deleteCurButton" type="button" value="-"
+                      onclick="console.log('yeet');"/>
+					<button style="margin-left: 0;" hx-get="/${url}${trida}"
+                       hx-target="body" hx-push-url="true"
+                       hx-swap="transition:true">${trida}</button>
+				</div>
+				`;
             }
         }
     }
 	return tlacitka;
-}
+} 
 
 function ziskejTymy(trida){
 	const tridy = databaze.projekty.gP(); 

@@ -1,4 +1,7 @@
 const express = require('express');
+const multer = require('multer');
+const upload = multer();
+
 const projektyController = require('../controllers/projektyController');
 const projektyRouter = express.Router();
 
@@ -15,6 +18,10 @@ projektyRouter.get('/vytvoreniProjektu', projektyController.vytvoritProjekt);
 // POST požadavky
 projektyRouter.post('/vytvoreniProjektu', projektyController.ulozitProjekt);
 projektyRouter.post('/ulozitDetailyTymu', projektyController.zmenDetailyTymu);
+
+projektyRouter.post('/upload/:id', upload.single('file'),
+                    projektyController.upload);
+
 projektyRouter.get('/:id', projektyController.zobrazDetailyProjektu);
 projektyRouter.get('/', projektyController.zobrazTlacitka);
 module.exports = projektyRouter;
