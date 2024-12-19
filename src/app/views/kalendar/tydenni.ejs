@@ -225,7 +225,9 @@
                   <p class="count" style="display: none;"><%= periodNumbers[key]%></p>
                   <%if(osnovy[altKey] != undefined){ %>
                     <p class="theme" style="display: none;"><%- osnovy[altKey][periodNumbers[key]-1] %></p>   
-                  <% }%>  
+                  <% }else{%>
+                    <p class="theme"></p>
+                  <%}%>
                   <% periodNumbers[key] += 1 %>
                 <% }else{%>
                   <p class="count"></p>
