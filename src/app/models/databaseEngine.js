@@ -438,65 +438,46 @@ function sP(projekty) {
 }
 
 const projekty = {
-  pridatProjekt: (trida, tymy, pitche, milestony, devlogy, prezentace) => {
+  pridatProjekt: (trida) => {
     let projekty = gP();
-    //console.log(projekty);
-    projekty[projekty["nextID"]] = {
-      trida,
-      tymy,
-      pitche,
-      milestony,
-      devlogy,
-      prezentace,
-    };
+    let nextID = projekty["nextID"];
+    projekty[nextID] = {trida, "tymy": []};
     projekty["nextID"] += 1;
     sP(projekty);
   },
-  ravitTym: (puvodniTym, novyTym) => {
+  pridatTym: (trida, cislo, tema, odkaz, clenove, vedouci, datum, featury, stretchgoaly, pozamka, ucast) => {
     let projekty = gP();
-    let nextID = projekty["nextID"];
-    //console.log(projekty);
-    for (let i = 0; i < nextID; i++) {
-      if (JSON.stringify(projekty[String(i)]["Tymy"]) === puvodniTym)
-        projekty[String(i)] = novyTym;
+    let IDtridy = ziskatIDprojektuDleTridy(trida);
+    projekty[String(IDtridy)]["tymy"].push({
+      cislo,
+      tema,
+      odkaz,
+      clenove,
+      vedouci,
+      "pitch": {
+        datum,
+        featury,
+        stretchgoaly,
+        pozamka,
+        ucast
+      }});
+    sP(projekty);
+  },
+  ziskatTym: (trida, cislo) => {
+    let projekty = gP();
+    let IDtridy = ziskatIDprojektuDleTridy(trida);
+    for (let i = 0; i < projekty[String(IDtridy)]["tymy"].length; i++){
+      if (projekty[String(IDtridy)]["tymy"][i]["cislo"] == cislo){
+        return projekty[String(IDtridy)]["tymy"][i];
+      }
     }
-    sP(projekty);
   },
-  upravitTym: (puvodniTym, novyTym) => {
+  ziskatCelouTridu: (trida) => {
     let projekty = gP();
-    let nextID = projekty["nextID"];
-    console.log(projekty);
-    for (let i = 0; i < nextID; i++) {
-      if (JSON.stringify(projekty[String(i)]["Tymy"]) === puvodniTym)
-        projekty[String(i)] = novyTym;
-    }
-    sP(projekty);
+    let IDtridy = ziskatIDprojektuDleTridy(trida);
+    return projekty[String(IDtridy)];
   },
-  upravitPitche: (trida, pitche) => {
-    let projekty = gP();
-    let IDUpravovanehoProjektu = hledanyProjekt(trida);
-    projekty[IDUpravovanehoProjektu]["ptiche"] = pitche;
-    sP(projekty);
-  },
-  upravitMilestony: (trida, milestony) => {
-    let projekty = gP();
-    let IDUpravovanehoProjektu = hledanyProjekt(trida);
-    projekty[IDUpravovanehoProjektu]["milestony"] = milestony;
-    sP(projekty);
-  },
-  upravitDevlogy: (trida, devlogy) => {
-    let projekty = gP();
-    let IDUpravovanehoProjektu = hledanyProjekt(trida);
-    projekty[IDUpravovanehoProjektu]["devlogy"] = devlogy;
-    sP(projekty);
-  },
-  upravitPrezentace: (trida, prezentace) => {
-    let projekty = gP();
-    let IDUpravovanehoProjektu = hledanyProjekt(trida);
-    projekty[IDUpravovanehoProjektu]["prezentace"] = prezentace;
-    sP(projekty);
-  },
-  ziskatIDProjektu: (trida) => {
+  ziskatIDprojektuDleTridy: (trida) => {
     let projekty = gP();
     let nextID = projekty["nextID"];
     let IDHledanehoProjektu;
@@ -507,19 +488,18 @@ const projekty = {
     }
     return IDHledanehoProjektu;
   },
-  ziskatProjekt: (trida) => {
+  upravitTym: (trida, tym) => {
     let projekty = gP();
-    let ID = ziskatIDProjektu(trida);
-    return projekty[ID];
-  },
-  ziskatTridy: () => {
-    let projekty = Object.values(gP());
-    projekty.pop();
-    return projekty.map((projekt) => projekt["trida"]);
-  },
-  gP: () => {
-    return db.get("projekty");
-  },
+    let IDtridy = ziskatIDprojektuDleTridy(trida);
+    let cislo = tym["cislo"];
+    for (let i = 0; i < projekty[String(IDtridy)]["tymy"].length; i++){
+      if (projekty[String(IDtridy)]["tymy"][i]["cislo"] == cislo){
+        projekty[String(IDtridy)]["tymy"][i] = tym;
+        break;
+      }
+    }
+    sP(projekty);
+  }
 };
 
 // CELKOVÝ MODEL
