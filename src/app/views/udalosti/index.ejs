@@ -293,7 +293,10 @@
             <!-- Tlačítko pro smazání -->
             <td>
               <button 
-                onclick="if(confirm('Opravdu chcete smazat tuto událost?')) window.location.href='/udalosti/smazat/<%= udalost.id %>'"
+                onclick="if(confirm('Opravdu chcete smazat tuto událost?')) {
+                  var url = (vyberZadani === 'maturita') ? '/maturity/smazat/<%= udalost.id %>' : '/udalosti/smazat/<%= udalost.id %>';
+                  window.location.href = url;
+                }"
                 class="delete-btn"
               >✕</button>
             </td>
