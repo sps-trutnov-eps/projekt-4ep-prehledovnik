@@ -234,8 +234,8 @@
         <% seznamNaZobrazeni.forEach(udalost => { %>
           <tr>
             <!-- Název události -->
-            <td class="toClick" onclick="editUdalost('<%= JSON.stringify(udalost) %>')">
-              <%= udalost.nazev %>
+            <td class="toClick" onclick="handleUdalostClick('<%= JSON.stringify(udalost) %>')">
+                <%= udalost.nazev %>
             </td>
         
             <!-- Typ události -->
@@ -304,6 +304,32 @@
   </article>
 
   <script>
+    function handleUdalostClick(udalostData) {
+        const udalost = JSON.parse(udalostData);
+
+    // Pokud je vyberZadani = 'maturita', směruj podle názvu
+     if (udalost.vyberZadani === 'maturita') {
+          switch (udalost.nazev) {
+            case 'PČMZ':
+              window.location.href = 'http://localhost:8000/maturity/pcmz';
+              break;
+            case 'SČMZ':
+              window.location.href = 'http://localhost:8000/maturity/scmz';
+              break;
+            case 'SLOH':
+              window.location.href = 'http://localhost:8000/maturity/sloh';
+              break;
+            case 'PŽOP':
+              window.location.href = 'http://localhost:8000/maturity/';
+              break;
+            default:
+              alert('Neznámá maturita: ' + udalost.nazev);
+          }
+        } else {
+          // Pokud není maturita, otevři formulář (zachovává původní funkčnost)
+          editUdalost(udalostData);
+        }
+      }
     class UdalostiManager {
       constructor() {
         this.initializeElements();
