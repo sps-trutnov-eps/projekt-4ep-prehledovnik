@@ -73,8 +73,9 @@ exports.tydenni = (req,res) => {
         }        
     }
 
+    console.log(databaze.rozvrhy.ziskatPocetRozvrhu()-1);
     res.render('kalendar/tydenni', {
-        rozvrh: databaze.rozvrhy.ziskatRozvrh(1), 
+        rozvrh: databaze.rozvrhy.ziskatRozvrh(databaze.rozvrhy.ziskatPocetRozvrhu()-1), 
         week: tydny,
         osnovy: osnovy
     })

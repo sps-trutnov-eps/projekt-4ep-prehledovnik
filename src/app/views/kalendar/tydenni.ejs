@@ -31,6 +31,67 @@
      padding-block: 30px;
      text-align: center;
    }
+   #detail {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 400px;
+        background-color: var(--pico-card-background-color);
+        border-radius: 8px;
+        padding: 24px;
+        padding-bottom: 80px;
+        z-index: 1000;
+        text-align: center;
+    }
+
+    .detailItem {
+        font-weight: bold;
+        margin: 12px 0;
+        padding: 8px 0;
+        /*color: #333;*/
+    }
+
+    .detailItem::before {
+        display: block;
+        /*color: #666;*/
+        margin-bottom: 4px;
+    }
+    .detailButton {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #ff4444;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 24px;
+        font-weight: bold;
+        padding: 8px 40px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+    .detailButton:hover {
+        background-color: #ff0000;
+    }
+
+    /* Dark mode */
+    @media (prefers-color-scheme: dark) {
+        #detail {
+            background-color: #1a1a1a;
+        }
+
+        .detailItem {
+            color: #e0e0e0;
+        }
+
+        .detailItem::before {
+            color: #999;
+        }
+    }
 </style>
 <article style="flex: 3; overflow-y: auto; padding: 0;">
   <header>
@@ -38,6 +99,28 @@
       <ul>
         <li>
           <h1>Kalendář</h1>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <div role="group">
+             <button onclick="scrollToCurrent()">Aktuální</button>
+             <select name="months" id="months" ">
+                <option value="8">Srpen</option>
+                <option value="9">Září</option>
+                <option value="10">Říjen</option>
+                <option value="11">Listopad</option>
+                <option value="12">Prosinec</option>
+                <option value="1">Leden</option>
+                <option value="2">Únor</option>
+                <option value="3">Březen</option>
+                <option value="4">Duben</option>
+                <option value="5">Květen</option>
+                <option value="6">Červen</option>
+                <option value="7">Červenec</option>
+             </select>
+             <button onclick="scrollToMonth()">Na&nbspměsíc</button>
+          </div>
         </li>
       </ul>
       <ul>
@@ -56,6 +139,15 @@
   </header>
   <main>
     <div>
+      <div id="detail">
+        <p id="roomDet" class="detailItem"></p>
+        <p id="periodDet" class="detailItem"></p>
+        <p id="classDet" class="detailItem"></p>
+        <p id="groupDet" class="detailItem"></p>
+        <p id="countDet" class="detailItem"></p>
+        <p id="themeDet" class="detailItem"></p>
+        <button class="detailButton" onclick="detailOff()">X</button>
+      </div>
       <% let Weeks = week.length %>
       
       <!-- výpočet prvního pondělí v roce -->
@@ -96,7 +188,7 @@
             <% currentDate.setDate(baseDate.getDate() + (t * 7) + i) %>
             
             <% let formattedDate = `${currentDate.getDate()}.${currentDate.getMonth() + 1}.` %>
-            <p class="grid-item den-tydne">
+            <p class="grid-item den-tydne" id="<%= formattedDate %>">
               <span class="cislo-hodiny"><%= days[i] %></span><br>
               <span><%= formattedDate %></span>
             </p>
@@ -110,7 +202,7 @@
                   <p class="class"><%= rozvrh.hodiny.sudy[days[i]][j].trida%></p>
                   <%
                     if( rozvrh.hodiny.sudy[days[i]][j].predmet != "volno"){
-                      key = rozvrh.hodiny.sudy[days[i]][j].predmet+rozvrh.hodiny.sudy[days[i]][j].trida
+                      key = rozvrh.hodiny.sudy[days[i]][j].predmet+rozvrh.hodiny.sudy[days[i]][j].trida + rozvrh.hodiny.sudy[days[i]][j].skupina
                       if (!(key in periodNumbers))
                         periodNumbers[key] = 1
                     }
@@ -123,19 +215,23 @@
                   <p class="class"><%= rozvrh.hodiny.lichy[days[i]][j].trida%></p>
                   <%            
                     if( rozvrh.hodiny.lichy[days[i]][j].predmet != "volno"){
-                      key = rozvrh.hodiny.lichy[days[i]][j].predmet+rozvrh.hodiny.lichy[days[i]][j].trida
+                      key = rozvrh.hodiny.lichy[days[i]][j].predmet+rozvrh.hodiny.lichy[days[i]][j].trida + rozvrh.hodiny.lichy[days[i]][j].skupina
                       if (!(key in periodNumbers))
                         periodNumbers[key] = 1
                     }              
                   %>
                 <% }%>
-                <%if(key != null){%>
-                  <p class="count"><%= periodNumbers[key]%></p>
-                  <%if(osnovy[key] != undefined){%>
-                    <p class="theme"><%- osnovy[key][periodNumbers[key]-1] %></p>
-                  <% }%>
+                <%if(key != null){ let altKey = key.replace(new RegExp("cela|sk1|sk2", "g"), "")%>
+                  <p class="count" style="display: none;"><%= periodNumbers[key]%></p>
+                  <%if(osnovy[altKey] != undefined){ %>
+                    <p class="theme" style="display: none;"><%- osnovy[altKey][periodNumbers[key]-1] %></p>   
+                  <% }%>  
                   <% periodNumbers[key] += 1 %>
-                <% }%>
+                <% }else{%>
+                  <p class="count"></p>
+                  <p class="theme"></p>
+                <%}%>
+                <button onclick="detailDisplay(this)">X</button>
                 </div>
             <%}%>
           <%} %>
@@ -148,7 +244,55 @@
 
 
 <script>
-  
+  function scrollToCurrent() {
+      const increment = 24 * 60 * 60 * 1000
+      let today = new Date();
+      if(Number(today.getDay()) == 0)
+          today = new Date(Number(today.getTime()) - increment*2)
+
+      let formattedDate = `${today.getDate()}.${today.getMonth() + 1}.`
+      console.log(formattedDate)
+      let element = document.getElementById(formattedDate);
+
+      if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+          console.error("Element pro aktuální datum nebyl nalezen.");
+      }
+  }
+
+  function scrollToMonth() {
+
+      const select = document.getElementById("months");
+      const month = select.value;
+      const year = (month < 8) ? 2025 : 2024;  // Nastavení roku podle výběru měsíce
+      let selected = document.getElementById(`1.${month}.`);
+      console.log(`1.${month.padStart(2, '0')}.`)
+
+      if (selected) {
+          selected.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+          selected = document.getElementById(`${year}-${month.padStart(2, '0')}-02`);
+          selected.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+  }
+  function detailDisplay(button){
+      let detail = document.getElementById("detail")
+      detail.style.display = "block"
+
+      const period = button.parentNode
+      console.log(period.querySelector(".theme").textContent)
+      document.getElementById("roomDet").innerText = period.querySelector(".room").textContent
+      document.getElementById("periodDet").innerText = period.querySelector(".period").textContent
+      document.getElementById("classDet").innerText = period.querySelector(".class").textContent
+      document.getElementById("groupDet").innerText = period.querySelector(".group").textContent
+      document.getElementById("countDet").innerText = period.querySelector(".count").textContent
+      document.getElementById("themeDet").innerText = period.querySelector(".theme").textContent
+  }
+
+  function detailOff(){
+      document.getElementById("detail").style.display = "none"
+  }
 </script>
 
 
