@@ -473,69 +473,6 @@
             }
         }
 
-        function showPopup(cas, den, tyden, event) {
-            casHodiny = cas;
-            denHodiny = den;
-            druhTydne = tyden;
-
-            const existingLesson = druhTydne === 'L'
-                ? rozvrh.lichy[denHodiny][casHodiny]
-                : rozvrh.sudy[denHodiny][casHodiny];
-
-            if (existingLesson) {
-                document.getElementById("jakypredmet").value = existingLesson.predmet || "";
-                document.getElementById("mistnost").value = existingLesson.mistnost || "";
-                document.getElementById("skupina").value = existingLesson.skupina || "cela";
-                document.getElementById("trida").value = existingLesson.trida || "";
-            } else {
-                resetForm();
-            }
-
-            toggleModal(event);
-        }
-
-        function closePopup() {
-            resetForm();
-            document.getElementById("popupModal").style.display = "none";
-        }
-
-        function updateTileDisplay(tyden, den, cas, hodina) {
-            const buttonId = `btn-${tyden}-${den}-${cas}`;
-            const button = document.getElementById(buttonId);
-
-            if (button) {
-                const predmetSpan = button.querySelector('.hodina-predmet');
-                const mistnostSpan = button.querySelector('.hodina-mistnost');
-                const skupinaSpan = button.querySelector('.hodina-skupina');
-                const tridaSpan = button.querySelector('.hodina-trida');
-
-                if (hodina && hodina.predmet) {
-                    if (hodina.predmet === "volno") {
-                        // button.classList.replace('secondary', 'primary');
-                        button.classList.add('is-free');
-                        predmetSpan.textContent = "volno";
-                        mistnostSpan.textContent = "";
-                        skupinaSpan.textContent = "";
-                        tridaSpan.textContent = "";
-                    } else {
-                        button.classList.replace('secondary', 'primary');
-                        button.classList.remove('is-free');
-                        predmetSpan.textContent = hodina.predmet;
-                        mistnostSpan.textContent = hodina.mistnost;
-                        skupinaSpan.textContent = hodina.skupina === "cela" ? "" : hodina.skupina;
-                        tridaSpan.textContent = hodina.trida ? `${hodina.trida}` : "";
-                    }
-                } else {
-                    // button.classList.replace('secondary', 'primary');
-                    button.classList.remove('is-free');
-                    predmetSpan.textContent = '+';
-                    mistnostSpan.textContent = '';
-                    skupinaSpan.textContent = '';
-                    tridaSpan.textContent = '';
-                }
-            }
-        }
-
         function resetForm() {
             document.getElementById("jakypredmet").value = "";
             document.getElementById("mistnost").value = "";
@@ -593,20 +530,6 @@
             }
 
             resetForm();
-        }
-
-        function showCreateForm() {
-            const modal = document.getElementById('createFormModal');
-            if (modal) {
-                modal.style.display = "flex";
-            }
-        }
-
-        function closeCreateForm() {
-            const modal = document.getElementById('createFormModal');
-            if (modal) {
-                modal.style.display = "none";
-            }
         }
 
         window.onclick = function (event) {
