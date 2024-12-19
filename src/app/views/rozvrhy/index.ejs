@@ -473,6 +473,43 @@
             }
         }
 
+        function updateTileDisplay(tyden, den, cas, hodina) {
+            const buttonId = `btn-${tyden}-${den}-${cas}`;
+            const button = document.getElementById(buttonId);
+
+            if (button) {
+                const predmetSpan = button.querySelector('.hodina-predmet');
+                const mistnostSpan = button.querySelector('.hodina-mistnost');
+                const skupinaSpan = button.querySelector('.hodina-skupina');
+                const tridaSpan = button.querySelector('.hodina-trida');
+
+                if (hodina && hodina.predmet) {
+                    if (hodina.predmet === "volno") {
+                        // button.classList.replace('secondary', 'primary');
+                        button.classList.add('is-free');
+                        predmetSpan.textContent = "volno";
+                        mistnostSpan.textContent = "";
+                        skupinaSpan.textContent = "";
+                        tridaSpan.textContent = "";
+                    } else {
+                        button.classList.replace('secondary', 'primary');
+                        button.classList.remove('is-free');
+                        predmetSpan.textContent = hodina.predmet;
+                        mistnostSpan.textContent = hodina.mistnost;
+                        skupinaSpan.textContent = hodina.skupina === "cela" ? "" : hodina.skupina;
+                        tridaSpan.textContent = hodina.trida ? `${hodina.trida}` : "";
+                    }
+                } else {
+                    // button.classList.replace('secondary', 'primary');
+                    button.classList.remove('is-free');
+                    predmetSpan.textContent = '+';
+                    mistnostSpan.textContent = '';
+                    skupinaSpan.textContent = '';
+                    tridaSpan.textContent = '';
+                }
+            }
+        }
+
         function resetForm() {
             document.getElementById("jakypredmet").value = "";
             document.getElementById("mistnost").value = "";
