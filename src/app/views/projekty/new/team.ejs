@@ -6,8 +6,8 @@
 			 <p style="display:inline; vertical-align:bottom; margin-left: 1rem" >1. Pololetí - 1.EP</p>
         </hgroup>
 		  <hgroup style="display: flex; gap: 0.5em;">
-			  <input class="createButton" style="width: 8rem; padding: 0; min-height: 0; height: 2em; margin: 0;" type="button" value="Přehled" onclick="addRow()" />
-			  <input class="createButton" style="width: 8rem; padding: 0; min-height: 0; height: 2em; margin: 0;" type="button" value="Známkování" onclick="addRow()" />
+			  <input class="createButton" style="width: 8rem; padding: 0; min-height: 0; height: 2em; margin: 0;" type="button" value="Přehled" onclick="showElementAndHideElement('class', 'classDetails')" />
+			  <input class="createButton" style="width: 8rem; padding: 0; min-height: 0; height: 2em; margin: 0;" type="button" value="Detaily" onclick="showElementAndHideElement('classDetails', 'class')" />
 			</hgroup>
       </nav>
 	</header>
@@ -39,85 +39,85 @@
 			 
 			   <div style="display: flex; flex-wrap: wrap;">
 				   <div style="flex: 1; padding: 0 var(--pico-block-spacing-horizontal);">
+						<p style="display: none"></p>
 						<label for="description">Popis</label>
 					   <input type="text" name="description" id="description" value="0" onchange="selectOption(this)" style="margin: 0">
 						<label style="margin-top: 1em;">Členové</label>
-							<div class="members">
-								<div style="display: flex; align-items: center;" class="members-input">
-									<input type="button" value="-" class="deleteButton" style="margin-bottom: 0;">
-									<input class="members-item" type="text" value="0" onchange="selectOption(this)" style="margin: 0">
-								</div>
-							   <div style="display: flex; align-items: center;" class="members-input">
-									<input type="button" value="-" class="deleteButton" style="margin-bottom: 0;">
-									<input class="members-item" type="text" value="0" onchange="selectOption(this)" style="margin: 0">
-								</div>
-								<div style="display: flex; align-items: center;" class="members-input">
-									<input type="button" value="-" class="deleteButton" style="margin-bottom: 0;">
-									<input class="members-item" type="text" value="0" onchange="selectOption(this)" style="margin: 0">
-								</div>
-								<div style="display: flex; align-items: center;" class="members-input">
-									<input type="button" value="-" class="deleteButton" style="margin-bottom: 0;">
-									<input class="members-item" type="text" value="0" onchange="selectOption(this)" style="margin: 0">
-								</div>
-								<div style="display: flex; align-items: center;" class="members-input">
-									<input type="button" value="-" class="deleteButton" style="margin-bottom: 0;">
-									<input class="members-item" type="text" value="0" onchange="selectOption(this)" style="margin: 0">
-								</div>
-								<div style="display: flex; align-items: center;" class="members-input">
-									<input type="button" value="-" class="deleteButton" style="margin-bottom: 0;">
-									<input class="members-item" type="text" value="0" onchange="selectOption(this)" style="margin: 0">
-								</div>
-								<div style="display: flex; align-items: center;" class="members-input">
-									<input type="button" value="-" class="deleteButton" style="margin-bottom: 0;">
-									<input class="members-item" type="text" value="0" onchange="selectOption(this)" style="margin: 0">
-								</div>
-								<div style="display: flex; align-items: center;" class="members-input">
-									<input type="button" value="-" class="deleteButton" style="margin-bottom: 0;">
-									<input class="members-item" type="text" value="0" onchange="selectOption(this)" style="margin: 0">
+							<div class="members" >
+								<div class="dropdown-members">
+									<div style="display: flex; align-items: center;" class="members-input">
+										<input type="button" value="-" class="deleteButton" style="margin-bottom: 0;" onclick="deleteOption(this)">
+										<input class="dropdown-item" type="text" value="0" style="margin: 0">
+									</div>
+									<div style="display: flex; align-items: center;" class="members-input">
+										<input type="button" value="-" class="deleteButton" style="margin-bottom: 0;" onclick="deleteOption(this)">
+										<input class="dropdown-item" type="text" value="0" style="margin: 0">
+									</div>
+									<div style="display: flex; align-items: center;" class="members-input">
+										<input type="button" value="-" class="deleteButton" style="margin-bottom: 0;" onclick="deleteOption(this)">
+										<input class="dropdown-item" type="text" value="0" style="margin: 0">
+									</div>
+									<div style="display: flex; align-items: center;" class="members-input">
+										<input type="button" value="-" class="deleteButton" style="margin-bottom: 0;" onclick="deleteOption(this)">
+										<input class="dropdown-item" type="text" value="0" style="margin: 0">
+									</div>
+									<div style="display: flex; align-items: center;" class="members-input">
+										<input type="button" value="-" class="deleteButton" style="margin-bottom: 0;" onclick="deleteOption(this)">
+										<input class="dropdown-item" type="text" value="0" style="margin: 0">
+									</div>
+									<div style="display: flex; align-items: center;" class="members-input">
+										<input type="button" value="-" class="deleteButton" style="margin-bottom: 0;" onclick="deleteOption(this)">
+										<input class="dropdown-item" type="text" value="0" style="margin: 0">
+									</div>
 								</div>
 							   <div class="add-option">
-									<input class="createButton" style="padding: 0; min-height: 0; height: 2em; margin: 0" type="button" value="+" onclick="addRow()" />
+									<input class="createButton" style="padding: 0; min-height: 0; height: 2em; margin: 0" type="button" value="+" onclick="addNewOption(this)" />
 							   </div>
 							</div>
-						<label for="link">URL:</label>
 					</div>
 					<div style="flex: 1; padding: 0 var(--pico-block-spacing-horizontal);">
+						<p style="display: none"></p>
 						<label>Featury</label>
 						<div class="members" style="max-height: 13.5rem;">
-								<div style="display: flex; align-items: center;" class="members-input">
-									<input type="button" value="-" class="deleteButton" style="margin-bottom: 0;">
-									<input class="members-item" type="text" value="0" onchange="selectOption(this)" style="margin: 0">
-								</div>
-							   <div style="display: flex; align-items: center;" class="members-input">
-									<input type="button" value="-" class="deleteButton" style="margin-bottom: 0;">
-									<input class="members-item" type="text" value="0" onchange="selectOption(this)" style="margin: 0">
+								<div class="dropdown-members">
+									<div style="display: flex; align-items: center;" class="members-input">
+										<input type="button" value="-" class="deleteButton" style="margin-bottom: 0;" onclick="deleteOption(this)">
+										<input class="dropdown-item" type="text" value="0" style="margin: 0">
+									</div>
+									<div style="display: flex; align-items: center;" class="members-input">
+										<input type="button" value="-" class="deleteButton" style="margin-bottom: 0;" onclick="deleteOption(this)">
+										<input class="dropdown-item" type="text" value="0" style="margin: 0">
+									</div>
 								</div>
 							   <div class="add-option">
-									<input class="createButton" style="padding: 0; min-height: 0; height: 2em; margin: 0" type="button" value="+" onclick="addRow()" />
+									<input class="createButton" style="padding: 0; min-height: 0; height: 2em; margin: 0" type="button" value="+" onclick="addNewOption(this)" />
 							   </div>
 							</div>
 							
 							
 							<label style="margin-top: 1em;">Stretch goaly</label>
 							<div class="members" style="max-height: 17.5rem;">
-								<div style="display: flex; align-items: center;" class="members-input">
-									<input type="button" value="-" class="deleteButton" style="margin-bottom: 0;">
-									<input class="members-item" type="text" value="0" onchange="selectOption(this)" style="margin: 0">
-								</div>
-							   <div style="display: flex; align-items: center;" class="members-input">
-									<input type="button" value="-" class="deleteButton" style="margin-bottom: 0;">
-									<input class="members-item" type="text" value="0" onchange="selectOption(this)" style="margin: 0">
-								</div>
-								<div style="display: flex; align-items: center;" class="members-input">
-									<input type="button" value="-" class="deleteButton" style="margin-bottom: 0;">
-									<input class="members-item" type="text" value="0" onchange="selectOption(this)" style="margin: 0">
+								<div class="dropdown-members">
+									<div style="display: flex; align-items: center;" class="members-input">
+										<input type="button" value="-" class="deleteButton" style="margin-bottom: 0;" onclick="deleteOption(this)">
+										<input class="dropdown-item" type="text" value="0" style="margin: 0">
+									</div>
+									<div style="display: flex; align-items: center;" class="members-input">
+										<input type="button" value="-" class="deleteButton" style="margin-bottom: 0;" onclick="deleteOption(this)">
+										<input class="dropdown-item" type="text" value="0" style="margin: 0">
+									</div>
+									<div style="display: flex; align-items: center;" class="members-input">
+										<input type="button" value="-" class="deleteButton" style="margin-bottom: 0;" onclick="deleteOption(this)">
+										<input class="dropdown-item" type="text" value="0" style="margin: 0">
+									</div>
 								</div>
 							   <div class="add-option">
-									<input class="createButton" style="padding: 0; min-height: 0; height: 2em; margin: 0" type="button" value="+" onclick="addRow()" />
+									<input class="createButton" style="padding: 0; min-height: 0; height: 2em; margin: 0" type="button" value="+" onclick="addNewOption(this)" />
 							   </div>
 							</div>
 					</div>
 					<div style="flex: 0 0 100%;">
+						<label for="link">URL:</label>
 						<input type="text" name="link" id="link" value="0" onchange="selectOption(this)" style="margin: 0">
 					</div>
 			   </div>
