@@ -43,6 +43,7 @@ exports.scmz = (req, res) => {
     let data = databaze.maturity.ziskarMaturituDleNazvu('SČMZ')
 
     let dnyacasy = {}
+    console.log(data)
     for (let i = 0; i < data.dny.length; i++) {
         casy = data.casy[i]
         dnyacasy[data.dny[i]] = []
@@ -50,6 +51,8 @@ exports.scmz = (req, res) => {
             dnyacasy[data.dny[i]].push(data.casy[i][x], data.ucebny[i])
         }
     }
+    console.log(dnyacasy)
+    console.log(Object.entries(dnyacasy))
 
     res.render("maturity/scmz.ejs", {"data" : dnyacasy});
 };
