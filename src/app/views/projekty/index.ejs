@@ -157,7 +157,21 @@ tr:hover {
 					<th>
 						<% if (s == 0) { %>
 							<% if (r == 0) { %>
-                                <button class="tlacitko">Upload</button>
+                                <button class="tlacitko" 
+                                        hx-hidden-input="file" 
+                                          hx-on:click="document.getElementById('fileInput').click()">
+                                    Upload
+                                </button>
+
+                              <!-- invisible file input -->
+                              <input type="file" 
+                                     id="fileInput" 
+                                     style="display:none" 
+                                     name="file"
+                                     hx-post="/projekty/upload/<%- id %>"
+                                     hx-target="body"
+                                     hx-encoding="multipart/form-data"
+                                     onchange="this.closest('form')?.requestSubmit()">
 							<% } else { %>
 								<%= radkyHeader[r - 1] %>
 							<% } %>
