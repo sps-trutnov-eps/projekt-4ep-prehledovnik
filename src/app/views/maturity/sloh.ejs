@@ -155,7 +155,9 @@
         onclick="addRow()"
         type="button"
         id="pridat-datum"
-        style="padding: 0.5em; width: 150px; border: none; cursor: pointer">
+        style="padding: 0.5em; width: 150px; border: none; cursor: pointer"
+        disabled
+      >
         Přidat datum
       </button>
     </div>
@@ -236,11 +238,11 @@
     if (isEditing) {
       editButton.style.display = "none";
       saveButton.style.display = "inline-block";
-      addButton.disabled = true; 
+      addButton.disabled = false; 
     } else {
       editButton.style.display = "inline-block";
       saveButton.style.display = "none";
-      addButton.disabled = false;  
+      addButton.disabled = true;  
     }
   }
 
