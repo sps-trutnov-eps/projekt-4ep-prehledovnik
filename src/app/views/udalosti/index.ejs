@@ -314,16 +314,16 @@
      if (udalost.vyberZadani === 'maturita') {
           switch (udalost.nazev) {
             case 'PČMZ':
-              window.location.href = 'http://localhost:8000/maturity/pcmz';
+              window.location.href = `/maturity/pcmz`;
               break;
             case 'SČMZ':
-              window.location.href = 'http://localhost:8000/maturity/scmz';
+              window.location.href = `/maturity/scmz`;
               break;
             case 'SLOH':
-              window.location.href = 'http://localhost:8000/maturity/sloh';
+              window.location.href = `/maturity/sloh`;
               break;
             case 'PŽOP':
-              window.location.href = 'http://localhost:8000/maturity/';
+              window.location.href = `/maturity/`;
               break;
             default:
               alert('Neznámá maturita: ' + udalost.nazev);
