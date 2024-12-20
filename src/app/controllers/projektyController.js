@@ -33,62 +33,105 @@ exports.zobrazDetailyProjektu = (req, res) => {
 };
  
 exports.upload = async (req, res) => {
-    try {
-        const fileText = req.file.buffer.toString('utf8');
+   try {
+      const fileText = req.file.buffer.toString('utf8');
 
-        let points = {};
-        // GET THE POINTS //
- 
-        // go through milestones
-        fileText.replace(/\n([A-Z][a-z]+)/g, "\n$1 $1")
-                .split(/\n[A-Z][a-z]+ /)
-                .slice(1)
-                .forEach(block => {
+      let points = {};
+      // GET THE POINTS //
+
+      // go through milestones
+      fileText.replace(/\n([A-Z][a-z]+)/g, "\n$1 $1")
+         .split(/\n[A-Z][a-z]+ /)
+         .slice(1)
+         .forEach(block => {
 
             let lines = block.split(/\n/)
-                             .map(l => l.trim())
-                             .filter((elm) => elm.length > 3);
-            
+               .map(l => l.trim())
+               .filter((elm) => elm.length > 3);
+
             let key = lines[0];
             points[key] = {"t1": {}, "t2": {}};
-            let tyden = 0;
 
+            let tyden = 0;
             lines.slice(1).forEach(line => {
 
-                // záznam žáka
-                console.log(line)
-                console.log(/^\d+ /.test(line))
-                if (! /->/.test(line)) {
-                    console.log("ds")
-                    let parts = line.split(" ");
-                    console.log("ds")
-                    console.log(parts)
-                    mail = parts[parts.length-1].replace(/[<>]/g, "");
+               // záznam žáka
+               if (! /->/.test(line)) {
+                  let parts = line.split(" ");
+                  mail = parts[parts.length-1].replace(/[<>]/g, "");
 
-                    points[key][`t${tyden}`][mail] = parseInt(parts[0]);
+                  points[key][`t${tyden}`][mail] = parseInt(parts[0]);
 
-                // záznam týdne
-                } else {
-                    tyden++;
-                }
-            })
-        });
+                  // záznam týdne
+               } else {
+                  tyden++;
+               }
+            });
+         });
 
-        console.log(points);
- 
-        let tlacitka = vytvorTlacitka("projekty/");
-        let tymy = ziskejTymy(req.params.id);
- 
-        res.render("projekty/index", {
-           tlacitka: tlacitka,
-           tymy: tymy,
-           id: req.params.id,
-        });
-    } catch (error) {
-        res.status(500).send(`
-           <div class="error">Upload failed: ${error.message}</div>
-           `);
-    }
+      // TRANSFORM POINTS TO GRADES //
+
+      let grades = {};
+
+      for (const key in points) {
+         grades[key] = {};
+
+         // get all emails
+         emails = Object.keys(points[key]["t1"]);
+
+         for (const email in points[key]["t2"]) {
+            if (! emails.includes(email))
+               emails.push(email);
+         }
+
+         // get marks for mails
+         emails.forEach(email => {
+            // dle Šenkýře:
+            //    Známku za průběžnou práci dostáváte (každý samostatně) podle
+            //       následujícího klíče:
+            //  
+            //    1, pokud jste v každém týdnu udělali více než jeden commit
+            //    2, pokud jste v jednom týdnu udělali více než jeden a v dalším
+            //       týdnu pouze jeden commit (nebo opačně)
+            //    3, pokud jste v jednom týdnu udělali více než jeden a v dalším
+            //       týdnu žádný commit (nebo opačně) nebo pokud jste v každém
+            //       týdnu udělali pouze jeden commit
+            //    4, pokud jste v jednom týdnu udělali pouze jeden a v dalším
+            //       týdnu žádný commit (nebo opačně)
+            //    5, pokud jste v každém týdnu udělali nula commitů
+            //
+            // => z každého týdne max 4 body, každý chybějící bod stupeň dolů
+
+            // || can be used for default value while assigning
+            let count = [
+               points[key]["t1"][email] || 0,
+               points[key]["t2"][email] || 0
+            ].map(n => n > 2 ? 2 : n)
+             // no .sum()?
+             .reduce((acc, cur) => acc + cur);
+
+            grades[key][email] = 5 - count;
+
+         });
+      };
+
+      console.log(grades);
+
+      // RESPONSE //
+
+      let tlacitka = vytvorTlacitka("projekty/");
+      let tymy = ziskejTymy(req.params.id);
+
+      res.render("projekty/index", {
+         tlacitka: tlacitka,
+         tymy: tymy,
+         id: req.params.id,
+      });
+   } catch (error) {
+      res.status(500).send(`
+         <div class="error">Upload failed: ${error.message}</div>
+         `);
+   }
 };
  
 function vytvorTlacitka(url) {
