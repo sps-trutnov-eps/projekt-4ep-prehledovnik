@@ -140,6 +140,7 @@ function vytvorTlacitka(url) {
 
     for (const projektID in tridy) {
         if (projektID != "nextID") {
+            console.log(tridy);
             const trida = tridy[projektID].trida;
             if (trida) {
                 tlacitka += `
@@ -194,17 +195,55 @@ exports.zobrazDetailyTymu = (req, res) => {
     }
 
     const team = project.tymy[teamId];
-
+    
     res.render("projekty/detailTymu", { team });
 };
 
-exports.zmenDetailyTymu = (req, res) => {
-    // let vedouci = req.body.leader;
-    // let name = req.body.name;
-    // let clenove = req.body.members;
+exports.getDetailyTymu = (req, res) => {
+    const projectClass = req.body.tridaId;
+    const teamId = req.body.teamId;
 
-    databaze.projekty.upravitTym()
-    res.redirect('/projekty/tymy');
+    //console.log(projectClass);
+    //console.log(teamId);
+
+    // Načtení projektu a týmu
+    const idProjektu = databaze.projekty.ziskatIDProjektu(projectClass);
+    const project = databaze.projekty.ziskatProjekt(idProjektu);
+    for (let i = 0; i < project["tymy"].length; i++){
+        const team = project["tymy"][i];
+        
+        if (team["id"] != teamId){
+           continue;
+        }
+        
+        res.json({ "team": team });
+    }
+};
+
+exports.zmenDetailyTymu = (req, res) => {
+    let vedouci = req.body.leader;
+    let id = req.body.teamId;
+    let clenove = req.body.members.split(',');
+    let clenoveCount = 0;
+    if (clenove == undefined) { clenove = req.body.members; clenoveCount = 1; }
+    else { clenoveCount = clenove.length; }
+    
+    //console.log("boop");
+    //console.log(req.body);
+    
+    //console.log(vedouci);
+    //console.log(id);
+    //console.log(.clenove);
+    //console.log(clenove.length);
+    
+    // Chci získat minulý team abych získal jeho jméno a mohl to předat novému
+    let idTridy = databaze.projekty.ziskatIDProjektu(id.split('_')[0]);
+    let oldTeam = databaze.projekty.ziskatTeam(idTridy, id);
+    
+    let newTeam = {"id": id, "name": oldTeam["name"], "leader": vedouci, "members": [clenove, clenoveCount]};
+    
+    databaze.projekty.upravitTym(idTridy, newTeam)
+    res.redirect(`/projekty/tymy/${id.split('_')[0]}`);
 };
 
 // Tato metoda se volá, když se odesílá formulář pro nový projekt
