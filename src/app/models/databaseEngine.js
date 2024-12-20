@@ -292,12 +292,12 @@ const maturity = {
                     let ucebna;
                     
                     if(nazev == "PČMZ") {
-                        cOD = maturity[typy[i]]["casy"][j][0];
+                        cOD = hodiny[maturity[typy[i]]["casy"][j][0]];
                         cDO = maturity[typy[i]]["casy"][j][maturity[typy[i]]["casy"][j].length - 1];
                         ucebna = null;
                     }
                     if(nazev == "SČMZ") {
-                        if (maturity[typy[i]]["casy"][j].length != 0) cOD = maturity[typy[i]]["casy"][j][0];
+                        if (maturity[typy[i]]["casy"][j].length != 0) cOD = maturity[typy[i]]["casy"][j];
                         cDO = null;
                         ucebna = maturity[typy[i]]["ucebny"][j];
                     }
@@ -308,6 +308,7 @@ const maturity = {
                     } else {
                         if(nazev == "PŽOP" && j == 1){
                             nazev += " - dodatečný termín";
+                            ucebna = maturity[typy[i]]["ucebny"][j];
                         }
         
                         maturityList.push({
