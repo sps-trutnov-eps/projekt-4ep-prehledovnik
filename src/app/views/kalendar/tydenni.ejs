@@ -233,6 +233,33 @@
                   <p class="count"></p>
                   <p class="theme"></p>
                 <%}%>
+                <!-- <p><%=`${currentDate.getFullYear()}-${currentDate.getMonth()+ 1}-${currentDate.getDate()}`%></p> -->
+                <% udalosti.forEach(function(event) { %>
+                  <%if(event.datum == `${currentDate.getFullYear()}-${currentDate.getMonth()+1}-${currentDate.getDate()}`){ %>
+                    <%if(event.typ == "celoskolni") { %>
+                      <p><%= event.nazev %></p>
+                    <%}%>
+
+                    <%if(event.typ == "ucitelsky") { %>
+                      <%if(rozvrh.hodiny.lichy[days[i]][j].predmet !== "volno" || rozvrh.hodiny.sudy[days[i]][j].predmet !== "volno") { %>
+                        <p><%= event.nazev %></p>
+                        <p><%= event.tykaSe %></p>
+                      <%}%>
+                    <%}%>
+
+                    <%if(event.typ == "celotridni") { %>
+                      
+                      <% //console.log(rozvrh.hodiny.lichy[days[i]][j].trida)%>
+
+                      <%if(event.tykaSe == rozvrh.hodiny.lichy[days[i]][j].trida) { %>
+                        <p><%= event.nazev %></p>
+                      <%}%>
+                    <%}%>
+                    
+                  <%}%>               
+                <% }); %>
+                
+
                 <button onclick="detailDisplay(this)">X</button>
                 </div>
             <%}%>
