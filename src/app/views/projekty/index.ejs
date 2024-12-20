@@ -6,16 +6,29 @@
    <header>
       <h1 style="display:inline; vertical-align:middle;">Projekty</h1>
 	</header>
-   <main>
+   <main style="justify-content: center;">
 		<h3>1. Pololetí</h3>
-         <input style="margin-left: 0;" type="button" value="2ep"onclick="window.location.href = '/osnovy/';">
-         <input style="margin-left: 0;" type="button" value="3ep"onclick="window.location.href = '/osnovy/';">
-         <input style="margin-left: 0;" type="button" value="4ep"onclick="window.location.href = '/osnovy/';">
-		<h3>2. Pololetí</h3>
-         <input style="margin-left: 0;" type="button" value="1ep"onclick="window.location.href = '/osnovy/';">
-         <input style="margin-left: 0;" type="button" value="2ep"onclick="window.location.href = '/osnovy/';">
-         <input style="margin-left: 0;" type="button" value="3ep"onclick="window.location.href = '/osnovy/';">
-		</div>
+        <div id="2ep-1">
+            <input style="margin-left: 0;" type="button" value="2ep" onclick="window.location.href = '/projekty/2ep-1';">
+            <input type="button" value="Tým1" style="margin-left: 10%; width: 80%;" onclick="window.location.href = '/projekty/2ep-1-1';">
+            <input type="button" value="Tým2" style="margin-left: 10%; width: 80%;" onclick="window.location.href = '/projekty/2ep-1-2';">
+        </div>
+         <div id="3ep-1">
+            <input style="margin-left: 0;" type="button" value="3ep" onclick="window.location.href = '/projekty/3ep-1';">
+         </div>                                                      
+         <div id="4ep-1">                                            
+            <input style="margin-left: 0;" type="button" value="4ep" onclick="window.location.href = '/projekty/4ep-1';">
+         </div>                                                      
+		<h3>2. Pololetí</h3>                                           
+        <div id="1ep-2">                                             
+            <input style="margin-left: 0;" type="button" value="1ep" onclick="window.location.href = '/projekty/1ep-2';">
+        </div>                                                       
+         <div id="2ep-2">                                            
+            <input style="margin-left: 0;" type="button" value="2ep" onclick="window.location.href = '/projekty/2ep-2';">
+         </div>                                                      
+         <div id="3ep-2">                                            
+            <input style="margin-left: 0;" type="button" value="3ep" onclick="window.location.href = '/projekty/3ep-2';">
+         </div>
 	</main>
 </article>
 
@@ -35,4 +48,5 @@
 
 <script src="/osnovy/js/main.js"></script>
 <script src="/projekty/js/main.js"></script>
+<script src="/projekty/js/team.js"></script>
 <%- include('../partials/tail') %>
