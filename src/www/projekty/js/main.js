@@ -87,6 +87,42 @@ function addNewTeam(button) {
 
 
     tableBody.insertBefore(newRow, tableBody.rows[tableBody.rows.length - 1]); // Append the new row to the table body
+    
+    addNewTeamToTheLeft(tableBody.rows.length-1);
+}
+ /* <input style="margin-left: 10%; width: 80%;" type="button" value="Tým1"onclick="window.location.href = '/projekty/2ep-1';"> */
+function addNewTeamToTheLeft(teamID) {
+    let path = window.location.pathname.split('/');
+    let id = path[path.length-1];
+    
+    const button = document.createElement('input');
+
+    button.type = 'button';
+    button.value = `Tým${teamID}`;
+    button.style.marginLeft = '10%';
+    button.style.width = '80%';
+
+    button.onclick = function() {
+        window.location.href = `/projekty/${id}-${teamID}`;
+    };
+    
+    const container = document.getElementById(`${id}`);
+    container.appendChild(button);
+}
+
+function deleteTeamOnTheLeft(teamID) {
+   let path = window.location.pathname.split('/');
+    let id = path[path.length-1];
+    
+    const container = document.getElementById(`${id}`);
+    container.children[teamID].remove();
+    
+    for (let i = 1; i < container.children.length; i++){
+      container.children[i].value = `Tým${i}`;
+      container.children[i].onclick = function() {
+            window.location.href = `/projekty/${id}-${teamID}`;
+        };
+    }
 }
 
 function toggleDropdown(button) {
@@ -148,6 +184,9 @@ function deleteOption(button) {
 
 function deleteTeam(button) {
     const tableBody = button.parentElement.parentElement.parentElement;  // Get the table body
+    const teamID = button.parentElement.children[1].textContent;
+    
+    deleteTeamOnTheLeft(teamID);
     
     button.parentElement.parentElement.remove();
     
