@@ -1,150 +1,25 @@
-/* TIMELINE */
-
-.mainThing {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+.deleteCurButton {
+  visibility: hidden;
+  opacity: 0;
+  background-color: transparent;
+  border-color: red;
+  color: red;
+  flex-basis: 0;
+  flex-grow: 0;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  padding: 0 !important;
+  transition: flex-basis 0.25s ease, opacity 0.25s ease, visibility 0.25s ease,
+    background-color 0.25s ease;
 }
 
-.timeline-container {
-	width: 80%;
-	position: relative;
-	margin: 20px auto;
-}
-
-.timeline {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	height: 20px;
-	background-color: var(--pico-primary);
-	border-radius: 15px;
-	padding: 0 10px;
-	position: relative;
-	overflow: hidden;
-}
-
-.timeline::before {
-	content: '';
-	position: absolute;
-	top: 50%;
-	left: 10px;
-	right: 10px;
-	height: 8px;
-	background-color: var(--pico-background-color);
-	transform: translateY(-50%);
-}
-
-.progress {
-	position: absolute;
-	left: 15px; /* Offset to align with the first circle */
-	height: 4px;
-	width: calc(((100% - 30px) / 6)*3.5); /* Adjust this percentage for progress */
-	background-color: green;
-	border-radius: 15px;
-	z-index: 0;
-}
-
-.circle {
-	width: 16px;
-	height: 16px;
-	background-color: green;
-	border: 2px solid var(--pico-background-color);
-	border-radius: 50%;
-	position: relative;
-	z-index: 1;
-}
-
-.circle.filled {
-	background-color: var(--pico-background-color);
-}
-
-.labels {
-	margin-top: 5px;
-	margin-left: 15px; /* Offset to align with the first circle */
-	max-width: calc(100% - 30px); /* To end at the last circle */
-	display: flex;
-	justify-content: space-between;
-	font-size: 14px;
-	color: var(--pico-color);
-}
-
-
-
-
-
-
-/* MEMBERS DROPDOWN */
-.members-input {
-	margin: var(--pico-block-spacing-vertical) var(--pico-block-spacing-horizontal);
-}
-
-.dropdown-content {
-   display: none;
-   position: fixed;
-   min-width: 18rem;
-	max-height: 21.5rem;
-	margin-bottom: var(--pico-block-spacing-vertical);
-	border-radius: var(--pico-border-radius);
-	background: var(--pico-card-background-color);
-	box-shadow: var(--pico-card-box-shadow);
-	box-sizing: border-box;
-   z-index: 1000;
-   overflow-y: auto;
-}
-
-.dropdown-content.show {
-   display: block;
-}
-
-.add-option {
-	position: sticky;
-	bottom: 0;
-	z-index: 1;
-	background: var(--pico-background-color);
-	padding: inherit;
-	padding: var(--pico-block-spacing-vertical) var(--pico-block-spacing-horizontal);
-}
-
-.deleteButton {
-	visibility: hidden;
-   opacity: 0;
-   background-color: transparent;
-   border-color: red;
-   color: red;
-   flex-basis: 0;
-   flex-grow: 0;
-   min-width: 0;
-   overflow: hidden;
-   padding: 0 !important;
-   transition: flex-basis 0.25s ease, opacity 0.25s ease, visibility 0.25s ease, background-color 0.25s ease;
-}
-
-.members-input:hover .deleteButton {
+.cur:hover .deleteCurButton {
   visibility: visible;
   opacity: 1;
   flex-basis: 38px; /* Width on hover 68 */
 }
 
-.members-input:hover .deleteButton {
-  visibility: visible;
-  opacity: 1;
-  flex-basis: 38px; /* Width on hover 68 */
-}
-
-.deleteButton:hover {
+.deleteCurButton:hover {
   background-color: rgba(255, 0, 0, 0.375);
-}
-
-
-
-
-
-
-
-.members {
-	margin-bottom: var(--pico-block-spacing-vertical);
-	background: var(--pico-background-color);
-   overflow-y: auto;
-	max-height: 25.5rem;
 }

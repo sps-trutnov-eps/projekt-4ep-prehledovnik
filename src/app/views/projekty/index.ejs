@@ -9,25 +9,25 @@
    <main style="justify-content: center;">
 		<h3>1. Pololetí</h3>
         <div id="2ep-1">
-            <input style="margin-left: 0;" type="button" value="2ep" onclick="window.location.href = '/projekty/2ep-1';">
+            <input style="margin-left: 0;" type="button" value="2.EP" onclick="window.location.href = '/projekty/2ep-1';">
             <input type="button" value="Tým1" style="margin-left: 10%; width: 80%;" onclick="window.location.href = '/projekty/2ep-1-1';">
             <input type="button" value="Tým2" style="margin-left: 10%; width: 80%;" onclick="window.location.href = '/projekty/2ep-1-2';">
         </div>
          <div id="3ep-1">
-            <input style="margin-left: 0;" type="button" value="3ep" onclick="window.location.href = '/projekty/3ep-1';">
+            <input style="margin-left: 0;" type="button" value="3.EP" onclick="window.location.href = '/projekty/3ep-1';">
          </div>                                                      
          <div id="4ep-1">                                            
-            <input style="margin-left: 0;" type="button" value="4ep" onclick="window.location.href = '/projekty/4ep-1';">
+            <input style="margin-left: 0;" type="button" value="4.EP" onclick="window.location.href = '/projekty/4ep-1';">
          </div>                                                      
 		<h3>2. Pololetí</h3>                                           
         <div id="1ep-2">                                             
-            <input style="margin-left: 0;" type="button" value="1ep" onclick="window.location.href = '/projekty/1ep-2';">
+            <input style="margin-left: 0;" type="button" value="1.EP" onclick="window.location.href = '/projekty/1ep-2';">
         </div>                                                       
          <div id="2ep-2">                                            
-            <input style="margin-left: 0;" type="button" value="2ep" onclick="window.location.href = '/projekty/2ep-2';">
+            <input style="margin-left: 0;" type="button" value="2.EP" onclick="window.location.href = '/projekty/2ep-2';">
          </div>                                                      
          <div id="3ep-2">                                            
-            <input style="margin-left: 0;" type="button" value="3ep" onclick="window.location.href = '/projekty/3ep-2';">
+            <input style="margin-left: 0;" type="button" value="3.EP" onclick="window.location.href = '/projekty/3ep-2';">
          </div>
 	</main>
 </article>
@@ -36,12 +36,14 @@
 
 <!-- Upload tlačítko je v class.ejs -->
 <article class="class" style="flex: 3;">
-		<div class="classOverview" id="class" >
-			<%- include('./new/class.ejs'); %>
-		</div>
-		<div class="classDetails" id="classDetails" style="display: none">
-			<%- include('./new/classDetails.ejs'); %>
-		</div>
+		<% if (files != "none") { %>
+			<div class="classOverview" id="class" >
+				<%- include(`./new/${files}.ejs`); %>
+			</div>
+			<div class="classDetails" id="classDetails" style="display: none">
+				<%- include(`./new/${files}Details.ejs`); %>
+			</div>
+		<% } %>
 </article>
 
 
