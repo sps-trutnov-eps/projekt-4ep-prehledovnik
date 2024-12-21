@@ -1,37 +1,5 @@
 const databaze = require("../models/databaseEngine");
 
-exports.zobrazTymy = (req, res) => {
-    let tlacitka = vytvorTlacitka("projekty/tymy/");
-	let tymy = [];
-
-    res.render("projekty/tymy", { tlacitka: tlacitka, tymy: tymy });
-};
-
-exports.zobrazProjekt = (req, res) => { 
-    let tlacitka = vytvorTlacitka("projekty/tymy/");
-    let tymy = ziskejTymy(req.params.projekt);
-
-    res.render("projekty/tymy", { tlacitka: tlacitka, tymy: tymy }); 
-}; 
- 
-exports.zobrazTlacitka = (req, res) => {
-	let tlacitka = vytvorTlacitka("projekty/");
-	let tymy = [];
-	
-	res.render("projekty/index", { tlacitka: tlacitka, tymy: tymy, id: -1 });
-};
- 
-exports.zobrazDetailyProjektu = (req, res) => {
-	let tlacitka = vytvorTlacitka("projekty/");
-	let tymy = ziskejTymy(req.params.id);
-
-	res.render("projekty/index", {
-      tlacitka: tlacitka,
-      tymy: tymy,
-      id: req.params.id,
-   });
-};
- 
 exports.upload = async (req, res) => {
    try {
       const fileText = req.file.buffer.toString('utf8');
@@ -133,118 +101,24 @@ exports.upload = async (req, res) => {
          `);
    }
 };
- 
-function vytvorTlacitka(url) {
-	let tlacitka = "";
-    const tridy = databaze.projekty.gP();
 
-    for (const projektID in tridy) {
-        if (projektID != "nextID") {
-            console.log(tridy);
-            const trida = tridy[projektID].trida;
-            if (trida) {
-                tlacitka += `
-				<div style="display: flex; width: 100%" class="cur">
-					<input class="deleteCurButton" type="button" value="-"
-                      onclick="console.log('yeet');"/>
-					<button style="margin-left: 0;" hx-get="/${url}${trida}"
-                       hx-target="body" hx-push-url="true"
-                       hx-swap="transition:true">${trida}</button>
-				</div>
-				`;
-            }
-        }
+
+exports.view = (req, res) => {
+    let files = "class";
+    let urlID = req.params.id;
+    if (urlID == undefined){
+        files = "none";
+    } else if (urlID.split('-').length == 3){
+        files = "team";
     }
-	return tlacitka;
-} 
-
-function ziskejTymy(trida){
-	const tridy = databaze.projekty.gP(); 
-
-    let tymy = [];
-    for (const projektID in tridy) {
-        if (projektID !== "nextID" && tridy[projektID].trida === trida) {
-            tymy = tridy[projektID].tymy;
-            break;
-        }
-    }
-	return tymy;
+   
+    res.render('projekty/index.ejs', { files: files });
 }
 
-exports.zobrazPitche = (req, res) => {
-    res.render("projekty/pitch");
-};
 
-exports.zobrazPrezentace = (req, res) => {
-    res.render("projekty/prezentace");
-};
 
-exports.vytvoritProjekt = (req, res) => {
-    res.render("projekty/vytvoreniProjektu");
-};
 
-exports.zobrazDetailyTymu = (req, res) => {
-    const projectClass = req.params.projekt;
-    const teamId = req.params.id;
 
-    // Načtení projektu a týmu
-    const project = databaze.projekty.ziskatProjekt(projectClass);
-
-    if (!project || !project.tymy[teamId]) {
-        return res.status(404).send("Tým nenalezen.");
-    }
-
-    const team = project.tymy[teamId];
-    
-    res.render("projekty/detailTymu", { team });
-};
-
-exports.getDetailyTymu = (req, res) => {
-    const projectClass = req.body.tridaId;
-    const teamId = req.body.teamId;
-
-    //console.log(projectClass);
-    //console.log(teamId);
-
-    // Načtení projektu a týmu
-    const idProjektu = databaze.projekty.ziskatIDProjektu(projectClass);
-    const project = databaze.projekty.ziskatProjekt(idProjektu);
-    for (let i = 0; i < project["tymy"].length; i++){
-        const team = project["tymy"][i];
-        
-        if (team["id"] != teamId){
-           continue;
-        }
-        
-        res.json({ "team": team });
-    }
-};
-
-exports.zmenDetailyTymu = (req, res) => {
-    let vedouci = req.body.leader;
-    let id = req.body.teamId;
-    let clenove = req.body.members.split(',');
-    let clenoveCount = 0;
-    if (clenove == undefined) { clenove = req.body.members; clenoveCount = 1; }
-    else { clenoveCount = clenove.length; }
-    
-    //console.log("boop");
-    //console.log(req.body);
-    
-    //console.log(vedouci);
-    //console.log(id);
-    //console.log(.clenove);
-    //console.log(clenove.length);
-    
-    // Chci získat minulý team abych získal jeho jméno a mohl to předat novému
-    let idTridy = databaze.projekty.ziskatIDProjektu(id.split('_')[0]);
-    let oldTeam = databaze.projekty.ziskatTeam(idTridy, id);
-    
-    let newTeam = {"id": id, "name": oldTeam["name"], "leader": vedouci, "members": [clenove, clenoveCount]};
-    
-    databaze.projekty.upravitTym(idTridy, newTeam)
-    res.redirect(`/projekty/tymy/${id.split('_')[0]}`);
-};
 
 // Tato metoda se volá, když se odesílá formulář pro nový projekt
 exports.ulozitProjekt = (req, res) => {

@@ -1,210 +1,285 @@
-function addNewTeam(button) {
-    const tableBody = button.parentElement.parentElement.parentElement;  // Get the table body
-    const newRow = document.createElement('tr');
-    newRow.className = 'cur';
+async function CreateCurriculum() {
+	event.preventDefault(); // Prevent default form submission
+	
+	try {
+        const response = await fetch('/osnovy/create', {
+            method: 'POST'
+        });
 
-    // Create first <td> for team ID and delete button
-    const td1 = document.createElement('td');
-    td1.className = 'curriculum-input';
-    td1.style.display = 'flex';
-    td1.style.alignItems = 'center';
+        // Check if response is OK
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
 
-    const deleteButton = document.createElement('input');
-    deleteButton.type = 'button';
-    deleteButton.value = '-';
-    deleteButton.className = 'deleteCurButton';
-    deleteButton.style.marginBottom = '0px';
-    deleteButton.onclick = function() { deleteTeam(this); };
+        // Parse JSON response
+        const jsonResponse = await response.json();
+        //console.log(jsonResponse); // Handle your JSON data here
 
-    const teamIdDiv = document.createElement('div');
-    teamIdDiv.className = 'teamId';
-    teamIdDiv.style.margin = '0 auto';
-    teamIdDiv.textContent = tableBody.rows.length;
-
-    td1.appendChild(deleteButton);
-    td1.appendChild(teamIdDiv);
-
-    // Create second <td> for dropdown
-    const td2 = document.createElement('td');
-    td2.className = 'curriculum-input';
-    td2.style.textAlign = 'center';
-
-    const dropdownButton = document.createElement('button');
-    dropdownButton.className = 'dropdown-btn';
-    dropdownButton.onclick = function() { toggleDropdown(this); };
-    dropdownButton.textContent = '0';
-
-    const dropdownContentDiv = document.createElement('div');
-    dropdownContentDiv.className = 'dropdown-content';
-
-    const dropdownMembersDiv = document.createElement('div');
-    dropdownMembersDiv.className = 'dropdown-members';
-    
-    // Add option button
-    const addOptionDiv = document.createElement('div');
-    addOptionDiv.className = 'add-option';
-
-    const addOptionButton = document.createElement('input');
-    addOptionButton.type = 'button';
-    addOptionButton.value = '+';
-    addOptionButton.className = 'createButton';
-    addOptionButton.style.padding = '0';
-    addOptionButton.style.minHeight = '0';
-    addOptionButton.style.height = '2em';
-    addOptionButton.style.margin = '0';
-    
-    addOptionButton.onclick= function() { addNewOption(this); };
-    
-    addOptionDiv.appendChild(addOptionButton);
-    dropdownContentDiv.appendChild(dropdownMembersDiv);
-    dropdownContentDiv.appendChild(addOptionDiv);
-    
-    td2.appendChild(dropdownButton);
-    td2.appendChild(dropdownContentDiv);
-    
-    // Create third <td> for input field
-    const td3 = document.createElement('td');
-    td3.className = 'curriculum-input';
-    td3.style.display = 'flex';
-    
-    const inputField = document.createElement('input');
-    inputField.type='text'; 
-    inputField.className='curriculum-i'; 
-    inputField.style.margin='0px';
-    
-    td3.appendChild(inputField);
-    
-    // Create fourth <td> for progress
-    const td4= document.createElement('td'); 
-    td4.style.textAlign='center'; 
-    td4.textContent='0'; 
-    
-    // Append all <td> elements to the new row
-    newRow.appendChild(td1);
-    newRow.appendChild(td2);
-    newRow.appendChild(td3);
-    newRow.appendChild(td4);
-
-
-    tableBody.insertBefore(newRow, tableBody.rows[tableBody.rows.length - 1]); // Append the new row to the table body
-    
-    addNewTeamToTheLeft(tableBody.rows.length-1);
-}
- /* <input style="margin-left: 10%; width: 80%;" type="button" value="Tým1"onclick="window.location.href = '/projekty/2ep-1';"> */
-function addNewTeamToTheLeft(teamID) {
-    let path = window.location.pathname.split('/');
-    let id = path[path.length-1];
-    
-    const button = document.createElement('input');
-
-    button.type = 'button';
-    button.value = `Tým${teamID}`;
-    button.style.marginLeft = '10%';
-    button.style.width = '80%';
-
-    button.onclick = function() {
-        window.location.href = `/projekty/${id}-${teamID}`;
-    };
-    
-    const container = document.getElementById(`${id}`);
-    container.appendChild(button);
-}
-
-function deleteTeamOnTheLeft(teamID) {
-   let path = window.location.pathname.split('/');
-    let id = path[path.length-1];
-    
-    const container = document.getElementById(`${id}`);
-    container.children[teamID].remove();
-    
-    for (let i = 1; i < container.children.length; i++){
-      container.children[i].value = `Tým${i}`;
-      container.children[i].onclick = function() {
-            window.location.href = `/projekty/${id}-${teamID}`;
-        };
+        // Redirect after handling
+        window.location.href = `/osnovy/${jsonResponse.id}`;
+    } catch (error) {
+        console.error('Error:', error);
     }
 }
 
-function toggleDropdown(button) {
-  // Close all other dropdowns first
-  const allDropdowns = document.querySelectorAll('.dropdown-content');
-  allDropdowns.forEach(dropdown => {
-    if (dropdown !== button.nextElementSibling) {
-      dropdown.classList.remove('show');
-    }
-  });
+async function RemoveCurriculum(id) {
+	event.preventDefault(); // Prevent default form submission
+	
+	try {
+        const response = await fetch(`/osnovy/remove/${id}`, {
+            method: 'POST'
+        });
 
-  const dropdown = button.nextElementSibling;
-  dropdown.classList.toggle('show');
+        // Check if response is OK
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        // Parse JSON response
+        const jsonResponse = await response.json();
+        //console.log(jsonResponse); // Handle your JSON data here
+
+        // Redirect after handling
+        window.location.href = `/osnovy`;
+    } catch (error) {
+        console.error('Error:', error);
+    }
 }
 
-function addNewOption(button) {
-   const parent = button.parentElement.parentElement;
-   const dropdown = parent.querySelector('.dropdown-members'); // Gets the first child with class 'child1'
+async function SaveCurriculum(event, id) {
+	event.preventDefault(); // Prevent default form submission
+	
+	const table = document.getElementById("curriculums");
+	const rows = table.rows;
+	const jsonData = {};
+	
+	//console.log(rows);
+	
+	// Extract data from each row
+	for (let i = 1; i < rows.length-1; i++) {
+		const curriculumInput = rows[i].querySelector('.curriculum-input');
+		const curriculum = curriculumInput.querySelector('.curriculum-i')["value"];
+		const hoursInput = rows[i].querySelector('.hour-input');
+		const hours = parseInt(hoursInput.value) || 0;
+		let cur = {"tema": curriculum, "pocetHodin": hours};
+		jsonData[`${i}`] = cur;
+	}
+	jsonData["nextID"] = rows.length-1;
+	
+	const formData = new FormData(event.target);
+	let data = new URLSearchParams(formData);
+	
+	data.append("temata", JSON.stringify(jsonData));
+	console.log("data");
+	console.log(data);
+	
+	try {
+		
+		const response = await fetch(`/osnovy/save/${id}`, {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			body: data,
+		});
+		
+		// Check if response is OK
+		if (!response.ok) {
+			throw new Error(`HTTP error! Status: ${response.status}`);
+		}
+		
+        // Parse JSON response
+        const jsonResponse = await response.json();
+        //console.log(jsonResponse); // Handle your JSON data here
 
-   
-   const newOption = document.createElement('div');
-   newOption.style.display = 'flex';
-   newOption.style.alignItems = 'center';
-   newOption.className = 'members-input';
-    
-   const deleteButton = document.createElement('input');
-   deleteButton.type = 'button';
-   deleteButton.value = '-';
-   deleteButton.className = 'deleteButton';
-   deleteButton.style.marginBottom = '0';
-   deleteButton.onclick = function() {
-		deleteOption(this);
+        // Redirect after handling
+		/*if (jsonResponse.id == undefined){
+			window.location.href = `/osnovy`;
+		}*/
+		
+		window.location.href = `/osnovy/${jsonResponse.id}`;
+		} catch (error) {
+		console.error('Error:', error);
+		}
+}
+
+function deleteRow(button) {
+	// Get the current row (tr) of the button
+	const row = button.parentNode.parentNode;
+	
+	// Get the table body
+	const tableBody = document.getElementById("table-body");
+	
+	// Delete the row from the table
+	tableBody.deleteRow(row.rowIndex - 1); // Adjust for header row
+	updateCurriculumHours();
+	updateRowColors();
+}
+
+function addRow() {
+	// If the index.ejs changes drastically,
+	// this will become a nightmare to change
+	
+	const tableBody = document.getElementById("table-body");
+	
+	// Create a new row
+	const newRow = document.createElement("tr");
+	newRow.className = "cur";
+	
+	// Create actionsCell
+	const actionsCell = document.createElement("td");
+	actionsCell.style.display = "flex";
+	actionsCell.className = "curriculum-input";
+	
+	const deleteButton = document.createElement("input");
+	deleteButton.type = "button";
+	deleteButton.value = "-";
+	deleteButton.className = "deleteCurButton";
+	deleteButton.style.marginBottom = "0";
+	deleteButton.onclick = function() { deleteRow(this); };
+	
+	const textInput = document.createElement("input");
+	textInput.type = "text";
+	textInput.style.margin = "0";
+	textInput.value = ""; 
+	textInput.className = "curriculum-i";
+	
+	actionsCell.appendChild(deleteButton);
+	actionsCell.appendChild(textInput);
+	
+	const previousHoursCell = document.createElement("td");
+	previousHoursCell.style.textAlign = "center";
+	previousHoursCell.innerText = "0";
+	
+	const currentHoursCell = document.createElement("td");
+	currentHoursCell.style.textAlign = "center";
+	currentHoursCell.innerText = "0";
+	
+	const hourInputCell = document.createElement("td");
+	hourInputCell.style.textAlign = "center";
+	
+	const hoursInput = document.createElement("input");
+	hoursInput.type = "number";
+	hoursInput.style.margin = "0";
+	hoursInput.value = "0";
+	hoursInput.min = 0;
+	hoursInput.className = "hour-input";
+	
+	hoursInput.onchange = function() {
+		updateFrontend();
 	};
-    
-   const dropdownItem = document.createElement('input');
-   dropdownItem.type = 'text';
-   dropdownItem.value = '';
-   dropdownItem.className = 'dropdown-item';
-   dropdownItem.style.margin = '0';
-    
-   newOption.appendChild(deleteButton);
-   newOption.appendChild(dropdownItem);
-   
-   dropdown.appendChild(newOption);
-   
-   const mainButton = parent.parentElement.children[0];
-   mainButton.textContent = dropdown.children.length;
-   
+	
+	hoursInput.oninput = function() {
+		this.validity.valid || (this.value = '');
+	};
+	
+	hourInputCell.appendChild(hoursInput);
+	
+	newRow.appendChild(actionsCell);
+	newRow.appendChild(previousHoursCell);
+	newRow.appendChild(currentHoursCell);
+	newRow.appendChild(hourInputCell);
+	
+	// Append the new row to the table body
+	tableBody.insertBefore(newRow, tableBody.rows[tableBody.rows.length - 1]);
+	
+	updateCurriculumHours();
+	updateRowColors();
 }
 
-function deleteOption(button) {
-    const mainButton = button.parentElement.parentElement.parentElement.parentElement.children[0];
-    const dropdown = button.parentElement.parentElement;
-    
-    button.parentElement.remove();
-    
-    mainButton.textContent = dropdown.children.length;
+function updateFrontend(){
+	updateCurriculumHours();
+	updateRowColors();
 }
 
-function deleteTeam(button) {
-    const tableBody = button.parentElement.parentElement.parentElement;  // Get the table body
-    const teamID = button.parentElement.children[1].textContent;
-    
-    deleteTeamOnTheLeft(teamID);
-    
-    button.parentElement.parentElement.remove();
-    
-    for (let i = 0; i < tableBody.rows.length - 1; i++){
-      const row = tableBody.rows[i];
-      row.children[0].children[1].textContent = i+1;
-    }
+function updateCurriculumHours() {
+	const table = document.getElementById("curriculums");
+	const rows = table.rows;
+	let doPredchozi = 0;
+	const totalHours = document.getElementById("pHodin").value;
+
+	let currentTotalHours = 0;
+	
+	// Loop through each row to calculate "Od" and "Do"
+	// It starts from one to get rid of off the first row and ends with -1 to get rid of off the last row
+	for (let i = 1; i < rows.length-1; i++) {
+	
+		const hoursInput = rows[i].querySelector('.hour-input');
+		//console.log(hoursInput);
+		const hours = parseInt(hoursInput.value) || 0; // Get hours or default to 0
+		const odCell = rows[i].cells[1]; // "Od" cell
+		const doCell = rows[i].cells[2]; // "Do" cell
+		
+		// Set the "Od" value to totalHours
+		
+		let od = doPredchozi;
+		let doCur = od;
+		doCur -= -(hours);
+		doPredchozi = doCur;
+		
+		// Calculate and set the "Do" value
+		odCell.textContent = od;
+		doCell.textContent = doCur;
+		doCell.style.color = '';
+
+		currentTotalHours += hours;
+		
+		//console.log(odCell);
+	}
 }
 
-// Close dropdown when clicking outside
-document.addEventListener('click', function(event) {
-  if (!event.target.matches('.dropdown-btn') && !event.target.matches('.dropdown-content *') && !event.target.matches('.deleteButton')) {
-    const dropdowns = document.querySelectorAll('.dropdown-content');
-    dropdowns.forEach(dropdown => dropdown.classList.remove('show'));
-  }
-});
+function calculateTheTotalHours() {
+	const calculateHours = document.getElementById("calculateHours").checked;
+	
+	if (calculateHours){
+		const totalHours = document.getElementById("pHodin");
+		const year = document.getElementById("rocnik");
+		const customHoursAWeek = document.getElementById("customHoursAWeek");
+		const theory = document.getElementById("teorieCheckBox").checked;
 
-function showElementAndHideElement(show, hide) {
-    document.getElementById(show).style.display = "block";
-    document.getElementById(hide).style.display = "none";
+		let hoursAWeek = 2;
+		if (theory){ hoursAWeek = 1; }
+		if (customHoursAWeek.value > 0) { hoursAWeek = customHoursAWeek.value; }
+		
+		let weeksAYear = 34;
+		if (year.value == 4) { weeksAYear -= 4; }
+
+		totalHours.value = hoursAWeek*weeksAYear;
+	}
+	
+	updateRowColors();
 }
+
+// Kontrola a aktualizaca barev buněk
+function updateRowColors() {
+    const table = document.getElementById("curriculums");
+    const rows = table.rows;
+    const totalHours = parseInt(document.getElementById("pHodin").value) || 0;
+	
+	 // Pokud tam jsou nějaký témata (kontrolujeme jestli tam jsou více než dva řádky)
+	 if (rows.length > 2){
+		 // rows.length - 2 je předposlední řádek
+		 const doCell = rows[rows.length - 2].cells[2];
+
+		 // Nastavení barvy na základě kontroly
+		 if (parseInt(doCell.textContent) !== totalHours) {
+			doCell.style.color = 'red';
+		 } else {
+			doCell.style.color = '';
+		 }
+	 }
+	 
+}
+
+function hideDiv(id) {
+	const div = document.getElementById(id);
+	console.log(div.style.display);
+	if (div.style.display === "none"){ div.style.display = "block"; }
+	else { div.style.display = "none"; }
+}
+
+window.onload = (event) => {
+    calculateTheTotalHours();
+    updateRowColors();
+};
