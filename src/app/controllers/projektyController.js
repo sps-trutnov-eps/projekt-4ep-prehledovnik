@@ -116,7 +116,42 @@ exports.view = (req, res) => {
 }
 
 
+exports.addClass = (classID) => {
+   
+    let tridaID = databaze.projekty.ziskatIDprojektuDleTridy(classID);
+    if (databaze.projekty.ziskatCelouTridu(tridaID) == undefined){
+        databaze.projekty.pridatProjekt(classID);
+    } else (console.log("(projektyController.js; function: addClass): Class already exists."))
+}
 
+exports.saveTeams = (data) => {
+    let tridaID = databaze.projekty.ziskatIDprojektuDleTridy(data.classID);
+   
+    for (let i = 0; i < data.teams.length; i++){
+        const team = data.teams[i];
+        
+        let existingTeam = databaze.projekty.ziskatTym(tridaID, team.teamID);
+        if (existingTeam == undefined){
+            databaze.projekty.pridatTym(tridaID, team.teamID, team.description, team.url, team.members, "undefined", data.pitchDate, ["undefined","undefined"], ["undefined","undefined"], "undefined", ["undefined","undefined"]);
+        } else {
+            console.log("(projektyController.js; function: saveTeams): Team already exists.");
+            databaze.projekty.upravitTym(tridaID, {
+                "cislo": team.teamID,
+                "tema": team.description,
+                "odkaz": team.url,
+                "clenove": team.members,
+                "vedouci": existingTeam["vedouci"],
+                "pitch": {
+                    "datum": data.pitchDate,
+                    "featury": existingTeam["pitch"]["featury"],
+                    "stretchgoaly": existingTeam["pitch"]["stretchgoaly"],
+                    "pozamka": existingTeam["pitch"]["pozamka"],
+                    "ucast": existingTeam["pitch"]["ucast"]
+                }
+            });
+        }
+    }
+}
 
 
 

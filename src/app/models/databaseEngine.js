@@ -450,9 +450,9 @@ const projekty = {
     projekty["nextID"] += 1;
     sP(projekty);
   },
-  pridatTym: (trida, cislo, tema, odkaz, clenove, vedouci, datum, featury, stretchgoaly, pozamka, ucast) => {
+  pridatTym: (IDtridy, cislo, tema, odkaz, clenove, vedouci, datum, featury, stretchgoaly, pozamka, ucast) => {
     let projekty = gP();
-    let IDtridy = ziskatIDprojektuDleTridy(trida);
+    //let IDtridy = ziskatIDprojektuDleTridy(trida); Doesn't work, I guess it's because it's in the same.. json?
     projekty[String(IDtridy)]["tymy"].push({
       cislo,
       tema,
@@ -468,34 +468,34 @@ const projekty = {
       }});
     sP(projekty);
   },
-  ziskatTym: (trida, cislo) => {
+  ziskatTym: (IDtridy, cislo) => {
     let projekty = gP();
-    let IDtridy = ziskatIDprojektuDleTridy(trida);
+    //let IDtridy = ziskatIDprojektuDleTridy(trida); Doesn't work, I guess it's because it's in the same.. json?
     for (let i = 0; i < projekty[String(IDtridy)]["tymy"].length; i++){
       if (projekty[String(IDtridy)]["tymy"][i]["cislo"] == cislo){
         return projekty[String(IDtridy)]["tymy"][i];
       }
     }
   },
-  ziskatCelouTridu: (trida) => {
+  ziskatCelouTridu: (IDtridy) => {
     let projekty = gP();
-    let IDtridy = ziskatIDprojektuDleTridy(trida);
+    //let IDtridy = ziskatIDprojektuDleTridy(trida); Doesn't work, I guess it's because it's in the same.. json?
     return projekty[String(IDtridy)];
   },
   ziskatIDprojektuDleTridy: (trida) => {
     let projekty = gP();
     let nextID = projekty["nextID"];
     let IDHledanehoProjektu;
-    for (let i = 0; i < nextID; i++) {
+    for (let i = 1; i < nextID; i++) {
       if (projekty[String(i)]["trida"] == trida) {
         IDHledanehoProjektu = String(i);
       }
     }
     return IDHledanehoProjektu;
   },
-  upravitTym: (trida, tym) => {
+  upravitTym: (IDtridy, tym) => {
     let projekty = gP();
-    let IDtridy = ziskatIDprojektuDleTridy(trida);
+    //let IDtridy = ziskatIDprojektuDleTridy(trida); Doesn't work, I guess it's because it's in the same.. json?
     let cislo = tym["cislo"];
     for (let i = 0; i < projekty[String(IDtridy)]["tymy"].length; i++){
       if (projekty[String(IDtridy)]["tymy"][i]["cislo"] == cislo){

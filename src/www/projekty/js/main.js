@@ -70,7 +70,7 @@ function addNewTeam(button) {
    
    const inputField = document.createElement('input');
    inputField.type='text'; 
-   inputField.className='curriculum-i'; 
+   inputField.className='curriculum-i, description'; 
    inputField.style.margin='0px';
    
    td3.appendChild(inputField);
@@ -576,3 +576,78 @@ function switchTables() {
         table.style.display = 'none';
     }
 }  
+
+
+
+
+/* SAVING */
+
+async function save(){
+    let pitchDate = document.getElementById('datum').value;
+    let teamIDs = document.querySelectorAll('.teamId');
+    let members = document.querySelectorAll('.dropdown-members');
+    let descriptions = document.querySelectorAll('.description');
+    let classID = window.location.pathname.split('/');
+    classID = classID[classID.length-1];
+    
+    console.log(teamIDs);
+    console.log(members);
+    console.log(descriptions);
+    
+    let teams = [];
+    /* teamID, members, description */
+    
+    for (let i = 0; i < teamIDs.length; i++){
+        const team = {teamID: "undefined", members: "undefined", description: "undefined"};
+        
+        team["teamID"] = teamIDs[i].innerHTML;
+        
+        let mem = [];
+        for (let ch = 0; ch < members[i].children.length; ch++){
+           const child = members[i].children[ch];
+           
+           console.log(child);
+           
+           mem.push(child.children[1].value); /* don't take this out of context :D */
+        }
+        team["members"] = mem;
+        
+        team["description"] = descriptions[i].value;
+        
+        teams.push(team);
+    }
+    
+    const data = {"classID": classID, "pitchDate": pitchDate, "teams": teams};
+    
+    
+    try {
+		
+		const response = await fetch(`/projekty/save/class`, {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(data),
+		});
+		
+		// Check if response is OK
+		if (!response.ok) {
+			throw new Error(`HTTP error! Status: ${response.status}`);
+		}
+		
+        // Parse JSON response
+        //const jsonResponse = await response.json();
+        //console.log(jsonResponse); // Handle your JSON data here
+
+        // Redirect after handling
+		/*if (jsonResponse.id == undefined){
+			window.location.href = `/osnovy`;
+		}*/
+		
+		window.location.href = `/projekty/`;
+		} catch (error) {
+		console.error('Error:', error);
+		}
+    
+}
