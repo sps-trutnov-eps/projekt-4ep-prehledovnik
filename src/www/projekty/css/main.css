@@ -1,3 +1,20 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust opacity for darkness */
+    display: none; /* Initially hidden */
+    z-index: 1000; /* Ensure it covers other content */
+}
+
+
+
+
+
+
+
 .saveButton {
   border-color: green;
   background-color: green;
@@ -94,14 +111,17 @@
 .dropdown-content {
    display: none;
    position: fixed;
+	top: calc(50% - 18rem);
+	right: calc(50% - 9rem);
    min-width: 18rem;
-	max-height: 21.5rem;
+	height: 40.5rem;
+	max-height: 40.5rem;
 	margin-bottom: var(--pico-block-spacing-vertical);
 	border-radius: var(--pico-border-radius);
 	background: var(--pico-card-background-color);
 	box-shadow: var(--pico-card-box-shadow);
 	box-sizing: border-box;
-   z-index: 1000;
+   z-index: 1001;
    overflow-y: auto;
 }
 
@@ -114,7 +134,6 @@
 	bottom: 0;
 	z-index: 1;
 	background: var(--pico-background-color);
-	padding: inherit;
 	padding: var(--pico-block-spacing-vertical) var(--pico-block-spacing-horizontal);
 }
 
@@ -130,6 +149,10 @@
    overflow: hidden;
    padding: 0 !important;
    transition: flex-basis 0.25s ease, opacity 0.25s ease, visibility 0.25s ease, background-color 0.25s ease;
+}
+
+.dropdown-members {
+	min-height: calc(100% - 80px);
 }
 
 .members-input:hover .deleteButton {
