@@ -162,9 +162,13 @@ function toggleDropdown(button) {
    
    const dropdown = button.nextElementSibling;
    dropdown.classList.toggle('show');
+   
+   
+   const overlay = document.getElementById('overlay');
+   overlay.style.display = 'block';
 }
 
-function addNewOption(button) {
+function addNewOption(button, addToDetails = 2) {
    const parent = button.parentElement.parentElement;
    const dropdown = parent.querySelector('.dropdown-members'); // Gets the first child with class 'child1'
    
@@ -180,7 +184,11 @@ function addNewOption(button) {
    deleteButton.className = 'deleteButton';
    deleteButton.style.marginBottom = '0';
    deleteButton.onclick = function() {
-		deleteOption(this);
+      if (addToDetails == 2 || addToDetails == 0){
+         deleteOption(this);
+      } else if (addToDetails == 1) {
+         deleteOptionsCEO(); deleteOption(this, 1); addOptionsCEO(); deleteColumn(getColumnID(this.nextElementSibling.value))
+      }
    };
    
    const input = document.createElement('input');
@@ -189,22 +197,31 @@ function addNewOption(button) {
    input.value = '';
    input.style.margin = '0';
    
-   input.addEventListener('change', function() {
-      editMemberInDetails(this);
-   });
+   if (addToDetails == 2){
+      input.addEventListener('change', function() {
+         editMemberInDetails(this);
+      });
+   } else if (addToDetails == 1) {
+      input.addEventListener('change', function() {
+         deleteOptionsCEO(); addOptionsCEO(); changeColumnName(getMemberID(this), this.value, 1);
+      });
+   }
    
-   input.addEventListener('keypress', function() {
-      this.dispatchEvent(new Event('change'));
-   });
+   if (addToDetails != 0){
+      input.addEventListener('keypress', function() {
+         this.dispatchEvent(new Event('change'));
+      });
+      
+      input.addEventListener('paste', function() {
+         this.dispatchEvent(new Event('change'));
+      });
+      
+      input.addEventListener('input', function() {
+         this.dispatchEvent(new Event('change'));
+      });
+   }
    
-   input.addEventListener('paste', function() {
-      this.dispatchEvent(new Event('change'));
-   });
-   
-   input.addEventListener('input', function() {
-      this.dispatchEvent(new Event('change'));
-   });
-   
+
    newOption.appendChild(deleteButton);
    newOption.appendChild(input);
    
@@ -213,13 +230,15 @@ function addNewOption(button) {
    const mainButton = parent.parentElement.children[0];
    mainButton.textContent = dropdown.children.length;
    
+   if (addToDetails == 2){
+      const teamID = parent.parentElement.parentElement.children[0].children[1].innerHTML;
    
-   const teamID = parent.parentElement.parentElement.children[0].children[1].innerHTML;
+      addMemberToDetails(teamID, 'Člen', dropdown.children.length);
+   }
    
-   addMemberToDetails(teamID, 'Člen', dropdown.children.length);
 }
 
-function deleteOption(button) {
+function deleteOption(button, deleteFromDetails = 2) {
    const mainButton = button.parentElement.parentElement.parentElement.parentElement.children[0];
    const dropdown = button.parentElement.parentElement;
    
@@ -250,8 +269,6 @@ function deleteOption(button) {
       memberID -= -1;
       checkingElement = checkingElement.nextElementSibling;
       
-      console.log(checkingElement);
-      
       looped -= -1;
       if (looped > dropdown.children.length) {
          console.error("Stuck in a loop. Breaking.")
@@ -263,7 +280,9 @@ function deleteOption(button) {
    
    
    button.parentElement.remove();
-   deleteMemberFromDetails(teamID, memberID, totalMemebersBefore, dropdown.children.length);
+   if (deleteFromDetails == 2){
+      deleteMemberFromDetails(teamID, memberID, totalMemebersBefore, dropdown.children.length);
+   }
    
    mainButton.textContent = dropdown.children.length;
 }
@@ -273,6 +292,8 @@ document.addEventListener('click', function(event) {
    if (!event.target.matches('.dropdown-btn') && !event.target.matches('.dropdown-content *') && !event.target.matches('.deleteButton')) {
       const dropdowns = document.querySelectorAll('.dropdown-content');
       dropdowns.forEach(dropdown => dropdown.classList.remove('show'));
+      const overlay = document.getElementById('overlay');
+      overlay.style.display = 'none';
    }
 });
 
