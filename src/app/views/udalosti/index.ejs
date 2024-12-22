@@ -1,13 +1,85 @@
 <!DOCTYPE html>
 <%- include('../partials/head'); %>
+<style>
+   .event-form {
+      margin-bottom: 2em;
+   }
+   .events-table {
+      width: 100%;
+      table-layout: fixed;
+      border-collapse: collapse;
+   }
+
+   h1.toClick:hover {
+      cursor: pointer;
+   }
+
+   .events-table .toClick {
+      position: relative;
+      cursor: pointer;
+   }
+
+   .events-table td {
+      padding: 8px;
+      white-space: nowrap;
+      overflow: visible;
+      text-overflow: ellipsis;
+   }
+
+   .events-table td:nth-child(1) { width: 25%; }
+   .events-table td:nth-child(2) { width: 15%; }
+   .events-table td:nth-child(3) { width: 15%; }
+   .events-table td:nth-child(4) { width: 15%; }
+   .events-table td:nth-child(5) { width: 15%; }
+   .events-table td:nth-child(6) { width: 10%; }
+   .events-table td:nth-child(7) { width: 5%; }
+
+   .delete-btn {
+      background: none;
+      border: none;
+      color: red;
+      cursor: pointer;
+      padding: 5px;
+   }
+
+   .delete-btn:hover{
+      color: darkred;
+   } 
+
+   ::-webkit-scrollbar {
+      display: none;
+   }
+
+   .events-table td.empty-cell {
+      padding-left: 40px;
+   }
+
+   .events-table td.empty-cell-tykaSe {
+      padding-left: 30px;
+      text-align: left;
+   }
+
+   .events-table td.empty-cell::after, .events-table td.empty-cell-tykaSe::after {
+      content: "-";
+   }
+
+   .center {
+      text-align: center; 
+   }
+
+   .center-content {
+      position: relative;  
+      left: -29%;         
+   }
+</style>
   <article style="width: 20vw; min-width: 20vw; margin-right: 1em; resize: horizontal;">
     <header>
       <h1 class="toClick" onclick="window.location.href='/udalosti/'">Nová událost</h1>
     </header>
     <main>
-      <form 
-      hx-post="/udalosti/pridatUdalost" 
-      hx-target="body" 
+      <form
+      hx-post="/udalosti/pridatUdalost"
+      hx-target="body"
       hx-swap="outerHTML"
       hx-trigger="submit"
       class="event-form">
@@ -21,7 +93,7 @@
           type="radio"
           id="celodenni"
           name="variantaDni"
-          value="Celodenní" 
+          value="Celodenní"
           checked
           />
         <label for="celodenni">Celodenní</label><br />
@@ -114,85 +186,14 @@
 
   <article style="flex: 3; overflow-y: auto">
     <header>
-      <h1>Události</h1>
+      <nav>
+        <h1>Události</h1>
+      </nav>
     </header>
     <main>
-      <style>
-        .event-form {
-          margin-bottom: 2em;
-        }
 
-        .events-table {
-          width: 100%;
-          table-layout: fixed;
-          border-collapse: collapse;
-        }
-        
-        h1.toClick:hover {
-          cursor: pointer;
-        }
-
-        .events-table .toClick {
-          position: relative;
-          cursor: pointer;
-        }
-        
-        .events-table td {
-          padding: 8px;
-          white-space: nowrap;
-          overflow: visible;
-          text-overflow: ellipsis;
-        }
-        
-        .events-table td:nth-child(1) { width: 25%; }
-        .events-table td:nth-child(2) { width: 15%; }
-        .events-table td:nth-child(3) { width: 15%; }
-        .events-table td:nth-child(4) { width: 15%; }
-        .events-table td:nth-child(5) { width: 15%; }
-        .events-table td:nth-child(6) { width: 10%; }
-        .events-table td:nth-child(7) { width: 5%; }
-        
-        .delete-btn {
-          background: none;
-          border: none;
-          color: red;
-          cursor: pointer;
-          padding: 5px;
-        }
-        
-        .delete-btn:hover{
-          color: darkred;
-        } 
-
-        ::-webkit-scrollbar {
-          display: none;
-        }
-
-        .events-table td.empty-cell {
-          padding-left: 40px;
-        }
-
-        .events-table td.empty-cell-tykaSe {
-          padding-left: 30px;
-          text-align: left;
-        }
-
-        .events-table td.empty-cell::after, .events-table td.empty-cell-tykaSe::after {
-          content: "-";
-        }
-
-        .center {
-          text-align: center; 
-        }
-
-        .center-content {
-          position: relative;  
-          left: -29%;         
-        }
-      </style>
-      
       <table class="events-table">
-        <% 
+        <%
         const prekladVyberZadani = {
           "celodenni": "Celodenní",
           "vicedenni": "Vícedenní",
@@ -230,20 +231,13 @@
           <td>Tyka se</td>
           <td style="padding-left: 0.8em;">✕</td>
         </tr>
-        
+
         <% seznamNaZobrazeni.forEach(udalost => { %>
           <tr>
-            <!-- Název události -->
-            <td class="toClick" onclick="handleUdalostClick('<%= JSON.stringify(udalost) %>')">
-                <%= udalost.nazev %>
-            </td>
-        
-            <!-- Typ události -->
-            <td>
-              <%= prekladTypAkce[udalost.typ] || udalost.typ %>
-            </td>
-        
-            <!-- Rozdělení podle vyberZadani a názvu události -->
+
+            <td class="toClick" onclick="window.location.href='/udalosti/nacti/<%= udalost %>'"><%= udalost.nazev %></td>
+            <td><%= prekladTypAkce[udalost.typ] || udalost.typ %></td>
+
             <% if (udalost.vyberZadani === "celodenni") { %>
               <td><%= formatDate(udalost.datum) %></td>
               <td class="empty-cell"></td>
@@ -371,7 +365,7 @@
         // Update date inputs and time selects
         this.updateMinDatum();
         this.updateCasDoOptions();
-        
+
         // Handle initial type selection
         this.handleTypAkceChange();
       }
@@ -394,7 +388,7 @@
         if (this.datumInput) {
           this.datumInput.addEventListener('change', () => this.updateMinDatum());
         }
-        
+
         if (this.datumDoInput) {
           this.datumDoInput.addEventListener('change', () => this.updateMinDatum());
         }
@@ -445,10 +439,10 @@
         if (this.datumInput && this.datumInput.value) {
           const nextDay = new Date(this.datumInput.value);
           nextDay.setDate(nextDay.getDate() + 1);
-          
+
           if (this.datumDoInput) {
             this.datumDoInput.min = nextDay.toISOString().split('T')[0];
-            
+
             if (this.datumDoInput.value && new Date(this.datumDoInput.value) <= new Date(this.datumInput.value)) {
               this.datumDoInput.value = '';
             }
@@ -458,9 +452,9 @@
 
       updateCasDoOptions() {
         if (!this.casOdSelect || !this.casDoSelect) return;
-        
+
         const casOdIndex = this.casOdSelect.selectedIndex;
-        
+
         Array.from(this.casDoSelect.options).forEach((option, index) => {
           option.style.display = index + 1 <= casOdIndex ? 'none' : 'block';
         });
