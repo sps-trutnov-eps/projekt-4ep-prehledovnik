@@ -281,7 +281,7 @@ const maturity = {
         let maturity = gM();
         let maturityList = [];
         let typy = ["PŽOP", "PČMZ", "SČMZ", "SLOH"];
-
+        
         for(let i = 0; i < typy.length; i++){
             if (maturity[typy[i]]){
                 for(let j = 0; j < maturity[typy[i]]["dny"].length; j++){
@@ -289,42 +289,40 @@ const maturity = {
                     let den = maturity[typy[i]]["dny"][j];
                     let cOD = null;
                     let cDO = null;
-                    let ucebna;
+                    let ucebna = null;
                     
                     if(nazev == "PČMZ") {
-                        cOD = hodiny[maturity[typy[i]]["casy"][j][0]];
-                        cDO = maturity[typy[i]]["casy"][j][maturity[typy[i]]["casy"][j].length - 1];
-                        ucebna = null;
-                    }
-                    if(nazev == "SČMZ") {
-                        if (maturity[typy[i]]["casy"][j].length != 0) cOD = maturity[typy[i]]["casy"][j];
-                        cDO = null;
+                        if (maturity[typy[i]]["casy"][j] && maturity[typy[i]]["casy"][j].length > 0) {
+                            cOD = hodiny[maturity[typy[i]]["casy"][j][0]][0];  
+                            cDO = hodiny[maturity[typy[i]]["casy"][j][maturity[typy[i]]["casy"][j].length - 1]][1];
+                        }  
+                    } else if(nazev == "SČMZ") {
+                        cOD = maturity[typy[i]]["casy"][j];
+                        ucebna = maturity[typy[i]]["ucebny"][j];
+                    } else if(nazev == "SLOH") {
+                        if (maturity[typy[i]]["casy"][j] && maturity[typy[i]]["casy"][j].length > 0) {
+                            cOD = hodiny[maturity[typy[i]]["casy"][j][0]][0]; 
+                            cDO = hodiny[maturity[typy[i]]["casy"][j][maturity[typy[i]]["casy"][j].length - 1]][1];  
+                        }
+                        ucebna = maturity[typy[i]]["ucebny"][j] ? maturity[typy[i]]["ucebny"][j][0] : null;
+                    } else if(nazev == "PŽOP") {
+                        if(j == 1) {
+                            nazev += " - dodatečný termín";
+                        }
                         ucebna = maturity[typy[i]]["ucebny"][j];
                     }
-                    if(nazev == "SLOH") {
-                        cOD = maturity[typy[i]]["casy"][j][0];
-                        cDO = maturity[typy[i]]["casy"][j][maturity[typy[i]]["casy"][j].length - 1];
-                        ucebna = maturity[typy[i]]["ucebny"][j][0];
-                    } else {
-                        if(nazev == "PŽOP" && j == 1){
-                            nazev += " - dodatečný termín";
-                            ucebna = maturity[typy[i]]["ucebny"][j];
-                        }
-        
-                        maturityList.push({
-                            nazev: nazev,
-                            typ: "celoskolni", 
-                            //
-                            datum: den,
-                            datumDo: null,
-                            casOd: cOD, 
-                            casDo: cDO,
-                            //
-                            vyberZadani: "maturita",  
-                            tykaSe: ucebna ?? null, 
-                            poznamka: `Učebna: ${ucebna ?? "není"}`
-                        });
-                    }
+                    
+                    maturityList.push({
+                        nazev: nazev,
+                        typ: "celoskolni",
+                        datum: den,
+                        datumDo: null,
+                        casOd: cOD,
+                        casDo: cDO,
+                        vyberZadani: "maturita",
+                        tykaSe: ucebna ?? null,
+                        poznamka: `Učebna: ${ucebna ?? "není"}`
+                    });
                 }
             }
         }

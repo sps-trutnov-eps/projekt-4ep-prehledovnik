@@ -8,8 +8,9 @@ const databaze = require("../models/databaseEngine");
 
 exports.index = (req, res) => {
     console.log(databaze.udalosti.ziskatVsechnyUdalosti().concat(databaze.maturity.ziskatVsechnyMaturityJakoUdalosti()));
-    res.render('udalosti/index.ejs', {        
-        seznamNaZobrazeni: databaze.udalosti.ziskatVsechnyUdalosti().concat(databaze.maturity.ziskatVsechnyMaturityJakoUdalosti()),
+    let allEvents = databaze.udalosti.ziskatVsechnyUdalosti().concat(databaze.maturity.ziskatVsechnyMaturityJakoUdalosti()).sort((a, b) => new Date(a.datum) - new Date(b.datum) || (a.casOd && b.casOd ? a.casOd.localeCompare(b.casOd) : (a.casOd ? -1 : b.casOd ? 1 : 0)));
+    res.render('udalosti/index.ejs', {
+        seznamNaZobrazeni: allEvents, 
         datum: new Date().toISOString().split('T')[0]
     });
 }

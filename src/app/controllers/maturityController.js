@@ -186,8 +186,8 @@ exports.ukladaniscmz = (req, res) => {
             ucebny.push(radek.ucebna);
         }
     });
+    console.log("BODY: "+body)
     databaze.maturity.pridatMaturitniEvent("SČMZ", datumy, hodiny, ucebny);
-    console.log(databaze.maturity.ziskatVsechnyMaturityJakoUdalosti());
     res.redirect("/maturity/scmz");
 };
 
