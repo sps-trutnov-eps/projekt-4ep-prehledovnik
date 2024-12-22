@@ -54,17 +54,6 @@
             "tykaSe": "Jakub Šenkýř",
             "poznamka": ""
         },
-        "9": {
-            "nazev": "udalost1",
-            "typ": "celoskolni",
-            "datum": "2024-11-24",
-            "datumDo": null,
-            "casOd": "7:10",
-            "casDo": "8:45",
-            "vyberZadani": "casIDatum",
-            "tykaSe": null,
-            "poznamka": ""
-        },
         "10": {
             "nazev": "udalost",
             "typ": "celoskolni",
@@ -170,13 +159,25 @@
         },
         "SČMZ": {
             "dny": [
-                "2024-12-28"
+                "2024-12-21",
+                "2024-12-20",
+                "2025-01-02"
             ],
             "casy": [
-                []
+                [
+                    "23:07"
+                ],
+                [
+                    "20:07"
+                ],
+                [
+                    "20:08"
+                ]
             ],
             "ucebny": [
-                null
+                "T16",
+                "T16",
+                "T15"
             ]
         },
         "SLOH": {
