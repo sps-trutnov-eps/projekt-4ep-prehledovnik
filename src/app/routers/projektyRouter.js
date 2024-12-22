@@ -9,12 +9,21 @@ projektyRouter.post('/upload/:id', upload.single('file'),
                     projektyController.upload);
 
 projektyRouter.post('/save/class', (req, res) => {
-let data = req.body;
+   let data = req.body;
    
    
    projektyController.addClass(data.classID);
    
    projektyController.saveTeams(data);
+   
+	res.json({"saved": true});
+});
+
+projektyRouter.post('/save/team', (req, res) => {
+   let data = req.body;
+   console.log(data);
+   
+   projektyController.saveTeam(data);
    
 	res.json({"saved": true});
 });

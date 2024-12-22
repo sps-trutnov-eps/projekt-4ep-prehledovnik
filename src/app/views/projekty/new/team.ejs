@@ -6,6 +6,7 @@
 			 <p style="display:inline; vertical-align:bottom; margin-left: 1rem" >1. Pololetí - 1.EP</p>
         </hgroup>
 		  <hgroup style="display: flex; gap: 0.5em;">
+			  <input class="saveButton" style="width: 8rem; padding: 0; min-height: 0; height: 2em; margin: 0;" type="button" value="Uložit" onclick="save();" />
 			  <input class="createButton" style="width: 8rem; padding: 0; min-height: 0; height: 2em; margin: 0;" type="button" value="Přehled" onclick="showElementAndHideElement('class', 'classDetails')" />
 			  <input class="createButton" style="width: 8rem; padding: 0; min-height: 0; height: 2em; margin: 0;" type="button" value="Detaily" onclick="showElementAndHideElement('classDetails', 'class')" />
 			</hgroup>
@@ -75,7 +76,7 @@
 						<p style="display: none"></p>
 						<label>Featury</label>
 						<div class="members" style="max-height: 13.5rem;">
-								<div class="dropdown-members" style="min-height: 8.5rem;">
+								<div id="features" class="dropdown-members" style="min-height: 8.5rem;">
 									<div style="display: flex; align-items: center;" class="members-input">
 										<input type="button" value="-" class="deleteButton" style="margin-bottom: 0;" onclick="deleteOption(this, 0)">
 										<input class="dropdown-item" type="text" value="0" style="margin: 0">
@@ -93,7 +94,7 @@
 							
 							<label style="margin-top: 1em;">Stretch goaly</label>
 							<div class="members" style="max-height: 17.5rem;">
-								<div class="dropdown-members" style="min-height: 12.5rem;">
+								<div id="goals" class="dropdown-members" style="min-height: 12.5rem;">
 									<div style="display: flex; align-items: center;" class="members-input">
 										<input type="button" value="-" class="deleteButton" style="margin-bottom: 0;" onclick="deleteOption(this, 0)">
 										<input class="dropdown-item" type="text" value="0" style="margin: 0">
@@ -118,8 +119,8 @@
 							<input type="text" name="link" id="link" value="0" onchange="selectOption(this)" style="margin: 0">
 						</div>
 						<div style="flex: 0 0 70%; padding-left:16px">
-							<label for="link">Poznámka k pitch</label>
-							<input type="text" name="link" id="link" value="0" onchange="selectOption(this)" style="margin: 0">
+							<label for="note">Poznámka k pitch</label>
+							<input type="text" name="note" id="note" value="0" onchange="selectOption(this)" style="margin: 0">
 						</div>
 					</div>
 			   </div>

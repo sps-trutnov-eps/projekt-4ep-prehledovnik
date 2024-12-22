@@ -450,7 +450,7 @@ const projekty = {
     projekty["nextID"] += 1;
     sP(projekty);
   },
-  pridatTym: (IDtridy, cislo, tema, odkaz, clenove, vedouci, datum, featury, stretchgoaly, pozamka, ucast) => {
+  pridatTym: (IDtridy, cislo, tema, odkaz, clenove, vedouci, datum, featury, stretchgoaly, poznamka, ucast) => {
     let projekty = gP();
     //let IDtridy = ziskatIDprojektuDleTridy(trida); Doesn't work, I guess it's because it's in the same.. json?
     projekty[String(IDtridy)]["tymy"].push({
@@ -463,7 +463,7 @@ const projekty = {
         datum,
         featury,
         stretchgoaly,
-        pozamka,
+        poznamka,
         ucast
       }});
     sP(projekty);

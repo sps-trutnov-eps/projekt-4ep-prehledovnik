@@ -153,7 +153,41 @@ exports.saveTeams = (data) => {
     }
 }
 
-
+exports.saveTeam = (data) => {
+    let tridaID = databaze.projekty.ziskatIDprojektuDleTridy(data.classID);
+    let existingTeam = databaze.projekty.ziskatTym(tridaID, data.teamID);
+   
+    let membersCommits = [];
+    for (let i = 0; i < data.marksCommits.length; i++){
+        let member = {};
+        member["znamky"] = data.marksCommits[i];
+        membersCommits.push(member);
+    }
+    
+    let membersDevlogs = [];
+    for (let i = 0; i < data.marksDevlogs.length; i++){
+        let member = {};
+        member["znamky"] = data.marksDevlogs[i];
+        membersDevlogs.push(member);
+    }
+   
+    databaze.projekty.upravitTym(tridaID, {
+                "cislo": data.teamID,
+                "tema": data.description,
+                "odkaz": data.link,
+                "clenove": data.members,
+                "vedouci": data.ceo,
+                "pitch": {
+                    "datum": existingTeam["pitch"]["datum"],
+                    "featury": data["features"],
+                    "stretchgoaly": data["goals"],
+                    "pozamka": data["note"],
+                    "ucast": data["pitch"]
+                },
+                "znamkyDev": membersDevlogs,
+                "znamkyCom": membersCommits
+            });
+}
 
 // Tato metoda se volá, když se odesílá formulář pro nový projekt
 exports.ulozitProjekt = (req, res) => {
