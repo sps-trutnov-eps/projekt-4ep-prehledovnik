@@ -154,7 +154,7 @@
                 <td>
                   <input class="zaskrtavaci_policko" type="checkbox"
                   name="den<%= dayCounter %>_hodina<%= i %>" <%=
-                  hodiny.includes(i) ? "checked" : "" %> />
+                  hodiny.includes(i) ? "checked" : "" %> disabled />
                 </td>
                 <% } %>
               </tr>
@@ -171,7 +171,8 @@
                 width: 150px;
                 border: none;
                 cursor: pointer;
-              ">
+              "
+              disabled>
               Přidat datum
             </button>
           </div>
@@ -251,7 +252,7 @@
           document
             .querySelectorAll("input")
             .forEach((input) => (input.disabled = false));
-          document.getElementById("pridat-datum").disabled = true;
+          document.getElementById("pridat-datum").disabled = false;
           document.getElementById("edit-button").style.display = "none";
           document.getElementById("save-button").style.display = "block";
         });

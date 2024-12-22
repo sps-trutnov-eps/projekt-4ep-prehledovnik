@@ -114,7 +114,7 @@
 
         <div id="jineInputs" style="display: none;">
           <label>Hodiny:</label>
-          <select id="casOd" style="margin-bottom: 1em; color:#ffffffe1;" name="casOd">
+          <select id="casOd" style="margin-bottom: 0.7em; color:#ffffffe1;" name="casOd">
             <option value="7:10">7:10</option>
             <option value="8:00">8:00</option>
             <option value="8:50">8:50</option>
@@ -126,7 +126,7 @@
             <option value="14:15">14:15</option>
             <option value="15:10">15:10</option>
           </select>
-          <select id="casDo" style="margin-bottom: 0.5em; color:#ffffffe1;" name="casDo">
+          <select id="casDo" style="margin-bottom: 0.4em; color:#ffffffe1;" name="casDo">
             <option value="7:55">7:55</option>
             <option value="8:45">8:45</option>
             <option value="9:35">9:35</option>
@@ -144,11 +144,11 @@
         <input type="date" id="datum" name="datum" value="<%= datum %>" min="<%= datum %>"/>
 
         <div id="vicedenniInputs" style="display: none;">
-          <label for="datumDo">Do:</label>
+          <label for="datumDo" style="margin-bottom: 0.2em">Do:</label>
           <input type="date" id="datumDo" name="datumDo"/>
         </div>
 
-        <label for="typAkce">Typ akce</label>
+        <label for="typAkce" style="margin-bottom: 0.2em">Typ akce</label>
         <select id="typAkce" name="typAkce">
           <option value="celoskolni">Celoškolní</option>
           <option value="celotridni">Celotřídní</option>
@@ -286,13 +286,18 @@
         
             <!-- Tlačítko pro smazání -->
             <td>
-              <button 
-                onclick="if(confirm('Opravdu chcete smazat tuto událost?')) {
-                  var url = (vyberZadani === 'maturita') ? '/maturity/smazat/<%= udalost.id %>' : '/udalosti/smazat/<%= udalost.id %>';
-                  window.location.href = url;
-                }"
-                class="delete-btn"
-              >✕</button>
+              <% if (udalost.vyberZadani !== "maturita") { %>
+                <button 
+                  onclick="if(confirm('Opravdu chcete smazat tuto událost?')) { window.location.href = '/udalosti/smazat/<%= JSON.stringify(udalost) %>';}"
+                  class="delete-btn"
+                >✕</button>
+              <% } else { %>
+                <button 
+                  style = "color: green;"
+                  onclick="handleUdalostClick('<%= JSON.stringify(udalost) %>')"
+                  class="delete-btn"
+                >➔</button>
+              <% } %>
             </td>
           </tr>
         <% }); %>        
@@ -304,29 +309,30 @@
     function handleUdalostClick(udalostData) {
         const udalost = JSON.parse(udalostData);
 
-    // Pokud je vyberZadani = 'maturita', směruj podle názvu
-     if (udalost.vyberZadani === 'maturita') {
-          switch (udalost.nazev) {
-            case 'PČMZ':
-              window.location.href = `/maturity/pcmz`;
-              break;
-            case 'SČMZ':
-              window.location.href = `/maturity/scmz`;
-              break;
-            case 'SLOH':
-              window.location.href = `/maturity/sloh`;
-              break;
-            case 'PŽOP':
-              window.location.href = `/maturity/`;
-              break;
-            default:
-              alert('Neznámá maturita: ' + udalost.nazev);
-          }
-        } else {
-          // Pokud není maturita, otevři formulář (zachovává původní funkčnost)
-          editUdalost(udalostData);
+      // Pokud je vyberZadani = směruje podle názvu
+      if (udalost.vyberZadani === 'maturita') {
+        switch (udalost.nazev) {
+          case 'PČMZ':
+            window.location.href = `/maturity/pcmz`;
+            break;
+          case 'SČMZ':
+            window.location.href = `/maturity/scmz`;
+            break;
+          case 'SLOH':
+            window.location.href = `/maturity/sloh`;
+            break;
+          case 'PŽOP':
+          case 'PŽOP - dodatečný termín':
+            window.location.href = `/maturity/`;
+            break;
+          default:
+            alert('Neznámá maturita: ' + udalost.nazev);
         }
+      } else {
+        // Pokud není maturita, otevře formulář 
+        editUdalost(udalostData);
       }
+    }
     class UdalostiManager {
       constructor() {
         this.initializeElements();
@@ -486,66 +492,68 @@
       setTimeout(initManager, 0);
     });
     function editUdalost(udalostData) {
-    // Parsování JSON objektu události
-    const udalost = JSON.parse(udalostData);
+      // Parsování JSON objektu události
+      const udalost = JSON.parse(udalostData);
 
-    // Vyplnění polí ve formuláři
-    document.querySelector('[name="jmeno_udalosti"]').value = udalost.nazev;
-    document.querySelector('[name="datum"]').value = udalost.datum;
-    document.querySelector('[name="datum"]').min = udalost.datum;
+      // Vyplnění polí ve formuláři
+      document.querySelector('[name="jmeno_udalosti"]').value = udalost.nazev;
+      document.querySelector('[name="datum"]').value = udalost.datum;
+      document.querySelector('[name="datum"]').min = udalost.datum;
 
-    // Nastavení správného radio buttonu a zobrazení příslušných polí
-    const radioButtons = document.querySelectorAll('input[name="variantaDni"]');
-    const jineInputs = document.getElementById('jineInputs');
-    const vicedenniInputs = document.getElementById('vicedenniInputs');
+      manager.updateMinDatum();
 
-    // Skrytí všech dodatečných inputů
-    jineInputs.style.display = 'none';
-    vicedenniInputs.style.display = 'none';
+      // Nastavení správného radio buttonu a zobrazení příslušných polí
+      const radioButtons = document.querySelectorAll('input[name="variantaDni"]');
+      const jineInputs = document.getElementById('jineInputs');
+      const vicedenniInputs = document.getElementById('vicedenniInputs');
 
-    // Nastavení správného radio buttonu a zobrazení příslušných polí
-    switch(udalost.vyberZadani) {
-      case "celodenni":
-        document.getElementById('celodenni').checked = true;
-        break;
-      case "vicedenni":
-        document.getElementById('vicedenni').checked = true;
-        document.getElementById('datumDo').value = udalost.datumDo;
-        vicedenniInputs.style.display = 'block';
-        break;
-      case "casIDatum":
-        document.getElementById('jine').checked = true;
-        document.getElementById('casOd').value = udalost.casOd;
-        document.getElementById('casDo').value = udalost.casDo;
-        jineInputs.style.display = 'block';
-        break;
+      // Skrytí všech dodatečných inputů
+      jineInputs.style.display = 'none';
+      vicedenniInputs.style.display = 'none';
+
+      // Nastavení správného radio buttonu a zobrazení příslušných polí
+      switch(udalost.vyberZadani) {
+        case "celodenni":
+          document.getElementById('celodenni').checked = true;
+          break;
+        case "vicedenni":
+          document.getElementById('vicedenni').checked = true;
+          document.getElementById('datumDo').value = udalost.datumDo;
+          vicedenniInputs.style.display = 'block';
+          break;
+        case "casIDatum":
+          document.getElementById('jine').checked = true;
+          document.getElementById('casOd').value = udalost.casOd;
+          document.getElementById('casDo').value = udalost.casDo;
+          jineInputs.style.display = 'block';
+          break;
+      }
+
+      // Nastavení typu akce
+      const typAkceSelect = document.querySelector('[name="typAkce"]');
+      typAkceSelect.value = udalost.typ;
+
+      // Specifické nastavení pro budovy nebo třídy
+      const tridySelect = document.querySelector('[name="tridy"]');
+      const budovySelect = document.querySelector('[name="budovy"]');
+      
+      // Skrytí obou selectů
+      document.getElementById('tridySelect').style.display = 'none';
+      document.getElementById('budovySelect').style.display = 'none';
+
+      if (udalost.typ === "celotridni") {
+        tridySelect.value = udalost.tykaSe;
+        document.getElementById('tridySelect').style.display = 'block';
+      } else if (udalost.typ === "budovy") {
+        budovySelect.value = udalost.tykaSe;
+        document.getElementById('budovySelect').style.display = 'block';
+      }
+
+      // Poznámka
+      document.querySelector('[name="poznamka_udalosti"]').value = udalost.poznamka || '';
+      
+      // Pro načtení původních dat
+      document.querySelector('[name="PuvodniData"]').value = udalostData || '';
     }
-
-    // Nastavení typu akce
-    const typAkceSelect = document.querySelector('[name="typAkce"]');
-    typAkceSelect.value = udalost.typ;
-
-    // Specifické nastavení pro budovy nebo třídy
-    const tridySelect = document.querySelector('[name="tridy"]');
-    const budovySelect = document.querySelector('[name="budovy"]');
-    
-    // Skrytí obou selectů
-    document.getElementById('tridySelect').style.display = 'none';
-    document.getElementById('budovySelect').style.display = 'none';
-
-    if (udalost.typ === "celotridni") {
-      tridySelect.value = udalost.tykaSe;
-      document.getElementById('tridySelect').style.display = 'block';
-    } else if (udalost.typ === "budovy") {
-      budovySelect.value = udalost.tykaSe;
-      document.getElementById('budovySelect').style.display = 'block';
-    }
-
-    // Poznámka
-    document.querySelector('[name="poznamka_udalosti"]').value = udalost.poznamka || '';
-    
-    // Pro načtení původních dat
-    document.querySelector('[name="PuvodniData"]').value = udalostData || '';
-  }
   </script>
 <%- include('../partials/tail') %>

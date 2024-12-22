@@ -151,7 +151,7 @@
         <% for (const datum in data) { %>
           <%x = x +1%>
           <tr>
-            <td><input type="date" name="den<%=x%>_datum[]" value="<%= datum%>" /></td>
+            <td><input type="date" name="den<%=x%>_datum[]" value="<%= datum%>" disabled /></td>
 
             <% for (let y = 0; y < 9; y++) {%>
                 <td class="clickable-cell" data-hodina="<%=y+1%>">
@@ -174,7 +174,9 @@
         onclick="addRow()"
         type="button"
         id="pridat-datum"
-        style="padding: 0.5em; width: 150px; border: none; cursor: pointer">
+        style="padding: 0.5em; width: 150px; border: none; cursor: pointer"
+        disabled
+      >
         Přidat datum
       </button>
     </div>
@@ -256,11 +258,11 @@
     if (isEditing) {
       editButton.style.display = "none";
       saveButton.style.display = "inline-block";
-      addButton.disabled = true;  // Disable "Přidat datum" button when in edit mode
+      addButton.disabled = false; 
     } else {
       editButton.style.display = "inline-block";
       saveButton.style.display = "none";
-      addButton.disabled = false;  // Enable "Přidat datum" button when not in edit mode
+      addButton.disabled = true;  
     }
   }
 

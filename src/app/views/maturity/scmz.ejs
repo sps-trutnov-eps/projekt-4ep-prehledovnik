@@ -179,7 +179,8 @@
       <button
         type="button"
         id="pridat-datum"
-        style="padding: 0.5em; width: 150px; border: none; cursor: pointer">
+        style="padding: 0.5em; width: 150px; border: none; cursor: pointer" 
+        disabled>
         Přidat datum
       </button>
     </div>
@@ -252,13 +253,13 @@
 
   document.getElementById("edit-button").addEventListener("click", function () {
     document.querySelectorAll("input[type='date'], input[type='checkbox']").forEach(input => input.disabled = false);
-    document.getElementById("pridat-datum").disabled = true;  // Disable the "Přidat datum" button
+    document.getElementById("pridat-datum").disabled = false; 
     document.getElementById("edit-button").style.display = "none";
     document.getElementById("save-button").style.display = "inline-block";
   });
 
   document.getElementById("save-button").addEventListener("click", function () {
-    document.getElementById("pridat-datum").disabled = false;  // Re-enable the "Přidat datum" button on save
+    document.getElementById("pridat-datum").disabled = false;  
   });
 
   document.querySelector("form").addEventListener("submit", function () {
