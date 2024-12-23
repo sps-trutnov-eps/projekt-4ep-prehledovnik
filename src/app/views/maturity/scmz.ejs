@@ -42,32 +42,50 @@
     margin-top: 1em;
   }
 </style>
+      <article style="flex: 3; overflow-y: auto">
+        <header>
+          <nav>
+            <ul>
+              <li>
+                <h1>SČMZ</h1>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <div role="group">
+                  <button
+                    class="outline"
+                    hx-get="/maturity"
+                    hx-target="body"
+                    hx-push-url="true"
+                    hx-swap="transition:true">
+                  PŽOP</button>
+                  <button
+                    class="outline"
+                    hx-get="/maturity/pcmz"
+                    hx-target="body"
+                    hx-push-url="true"
+                    hx-swap="transition:true">
+                  PČMZ</button>
+                  <button
+                    hx-get="/maturity/scmz"
+                    hx-target="body"
+                    hx-push-url="true"
+                    hx-swap="transition:true">
+                  SČMZ</button>
+                  <button
+                    class="outline"
+                    hx-get="/maturity/sloh"
+                    hx-target="body"
+                    hx-push-url="true"
+                    hx-swap="transition:true">
+                  SLOH</button>
+                </div>
+              </li>
+            </ul>
+          </nav>
+        </header>
 
-<article
-  style="
-    width: 20vw;
-    min-width: 20vw;
-    margin-right: 1em;
-    overflow-y: auto;
-    resize: horizontal;
-  ">
-  <div class="button">
-    <a href="../maturity/">
-      <button class="tlacitko">Praktická</button>
-    </a>
-    <a href="../maturity/pcmz">
-      <button class="tlacitko">Ústní</button>
-    </a>
-    <a href="../maturity/scmz">
-      <button class="tlacitko">Státní</button>
-    </a>
-    <a href="../maturity/sloh">
-      <button class="tlacitko">Sloh</button>
-    </a>
-  </div>
-</article>
-
-<article style="flex: 3; overflow-y: auto">
   <h1 style="padding: 10px">Společná část maturitní zkoušky</h1>
   <form
     action="/maturity/ukladaniscmz"
@@ -162,29 +180,26 @@
 </article>
 
 <script>
-  let dayCounter = document.getElementById("scmz-table").querySelector("tbody").children.length;
-  if (dayCounter == 0) {dayCounter = 1}
+   let dayCounter = 1;
 
-  document
-    .getElementById("pridat-datum")
-    .addEventListener("click", function () {
+   document.getElementById("pridat-datum").addEventListener("click", function () {
       dayCounter++;
       const tableBody = document.querySelector("#scmz-table tbody");
       const newRow = document.createElement("tr");
 
       newRow.innerHTML = `
-            <td><input type="date" name="den${dayCounter}_datum" disabled></td>
-            <td><input type="checkbox" class="zadavani-checkbox" style="padding: 0.5em; font-size: 50px;" disabled></td>
-            <td><input type="time" name="den${dayCounter}_cas" class="cas-input" disabled style="padding: 0.5em;"></td>
-            <td>
-              <select name="den${dayCounter}_ucebna" class="ucebna-select" disabled style="padding: 0.5em;">
-                <option value="">Vyberte učebnu</option>
-                <option value="T15">T15</option>
-                <option value="T16">T16</option>
-                <option value="T17">T17</option>
-              </select>
-            </td>
-          `;
+         <td><input type="date" name="den${dayCounter}_datum"></td>
+         <td><input type="checkbox" class="zadavani-checkbox" style="padding: 0.5em; font-size: 50px;"></td>
+         <td><input type="time" name="den${dayCounter}_cas" class="cas-input" disabled style="padding: 0.5em;"></td>
+         <td>
+         <select name="den${dayCounter}_ucebna" class="ucebna-select" disabled style="padding: 0.5em;">
+         <option value="">Vyberte učebnu</option>
+         <option value="T15">T15</option>
+         <option value="T16">T16</option>
+         <option value="T17">T17</option>
+         </select>
+         </td>
+         `;
 
       tableBody.appendChild(newRow);
       addCheckboxFunctionality(newRow);
@@ -239,5 +254,33 @@
 
   document.querySelectorAll("tbody tr").forEach(addCheckboxFunctionality);
 </script>
+          <!-- checkbox.addEventListener("change", function () { -->
+          <!--   if (checkbox.checked) { -->
+          <!--     timeInput.disabled = false; -->
+          <!--     classroomSelect.disabled = false; -->
+          <!--   } else { -->
+          <!--     timeInput.value = ""; -->
+          <!--     timeInput.disabled = true; -->
+          <!--     classroomSelect.selectedIndex = 0; -->
+          <!--     classroomSelect.disabled = true; -->
+          <!--   } -->
+          <!-- }); -->
+        <!-- } -->
+
+        <!-- document.querySelector("form").addEventListener("submit", function () { -->
+          <!-- document.querySelectorAll("tbody tr").forEach(function (row) { -->
+          <!--   const checkbox = row.querySelector(".zadavani-checkbox"); -->
+          <!--   const timeInput = row.querySelector(".cas-input"); -->
+          <!--   const classroomSelect = row.querySelector(".ucebna-select"); -->
+
+          <!--   if (checkbox.checked) { -->
+          <!--     timeInput.disabled = false; -->
+          <!--     classroomSelect.disabled = false; -->
+          <!--   } -->
+          <!-- }); -->
+        <!-- }); -->
+
+        <!-- document.querySelectorAll("tbody tr").forEach(addCheckboxFunctionality); -->
+      <!-- </script> -->
 
 <%- include('../partials/tail') %>

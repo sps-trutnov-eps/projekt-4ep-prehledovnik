@@ -1,32 +1,45 @@
 <!DOCTYPE html>
 <%- include('../partials/head'); %>
 <style>
-    h1 {
-        padding-top: 36px;
-        padding-bottom: 20px;
-        text-align: center;
-    }
     .grid-container {
       display: grid;
       grid-template-columns: repeat(6, minmax(150px, 1fr));
       padding: 20px;
     }
     .grid-item {
-      border: 1px solid rgba(0, 0, 0, 0.8);
-      padding: 20px;
-      font-size: 20px;
-      text-align: center;
-      scroll-margin: 325px;
-      margin: 0;
+        border: 1px solid rgba(0, 0, 0, 0.8); 
+        border-collapse: collapse;
+        font-size: 20px;
+        text-align: center;
+        scroll-margin: 325px;
+        margin: 0;
+        height: 120px;
+        padding: 1px;
     }
+
     .days-header {
         position: sticky;
-        top: 70px;
+        top: -1em;
         z-index: 9;
-        padding: 20px;
-        padding-bottom: 0;  
+        padding-bottom: 0;
         margin: 0;
+        background-color: var(--pico-card-background-color);
+
+        p {
+            position: relative; /* Ensure positioning context */
+            background-color: var(--pico-background-color);
+            box-shadow: /* Still WIP */
+                0rem 0.029rem 0.174rem rgba(129, 145, 181, 0.01698), 
+                0rem 0.067rem 0.402rem rgba(129, 145, 181, 0.024), 
+                0rem 0.125rem 0.75rem rgba(129, 145, 181, 0.03), 
+                0rem 0.225rem 1.35rem rgba(129, 145, 181, 0.036), 
+                0rem 0.417rem 2.502rem rgba(129, 145, 181, 0.04302), 
+                0rem 1rem 6rem rgba(129, 145, 181, 0.06);
+            margin: 0; /* Prevent extra spacing */
+            padding: 10px 5px; /* Optional: Adjust padding for better visual fit */
+        }
     }
+
     #quick-nav {
         position: sticky;
         top: 0;
@@ -34,32 +47,57 @@
         margin-top: 0;
         padding: 15px;
     }
-
-    #detail {
+    /* Fromát dnů v kalendáři */
+    .days-mon {
+        padding: 0;
+        font-size: 13px;
+        font-weight: 800;
+        margin: 0;
+    }
+    
+    .udalost {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        margin-top: -10px;
+        border-radius: 0;
+        height: 20px;
+        font-size: 10px;
+        
+        padding-block: 0px;
+        padding-inline: 0px;
+        line-height: 1;
+    }
+    .week-days {
+        height: 50px;
+        font-weight: 600;
+    }
+    /*----------------*/
+    /* #detail {
         display: none;
         position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         width: 400px;
-        background-color: white;
+        background-color: var(--pico-card-background-color);
         border-radius: 8px;
         padding: 24px;
         padding-bottom: 80px;
         z-index: 1000;
         text-align: center;
     }
-
+ */
     .detailItem {
         font-weight: bold;
         margin: 12px 0;
         padding: 8px 0;
-        color: #333;
+        /*color: #333;*/
     }
 
     .detailItem::before {
         display: block;
-        color: #666;
+        /*color: #666;*/
         margin-bottom: 4px;
     }
 
@@ -74,7 +112,7 @@
         margin-bottom: 60px;
     }
 
-    .detailButton {
+    /* .detailButton {
         position: absolute;
         bottom: 20px;
         left: 50%;
@@ -92,7 +130,7 @@
 
     .detailButton:hover {
         background-color: #ff0000;
-    }
+    } */
 
     /* Dark mode */
     @media (prefers-color-scheme: dark) {
@@ -111,89 +149,120 @@
 
 </style>
 
-<article style="flex: 3; overflow-y: auto; padding: 0;">
+<article style="flex: 3; padding: 0;">
     <header>
-        <h1>Kalendář</h1>
-        <div role="group">
-            <button class="outline" hx-get="/kalendar/tydenni" hx-target="body" hx-push-url="true">
-                Týdenní
-            </button>
-            <button hx-get="/kalendar" hx-target="body" hx-push-url="true">
-                Měsíční
-            </button>
-        </div>
+      <nav>
+        <ul>
+          <li>
+            <h1>Kalendář</h1>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <div role="group">
+               <button onclick="scrollToCurrent()">Aktuální</button>
+               <select name="months" id="months" ">
+                  <option value="8">Srpen</option>
+                  <option value="9">Září</option>
+                  <option value="10">Říjen</option>
+                  <option value="11">Listopad</option>
+                  <option value="12">Prosinec</option>
+                  <option value="1">Leden</option>
+                  <option value="2">Únor</option>
+                  <option value="3">Březen</option>
+                  <option value="4">Duben</option>
+                  <option value="5">Květen</option>
+                  <option value="6">Červen</option>
+                  <option value="7">Červenec</option>
+               </select>
+               <button onclick="scrollToMonth()">Na&nbspměsíc</button>
+            </div>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <div role="group">
+              <button class="outline" hx-get="/kalendar/tydenni" hx-target="body" hx-push-url="true" hx-swap="transition:true">
+                  Týdenní
+              </button>
+              <button hx-get="/kalendar" hx-target="body" hx-push-url="true" hx-swap="transition:true">
+                  Měsíční
+              </button>
+            </div>
+          </li>
+        </ul>
+      </nav>
 
-        <div role="group" id="quick-nav">
-           <button onclick="scrollToCurrent()">Aktuální</button>
-           <select name="months" id="months" ">
-              <option value="8">Srpen</option> 
-              <option value="9">Září</option>
-              <option value="10">Říjen</option>
-              <option value="11">Listopad</option>
-              <option value="12">Prosinec</option>
-              <option value="1">Leden</option>
-              <option value="2">Únor</option>
-              <option value="3">Březen</option>
-              <option value="4">Duben</option>
-              <option value="5">Květen</option>
-              <option value="6">Červen</option>
-              <option value="7">Červenec</option>
-           </select>
-           <button onclick="scrollToMonth()">Na&nbspměsíc</button>
-        </div>
-        <section class="grid-container days-header">
-           <p class="grid-item">PONDĚLÍ</p>
-           <p class="grid-item">ÚTERÝ</p>
-           <p class="grid-item">STŘEDA</p>
-           <p class="grid-item">ČTVRTEK</p>
-           <p class="grid-item">PÁTEK</p>
-           <p class="grid-item">VÍKEND</p>
-        </section>
     </header>
-        
-        
-        <div id="detail">
-            <p id="name" class="detailItem"></p>
-            <p id="from" class="detailItem"></p>
-            <p id="to" class="detailItem"></p>
-            <p id="date" class="detailItem"></p>
-            <p id="type" class="detailItem"></p>
-            <p id="tykase" class="detailItem"></p>
-            <p id="note" class="detailItem"></p>
-            <button class="detailButton" onclick="detailOff()">X</button>
-        </div>
+
+    <main>
+      <section class="grid-container days-header">
+         <p class="grid-item week-days">PONDĚLÍ</p>
+         <p class="grid-item week-days">ÚTERÝ</p>
+         <p class="grid-item week-days">STŘEDA</p>
+         <p class="grid-item week-days">ČTVRTEK</p>
+         <p class="grid-item week-days">PÁTEK</p>
+         <p class="grid-item week-days">VÍKEND</p>
+      </section>
+
+
         <section class="grid-container">
             <%
                 let startDate = new Date(2024,7,1);
                 let endDate = new Date(2025,6,31);
                 const increment = 24 * 60 * 60 * 1000 //Miliseconds per day
                 let a = false
-                console.log("aaa")
+                //console.log("aaa")
             %>
             <% for (let i = startDate.getTime(); i <= endDate.getTime();i += increment) {%>
                 <% if(new Date(i).getDay() != 0) {%>
 
                 <section id=<%= new Date(i).toLocaleDateString('en-CA', { timeZone: 'Europe/Prague' }) %>  style="grid-column-start: <%= new Date(i).getDay()%> ;" class="grid-item">
                     <% if(new Date(i).getDay() == 6) {%>
-                    <p><%= new Date(i).getDate()%> / <%= new Date(i).getMonth() + 1%> - <%= new Date(i+increment).getDate()%> / <%= new Date(i+increment).getMonth() + 1%></p>
+                    <p class="days-mon"><%= new Date(i).getDate()%> / <%= new Date(i).getMonth() + 1%> - <%= new Date(i+increment).getDate()%> / <%= new Date(i+increment).getMonth() + 1%></p>
 
                     <% }else{%>
-                        <p><%= new Date(i).getDate()%> / <%= new Date(i).getMonth() + 1%></p>
+                        <p class="days-mon"><%= new Date(i).getDate()%> / <%= new Date(i).getMonth() + 1%></p>
                     <% }%>
 
 
-                    
+
                     <% if (new Date(i).getDate() == date_udalost[0] && new Date(i).getMonth() + 1 == date_udalost[1]) {%>
-                    <p><%= date_udalost[2]%></p>  
+                    <p><%= date_udalost[2]%></p>
                     <%}%>
 
                 </section>
-                
 
-                <% }%>  
-            <% }%>                
+
+                <% }%>
+            <% }%>
         </section>
+    </main>
 </article>
+
+<dialog id="detail">
+    <article>
+      <header>
+        <button
+          aria-label="Close"
+          rel="prev"
+          data-target="detail"
+          onclick="toggleModal(event)"
+        ></button>
+        <p><strong>Confirm your action!</strong></p>
+      </header>
+      <main>
+        <p id="name" class="detailItem"></p>
+        <p id="from" class="detailItem"></p>
+        <p id="to" class="detailItem"></p>
+        <p id="date" class="detailItem"></p>
+        <p id="type" class="detailItem"></p>
+        <p id="tykase" class="detailItem"></p>
+        <p id="note" class="detailItem"></p>
+      </main>
+    </article>
+</dialog>
+
 <script>
   document.addEventListener("DOMContentLoaded", function() {
               placeUdalosti()
@@ -207,7 +276,7 @@
           today = new Date(Number(today.getTime()) - increment)
       let currentDate = today.toISOString().split('T')[0]; // Format YYYY-MM-DD
       let element = document.getElementById(currentDate);
-      
+
       if (element) {
           element.scrollIntoView({ behavior: 'smooth', block: 'start' });
       } else {
@@ -216,12 +285,12 @@
   }
 
   function scrollToMonth() {
-  
+
       const select = document.getElementById("months");
       const month = select.value;
       const year = (month < 8) ? 2025 : 2024;  // Nastavení roku podle výběru měsíce
       let selected = document.getElementById(`${year}-${month.padStart(2, '0')}-01`);
-      
+
       if (selected) {
           selected.scrollIntoView({ behavior: 'smooth', block: 'start' });
       } else {
@@ -231,54 +300,56 @@
   }
 
   function placeUdalost(udalost, index){
-      const increment = 24 * 60 * 60 * 1000
-      let date = udalost.datum
-      const dateCheck = new Date(udalost.datum)
-      if (Number(dateCheck.getDay()) == 0)
-          date = new Date(Number(dateCheck.getTime()) - increment).toLocaleDateString('en-CA', { timeZone: 'Europe/Prague' })
-      let day = document.getElementById(date)      
+    const increment = 24 * 60 * 60 * 1000
+    let date = udalost.datum
+    const dateCheck = new Date(udalost.datum)
+    if (Number(dateCheck.getDay()) == 0)
+        date = new Date(Number(dateCheck.getTime()) - increment).toLocaleDateString('en-CA', { timeZone: 'Europe/Prague' })
+    let day = document.getElementById(date)
+    // console.log("AAA")
 
-      let button = document.createElement("button")
-      button.textContent = udalost.nazev
-      button.className = "udalost"
-      button.onclick = function(){detailDisplay(index)}
-      day.appendChild(button)
-      return button
+    let button = document.createElement("button")
+    button.textContent = udalost.nazev
+    button.className = "udalost"
+    button.setAttribute("data-target", "detail")
+    button.onclick = function(){detailDisplay(index, event)}
+    day.appendChild(button)
+    return button
   }
 
   function placeUdalosti() {
-      let udalosti = <%- JSON.stringify(udalosti) %>
+        let udalosti = <%- JSON.stringify(udalosti) %>
+        for (let id in udalosti){
+            if(udalosti[id] != null){
+                if(udalosti[id].datumDo != null){
+                    udalosti[id].naPocetDni = (new Date(udalosti[id].datumDo) - new Date(udalosti[id].datum) ) / (1000 * 60 * 60 * 24) + 1
+                    console.log(udalosti[id].naPocetDni)
+                    for(let j=0; j < udalosti[id].naPocetDni ;j++){
+                        let udalost = { ...udalosti[id] };
+                        let date = new Date(udalost.datum);
+                        date.setDate(date.getDate() + j);
+                        udalost.datum = date.toISOString().split('T')[0];
 
-      for (let i=1;i<udalosti.length;i++){
-          if(udalosti[i] != null){                    
-              if(udalosti[i].naPocetDni > 0){
-                  for(let j=0; j < udalosti[i].naPocetDni ;j++){
-                      let udalost = { ...udalosti[i] };
-                      let date = new Date(udalost.datum);
-                      date.setDate(date.getDate() + j);
-                      udalost.datum = date.toISOString().split('T')[0];
-
-                      let element = placeUdalost(udalost,i)
-                      element.classList.add("udalost", "udalostVicedenni")
-                      while (element.previousSibling != null){
-                          element.parentNode.insertBefore(element, element.previousSibling)
-                          if(element.previousSibling == element.parentNode.firstElementChild)
-                              break
-                      }
-              }}
-              else
-                  placeUdalost(udalosti[i],i)
-          }                             
-      }
+                        let element = placeUdalost(udalost,id)
+                        element.classList.add("udalost", "udalostVicedenni")
+                        while (element.previousSibling != null){
+                            element.parentNode.insertBefore(element, element.previousSibling)
+                            if(element.previousSibling == element.parentNode.firstElementChild)
+                                break
+                        }
+                }}
+                else
+                    placeUdalost(udalosti[id],id)
+            }
+        }
   }
 
-  function detailDisplay(index){
+  function detailDisplay(index, event){
       const udalosti = <%- JSON.stringify(udalosti) %>
       const udalost = udalosti[index]
-      console.log(udalost.typ)
+      //console.log(udalost.typ)
 
       let detail = document.getElementById("detail")
-      detail.style.display = "block"
 
       document.getElementById("name").innerText = udalost.nazev
       document.getElementById("from").innerText = udalost.casOd
@@ -287,11 +358,82 @@
       document.getElementById("type").innerText = udalost.typ
       document.getElementById("tykase").innerText = udalost.tykaSe
       document.getElementById("note").innerText = udalost.poznamka
+
+      toggleModal(event)
   }
 
-  function detailOff(){
-      document.getElementById("detail").style.display = "none"
-  }
+
+  const isOpenClass = "modal-is-open";
+  const openingClass = "modal-is-opening";
+  const closingClass = "modal-is-closing";
+  const scrollbarWidthCssVar = "--pico-scrollbar-width";
+  const animationDuration = 400; // ms
+  let visibleModal = null;
+
+
+  const toggleModal = (event) => {
+    event.preventDefault();
+    const modal = document.getElementById(event.currentTarget.dataset.target);
+    if (!modal) return;
+    modal && (modal.open ? closeModal(modal) : openModal(modal));
+    };
+
+    // Open modal
+    const openModal = (modal) => {
+    const { documentElement: html } = document;
+    const scrollbarWidth = getScrollbarWidth();
+    if (scrollbarWidth) {
+        html.style.setProperty(scrollbarWidthCssVar, `${scrollbarWidth}px`);
+    }
+    html.classList.add(isOpenClass, openingClass);
+    setTimeout(() => {
+        visibleModal = modal;
+        html.classList.remove(openingClass);
+    }, animationDuration);
+    modal.showModal();
+    };
+
+    // Close modal
+    const closeModal = (modal) => {
+    visibleModal = null;
+    const { documentElement: html } = document;
+    html.classList.add(closingClass);
+    setTimeout(() => {
+        html.classList.remove(closingClass, isOpenClass);
+        html.style.removeProperty(scrollbarWidthCssVar);
+        modal.close();
+    }, animationDuration);
+    };
+
+    // Close with a click outside
+    document.addEventListener("click", (event) => {
+    if (visibleModal === null) return;
+    const modalContent = visibleModal.querySelector("article");
+    const isClickInside = modalContent.contains(event.target);
+    if (!isClickInside) {
+        closeModal(visibleModal);
+        event.stopPropagation();
+    }
+    });
+
+    // Close with Esc key
+    document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && visibleModal) {
+        closeModal(visibleModal);
+    }
+    });
+
+    // Get scrollbar width
+    const getScrollbarWidth = () => {
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    return scrollbarWidth;
+    };
+
+    // Is scrollbar visible
+    const isScrollbarVisible = () => {
+    return document.body.scrollHeight > screen.height;
+    };
+
 
 </script>
 <script src="/kalendar/js/main.js"></script>
