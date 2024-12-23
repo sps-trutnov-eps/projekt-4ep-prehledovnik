@@ -435,88 +435,68 @@ function sP(projekty) {
 }
 
 const projekty = {
-   pridatProjekt: (trida, tymy, pitche, milestony, devlogy, prezentace) => {
-      let projekty = gP();
-      //console.log(projekty);
-      projekty[projekty["nextID"]] = {
-         trida,
-         tymy,
-         pitche,
-         milestony,
-         devlogy,
-         prezentace,
-      };
-      projekty["nextID"] += 1;
-      sP(projekty);
-   },
-   ravitTym: (puvodniTym, novyTym) => {
-      let projekty = gP();
-      let nextID = projekty["nextID"];
-      //console.log(projekty);
-      for (let i = 0; i < nextID; i++) {
-         if (JSON.stringify(projekty[String(i)]["Tymy"]) === puvodniTym)
-        projekty[String(i)] = novyTym;
-    }
-    sP(projekty);
-  },
-  upravitTym: (puvodniTym, novyTym) => {
+  pridatProjekt: (trida) => {
     let projekty = gP();
     let nextID = projekty["nextID"];
-    console.log(projekty);
-    for (let i = 0; i < nextID; i++) {
-      if (JSON.stringify(projekty[String(i)]["Tymy"]) === puvodniTym)
-        projekty[String(i)] = novyTym;
+    projekty[nextID] = {trida, "tymy": []};
+    projekty["nextID"] += 1;
+    sP(projekty);
+  },
+  pridatTym: (IDtridy, cislo, tema, odkaz, clenove, vedouci, datum, featury, stretchgoaly, poznamka, ucast) => {
+    let projekty = gP();
+    //let IDtridy = ziskatIDprojektuDleTridy(trida); Doesn't work, I guess it's because it's in the same.. json?
+    projekty[String(IDtridy)]["tymy"].push({
+      cislo,
+      tema,
+      odkaz,
+      clenove,
+      vedouci,
+      "pitch": {
+        datum,
+        featury,
+        stretchgoaly,
+        poznamka,
+        ucast
+      }});
+    sP(projekty);
+  },
+  ziskatTym: (IDtridy, cislo) => {
+    let projekty = gP();
+    //let IDtridy = ziskatIDprojektuDleTridy(trida); Doesn't work, I guess it's because it's in the same.. json?
+    for (let i = 0; i < projekty[String(IDtridy)]["tymy"].length; i++){
+      if (projekty[String(IDtridy)]["tymy"][i]["cislo"] == cislo){
+        return projekty[String(IDtridy)]["tymy"][i];
+      }
     }
-    sP(projekty);
   },
-  upravitPitche: (trida, pitche) => {
+  ziskatCelouTridu: (IDtridy) => {
     let projekty = gP();
-    let IDUpravovanehoProjektu = hledanyProjekt(trida);
-    projekty[IDUpravovanehoProjektu]["ptiche"] = pitche;
-    sP(projekty);
+    //let IDtridy = ziskatIDprojektuDleTridy(trida); Doesn't work, I guess it's because it's in the same.. json?
+    return projekty[String(IDtridy)];
   },
-  upravitMilestony: (trida, milestony) => {
-    let projekty = gP();
-    let IDUpravovanehoProjektu = hledanyProjekt(trida);
-    projekty[IDUpravovanehoProjektu]["milestony"] = milestony;
-    sP(projekty);
-  },
-  upravitDevlogy: (trida, devlogy) => {
-    let projekty = gP();
-    let IDUpravovanehoProjektu = hledanyProjekt(trida);
-    projekty[IDUpravovanehoProjektu]["devlogy"] = devlogy;
-    sP(projekty);
-  },
-  upravitPrezentace: (trida, prezentace) => {
-    let projekty = gP();
-    let IDUpravovanehoProjektu = hledanyProjekt(trida);
-    projekty[IDUpravovanehoProjektu]["prezentace"] = prezentace;
-    sP(projekty);
-  },
-  ziskatIDProjektu: (trida) => {
+  ziskatIDprojektuDleTridy: (trida) => {
     let projekty = gP();
     let nextID = projekty["nextID"];
     let IDHledanehoProjektu;
-    for (let i = 0; i < nextID; i++) {
+    for (let i = 1; i < nextID; i++) {
       if (projekty[String(i)]["trida"] == trida) {
         IDHledanehoProjektu = String(i);
       }
     }
     return IDHledanehoProjektu;
   },
-  ziskatProjekt: (trida) => {
+  upravitTym: (IDtridy, tym) => {
     let projekty = gP();
-    let ID = ziskatIDProjektu(trida);
-    return projekty[ID];
-  },
-  ziskatTridy: () => {
-    let projekty = Object.values(gP());
-    projekty.pop();
-    return projekty.map((projekt) => projekt["trida"]);
-  },
-  gP: () => {
-    return db.get("projekty");
-  },
+    //let IDtridy = ziskatIDprojektuDleTridy(trida); Doesn't work, I guess it's because it's in the same.. json?
+    let cislo = tym["cislo"];
+    for (let i = 0; i < projekty[String(IDtridy)]["tymy"].length; i++){
+      if (projekty[String(IDtridy)]["tymy"][i]["cislo"] == cislo){
+        projekty[String(IDtridy)]["tymy"][i] = tym;
+        break;
+      }
+    }
+    sP(projekty);
+  }
 };
 
 // CELKOVÝ MODEL

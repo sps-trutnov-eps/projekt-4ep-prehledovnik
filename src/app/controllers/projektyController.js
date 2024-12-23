@@ -1,37 +1,5 @@
 const databaze = require("../models/databaseEngine");
 
-exports.zobrazTymy = (req, res) => {
-    let tlacitka = vytvorTlacitka("projekty/tymy/");
-	let tymy = [];
-
-    res.render("projekty/tymy", { tlacitka: tlacitka, tymy: tymy });
-};
-
-exports.zobrazProjekt = (req, res) => { 
-    let tlacitka = vytvorTlacitka("projekty/tymy/");
-    let tymy = ziskejTymy(req.params.projekt);
-
-    res.render("projekty/tymy", { tlacitka: tlacitka, tymy: tymy }); 
-}; 
- 
-exports.zobrazTlacitka = (req, res) => {
-	let tlacitka = vytvorTlacitka("projekty/");
-	let tymy = [];
-	
-	res.render("projekty/index", { tlacitka: tlacitka, tymy: tymy, id: -1 });
-};
- 
-exports.zobrazDetailyProjektu = (req, res) => {
-	let tlacitka = vytvorTlacitka("projekty/");
-	let tymy = ziskejTymy(req.params.id);
-
-	res.render("projekty/index", {
-      tlacitka: tlacitka,
-      tymy: tymy,
-      id: req.params.id,
-   });
-};
- 
 exports.upload = async (req, res) => {
    try {
       const fileText = req.file.buffer.toString('utf8');
@@ -133,79 +101,93 @@ exports.upload = async (req, res) => {
          `);
    }
 };
- 
-function vytvorTlacitka(url) {
-	let tlacitka = "";
-    const tridy = databaze.projekty.gP();
 
-    for (const projektID in tridy) {
-        if (projektID != "nextID") {
-            const trida = tridy[projektID].trida;
-            if (trida) {
-                tlacitka += `
-				<div style="display: flex; width: 100%" class="cur">
-					<input class="deleteCurButton" type="button" value="-"
-                      onclick="console.log('yeet');"/>
-					<button style="margin-left: 0;" hx-get="/${url}${trida}"
-                       hx-target="body" hx-push-url="true"
-                       hx-swap="transition:true">${trida}</button>
-				</div>
-				`;
-            }
-        }
+
+exports.view = (req, res) => {
+    let files = "class";
+    let urlID = req.params.id;
+    if (urlID == undefined){
+        files = "none";
+    } else if (urlID.split('-').length == 3){
+        files = "team";
     }
-	return tlacitka;
-} 
-
-function ziskejTymy(trida){
-	const tridy = databaze.projekty.gP(); 
-
-    let tymy = [];
-    for (const projektID in tridy) {
-        if (projektID !== "nextID" && tridy[projektID].trida === trida) {
-            tymy = tridy[projektID].tymy;
-            break;
-        }
-    }
-	return tymy;
+   
+    res.render('projekty/index.ejs', { files: files });
 }
 
-exports.zobrazPitche = (req, res) => {
-    res.render("projekty/pitch");
-};
 
-exports.zobrazPrezentace = (req, res) => {
-    res.render("projekty/prezentace");
-};
+exports.addClass = (classID) => {
+   
+    let tridaID = databaze.projekty.ziskatIDprojektuDleTridy(classID);
+    if (databaze.projekty.ziskatCelouTridu(tridaID) == undefined){
+        databaze.projekty.pridatProjekt(classID);
+    } else (console.log("(projektyController.js; function: addClass): Class already exists."))
+}
 
-exports.vytvoritProjekt = (req, res) => {
-    res.render("projekty/vytvoreniProjektu");
-};
-
-exports.zobrazDetailyTymu = (req, res) => {
-    const projectClass = req.params.projekt;
-    const teamId = req.params.id;
-
-    // Načtení projektu a týmu
-    const project = databaze.projekty.ziskatProjekt(projectClass);
-
-    if (!project || !project.tymy[teamId]) {
-        return res.status(404).send("Tým nenalezen.");
+exports.saveTeams = (data) => {
+    let tridaID = databaze.projekty.ziskatIDprojektuDleTridy(data.classID);
+   
+    for (let i = 0; i < data.teams.length; i++){
+        const team = data.teams[i];
+        
+        let existingTeam = databaze.projekty.ziskatTym(tridaID, team.teamID);
+        if (existingTeam == undefined){
+            databaze.projekty.pridatTym(tridaID, team.teamID, team.description, team.url, team.members, "undefined", data.pitchDate, ["undefined","undefined"], ["undefined","undefined"], "undefined", ["undefined","undefined"]);
+        } else {
+            console.log("(projektyController.js; function: saveTeams): Team already exists.");
+            databaze.projekty.upravitTym(tridaID, {
+                "cislo": team.teamID,
+                "tema": team.description,
+                "odkaz": team.url,
+                "clenove": team.members,
+                "vedouci": existingTeam["vedouci"],
+                "pitch": {
+                    "datum": data.pitchDate,
+                    "featury": existingTeam["pitch"]["featury"],
+                    "stretchgoaly": existingTeam["pitch"]["stretchgoaly"],
+                    "pozamka": existingTeam["pitch"]["pozamka"],
+                    "ucast": existingTeam["pitch"]["ucast"]
+                }
+            });
+        }
     }
+}
 
-    const team = project.tymy[teamId];
-
-    res.render("projekty/detailTymu", { team });
-};
-
-exports.zmenDetailyTymu = (req, res) => {
-    // let vedouci = req.body.leader;
-    // let name = req.body.name;
-    // let clenove = req.body.members;
-
-    databaze.projekty.upravitTym()
-    res.redirect('/projekty/tymy');
-};
+exports.saveTeam = (data) => {
+    let tridaID = databaze.projekty.ziskatIDprojektuDleTridy(data.classID);
+    let existingTeam = databaze.projekty.ziskatTym(tridaID, data.teamID);
+   
+    let membersCommits = [];
+    for (let i = 0; i < data.marksCommits.length; i++){
+        let member = {};
+        member["znamky"] = data.marksCommits[i];
+        membersCommits.push(member);
+    }
+    
+    let membersDevlogs = [];
+    for (let i = 0; i < data.marksDevlogs.length; i++){
+        let member = {};
+        member["znamky"] = data.marksDevlogs[i];
+        membersDevlogs.push(member);
+    }
+   
+    databaze.projekty.upravitTym(tridaID, {
+                "cislo": data.teamID,
+                "tema": data.description,
+                "odkaz": data.link,
+                "clenove": data.members,
+                "vedouci": data.ceo,
+                "pitch": {
+                    "datum": existingTeam["pitch"]["datum"],
+                    "featury": data["features"],
+                    "stretchgoaly": data["goals"],
+                    "pozamka": data["note"],
+                    "ucast": data["pitch"]
+                },
+                "znamkyDev": membersDevlogs,
+                "znamkyCom": membersCommits
+            });
+}
 
 // Tato metoda se volá, když se odesílá formulář pro nový projekt
 exports.ulozitProjekt = (req, res) => {
