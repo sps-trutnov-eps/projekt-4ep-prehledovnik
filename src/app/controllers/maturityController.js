@@ -187,7 +187,6 @@ exports.ukladaniscmz = (req, res) => {
         }
     });
     databaze.maturity.pridatMaturitniEvent("SČMZ", datumy, hodiny, ucebny);
-    console.log(databaze.maturity.ziskatVsechnyMaturityJakoUdalosti());
     res.redirect("/maturity/scmz");
 };
 
