@@ -1,25 +1,68 @@
 <!DOCTYPE html>
-    <%- include('../partials/head'); %>
-    <style>
-      .button {
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        width: 100%;
-        padding: 10px;
-      }
-      .tlacitko {
-        margin: 20px 0;
-        padding: 15px;
-        /* background-color: #007bff;
-        color: white; */
-        border: none;
-        border-radius: 5px;
-        width: 100%;
-        text-align: center;
-        font-size: 16px;
-      }
-    </style>
+<%- include('../partials/head'); %>
+<!-- <article -->
+<!--   style=" -->
+<!--     width: 19vw; -->
+<!--     min-width: 19vw; -->
+<!--     margin-right: 0em; -->
+<!--     overflow-y: auto; -->
+<!--     resize: horizontal; -->
+<!--   "> -->
+<!--   <div class="button"> -->
+<!--     <a href="../maturity/"> -->
+<!--       <button class="tlacitko">Praktická</button> -->
+<!--     </a> -->
+<!--     <a href="../maturity/pcmz"> -->
+<!--       <button class="tlacitko">Ústní</button> -->
+<!--     </a> -->
+<!--     <a href="../maturity/scmz"> -->
+<!--       <button class="tlacitko">Státní</button> -->
+<!--     </a> -->
+<!--     <a href="../maturity/sloh"> -->
+<!--       <button class="tlacitko">Sloh</button> -->
+<!--     </a> -->
+<!--   </div> -->
+<!-- </article> -->
+<style>
+   .button {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      width: 100%;
+      padding: 10px;
+   }
+   .tlacitko {
+     margin: 8px 0;
+     padding: 15px;
+     border: none;
+     border-radius: 5px;
+     width: 100%;
+     text-align: center;
+     font-size: 16px;
+   }
+   /* Přidání odsazení formuláře */
+   form {
+     padding: 10px;
+   }
+   /* Styl podtržení nadpisu */
+   .headline {
+     padding: 10px;
+     position: relative;
+     display: inline-block;
+     color: white;
+     font-size: 1.5em;
+   }
+   .headline::after {
+     content: "";
+     display: block;
+     position: absolute;
+     bottom: -5px;
+     left: 0;
+     width: 100%;
+     height: 2px;
+     background-color: white;
+   }
+</style>
     <article style="flex: 3; overflow-y: auto">
       <header>
         <nav>
@@ -64,37 +107,71 @@
         </nav>
       </header>
       <main>
-        <form action="/maturity/ukladanipzop" method="POST" style="display: flex; flex-direction: column">
-          <label for="den-konani">Den konání:</label>
-          <input type="date" id="den-konani" name="den_konani" />
+         <article style="flex: 3; overflow-y: auto; position: relative">
+           <h1 class="headline">Praktická zkouška z odborných předmětů</h1>
+           <form
+             action="/maturity/ukladanipzop"
+             method="POST"
+             style="display: flex; flex-direction: column"
+             id="form">
+             <label for="den-konani">Den konání:</label>
+             <input type="date" id="den-konani" name="den_konani" value=<%=dny[0]%> disabled/>
 
-          <label for="dodatecne-dny">Dodatečné dny:</label>
-          <input type="date" id="dodatecne-dny" name="dodatecne_dny" />
+             <label for="dodatecne-dny">Dodatečné dny:</label>
+             <input type="date" id="dodatecne-dny" name="dodatecne_dny" value=<%=dny[1]%> disabled/>
 
-          <label for="ucebna">Učebna:</label>
-          <select
-            id="ucebna"
-            name="ucebna"
-            style="margin-bottom: 1em; padding: 0.5em">
-            <option value="ucebna1">Učebna 1</option>
-            <option value="ucebna2">Učebna 2</option>
-            <option value="ucebna3">Učebna 3</option>
-          </select>
+    <label for="ucebna">Učebna:</label>
+    <select
+      id="ucebna"
+      name="ucebna"
+      style="margin-bottom: 1em; padding: 0.5em"
+      disabled>
+      <%if (ucebna == "ucebna1") {%>
+        <option value="ucebna1" selected>Učebna 1</option>
+      <% } else {%>
+        <option value="ucebna1">Učebna 1</option>
+      <%}%>
+      <%if (ucebna == "ucebna2") {%>
+        <option value="ucebna2" selected>Učebna 2</option>
+      <% } else {%>
+        <option value="ucebna2">Učebna 2</option>
+      <%}%>
+      <%if (ucebna == "ucebna3") {%>
+        <option value="ucebna3" selected>Učebna 3</option>
+      <% } else {%>
+        <option value="ucebna3">Učebna 3</option>
+      <%}%>
+    </select>
 
-          <div style="text-align: center">
-            <button
-              type="submit"
-              style="
-                padding: 0.5em;
-                border: none;
-                cursor: pointer;
-                width: 150px;
-              ">
-              Uložit
-            </button>
-          </div>
-        </form>
-      </main>
-    </article>
+    <div style="text-align: center">
+      <button
+        type="button"
+        id="editButton"
+        onclick="enableForm()"
+        style="padding: 0.5em; border: none; cursor: pointer; width: 150px">
+        Edit
+      </button>
+      <button
+        type="submit"
+        id="submitButton"
+        style="padding: 0.5em; border: none; cursor: pointer; width: 150px; display: none;">
+        Uložit
+      </button>
+    </div>
+  </form>
+</article>
 
+<script>
+  function enableForm() {
+    const form = document.getElementById("form");
+    const inputs = form.querySelectorAll("input, select");
+
+    inputs.forEach((input) => {
+      input.disabled = false;
+    });
+
+    document.getElementById("editButton").style.display = "none";
+    document.getElementById("submitButton").style.display = "inline-block";
+  }
+</script>
 <%- include('../partials/tail') %>

@@ -1,32 +1,59 @@
 <!DOCTYPE html>
-    <%- include('../partials/head'); %>
-    <style>
-      .button {
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        width: 100%;
-        padding: 10px;
-      }
-      .tlacitko {
-        margin: 20px 0;
-        padding: 15px;
-        border: none;
-        border-radius: 5px;
-        width: 100%;
-        text-align: center;
-        font-size: 16px;
-      }
+<%- include('../partials/head'); %>
+<style>
+  .button {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    padding: 10px;
+  }
+  .tlacitko {
+    margin: 8px 0;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+  }
 
-      table > thead > tr > th > p {
-        font-size: 17px;
-      }
+  table > thead > tr > th > p {
+    font-size: 17px;
+  }
 
-      th {
-        text-align: center;
-      }
-    </style>
+  th {
+    text-align: center;
+  }
 
+  input[type="date"]:disabled {
+    background-color: transparent;
+    border: none;
+  }
+
+  .headline-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    padding: 10px;
+  }
+
+  .headline {
+    margin: 0;
+    font-size: 1.8em;
+    font-weight: bold;
+    color: white;
+  }
+
+  .headline-container::after {
+    content: "";
+    width: 100%;
+    height: 3px;
+    background-color: white;
+    margin-top: 5px;
+  }
+</style>
       <article style="flex: 3; overflow-y: auto">
         <header>
           <nav>
@@ -71,7 +98,11 @@
           </nav>
         </header>
 
+
         <main>
+           <div class="headline-container">
+              <h1 class="headline">Slohová práce</h1>
+           </div>
          <form action="/maturity/ukladanisloh" method="POST">
           <table style="border-collapse: collapse; width: 100%">
             <thead>
@@ -115,198 +146,211 @@
                 </th>
               </tr>
             </thead>
-            <tbody id="table-body">
-              <tr>
-                <td><input type="date" name="den1_datum[]" /></td>
+      <tbody id="table-body">
+        <%let x = 0%>
+        <% for (const datum in data) { %>
+          <%x = x +1%>
+          <tr>
+            <td><input type="date" name="den<%=x%>_datum[]" value="<%= datum%>" disabled /></td>
 
-                <td class="clickable-cell" data-hodina="1">
-                  <input type="hidden" name="den1_ucebna-1[]" value="" />Klikni
+            <% for (let y = 0; y < 9; y++) {%>
+                <td class="clickable-cell" data-hodina="<%=y+1%>">
+                    <%let kondice = "";%>
+                    <%for (i = 0; i < data[datum].length; i++) { if (data[datum][i][0]-1 == y) {kondice = data[datum][i][1];} }%>
+                    <input type="hidden" name="den<%=x%>_ucebna-<%=y+1%>[]" value="<%=kondice%>"/>
+                    <%if (kondice != false) {%>
+                    <%=kondice%>
+                    <%}else{%>
+                        Klikni
+                    <%}%>
                 </td>
-                <td class="clickable-cell" data-hodina="2">
-                  <input type="hidden" name="den1_ucebna-2[]" value="" />Klikni
-                </td>
-                <td class="clickable-cell" data-hodina="3">
-                  <input type="hidden" name="den1_ucebna-3[]" value="" />Klikni
-                </td>
-                <td class="clickable-cell" data-hodina="4">
-                  <input type="hidden" name="den1_ucebna-4[]" value="" />Klikni
-                </td>
-                <td class="clickable-cell" data-hodina="5">
-                  <input type="hidden" name="den1_ucebna-5[]" value="" />Klikni
-                </td>
-                <td class="clickable-cell" data-hodina="6">
-                  <input type="hidden" name="den1_ucebna-6[]" value="" />Klikni
-                </td>
-                <td class="clickable-cell" data-hodina="7">
-                  <input type="hidden" name="den1_ucebna-7[]" value="" />Klikni
-                </td>
-                <td class="clickable-cell" data-hodina="8">
-                  <input type="hidden" name="den1_ucebna-8[]" value="" />Klikni
-                </td>
-                <td class="clickable-cell" data-hodina="9">
-                  <input type="hidden" name="den1_ucebna-9[]" value="" />Klikni
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <div style="text-align: center">
-            <button
-              onclick="addRow()"
-              type="button"
-              id="pridat-datum"
-              style="
-                padding: 0.5em;
-                width: 150px;
-                border: none;
-                cursor: pointer;
-              ">
-              Přidat datum
-            </button>
-          </div>
+            <% } %>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+    <div style="text-align: center">
+      <button
+        onclick="addRow()"
+        type="button"
+        id="pridat-datum"
+        style="padding: 0.5em; width: 150px; border: none; cursor: pointer"
+        disabled
+      >
+        Přidat datum
+      </button>
+    </div>
 
-          <div style="text-align: center">
-            <button
-              type="submit"
-              style="
-                padding: 0.5em;
-                border: none;
-                cursor: pointer;
-                width: 150px;
-              ">
-              Uložit
-            </button>
-          </div>
-         </form>
-        </main>
-        <div
-          id="classroomModal"
-          style="
-            border: solid black;
-            background: lightslategrey;
-            display: none;
-            position: fixed;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            padding: 1em;
-            border: 1px solid black;
-          ">
-          <h2>Vyber učebnu</h2>
+    <div style="text-align: center">
+      <button
+        type="button"
+        id="edit-button"
+        style="padding: 0.5em; border: none; cursor: pointer; width: 150px" onclick="toggleEdit()">
+        Edit
+      </button>
+      <button
+        type="submit"
+        id="save-button"
+        style="padding: 0.5em; border: none; cursor: pointer; width: 150px; display:none">
+        Uložit
+      </button>
+    </div>
+  </form>
 
-          <p id="selectedHourText"></p>
+  <div
+    id="classroomModal"
+    style="
+      border: solid black;
+      background: lightslategrey;
+      display: none;
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      padding: 1em;
+      border: 1px solid black;
+    ">
+    <h2>Vyber učebnu</h2>
 
-          <select id="classroomSelect">
-            <option value="T15">T15</option>
-            <option value="T16">T16</option>
-            <option value="T17">T17</option>
-          </select>
-          <br /><br />
-          <button type="button" onclick="saveClassroom()">Uložit</button>
-          <button type="button" onclick="closeModal()">Zrušit</button>
-        </div>
-      </article>
+    <p id="selectedHourText"></p>
 
-    <script>
-      let selectedCell;
-      let selectedInput;
-      let dayCounter = 1;
+    <select id="classroomSelect">
+      <option value="T15">T15</option>
+      <option value="T16">T16</option>
+      <option value="T17">T17</option>
+    </select>
+    <br /><br />
+    <button type="button" onclick="saveClassroom()">Uložit</button>
+    <button type="button" onclick="closeModal()">Zrušit</button>
+  </div>
+</article>
 
-      const hodinyCasy = [
-        "8:00-8:45",
-        "8:50-9:35",
-        "9:55-10:40",
-        "10:50-11:35",
-        "11:40-12:25",
-        "12:35-13:20",
-        "13:25-14:10",
-        "14:15-15:00",
-        "15:10-15:55",
-      ];
 
-      document.querySelectorAll(".clickable-cell").forEach((cell) => {
-        cell.addEventListener("click", function () {
-          selectedCell = this;
-          selectedInput = this.querySelector("input");
-          const selectedHour = cell.getAttribute("data-hodina");
+<script>
+  let selectedCell;
+  let selectedInput;
+  let dayCounter = document.getElementById("table-body").children.length;
+  let isEditing = false;
 
-          document.getElementById(
-            "selectedHourText"
-          ).textContent = `Hodina: ${selectedHour}. (${
-            hodinyCasy[selectedHour - 1]
-          })`;
+  const hodinyCasy = [
+    "8:00-8:45",
+    "8:50-9:35",
+    "9:55-10:40",
+    "10:50-11:35",
+    "11:40-12:25",
+    "12:35-13:20",
+    "13:25-14:10",
+    "14:15-15:00",
+    "15:10-15:55",
+  ];
 
-          const currentClassroom = selectedInput.value;
-          if (currentClassroom) {
-            document.getElementById("classroomSelect").value = currentClassroom;
-          } else {
-            document.getElementById("classroomSelect").value = "T15";
-          }
+  function toggleEdit() {
+    isEditing = !isEditing;
+    const dateInputs = document.querySelectorAll('input[type="date"]');
+    const editButton = document.getElementById("edit-button");
+    const saveButton = document.getElementById("save-button");
+    const addButton = document.getElementById("pridat-datum");
 
-          document.getElementById("classroomModal").style.display = "block";
-        });
-      });
+    dateInputs.forEach((input) => {
+      input.disabled = !isEditing;
+    });
 
-      function saveClassroom() {
-        const selectedClassroom =
-          document.getElementById("classroomSelect").value;
+    if (isEditing) {
+      editButton.style.display = "none";
+      saveButton.style.display = "inline-block";
+      addButton.disabled = false; 
+    } else {
+      editButton.style.display = "inline-block";
+      saveButton.style.display = "none";
+      addButton.disabled = true;  
+    }
+  }
 
-        selectedInput.value = selectedClassroom;
+  document.querySelectorAll(".clickable-cell").forEach((cell) => {
+    cell.addEventListener("click", function () {
+      if (!isEditing) return;
 
-        selectedCell.textContent = selectedClassroom;
+      selectedCell = this;
+      selectedInput = this.querySelector("input");
+      const selectedHour = cell.getAttribute("data-hodina");
 
-        selectedCell.appendChild(selectedInput);
+      document.getElementById(
+        "selectedHourText"
+      ).textContent = `Hodina: ${selectedHour}. (${hodinyCasy[selectedHour - 1]})`;
 
-        closeModal();
+      const currentClassroom = selectedInput.value;
+      if (currentClassroom) {
+        document.getElementById("classroomSelect").value = currentClassroom;
+      } else {
+        document.getElementById("classroomSelect").value = "T15";
       }
 
-      function closeModal() {
-        document.getElementById("classroomModal").style.display = "none";
-      }
+      document.getElementById("classroomModal").style.display = "block";
+    });
+  });
 
-      function addRow() {
-        dayCounter++;
-        const tableBody = document.getElementById("table-body");
-        const newRow = document.createElement("tr");
+  function saveClassroom() {
+    const selectedClassroom = document.getElementById("classroomSelect").value;
 
-        const dateCell = document.createElement("td");
-        const dateInput = document.createElement("input");
-        dateInput.type = "date";
-        dateInput.name = "den" + dayCounter + "_datum[]";
-        dateCell.appendChild(dateInput);
-        newRow.appendChild(dateCell);
+    selectedInput.value = selectedClassroom;
 
-        for (let i = 1; i <= 9; i++) {
-          const cell = document.createElement("td");
-          const input = document.createElement("input");
-          input.type = "hidden";
-          input.name = `den${dayCounter}_ucebna-${i}[]`;
-          cell.textContent = "Klikni";
-          cell.className = "clickable-cell";
-          cell.appendChild(input);
+    selectedCell.textContent = selectedClassroom;
 
-          cell.addEventListener("click", function () {
-            selectedCell = cell;
-            selectedInput = input;
+    selectedCell.appendChild(selectedInput);
 
-            document.getElementById(
-              "selectedHourText"
-            ).textContent = `Hodina: ${i}. (${hodinyCasy[i - 1]})`;
+    closeModal();
+  }
 
-            const currentClassroom = selectedInput.value;
-            if (currentClassroom) {
-              document.getElementById("classroomSelect").value =
-                currentClassroom;
-            } else {
-              document.getElementById("classroomSelect").value = "T15";
-            }
+  function closeModal() {
+    document.getElementById("classroomModal").style.display = "none";
+  }
 
-            document.getElementById("classroomModal").style.display = "block";
-          });
-          newRow.appendChild(cell);
+  function addRow() {
+    dayCounter++;
+    const tableBody = document.getElementById("table-body");
+    const newRow = document.createElement("tr");
+
+    const dateCell = document.createElement("td");
+    const dateInput = document.createElement("input");
+    dateInput.type = "date";
+    dateInput.name = "den" + dayCounter + "_datum[]";
+    dateInput.disabled = !isEditing;
+    dateCell.appendChild(dateInput);
+    newRow.appendChild(dateCell);
+
+    for (let i = 1; i <= 9; i++) {
+      const cell = document.createElement("td");
+      const input = document.createElement("input");
+      input.type = "hidden";
+      input.name = `den${dayCounter}_ucebna-${i}[]`;
+      cell.textContent = "Klikni";
+      cell.className = "clickable-cell";
+      cell.appendChild(input);
+
+      cell.addEventListener("click", function () {
+        if (!isEditing) return;
+
+        selectedCell = cell;
+        selectedInput = input;
+
+        document.getElementById(
+          "selectedHourText"
+        ).textContent = `Hodina: ${i}. (${hodinyCasy[i - 1]})`;
+
+        const currentClassroom = selectedInput.value;
+        if (currentClassroom) {
+          document.getElementById("classroomSelect").value = currentClassroom;
+        } else {
+          document.getElementById("classroomSelect").value = "T15";
         }
 
-        tableBody.appendChild(newRow);
-      }
-    </script>
+        document.getElementById("classroomModal").style.display = "block";
+      });
+      newRow.appendChild(cell);
+    }
+
+    tableBody.appendChild(newRow);
+  }
+</script>
 
 <%- include('../partials/tail') %>
