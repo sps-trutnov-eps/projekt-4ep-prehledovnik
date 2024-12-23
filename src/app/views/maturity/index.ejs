@@ -1,124 +1,81 @@
 <!DOCTYPE html>
 <%- include('../partials/head'); %>
-<!-- <article -->
-<!--   style=" -->
-<!--     width: 19vw; -->
-<!--     min-width: 19vw; -->
-<!--     margin-right: 0em; -->
-<!--     overflow-y: auto; -->
-<!--     resize: horizontal; -->
-<!--   "> -->
-<!--   <div class="button"> -->
-<!--     <a href="../maturity/"> -->
-<!--       <button class="tlacitko">Praktická</button> -->
-<!--     </a> -->
-<!--     <a href="../maturity/pcmz"> -->
-<!--       <button class="tlacitko">Ústní</button> -->
-<!--     </a> -->
-<!--     <a href="../maturity/scmz"> -->
-<!--       <button class="tlacitko">Státní</button> -->
-<!--     </a> -->
-<!--     <a href="../maturity/sloh"> -->
-<!--       <button class="tlacitko">Sloh</button> -->
-<!--     </a> -->
-<!--   </div> -->
-<!-- </article> -->
 <style>
-   .button {
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      width: 100%;
-      padding: 10px;
-   }
-   .tlacitko {
-     margin: 8px 0;
-     padding: 15px;
-     border: none;
-     border-radius: 5px;
-     width: 100%;
-     text-align: center;
-     font-size: 16px;
-   }
-   /* Přidání odsazení formuláře */
-   form {
-     padding: 10px;
-   }
-   /* Styl podtržení nadpisu */
-   .headline {
-     padding: 10px;
-     position: relative;
-     display: inline-block;
-     color: white;
-     font-size: 1.5em;
-   }
-   .headline::after {
-     content: "";
-     display: block;
-     position: absolute;
-     bottom: -5px;
-     left: 0;
-     width: 100%;
-     height: 2px;
-     background-color: white;
-   }
+  .button {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    padding: 10px;
+  }
+  .tlacitko {
+    margin: 8px 0;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+  }
+  /* Přidání odsazení formuláře */
+  form {
+    padding: 10px;
+  }
+  /* Styl podtržení nadpisu */
+  .headline {
+    padding: 10px;
+    position: relative;
+    display: inline-block;
+    color: white;
+    font-size: 1.5em;
+  }
+  .headline::after {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: white;
+  }
 </style>
-    <article style="flex: 3; overflow-y: auto">
-      <header>
-        <nav>
-          <ul>
-            <li>
-              <h1>PŽOP</h1>
-            </li>
-          </ul>
-          <ul>
-            <li>
-              <div role="group">
-                <button
-                  hx-get="/maturity"
-                  hx-target="body"
-                  hx-push-url="true"
-                  hx-swap="transition:true">
-                PŽOP</button>
-                <button
-                  class="outline"
-                  hx-get="/maturity/pcmz"
-                  hx-target="body"
-                  hx-push-url="true"
-                  hx-swap="transition:true">
-                PČMZ</button>
-                <button
-                  class="outline"
-                  hx-get="/maturity/scmz"
-                  hx-target="body"
-                  hx-push-url="true"
-                  hx-swap="transition:true">
-                SČMZ</button>
-                <button
-                  class="outline"
-                  hx-get="/maturity/sloh"
-                  hx-target="body"
-                  hx-push-url="true"
-                  hx-swap="transition:true">
-                SLOH</button>
-              </div>
-            </li>
-          </ul>
-        </nav>
-      </header>
-      <main>
-         <article style="flex: 3; overflow-y: auto; position: relative">
-           <h1 class="headline">Praktická zkouška z odborných předmětů</h1>
-           <form
-             action="/maturity/ukladanipzop"
-             method="POST"
-             style="display: flex; flex-direction: column"
-             id="form">
-             <label for="den-konani">Den konání:</label>
-             <input type="date" id="den-konani" name="den_konani" value=<%=dny[0]%> disabled/>
+<article
+  style="
+    width: 20vw;
+    min-width: 20vw;
+    margin-right: 1em;
+    overflow-y: auto;
+    resize: horizontal;
+  ">
+  <div class="button">
+    <a href="../maturity/">
+      <button class="tlacitko">Praktická</button>
+    </a>
+    <a href="../maturity/pcmz">
+      <button class="tlacitko">Ústní</button>
+    </a>
+    <a href="../maturity/scmz">
+      <button class="tlacitko">Státní</button>
+    </a>
+    <a href="../maturity/sloh">
+      <button class="tlacitko">Sloh</button>
+    </a>
+  </div>
+</article>
 
-             <label for="dodatecne-dny">Dodatečné dny:</label>
-             <input type="date" id="dodatecne-dny" name="dodatecne_dny" value=<%=dny[1]%> disabled/>
+<article style="flex: 3; overflow-y: auto; position: relative">
+  <h1 class="headline">Praktická zkouška z odborných předmětů</h1>
+  <form
+    action="/maturity/ukladanipzop"
+    method="POST"
+    style="display: flex; flex-direction: column"
+    id="form">
+    <label for="den-konani">Den konání:</label>
+    <input type="date" id="den-konani" name="den_konani" value=<%=dny[0]%> disabled/>
+
+    <label for="dodatecne-dny">Dodatečné dny:</label>
+    <input type="date" id="dodatecne-dny" name="dodatecne_dny" value=<%=dny[1]%> disabled/>
 
     <label for="ucebna">Učebna:</label>
     <select
@@ -161,6 +118,8 @@
   </form>
 </article>
 
+<%- include('../partials/tail') %>
+
 <script>
   function enableForm() {
     const form = document.getElementById("form");
@@ -174,4 +133,3 @@
     document.getElementById("submitButton").style.display = "inline-block";
   }
 </script>
-<%- include('../partials/tail') %>

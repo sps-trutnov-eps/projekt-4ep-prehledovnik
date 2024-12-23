@@ -214,217 +214,201 @@ const rozvrhy = {
 };
 
 // UDALOSTI
-function gU() {
-  return db.get("udalosti");
-}
-function sU(udalosti) {
-  db.set("udalosti", udalosti);
-}
+function gU(){return db.get("udalosti")}
+function sU(udalosti){db.set("udalosti", udalosti)}
 
 const udalosti = {
-  pridatUdalost: (
-    nazev,
-    typ,
-    datum,
-    datumDo,
-    casOd,
-    casDo,
-    vyberZadani,
-    tykaSe,
-    poznamka,
-  ) => {
-    let udalosti = gU();
-    let nextID = udalosti["nextID"];
-    let novaUdalost = {
-      nazev,
-      typ,
-      datum,
-      datumDo,
-      casOd,
-      casDo,
-      vyberZadani,
-      tykaSe,
-      poznamka,
-    };
-    let nalezeno = false;
-    for (let i = 0; i < nextID; i++) {
-      if (JSON.stringify(udalosti[String(i)]) === JSON.stringify(novaUdalost))
-        nalezeno = true;
+    pridatUdalost: (nazev, typ,  datum, datumDo, casOd, casDo, vyberZadani, tykaSe, poznamka) => {
+        let udalosti = gU();
+        let nextID = udalosti["nextID"];
+        let novaUdalost = {nazev, typ, datum,  datumDo, casOd, casDo, vyberZadani, tykaSe, poznamka};
+        let nalezeno = false;
+        for(let i = 0; i < nextID; i++){
+            if (JSON.stringify(udalosti[String(i)]) === JSON.stringify(novaUdalost)) nalezeno = true;
+        }
+        if (!nalezeno){
+            udalosti[nextID] = novaUdalost;
+            udalosti["nextID"] += 1;
+        }
+        sU(udalosti);
+    },
+    ziskatIDUdalostiPodleNazvu: (jmeno) => {
+        let udalosti = gU();
+        let nextID = udalosti["nextID"];
+        let IDHledaneUdalosti;
+        for(let i = 0; i < nextID; i++){
+            if (udalosti[String(i)]["nazev"] == jmeno){
+                IDHledaneUdalosti = String(i);
+            }
+        }
+        return IDHledaneUdalosti;
+    },
+    ziskatUdalostiPodleNazvu: (jmeno) => {
+        let udalosti = gU();
+        return udalosti[ziskatIDUdalostiPodleNazvu(jmeno)];
+    },
+    ziskatVsechnyUdalosti: () => {
+        let udalosti = gU();
+        let udalostiList = [];
+        for(let i = 1; i < udalosti["nextID"]; i++){
+            if (udalosti[String(i)]) {
+                udalostiList.push(udalosti[String(i)]);
+            }
+        }
+        return udalostiList;
+    },
+    upravitUdalost: (puvodniUdalost, novaUdalost) => {
+        let udalosti = gU();
+        let nextID = udalosti["nextID"];
+        for(let i = 0; i < nextID; i++){
+            if(JSON.stringify(udalosti[String(i)]) === puvodniUdalost)
+                udalosti[String(i)] = novaUdalost;
+        }
+        sU(udalosti);
+    },
+    odebratUdalost: (udalost) => {
+        let udalosti = gU();
+        let nextID = udalosti["nextID"];
+        for(let i = 0; i < nextID; i++){
+            if(JSON.stringify(udalosti[String(i)]) === udalost)
+                delete udalosti[String(i)];
+        }
+        sU(udalosti);
     }
-    if (!nalezeno) {
-      udalosti[nextID] = novaUdalost;
-      udalosti["nextID"] += 1;
-    }
-    sU(udalosti);
-  },
-  ziskatIDUdalostiPodleNazvu: (jmeno) => {
-    let udalosti = gU();
-    let nextID = udalosti["nextID"];
-    let IDHledaneUdalosti;
-    for (let i = 0; i < nextID; i++) {
-      if (udalosti[String(i)]["nazev"] == jmeno) {
-        IDHledaneUdalosti = String(i);
-      }
-    }
-    return IDHledaneUdalosti;
-  },
-  ziskatUdalostiPodleNazvu: (jmeno) => {
-    let udalosti = gU();
-    return udalosti[ziskatIDUdalostiPodleNazvu(jmeno)];
-  },
-  ziskatVsechnyUdalosti: () => {
-    let udalosti = gU();
-    let udalostiList = [];
-    for (let i = 1; i < udalosti["nextID"]; i++) {
-      if (udalosti[String(i)]) {
-        udalostiList.push(udalosti[String(i)]);
-      }
-    }
-    return udalostiList;
-  },
-  upravitUdalost: (puvodniUdalost, novaUdalost) => {
-    let udalosti = gU();
-    let nextID = udalosti["nextID"];
-    for (let i = 0; i < nextID; i++) {
-      if (
-        JSON.stringify(udalosti[String(i)]) === JSON.stringify(puvodniUdalost)
-      )
-        udalosti[String(i)] = novaUdalost;
-    }
-    sU(udalost);
-  },
-  odebratUdalost: (udalost) => {
-    let udalosti = gU();
-    let nextID = udalosti["nextID"];
-    for (let i = 0; i < nextID; i++) {
-      if (JSON.stringify(udalosti[String(i)]) === udalost)
-        delete udalosti[String(i)];
-    }
-    sU(udalosti);
-  },
-};
+}
 
 // MATURITY
-function gM() {
-  return db.get("maturity");
-}
-function sM(maturity) {
-  db.set("maturity", maturity);
-}
+function gM(){return db.get("maturity")}
+function sM(maturity){db.set("maturity", maturity)}
 
 const maturity = {
-  pridatMaturitniEvent: (nazev, dny, casy, ucebny) => {
-    let maturity = gM();
+    pridatMaturitniEvent: (nazev, dny, casy, ucebny) => {
+        let maturity = gM();
+        
+        maturity[nazev] = null;
 
-     if (nazev == "PŽOP"){
-        ucebny = [ucebny];
-     } else if (nazev == "PČMZ"){
-        ucebny = []
-     }
-     maturity[nazev] = {dny, casy, ucebny};
-     sM(maturity);
-  },
-   ziskarMaturituDleNazvu: (nazev) => {
-      let maturity = gM();
-      return maturity[nazev];
-   },
-   ziskatVsechnyMaturity: () => {
-      let maturity = gM();
-      let maturityList = [];
-      maturityList.push("PŽOP");
-      maturityList.push("PČMZ");
-      maturityList.push("SČMZ");
-      maturityList.push("SLOH");
-      return maturityList;
-   },
-   ziskatVsechnyMaturityJakoUdalosti: () => {
+        if (nazev == "PŽOP"){
+            ucebny = [ucebny];
+        } else if (nazev == "PČMZ"){
+            ucebny = []
+        }
+        maturity[nazev] = {dny, casy, ucebny};
+        sM(maturity);
+    },
+    ziskarMaturituDleNazvu: (nazev) => {
+        let maturity = gM();
+        return maturity[nazev];
+    },
+    ziskatVsechnyMaturity: () => {
+        let maturity = gM();
+        let maturityList = [];
+        maturityList.push("PŽOP");
+        maturityList.push("PČMZ");
+        maturityList.push("SČMZ");
+        maturityList.push("SLOH");
+        return maturityList;
+    },
+    ziskatVsechnyMaturityJakoUdalosti: () => {
       let maturity = gM();
       let maturityList = [];
       let typy = ["PŽOP", "PČMZ", "SČMZ", "SLOH"];
-
+      const hodiny = db.get("hodiny"); 
+      
       for(let i = 0; i < typy.length; i++){
-         if (maturity[typy[i]]){
-            for(let j = 0; j < maturity[typy[i]]["dny"].length; j++){
-               let nazev = typy[i];
-               let den = maturity[typy[i]]["dny"][j];
-               let cOD = null;
-               let cDO = null;
-               let ucebna = null;
-
-               if(nazev == "PČMZ") {
-                  if (maturity[typy[i]]["casy"][j] && maturity[typy[i]]["casy"][j].length > 0) {
-                     cOD = hodiny[maturity[typy[i]]["casy"][j][0]][0];  
-                     cDO = hodiny[maturity[typy[i]]["casy"][j][maturity[typy[i]]["casy"][j].length - 1]][1];
-                  }  
-               } else if(nazev == "SČMZ") {
-                  cOD = maturity[typy[i]]["casy"][j];
-                  ucebna = maturity[typy[i]]["ucebny"][j];
-               } else if(nazev == "SLOH") {
-                  if (maturity[typy[i]]["casy"][j] && maturity[typy[i]]["casy"][j].length > 0) {
-                     cOD = hodiny[maturity[typy[i]]["casy"][j][0]][0]; 
-                     cDO = hodiny[maturity[typy[i]]["casy"][j][maturity[typy[i]]["casy"][j].length - 1]][1];  
+        if (maturity[typy[i]]){
+          for(let j = 0; j < maturity[typy[i]]["dny"].length; j++){
+            let nazev = typy[i];
+            let den = maturity[typy[i]]["dny"][j];
+            let cOD = null;
+            let cDO = null;
+            let ucebna = null;
+            
+            if(nazev == "PČMZ") {
+                if (maturity[typy[i]]["casy"][j] && maturity[typy[i]]["casy"][j].length > 0) {
+                  try {
+                    cOD = hodiny[maturity[typy[i]]["casy"][j][0] + 1][0]; 
+                    cDO = hodiny[maturity[typy[i]]["casy"][j][maturity[typy[i]]["casy"][j].length - 1] + 1][1];
+                  } catch (error) {
+                    console.error('Chyba při zpracování času PČMZ:', error);
                   }
-                  ucebna = maturity[typy[i]]["ucebny"][j] ? maturity[typy[i]]["ucebny"][j][0] : null;
-               } else if(nazev == "PŽOP") {
-                  if(j == 1) {
-                     nazev += " - dodatečný termín";
+                }
+            } else if(nazev == "SČMZ") {
+                if (maturity[typy[i]]["casy"][j] && maturity[typy[i]]["casy"][j][0]) {
+                  cOD = maturity[typy[i]]["casy"][j][0];
+                }
+                ucebna = maturity[typy[i]]["ucebny"][j];
+            } else if(nazev == "SLOH") {
+                if (maturity[typy[i]]["casy"][j] && maturity[typy[i]]["casy"][j].length > 0) {
+                  try {
+                      const hodina = maturity[typy[i]]["casy"][j][0];
+                      if (hodiny[hodina + 1]) {
+                        cOD = hodiny[hodina + 1][0];
+                        const posledniHodina = maturity[typy[i]]["casy"][j][maturity[typy[i]]["casy"][j].length - 1];
+                        cDO = hodiny[posledniHodina + 1][1]; 
+                      }
+                  } catch (error) {
+                    console.error('Chyba při zpracování času SLOH:', error);
                   }
-                  ucebna = maturity[typy[i]]["ucebny"][j];
-               }
-
-               maturityList.push({
-                  nazev: nazev,
-                  typ: "celoskolni",
-                  datum: den,
-                  datumDo: null,
-                  casOd: cOD,
-                  casDo: cDO,
-                  vyberZadani: "maturita",
-                  tykaSe: ucebna ?? null,
-                  poznamka: `Učebna: ${ucebna ?? "není"}`
-               });
+                }
+            } else if(nazev == "PŽOP") {
+              if(j == 1) {
+                nazev += " - dodatečný termín";
+              }
             }
-         }
-      }
-      return maturityList;
-   },
-   ziskatMaturityProUdalosti: () => {
-      let maturity = gM();
-      let maturityList = [];
-      let nextID = maturity["nextID"];
-      for (let i = 0; i < nextID; i++) {
-         if (maturity[String(i)]) {
-            // kontrola existence záznamu
-            const maturitniEvent = maturity[String(i)];
+            
             maturityList.push({
-               nazev: maturitniEvent.nazev,
-               typ: "celoskolni",
-               //
-               datum: maturitniEvent.dny[y],
-               datumDo: null,
-               casOd: null,
-               casDo: null,
-               casyProMaturity: maturitniEvent.cas,
-               //
-               vyberZadani: "maturita",
-               tykaSe: maturitniEvent.ucebny,
-               poznamka: `Učebna: ${maturitniEvent.ucebny ?? "není"}`,
+              nazev: nazev,
+              typ: "celoskolni",
+              datum: den,
+              datumDo: null,
+              casOd: cOD,
+              casDo: cDO,
+              vyberZadani: "maturita",
+              tykaSe: ucebna,
+              poznamka: ucebna ? `Učebna: ${ucebna}` : 'Učebna není zadána'
             });
-         }
+          }
+        }
       }
       return maturityList;
-   },
-   /*smazatMaturitniEvent: (event) => {
-      let maturity = gM();
-      let nextID = maturity["nextID"];
-      for(let i = 0; i < nextID; i++){
-         if(JSON.stringify(event) == JSON.stringify(maturity[String(i)])){
-            delete maturity[String(i)];
-         }
-      }
-      sM(maturity);
-   }*/
-};
+    },
+    ziskatMaturityProUdalosti: () => {
+        let maturity = gM();
+        let maturityList = [];
+        let nextID = maturity["nextID"];
+        for(let i = 0; i < nextID; i++){
+
+            if (maturity[String(i)]) {  // kontrola existence záznamu
+                const maturitniEvent = maturity[String(i)];
+                maturityList.push({
+                    nazev: maturitniEvent.nazev,
+                    typ: "celoskolni", 
+                    //
+                    datum: maturitniEvent.dny[y],
+                    datumDo: null,
+                    casOd: null, 
+                    casDo: null, 
+                    casyProMaturity: maturitniEvent.cas,
+                    //
+                    vyberZadani: "maturita",  
+                    tykaSe: maturitniEvent.ucebny, 
+                    poznamka: `Učebna: ${maturitniEvent.ucebny ?? "není"}`
+                });
+            }
+        }
+        return maturityList;
+    },
+    /*smazatMaturitniEvent: (event) => {
+        let maturity = gM();
+        let nextID = maturity["nextID"];
+        for(let i = 0; i < nextID; i++){
+            if(JSON.stringify(event) == JSON.stringify(maturity[String(i)])){
+                delete maturity[String(i)];
+            }
+        }
+        sM(maturity);
+    }*/
+}
 
 // PROJEKTY
 function gP() {
