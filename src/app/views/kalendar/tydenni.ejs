@@ -1,19 +1,46 @@
 <!DOCTYPE html>
 <%- include('../partials/head'); %>
 <style>
-   .grid-container {
-     display: grid;
-     grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto;
-     padding: 10px;
-   }
-   .grid-item {
-     border: 1px solid rgba(0, 0, 0, 0.8);
-     padding-inline: 15px;
-     padding-block: 45px;
-     margin: 0;
-     font-size: 18px;
-     text-align: center;
-   }
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+    padding: 10px;
+  }
+
+  .grid-item {
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    margin: 0;
+    padding: 10px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+  }
+
+  .grid-item .class-group {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #76baff;
+  }
+
+  .grid-item .room {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 12px;
+    color: white;
+  }
+
+  .grid-item .period {
+    font-size: 14px;
+    font-weight: bold;
+    margin: auto;
+    color: #fff;
+  }
+
    .grid-item-h {
       border: 1px solid rgba(0, 0, 0, 0.8);
       padding: 15px;
@@ -196,10 +223,9 @@
               <% let key%>
               <div class="grid-item">
                 <% if (week[t] % 2 === 0) { %>
+                  <p class="class-group"><%= rozvrh.hodiny.sudy[days[i]][j].trida %> <%= rozvrh.hodiny.sudy[days[i]][j].skupina %></p>
                   <p class="room"><%= rozvrh.hodiny.sudy[days[i]][j].mistnost%></p>
                   <p class="period"><%= rozvrh.hodiny.sudy[days[i]][j].predmet%></p>
-                  <p class="group"><%= rozvrh.hodiny.sudy[days[i]][j].skupina%></p>
-                  <p class="class"><%= rozvrh.hodiny.sudy[days[i]][j].trida%></p>
                   <%
                     if( rozvrh.hodiny.sudy[days[i]][j].predmet != "volno"){
                       key = rozvrh.hodiny.sudy[days[i]][j].predmet+rozvrh.hodiny.sudy[days[i]][j].trida + rozvrh.hodiny.sudy[days[i]][j].skupina
@@ -209,10 +235,9 @@
                   %>
                 <% }%>
                 <% if (week[t] % 2 === 1) { %>
+                  <p class="class-group"><%= rozvrh.hodiny.lichy[days[i]][j].trida %> <%= rozvrh.hodiny.lichy[days[i]][j].skupina %></p>
                   <p class="room"><%= rozvrh.hodiny.lichy[days[i]][j].mistnost%></p>
                   <p class="period"><%= rozvrh.hodiny.lichy[days[i]][j].predmet%></p>
-                  <p class="group"><%= rozvrh.hodiny.lichy[days[i]][j].skupina%></p>
-                  <p class="class"><%= rozvrh.hodiny.lichy[days[i]][j].trida%></p>
                   <%            
                     if( rozvrh.hodiny.lichy[days[i]][j].predmet != "volno"){
                       key = rozvrh.hodiny.lichy[days[i]][j].predmet+rozvrh.hodiny.lichy[days[i]][j].trida + rozvrh.hodiny.lichy[days[i]][j].skupina
