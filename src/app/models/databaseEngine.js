@@ -3,16 +3,16 @@ const db = new jsondb("../data/database.json");
 
 // VÝCHOZÍ HODNOTY UČENÍ
 predmety = [
-  "VYS-c",
-  "VYS-t",
-  "PVA-c",
-  "PVA-t",
-  "HAE-c",
-  "HAE-t",
-  "CMT-c",
-  "CMT-t",
-  "OPS-c",
-  "OPS-t",
+  "VYScv",
+  "VYS",
+  "PVAcv",
+  "PVA",
+  "HAEcv",
+  "HAE",
+  "CMTcv",
+  "CMT",
+  "OPScv",
+  "OPS",
 ];
 hodiny = {
   1: ["7:10", "7:55"],
