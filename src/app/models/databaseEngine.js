@@ -3,16 +3,16 @@ const db = new jsondb("../data/database.json");
 
 // VÝCHOZÍ HODNOTY UČENÍ
 predmety = [
-  "VYS-c",
-  "VYS-t",
-  "PVA-c",
-  "PVA-t",
-  "HAE-c",
-  "HAE-t",
-  "CMT-c",
-  "CMT-t",
-  "OPS-c",
-  "OPS-t",
+  "VYScv",
+  "VYS",
+  "PVAcv",
+  "PVA",
+  "HAEcv",
+  "HAE",
+  "CMTcv",
+  "CMT",
+  "OPScv",
+  "OPS",
 ];
 hodiny = {
   1: ["7:10", "7:55"],
@@ -27,7 +27,7 @@ hodiny = {
   10: ["15:10", "15:55"],
 };
 ucebny = {
-  101: ["T1", "T2", "T5"],
+  101: ["T1", "T2", "T5", "T6", "T7", "T8", "T9", "T10", "T11", "T15", "T16", "T17"],
   59: ["E4", "F14", "G1", "G2"],
   618: [],
   374: [],
@@ -42,7 +42,28 @@ if (!db.has("predmety")) {
   db.set("osnovy", { nextID: 1 });
   db.set("rozvrhy", { nextID: 1 });
   db.set("udalosti", { nextID: 1 });
-  db.set("maturity", {});
+  db.set("maturity", {
+    "PŽOP": {
+            "dny": [],
+            "casy": [],
+            "ucebny": []
+        },
+        "PČMZ": {
+            "dny": [],
+            "casy": [],
+            "ucebny": []
+        },
+        "SČMZ": {
+            "dny": [],
+            "casy": [],
+            "ucebny": []
+        },
+        "SLOH": {
+            "dny": [],
+            "casy": [],
+            "ucebny": []
+        }
+  });
   db.set("projekty", { nextID: 1 });
 }
 
