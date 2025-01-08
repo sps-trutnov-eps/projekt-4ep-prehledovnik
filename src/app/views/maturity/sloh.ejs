@@ -142,7 +142,7 @@
                     <%if (kondice != false) {%>
                     <%=kondice%>
                     <%}else{%>
-                        Klikni
+                        Vybrat
                     <%}%>
                 </td>
             <% } %>
@@ -303,7 +303,7 @@
       const input = document.createElement("input");
       input.type = "hidden";
       input.name = `den${dayCounter}_ucebna-${i}[]`;
-      cell.textContent = "Klikni";
+      cell.textContent = "Vybrat";
       cell.className = "clickable-cell";
       cell.appendChild(input);
 
