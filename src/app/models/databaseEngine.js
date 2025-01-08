@@ -42,7 +42,28 @@ if (!db.has("predmety")) {
   db.set("osnovy", { nextID: 1 });
   db.set("rozvrhy", { nextID: 1 });
   db.set("udalosti", { nextID: 1 });
-  db.set("maturity", {});
+  db.set("maturity", {
+    "PŽOP": {
+            "dny": [],
+            "casy": [],
+            "ucebny": []
+        },
+        "PČMZ": {
+            "dny": [],
+            "casy": [],
+            "ucebny": []
+        },
+        "SČMZ": {
+            "dny": [],
+            "casy": [],
+            "ucebny": []
+        },
+        "SLOH": {
+            "dny": [],
+            "casy": [],
+            "ucebny": []
+        }
+  });
   db.set("projekty", { nextID: 1 });
 }
 
