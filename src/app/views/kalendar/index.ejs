@@ -264,10 +264,6 @@
 </dialog>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-              placeUdalosti()
-          })
-
   function scrollToCurrent() {
       const increment = 24 * 60 * 60 * 1000
       let today = new Date();
@@ -434,7 +430,7 @@
     return document.body.scrollHeight > screen.height;
     };
 
-
+    placeUdalosti()
 </script>
 <script src="/kalendar/js/main.js"></script>
 <%- include('../partials/tail') %>
