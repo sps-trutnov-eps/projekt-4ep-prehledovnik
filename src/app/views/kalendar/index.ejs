@@ -219,10 +219,10 @@
 
                 <section id=<%= new Date(i).toLocaleDateString('en-CA', { timeZone: 'Europe/Prague' }) %>  style="grid-column-start: <%= new Date(i).getDay()%> ;" class="grid-item">
                     <% if(new Date(i).getDay() == 6) {%>
-                    <p class="days-mon"><%= new Date(i).getDate()%> / <%= new Date(i).getMonth() + 1%> - <%= new Date(i+increment).getDate()%> / <%= new Date(i+increment).getMonth() + 1%></p>
+                    <p class="days-mon"><%= new Date(i).getDate()%>.<%= new Date(i).getMonth() + 1%>. - <%= new Date(i+increment).getDate()%>.<%= new Date(i+increment).getMonth() + 1%>.</p>
 
                     <% }else{%>
-                        <p class="days-mon"><%= new Date(i).getDate()%> / <%= new Date(i).getMonth() + 1%></p>
+                        <p class="days-mon"><%= new Date(i).getDate()%>.<%= new Date(i).getMonth() + 1%>.</p>
                     <% }%>
 
 
