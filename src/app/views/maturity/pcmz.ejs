@@ -46,13 +46,8 @@
       </header>
       <main>
 
-      <!-- <div -->
-      <!--   style=" -->
-      <!--     padding: 20px; -->
-      <!--     background-color: #01172c; -->
-      <!--     border-radius: 10px; -->
-      <!--     color: white; -->
-      <!--   "> -->
+      <div
+        style="padding: 20px; border-radius: 10px; color: white;">
         <div class="headline-container">
           <h1 class="headline">Profilová část maturitní zkoušky</h1>
         </div>
@@ -89,8 +84,7 @@
                 <% for (let i = 1; i <= 9; i++) { %>
                 <td>
                   <input class="zaskrtavaci_policko" type="checkbox"
-                  name="den<%= dayCounter %>_hodina<%= i %>" <%=
-                  hodiny.includes(i) ? "checked" : "" %> disabled />
+                  name="den<%= dayCounter %>_hodina<%= i %>" <%= hodiny.includes(i) ? "checked" : "" %> readonly />
                 </td>
                 <% } %>
               </tr>
@@ -102,12 +96,7 @@
             <button
               type="button"
               id="pridat-datum"
-              style="
-                padding: 0.5em;
-                width: 150px;
-                border: none;
-                cursor: pointer;
-              "
+              style="padding: 0.5em; width: 150px; border: none; cursor: pointer;"
               disabled>
               Přidat datum
             </button>
@@ -117,24 +106,13 @@
             <button
               type="button"
               id="edit-button"
-              style="
-                padding: 0.5em;
-                width: 150px;
-                border: none;
-                cursor: pointer;
-              ">
+              style="padding: 0.5em; width: 150px; border: none; cursor: pointer;">
               Edit
             </button>
             <button
               type="submit"
               id="save-button"
-              style="
-                display: none;
-                padding: 0.5em;
-                width: 150px;
-                border: none;
-                cursor: pointer;
-              ">
+              style="display: none; padding: 0.5em; width: 150px; border: none; cursor: pointer;">
               Uložit
             </button>
           </div>
@@ -143,7 +121,9 @@
     </article>
 
     <script>
-      let dayCounter = 1;
+      let dayCounter = document
+        .getElementById("hodiny_tabulka")
+        .getElementsByTagName("tbody")[0].rows.length || 0;
 
       document
         .getElementById("pridat-datum")
@@ -160,7 +140,7 @@
           inputDatum.type = "date";
           inputDatum.name = "den" + dayCounter + "_datum";
           inputDatum.classList.add("zaskrtavaci_policko");
-          inputDatum.disabled = true;
+          inputDatum.readOnly = true;
           bunkaDatum.appendChild(inputDatum);
           novyRadek.appendChild(bunkaDatum);
 
@@ -170,7 +150,7 @@
             inputCheckbox.type = "checkbox";
             inputCheckbox.name = "den" + dayCounter + "_hodina" + i;
             inputCheckbox.classList.add("zaskrtavaci_policko");
-            inputCheckbox.disabled = true;
+            inputCheckbox.readOnly = true;
             bunkaCheckbox.appendChild(inputCheckbox);
             novyRadek.appendChild(bunkaCheckbox);
           }
@@ -178,7 +158,7 @@
 
           if (document.getElementById("edit-button").style.display === "none") {
             var newInputs = novyRadek.querySelectorAll("input");
-            newInputs.forEach((input) => (input.disabled = false));
+            newInputs.forEach((input) => (input.readOnly = false));
           }
         });
 
@@ -187,7 +167,7 @@
         .addEventListener("click", function () {
           document
             .querySelectorAll("input")
-            .forEach((input) => (input.disabled = false));
+            .forEach((input) => (input.readOnly = false));
           document.getElementById("pridat-datum").disabled = false;
           document.getElementById("edit-button").style.display = "none";
           document.getElementById("save-button").style.display = "block";
@@ -196,6 +176,9 @@
       document
         .getElementById("save-button")
         .addEventListener("click", function () {
+          document.querySelectorAll("input[type='checkbox']").forEach((checkbox) => {
+            checkbox.readOnly = true; // Nastaví checkbox na pouze pro čtení
+          });
           document.getElementById("pridat-datum").disabled = false;
         });
     </script>

@@ -85,23 +85,16 @@
       name="ucebna"
       style="margin-bottom: 1em; padding: 0.5em"
       disabled>
-      <%if (ucebna == "ucebna1") {%>
-        <option value="ucebna1" selected>Učebna 1</option>
-      <% } else {%>
-        <option value="ucebna1">Učebna 1</option>
-      <%}%>
-      <%if (ucebna == "ucebna2") {%>
-        <option value="ucebna2" selected>Učebna 2</option>
-      <% } else {%>
-        <option value="ucebna2">Učebna 2</option>
-      <%}%>
-      <%if (ucebna == "ucebna3") {%>
-        <option value="ucebna3" selected>Učebna 3</option>
-      <% } else {%>
-        <option value="ucebna3">Učebna 3</option>
-      <%}%>
+      <% for (const id in ucebny) { %> 
+        <% const nazevUcebny = ucebny[id]; %>
+        <% if (ucebna === id) { %>
+          <option value="<%= id %>" selected><%= nazevUcebny %></option>
+        <% } else { %>
+          <option value="<%= id %>"><%= nazevUcebny %></option>
+        <% } %>
+      <% } %>
     </select>
-
+        
     <div style="text-align: center">
       <button
         type="button"
