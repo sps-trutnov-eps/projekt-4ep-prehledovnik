@@ -1,88 +1,13 @@
 <!DOCTYPE html>
 <%- include('../partials/head'); %>
-<style>
-  .event-form {
-    margin-bottom: 2em;
-  }
-
-  .events-table {
-    width: 100%;
-    table-layout: fixed;
-    border-collapse: collapse;
-  }
-
-  .events-table .toClick {
-    position: relative;
-    cursor: pointer;
-  }
-
-  .events-table td {
-    padding: 8px;
-    white-space: nowrap;
-    overflow: visible;
-    text-overflow: ellipsis;
-  }
-
-  .events-table td:nth-child(1) { width: 25%; }
-  .events-table td:nth-child(2) { width: 15%; }
-  .events-table td:nth-child(3) { width: 15%; }
-  .events-table td:nth-child(4) { width: 15%; }
-  .events-table td:nth-child(5) { width: 15%; }
-  .events-table td:nth-child(6) { width: 10%; }
-  .events-table td:nth-child(7) { width: 5%; }
-
-  .events-table tr:hover {
-    background-color: #f5f5f5;
-  }
-
-  .delete-btn {
-    background: none;
-    border: none;
-    color: red;
-    cursor: pointer;
-    padding: 5px;
-  }
-
-  .delete-btn:hover{
-    color: darkred;
-  }
-
-  ::-webkit-scrollbar {
-    display: none;
-  }
-
-  .events-table td.empty-cell {
-    padding-left: 40px;
-  }
-
-  .events-table td.empty-cell-tykaSe {
-    padding-left: 30px;
-    text-align: left;
-  }
-
-  .events-table td.empty-cell::after, .events-table td.empty-cell-tykaSe::after {
-    content: "-";
-  }
-
-  .center {
-    text-align: center;
-  }
-
-  .center-content {
-    position: relative;
-    left: -29%;
-  }
-</style>
   <article style="width: 20vw; min-width: 20vw; margin-right: 1em; resize: horizontal;">
     <header>
-      <nav>
-        <h1>Nová událost</h1>
-      </nav>
+      <h1 class="toClick" onclick="window.location.href='/udalosti/'">Nová událost</h1>
     </header>
     <main>
-      <form
-      hx-post="/udalosti/pridatUdalost"
-      hx-target="body"
+      <form 
+      hx-post="/udalosti/pridatUdalost" 
+      hx-target="body" 
       hx-swap="outerHTML"
       hx-trigger="submit"
       class="event-form">
@@ -96,7 +21,7 @@
           type="radio"
           id="celodenni"
           name="variantaDni"
-          value="Celodenní"
+          value="Celodenní" 
           checked
           />
         <label for="celodenni">Celodenní</label><br />
@@ -117,7 +42,7 @@
 
         <div id="jineInputs" style="display: none;">
           <label>Hodiny:</label>
-          <select id="casOd" style="margin-bottom: 1em; color:#ffffffe1;" name="casOd">
+          <select id="casOd" style="margin-bottom: 0.7em; color:#ffffffe1;" name="casOd">
             <option value="7:10">7:10</option>
             <option value="8:00">8:00</option>
             <option value="8:50">8:50</option>
@@ -129,7 +54,7 @@
             <option value="14:15">14:15</option>
             <option value="15:10">15:10</option>
           </select>
-          <select id="casDo" style="margin-bottom: 0.5em; color:#ffffffe1;" name="casDo">
+          <select id="casDo" style="margin-bottom: 0.4em; color:#ffffffe1;" name="casDo">
             <option value="7:55">7:55</option>
             <option value="8:45">8:45</option>
             <option value="9:35">9:35</option>
@@ -147,11 +72,11 @@
         <input type="date" id="datum" name="datum" value="<%= datum %>" min="<%= datum %>"/>
 
         <div id="vicedenniInputs" style="display: none;">
-          <label for="datumDo">Do:</label>
+          <label for="datumDo" style="margin-bottom: 0.2em">Do:</label>
           <input type="date" id="datumDo" name="datumDo"/>
         </div>
 
-        <label for="typAkce">Typ akce</label>
+        <label for="typAkce" style="margin-bottom: 0.2em">Typ akce</label>
         <select id="typAkce" name="typAkce">
           <option value="celoskolni">Celoškolní</option>
           <option value="celotridni">Celotřídní</option>
@@ -178,6 +103,8 @@
             <option value="mladeBuky">Mladé Buky</option>
           </select>
         </div>
+        <!-- data pro změnu -->
+        <input type="hidden" name="PuvodniData" value="">
 
         <input type="text" name="poznamka_udalosti" placeholder="Poznámka:" />
         <input type="submit" value="Uložit" />
@@ -187,14 +114,88 @@
 
   <article style="flex: 3; overflow-y: auto">
     <header>
-      <nav>
-        <h1>Události</h1>
-      </nav>
+      <h1>Události</h1>
     </header>
     <main>
+      <style>
+        h1{
+          margin-bottom: 0em;
+        }
+        .event-form {
+          margin-bottom: 2em;
+        }
 
+        .events-table {
+          width: 100%;
+          table-layout: fixed;
+          border-collapse: collapse;
+        }
+        
+        h1.toClick:hover {
+          cursor: pointer;
+        }
+
+        .events-table .toClick {
+          position: relative;
+          cursor: pointer;
+        }
+        
+        .events-table td {
+          padding: 8px;
+          white-space: nowrap;
+          overflow: visible;
+          text-overflow: ellipsis;
+        }
+        
+        .events-table td:nth-child(1) { width: 25%; }
+        .events-table td:nth-child(2) { width: 15%; }
+        .events-table td:nth-child(3) { width: 15%; }
+        .events-table td:nth-child(4) { width: 15%; }
+        .events-table td:nth-child(5) { width: 15%; }
+        .events-table td:nth-child(6) { width: 10%; }
+        .events-table td:nth-child(7) { width: 5%; }
+        
+        .delete-btn {
+          background: none;
+          border: none;
+          color: red;
+          cursor: pointer;
+          padding: 5px;
+        }
+        
+        .delete-btn:hover{
+          color: darkred;
+        } 
+
+        ::-webkit-scrollbar {
+          display: none;
+        }
+
+        .events-table td.empty-cell {
+          padding-left: 40px;
+        }
+
+        .events-table td.empty-cell-tykaSe {
+          padding-left: 30px;
+          text-align: left;
+        }
+
+        .events-table td.empty-cell::after, .events-table td.empty-cell-tykaSe::after {
+          content: "-";
+        }
+
+        .center {
+          text-align: center; 
+        }
+
+        .center-content {
+          position: relative;  
+          left: -29%;         
+        }
+      </style>
+      
       <table class="events-table">
-        <%
+        <% 
         const prekladVyberZadani = {
           "celodenni": "Celodenní",
           "vicedenni": "Vícedenní",
@@ -232,46 +233,115 @@
           <td>Tyka se</td>
           <td style="padding-left: 0.8em;">✕</td>
         </tr>
-
+        
         <% seznamNaZobrazeni.forEach(udalost => { %>
           <tr>
-            <td class="toClick" onclick="window.location.href='/udalosti/nacti/<%= udalost %>'"><%= udalost.nazev %></td>
-            <td><%= prekladTypAkce[udalost.typ] || udalost.typ %></td>
-
+            <!-- Název události -->
+            <td class="toClick" onclick="handleUdalostClick('<%= JSON.stringify(udalost) %>')">
+                <%= udalost.nazev %>
+            </td>
+        
+            <!-- Typ události -->
+            <td>
+              <%= prekladTypAkce[udalost.typ] || udalost.typ %>
+            </td>
+        
+            <!-- Rozdělení podle vyberZadani a názvu události -->
             <% if (udalost.vyberZadani === "celodenni") { %>
               <td><%= formatDate(udalost.datum) %></td>
               <td class="empty-cell"></td>
               <td class="empty-cell"></td>
+        
             <% } else if (udalost.vyberZadani === "vicedenni") { %>
               <td><%= formatDate(udalost.datum) %></td>
               <td class="empty-cell"></td>
               <td><%= formatDate(udalost.datumDo) %></td>
+        
             <% } else if (udalost.vyberZadani === "casIDatum") { %>
               <td><%= formatDate(udalost.datum) %></td>
               <td style="padding-left: 30px;"><%= udalost.casOd %></td>
               <td style="padding-left: 30px;"><%= udalost.casDo %></td>
+        
+            <% } else if (udalost.vyberZadani === "maturita") { %>
+              <% if (udalost.nazev === "PČMZ") { %>
+                <td><%= formatDate(udalost.datum) %></td>
+                <td style="padding-left: 30px;"><%= udalost.casOd %></td>
+                <td style="padding-left: 30px;"><%= udalost.casDo %></td>
+        
+              <% } else if (udalost.nazev === "SČMZ") { %>
+                <td><%= formatDate(udalost.datum) %></td>
+                <td style="padding-left: 30px;"><%= udalost.casOd %></td>
+                <td class="empty-cell"></td>
+        
+              <% } else if (udalost.nazev === "SLOH") { %>
+                <td><%= formatDate(udalost.datum) %></td>
+                <td style="padding-left: 30px;"><%= udalost.casOd %></td>
+                <td style="padding-left: 30px;"><%= udalost.casDo %></td>
+        
+              <% } else if (udalost.nazev === "PŽOP" || udalost.nazev === "PŽOP - dodatečný termín") { %>
+                <td><%= formatDate(udalost.datum) %></td>
+                <td class="empty-cell"></td>
+                <td class="empty-cell"></td>
+              <% } %>
             <% } %>
-
+        
             <td class="<%= udalost.tykaSe === null ? 'empty-cell-tykaSe' : 'center' %>">
-            <% if (udalost.typ === "budovy") { %>
+              <% if (udalost.typ === "budovy") { %>
                 <span class="center-content"><%= prekladBudov[udalost.tykaSe] || udalost.tykaSe %></span>
               <% } else { %>
                 <span class="center-content"><%= udalost.tykaSe %></span>
               <% } %>
             </td>
+        
+            <!-- Tlačítko pro smazání -->
             <td>
-              <button
-                onclick="if(confirm('Opravdu chcete smazat tuto událost?')) window.location.href='/udalosti/smazat/<%= JSON.stringify(udalost) %>'"
-                class="delete-btn"
-              >✕</button>
+              <% if (udalost.vyberZadani !== "maturita") { %>
+                <button 
+                  onclick="if(confirm('Opravdu chcete smazat tuto událost?')) { window.location.href = '/udalosti/smazat/<%= JSON.stringify(udalost) %>';}"
+                  class="delete-btn"
+                >✕</button>
+              <% } else { %>
+                <button 
+                  style = "color: green;"
+                  onclick="handleUdalostClick('<%= JSON.stringify(udalost) %>')"
+                  class="delete-btn"
+                >➔</button>
+              <% } %>
             </td>
           </tr>
-        <% }); %>
+        <% }); %>        
       </table>
     </main>
   </article>
 
   <script>
+    function handleUdalostClick(udalostData) {
+        const udalost = JSON.parse(udalostData);
+
+      // Pokud je vyberZadani = směruje podle názvu
+      if (udalost.vyberZadani === 'maturita') {
+        switch (udalost.nazev) {
+          case 'PČMZ':
+            window.location.href = `/maturity/pcmz`;
+            break;
+          case 'SČMZ':
+            window.location.href = `/maturity/scmz`;
+            break;
+          case 'SLOH':
+            window.location.href = `/maturity/sloh`;
+            break;
+          case 'PŽOP':
+          case 'PŽOP - dodatečný termín':
+            window.location.href = `/maturity/`;
+            break;
+          default:
+            alert('Neznámá maturita: ' + udalost.nazev);
+        }
+      } else {
+        // Pokud není maturita, otevře formulář 
+        editUdalost(udalostData);
+      }
+    }
     class UdalostiManager {
       constructor() {
         this.initializeElements();
@@ -310,7 +380,7 @@
         // Update date inputs and time selects
         this.updateMinDatum();
         this.updateCasDoOptions();
-
+        
         // Handle initial type selection
         this.handleTypAkceChange();
       }
@@ -333,7 +403,7 @@
         if (this.datumInput) {
           this.datumInput.addEventListener('change', () => this.updateMinDatum());
         }
-
+        
         if (this.datumDoInput) {
           this.datumDoInput.addEventListener('change', () => this.updateMinDatum());
         }
@@ -384,10 +454,10 @@
         if (this.datumInput && this.datumInput.value) {
           const nextDay = new Date(this.datumInput.value);
           nextDay.setDate(nextDay.getDate() + 1);
-
+          
           if (this.datumDoInput) {
             this.datumDoInput.min = nextDay.toISOString().split('T')[0];
-
+            
             if (this.datumDoInput.value && new Date(this.datumDoInput.value) <= new Date(this.datumInput.value)) {
               this.datumDoInput.value = '';
             }
@@ -397,9 +467,9 @@
 
       updateCasDoOptions() {
         if (!this.casOdSelect || !this.casDoSelect) return;
-
+        
         const casOdIndex = this.casOdSelect.selectedIndex;
-
+        
         Array.from(this.casDoSelect.options).forEach((option, index) => {
           option.style.display = index + 1 <= casOdIndex ? 'none' : 'block';
         });
@@ -430,5 +500,69 @@
       // Short timeout to ensure DOM is fully updated
       setTimeout(initManager, 0);
     });
+    function editUdalost(udalostData) {
+      // Parsování JSON objektu události
+      const udalost = JSON.parse(udalostData);
+
+      // Vyplnění polí ve formuláři
+      document.querySelector('[name="jmeno_udalosti"]').value = udalost.nazev;
+      document.querySelector('[name="datum"]').value = udalost.datum;
+      document.querySelector('[name="datum"]').min = udalost.datum;
+
+      manager.updateMinDatum();
+
+      // Nastavení správného radio buttonu a zobrazení příslušných polí
+      const radioButtons = document.querySelectorAll('input[name="variantaDni"]');
+      const jineInputs = document.getElementById('jineInputs');
+      const vicedenniInputs = document.getElementById('vicedenniInputs');
+
+      // Skrytí všech dodatečných inputů
+      jineInputs.style.display = 'none';
+      vicedenniInputs.style.display = 'none';
+
+      // Nastavení správného radio buttonu a zobrazení příslušných polí
+      switch(udalost.vyberZadani) {
+        case "celodenni":
+          document.getElementById('celodenni').checked = true;
+          break;
+        case "vicedenni":
+          document.getElementById('vicedenni').checked = true;
+          document.getElementById('datumDo').value = udalost.datumDo;
+          vicedenniInputs.style.display = 'block';
+          break;
+        case "casIDatum":
+          document.getElementById('jine').checked = true;
+          document.getElementById('casOd').value = udalost.casOd;
+          document.getElementById('casDo').value = udalost.casDo;
+          jineInputs.style.display = 'block';
+          break;
+      }
+
+      // Nastavení typu akce
+      const typAkceSelect = document.querySelector('[name="typAkce"]');
+      typAkceSelect.value = udalost.typ;
+
+      // Specifické nastavení pro budovy nebo třídy
+      const tridySelect = document.querySelector('[name="tridy"]');
+      const budovySelect = document.querySelector('[name="budovy"]');
+      
+      // Skrytí obou selectů
+      document.getElementById('tridySelect').style.display = 'none';
+      document.getElementById('budovySelect').style.display = 'none';
+
+      if (udalost.typ === "celotridni") {
+        tridySelect.value = udalost.tykaSe;
+        document.getElementById('tridySelect').style.display = 'block';
+      } else if (udalost.typ === "budovy") {
+        budovySelect.value = udalost.tykaSe;
+        document.getElementById('budovySelect').style.display = 'block';
+      }
+
+      // Poznámka
+      document.querySelector('[name="poznamka_udalosti"]').value = udalost.poznamka || '';
+      
+      // Pro načtení původních dat
+      document.querySelector('[name="PuvodniData"]').value = udalostData || '';
+    }
   </script>
 <%- include('../partials/tail') %>

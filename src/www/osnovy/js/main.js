@@ -167,8 +167,7 @@ function addRow() {
 	hoursInput.className = "hour-input";
 	
 	hoursInput.onchange = function() {
-		updateCurriculumHours();
-		updateRowColors();
+		updateFrontend();
 	};
 	
 	hoursInput.oninput = function() {
@@ -185,6 +184,11 @@ function addRow() {
 	// Append the new row to the table body
 	tableBody.insertBefore(newRow, tableBody.rows[tableBody.rows.length - 1]);
 	
+	updateCurriculumHours();
+	updateRowColors();
+}
+
+function updateFrontend(){
 	updateCurriculumHours();
 	updateRowColors();
 }

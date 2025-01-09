@@ -10,5 +10,26 @@
    "osnovy": {"nextID": 1}
    "rozvrhy": {"nextID": 1}
    "udalosti": {"nextID": 1}
-   "maturity": {"nextID": 1}
+   "maturity": {
+        "PŽOP": {
+            "dny": [],
+            "casy": [],
+            "ucebny": []
+        },
+        "PČMZ": {
+            "dny": [],
+            "casy": [],
+            "ucebny": []
+        },
+        "SČMZ": {
+            "dny": [],
+            "casy": [],
+            "ucebny": []
+        },
+        "SLOH": {
+            "dny": [],
+            "casy": [],
+            "ucebny": []
+        }
+    },
 }

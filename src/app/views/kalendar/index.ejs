@@ -73,7 +73,7 @@
         font-weight: 600;
     }
     /*----------------*/
-    #detail {
+    /* #detail {
         display: none;
         position: fixed;
         top: 50%;
@@ -87,7 +87,7 @@
         z-index: 1000;
         text-align: center;
     }
-
+ */
     .detailItem {
         font-weight: bold;
         margin: 12px 0;
@@ -112,7 +112,7 @@
         margin-bottom: 60px;
     }
 
-    .detailButton {
+    /* .detailButton {
         position: absolute;
         bottom: 20px;
         left: 50%;
@@ -130,7 +130,7 @@
 
     .detailButton:hover {
         background-color: #ff0000;
-    }
+    } */
 
     /* Dark mode */
     @media (prefers-color-scheme: dark) {
@@ -204,16 +204,8 @@
          <p class="grid-item week-days">PÁTEK</p>
          <p class="grid-item week-days">VÍKEND</p>
       </section>
-        <div id="detail">
-            <p id="name" class="detailItem"></p>
-            <p id="from" class="detailItem"></p>
-            <p id="to" class="detailItem"></p>
-            <p id="date" class="detailItem"></p>
-            <p id="type" class="detailItem"></p>
-            <p id="tykase" class="detailItem"></p>
-            <p id="note" class="detailItem"></p>
-            <button class="detailButton" onclick="detailOff()">X</button>
-        </div>
+
+
         <section class="grid-container">
             <%
                 let startDate = new Date(2024,7,1);
@@ -247,6 +239,30 @@
         </section>
     </main>
 </article>
+
+<dialog id="detail">
+    <article>
+      <header>
+        <button
+          aria-label="Close"
+          rel="prev"
+          data-target="detail"
+          onclick="toggleModal(event)"
+        ></button>
+        <p><strong>Confirm your action!</strong></p>
+      </header>
+      <main>
+        <p id="name" class="detailItem"></p>
+        <p id="from" class="detailItem"></p>
+        <p id="to" class="detailItem"></p>
+        <p id="date" class="detailItem"></p>
+        <p id="type" class="detailItem"></p>
+        <p id="tykase" class="detailItem"></p>
+        <p id="note" class="detailItem"></p>
+      </main>
+    </article>
+</dialog>
+
 <script>
   document.addEventListener("DOMContentLoaded", function() {
               placeUdalosti()
@@ -290,12 +306,13 @@
     if (Number(dateCheck.getDay()) == 0)
         date = new Date(Number(dateCheck.getTime()) - increment).toLocaleDateString('en-CA', { timeZone: 'Europe/Prague' })
     let day = document.getElementById(date)
-    console.log("AAA")
+    // console.log("AAA")
 
     let button = document.createElement("button")
     button.textContent = udalost.nazev
     button.className = "udalost"
-    button.onclick = function(){detailDisplay(index)}
+    button.setAttribute("data-target", "detail")
+    button.onclick = function(){detailDisplay(index, event)}
     day.appendChild(button)
     return button
   }
@@ -327,13 +344,12 @@
         }
   }
 
-  function detailDisplay(index){
+  function detailDisplay(index, event){
       const udalosti = <%- JSON.stringify(udalosti) %>
       const udalost = udalosti[index]
       //console.log(udalost.typ)
 
       let detail = document.getElementById("detail")
-      detail.style.display = "block"
 
       document.getElementById("name").innerText = udalost.nazev
       document.getElementById("from").innerText = udalost.casOd
@@ -342,11 +358,82 @@
       document.getElementById("type").innerText = udalost.typ
       document.getElementById("tykase").innerText = udalost.tykaSe
       document.getElementById("note").innerText = udalost.poznamka
+
+      toggleModal(event)
   }
 
-  function detailOff(){
-      document.getElementById("detail").style.display = "none"
-  }
+
+  const isOpenClass = "modal-is-open";
+  const openingClass = "modal-is-opening";
+  const closingClass = "modal-is-closing";
+  const scrollbarWidthCssVar = "--pico-scrollbar-width";
+  const animationDuration = 400; // ms
+  let visibleModal = null;
+
+
+  const toggleModal = (event) => {
+    event.preventDefault();
+    const modal = document.getElementById(event.currentTarget.dataset.target);
+    if (!modal) return;
+    modal && (modal.open ? closeModal(modal) : openModal(modal));
+    };
+
+    // Open modal
+    const openModal = (modal) => {
+    const { documentElement: html } = document;
+    const scrollbarWidth = getScrollbarWidth();
+    if (scrollbarWidth) {
+        html.style.setProperty(scrollbarWidthCssVar, `${scrollbarWidth}px`);
+    }
+    html.classList.add(isOpenClass, openingClass);
+    setTimeout(() => {
+        visibleModal = modal;
+        html.classList.remove(openingClass);
+    }, animationDuration);
+    modal.showModal();
+    };
+
+    // Close modal
+    const closeModal = (modal) => {
+    visibleModal = null;
+    const { documentElement: html } = document;
+    html.classList.add(closingClass);
+    setTimeout(() => {
+        html.classList.remove(closingClass, isOpenClass);
+        html.style.removeProperty(scrollbarWidthCssVar);
+        modal.close();
+    }, animationDuration);
+    };
+
+    // Close with a click outside
+    document.addEventListener("click", (event) => {
+    if (visibleModal === null) return;
+    const modalContent = visibleModal.querySelector("article");
+    const isClickInside = modalContent.contains(event.target);
+    if (!isClickInside) {
+        closeModal(visibleModal);
+        event.stopPropagation();
+    }
+    });
+
+    // Close with Esc key
+    document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && visibleModal) {
+        closeModal(visibleModal);
+    }
+    });
+
+    // Get scrollbar width
+    const getScrollbarWidth = () => {
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    return scrollbarWidth;
+    };
+
+    // Is scrollbar visible
+    const isScrollbarVisible = () => {
+    return document.body.scrollHeight > screen.height;
+    };
+
 
 </script>
 <script src="/kalendar/js/main.js"></script>
