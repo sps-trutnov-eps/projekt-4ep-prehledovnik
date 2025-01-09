@@ -32,6 +32,7 @@
     right: 5px;
     font-size: 12px;
     color: #76baff;
+    font-weight: bold;
   }
 
   .grid-item .period {
@@ -167,7 +168,6 @@
         <p id="roomDet" class="detailItem"></p>
         <p id="periodDet" class="detailItem"></p>
         <p id="classDet" class="detailItem"></p>
-        <p id="groupDet" class="detailItem"></p>
         <p id="countDet" class="detailItem"></p>
         <p id="themeDet" class="detailItem"></p>
         <button class="detailButton" onclick="detailOff()">X</button>
@@ -335,8 +335,7 @@
       console.log(period.querySelector(".theme").textContent)
       document.getElementById("roomDet").innerText = period.querySelector(".room").textContent
       document.getElementById("periodDet").innerText = period.querySelector(".period").textContent
-      document.getElementById("classDet").innerText = period.querySelector(".class").textContent
-      document.getElementById("groupDet").innerText = period.querySelector(".group").textContent
+      document.getElementById("classDet").innerText = period.querySelector(".class-group").textContent
       document.getElementById("countDet").innerText = period.querySelector(".count").textContent
       document.getElementById("themeDet").innerText = period.querySelector(".theme").textContent
   }
