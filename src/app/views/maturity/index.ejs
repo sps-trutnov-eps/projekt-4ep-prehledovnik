@@ -40,32 +40,50 @@
     background-color: white;
   }
 </style>
-<article
-  style="
-    width: 20vw;
-    min-width: 20vw;
-    margin-right: 1em;
-    overflow-y: auto;
-    resize: horizontal;
-  ">
-  <div class="button">
-    <a href="../maturity/">
-      <button class="tlacitko">Praktická</button>
-    </a>
-    <a href="../maturity/pcmz">
-      <button class="tlacitko">Ústní</button>
-    </a>
-    <a href="../maturity/scmz">
-      <button class="tlacitko">Státní</button>
-    </a>
-    <a href="../maturity/sloh">
-      <button class="tlacitko">Sloh</button>
-    </a>
-  </div>
-</article>
-
-<article style="flex: 3; overflow-y: auto; position: relative">
-  <h1 class="headline">Praktická zkouška z odborných předmětů</h1>
+<article style="flex: 3; overflow-y: auto">
+  <header>
+    <nav>
+      <ul>
+        <li>
+          <h1>Praktická</h1>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <div role="group">
+            <button
+              hx-get="/maturity"
+              hx-target="body"
+              hx-push-url="true"
+              hx-swap="transition:true">
+            Praktická</button>
+            <button
+              class="outline"
+              hx-get="/maturity/pcmz"
+              hx-target="body"
+              hx-push-url="true"
+              hx-swap="transition:true">
+            Ústní</button>
+            <button
+              class="outline"
+              hx-get="/maturity/scmz"
+              hx-target="body"
+              hx-push-url="true"
+              hx-swap="transition:true">
+            Státní</button>
+            <button
+              class="outline"
+              hx-get="/maturity/sloh"
+              hx-target="body"
+              hx-push-url="true"
+              hx-swap="transition:true">
+            Sloh</button>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  </header>
+<h1 class="headline">Praktická zkouška z odborných předmětů</h1>
   <form
     action="/maturity/ukladanipzop"
     method="POST"
