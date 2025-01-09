@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <%- include('../partials/head'); %>
+  <style>
+    .button {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      width: 100%;
+      padding: 10px;
+    }
+
+    .tlacitko {
+      margin: 8px 0;
+      padding: 15px;
+      border: none;
+      border-radius: 5px;
+      width: 100%;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    table > thead > tr > th > p {
+      font-size: 17px;
+    }
+
+    th {
+      text-align: center;
+    }
+
+    .zaskrtavaci_policko {
+      font-size: 50px;
+    }
+
+    input[type="date"] {
+      border: none;
+      text-align: center;
+      font-size: 20px;
+    }
+
+    input[disabled] {
+      background-color: transparent;
+      opacity: 0.5;
+    }
+
+    /* Styl podtržení nadpisu */
+    .headline-container {
+      position: relative;
+      padding: 10px;
+    }
+
+    .headline {
+      display: inline-block;
+      color: white;
+      font-size: 1.5em;
+    }
+
+    .headline-container::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: white;
+    }
+  </style>
+    <article style="flex: 3; overflow-y: auto">
+      <header>
+        <nav>
+          <ul>
+            <li>
+              <h1>PČMZ</h1>
+            </li>
+          </ul>
+          <ul>
+            <li>
+              <div role="group">
+                <button
+                  class="outline"
+                  hx-get="/maturity"
+                  hx-target="body"
+                  hx-push-url="true"
+                  hx-swap="transition:true">
+                PŽOP</button>
+                <button
+                  hx-get="/maturity/pcmz"
+                  hx-target="body"
+                  hx-push-url="true"
+                  hx-swap="transition:true">
+                PČMZ</button>
+                <button
+                  class="outline"
+                  hx-get="/maturity/scmz"
+                  hx-target="body"
+                  hx-push-url="true"
+                  hx-swap="transition:true">
+                SČMZ</button>
+                <button
+                  class="outline"
+                  hx-get="/maturity/sloh"
+                  hx-target="body"
+                  hx-push-url="true"
+                  hx-swap="transition:true">
+                SLOH</button>
+              </div>
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <main>
+
+      <!-- <div -->
+      <!--   style=" -->
+      <!--     padding: 20px; -->
+      <!--     background-color: #01172c; -->
+      <!--     border-radius: 10px; -->
+      <!--     color: white; -->
+      <!--   "> -->
+        <div class="headline-container">
+          <h1 class="headline">Profilová část maturitní zkoušky</h1>
+        </div>
+
+        <form action="/maturity/ukladanipcmz" methods="POST" style="display: flex; flex-direction: column; align-items: center" id="projekt-form">
+          <table
+            style="border-collapse: collapse; text-align: center"
+            id="hodiny_tabulka">
+            <thead>
+              <tr>
+                <th style="text-align: center; color: white">Datum:</th>
+                <% for (let i = 1; i <= 9; i++) { %>
+                <th style="color: white">
+                  <p>
+                    <%= ["8:00-8:45", "8:50-9:35", "9:55-10:40", "10:50-11:35",
+                    "11:40-12:25", "12:35-13:20", "13:25-14:10", "14:15-15:00",
+                    "15:10-15:55"][i-1] %>
+                  </p>
+                </th>
+                <% } %>
+              </tr>
+            </thead>
+            <tbody>
+              <% let dayCounter = 1; %> <% for (const [datum, hodiny] of
+              Object.entries(data)) { %>
+              <tr>
+                <td>
+                  <input
+                    type="date"
+                    name="den<%= dayCounter %>_datum"
+                    value="<%= datum %>"
+                    readonly />
+                </td>
+                <% for (let i = 1; i <= 9; i++) { %>
+                <td>
+                  <input class="zaskrtavaci_policko" type="checkbox"
+                  name="den<%= dayCounter %>_hodina<%= i %>" <%=
+                  hodiny.includes(i) ? "checked" : "" %> disabled />
+                </td>
+                <% } %>
+              </tr>
+              <% dayCounter++; %> <% } %>
+            </tbody>
+          </table>
+
+          <div style="margin-top: 1em">
+            <button
+              type="button"
+              id="pridat-datum"
+              style="
+                padding: 0.5em;
+                width: 150px;
+                border: none;
+                cursor: pointer;
+              "
+              disabled>
+              Přidat datum
+            </button>
+          </div>
+
+          <div style="margin-top: 1px">
+            <button
+              type="button"
+              id="edit-button"
+              style="
+                padding: 0.5em;
+                width: 150px;
+                border: none;
+                cursor: pointer;
+              ">
+              Edit
+            </button>
+            <button
+              type="submit"
+              id="save-button"
+              style="
+                display: none;
+                padding: 0.5em;
+                width: 150px;
+                border: none;
+                cursor: pointer;
+              ">
+              Uložit
+            </button>
+          </div>
+        </form>
+      </main>
+    </article>
+
+    <script>
+      let dayCounter = 1;
+
+      document
+        .getElementById("pridat-datum")
+        .addEventListener("click", function () {
+          dayCounter++;
+
+          var tabulka = document
+            .getElementById("hodiny_tabulka")
+            .getElementsByTagName("tbody")[0];
+          var novyRadek = document.createElement("tr");
+
+          var bunkaDatum = document.createElement("td");
+          var inputDatum = document.createElement("input");
+          inputDatum.type = "date";
+          inputDatum.name = "den" + dayCounter + "_datum";
+          inputDatum.classList.add("zaskrtavaci_policko");
+          inputDatum.disabled = true;
+          bunkaDatum.appendChild(inputDatum);
+          novyRadek.appendChild(bunkaDatum);
+
+          for (var i = 1; i <= 9; i++) {
+            var bunkaCheckbox = document.createElement("td");
+            var inputCheckbox = document.createElement("input");
+            inputCheckbox.type = "checkbox";
+            inputCheckbox.name = "den" + dayCounter + "_hodina" + i;
+            inputCheckbox.classList.add("zaskrtavaci_policko");
+            inputCheckbox.disabled = true;
+            bunkaCheckbox.appendChild(inputCheckbox);
+            novyRadek.appendChild(bunkaCheckbox);
+          }
+          tabulka.appendChild(novyRadek);
+
+          if (document.getElementById("edit-button").style.display === "none") {
+            var newInputs = novyRadek.querySelectorAll("input");
+            newInputs.forEach((input) => (input.disabled = false));
+          }
+        });
+
+      document
+        .getElementById("edit-button")
+        .addEventListener("click", function () {
+          document
+            .querySelectorAll("input")
+            .forEach((input) => (input.disabled = false));
+          document.getElementById("pridat-datum").disabled = false;
+          document.getElementById("edit-button").style.display = "none";
+          document.getElementById("save-button").style.display = "block";
+        });
+
+      document
+        .getElementById("save-button")
+        .addEventListener("click", function () {
+          document.getElementById("pridat-datum").disabled = false;
+        });
+    </script>
+
+<%- include('../partials/tail') %>

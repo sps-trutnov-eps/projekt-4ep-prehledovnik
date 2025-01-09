@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<%- include('../partials/head'); %>
+<style>
+  .button {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    padding: 10px;
+  }
+  .tlacitko {
+    margin: 8px 0;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+  }
+
+  .zaskrtavaci_policko {
+    font-size: 50px;
+  }
+
+  input[type="date"],
+  input[type="checkbox"],
+  select {
+    padding: 0.5em;
+    font-size: 20px;
+  }
+
+  input[disabled],
+  select[disabled] {
+    background-color: transparent;
+    color: #aaa;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+    margin-top: 1em;
+  }
+</style>
+      <article style="flex: 3; overflow-y: auto">
+        <header>
+          <nav>
+            <ul>
+              <li>
+                <h1>SČMZ</h1>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <div role="group">
+                  <button
+                    class="outline"
+                    hx-get="/maturity"
+                    hx-target="body"
+                    hx-push-url="true"
+                    hx-swap="transition:true">
+                  PŽOP</button>
+                  <button
+                    class="outline"
+                    hx-get="/maturity/pcmz"
+                    hx-target="body"
+                    hx-push-url="true"
+                    hx-swap="transition:true">
+                  PČMZ</button>
+                  <button
+                    hx-get="/maturity/scmz"
+                    hx-target="body"
+                    hx-push-url="true"
+                    hx-swap="transition:true">
+                  SČMZ</button>
+                  <button
+                    class="outline"
+                    hx-get="/maturity/sloh"
+                    hx-target="body"
+                    hx-push-url="true"
+                    hx-swap="transition:true">
+                  SLOH</button>
+                </div>
+              </li>
+            </ul>
+          </nav>
+        </header>
+
+  <h1 style="padding: 10px">Společná část maturitní zkoušky</h1>
+  <form
+    action="/maturity/ukladaniscmz"
+    method="POST"
+    style="display: flex; flex-direction: column">
+    <table
+      id="scmz-table"
+      style="width: 100%; border-collapse: collapse; margin-bottom: 1em">
+      <thead>
+        <tr>
+          <th>Datum:</th>
+          <th>Zadávání:</th>
+          <th>Čas:</th>
+          <th>Učebna:</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%let info = Object.entries(data)%>
+        <%let data_length = info.length%>
+        <%if (data_length == 0) { data_length = 1 }%>
+        <% for (i = 0; i < data_length; i++) {%>
+          <tr>
+            <%let date = info[i] && info[i][0] ? info[i][0] : ""%>
+            <%let extra_info = info[i] && info[i][1] ? info[i][1] : []%>
+            <%let zadavani = true%>
+            <%let bool_extra_info = extra_info.length > 0%>
+            <%let cas = bool_extra_info ? extra_info[0] : ""%>
+            <%let ucebna = bool_extra_info ? extra_info[1] : ""%>
+            <%if (extra_info.length == 0) {zadavani = false}%>
+            
+            <td><input type="date" value="<%=date%>" name="den<%=i+1%>_datum" disabled /></td>
+            <td>
+              <input
+                type="checkbox"
+                name="den<%=i+1%>_checkbox"
+                class="zadavani-checkbox"
+                style="font-size: 50px; padding: 0.5em"
+                <%if (bool_extra_info) {%>checked<%}%>
+                disabled />
+            </td>
+            <td>
+              <input
+                type="time"
+                name="den<%=i+1%>_cas"
+                class="cas-input"
+                value="<%=cas%>"
+                style="padding: 0.5em" 
+                disabled/>
+            </td>
+            <td>
+              <select
+                name="den<%=i+1%>_ucebna"
+                class="ucebna-select"
+                disabled
+                style="padding: 0.5em">
+                <option value="">Vyberte učebnu</option>
+                <option value="T15" <%if (ucebna == "T15") {%>selected="selected"<%}%>>T15</option>
+                <option value="T16" <%if (ucebna == "T16") {%>selected="selected"<%}%>>T16</option>
+                <option value="T17" <%if (ucebna == "T17") {%>selected="selected"<%}%>>T17</option>
+              </select>
+            </td>
+          </tr>
+        <%}%>
+      </tbody>
+    </table>
+
+    <div style="text-align: center; margin-top: 1em">
+      <button
+        type="button"
+        id="pridat-datum"
+        style="padding: 0.5em; width: 150px; border: none; cursor: pointer" 
+        disabled>
+        Přidat datum
+      </button>
+    </div>
+
+    <div class="button-container">
+      <button
+        type="button"
+        id="edit-button"
+        style="padding: 0.5em; border: none; cursor: pointer; width: 150px">
+        Edit
+      </button>
+      <button
+        type="submit"
+        id="save-button"
+        style="padding: 0.5em; width: 150px; border: none; cursor: pointer; display: none;">
+        Uložit
+      </button>
+    </div>
+  </form>
+</article>
+
+<script>
+   let dayCounter = 1;
+
+   document.getElementById("pridat-datum").addEventListener("click", function () {
+      dayCounter++;
+      const tableBody = document.querySelector("#scmz-table tbody");
+      const newRow = document.createElement("tr");
+
+      newRow.innerHTML = `
+         <td><input type="date" name="den${dayCounter}_datum"></td>
+         <td><input type="checkbox" class="zadavani-checkbox" style="padding: 0.5em; font-size: 50px;"></td>
+         <td><input type="time" name="den${dayCounter}_cas" class="cas-input" disabled style="padding: 0.5em;"></td>
+         <td>
+         <select name="den${dayCounter}_ucebna" class="ucebna-select" disabled style="padding: 0.5em;">
+         <option value="">Vyberte učebnu</option>
+         <option value="T15">T15</option>
+         <option value="T16">T16</option>
+         <option value="T17">T17</option>
+         </select>
+         </td>
+         `;
+
+      tableBody.appendChild(newRow);
+      addCheckboxFunctionality(newRow);
+
+      if (document.getElementById("edit-button").style.display === "none") {
+        newRow.querySelector("input[type='date']").disabled = false;
+        newRow.querySelector("input[type='checkbox']").disabled = false;
+      }
+    });
+
+  function addCheckboxFunctionality(row) {
+    const checkbox = row.querySelector(".zadavani-checkbox");
+    const timeInput = row.querySelector(".cas-input");
+    const classroomSelect = row.querySelector(".ucebna-select");
+
+    checkbox.addEventListener("change", function () {
+      if (checkbox.checked) {
+        timeInput.disabled = false;
+        classroomSelect.disabled = false;
+      } else {
+        timeInput.value = "";
+        timeInput.disabled = true;
+        classroomSelect.selectedIndex = 0;
+        classroomSelect.disabled = true;
+      }
+    });
+  }
+
+  document.getElementById("edit-button").addEventListener("click", function () {
+    document.querySelectorAll("input[type='date'], input[type='checkbox']").forEach(input => input.disabled = false);
+    document.getElementById("pridat-datum").disabled = false; 
+    document.getElementById("edit-button").style.display = "none";
+    document.getElementById("save-button").style.display = "inline-block";
+  });
+
+  document.getElementById("save-button").addEventListener("click", function () {
+    document.getElementById("pridat-datum").disabled = false;  
+  });
+
+  document.querySelector("form").addEventListener("submit", function () {
+    document.querySelectorAll("tbody tr").forEach(function (row) {
+      const checkbox = row.querySelector(".zadavani-checkbox");
+      const timeInput = row.querySelector(".cas-input");
+      const classroomSelect = row.querySelector(".ucebna-select");
+
+      if (checkbox.checked) {
+        timeInput.disabled = false;
+        classroomSelect.disabled = false;
+      }
+    });
+  });
+
+  document.querySelectorAll("tbody tr").forEach(addCheckboxFunctionality);
+</script>
+          <!-- checkbox.addEventListener("change", function () { -->
+          <!--   if (checkbox.checked) { -->
+          <!--     timeInput.disabled = false; -->
+          <!--     classroomSelect.disabled = false; -->
+          <!--   } else { -->
+          <!--     timeInput.value = ""; -->
+          <!--     timeInput.disabled = true; -->
+          <!--     classroomSelect.selectedIndex = 0; -->
+          <!--     classroomSelect.disabled = true; -->
+          <!--   } -->
+          <!-- }); -->
+        <!-- } -->
+
+        <!-- document.querySelector("form").addEventListener("submit", function () { -->
+          <!-- document.querySelectorAll("tbody tr").forEach(function (row) { -->
+          <!--   const checkbox = row.querySelector(".zadavani-checkbox"); -->
+          <!--   const timeInput = row.querySelector(".cas-input"); -->
+          <!--   const classroomSelect = row.querySelector(".ucebna-select"); -->
+
+          <!--   if (checkbox.checked) { -->
+          <!--     timeInput.disabled = false; -->
+          <!--     classroomSelect.disabled = false; -->
+          <!--   } -->
+          <!-- }); -->
+        <!-- }); -->
+
+        <!-- document.querySelectorAll("tbody tr").forEach(addCheckboxFunctionality); -->
+      <!-- </script> -->
+
+<%- include('../partials/tail') %>
