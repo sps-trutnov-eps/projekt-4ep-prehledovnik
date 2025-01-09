@@ -2,21 +2,64 @@
 const databaseEngine = require("../models/databaseEngine");
 const databaze = require("../models/databaseEngine");
 
+exports.pzop = (req, res) => {
+    let data = databaze.maturity.ziskarMaturituDleNazvu('PŽOP')
+
+    ucebna = data.ucebny[0]
+    dny = data.dny
+
+    res.render('maturity/index.ejs', {"ucebna" : ucebna, "dny" : dny})
+}
+
 exports.pcmz = (req, res) => {
-    res.render("maturity/pcmz.ejs");
+
+    let data = databaze.maturity.ziskarMaturituDleNazvu('PČMZ')
+
+    let dnyacasy = {}
+    for (let i = 0; i < data.dny.length; i++) {
+        dnyacasy[data.dny[i]] = data.casy[i]
+    }
+
+    res.render("maturity/pcmz.ejs", {"data" : dnyacasy});
 };
 
 exports.sloh = (req, res) => {
-    res.render("maturity/sloh.ejs");
+    let data = databaze.maturity.ziskarMaturituDleNazvu('SLOH')
+
+    let dnyacasy = {}
+    for (let i = 0; i < data.dny.length; i++) {
+        casy = data.casy[i]
+        dnyacasy[data.dny[i]] = []
+        for (let x = 0; x < casy.length; x++) {
+            dnyacasy[data.dny[i]].push([data.casy[i][x], data.ucebny[i][x]])
+        }
+    }
+
+    console.log(data)
+    res.render("maturity/sloh.ejs", { "data": dnyacasy });
 };
 
 exports.scmz = (req, res) => {
-    res.render("maturity/scmz.ejs");
+    let data = databaze.maturity.ziskarMaturituDleNazvu('SČMZ')
+
+    let dnyacasy = {}
+    console.log(data)
+    for (let i = 0; i < data.dny.length; i++) {
+        casy = data.casy[i]
+        dnyacasy[data.dny[i]] = []
+        for (let x = 0; x < casy.length; x++) {
+            dnyacasy[data.dny[i]].push(data.casy[i][x], data.ucebny[i])
+        }
+    }
+    console.log(dnyacasy)
+    console.log(Object.entries(dnyacasy))
+
+    res.render("maturity/scmz.ejs", {"data" : dnyacasy});
 };
 
 exports.ukladanipzop = (req, res) => {
     const {den_konani, dodatecne_dny, ucebna} = req.body;
-    //console.log("Přijatá data:", {den_konani, dodatecne_dny, ucebna});
+    console.log("Přijatá data:", {den_konani, dodatecne_dny, ucebna});
 
     if (!den_konani) {
         res.redirect("/maturity/");
@@ -42,22 +85,26 @@ exports.ukladanipcmz = (req, res) => {
     const radky = [];
     let pocitadloDnu = 1;
 
+    console.log(req.body);
+
     while (!vsechnyDnyUlozeny) {
         const dateKlic = `den${pocitadloDnu}_datum`;
 
         if (!body[dateKlic]) {
+            // Pokud není datum, skončíme
             vsechnyDnyUlozeny = true;
+            break;
         }
 
         const hodiny = [];
         for (let i = 1; i <= 9; i++) {
             const hourKlic = `den${pocitadloDnu}_hodina${i}`;
-            if (body[hourKlic]) {
+            if (body[hourKlic] === 'on') { // Ujistěte se, že hodiny jsou označeny správně
                 hodiny.push(i); 
             }
         }
 
-        if (body[dateKlic] && hodiny.length > 0) {
+        if (hodiny.length > 0) {
             let denRadky = [];
             let posledniHodina = hodiny[0];
 
@@ -71,30 +118,33 @@ exports.ukladanipcmz = (req, res) => {
                 }
                 posledniHodina = hodiny[j]; 
             }
-            // to podtím je jako kdyby se dělal for, ale kratší XD
+            // Sloučení všech řádků pro daný den
             radky.push(...denRadky);
         }
 
         pocitadloDnu++;
     }
 
-    datumy = [];
-    hodiny = [];
+    const datumy = [];
+    const hodinyFinal = [];
+
+    // Seskupení dat a hodin pro všechny dny
     radky.forEach((radek) => {
-        if(!datumy.includes(radek.datum)){
+        if (!datumy.includes(radek.datum)) {
             datumy.push(radek.datum);
-        }
-        let index = datumy.indexOf(radek.datum)
-        if(hodiny[index]){
-            hodiny[index].push(radek.hodiny[0]);
+            hodinyFinal.push(radek.hodiny);
         } else {
-            hodiny.push(radek.hodiny);
-        } 
+            let index = datumy.indexOf(radek.datum);
+            hodinyFinal[index] = [...hodinyFinal[index], ...radek.hodiny];
+        }
     });
-    databaze.maturity.pridatMaturitniEvent("PČMZ", datumy, hodiny, null); 
-    
+
+    // Uložení do databáze
+    databaze.maturity.pridatMaturitniEvent("PČMZ", datumy, hodinyFinal, null); 
+
     res.redirect("/maturity/pcmz");
 };
+
 
 exports.ukladaniscmz = (req, res) => {
     const body = req.body;
@@ -144,7 +194,6 @@ exports.ukladaniscmz = (req, res) => {
         }
     });
     databaze.maturity.pridatMaturitniEvent("SČMZ", datumy, hodiny, ucebny);
-    console.log(databaze.maturity.ziskatVsechnyMaturityJakoUdalosti());
     res.redirect("/maturity/scmz");
 };
 
@@ -152,6 +201,8 @@ exports.ukladaniscmz = (req, res) => {
 exports.ukladanisloh = (req, res) => {
     const body = req.body;
     let pocitadloDnu = 1;
+
+    console.log(req.body);
 
     const seskupenaData = {};
 
@@ -164,7 +215,6 @@ exports.ukladanisloh = (req, res) => {
 
             if (ucebna && ucebna.trim() !== '') {
                 const skupinaKlic = `${datum}_${ucebna}`;
-
                 if (!seskupenaData[skupinaKlic]) {
                     seskupenaData[skupinaKlic] = {nazev: "SLOH", dny: [datum], casy: [], ucebna: ucebna};
                 };
@@ -174,6 +224,7 @@ exports.ukladanisloh = (req, res) => {
         }
         pocitadloDnu++;
     }
+    console.log(seskupenaData)
 
     datumy = []
     hodiny = []

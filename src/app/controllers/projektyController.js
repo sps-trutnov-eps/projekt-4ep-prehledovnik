@@ -1,102 +1,193 @@
 const databaze = require("../models/databaseEngine");
 
-exports.zobrazTymy = (req, res) => {
-    let tlacitka = vytvorTlacitka("projekty/tymy/");
-	let tymy = [];
+exports.upload = async (req, res) => {
+   try {
+      const fileText = req.file.buffer.toString('utf8');
 
-    res.render("projekty/tymy", { tlacitka: tlacitka, tymy: tymy });
+      let points = {};
+      // GET THE POINTS //
+
+      // go through milestones
+      fileText.replace(/\n([A-Z][a-z]+)/g, "\n$1 $1")
+         .split(/\n[A-Z][a-z]+ /)
+         .slice(1)
+         .forEach(block => {
+
+            let lines = block.split(/\n/)
+               .map(l => l.trim())
+               .filter((elm) => elm.length > 3);
+
+            let key = lines[0];
+            points[key] = {"t1": {}, "t2": {}};
+
+            let tyden = 0;
+            lines.slice(1).forEach(line => {
+
+               // záznam žáka
+               if (! /->/.test(line)) {
+                  let parts = line.split(" ");
+                  mail = parts[parts.length-1].replace(/[<>]/g, "");
+
+                  points[key][`t${tyden}`][mail] = parseInt(parts[0]);
+
+                  // záznam týdne
+               } else {
+                  tyden++;
+               }
+            });
+         });
+
+      // TRANSFORM POINTS TO GRADES //
+
+      let grades = {};
+
+      for (const key in points) {
+         grades[key] = {};
+
+         // get all emails
+         emails = Object.keys(points[key]["t1"]);
+
+         for (const email in points[key]["t2"]) {
+            if (! emails.includes(email))
+               emails.push(email);
+         }
+
+         // get marks for mails
+         emails.forEach(email => {
+            // dle Šenkýře:
+            //    Známku za průběžnou práci dostáváte (každý samostatně) podle
+            //       následujícího klíče:
+            //  
+            //    1, pokud jste v každém týdnu udělali více než jeden commit
+            //    2, pokud jste v jednom týdnu udělali více než jeden a v dalším
+            //       týdnu pouze jeden commit (nebo opačně)
+            //    3, pokud jste v jednom týdnu udělali více než jeden a v dalším
+            //       týdnu žádný commit (nebo opačně) nebo pokud jste v každém
+            //       týdnu udělali pouze jeden commit
+            //    4, pokud jste v jednom týdnu udělali pouze jeden a v dalším
+            //       týdnu žádný commit (nebo opačně)
+            //    5, pokud jste v každém týdnu udělali nula commitů
+            //
+            // => z každého týdne max 4 body, každý chybějící bod stupeň dolů
+
+            // || can be used for default value while assigning
+            let count = [
+               points[key]["t1"][email] || 0,
+               points[key]["t2"][email] || 0
+            ].map(n => n > 2 ? 2 : n)
+             // no .sum()?
+             .reduce((acc, cur) => acc + cur);
+
+            grades[key][email] = 5 - count;
+
+         });
+      };
+
+      console.log(grades);
+
+      // RESPONSE //
+
+      let tlacitka = vytvorTlacitka("projekty/");
+      let tymy = ziskejTymy(req.params.id);
+
+      res.render("projekty/index", {
+         tlacitka: tlacitka,
+         tymy: tymy,
+         id: req.params.id,
+      });
+   } catch (error) {
+      res.status(500).send(`
+         <div class="error">Upload failed: ${error.message}</div>
+         `);
+   }
 };
 
-exports.zobrazProjekt = (req, res) => { 
-    let tlacitka = vytvorTlacitka("projekty/tymy/");
-    let tymy = ziskejTymy(req.params.projekt);
 
-    res.render("projekty/tymy", { tlacitka: tlacitka, tymy: tymy }); 
-}; 
- 
-exports.zobrazTlacitka = (req, res) => {
-	let tlacitka = vytvorTlacitka("projekty/");
-	let tymy = [];
-	
-	res.render("projekty/index", { tlacitka: tlacitka, tymy: tymy });
-};
- 
-exports.zobrazDetailyProjektu = (req, res) => {
-	let tlacitka = vytvorTlacitka("projekty/");
-	let tymy = ziskejTymy(req.params.id);
-
-	res.render("projekty/index", { tlacitka: tlacitka, tymy: tymy });
-};
- 
- 
-function vytvorTlacitka(url) {
-	let tlacitka = "";
-    const tridy = databaze.projekty.gP();
-
-    for (const projektID in tridy) {
-        if (projektID != "nextID") {
-            const trida = tridy[projektID].trida;
-            if (trida) {
-                tlacitka += `
-                <a href="/${url}${trida}">
-                    <button class="tlacitko">${trida}</button>
-                </a>
-            `;            
-            }
-        }
+exports.view = (req, res) => {
+    let files = "class";
+    let urlID = req.params.id;
+    if (urlID == undefined){
+        files = "none";
+    } else if (urlID.split('-').length == 3){
+        files = "team";
     }
-	return tlacitka;
+   
+    res.render('projekty/index.ejs', { files: files });
 }
 
-function ziskejTymy(trida){
-	const tridy = databaze.projekty.gP(); 
 
-    let tymy = [];
-    for (const projektID in tridy) {
-        if (projektID !== "nextID" && tridy[projektID].trida === trida) {
-            tymy = tridy[projektID].tymy;
-            break;
-        }
-    }
-	return tymy;
+exports.addClass = (classID) => {
+   
+    let tridaID = databaze.projekty.ziskatIDprojektuDleTridy(classID);
+    if (databaze.projekty.ziskatCelouTridu(tridaID) == undefined){
+        databaze.projekty.pridatProjekt(classID);
+    } else (console.log("(projektyController.js; function: addClass): Class already exists."))
 }
 
-exports.zobrazPitche = (req, res) => {
-    res.render("projekty/pitch");
-};
-
-exports.zobrazPrezentace = (req, res) => {
-    res.render("projekty/prezentace");
-};
-
-exports.vytvoritProjekt = (req, res) => {
-    res.render("projekty/vytvoreniProjektu");
-};
-
-exports.zobrazDetailyTymu = (req, res) => {
-    const projectClass = req.params.projekt;
-    const teamId = req.params.id;
-
-    // Načtení projektu a týmu
-    const project = databaze.projekty.ziskatProjekt(projectClass);
-
-    if (!project || !project.tymy[teamId]) {
-        return res.status(404).send("Tým nenalezen.");
+exports.saveTeams = (data) => {
+    let tridaID = databaze.projekty.ziskatIDprojektuDleTridy(data.classID);
+   
+    for (let i = 0; i < data.teams.length; i++){
+        const team = data.teams[i];
+        
+        let existingTeam = databaze.projekty.ziskatTym(tridaID, team.teamID);
+        if (existingTeam == undefined){
+            databaze.projekty.pridatTym(tridaID, team.teamID, team.description, team.url, team.members, "undefined", data.pitchDate, ["undefined","undefined"], ["undefined","undefined"], "undefined", ["undefined","undefined"]);
+        } else {
+            console.log("(projektyController.js; function: saveTeams): Team already exists.");
+            databaze.projekty.upravitTym(tridaID, {
+                "cislo": team.teamID,
+                "tema": team.description,
+                "odkaz": team.url,
+                "clenove": team.members,
+                "vedouci": existingTeam["vedouci"],
+                "pitch": {
+                    "datum": data.pitchDate,
+                    "featury": existingTeam["pitch"]["featury"],
+                    "stretchgoaly": existingTeam["pitch"]["stretchgoaly"],
+                    "pozamka": existingTeam["pitch"]["pozamka"],
+                    "ucast": existingTeam["pitch"]["ucast"]
+                }
+            });
+        }
     }
+}
 
-    const team = project.tymy[teamId];
-
-    res.render("projekty/detailTymu", { team });
-};
-
-exports.zmenDetailyTymu = (req, res) => {
-    // let vedouci = req.body.leader;
-    // let name = req.body.name;
-    // let clenove = req.body.members;
-
-    databaze.projekty.upravitTym()
-    res.redirect('/projekty/tymy');
-};
+exports.saveTeam = (data) => {
+    let tridaID = databaze.projekty.ziskatIDprojektuDleTridy(data.classID);
+    let existingTeam = databaze.projekty.ziskatTym(tridaID, data.teamID);
+   
+    let membersCommits = [];
+    for (let i = 0; i < data.marksCommits.length; i++){
+        let member = {};
+        member["znamky"] = data.marksCommits[i];
+        membersCommits.push(member);
+    }
+    
+    let membersDevlogs = [];
+    for (let i = 0; i < data.marksDevlogs.length; i++){
+        let member = {};
+        member["znamky"] = data.marksDevlogs[i];
+        membersDevlogs.push(member);
+    }
+   
+    databaze.projekty.upravitTym(tridaID, {
+                "cislo": data.teamID,
+                "tema": data.description,
+                "odkaz": data.link,
+                "clenove": data.members,
+                "vedouci": data.ceo,
+                "pitch": {
+                    "datum": existingTeam["pitch"]["datum"],
+                    "featury": data["features"],
+                    "stretchgoaly": data["goals"],
+                    "pozamka": data["note"],
+                    "ucast": data["pitch"]
+                },
+                "znamkyDev": membersDevlogs,
+                "znamkyCom": membersCommits
+            });
+}
 
 // Tato metoda se volá, když se odesílá formulář pro nový projekt
 exports.ulozitProjekt = (req, res) => {

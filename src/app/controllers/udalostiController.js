@@ -7,8 +7,9 @@ const databaze = require("../models/databaseEngine");
 // }
 
 exports.index = (req, res) => {
-    res.render('udalosti/index.ejs', {        
-        seznamNaZobrazeni: databaze.udalosti.ziskatVsechnyUdalosti(),
+    const allEvents = (databaze.udalosti.ziskatVsechnyUdalosti() || []).concat(databaze.maturity.ziskatVsechnyMaturityJakoUdalosti() || []).sort((a, b) => (a?.datum ? new Date(a.datum) : new Date(0)) - (b?.datum ? new Date(b.datum) : new Date(0)) || (!a?.casOd ? 1 : !b?.casOd ? -1 : typeof a.casOd === 'string' ? a.casOd.localeCompare(b.casOd) : 0));
+    res.render('udalosti/index.ejs', {
+        seznamNaZobrazeni: allEvents, 
         datum: new Date().toISOString().split('T')[0]
     });
 }
@@ -56,7 +57,13 @@ exports.pridat = (req, res) => {
             default:
                 break;
         }
-        databaze.udalosti.pridatUdalost(jmeno, typAkce, datum, datumDo, casOd, casDo, vyberZadani, tykaSe, poznamka);
+        if(!req.body.PuvodniData) {
+            databaze.udalosti.pridatUdalost(jmeno, typAkce, datum, datumDo, casOd, casDo, vyberZadani, tykaSe, poznamka);
+        } 
+        else {
+            let novaUdalost = {nazev:jmeno, typ:typAkce,  datum, datumDo, casOd, casDo, vyberZadani, tykaSe, poznamka};
+            databaze.udalosti.upravitUdalost(req.body.PuvodniData, novaUdalost);
+        }
     }
     res.redirect("/udalosti");
 }
