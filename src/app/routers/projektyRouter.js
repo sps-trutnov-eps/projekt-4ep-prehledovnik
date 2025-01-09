@@ -1,12 +1,33 @@
-const projektyRouter = require('express').Router();
-const projektyController = require('../controllers/projektyController');
+const express = require('express');
+const multer = require('multer');
+const upload = multer();
 
-projektyRouter.get('/', (req, res) => res.render('projekty/index.ejs', {}));
-projektyRouter.get('/tymy', projektyController.zobrazTymy);
-projektyRouter.get('/tymy/tym', projektyController.zobrazDetailyTymu);
-projektyRouter.get('/tymy/pitche', projektyController.zobrazPitche);
-projektyRouter.get('/tymy/prezentace', projektyController.zobrazPrezentace);
-projektyRouter.post('/tymy/pridatProjekt', projektyController.pridatProjekt);
-//projektyRouter.post('/ulozitDetailyTymu', projektyController.ulozitDetailyTymu);
-//PRESUNULO SE TO NA JEDEN SOUBOR A TO DO tymy.ejs
+const projektyController = require('../controllers/projektyController');
+const projektyRouter = express.Router();
+
+projektyRouter.post('/upload/:id', upload.single('file'),
+                    projektyController.upload);
+
+projektyRouter.post('/save/class', (req, res) => {
+   let data = req.body;
+   
+   
+   projektyController.addClass(data.classID);
+   
+   projektyController.saveTeams(data);
+   
+	res.json({"saved": true});
+});
+
+projektyRouter.post('/save/team', (req, res) => {
+   let data = req.body;
+   console.log(data);
+   
+   projektyController.saveTeam(data);
+   
+	res.json({"saved": true});
+});
+
+projektyRouter.get('/:id', projektyController.view);
+projektyRouter.get('/', projektyController.view);
 module.exports = projektyRouter;

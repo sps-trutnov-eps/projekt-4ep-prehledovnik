@@ -12,7 +12,7 @@ const rozvrh_S = ["", "MAT", "MAT", "CJL", "CJL", "", "HAE", "HAE", "", "",
                 "", "POS", "OPS", "OPS", "OPS", "OPS", "", "", "", "",
                 "", "", "MAT", "MAT", "PVA", "PVA", "", "", "", ""
 ]
-const year = 2024
+const year = new Date().getFullYear()
 
 function date_udalost() {
     return udalost;
@@ -40,22 +40,44 @@ function getWeekNumber(d) {
 let prvniTyden = getWeekNumber(new Date(year, 9, 1))
 let posledniSkolniTyden = getWeekNumber(new Date(year+1, 8, 31))
 let posledniRocniTyden = 52
-console.log(new Date(year, 12, 31)) // znějakého důvodu toto znamená 30.1.2024, měsíc o jedno vetší, den o jedno menší ?????????
+
 if(new Date(year, 12 - 1, 31 + 1).getDay == "4"){
     posledniRocniTyden = 53
+    //console.log("true")
 }
 let tydny = []
 for(let i=prvniTyden; i<=posledniRocniTyden; i++){
     tydny.push(i)
-    console.log(tydny)
 }
 for(let i=1; i<=posledniSkolniTyden; i++){
     tydny.push(i)
-    console.log(tydny)
 }
+//console.log(databaze.rozvrhy.ziskatRozvrh(4))
 exports.tydenni = (req,res) => {
+    let osnovyRaw = databaze.osnovy.ziskatVsechnyOsnovy();
+    let osnovy = {}
+
+    for (let id in osnovyRaw){
+        if(id != "nextID"){
+            var osnova = osnovyRaw[id]
+            let key = osnova.predmet + osnova.trida
+            let index = 0;
+            osnovy[key] = [];
+            for (let tema in osnova.temata){
+                if(tema != "nextID")
+                for(let i=0; i< osnova.temata[tema].pocetHodin; i++){
+                    osnovy[key][index] = osnova.temata[tema].tema
+                    index++;
+                }
+            }
+        }        
+    }
+
+    console.log(databaze.rozvrhy.ziskatPocetRozvrhu()-1);
     res.render('kalendar/tydenni', {
-        rozvrh_L: rozvrh_L, 
-        week: prvniTyden
+        rozvrh: databaze.rozvrhy.ziskatRozvrh(databaze.rozvrhy.ziskatPocetRozvrhu()-1), 
+        week: tydny,
+        osnovy: osnovy
     })
 }
+

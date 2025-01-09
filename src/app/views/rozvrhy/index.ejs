@@ -55,7 +55,6 @@
             width: 100%;
             margin-top: 10px;
             background-color: #4CAF50;
-            color: white;
         }
 
         .timetable-btn {
@@ -79,12 +78,10 @@
 
         .lesson-room {
             font-size: 12px;
-            color: #666;
         }
 
         .lesson-group {
             font-size: 12px;
-            color: #666;
             font-style: italic;
         }
 
@@ -101,7 +98,6 @@
             padding: 20px 40px;
             font-size: 1.2em;
             background-color: #4CAF50;
-            color: var(--pico-background-color);
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -186,16 +182,17 @@
                   </li>
                   <li>
                    <div role="group">
+                    <% if (rozvrhy && rozvrhy.length> 0) { %>
                     <select name="verze" id="jakaverze" onchange="nacteniVerze(this.value)">
-                        <% if (rozvrhy && rozvrhy.length> 0) { %>
                             <% rozvrhy.forEach(function(verze) { %>
                                 <option value="<%= verze.id %>" <%=aktivniVerze==verze.id ? 'selected' : '' %>>
                                     <%= verze.nazev %>
                                         (<%= new Date(verze.datum).toLocaleDateString('cs-CZ') %>)
                                 </option>
                             <% }); %>
-                        <% } %>
                     </select>
+                    <% } %>
+
                         <% if (rozvrhy && rozvrhy.length> 0) { %>
                             <button onclick="ulozitRozvrh()">Uložit</button>
                         <% } %>
@@ -476,32 +473,6 @@
             }
         }
 
-        function showPopup(cas, den, tyden, event) {
-            casHodiny = cas;
-            denHodiny = den;
-            druhTydne = tyden;
-
-            const existingLesson = druhTydne === 'L'
-                ? rozvrh.lichy[denHodiny][casHodiny]
-                : rozvrh.sudy[denHodiny][casHodiny];
-
-            if (existingLesson) {
-                document.getElementById("jakypredmet").value = existingLesson.predmet || "";
-                document.getElementById("mistnost").value = existingLesson.mistnost || "";
-                document.getElementById("skupina").value = existingLesson.skupina || "cela";
-                document.getElementById("trida").value = existingLesson.trida || "";
-            } else {
-                resetForm();
-            }
-
-            toggleModal(event);
-        }
-
-        function closePopup() {
-            resetForm();
-            document.getElementById("popupModal").style.display = "none";
-        }
-
         function updateTileDisplay(tyden, den, cas, hodina) {
             const buttonId = `btn-${tyden}-${den}-${cas}`;
             const button = document.getElementById(buttonId);
@@ -514,9 +485,9 @@
 
                 if (hodina && hodina.predmet) {
                     if (hodina.predmet === "volno") {
-                        button.classList.replace('secondary', 'primary');
+                        // button.classList.replace('secondary', 'primary');
                         button.classList.add('is-free');
-                        predmetSpan.textContent = "";
+                        predmetSpan.textContent = "volno";
                         mistnostSpan.textContent = "";
                         skupinaSpan.textContent = "";
                         tridaSpan.textContent = "";
@@ -529,7 +500,7 @@
                         tridaSpan.textContent = hodina.trida ? `${hodina.trida}` : "";
                     }
                 } else {
-                    button.classList.replace('secondary', 'primary');
+                    // button.classList.replace('secondary', 'primary');
                     button.classList.remove('is-free');
                     predmetSpan.textContent = '+';
                     mistnostSpan.textContent = '';
@@ -596,20 +567,6 @@
             }
 
             resetForm();
-        }
-
-        function showCreateForm() {
-            const modal = document.getElementById('createFormModal');
-            if (modal) {
-                modal.style.display = "flex";
-            }
-        }
-
-        function closeCreateForm() {
-            const modal = document.getElementById('createFormModal');
-            if (modal) {
-                modal.style.display = "none";
-            }
         }
 
         window.onclick = function (event) {

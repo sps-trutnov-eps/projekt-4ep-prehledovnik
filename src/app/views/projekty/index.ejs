@@ -1,257 +1,54 @@
 <!DOCTYPE html>
-<%- include('../partials/head.ejs'); %>
-
-<style>
-      flex-direction: column;
-      justify-content: flex-start;
-      min-height: 100vh;
-      margin: 0;
-      font-family: Arial, sans-serif;
-   }
-
-   .header {
-      width: 100%;
-      padding: 10px;
-      box-sizing: border-box;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-radius: 8px;
-      position: fixed;
-      top: 0;
-      left: 0;
-   }
-
-   .navbar {
-      display: flex;
-      justify-content: flex-start;
-      padding: 10px;
-      width: 100%;
-      box-sizing: border-box;
-   }
-
-   .navbar button {
-      margin-right: 10px;
-      padding: 10px 20px;
-      font-size: 14px;
-      cursor: pointer;
-      border: none;
-      border-radius: 4px;
-   }
-
-   .levy_panel {
-      padding: 20px;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      border-radius: 8px;
-   }
-
-   .levy_panel button {
-      width: 100%;
-      padding: 15px;
-      font-size: 18px;
-      margin-bottom: 20px;
-      cursor: pointer;
-      border: none;
-      border-radius: 8px;
-   }
-
-   .main-content {
-      padding: 20px;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-   }
-
-   .main-heading {
-      font-size: 48px;
-      font-weight: bold;
-      margin-bottom: 20px;
-      text-align: center;
-   }
-
-   .divider {
-      width: 100%;
-      height: 2px;
-      margin-bottom: 20px;
-   }
-
-   .phase {
-      font-size: 36px;
-      font-weight: bold;
-      margin-bottom: 20px;
-      text-align: center;
-   }
-
-   table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-   }
-
-   th, td {
-      border: 1px solid #444;
-      padding: 10px;
-      text-align: center;
-      font-size: 16px;
-   }
-
-   .table-button {
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-      border: none;
-   } 
-
-</style>
-
-<article
-   class="levy_panel"
-   style="
-      width: 20vw;
-      min-width: 20vw;
-      margin-right: 1em;
-      overflow-y: auto;
-      resize: horizontal;
-  ">
-   <button>Přepínač</button>
-   <button>Týmy</button>
-   <button class="team-button">1.ep</button>
-   <button class="team-button">2.ep</button>
-   <button class="team-button">3.ep</button>
-   <button class="team-button">4.ep</button>
+<%- include('../partials/head'); %>
+<link rel="stylesheet" href="/osnovy/css/main.css" />
+<link rel="stylesheet" href="/projekty/css/main.css" />
+<article style=" width: 20vw; min-width: 20vw; margin-right: 1em; resize: horizontal; ">
+   <header>
+      <h1 style="display:inline; vertical-align:middle;">Projekty</h1>
+	</header>
+   <main style="justify-content: center;">
+		<h3>1. Pololetí</h3>
+        <div id="2ep-1">
+            <input style="margin-left: 0;" type="button" value="2.EP" onclick="window.location.href = '/projekty/2ep-1';">
+            <input type="button" value="Tým1" style="margin-left: 10%; width: 80%;" onclick="window.location.href = '/projekty/2ep-1-1';">
+            <input type="button" value="Tým2" style="margin-left: 10%; width: 80%;" onclick="window.location.href = '/projekty/2ep-1-2';">
+        </div>
+         <div id="3ep-1">
+            <input style="margin-left: 0;" type="button" value="3.EP" onclick="window.location.href = '/projekty/3ep-1';">
+         </div>                                                      
+         <div id="4ep-1">                                            
+            <input style="margin-left: 0;" type="button" value="4.EP" onclick="window.location.href = '/projekty/4ep-1';">
+         </div>                                                      
+		<h3>2. Pololetí</h3>                                           
+        <div id="1ep-2">                                             
+            <input style="margin-left: 0;" type="button" value="1.EP" onclick="window.location.href = '/projekty/1ep-2';">
+        </div>                                                       
+         <div id="2ep-2">                                            
+            <input style="margin-left: 0;" type="button" value="2.EP" onclick="window.location.href = '/projekty/2ep-2';">
+         </div>                                                      
+         <div id="3ep-2">                                            
+            <input style="margin-left: 0;" type="button" value="3.EP" onclick="window.location.href = '/projekty/3ep-2';">
+         </div>
+	</main>
 </article>
 
-<article class="main-content" style="flex: 3; overflow-y: auto">
-   <h1 class="main-heading">Hlavní menu</h1>
-   <div class="divider"></div>
-   <div class="phase">Fáze</div>
-   <table>
-      <tr>
-         <th><button class="table-button">Upload</button></th>
-         <th>#1</th>
-         <th>#2</th>
-         <th>#3</th>
-         <th>#4</th>
-         <th>#5</th>
-         <th>#6</th>
-         <th>#7</th>
-         <th>#8</th>
-      </tr>
-      <tr>
-         <td>členové</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-      </tr>
-      <tr>
-         <td>pitch</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-      </tr>
-      <tr>
-         <td>m1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-      </tr>
-      <tr>
-         <td>m2</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-      </tr>
-      <tr>
-         <td>m3</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-      </tr>
-      <tr>
-         <td>m4</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-      </tr>
-      <tr>
-         <td>m5</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-      </tr>
-      <tr>
-         <td>m6</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-      </tr>
-      <tr>
-         <td>prezentace</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-      </tr>
-      <tr>
-         <td>hodnocení</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-         <td>1</td>
-      </tr>
-   </table>
+
+<div id="overlay" class="overlay"></div>
+<!-- Upload tlačítko je v class.ejs -->
+<article class="class" style="flex: 3;">
+		<% if (files != "none") { %>
+			<div class="classOverview" id="class" >
+				<%- include(`./new/${files}.ejs`); %>
+			</div>
+			<div class="classDetails" id="classDetails" style="display: none">
+				<%- include(`./new/${files}Details.ejs`); %>
+			</div>
+		<% } %>
 </article>
+
+
+
+<script src="/osnovy/js/main.js"></script>
+<script src="/projekty/js/main.js"></script>
+<script src="/projekty/js/team.js"></script>
 <%- include('../partials/tail') %>

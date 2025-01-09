@@ -1,0 +1,35 @@
+{
+   "predmety": ["VYS", "PVA", "HAE"...]
+   "hodiny": {"1": ["7:10", "7:55"], "2": ["8:00", "8:45"]...}
+   "ucebny": {
+	"101": [T1, T2, T5, T6, T7...]
+	"618": [nevim ještě]
+	"59": [E4, G2...]
+	"374": [taky nevim]
+   }
+   "osnovy": {"nextID": 1}
+   "rozvrhy": {"nextID": 1}
+   "udalosti": {"nextID": 1}
+   "maturity": {
+        "PŽOP": {
+            "dny": [],
+            "casy": [],
+            "ucebny": []
+        },
+        "PČMZ": {
+            "dny": [],
+            "casy": [],
+            "ucebny": []
+        },
+        "SČMZ": {
+            "dny": [],
+            "casy": [],
+            "ucebny": []
+        },
+        "SLOH": {
+            "dny": [],
+            "casy": [],
+            "ucebny": []
+        }
+    },
+}

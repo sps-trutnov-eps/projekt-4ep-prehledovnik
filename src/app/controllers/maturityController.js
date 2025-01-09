@@ -2,16 +2,59 @@
 const databaseEngine = require("../models/databaseEngine");
 const databaze = require("../models/databaseEngine");
 
+exports.pzop = (req, res) => {
+    let data = databaze.maturity.ziskarMaturituDleNazvu('PŽOP')
+
+    ucebna = data.ucebny[0]
+    dny = data.dny
+
+    res.render('maturity/index.ejs', {"ucebna" : ucebna, "dny" : dny})
+}
+
 exports.pcmz = (req, res) => {
-    res.render("maturity/pcmz.ejs");
+
+    let data = databaze.maturity.ziskarMaturituDleNazvu('PČMZ')
+
+    let dnyacasy = {}
+    for (let i = 0; i < data.dny.length; i++) {
+        dnyacasy[data.dny[i]] = data.casy[i]
+    }
+
+    res.render("maturity/pcmz.ejs", {"data" : dnyacasy});
 };
 
 exports.sloh = (req, res) => {
-    res.render("maturity/sloh.ejs");
+    let data = databaze.maturity.ziskarMaturituDleNazvu('SLOH')
+
+    let dnyacasy = {}
+    for (let i = 0; i < data.dny.length; i++) {
+        casy = data.casy[i]
+        dnyacasy[data.dny[i]] = []
+        for (let x = 0; x < casy.length; x++) {
+            dnyacasy[data.dny[i]].push([data.casy[i][x], data.ucebny[i][x]])
+        }
+    }
+
+    console.log(data)
+    res.render("maturity/sloh.ejs", { "data": dnyacasy });
 };
 
 exports.scmz = (req, res) => {
-    res.render("maturity/scmz.ejs");
+    let data = databaze.maturity.ziskarMaturituDleNazvu('SČMZ')
+
+    let dnyacasy = {}
+    console.log(data)
+    for (let i = 0; i < data.dny.length; i++) {
+        casy = data.casy[i]
+        dnyacasy[data.dny[i]] = []
+        for (let x = 0; x < casy.length; x++) {
+            dnyacasy[data.dny[i]].push(data.casy[i][x], data.ucebny[i])
+        }
+    }
+    console.log(dnyacasy)
+    console.log(Object.entries(dnyacasy))
+
+    res.render("maturity/scmz.ejs", {"data" : dnyacasy});
 };
 
 exports.ukladanipzop = (req, res) => {
@@ -25,9 +68,13 @@ exports.ukladanipzop = (req, res) => {
         res.redirect("/maturity/");
     }
     else {
-        databaze.maturity.pridatMaturitniEvent("PŽOP",[den_konani, dodatecne_dny].filter((den) => den), [], ucebna);
+        let dny = [den_konani, dodatecne_dny].filter((den) => den);
+        let casy = [];
+        for (let i = 0; i < dny.length; i++){
+            casy.push([]);
+        }
+        databaze.maturity.pridatMaturitniEvent("PŽOP", dny, casy, ucebna);
     }
-
     res.redirect("/maturity/");
 };
 
@@ -38,22 +85,26 @@ exports.ukladanipcmz = (req, res) => {
     const radky = [];
     let pocitadloDnu = 1;
 
+    console.log(req.body);
+
     while (!vsechnyDnyUlozeny) {
         const dateKlic = `den${pocitadloDnu}_datum`;
 
         if (!body[dateKlic]) {
+            // Pokud není datum, skončíme
             vsechnyDnyUlozeny = true;
+            break;
         }
 
         const hodiny = [];
         for (let i = 1; i <= 9; i++) {
             const hourKlic = `den${pocitadloDnu}_hodina${i}`;
-            if (body[hourKlic]) {
+            if (body[hourKlic] === 'on') { // Ujistěte se, že hodiny jsou označeny správně
                 hodiny.push(i); 
             }
         }
 
-        if (body[dateKlic] && hodiny.length > 0) {
+        if (hodiny.length > 0) {
             let denRadky = [];
             let posledniHodina = hodiny[0];
 
@@ -67,19 +118,33 @@ exports.ukladanipcmz = (req, res) => {
                 }
                 posledniHodina = hodiny[j]; 
             }
-            // to podtím je jako kdyby se dělal for, ale kratší XD
+            // Sloučení všech řádků pro daný den
             radky.push(...denRadky);
         }
 
         pocitadloDnu++;
     }
 
+    const datumy = [];
+    const hodinyFinal = [];
+
+    // Seskupení dat a hodin pro všechny dny
     radky.forEach((radek) => {
-        databaze.maturity.pridatMaturitniEvent("PČMZ", [radek.datum], radek.hodiny, null); 
+        if (!datumy.includes(radek.datum)) {
+            datumy.push(radek.datum);
+            hodinyFinal.push(radek.hodiny);
+        } else {
+            let index = datumy.indexOf(radek.datum);
+            hodinyFinal[index] = [...hodinyFinal[index], ...radek.hodiny];
+        }
     });
+
+    // Uložení do databáze
+    databaze.maturity.pridatMaturitniEvent("PČMZ", datumy, hodinyFinal, null); 
 
     res.redirect("/maturity/pcmz");
 };
+
 
 exports.ukladaniscmz = (req, res) => {
     const body = req.body;
@@ -111,12 +176,24 @@ exports.ukladaniscmz = (req, res) => {
 
         pocitadloDnu++;
     }
-
+    datumy = [];
+    hodiny = [];
+    ucebny = [];
     radky.forEach((radek) => {
         if (radek.datum) {
-            databaze.maturity.pridatMaturitniEvent("SČMZ", [radek.datum], radek.hodiny, radek.ucebna);
+            if(!datumy.includes(radek.datum)){
+                datumy.push(radek.datum);
+            }
+            let index = datumy.indexOf(radek.datum)
+            if(hodiny[index]){
+                hodiny[index].push(radek.hodiny[0]);
+            } else {
+                hodiny.push(radek.hodiny);
+            }
+            ucebny.push(radek.ucebna);
         }
     });
+    databaze.maturity.pridatMaturitniEvent("SČMZ", datumy, hodiny, ucebny);
     res.redirect("/maturity/scmz");
 };
 
@@ -124,6 +201,8 @@ exports.ukladaniscmz = (req, res) => {
 exports.ukladanisloh = (req, res) => {
     const body = req.body;
     let pocitadloDnu = 1;
+
+    console.log(req.body);
 
     const seskupenaData = {};
 
@@ -136,7 +215,6 @@ exports.ukladanisloh = (req, res) => {
 
             if (ucebna && ucebna.trim() !== '') {
                 const skupinaKlic = `${datum}_${ucebna}`;
-
                 if (!seskupenaData[skupinaKlic]) {
                     seskupenaData[skupinaKlic] = {nazev: "SLOH", dny: [datum], casy: [], ucebna: ucebna};
                 };
@@ -146,11 +224,39 @@ exports.ukladanisloh = (req, res) => {
         }
         pocitadloDnu++;
     }
+    console.log(seskupenaData)
 
+    datumy = []
+    hodiny = []
+    ucebny = []
+    console.log(Object.values(seskupenaData));
     Object.values(seskupenaData).forEach(zaznam => {
-        zaznam.casy.sort((a, b) => a - b);
-        databaze.maturity.pridatMaturitniEvent(zaznam.nazev, zaznam.dny, zaznam.casy, zaznam.ucebna);
+
+        if(!datumy.includes(zaznam.dny[0])){
+            datumy.push(zaznam.dny[0]);
+            hodiny.push([]);
+            ucebny.push([]);
+        }
+        
+        let index = datumy.indexOf(zaznam.dny[0]);
+        
+        zaznam.casy.forEach(cas => {
+            // if (!(hodiny[index].includes(cas) && ucebny[hodiny[index].indexOf(cas)] === zaznam.cas)){       => pro kontrolování jak učebny, tak času. (pro případ, že by v 8:00 měl jak T16, tak T15)
+            if (!hodiny[index].includes(cas)){
+                hodiny[index].push(cas);
+                ucebny[index].push(zaznam.ucebna);
+            }
+        });
     });
 
+    // rychle pouze udělané seřazení dle clauda 
+    datumy.forEach((_, i) => {
+        let paired = hodiny[i].map((cas, j) => ({cas: cas, ucebna: ucebny[i][j]}));
+        paired.sort((a, b) => a.cas - b.cas);
+        hodiny[i] = paired.map(p => p.cas);
+        ucebny[i] = paired.map(p => p.ucebna);
+    });
+    databaze.maturity.pridatMaturitniEvent("SLOH", datumy, hodiny, ucebny);
+    
     res.redirect('/maturity/sloh');
 };
