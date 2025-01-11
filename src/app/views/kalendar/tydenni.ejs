@@ -180,7 +180,7 @@
           <p class="grid-item-h"><span class="cislo-hodiny">7</span><br>13:25-14:10</p>
           <p class="grid-item-h"><span class="cislo-hodiny">8</span><br>14:15-15:00</p>
           <p class="grid-item-h"><span class="cislo-hodiny">9</span><br>15:00+</p>
-          <% let days = ["Po", "Ut", "St", "Ct", "Pa"] %>
+          <% let days = ["Po", "Út", "St", "Čt", "Pá"] %>
           <% let day = ["Po"] %>
           
           <% for(let i=0;i<5;i++) {%>
@@ -209,6 +209,8 @@
                   %>
                 <% }%>
                 <% if (week[t] % 2 === 1) { %>
+                <% console.log(rozvrh.hodiny.lichy) %>
+                <% console.log(days) %>
                   <p class="room"><%= rozvrh.hodiny.lichy[days[i]][j].mistnost%></p>
                   <p class="period"><%= rozvrh.hodiny.lichy[days[i]][j].predmet%></p>
                   <p class="group"><%= rozvrh.hodiny.lichy[days[i]][j].skupina%></p>
