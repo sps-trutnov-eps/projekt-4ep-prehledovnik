@@ -172,6 +172,14 @@
                 opacity: 1;
             }
         }
+
+        .mistonost-skupina{
+            display: flex;
+        }
+
+        .mezirka{
+            width: 4px;
+        }
     </style>
     <article class="articlesecond">
         <header>
@@ -257,10 +265,16 @@
                                                                 class="timetable-btn outline secondary"
                                                                 onclick="toggleDayModal('<%= period %>', '<%= day %>', '<%= type %>', event)"
                                                                 data-target="popupModal">
-                                                                <span class="hodina-trida"></span>
+                                                                <div class="mistonost-skupina">
+                                                                    <span class="hodina-trida"></span>
+                                                                    <div class="mezirka"></div>
+                                                                    <span class="hodina-skupina"></span>
+                                                                </div>
                                                                 <span class="hodina-predmet">+</span>
                                                                 <span class="hodina-mistnost"></span>
-                                                                <span class="hodina-skupina"></span>
+                                                                   
+                                                                   
+                                                                
                                                             </button>
                                                         </td>
                                                         <% }) %>
@@ -361,10 +375,10 @@
     <script>
         const emptyTimetable = {
             "lichy": {
-                "Po": {}, "Ut": {}, "St": {}, "Ct": {}, "Pa": {}
+                "Po": {}, "Út": {}, "St": {}, "Čt": {}, "Pá": {}
             },
             "sudy": {
-                "Po": {}, "Ut": {}, "St": {}, "Ct": {}, "Pa": {}
+                "Po": {}, "Út": {}, "St": {}, "Čt": {}, "Pá": {}
             }
         };
 
