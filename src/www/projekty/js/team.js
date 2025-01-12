@@ -2,7 +2,8 @@ function deleteMember(button) {
    button.parentElement.remove();
 }
 
-let selectedIndex = 0;
+
+let first = true;
 function addOptionsCEO() {
    
    const select = document.getElementById('optionSelect');
@@ -25,7 +26,9 @@ function addOptionsCEO() {
 
 function deleteOptionsCEO() {
    const select = document.getElementById('optionSelect');
-   selectedIndex = select.selectedIndex;
+   if (first) {
+      first = false;
+   } else { selectedIndex = select.selectedIndex; }
    select.innerHTML = '';
 }
 
