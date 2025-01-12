@@ -440,6 +440,9 @@ function sP(projekty) {
 }
 
 const projekty = {
+  ziskatVse: () => {
+    return gP();
+  },
   pridatProjekt: (trida) => {
     let projekty = gP();
     let nextID = projekty["nextID"];
