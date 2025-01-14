@@ -1,5 +1,5 @@
 const databaze = require("../models/databaseEngine");
-const udalost = [27, 9, "Událost"];
+const udalost = [];
 const rozvrh_L = ["", "PVA", "PVA", "CJL", "CJL", "", "", "", "", "",
                 "", "ELE", "ELE", "", "", "MAT", "MAT", "", "", "Krouzek",
                 "", "HAE", "", "CJ", "", "POS", "POS", "", "", "",
@@ -21,6 +21,7 @@ function date_udalost() {
 exports.udalosti = () => {
     return databaze.udalosti.ziskatVsechnyUdalosti();
 }
+console.log(databaze.udalosti.ziskatVsechnyUdalosti())
 
 exports.mesicni = (req,res) => {
     res.render('kalendar', {
@@ -73,11 +74,12 @@ exports.tydenni = (req,res) => {
         }        
     }
 
-    console.log(databaze.rozvrhy.ziskatPocetRozvrhu()-1);
+    //console.log(databaze.rozvrhy.ziskatPocetRozvrhu()-1);
     res.render('kalendar/tydenni', {
         rozvrh: databaze.rozvrhy.ziskatRozvrh(databaze.rozvrhy.ziskatPocetRozvrhu()-1), 
         week: tydny,
-        osnovy: osnovy
+        osnovy: osnovy,
+        udalosti: databaze.udalosti.ziskatVsechnyUdalosti()
     })
 }
 
