@@ -17,6 +17,15 @@
         padding: 1px;
     }
 
+    #naAktualniButton {
+        margin-right: 2em; /* odsazení od tlačítka "Na aktuální"  */
+        border-radius: var(--pico-border-radius);
+    }
+    #naMesicButon {
+        border-top-left-radius: var(--pico-border-radius);
+        border-bottom-left-radius: var(--pico-border-radius);
+    }
+
     .days-header {
         position: sticky;
         top: -1em;
@@ -160,7 +169,8 @@
         <ul>
           <li>
             <div role="group">
-               <button onclick="scrollToCurrent()">Aktuální</button>
+               <button id="naAktualniButton" onclick="scrollToCurrent()">Aktuální</button>
+               <button id="naMesicButon" onclick="scrollToMonth()">Na&nbspměsíc</button>
                <select name="months" id="months" ">
                   <option value="8">Srpen</option>
                   <option value="9">Září</option>
@@ -175,7 +185,6 @@
                   <option value="6">Červen</option>
                   <option value="7">Červenec</option>
                </select>
-               <button onclick="scrollToMonth()">Na&nbspměsíc</button>
             </div>
           </li>
         </ul>
