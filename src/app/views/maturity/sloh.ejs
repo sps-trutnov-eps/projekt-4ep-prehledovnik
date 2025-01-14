@@ -52,6 +52,30 @@
     background-color: white;
     margin-top: 5px;
   }
+
+
+  .clickable-cell {
+  cursor: pointer;
+  background-color: #f0f0f0;
+  color: #333;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  text-align: center;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.clickable-cell:hover {
+  background-color: #e0e0e0;
+  transform: translateY(-2px);
+}
+
+.clickable-cell:active {
+  background-color: #d0d0d0;
+  transform: translateY(1px);
+}
+
+
 </style>
 
 <article style="flex: 3; overflow-y: auto">
@@ -320,6 +344,13 @@
       const input = document.createElement("input");
       input.type = "hidden";
       input.name = `den${dayCounter}_ucebna-${i}[]`;
+
+      cell.innerHTML = '<span class="clickable-cell-content">Vybrat</span>';
+      cell.className = "clickable-cell";
+      cell.appendChild(input);
+
+
+
       cell.textContent = "Vybrat";
       cell.className = "clickable-cell";
       cell.appendChild(input);
