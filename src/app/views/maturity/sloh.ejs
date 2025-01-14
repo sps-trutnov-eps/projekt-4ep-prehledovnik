@@ -43,7 +43,6 @@
     margin: 0;
     font-size: 1.8em;
     font-weight: bold;
-    color: white;
   }
 
   .headline-container::after {
@@ -54,54 +53,75 @@
     margin-top: 5px;
   }
 
+
   .clickable-cell {
-    border: none;
-    padding: 5px;
-    text-align: center;
-  }
+  cursor: pointer;
+  background-color: #f0f0f0;
+  color: #333;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  text-align: center;
+  transition: background-color 0.3s, transform 0.2s;
+}
 
-  .clickable-cell button {
-    background-color: #007bff;
-    color: white;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    font-size: 14px;
-    cursor: pointer;
-    width: 100%;
-    transition: background-color 0.3s ease;
-  }
+.clickable-cell:hover {
+  background-color: #e0e0e0;
+  transform: translateY(-2px);
+}
 
-  .clickable-cell button:hover {
-    background-color: #0056b3;
-  }
+.clickable-cell:active {
+  background-color: #d0d0d0;
+  transform: translateY(1px);
+}
 
-  .clickable-cell:not(:empty) {
-    background-color: #007bff;
-    color: white;
-    border-radius: 5px;
-  }
+
 </style>
 
-<article style="width: 20vw; min-width: 20vw; margin-right: 1em; overflow-y: auto; resize: horizontal;">
-  <div class="button">
-    <a href="../maturity/">
-      <button class="tlacitko">Praktická</button>
-    </a>
-    <a href="../maturity/pcmz">
-      <button class="tlacitko">Ústní</button>
-    </a>
-    <a href="../maturity/scmz">
-      <button class="tlacitko">Státní</button>
-    </a>
-    <a href="../maturity/sloh">
-      <button class="tlacitko">Sloh</button>
-    </a>
-  </div>
-</article>
-
 <article style="flex: 3; overflow-y: auto">
-  <div class="headline-container">
+  <header>
+    <nav>
+      <ul>
+        <li>
+          <h1>Sloh</h1>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <div role="group">
+            <button
+              class="outline"
+              hx-get="/maturity"
+              hx-target="body"
+              hx-push-url="true"
+              hx-swap="transition:true">
+            Praktická</button>
+            <button
+              class="outline"
+              hx-get="/maturity/pcmz"
+              hx-target="body"
+              hx-push-url="true"
+              hx-swap="transition:true">
+            Ústní</button>
+            <button
+              class="outline"
+              hx-get="/maturity/scmz"
+              hx-target="body"
+              hx-push-url="true"
+              hx-swap="transition:true">
+            Státní</button>
+            <button
+              hx-get="/maturity/sloh"
+              hx-target="body"
+              hx-push-url="true"
+              hx-swap="transition:true">
+            Sloh</button>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  </header>
+<div class="headline-container">
     <h1 class="headline">Slohová práce</h1>
   </div>
 
@@ -279,8 +299,15 @@
       const input = document.createElement("input");
       input.type = "hidden";
       input.name = `den${dayCounter}_ucebna-${i}[]`;
-      
-      cell.appendChild(button);
+
+      cell.innerHTML = '<span class="clickable-cell-content">Vybrat</span>';
+      cell.className = "clickable-cell";
+      cell.appendChild(input);
+
+
+
+      cell.textContent = "Vybrat";
+      cell.className = "clickable-cell";
       cell.appendChild(input);
 
       cell.addEventListener("click", function() {

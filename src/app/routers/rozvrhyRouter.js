@@ -27,10 +27,10 @@ rozvrhyRouter.post('/vytvorit', (req, res) => {
     
     const prazdnyRozvrh = {
         lichy: {
-            "Po": {}, "Ut": {}, "St": {}, "Ct": {}, "Pa": {}
+            "Po": {}, "Út": {}, "St": {}, "Čt": {}, "Pá": {}
         },
         sudy: {
-            "Po": {}, "Ut": {}, "St": {}, "Ct": {}, "Pa": {}
+            "Po": {}, "Út": {}, "St": {}, "Čt": {}, "Pá": {}
         }
     };
     
