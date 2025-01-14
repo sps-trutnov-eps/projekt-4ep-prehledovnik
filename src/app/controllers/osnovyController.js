@@ -21,7 +21,7 @@ exports.edit = (curID, data) => {
 		predmetTeorie = `-c`;
 	}
 	
-	let trida = `${data["rocnik"]}.${data["obor"]}`;
+	let trida = `${data["obor"]}${data["rocnik"]}`;
 	let predmet = `${data["predmet"]}${predmetTeorie}`;
 	
 	processedData = {"trida": trida, "predmet": predmet, "temata": data["temata"]};

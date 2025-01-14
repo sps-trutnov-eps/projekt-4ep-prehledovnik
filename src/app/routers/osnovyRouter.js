@@ -16,11 +16,11 @@ osnovyRouter.post('/save/*', (req, res) => {
 		curID = curID.split('/');
 		curID = curID[curID.length-1];
 	} else {
-		console.log('ERROR: Incorrect URL (save curriculum)');
+		//console.log('ERROR: Incorrect URL (save curriculum)');
 		res.json({'id': undefined});
 	}
 	
-	console.log(req.body);
+	//console.log(req.body);
 	
 	osnovyController.edit(curID, req.body);
 	
