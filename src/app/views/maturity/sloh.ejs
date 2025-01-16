@@ -89,13 +89,20 @@
       <ul>
         <li>
           <button
-          type="button"
-          id="edit-button"
-          class="editbutton"
-          onclick="toggleEdit()">
-          Edit
-        </button>
-  
+            type="submit"
+            form="mform"
+            id="save-button"
+            class="editbutton"
+            style="display:none">
+            Uložit
+          </button>
+          <button
+            type="button"
+            id="edit-button"
+            class="editbutton"
+            onclick="toggleEdit()">
+            Edit
+          </button>
         </li>
         <li>
           <div role="group">
@@ -134,7 +141,7 @@
   <main>
     <h2>Slohová práce</h2>
 
-    <form action="/maturity/ukladanisloh" method="POST">
+    <form id="mform" action="/maturity/ukladanisloh" method="POST">
       <table style="border-collapse: collapse; width: 100%">
         <thead>
           <tr>
@@ -209,15 +216,6 @@
           disabled
         >
           Přidat datum
-        </button>
-      </div>
-  
-      <div style="text-align: center">
-        <button
-          type="submit"
-          id="save-button"
-          style="padding: 0.5em; border: none; cursor: pointer; width: 150px; display:none">
-          Uložit
         </button>
       </div>
     </form>

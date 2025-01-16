@@ -52,15 +52,21 @@
       <ul>
         <li>
           <button
-          type="button"
-          id="editButton"
-          class="editbutton"
-          onclick="enableForm()">
-          Edit
-        </button>
-  
+            type="submit"
+            id="submitButton"
+            class="editbutton"
+            form="form"
+            style="display: none;">
+            Uložit
+          </button>
+          <button
+            type="button"
+            id="editButton"
+            class="editbutton"
+            onclick="enableForm()">
+            Edit
+          </button>
         </li>
-
         <li>
           <div role="group">
             <button
@@ -123,15 +129,6 @@
           <% } %>
         <% } %>
       </select>
-          
-      <div style="text-align: center">
-        <button
-          type="submit"
-          id="submitButton"
-          style="padding: 0.5em; border: none; cursor: pointer; width: 150px; display: none;">
-          Uložit
-        </button>
-      </div>
     </form>
   </main>
 </article>
