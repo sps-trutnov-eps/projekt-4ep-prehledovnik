@@ -50,6 +50,13 @@
             margin-top: 10px;
         }
 
+        .btn-del {
+            border: none;
+            width: 100%;
+            margin-top: 10px;
+            background-color: #B90E0A;
+        }
+
         .btn-new {
             border: none;
             width: 100%;
@@ -337,7 +344,12 @@
                                                         </div>
                                                         <button class="btn-save"
                                                             onclick="validateAndSubmit(); toggleModal(event)"
-                                                            data-target="popupModal">Potvrdit</button>
+                                                            data-target="popupModal">Potvrdit
+                                                        </button>
+                                                        <button class="btn-del"
+                                                            onclick="deleteLesson(); toggleModal(event)"
+                                                            data-target="popupModal">Odstranit hodinu
+                                                        </button>
                                                     </form>
                                                 </main>
                                             </article>
@@ -514,7 +526,6 @@
                         tridaSpan.textContent = hodina.trida ? `${hodina.trida}` : "";
                     }
                 } else {
-                    // button.classList.replace('secondary', 'primary');
                     button.classList.remove('is-free');
                     predmetSpan.textContent = '+';
                     mistnostSpan.textContent = '';
@@ -570,6 +581,30 @@
                 mistnost: predmet === "volno" ? "" : mistnost,
                 skupina: skupina,
                 trida: predmet === "volno" ? "" : trida
+            };
+
+            if (druhTydne === 'L') {
+                rozvrh.lichy[denHodiny][casHodiny] = hodina;
+                updateTileDisplay('L', denHodiny, casHodiny, hodina);
+            } else {
+                rozvrh.sudy[denHodiny][casHodiny] = hodina;
+                updateTileDisplay('S', denHodiny, casHodiny, hodina);
+            }
+
+            resetForm();
+        }
+
+        function deleteLesson() {
+            var predmet = document.getElementById("jakypredmet").value;
+            var mistnost = document.getElementById("mistnost").value;
+            var skupina = document.getElementById("skupina").value;
+            var trida = document.getElementById("trida").value;
+
+            const hodina = {
+                predmet: predmet = "",
+                mistnost: mistnost = "",
+                skupina: skupina = "",
+                trida: trida = ""
             };
 
             if (druhTydne === 'L') {
