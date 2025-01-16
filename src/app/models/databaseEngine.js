@@ -439,6 +439,9 @@ function sP(projekty) {
 }
 
 const projekty = {
+  ziskatVse: () => {
+    return gP();
+  },
   pridatProjekt: (trida) => {
     let projekty = gP();
     let nextID = projekty["nextID"];
@@ -500,6 +503,17 @@ const projekty = {
       }
     }
     sP(projekty);
+  },
+  odebratTym: (IDtridy, cisloTymu) => {
+    let projekty = gP();
+    let index = 0;
+    //let IDtridy = ziskatIDprojektuDleTridy(trida); Doesn't work, I guess it's because it's in the same.. json?
+    for (let i = 0; i < projekty[String(IDtridy)]["tymy"].length; i++){
+      if (projekty[String(IDtridy)]["tymy"][i]["cislo"] == cisloTymu){
+        index = i;
+      }
+    }
+    projekty[String(IDtridy)]["tymy"].splice(index, 1);
   }
 };
 

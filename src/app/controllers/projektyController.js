@@ -104,15 +104,31 @@ exports.upload = async (req, res) => {
 
 
 exports.view = (req, res) => {
+	const urlID = req.params.id;
     let files = "class";
-    let urlID = req.params.id;
-    if (urlID == undefined){
+    let clas = undefined;
+    let team = undefined;
+    let classID = undefined;
+    
+    if (urlID == undefined || urlID.split('-').length < 2 || urlID.split('-').length > 3){
         files = "none";
-    } else if (urlID.split('-').length == 3){
+    } else if (urlID.split('-').length == 2){
+        classID = databaze.projekty.ziskatIDprojektuDleTridy(urlID);
+        files = "class";
+        team = "none";
+    } else {
+        classID = databaze.projekty.ziskatIDprojektuDleTridy(urlID.slice(0, -2));
+        team = databaze.projekty.ziskatTym(classID, urlID.slice(-1));
         files = "team";
     }
-   
-    res.render('projekty/index.ejs', { files: files });
+    
+    clas = databaze.projekty.ziskatCelouTridu(classID);
+    al = databaze.projekty.ziskatVse();
+    if (clas == undefined) { clas = {trida: urlID }; }
+    
+    console.log(team);
+    
+    res.render('projekty/index.ejs', { files: files, team: team, clas: clas, al: al});
 }
 
 
