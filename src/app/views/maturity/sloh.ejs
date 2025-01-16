@@ -131,124 +131,125 @@
       </ul>
     </nav>
   </header>
-<div class="headline-container">
-    <h1 class="headline">Slohová práce</h1>
-  </div>
+  <main>
+    <h2>Slohová práce</h2>
 
-  <form action="/maturity/ukladanisloh" method="POST">
-    <table style="border-collapse: collapse; width: 100%">
-      <thead>
-        <tr>
-          <th style="text-align: center">Datum:</th>
-          <th>
-            1.
-            <p>8:00-8:45</p>
-          </th>
-          <th>
-            2.
-            <p>8:50-9:35</p>
-          </th>
-          <th>
-            3.
-            <p>9:55-10:40</p>
-          </th>
-          <th>
-            4.
-            <p>10:50-11:35</p>
-          </th>
-          <th>
-            5.
-            <p>11:40-12:25</p>
-          </th>
-          <th>
-            6.
-            <p>12:35-13:20</p>
-          </th>
-          <th>
-            7.
-            <p>13:25-14:10</p>
-          </th>
-          <th>
-            8.
-            <p>14:15-15:00</p>
-          </th>
-          <th>
-            9.
-            <p>15:10-15:55</p>
-          </th>
-        </tr>
-      </thead>
-      <tbody id="table-body">
-        <%let x = 0%>
-        <% for (const datum in data) { %>
-          <%x = x +1%>
+    <form action="/maturity/ukladanisloh" method="POST">
+      <table style="border-collapse: collapse; width: 100%">
+        <thead>
           <tr>
-            <td><input type="date" name="den<%=x%>_datum[]" value="<%= datum%>" disabled /></td>
-
-            <% for (let y = 0; y < 9; y++) {%>
-                <td class="clickable-cell" data-hodina="<%=y+1%>">
-                    <%let kondice = "";%>
-                    <%for (i = 0; i < data[datum].length; i++) { if (data[datum][i][0]-1 == y) {kondice = data[datum][i][1];} }%>
-                    <input type="hidden" name="den<%=x%>_ucebna-<%=y+1%>[]" value="<%=kondice%>"/>
-                    <%if (kondice != false) {%>
-                    <%=kondice%>
-                    <%}else{%>
-                        Vybrat
-                    <%}%>
-                </td>
-            <% } %>
+            <th style="text-align: center">Datum:</th>
+            <th>
+              1.
+              <p>8:00-8:45</p>
+            </th>
+            <th>
+              2.
+              <p>8:50-9:35</p>
+            </th>
+            <th>
+              3.
+              <p>9:55-10:40</p>
+            </th>
+            <th>
+              4.
+              <p>10:50-11:35</p>
+            </th>
+            <th>
+              5.
+              <p>11:40-12:25</p>
+            </th>
+            <th>
+              6.
+              <p>12:35-13:20</p>
+            </th>
+            <th>
+              7.
+              <p>13:25-14:10</p>
+            </th>
+            <th>
+              8.
+              <p>14:15-15:00</p>
+            </th>
+            <th>
+              9.
+              <p>15:10-15:55</p>
+            </th>
           </tr>
-        <% } %>
-      </tbody>
-    </table>
-    <div style="text-align: center">
-      <button
-        onclick="addRow()"
-        type="button"
-        id="pridat-datum"
-        style="padding: 0.5em; width: 150px; border: none; cursor: pointer"
-        disabled
-      >
-        Přidat datum
-      </button>
+        </thead>
+        <tbody id="table-body">
+          <%let x = 0%>
+          <% for (const datum in data) { %>
+            <%x = x +1%>
+            <tr>
+              <td><input type="date" name="den<%=x%>_datum[]" value="<%= datum%>" disabled /></td>
+  
+              <% for (let y = 0; y < 9; y++) {%>
+                  <td class="clickable-cell" data-hodina="<%=y+1%>">
+                      <%let kondice = "";%>
+                      <%for (i = 0; i < data[datum].length; i++) { if (data[datum][i][0]-1 == y) {kondice = data[datum][i][1];} }%>
+                      <input type="hidden" name="den<%=x%>_ucebna-<%=y+1%>[]" value="<%=kondice%>"/>
+                      <%if (kondice != false) {%>
+                      <%=kondice%>
+                      <%}else{%>
+                          Vybrat
+                      <%}%>
+                  </td>
+              <% } %>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+      <div style="text-align: center">
+        <button
+          onclick="addRow()"
+          type="button"
+          id="pridat-datum"
+          style="padding: 0.5em; width: 150px; border: none; cursor: pointer"
+          disabled
+        >
+          Přidat datum
+        </button>
+      </div>
+  
+      <div style="text-align: center">
+        <button
+          type="submit"
+          id="save-button"
+          style="padding: 0.5em; border: none; cursor: pointer; width: 150px; display:none">
+          Uložit
+        </button>
+      </div>
+    </form>
+  
+    <div
+      id="classroomModal"
+      style="
+        border: solid black;
+        background: lightslategrey;
+        display: none;
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        padding: 1em;
+        border: 1px solid black;
+      ">
+      <h2>Vyber učebnu</h2>
+  
+      <p id="selectedHourText"></p>
+  
+      <select id="classroomSelect">
+        <option value="T15">T15</option>
+        <option value="T16">T16</option>
+        <option value="T17">T17</option>
+      </select>
+      <br /><br />
+      <button type="button" onclick="saveClassroom()">Uložit</button>
+      <button type="button" onclick="closeModal()">Zrušit</button>
     </div>
-
-    <div style="text-align: center">
-      <button
-        type="submit"
-        id="save-button"
-        style="padding: 0.5em; border: none; cursor: pointer; width: 150px; display:none">
-        Uložit
-      </button>
-    </div>
-  </form>
-
-  <div
-    id="classroomModal"
-    style="
-      border: solid black;
-      background: lightslategrey;
-      display: none;
-      position: fixed;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      padding: 1em;
-      border: 1px solid black;
-    ">
-    <h2>Vyber učebnu</h2>
-
-    <p id="selectedHourText"></p>
-
-    <select id="classroomSelect">
-      <option value="T15">T15</option>
-      <option value="T16">T16</option>
-      <option value="T17">T17</option>
-    </select>
-    <br /><br />
-    <button type="button" onclick="saveClassroom()">Uložit</button>
-    <button type="button" onclick="closeModal()">Zrušit</button>
-  </div>
+  
+  </main>
 </article>
 
 <script>
