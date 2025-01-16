@@ -83,10 +83,20 @@
     <nav>
       <ul>
         <li>
-          <h1>Sloh</h1>
+          <h1>Maturity</h1>
         </li>
       </ul>
       <ul>
+        <li>
+          <button
+          type="button"
+          id="edit-button"
+          class="editbutton"
+          onclick="toggleEdit()">
+          Edit
+        </button>
+  
+        </li>
         <li>
           <div role="group">
             <button
@@ -204,12 +214,6 @@
     </div>
 
     <div style="text-align: center">
-      <button
-        type="button"
-        id="edit-button"
-        style="padding: 0.5em; border: none; cursor: pointer; width: 150px" onclick="toggleEdit()">
-        Edit
-      </button>
       <button
         type="submit"
         id="save-button"

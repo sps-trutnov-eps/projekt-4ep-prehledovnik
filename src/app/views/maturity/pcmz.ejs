@@ -71,26 +71,60 @@
     }
   </style>
 
-  <body>
-    <article
-      style="width: 20vw; min-width: 20vw; margin-right: 1em; overflow-y: auto; resize: horizontal;">
-      <div class="button">
-        <a href="../maturity/">
-          <button class="tlacitko">Praktická</button>
-        </a>
-        <a href="../maturity/pcmz">
-          <button class="tlacitko">Ústní</button>
-        </a>
-        <a href="../maturity/scmz">
-          <button class="tlacitko">Státní</button>
-        </a>
-        <a href="../maturity/sloh">
-          <button class="tlacitko">Sloh</button>
-        </a>
-      </div>
-    </article>
-
-    <article style="flex: 3; overflow-y: auto; padding: 20px">
+    <article style="flex: 3; overflow-y: auto;">
+      <header>
+        <nav>
+          <ul>
+            <li>
+              <h1>Maturity</h1>
+            </li>
+          </ul>
+          <ul>
+            <li>
+              <button
+              type="button"
+              id="edit-button"
+              class="editbutton"
+              onclick="toggleEdit()">
+              Edit
+            </button>
+      
+            </li>
+    
+            <li>
+              <div role="group">
+                <button
+                  class="outline"
+                  hx-get="/maturity"
+                  hx-target="body"
+                  hx-push-url="true"
+                  hx-swap="transition:true">
+                Praktická</button>
+                <button
+                  class="outline"
+                  hx-get="/maturity/pcmz"
+                  hx-target="body"
+                  hx-push-url="true"
+                  hx-swap="transition:true">
+                Ústní</button>
+                <button
+                  class="outline"
+                  hx-get="/maturity/scmz"
+                  hx-target="body"
+                  hx-push-url="true"
+                  hx-swap="transition:true">
+                Státní</button>
+                <button
+                  hx-get="/maturity/sloh"
+                  hx-target="body"
+                  hx-push-url="true"
+                  hx-swap="transition:true">
+                Sloh</button>
+              </div>
+            </li>
+          </ul>
+        </nav>
+      </header>
       <div
         style="padding: 20px; border-radius: 10px; color: white;">
         <div class="headline-container">
@@ -151,12 +185,6 @@
           </div>
 
           <div style="margin-top: 1px">
-            <button
-              type="button"
-              id="edit-button"
-              style="padding: 0.5em; width: 150px; border: none; cursor: pointer;">
-              Edit
-            </button>
             <button
               type="submit"
               id="save-button"
@@ -233,5 +261,3 @@
     </script>
 
     <%- include('../partials/tail'); %>
-  </body>
-</html>
