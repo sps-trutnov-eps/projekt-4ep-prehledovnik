@@ -229,7 +229,6 @@ const rozvrhy = {
   },
   ziskatPocetRozvrhu: () => {
     let rozvrhy = gR();
-    console.log(rozvrhy);
     return rozvrhy["nextID"];
   }
 };

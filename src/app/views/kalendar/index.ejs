@@ -17,6 +17,15 @@
         padding: 1px;
     }
 
+    #naAktualniButton {
+        margin-right: 2em; /* odsazení od tlačítka "Na aktuální"  */
+        border-radius: var(--pico-border-radius);
+    }
+    #naMesicButon {
+        border-top-left-radius: var(--pico-border-radius);
+        border-bottom-left-radius: var(--pico-border-radius);
+    }
+
     .days-header {
         position: sticky;
         top: -1em;
@@ -160,7 +169,8 @@
         <ul>
           <li>
             <div role="group">
-               <button onclick="scrollToCurrent()">Aktuální</button>
+               <button id="naAktualniButton" onclick="scrollToCurrent()">Aktuální</button>
+               <button id="naMesicButon" onclick="scrollToMonth()">Na&nbspměsíc</button>
                <select name="months" id="months" ">
                   <option value="8">Srpen</option>
                   <option value="9">Září</option>
@@ -175,7 +185,6 @@
                   <option value="6">Červen</option>
                   <option value="7">Červenec</option>
                </select>
-               <button onclick="scrollToMonth()">Na&nbspměsíc</button>
             </div>
           </li>
         </ul>
@@ -183,10 +192,7 @@
           <li>
             <div role="group">
               <button class="outline" hx-get="/kalendar/tydenni" hx-target="body" hx-push-url="true" hx-swap="transition:true">
-                  Týdenní
-              </button>
-              <button hx-get="/kalendar" hx-target="body" hx-push-url="true" hx-swap="transition:true">
-                  Měsíční
+                  Na týdenní
               </button>
             </div>
           </li>
@@ -219,10 +225,10 @@
 
                 <section id=<%= new Date(i).toLocaleDateString('en-CA', { timeZone: 'Europe/Prague' }) %>  style="grid-column-start: <%= new Date(i).getDay()%> ;" class="grid-item">
                     <% if(new Date(i).getDay() == 6) {%>
-                    <p class="days-mon"><%= new Date(i).getDate()%> / <%= new Date(i).getMonth() + 1%> - <%= new Date(i+increment).getDate()%> / <%= new Date(i+increment).getMonth() + 1%></p>
+                    <p class="days-mon"><%= new Date(i).getDate()%>.<%= new Date(i).getMonth() + 1%>. - <%= new Date(i+increment).getDate()%>.<%= new Date(i+increment).getMonth() + 1%>.</p>
 
                     <% }else{%>
-                        <p class="days-mon"><%= new Date(i).getDate()%> / <%= new Date(i).getMonth() + 1%></p>
+                        <p class="days-mon"><%= new Date(i).getDate()%>.<%= new Date(i).getMonth() + 1%>.</p>
                     <% }%>
 
 
@@ -264,10 +270,6 @@
 </dialog>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-              placeUdalosti()
-          })
-
   function scrollToCurrent() {
       const increment = 24 * 60 * 60 * 1000
       let today = new Date();
@@ -434,7 +436,7 @@
     return document.body.scrollHeight > screen.height;
     };
 
-
+    placeUdalosti()
 </script>
 <script src="/kalendar/js/main.js"></script>
 <%- include('../partials/tail') %>
