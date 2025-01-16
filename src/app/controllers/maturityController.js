@@ -5,10 +5,11 @@ const databaze = require("../models/databaseEngine");
 exports.pzop = (req, res) => {
     let data = databaze.maturity.ziskarMaturituDleNazvu('PŽOP')
 
-    ucebna = data.ucebny[0]
-    dny = data.dny
+    ucebna = data.ucebny[0] 
+    dny = data.dny 
+    const ucebny = databaze.ziskatUcebny()[101];
 
-    res.render('maturity/index.ejs', {"ucebna" : ucebna, "dny" : dny})
+    res.render('maturity/index.ejs', {"ucebna" : ucebna, "dny" : dny, "ucebny": ucebny})
 }
 
 exports.pcmz = (req, res) => {
