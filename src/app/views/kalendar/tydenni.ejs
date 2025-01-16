@@ -188,7 +188,8 @@
           <p class="grid-item-h"><span class="cislo-hodiny">7</span><br>13:25-14:10</p>
           <p class="grid-item-h"><span class="cislo-hodiny">8</span><br>14:15-15:00</p>
           <p class="grid-item-h"><span class="cislo-hodiny">9</span><br>15:00+</p>
-          <% let days = ["Po", "Út", "St", "Čt", "Pá"] %>
+          <% let days = ["Po", "Ut", "St", "Ct", "Pa"] %>
+          <%let daysDisplay = ["Po", "Út", "St", "Čt", "Pá"] %>
           <% let day = ["Po"] %>
           
           <% for(let i=0;i<5;i++) {%>
@@ -197,7 +198,7 @@
             
             <% let formattedDate = `${currentDate.getDate()}.${currentDate.getMonth() + 1}.` %>
             <p class="grid-item den-tydne" id="<%= formattedDate %>">
-              <span class="cislo-hodiny"><%= days[i] %></span><br>
+              <span class="cislo-hodiny"><%= daysDisplay[i] %></span><br>
               <span><%= formattedDate %></span>
             </p>
             <% for(let j=0;j<= 9;j++) {%>
