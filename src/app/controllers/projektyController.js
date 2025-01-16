@@ -141,6 +141,7 @@ exports.addClass = (classID) => {
 }
 
 exports.saveTeams = (data) => {
+    console.log(data)
     let tridaID = databaze.projekty.ziskatIDprojektuDleTridy(data.classID);
    
     for (let i = 0; i < data.teams.length; i++){
@@ -148,7 +149,10 @@ exports.saveTeams = (data) => {
         
         let existingTeam = databaze.projekty.ziskatTym(tridaID, team.teamID);
         if (existingTeam == undefined){
-            databaze.projekty.pridatTym(tridaID, team.teamID, team.description, team.url, team.members, "undefined", data.pitchDate, ["undefined","undefined"], ["undefined","undefined"], "undefined", ["undefined","undefined"]);
+            databaze.projekty.pridatTym(tridaID, team.teamID, team.description, team.url,
+                                        team.members, "undefined", data.pitchDate,
+                                        ["undefined","undefined"], ["undefined","undefined"],
+                                        "undefined", ["undefined","undefined"]);
         } else {
             console.log("(projektyController.js; function: saveTeams): Team already exists.");
             databaze.projekty.upravitTym(tridaID, {
