@@ -499,48 +499,6 @@
             window.location.href = `/rozvrhy?verze=${id}`;
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const editBtn = document.getElementById('editBtn');
-            const novaBtn = document.getElementById('novaBtn');
-            const smazatBtn = document.getElementById('smazatBtn');
-            const timetableButtons = document.querySelectorAll('.timetable-btn');
-
-            function lockTimetableButtons() {
-                timetableButtons.forEach(button => {
-                    button.classList.add('disabled');
-                    button.disabled = true;
-                });
-            }
-
-            function unlockTimetableButtons() {
-                timetableButtons.forEach(button => {
-                    button.classList.remove('disabled');
-                    button.disabled = false;
-                });
-            }
-
-            lockTimetableButtons();
-
-            editBtn.addEventListener('click', function() {
-                if (editBtn.textContent === 'Upravit rozvrh') {
-
-                    novaBtn.style.display = 'inline-block';
-                    smazatBtn.style.display = 'inline-block';
-
-                    unlockTimetableButtons();
-                    editBtn.textContent = 'Uložit';
-                } else {
-                    novaBtn.style.display = 'none';
-                    smazatBtn.style.display = 'none';
-
-                    lockTimetableButtons();
-                    editBtn.textContent = 'Upravit rozvrh';
-
-                    ulozitRozvrh();
-                }
-            });
-        });
-
         document.getElementById('novaBtn').addEventListener('click', function () {
             toggleModal({
                 preventDefault: () => {},
@@ -732,10 +690,90 @@
 
         document.addEventListener('htmx:afterSwap', function () {
             initializeTimetable();
+
+            const editBtn = document.getElementById('editBtn');
+            const novaBtn = document.getElementById('novaBtn');
+            const smazatBtn = document.getElementById('smazatBtn');
+            const timetableButtons = document.querySelectorAll('.timetable-btn');
+
+            function lockTimetableButtons() {
+                timetableButtons.forEach(button => {
+                    button.classList.add('disabled');
+                    button.disabled = true;
+                });
+            }
+
+            function unlockTimetableButtons() {
+                timetableButtons.forEach(button => {
+                    button.classList.remove('disabled');
+                    button.disabled = false;
+                });
+            }
+
+            lockTimetableButtons();
+
+            editBtn.addEventListener('click', function() {
+                if (editBtn.textContent === 'Upravit rozvrh') {
+
+                    novaBtn.style.display = 'inline-block';
+                    smazatBtn.style.display = 'inline-block';
+
+                    unlockTimetableButtons();
+                    editBtn.textContent = 'Uložit';
+                } else {
+                    novaBtn.style.display = 'none';
+                    smazatBtn.style.display = 'none';
+
+                    lockTimetableButtons();
+                    editBtn.textContent = 'Upravit rozvrh';
+
+                    ulozitRozvrh();
+                }
+            });
         });
 
         document.addEventListener('DOMContentLoaded', function () {
             initializeTimetable();
+
+            const editBtn = document.getElementById('editBtn');
+            const novaBtn = document.getElementById('novaBtn');
+            const smazatBtn = document.getElementById('smazatBtn');
+            const timetableButtons = document.querySelectorAll('.timetable-btn');
+
+            function lockTimetableButtons() {
+                timetableButtons.forEach(button => {
+                    button.classList.add('disabled');
+                    button.disabled = true;
+                });
+            }
+
+            function unlockTimetableButtons() {
+                timetableButtons.forEach(button => {
+                    button.classList.remove('disabled');
+                    button.disabled = false;
+                });
+            }
+
+            lockTimetableButtons();
+
+            editBtn.addEventListener('click', function() {
+                if (editBtn.textContent === 'Upravit rozvrh') {
+
+                    novaBtn.style.display = 'inline-block';
+                    smazatBtn.style.display = 'inline-block';
+
+                    unlockTimetableButtons();
+                    editBtn.textContent = 'Uložit';
+                } else {
+                    novaBtn.style.display = 'none';
+                    smazatBtn.style.display = 'none';
+
+                    lockTimetableButtons();
+                    editBtn.textContent = 'Upravit rozvrh';
+
+                    ulozitRozvrh();
+                }
+            });
 
             const createForm = document.getElementById('createForm');
             if (createForm) {
