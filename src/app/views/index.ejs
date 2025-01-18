@@ -1,6 +1,39 @@
 <!doctype html>
-        <%- include('partials/head'); %>
-            <article style="flex: 3;">
-                <img style="object-fit: contain; max-height: 100%;" src="https://cataas.com/cat/says/P%C5%99ehledovn%C3%ADk?fontColor=orange&fontSize=64" alt="Přehledovník">
-            </article>
+<%- include('partials/head'); %>
+<link rel="stylesheet" href="/index/css/main.css" />
+<article style=" width: 20vw; min-width: 20vw; margin-right: 1em; resize: horizontal; ">
+   <header>
+      <h1 style="display:inline; vertical-align:middle;">Moduly</h1>
+	</header>
+   <main style="justify-content: center;">
+        <div id="nav-btns">
+            <input style="margin-left: 0;" type="button" value="Kalendář" onclick="window.location.href = '/projekty/2ep-1';">
+            <input style="margin-left: 0;" type="button" value="Rozvrh" onclick="window.location.href = '/projekty/3ep-1';">                                         
+            <input style="margin-left: 0;" type="button" value="osnovy" onclick="window.location.href = '/projekty/4ep-1';">                                         
+            <input style="margin-left: 0;" type="button" value="Události" onclick="window.location.href = '/projekty/1ep-2';">                                          
+            <input style="margin-left: 0;" type="button" value="Úkoly" onclick="window.location.href = '/projekty/2ep-2';">                                         
+            <input style="margin-left: 0;" type="button" value="Maturity" onclick="window.location.href = '/projekty/3ep-2';">
+         </div>
+	</main>
+</article>
+
+
+<div id="overlay" class="overlay"></div>
+
+<article style="flex: 3; box-shadow: none;">
+    <header>
+       <nav>
+         <hgroup>
+           <h1 style="display:inline; vertical-align:middle;">Začněte s Přehledovníkem</h1>
+         </hgroup>
+     </header>
+     
+    <main>
+       <div style=" display: flex; position: relative; overflow-y: auto; max-height: calc(100vh - 14em); padding-right: 15px; ">
+        <div id="mainThing" style="flex: auto">
+
+        </div>
+     </main>
+ </article>
+
 <%- include('partials/tail') %>
