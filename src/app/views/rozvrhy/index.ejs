@@ -198,29 +198,34 @@
         }
 
         .cast1, .cast2, .cast3 {
-            flex: 1; 
             display: flex;
-            align-items: center; 
+            align-items: center;
         }
+
         .cast1 {
-            justify-content: flex-start; /* Obsah na levé straně */
+            flex: 0.5; /* Takes up less space for the title */
         }
 
         .cast2 {
-            justify-content: center; /* Obsah uprostřed */
-            gap: 10px; /* Mezera mezi tlačítky */
+            flex: 4; /* Takes up most of the space for centered buttons */
+            justify-content: center;
+            gap: 10px;
         }
 
         .cast3 {
-            justify-content: flex-end; /* Obsah na pravé straně */
-            
-
-           
+            flex: 0 0 auto; /* Fixed width based on content */
+            margin-left: auto;
         }
-        .cast3 select{
-           max-width: 220px;
-           justify-content: flex-end;
-        
+
+        .cast3 select {
+            min-width: 200px;
+            max-width: 300px;
+            padding: 5px;
+        }
+
+        .nav-button {
+            transition: all 0.3s ease;
+            margin: 0 5px;
         }
 
       
@@ -236,9 +241,9 @@
                         <h1>Rozvrh</h1>
                     </div>
                     <div class="cast2">
-                        <button class="nav-button">Edit</button>
-                        <button class="nav-button">Nová</button>
-                        <button class="nav-button">Smazat</button>
+                        <button class="nav-button" id="novaBtn" style="display: none;">Nová verze</button>
+                        <button class="nav-button" id="editBtn">Upravit rozvrh</button>
+                        <button class="nav-button" id="smazatBtn" style="display: none;">Smazat verzi</button>
                     </div>
                     <div class="cast3">
                         <div role="group">
@@ -259,15 +264,6 @@
                </div>
                 
             </nav>
-
-
-
-
-
-
-        
-
-
         </header>
         <main>
             <% if (!rozvrhy || rozvrhy.length===0) { %>
@@ -368,7 +364,6 @@
                                                             <label for="jakypredmet">Předmět:</label>
                                                             <select name="predmet" id="jakypredmet" required>
                                                                 <option value="">Vyberte předmět</option>
-                                                                <option value="volno">Volno</option>
                                                                 <option value="Kroužek">Kroužek</option>
                                                                 
                                                                 <!-- Tady probíhá úprava názvu předmětu -->
@@ -797,6 +792,29 @@ const getScrollbarWidth = () => {
 const isScrollbarVisible = () => {
   return document.body.scrollHeight > screen.height;
 };
+
+document.addEventListener('DOMContentLoaded', function() {
+    const editBtn = document.getElementById('editBtn');
+    const novaBtn = document.getElementById('novaBtn');
+    const smazatBtn = document.getElementById('smazatBtn');
+
+    editBtn.addEventListener('click', function() {
+        if (editBtn.textContent === 'Upravit rozvrh') {
+
+            novaBtn.style.display = 'inline-block';
+            smazatBtn.style.display = 'inline-block';
+
+            editBtn.textContent = 'Uložit';
+        } else {
+            novaBtn.style.display = 'none';
+            smazatBtn.style.display = 'none';
+
+            editBtn.textContent = 'Upravit rozvrh';
+
+            ulozitRozvrh();
+        }
+    });
+});
 
     </script>
     <%- include('../partials/tail') %>
