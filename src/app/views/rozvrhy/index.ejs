@@ -203,17 +203,17 @@
         }
 
         .cast1 {
-            flex: 0.5; /* Takes up less space for the title */
+            flex: 0.5;
         }
 
         .cast2 {
-            flex: 4; /* Takes up most of the space for centered buttons */
+            flex: 4;
             justify-content: center;
             gap: 10px;
         }
 
         .cast3 {
-            flex: 0 0 auto; /* Fixed width based on content */
+            flex: 0 0 auto;
             margin-left: auto;
         }
 
@@ -241,7 +241,7 @@
                         <h1>Rozvrh</h1>
                     </div>
                     <div class="cast2">
-                        <button class="nav-button" id="novaBtn" style="display: none;">Nová verze</button>
+                        <button class="nav-button" id="novaBtn" style="display: none; ">Nová verze</button>
                         <button class="nav-button" id="editBtn">Upravit rozvrh</button>
                         <button class="nav-button" id="smazatBtn" style="display: none;">Smazat verzi</button>
                     </div>
@@ -813,6 +813,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
             ulozitRozvrh();
         }
+    });
+});
+
+document.getElementById('novaBtn').addEventListener('click', function () {
+    toggleModal({
+        preventDefault: () => {},
+        currentTarget: { dataset: { target: "createFormModal" } }
     });
 });
 
