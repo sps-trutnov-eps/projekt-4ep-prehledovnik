@@ -222,13 +222,17 @@
             %>
             <% for (let i = startDate.getTime(); i <= endDate.getTime();i += increment) {%>
                 <% if(new Date(i).getDay() != 0) {%>
+                <%
+                let date = String(new Date(i).toLocaleDateString('en-CA', {timeZone: 'Europe/Prague'}))
+                let nextDate = String(new Date(i+increment).toLocaleDateString('en-CA', {timeZone: 'Europe/Prague'}))
+                %>
 
-                <section id=<%= new Date(i).toLocaleDateString('en-CA', { timeZone: 'Europe/Prague' }) %>  style="grid-column-start: <%= new Date(i).getDay()%> ;" class="grid-item">
+                <section id=<%= date %>  style="grid-column-start: <%= new Date(i).getDay()%> ;" class="grid-item">
                     <% if(new Date(i).getDay() == 6) {%>
-                    <p class="days-mon"><%= new Date(i).getDate()%>.<%= new Date(i).getMonth() + 1%>. - <%= new Date(i+increment).getDate()%>.<%= new Date(i+increment).getMonth() + 1%>.</p>
+                    <p class="days-mon"><%= date.split("-")[2] %>.<%= date.split("-")[1] %>. - <%= nextDate.split("-")[2] %>.<%= nextDate.split("-")[1] %>.</p>
 
                     <% }else{%>
-                        <p class="days-mon"><%= new Date(i).getDate()%>.<%= new Date(i).getMonth() + 1%>.</p>
+                        <p class="days-mon"><%= date.split("-")[2] %>.<%= date.split("-")[1] %>.</p>
                     <% }%>
 
 

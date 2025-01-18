@@ -10,24 +10,88 @@
 		<h3>1. Pololetí</h3>
         <div id="2ep-1">
             <input style="margin-left: 0;" type="button" value="2.EP" onclick="window.location.href = '/projekty/2ep-1';">
-            <input type="button" value="Tým1" style="margin-left: 10%; width: 80%;" onclick="window.location.href = '/projekty/2ep-1-1';">
-            <input type="button" value="Tým2" style="margin-left: 10%; width: 80%;" onclick="window.location.href = '/projekty/2ep-1-2';">
+				<% if (al["nextID"] > 1) { %>
+					<% for (let i = 1; i < al["nextID"]; i++) { %>
+						<% if (al[i]["trida"] != "2ep-1") { continue; } %>
+						<% let teams = al[i]["tymy"]%>
+						<% for (let iT = 0; iT < teams.length; iT++) { %>
+							
+							<input type="button" value="Tým<%= iT+1 %>" style="margin-left: 10%; width: 80%;" onclick="window.location.href = '/projekty/2ep-1-<%= iT+1 %>';">
+							
+						<% } %>
+					<% } %>
+				<% } %>
         </div>
          <div id="3ep-1">
             <input style="margin-left: 0;" type="button" value="3.EP" onclick="window.location.href = '/projekty/3ep-1';">
+				<% if (al["nextID"] > 1) { %>
+					<% for (let i = 1; i < al["nextID"]; i++) { %>
+						<% if (al[i]["trida"] != "3ep-1") { continue; } %>
+						<% let teams = al[i]["tymy"]%>
+						<% for (let iT = 0; iT < teams.length; iT++) { %>
+							
+							<input type="button" value="Tým<%= iT+1 %>" style="margin-left: 10%; width: 80%;" onclick="window.location.href = '/projekty/3ep-1-<%= iT+1 %>';">
+							
+						<% } %>
+					<% } %>
+				<% } %>
          </div>                                                      
          <div id="4ep-1">                                            
             <input style="margin-left: 0;" type="button" value="4.EP" onclick="window.location.href = '/projekty/4ep-1';">
+				<% if (al["nextID"] > 1) { %>
+					<% for (let i = 1; i < al["nextID"]; i++) { %>
+						<% if (al[i]["trida"] != "4ep-1") { continue; } %>
+						<% let teams = al[i]["tymy"]%>
+						<% for (let iT = 0; iT < teams.length; iT++) { %>
+							
+							<input type="button" value="Tým<%= iT+1 %>" style="margin-left: 10%; width: 80%;" onclick="window.location.href = '/projekty/4ep-1-<%= iT+1 %>';">
+							
+						<% } %>
+					<% } %>
+				<% } %>
          </div>                                                      
 		<h3>2. Pololetí</h3>                                           
         <div id="1ep-2">                                             
             <input style="margin-left: 0;" type="button" value="1.EP" onclick="window.location.href = '/projekty/1ep-2';">
+				<% if (al["nextID"] > 1) { %>
+					<% for (let i = 1; i < al["nextID"]; i++) { %>
+						<% if (al[i]["trida"] != "1ep-2") { continue; } %>
+						<% let teams = al[i]["tymy"]%>
+						<% for (let iT = 0; iT < teams.length; iT++) { %>
+							
+							<input type="button" value="Tým<%= iT+1 %>" style="margin-left: 10%; width: 80%;" onclick="window.location.href = '/projekty/1ep-2-<%= iT+1 %>';">
+							
+						<% } %>
+					<% } %>
+				<% } %>
         </div>                                                       
          <div id="2ep-2">                                            
             <input style="margin-left: 0;" type="button" value="2.EP" onclick="window.location.href = '/projekty/2ep-2';">
+				<% if (al["nextID"] > 1) { %>
+					<% for (let i = 1; i < al["nextID"]; i++) { %>
+						<% if (al[i]["trida"] != "2ep-2") { continue; } %>
+						<% let teams = al[i]["tymy"]%>
+						<% for (let iT = 0; iT < teams.length; iT++) { %>
+							
+							<input type="button" value="Tým<%= iT+1 %>" style="margin-left: 10%; width: 80%;" onclick="window.location.href = '/projekty/2ep-2-<%= iT+1 %>';">
+							
+						<% } %>
+					<% } %>
+				<% } %>
          </div>                                                      
          <div id="3ep-2">                                            
             <input style="margin-left: 0;" type="button" value="3.EP" onclick="window.location.href = '/projekty/3ep-2';">
+				<% if (al["nextID"] > 1) { %>
+					<% for (let i = 1; i < al["nextID"]; i++) { %>
+						<% if (al[i]["trida"] != "3ep-2") { continue; } %>
+						<% let teams = al[i]["tymy"]%>
+						<% for (let iT = 0; iT < teams.length; iT++) { %>
+							
+							<input type="button" value="Tým<%= iT+1 %>" style="margin-left: 10%; width: 80%;" onclick="window.location.href = '/projekty/3ep-2-<%= iT+1 %>';">
+							
+						<% } %>
+					<% } %>
+				<% } %>
          </div>
 	</main>
 </article>
@@ -38,11 +102,17 @@
 <article class="class" style="flex: 3;">
 		<% if (files != "none") { %>
 			<div class="classOverview" id="class" >
-				<%- include(`./new/${files}.ejs`); %>
+				<% if (team != undefined) { %>
+					<%- include(`./new/${files}.ejs`); %>
+				<% } %>
 			</div>
+			
 			<div class="classDetails" id="classDetails" style="display: none">
-				<%- include(`./new/${files}Details.ejs`); %>
+				<% if (team != undefined) { %>
+					<%- include(`./new/${files}Details.ejs`); %>
+				<% } %>
 			</div>
+			
 		<% } %>
 </article>
 

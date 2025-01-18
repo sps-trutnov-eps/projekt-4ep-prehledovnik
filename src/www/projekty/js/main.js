@@ -495,6 +495,7 @@ function editMemberInDetails (input) {
 /* table sorted by names */
 
 /* DON'T EVEN ASK */
+// now I want the button to have different values....
 function sortTableAndOutput() {
    const sourceTable = document.getElementById('detailsTable');
    const targetTable = document.getElementById('sortedDetailsTable');
@@ -585,13 +586,16 @@ function sortTableAndOutput() {
 function switchTables() {
    const table = document.getElementById('detailsTable');
    const sortedTable = document.getElementById('sortedDetailsTable');
-
+   
+   const buttonF = document.getElementById("filterButton");
    
     if (table.style.display == 'none'){
+        buttonF.value = "Podle jmen";
         table.style.display = '';
         sortTableAndOutput();
         sortedTable.style.display = 'none';
     } else {
+        buttonF.value = "Podle týmů";
         sortedTable.style.display = '';
         sortTableAndOutput();
         table.style.display = 'none';
@@ -672,3 +676,54 @@ async function save(){
 		}
     
 }
+
+
+
+
+
+
+/* TIMELINE */
+
+function updateTimeLine(){
+      const startDate = document.getElementById("datum").value;
+      const periods = calculateTwoWeekPeriods(startDate);
+      //console.log(`${periods} two-week periods have passed since ${startDate}.`);
+      
+      setProgress(periods);
+}
+
+function calculateTwoWeekPeriods(startDate) {
+    const start = new Date(startDate);
+    const now = new Date();
+
+    const differenceInMs = now - start;
+    const millisecondsInTwoWeeks = 2 * 7 * 24 * 60 * 60 * 1000;
+    const twoWeekPeriods = differenceInMs / millisecondsInTwoWeeks;
+
+    return twoWeekPeriods;
+}
+
+
+function setProgress(milestone) {
+   if (milestone > 6) { milestone = 6; }
+   
+   let numOfTimelines = document.querySelectorAll('.progress').length;
+   
+   for (let timel = 0; timel < numOfTimelines; timel++){
+      document.querySelectorAll('.progress')[timel].style.width = `calc(((100% - 30px) / 6)*${milestone})`;
+   
+      let children = document.querySelectorAll('.timeline')[timel].children;
+      
+      for (let i = 1; i < children.length; i++) {
+         children[i].className = "circle filled";
+      }
+      
+      for (let i = 1; i <= milestone+1; i++) {
+         children[i].className = "circle";
+      }
+   }
+}
+updateTimeLine();
+window.onload = (event) => {
+   updateTimeLine();
+};

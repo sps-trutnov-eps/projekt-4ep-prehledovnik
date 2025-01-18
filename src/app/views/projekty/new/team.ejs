@@ -3,20 +3,23 @@
       <nav>
         <hgroup>
           <h1 style="display:inline; vertical-align:middle;">Přehled</h1>
-			 <p style="display:inline; vertical-align:bottom; margin-left: 1rem" >1. Pololetí - 1.EP</p>
+			 <p style="display:inline; vertical-align:bottom; margin-left: 1rem" >
+				
+				<%= clas["trida"].slice(-1); %>. Pololetí -
+				<%= clas["trida"].slice(0, 1); %>.<%= clas["trida"].slice(1, 3).toUpperCase(); %>
+				
+			 </p>
         </hgroup>
 		  <hgroup style="display: flex; gap: 0.5em;">
-			  <input class="saveButton" style="width: 8rem; padding: 0; min-height: 0; height: 2em; margin: 0;" type="button" value="Uložit" onclick="save();" />
+			  <input class="saveButton" style="width: 8rem; padding: 0; min-height: 0; height: 2em; margin: 0;" type="button" value="Uložit" onclick="saveTeam();" />
 			  <input class="createButton" style="width: 8rem; padding: 0; min-height: 0; height: 2em; margin: 0;" type="button" value="Přehled" onclick="showElementAndHideElement('class', 'classDetails')" />
 			  <input class="createButton" style="width: 8rem; padding: 0; min-height: 0; height: 2em; margin: 0;" type="button" value="Detaily" onclick="showElementAndHideElement('classDetails', 'class')" />
 			</hgroup>
       </nav>
 	</header>
    <main>
-      <div style="position: relative; max-height: calc(100vh - 14em); padding-right: 15px; ">
-         <div id="mainThing" style="flex: auto">
-			
-				<div class="timeline-container">
+	
+		<div class="timeline-container">
 				   <div class="timeline">
 						<div class="progress"></div>
 						<div class="circle"></div>
@@ -37,31 +40,29 @@
 						<div>6</div>
 				   </div>
 			   </div>
-			 
+	
+      <div style="position: relative; max-height: calc(100vh - 14em); padding-right: 15px; ">
+         <div id="mainThing" style="flex: auto">
+			
+				<% if (clas != undefined) { %>
 			   <div style="display: flex; flex-wrap: wrap;">
 				   <div style="flex: 1; padding: 0 var(--pico-block-spacing-horizontal);">
 						<p style="display: none"></p>
 						<label for="description">Popis</label>
-					   <input type="text" name="description" id="description" value="0" onchange="selectOption(this)" style="margin: 0">
+					   <input type="text" name="description" id="description" value="<% if (team != undefined) { %><%= team["tema"] %><% } %>" onchange="selectOption(this)" style="margin: 0">
 						<label style="margin-top: 1em;">Členové</label>
 							<div class="members" style="max-height: 21.9rem;">
 								<div class="dropdown-members" id="teamMembers" style="min-height: 16.9rem;">
-									<div style="display: flex; align-items: center;" class="members-input">
-										<input type="button" value="-" class="deleteButton" style="margin-bottom: 0;" onclick="deleteOptionsCEO(); deleteOption(this, 1); addOptionsCEO(); deleteColumn(getColumnID(this.nextElementSibling.value))">
-										<input class="dropdown-item" type="text" value="0" style="margin: 0" onchange="deleteOptionsCEO(); addOptionsCEO(); changeColumnName(getMemberID(this), this.value, 1);" onkeypress="this.onchange()" onpaste="this.onchange()" oninput="this.onchange()">
-									</div>
-									<div style="display: flex; align-items: center;" class="members-input">
-										<input type="button" value="-" class="deleteButton" style="margin-bottom: 0;" onclick="deleteOptionsCEO(); deleteOption(this, 1); addOptionsCEO(); deleteColumn(getColumnID(this.nextElementSibling.value))">
-										<input class="dropdown-item" type="text" value="0" style="margin: 0" onchange="deleteOptionsCEO(); addOptionsCEO(); changeColumnName(getMemberID(this), this.value, 1);" onkeypress="this.onchange()" onpaste="this.onchange()" oninput="this.onchange()">
-									</div>
-									<div style="display: flex; align-items: center;" class="members-input" id="tmp">
-										<input type="button" value="-" class="deleteButton" style="margin-bottom: 0;" onclick="deleteOptionsCEO(); deleteOption(this, 1); addOptionsCEO(); deleteColumn(getColumnID(this.nextElementSibling.value))">
-										<input class="dropdown-item" type="text" value="0" style="margin: 0" onchange="deleteOptionsCEO(); addOptionsCEO(); changeColumnName(getMemberID(this), this.value, 1);" onkeypress="this.onchange()" onpaste="this.onchange()" oninput="this.onchange()">
-									</div>
-									<div style="display: flex; align-items: center;" class="members-input">
-										<input type="button" value="-" class="deleteButton" style="margin-bottom: 0;" onclick="deleteOptionsCEO(); deleteOption(this, 1); addOptionsCEO(); deleteColumn(getColumnID(this.nextElementSibling.value))">
-										<input class="dropdown-item" type="text" value="0" style="margin: 0" onchange="deleteOptionsCEO(); addOptionsCEO(); changeColumnName(getMemberID(this), this.value, 1);" onkeypress="this.onchange()" onpaste="this.onchange()" oninput="this.onchange()">
-									</div>
+									<% if (team != undefined) { %>
+									<% for (let i = 0; i < team["clenove"].length; i++) { %>
+									
+										<div style="display: flex; align-items: center;" class="members-input">
+											<input type="button" value="-" class="deleteButton" style="margin-bottom: 0;" onclick="deleteOptionsCEO(); deleteOption(this, 1); addOptionsCEO(); deleteColumn(getColumnID(this.nextElementSibling.value))">
+											<input class="dropdown-item" type="text" value="<%= team["clenove"][i] %>" style="margin: 0" onchange="deleteOptionsCEO(); addOptionsCEO(); changeColumnName(getMemberID(this), this.value, 1);" onkeypress="this.onchange()" onpaste="this.onchange()" oninput="this.onchange()">
+										</div>
+										
+									<% } %>
+									<% } %>
 								</div>
 							   <div class="add-option">
 									<input class="createButton" style="padding: 0; min-height: 0; height: 2em; margin: 0" type="button" value="+" onclick="deleteOptionsCEO(); addNewOption(this, 1); addOptionsCEO(); appendColumn()" />
@@ -69,7 +70,7 @@
 							</div>
 							<label>Vedoucí</label>
 							 <select id="optionSelect">
-								  <option value="">Select an option</option>
+									<option value="">Select</option>
 							 </select>
 					</div>
 					<div style="flex: 1; padding: 0 var(--pico-block-spacing-horizontal);">
@@ -77,14 +78,16 @@
 						<label>Featury</label>
 						<div class="members" style="max-height: 13.5rem;">
 								<div id="features" class="dropdown-members" style="min-height: 8.5rem;">
-									<div style="display: flex; align-items: center;" class="members-input">
-										<input type="button" value="-" class="deleteButton" style="margin-bottom: 0;" onclick="deleteOption(this, 0)">
-										<input class="dropdown-item" type="text" value="0" style="margin: 0">
-									</div>
-									<div style="display: flex; align-items: center;" class="members-input">
-										<input type="button" value="-" class="deleteButton" style="margin-bottom: 0;" onclick="deleteOption(this, 0)">
-										<input class="dropdown-item" type="text" value="0" style="margin: 0">
-									</div>
+								<% if (team != undefined) { %>
+									<% for (let i = 0; i < team["pitch"]["featury"].length; i++) { %>
+								
+										<div style="display: flex; align-items: center;" class="members-input">
+											<input type="button" value="-" class="deleteButton" style="margin-bottom: 0;" onclick="deleteOption(this, 0)">
+											<input class="dropdown-item" type="text" value="<%= team["pitch"]["featury"][i] %>" style="margin: 0">
+										</div>
+									
+									<% } %>
+									<% } %>
 								</div>
 							   <div class="add-option">
 									<input class="createButton" style="padding: 0; min-height: 0; height: 2em; margin: 0" type="button" value="+" onclick="addNewOption(this, 0)" />
@@ -95,36 +98,40 @@
 							<label style="margin-top: 1em;">Stretch goaly</label>
 							<div class="members" style="max-height: 17.5rem;">
 								<div id="goals" class="dropdown-members" style="min-height: 12.5rem;">
-									<div style="display: flex; align-items: center;" class="members-input">
-										<input type="button" value="-" class="deleteButton" style="margin-bottom: 0;" onclick="deleteOption(this, 0)">
-										<input class="dropdown-item" type="text" value="0" style="margin: 0">
-									</div>
-									<div style="display: flex; align-items: center;" class="members-input">
-										<input type="button" value="-" class="deleteButton" style="margin-bottom: 0;" onclick="deleteOption(this, 0)">
-										<input class="dropdown-item" type="text" value="0" style="margin: 0">
-									</div>
-									<div style="display: flex; align-items: center;" class="members-input">
-										<input type="button" value="-" class="deleteButton" style="margin-bottom: 0;" onclick="deleteOption(this, 0)">
-										<input class="dropdown-item" type="text" value="0" style="margin: 0">
-									</div>
+								<% if (team != undefined) { %>
+									<% for (let i = 0; i < team["pitch"]["stretchgoaly"].length; i++) { %>
+								
+										<div style="display: flex; align-items: center;" class="members-input">
+											<input type="button" value="-" class="deleteButton" style="margin-bottom: 0;" onclick="deleteOption(this, 0)">
+											<input class="dropdown-item" type="text" value="<%= team["pitch"]["stretchgoaly"][i] %>" style="margin: 0">
+										</div>
+									
+									<% } %>
+								<% } %>
 								</div>
 							   <div class="add-option">
 									<input class="createButton" style="padding: 0; min-height: 0; height: 2em; margin: 0" type="button" value="+" onclick="addNewOption(this, 0)" />
 							   </div>
 							</div>
 					</div>
+					
 					<div style="flex: 0 0 100%; display: flex; padding-left: 16px; padding-right: 16px">
 						<div style="flex: 0 0 30%;">
 							<label for="link">URL</label>
-							<input type="text" name="link" id="link" value="0" onchange="selectOption(this)" style="margin: 0">
+							<input type="text" name="link" id="link" value="<% if (team != undefined) { %><%= team["odkaz"] %><% } %>" onchange="selectOption(this)" style="margin: 0">
 						</div>
 						<div style="flex: 0 0 70%; padding-left:16px">
 							<label for="note">Poznámka k pitch</label>
-							<input type="text" name="note" id="note" value="0" onchange="selectOption(this)" style="margin: 0">
+							<input type="text" name="note" id="note" value="<% if (team != undefined) { %><%= team["pitch"]["pozamka"] %><% } %>" onchange="selectOption(this)" style="margin: 0">
 						</div>
 					</div>
 			   </div>
+				<% } %>
 			</div>
 		</div>
 	</main>
 </article>
+
+<script>
+	let selectedIndex = <% if (team != undefined) { %><%= team["vedouci"] %><% } else { %> 0 <% } %>;
+</script>

@@ -2,17 +2,27 @@ const jsondb = require("simple-json-db");
 const db = new jsondb("../data/database.json");
 
 // VÝCHOZÍ HODNOTY UČENÍ
+// Tyto hodnoty nejsou statické, v database.json
+// se mění podle osnov, toto jsou pouze placeholdery.
+// Formát musí zůstat takto, kvůli jednoduchosti úprav
+// a kvůli tomu že části tohoto projektu, který tuto věc používají,
+// se již dohodly na tomto formátu.
+// Pokud někdo chce VYScv, tak si to musí udělat u sebe.
+// např: let predmet = predmety[0].split('-');
+// pak si jednoduše určí co je to za předmět např: console.log(predmet[0])
+// či jestli je to teorie nebo cvičení např: console.log(predmet[1])
+// PS: promiň že ti sem furt lezu
 predmety = [
-  "VYScv",
-  "VYS",
-  "PVAcv",
-  "PVA",
-  "HAEcv",
-  "HAE",
-  "CMTcv",
-  "CMT",
-  "OPScv",
-  "OPS",
+  "VYS-c",
+  "VYS-t",
+  "PVA-c",
+  "PVA-t",
+  "HAE-c",
+  "HAE-t",
+  "CMT-c",
+  "CMT-t",
+  "OPS-c",
+  "OPS-t",
 ];
 hodiny = {
   1: ["7:10", "7:55"],
@@ -439,6 +449,9 @@ function sP(projekty) {
 }
 
 const projekty = {
+  ziskatVse: () => {
+    return gP();
+  },
   pridatProjekt: (trida) => {
     let projekty = gP();
     let nextID = projekty["nextID"];
@@ -500,6 +513,17 @@ const projekty = {
       }
     }
     sP(projekty);
+  },
+  odebratTym: (IDtridy, cisloTymu) => {
+    let projekty = gP();
+    let index = 0;
+    //let IDtridy = ziskatIDprojektuDleTridy(trida); Doesn't work, I guess it's because it's in the same.. json?
+    for (let i = 0; i < projekty[String(IDtridy)]["tymy"].length; i++){
+      if (projekty[String(IDtridy)]["tymy"][i]["cislo"] == cisloTymu){
+        index = i;
+      }
+    }
+    projekty[String(IDtridy)]["tymy"].splice(index, 1);
   }
 };
 
@@ -513,6 +537,14 @@ const databaseEngine = {
   ziskatPredmety: () => {
     return db.get("predmety");
   },
+  // Předej všechny předměty v array
+  // Formát:
+  // ["VYS-t", "VYS-c", "PVA-t"]
+  // je potřeba dodržovat tento formát, protože se s ním lépe manipuluje
+  nastavitPredmety: (predmety) => {
+    db.set("predmety", predmety);
+    db.sync();
+  },
   ziskatHodiny: () => {
     return db.get("hodiny");
   },
@@ -521,7 +553,7 @@ const databaseEngine = {
   },
   ziskatUcebny: () => {
     return db.get("ucebny");
-  },
+  }
 };
 
 module.exports = databaseEngine;
