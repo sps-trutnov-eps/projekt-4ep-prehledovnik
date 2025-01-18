@@ -313,7 +313,7 @@
                                                     <% periods.forEach(period=> { %>
                                                         <td>
                                                             <button id="btn-<%= type %>-<%= day %>-<%= period %>"
-                                                                class="timetable-btn outline secondary"
+                                                                class="timetable-btn outline secondary disabled"
                                                                 onclick="toggleDayModal('<%= period %>', '<%= day %>', '<%= type %>', event)"
                                                                 data-target="popupModal">
                                                                 <div class="mistonost-skupina">
@@ -498,6 +498,56 @@
         function nacteniVerze(id) {
             window.location.href = `/rozvrhy?verze=${id}`;
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const editBtn = document.getElementById('editBtn');
+            const novaBtn = document.getElementById('novaBtn');
+            const smazatBtn = document.getElementById('smazatBtn');
+            const timetableButtons = document.querySelectorAll('.timetable-btn');
+
+            function lockTimetableButtons() {
+                timetableButtons.forEach(button => {
+                    button.classList.add('disabled');
+                    button.disabled = true;
+                });
+            }
+
+            function unlockTimetableButtons() {
+                timetableButtons.forEach(button => {
+                    button.classList.remove('disabled');
+                    button.disabled = false;
+                });
+            }
+
+            lockTimetableButtons();
+
+            editBtn.addEventListener('click', function() {
+                if (editBtn.textContent === 'Upravit rozvrh') {
+
+                    novaBtn.style.display = 'inline-block';
+                    smazatBtn.style.display = 'inline-block';
+
+                    unlockTimetableButtons();
+                    editBtn.textContent = 'Uložit';
+                } else {
+                    novaBtn.style.display = 'none';
+                    smazatBtn.style.display = 'none';
+
+                    lockTimetableButtons();
+                    editBtn.textContent = 'Upravit rozvrh';
+
+                    ulozitRozvrh();
+                }
+            });
+        });
+
+        document.getElementById('novaBtn').addEventListener('click', function () {
+            toggleModal({
+                preventDefault: () => {},
+                currentTarget: { dataset: { target: "createFormModal" } }
+            });
+        });
+
 
         async function ulozitRozvrh() {
             const aktivniVerze = document.getElementById('jakaverze').value;
@@ -792,36 +842,6 @@ const getScrollbarWidth = () => {
 const isScrollbarVisible = () => {
   return document.body.scrollHeight > screen.height;
 };
-
-document.addEventListener('DOMContentLoaded', function() {
-    const editBtn = document.getElementById('editBtn');
-    const novaBtn = document.getElementById('novaBtn');
-    const smazatBtn = document.getElementById('smazatBtn');
-
-    editBtn.addEventListener('click', function() {
-        if (editBtn.textContent === 'Upravit rozvrh') {
-
-            novaBtn.style.display = 'inline-block';
-            smazatBtn.style.display = 'inline-block';
-
-            editBtn.textContent = 'Uložit';
-        } else {
-            novaBtn.style.display = 'none';
-            smazatBtn.style.display = 'none';
-
-            editBtn.textContent = 'Upravit rozvrh';
-
-            ulozitRozvrh();
-        }
-    });
-});
-
-document.getElementById('novaBtn').addEventListener('click', function () {
-    toggleModal({
-        preventDefault: () => {},
-        currentTarget: { dataset: { target: "createFormModal" } }
-    });
-});
 
     </script>
     <%- include('../partials/tail') %>
