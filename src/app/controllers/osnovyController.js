@@ -21,13 +21,33 @@ exports.edit = (curID, data) => {
 		predmetTeorie = `-c`;
 	}
 	
-	let trida = `${data["rocnik"]}.${data["obor"]}`;
-	let predmet = `${data["predmet"]}${predmetTeorie}`;
+	const trida = `${data["rocnik"]}.${data["obor"]}`;
+	const predmet = `${data["predmet"].toUpperCase()}${predmetTeorie.toLowerCase()}`;
 	
 	processedData = {"trida": trida, "predmet": predmet, "temata": data["temata"]};
-	//console.log(processedData);
-	
 	databaze.osnovy.upravitOsnovu(curID, processedData);
+	
+	// Just create the new "Predmety", it gets rid of all of the excess and duplicate values
+	// Not the best, but we don't expect this function to run 10000 times a second on an array of length 100
+	const osnovy = databaze.osnovy.ziskatVsechnyOsnovy();
+	let necessary = [];
+	for (let oi = 1; oi < osnovy["nextID"]; oi++){
+		//console.log(`${osnovy[oi].predmet}	${predmety[pi]}`);
+		if (necessary.length > 0){
+			let foundDuplicate = false;
+			for (let ni = 0; ni < necessary.length; ni++){
+				if (necessary[ni] == osnovy[oi].predmet){
+					foundDuplicate = true;
+					break;
+				}
+			}
+			if (!foundDuplicate){ necessary.push(osnovy[oi].predmet); }
+		} else {
+			necessary.push(osnovy[oi].predmet);
+		}
+	}
+	
+	databaze.nastavitPredmety(necessary);
 	return true;
 }
 
