@@ -370,11 +370,18 @@
                                                                 <option value="">Vyberte předmět</option>
                                                                 <option value="volno">Volno</option>
                                                                 <option value="Kroužek">Kroužek</option>
+                                                                
+                                                                <!-- Tady probíhá úprava názvu předmětu -->
                                                                 <% for (let predmet of predmety) { %>
+                                                                    <% let pr = predmet.split('-')[0]; %>
+                                                                    <% let typ = predmet.split('-')[1]; %>
+                                                                    <% let celyPredmet = pr; %>
+                                                                    <% if (typ == "c") {celyPredmet = `${pr}cv`} %>
                                                                     <option value="<%= predmet %>">
                                                                         <%= predmet %>
                                                                     </option>
-                                                                    <% } %>
+                                                                <% } %>
+                                                                
                                                             </select>
                                                         </div>
                                                         <div class="form-group">
