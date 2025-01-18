@@ -18,7 +18,8 @@
       </nav>
 	</header>
    <main>
-	
+		
+		
 		<div class="timeline-container">
 				   <div class="timeline">
 						<div class="progress"></div>
@@ -40,6 +41,10 @@
 						<div>6</div>
 				   </div>
 			   </div>
+			
+		<div id="hiddenDate" style="display:none">
+			<% if(clas["tymy"] != undefined) { %><%= clas["tymy"][0]["pitch"]["datum"] %><% } %>
+		</div>
 	
       <div style="position: relative; max-height: calc(100vh - 14em); padding-right: 15px; ">
          <div id="mainThing" style="flex: auto">
