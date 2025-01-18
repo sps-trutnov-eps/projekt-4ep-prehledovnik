@@ -126,7 +126,7 @@ exports.view = (req, res) => {
     al = databaze.projekty.ziskatVse();
     if (clas == undefined) { clas = {trida: urlID }; }
     
-    console.log(team);
+    //console.log(team);
     
     res.render('projekty/index.ejs', { files: files, team: team, clas: clas, al: al});
 }
@@ -141,10 +141,102 @@ exports.addClass = (classID) => {
 }
 
 exports.saveTeams = (data) => {
-    console.log(data)
+    //console.log(data)
     let tridaID = databaze.projekty.ziskatIDprojektuDleTridy(data.classID);
+    let clas = databaze.projekty.ziskatCelouTridu(tridaID);
+        
+    let excessTeamsIDs = [];
+    for (let i = 0; i < clas["tymy"].length; i++){
+        let found = false;
+        for (let t = 0; t < data.teams.length; t++){
+            if (clas["tymy"][i]["cislo"] == data.teams[t]["teamID"]){
+                found = true;
+                break;
+            }
+        }
+        if (!found) { excessTeamsIDs.push(clas["tymy"][i]["cislo"]); }
+    }
+    console.log(excessTeamsIDs);
+    
+    let newTeams = [];
+    let otherTeams = [];
+    for (let t = 0; t < data.teams.length; t++){
+        if (data.teams[t]["teamID"] == undefined){
+           newTeams.push(data.teams[t]);
+           continue;
+        }
+        
+        let foundInExcess = false;
+        for (let i = 0; i < excessTeamsIDs.length; i++){
+            if (data.teams[t]["teamID"] == excessTeamsIDs[i]){
+                foundInExcess = true;
+                break;
+            }
+        }
+        if (!foundInExcess) { otherTeams.push(data.teams[t]); }
+    }
+    console.log(newTeams);
+    console.log(otherTeams);
+    
+    // First, go through the teams that have haven't been deleted or added
+    for (let i = 0; i < otherTeams.length; i++){
+        const team = otherTeams[i];
+        const existingTeam = databaze.projekty.ziskatTym(tridaID, team.teamID);
+        
+        databaze.projekty.upravitTym(tridaID, {
+                "cislo": team.teamID,
+                "tema": team.description,
+                "odkaz": existingTeam["odkaz"],
+                "clenove": team.members,
+                "vedouci": existingTeam["vedouci"],
+                "pitch": {
+                    "datum": data.pitchDate,
+                    "featury": existingTeam["pitch"]["featury"],
+                    "stretchgoaly": existingTeam["pitch"]["stretchgoaly"],
+                    "pozamka": existingTeam["pitch"]["pozamka"],
+                    "ucast": existingTeam["pitch"]["ucast"]
+                }
+            });
+    }
+    
+    // Secondly, delete all teams from database that have been deleted team by user
+    for (let i = 0; i < excessTeamsIDs.length; i++){
+       databaze.projekty.odebratTym(tridaID, excessTeamsIDs[i]);
+    }
+    
+    // Refresh (just in case)
+    clas = databaze.projekty.ziskatCelouTridu(tridaID);
+    // Renumber every team so that there are no gaps
+    for (let i = 0; i < clas["tymy"].length; i++){
+        let existingTeam = databaze.projekty.ziskatTym(tridaID, clas["tymy"][i]["cislo"]);
+        
+        databaze.projekty.upravitTymPodleStarehoCisla(tridaID, {
+                "cislo": `${i+1}`,
+                "tema": existingTeam["tema"],
+                "odkaz": existingTeam["odkaz"],
+                "clenove": existingTeam["clenove"],
+                "vedouci": existingTeam["vedouci"],
+                "pitch": existingTeam["pitch"],
+                "znamkyDev": existingTeam["znamkyDev"],
+                "znamkyCom": existingTeam["znamkyCom"]
+            }, existingTeam["cislo"]);
+    }
+    
+    // Thirdly, add the new teams
+    for (let i = 0; i < newTeams.length; i++){
+        const team = newTeams[i];
+        
+        databaze.projekty.pridatTym(tridaID, clas["tymy"].length+1, team.description, team.url,
+                                        team.members, 0, data.pitchDate,
+                                        [], [],
+                                        "undefined", ["undefined","undefined"], undefined, undefined);
+    }
+    
    
-    for (let i = 0; i < data.teams.length; i++){
+    
+    
+    
+    /*for (let i = 0; i < data.teams.length; i++){
         const team = data.teams[i];
         
         let existingTeam = databaze.projekty.ziskatTym(tridaID, team.teamID);
@@ -170,7 +262,7 @@ exports.saveTeams = (data) => {
                 }
             });
         }
-    }
+    }*/
 }
 
 exports.saveTeam = (data) => {

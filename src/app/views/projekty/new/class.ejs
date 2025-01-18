@@ -52,6 +52,9 @@
 						<div>6</div>
 				  </div>
 			 </div>
+		<div id="hiddenDate" style="display:none">
+			<% if(clas["tymy"] != undefined) { %><%= clas["tymy"][0]["pitch"]["datum"] %><% } %>
+		</div>
 	
       <div style=" display: flex; position: relative; overflow-y: auto; max-height: calc(100vh - 14em); padding-right: 15px; ">
          <div id="mainThing" style="flex: auto">
@@ -76,6 +79,7 @@
 								 <td style="display: flex; align-items: center;" class="curriculum-input">
 									<input type="button" value="-" class="deleteCurButton" style="margin-bottom: 0px;" onclick="deleteTeam(this)">
 									<div class="teamId" style="margin: 0 auto;"><%= team.cislo %></div>
+									<div class="ActulTeamId" style="display: none"><%= team.cislo %></div>
 								 </td>
 								 <td style="text-align: center;" class="curriculum-input">
 									<button class="dropdown-btn" onclick="toggleDropdown(this)"><%= team["clenove"].length %></button>
@@ -98,7 +102,6 @@
 									</div>
 								 </td>
 								 <td style="display: flex;" class="curriculum-input">
-								 <%console.log(team);%>
 									<input type="text" value="<%= team["tema"]; %>" style="margin: 0px;" class="curriculum-i, description">
 								 </td>
 								 <td style="text-align: center;">0</td>

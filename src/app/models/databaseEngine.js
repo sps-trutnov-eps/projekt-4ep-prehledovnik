@@ -517,6 +517,18 @@ const projekty = {
     }
     sP(projekty);
   },
+  upravitTymPodleStarehoCisla: (IDtridy, tym, tymCisloPredchozi) => {
+    let projekty = gP();
+    //let IDtridy = ziskatIDprojektuDleTridy(trida); Doesn't work, I guess it's because it's in the same.. json?
+    let cislo = tymCisloPredchozi;
+    for (let i = 0; i < projekty[String(IDtridy)]["tymy"].length; i++){
+      if (projekty[String(IDtridy)]["tymy"][i]["cislo"] == cislo){
+        projekty[String(IDtridy)]["tymy"][i] = tym;
+        break;
+      }
+    }
+    sP(projekty);
+  },
   odebratTym: (IDtridy, cisloTymu) => {
     let projekty = gP();
     let index = 0;

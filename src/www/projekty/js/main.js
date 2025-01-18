@@ -609,7 +609,7 @@ function switchTables() {
 
 async function save(){
     let pitchDate = document.getElementById('datum').value;
-    let teamIDs = document.querySelectorAll('.teamId');
+    let teamIDs = document.querySelectorAll('.ActulTeamId');
     let members = document.querySelectorAll('.dropdown-members');
     let descriptions = document.querySelectorAll('.description');
     let classID = window.location.pathname.split('/');
@@ -622,10 +622,13 @@ async function save(){
     let teams = [];
     /* teamID, members, description */
     
-    for (let i = 0; i < teamIDs.length; i++){
-        const team = {teamID: "undefined", members: "undefined", description: "undefined"};
+    for (let i = 0; i < document.querySelectorAll('.teamId').length; i++){
+        const team = {teamID: undefined, members: "undefined", description: "undefined"};
         
-        team["teamID"] = teamIDs[i].innerHTML;
+         if (i < teamIDs.length) {
+            team["teamID"] = teamIDs[i].innerHTML;
+         }
+        
         
         let mem = [];
         for (let ch = 0; ch < members[i].children.length; ch++){
@@ -685,7 +688,15 @@ async function save(){
 /* TIMELINE */
 
 function updateTimeLine(){
-      const startDate = document.getElementById("datum").value;
+      let date = document.getElementById("datum");
+      let startDate;
+      if (date == null){
+         date = document.getElementById("hiddenDate");
+         startDate = date.innerText;
+      } else {
+         startDate = date.value;
+      }
+      
       const periods = calculateTwoWeekPeriods(startDate);
       //console.log(`${periods} two-week periods have passed since ${startDate}.`);
       
