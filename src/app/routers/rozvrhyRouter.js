@@ -22,10 +22,10 @@ rozvrhyRouter.get('/', (req, res) => {
 });
 
 rozvrhyRouter.post('/vytvorit', (req, res) => {
-    const { nazev, popis } = req.body;
+    const { nazev, popis, newVersionTimetableData } = req.body;
     const datum = new Date().toISOString();
     
-    const prazdnyRozvrh = {
+    const hodiny = newVersionTimetableData ? JSON.parse(newVersionTimetableData) : {
         lichy: {
             "Po": {}, "Út": {}, "St": {}, "Čt": {}, "Pá": {}
         },
@@ -34,7 +34,7 @@ rozvrhyRouter.post('/vytvorit', (req, res) => {
         }
     };
     
-    const id = databaseEngine.rozvrhy.pridatRozvrh(datum, nazev, popis, prazdnyRozvrh);
+    const id = databaseEngine.rozvrhy.pridatRozvrh(datum, nazev, popis, hodiny);
     res.redirect('/rozvrhy?verze=' + id);
 });
 

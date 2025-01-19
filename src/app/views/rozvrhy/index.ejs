@@ -413,7 +413,7 @@
                                                         <p><strong>Nová verze rozvrhu</strong></p>
                                                     </header>
                                                     <main>
-                                                        <form id="createForm""
+                                                        <form id="createForm"
                                                         action="/rozvrhy/vytvorit" method="POST">
                                                         <div class="form-group">
                                                             <label for="nazev">Název verze:</label>
@@ -423,6 +423,7 @@
                                                             <label for="popis">Popis:</label>
                                                             <textarea id="popis" name="popis" rows="3"></textarea>
                                                         </div>
+                                                        <input type="hidden" id="newVersionTimetableData" name="newVersionTimetableData">
                                                         <button type="submit" class="btn-save">Vytvořit</button>
                                                     </form>
                                                     </main>
@@ -500,6 +501,15 @@
         }
 
         document.getElementById('novaBtn').addEventListener('click', function () {
+            const timetableData = document.getElementById('timetableData');
+            const timetableDataInput = document.getElementById('newVersionTimetableData');
+            
+            if (timetableData && timetableData.dataset.rozvrh) {
+                const parsedData = JSON.parse(timetableData.dataset.rozvrh);
+                timetableDataInput.value = JSON.stringify(parsedData.hodiny);
+            }
+
+
             toggleModal({
                 preventDefault: () => {},
                 currentTarget: { dataset: { target: "createFormModal" } }
@@ -549,6 +559,8 @@
                             updateTileDisplay('S', den, cas, hodina);
                         });
                     });
+
+                    window.location.reload();
                 } else {
                     alert('Při ukládání došlo k chybě.');
                 }
@@ -695,6 +707,18 @@
             const novaBtn = document.getElementById('novaBtn');
             const smazatBtn = document.getElementById('smazatBtn');
             const timetableButtons = document.querySelectorAll('.timetable-btn');
+            const verzeSel = document.getElementById('jakaverze');
+
+            if (!verzeSel || !verzeSel.options.length) {
+                editBtn.style.display = 'none';
+            } else {
+                const currentVersion = verzeSel.value;
+                const mostRecentVersion = verzeSel.options[0].value;
+                
+                if (currentVersion !== mostRecentVersion) {
+                    editBtn.style.display = 'none';
+                }
+            }
 
             function lockTimetableButtons() {
                 timetableButtons.forEach(button => {
@@ -739,6 +763,18 @@
             const novaBtn = document.getElementById('novaBtn');
             const smazatBtn = document.getElementById('smazatBtn');
             const timetableButtons = document.querySelectorAll('.timetable-btn');
+            const verzeSel = document.getElementById('jakaverze');
+
+            if (!verzeSel || !verzeSel.options.length) {
+                editBtn.style.display = 'none';
+            } else {
+                const currentVersion = verzeSel.value;
+                const mostRecentVersion = verzeSel.options[0].value;
+                
+                if (currentVersion !== mostRecentVersion) {
+                    editBtn.style.display = 'none';
+                }
+            }
 
             function lockTimetableButtons() {
                 timetableButtons.forEach(button => {
