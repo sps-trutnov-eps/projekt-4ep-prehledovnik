@@ -44,4 +44,10 @@ rozvrhyRouter.post('/ulozit-verzi', (req, res) => {
     res.json({ success: true });
 });
 
+rozvrhyRouter.post('/smazat-verzi', (req, res) => {
+    const { id } = req.body;
+    databaseEngine.rozvrhy.smazatRozvrh(id);
+    res.json({ success: true });
+});
+
 module.exports = rozvrhyRouter;

@@ -237,6 +237,17 @@ const rozvrhy = {
     }
     return false;
   },
+  smazatRozvrh: (id) => {
+    let rozvrhy = gR();
+    
+    if (rozvrhy[id]) {
+        delete rozvrhy[id];
+        sR(rozvrhy);
+        return true;
+    }
+    
+    return false;
+  },
   ziskatPocetRozvrhu: () => {
     let rozvrhy = gR();
     return rozvrhy["nextID"];

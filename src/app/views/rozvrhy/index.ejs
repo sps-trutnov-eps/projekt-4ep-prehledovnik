@@ -688,6 +688,34 @@
             resetForm();
         }
 
+        document.getElementById('smazatBtn').addEventListener('click', async function() {
+            const aktivniVerze = document.getElementById('jakaverze').value;
+            
+            if (!confirm('Opravdu chcete smazat tuto verzi rozvrhu?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch('/rozvrhy/smazat-verzi', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        id: aktivniVerze
+                    })
+                });
+
+                if (response.ok) {
+                    window.location.href = '/rozvrhy';
+                } else {
+                    alert('Při mazání došlo k chybě.');
+                }
+            } catch (error) {
+                alert('Při mazání došlo k chybě.');
+            }
+        });
+
         window.onclick = function (event) {
             const createFormModal = document.getElementById('createFormModal');
             const popupModal = document.getElementById('popupModal');
