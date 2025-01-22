@@ -257,7 +257,7 @@
   let selectedCell;
   let selectedInput;
   let dayCounter = document.getElementById("table-body").children.length;
-  let isEditing = false;
+  let isEditing = false; // Proměnná deklarována pouze zde
 
   const hodinyCasy = [
     "8:00-8:45",
@@ -272,49 +272,44 @@
   ];
 
   function toggleEdit() {
-    isEditing = !isEditing;
-    const dateInputs = document.querySelectorAll('input[type="date"]');
-    const editButton = document.getElementById("edit-button");
-    const saveButton = document.getElementById("save-button");
-    const addButton = document.getElementById("pridat-datum");
+  isEditing = !isEditing;
+  const dateInputs = document.querySelectorAll('input[type="date"]');
+  const editButton = document.getElementById("edit-button");
+  const saveButton = document.getElementById("save-button");
+  const addButton = document.getElementById("pridat-datum");
 
-    dateInputs.forEach((input) => {
-      input.disabled = !isEditing;
-    });
-
-    if (isEditing) {
-      editButton.style.display = "none";
-      saveButton.style.display = "inline-block";
-      addButton.disabled = false; 
-    } else {
-      editButton.style.display = "inline-block";
-      saveButton.style.display = "none";
-      addButton.disabled = true;  
-    }
-  }
-
-  document.querySelectorAll(".clickable-cell").forEach((cell) => {
-    cell.addEventListener("click", function () {
-      if (!isEditing) return;
-
-      selectedCell = this;
-      selectedInput = this.querySelector("input");
-      const selectedHour = cell.getAttribute("data-hodina");
-
-      document.getElementById(
-        "selectedHourText"
-      ).textContent = `Hodina: ${selectedHour}. (${hodinyCasy[selectedHour - 1]})`;
-
-      const currentClassroom = selectedInput.value;
-      if (currentClassroom) {
-        document.getElementById("classroomSelect").value = currentClassroom;
-      } else {
-        document.getElementById("classroomSelect").value = "T15";
-      }
-
-      document.getElementById("classroomModal").style.display = "block";
-    });
+  dateInputs.forEach((input) => {
+    input.disabled = !isEditing;
   });
+
+  editButton.style.display = isEditing ? "none" : "inline-block";
+  saveButton.style.display = isEditing ? "inline-block" : "none";
+  addButton.disabled = !isEditing;
+}
+
+
+  // Připojení eventů k tlačítkům a inicializace interaktivních elementů
+  function initializeEvents() {
+    document.querySelectorAll(".clickable-cell").forEach((cell) => {
+      cell.addEventListener("click", function () {
+        if (!isEditing) return;
+
+        selectedCell = this;
+        selectedInput = this.querySelector("input");
+        const selectedHour = cell.getAttribute("data-hodina");
+
+        document.getElementById(
+          "selectedHourText"
+        ).textContent = `Hodina: ${selectedHour}. (${hodinyCasy[selectedHour - 1]})`;
+
+        const currentClassroom = selectedInput.value;
+        document.getElementById("classroomSelect").value =
+          currentClassroom || "T15";
+
+        document.getElementById("classroomModal").style.display = "block";
+      });
+    });
+  }
 
   function saveClassroom() {
     const selectedClassroom = document.getElementById("classroomSelect").value;
@@ -355,12 +350,6 @@
       cell.className = "clickable-cell";
       cell.appendChild(input);
 
-
-
-      cell.textContent = "Vybrat";
-      cell.className = "clickable-cell";
-      cell.appendChild(input);
-
       cell.addEventListener("click", function () {
         if (!isEditing) return;
 
@@ -372,11 +361,8 @@
         ).textContent = `Hodina: ${i}. (${hodinyCasy[i - 1]})`;
 
         const currentClassroom = selectedInput.value;
-        if (currentClassroom) {
-          document.getElementById("classroomSelect").value = currentClassroom;
-        } else {
-          document.getElementById("classroomSelect").value = "T15";
-        }
+        document.getElementById("classroomSelect").value =
+          currentClassroom || "T15";
 
         document.getElementById("classroomModal").style.display = "block";
       });
@@ -386,16 +372,12 @@
     tableBody.appendChild(newRow);
   }
 
-  // Initialize scripts on page load
-  document.addEventListener("DOMContentLoaded", function() {
-    toggleEdit();
-    // Add other initialization code here
+  document.addEventListener("DOMContentLoaded", function () {
+    initializeEvents();
   });
 
-  // Reinitialize scripts after htmx swaps content
-  document.body.addEventListener("htmx:afterSwap", function() {
-    toggleEdit();
-    // Add other reinitialization code here
+  document.body.addEventListener("htmx:afterSwap", function () {
+    initializeEvents();
   });
 </script>
 
