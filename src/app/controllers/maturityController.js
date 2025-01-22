@@ -7,7 +7,7 @@ exports.pzop = (req, res) => {
 
     ucebna = data.ucebny[0] 
     dny = data.dny 
-    const ucebny = databaze.ziskatUcebny()[101];
+    const ucebny = ["T1", "T11", "T15", "T16"];
 
     res.render('maturity/index.ejs', {"ucebna" : ucebna, "dny" : dny, "ucebny": ucebny})
 }
