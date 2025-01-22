@@ -2,7 +2,8 @@ function deleteMember(button) {
    button.parentElement.remove();
 }
 
-let selectedIndex = 0;
+
+let first = true;
 function addOptionsCEO() {
    
    const select = document.getElementById('optionSelect');
@@ -25,7 +26,9 @@ function addOptionsCEO() {
 
 function deleteOptionsCEO() {
    const select = document.getElementById('optionSelect');
-   selectedIndex = select.selectedIndex;
+   if (first) {
+      first = false;
+   } else { selectedIndex = select.selectedIndex; }
    select.innerHTML = '';
 }
 
@@ -36,9 +39,15 @@ window.onload = (event) => {
 };
 
 function appendColumn() {
-   const rows = document.querySelectorAll(".tdtMembers");
+   const tablebody = document.getElementById("table-body");
+   let rows = tablebody.children;
+   //rows.append(document.querySelectorAll(".tdtMembers")[0]);
+   //rows.append(document.querySelectorAll(".tdtMembers")[1]);
    
    let newColumn = [];
+   
+   
+   
    const member = document.createElement('th');
    member.style.textAlign = 'center';
    member.textContent = '';
@@ -47,51 +56,62 @@ function appendColumn() {
    const pitch = document.createElement('th');
    pitch.style.textAlign = 'center';
    
-      const checkboxPitch = document.createElement('input');
-      checkboxPitch.type = 'checkbox';
-      checkboxPitch.style.margin = '0';
-      pitch.appendChild(checkboxPitch);
+   const checkboxPitch = document.createElement('input');
+   checkboxPitch.type = 'checkbox';
+   checkboxPitch.style.margin = '0';
+   pitch.appendChild(checkboxPitch);
    newColumn.push(pitch);
+   
+   
    
    for (let i = 1; i < 7; i++){
       const aa = document.createElement('td');
       aa.style.textAlign = 'center';
       aa.textContent = '0';
+      aa.classList.add("aa");
       newColumn.push(aa);
       
       const ab = document.createElement('td');
       ab.style.textAlign = 'center';
       ab.textContent = '0';
+      ab.classList.add("ab");
       newColumn.push(ab);
       
       const ac = document.createElement('td');
       ac.style.textAlign = 'center';
+      ac.classList.add("ac");
       
-         const acMark = document.createElement('input');
-         acMark.type = 'text';
-         acMark.value = '0';
-         acMark.style.margin = '0';
-         ac.appendChild(acMark);
+      const acMark = document.createElement('input');
+      acMark.type = 'text';
+      acMark.value = '0';
+      acMark.style.margin = '0';
+      acMark.classList.add("acMark");
+      ac.appendChild(acMark);
       newColumn.push(ac);
          
       const ad = document.createElement('td');
       ad.style.textAlign = 'center';
+      ad.classList.add("ad");
       
-         const adMark = document.createElement('input');
-         adMark.type = 'text';
-         adMark.value = '0';
-         adMark.style.margin = '0';
-         ad.appendChild(adMark);
+      const adMark = document.createElement('input');
+      adMark.type = 'text';
+      adMark.value = '0';
+      adMark.style.margin = '0';
+      adMark.classList.add("adMark");
+      ad.appendChild(adMark);
       newColumn.push(ad);
    }
    
+   console.log(rows);
+   document.getElementById("membersRow").appendChild(newColumn[0]);
+   document.getElementById("pitchRow").appendChild(newColumn[1]);
    for (let i = 0; i < rows.length; i++){
          if (rows.length > newColumn.length) { 
             console.error("Columns does not correspond to the table, has the table changed?");
             break; 
          }
          
-         rows[i].appendChild(newColumn[i]);
+         rows[i].appendChild(newColumn[i+2]);
    }
 }
 

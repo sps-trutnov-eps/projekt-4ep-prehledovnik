@@ -50,6 +50,13 @@
             margin-top: 10px;
         }
 
+        .btn-del {
+            border: none;
+            width: 100%;
+            margin-top: 10px;
+            background-color: #B90E0A;
+        }
+
         .btn-new {
             border: none;
             width: 100%;
@@ -180,38 +187,82 @@
         .mezirka{
             width: 4px;
         }
+        .navigace-rozvrh {
+            display: flex;
+            justify-content: space-between; 
+            align-items: center; 
+            gap: 20px; 
+            padding: 10px; 
+        
+            width: 100%;
+        }
+
+        .cast1, .cast2, .cast3 {
+            display: flex;
+            align-items: center;
+        }
+
+        .cast1 {
+            flex: 0.5;
+        }
+
+        .cast2 {
+            flex: 4;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .cast3 {
+            flex: 0 0 auto;
+            margin-left: auto;
+        }
+
+        .cast3 select {
+            min-width: 200px;
+            max-width: 300px;
+            padding: 5px;
+        }
+
+        .nav-button {
+            transition: all 0.3s ease;
+            margin: 0 5px;
+        }
+
+      
+        
     </style>
     <article class="articlesecond">
         <header>
-            <nav>
-                <ul>
-                  <li>
-                    <h1>Rozvrhy</h1>
-                  </li>
-                  <li>
-                   <div role="group">
-                    <% if (rozvrhy && rozvrhy.length> 0) { %>
-                    <select name="verze" id="jakaverze" onchange="nacteniVerze(this.value)">
-                            <% rozvrhy.forEach(function(verze) { %>
-                                <option value="<%= verze.id %>" <%=aktivniVerze==verze.id ? 'selected' : '' %>>
-                                    <%= verze.nazev %>
-                                        (<%= new Date(verze.datum).toLocaleDateString('cs-CZ') %>)
-                                </option>
-                            <% }); %>
-                    </select>
-                    <% } %>
 
-                        <% if (rozvrhy && rozvrhy.length> 0) { %>
-                            <button onclick="ulozitRozvrh()">Uložit</button>
-                        <% } %>
-                        </div>
-                    </li>
-                </ul>
-                <ul>
-                    <li>
-                      <button onclick="toggleModal(event)"  data-target="createFormModal">Nová&nbsp;verze</button>
-                    </li>
-                </ul>
+            <nav>
+                
+               <div class="navigace-rozvrh">
+                    <div class="cast1">
+                        <h1>Rozvrh</h1>
+                    </div>
+                    <div class="cast2">
+                        <button class="nav-button" id="novaBtn" style="display: none; ">Nová verze</button>
+                        <button class="nav-button" id="editBtn">Upravit rozvrh</button>
+                        <button class="nav-button" id="smazatBtn" style="display: none;">Smazat verzi</button>
+                    </div>
+                    <div class="cast3">
+                        <div role="group">
+                            <% if (rozvrhy && rozvrhy.length> 0) { %>
+                            <select name="verze" id="jakaverze" onchange="nacteniVerze(this.value)">
+                                    <% rozvrhy.forEach(function(verze) { %>
+                                        <option value="<%= verze.id %>" <%=aktivniVerze==verze.id ? 'selected' : '' %>>
+                                            <%= verze.nazev %>
+                                                (<%= new Date(verze.datum).toLocaleDateString('cs-CZ') %>)
+                                        </option>
+                                    <% }); %>
+                            </select>
+                            <% } %>
+        
+                                
+                    </div>
+                    </div>
+               </div>
+                
             </nav>
         </header>
         <main>
@@ -262,7 +313,7 @@
                                                     <% periods.forEach(period=> { %>
                                                         <td>
                                                             <button id="btn-<%= type %>-<%= day %>-<%= period %>"
-                                                                class="timetable-btn outline secondary"
+                                                                class="timetable-btn outline secondary disabled"
                                                                 onclick="toggleDayModal('<%= period %>', '<%= day %>', '<%= type %>', event)"
                                                                 data-target="popupModal">
                                                                 <div class="mistonost-skupina">
@@ -294,7 +345,7 @@
                                                     <form id="lessonForm" onsubmit="return false;">
                                                         <div class="form-group">
                                                             <label for="trida">Třída:</label>
-                                                            <select name="trida" id="trida" required>
+                                                            <select name="trida" id="trida">
                                                                 <optgroup label="EP">
                                                                     <option value="1.EP">1.EP</option>
                                                                     <option value="2.EP">2.EP</option>
@@ -311,21 +362,26 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="jakypredmet">Předmět:</label>
-                                                            <select name="predmet" id="jakypredmet" required>
-                                                                <option value="">Vyberte předmět</option>
-                                                                <option value="volno">Volno</option>
+                                                            <select name="predmet" id="jakypredmet">
                                                                 <option value="Kroužek">Kroužek</option>
+                                                                
+                                                                <!-- Tady probíhá úprava názvu předmětu -->
                                                                 <% for (let predmet of predmety) { %>
-                                                                    <option value="<%= predmet %>">
-                                                                        <%= predmet %>
+                                                                    <% let pr = predmet.split('-')[0]; %>
+                                                                    <% let typ = predmet.split('-')[1]; %>
+                                                                    <% let celyPredmet = pr; %>
+                                                                    <% if (typ == "c") {celyPredmet = `${pr}cv`} %>
+                                                                    <option value="<%= celyPredmet %>">
+                                                                        <%= celyPredmet %>
                                                                     </option>
-                                                                    <% } %>
+                                                                <% } %>
+                                                                
                                                             </select>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="mistnost">Učebna:</label>
                                                             <input type="text" name="mistnost" id="mistnost"
-                                                                placeholder="Název učebny" required>
+                                                                placeholder="Název učebny">
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="skupina">Skupina:</label>
@@ -337,7 +393,12 @@
                                                         </div>
                                                         <button class="btn-save"
                                                             onclick="validateAndSubmit(); toggleModal(event)"
-                                                            data-target="popupModal">Potvrdit</button>
+                                                            data-target="popupModal">Potvrdit
+                                                        </button>
+                                                        <button class="btn-del"
+                                                            onclick="deleteLesson(); toggleModal(event)"
+                                                            data-target="popupModal">Odstranit hodinu
+                                                        </button>
                                                     </form>
                                                 </main>
                                             </article>
@@ -351,7 +412,7 @@
                                                         <p><strong>Nová verze rozvrhu</strong></p>
                                                     </header>
                                                     <main>
-                                                        <form id="createForm""
+                                                        <form id="createForm"
                                                         action="/rozvrhy/vytvorit" method="POST">
                                                         <div class="form-group">
                                                             <label for="nazev">Název verze:</label>
@@ -361,6 +422,7 @@
                                                             <label for="popis">Popis:</label>
                                                             <textarea id="popis" name="popis" rows="3"></textarea>
                                                         </div>
+                                                        <input type="hidden" id="newVersionTimetableData" name="newVersionTimetableData">
                                                         <button type="submit" class="btn-save">Vytvořit</button>
                                                     </form>
                                                     </main>
@@ -437,6 +499,23 @@
             window.location.href = `/rozvrhy?verze=${id}`;
         }
 
+        document.getElementById('novaBtn').addEventListener('click', function () {
+            const timetableData = document.getElementById('timetableData');
+            const timetableDataInput = document.getElementById('newVersionTimetableData');
+            
+            if (timetableData && timetableData.dataset.rozvrh) {
+                const parsedData = JSON.parse(timetableData.dataset.rozvrh);
+                timetableDataInput.value = JSON.stringify(parsedData.hodiny);
+            }
+
+
+            toggleModal({
+                preventDefault: () => {},
+                currentTarget: { dataset: { target: "createFormModal" } }
+            });
+        });
+
+
         async function ulozitRozvrh() {
             const aktivniVerze = document.getElementById('jakaverze').value;
 
@@ -479,6 +558,8 @@
                             updateTileDisplay('S', den, cas, hodina);
                         });
                     });
+
+                    window.location.reload();
                 } else {
                     alert('Při ukládání došlo k chybě.');
                 }
@@ -514,7 +595,6 @@
                         tridaSpan.textContent = hodina.trida ? `${hodina.trida}` : "";
                     }
                 } else {
-                    // button.classList.replace('secondary', 'primary');
                     button.classList.remove('is-free');
                     predmetSpan.textContent = '+';
                     mistnostSpan.textContent = '';
@@ -583,6 +663,58 @@
             resetForm();
         }
 
+        function deleteLesson() {
+            var predmet = document.getElementById("jakypredmet").value;
+            var mistnost = document.getElementById("mistnost").value;
+            var skupina = document.getElementById("skupina").value;
+            var trida = document.getElementById("trida").value;
+
+            const hodina = {
+                predmet: predmet = "",
+                mistnost: mistnost = "",
+                skupina: skupina = "",
+                trida: trida = ""
+            };
+
+            if (druhTydne === 'L') {
+                rozvrh.lichy[denHodiny][casHodiny] = hodina;
+                updateTileDisplay('L', denHodiny, casHodiny, hodina);
+            } else {
+                rozvrh.sudy[denHodiny][casHodiny] = hodina;
+                updateTileDisplay('S', denHodiny, casHodiny, hodina);
+            }
+
+            resetForm();
+        }
+
+        document.getElementById('smazatBtn').addEventListener('click', async function() {
+            const aktivniVerze = document.getElementById('jakaverze').value;
+            
+            if (!confirm('Opravdu chcete smazat tuto verzi rozvrhu?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch('/rozvrhy/smazat-verzi', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        id: aktivniVerze
+                    })
+                });
+
+                if (response.ok) {
+                    window.location.href = '/rozvrhy';
+                } else {
+                    alert('Při mazání došlo k chybě.');
+                }
+            } catch (error) {
+                alert('Při mazání došlo k chybě.');
+            }
+        });
+
         window.onclick = function (event) {
             const createFormModal = document.getElementById('createFormModal');
             const popupModal = document.getElementById('popupModal');
@@ -597,10 +729,139 @@
 
         document.addEventListener('htmx:afterSwap', function () {
             initializeTimetable();
+
+            const editBtn = document.getElementById('editBtn');
+            const novaBtn = document.getElementById('novaBtn');
+            const smazatBtn = document.getElementById('smazatBtn');
+            const timetableButtons = document.querySelectorAll('.timetable-btn');
+            const verzeSel = document.getElementById('jakaverze');
+
+            if (!verzeSel || !verzeSel.options.length) {
+                editBtn.style.display = 'none';
+            } else {
+                const currentVersion = verzeSel.value;
+                const mostRecentVersion = verzeSel.options[0].value;
+                
+                if (currentVersion !== mostRecentVersion) {
+                    editBtn.style.display = 'none';
+                }
+            }
+
+            function lockTimetableButtons() {
+                timetableButtons.forEach(button => {
+                    button.classList.add('disabled');
+                    button.disabled = true;
+                });
+            }
+
+            function unlockTimetableButtons() {
+                timetableButtons.forEach(button => {
+                    button.classList.remove('disabled');
+                    button.disabled = false;
+                });
+            }
+
+            lockTimetableButtons();
+
+            editBtn.addEventListener('click', function() {
+                if (editBtn.textContent === 'Upravit rozvrh') {
+
+                    novaBtn.style.display = 'inline-block';
+                    smazatBtn.style.display = 'inline-block';
+
+                    unlockTimetableButtons();
+                    editBtn.textContent = 'Uložit';
+                } else {
+                    novaBtn.style.display = 'none';
+                    smazatBtn.style.display = 'none';
+
+                    lockTimetableButtons();
+                    editBtn.textContent = 'Upravit rozvrh';
+
+                    ulozitRozvrh();
+                }
+            });
         });
 
         document.addEventListener('DOMContentLoaded', function () {
             initializeTimetable();
+
+            const editBtn = document.getElementById('editBtn');
+            const novaBtn = document.getElementById('novaBtn');
+            const smazatBtn = document.getElementById('smazatBtn');
+            const timetableButtons = document.querySelectorAll('.timetable-btn');
+            const verzeSel = document.getElementById('jakaverze');
+            const predmetField = document.getElementById("jakypredmet");
+            const mistnostField = document.getElementById("mistnost");
+            const skupinaField = document.getElementById("skupina");
+            const tridaField = document.getElementById("trida");
+
+            if (!verzeSel || !verzeSel.options.length) {
+                editBtn.style.display = 'none';
+            } else {
+                const currentVersion = verzeSel.value;
+                const mostRecentVersion = verzeSel.options[0].value;
+                
+                if (currentVersion !== mostRecentVersion) {
+                    editBtn.style.display = 'none';
+                }
+            }
+
+            function lockTimetableButtons() {
+                timetableButtons.forEach(button => {
+                    button.classList.add('disabled');
+                    button.disabled = true;
+                });
+            }
+
+            function unlockTimetableButtons() {
+                timetableButtons.forEach(button => {
+                    button.classList.remove('disabled');
+                    button.disabled = false;
+                });
+            }
+
+            const handlePredmetChange = () => {
+                const selectedValue = predmetField.value;
+
+                if (selectedValue === "Kroužek") {
+                    mistnostField.disabled = true;
+                    skupinaField.disabled = true;
+                    tridaField.disabled = true;
+
+                    mistnostField.value = "";
+                    skupinaField.value = "cela";
+                    tridaField.value = "";
+                }
+                else {
+                    mistnostField.disabled = false;
+                    skupinaField.disabled = false;
+                    tridaField.disabled = false;
+                }
+            };
+
+            predmetField.addEventListener("change", handlePredmetChange);
+
+            lockTimetableButtons();
+
+            editBtn.addEventListener('click', function() {
+                if (editBtn.textContent === 'Upravit rozvrh') {
+
+                    novaBtn.style.display = 'inline-block';
+                    smazatBtn.style.display = 'inline-block';
+
+                    unlockTimetableButtons();
+                    editBtn.textContent = 'Uložit';
+                } else {
+                    novaBtn.style.display = 'none';
+                    smazatBtn.style.display = 'none';
+
+                    lockTimetableButtons();
+                    editBtn.textContent = 'Upravit rozvrh';
+
+                    ulozitRozvrh();
+                }
+            });
 
             const createForm = document.getElementById('createForm');
             if (createForm) {
