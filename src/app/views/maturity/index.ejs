@@ -26,6 +26,7 @@
     padding: 10px;
     position: relative;
     display: inline-block;
+    color: white;
     font-size: 1.5em;
   }
   .headline::after {
@@ -38,94 +39,105 @@
     height: 2px;
     background-color: white;
   }
+  
+  input[disabled],
+  select[disabled],
+  textarea[disabled] {
+    color: inherit !important;
+    opacity: 1 !important;
+  }
 </style>
-<article style="flex: 3; overflow-y: auto">
+
+<article style="flex: 3; overflow-y: auto; position: relative">
   <header>
     <nav>
       <ul>
         <li>
-          <h1>Praktická</h1>
+          <h1>Maturity</h1>
         </li>
       </ul>
       <ul>
+        <li>
+          <button
+            type="submit"
+            id="submitButton"
+            class="editbutton"
+            form="form"
+            style="display: none;">
+            Uložit
+          </button>
+          <button
+            type="button"
+            id="editButton"
+            class="editbutton"
+            onclick="enableForm()">
+            Edit
+          </button>
+        </li>
         <li>
           <div role="group">
             <button
               hx-get="/maturity"
               hx-target="body"
               hx-push-url="true"
-              hx-swap="transition:true">
+              >
             Praktická</button>
             <button
               class="outline"
               hx-get="/maturity/pcmz"
               hx-target="body"
               hx-push-url="true"
-              hx-swap="transition:true">
+              >
             Ústní</button>
             <button
               class="outline"
               hx-get="/maturity/scmz"
               hx-target="body"
               hx-push-url="true"
-              hx-swap="transition:true">
+              >
             Státní</button>
             <button
               class="outline"
               hx-get="/maturity/sloh"
               hx-target="body"
               hx-push-url="true"
-              hx-swap="transition:true">
+              >
             Sloh</button>
           </div>
         </li>
       </ul>
     </nav>
   </header>
-<h1 class="headline">Praktická zkouška z odborných předmětů</h1>
-  <form
-    action="/maturity/ukladanipzop"
-    method="POST"
-    style="display: flex; flex-direction: column"
-    id="form">
-    <label for="den-konani">Den konání:</label>
-    <input type="date" id="den-konani" name="den_konani" value=<%=dny[0]%> disabled/>
-
-    <label for="dodatecne-dny">Dodatečné dny:</label>
-    <input type="date" id="dodatecne-dny" name="dodatecne_dny" value=<%=dny[1]%> disabled/>
-
-    <label for="ucebna">Učebna:</label>
-    <select
-      id="ucebna"
-      name="ucebna"
-      style="margin-bottom: 1em; padding: 0.5em"
-      disabled>
-      <% for (const id in ucebny) { %> 
-        <% const nazevUcebny = ucebny[id]; %>
-        <% if (ucebna === id) { %>
-          <option value="<%= id %>" selected><%= nazevUcebny %></option>
-        <% } else { %>
-          <option value="<%= id %>"><%= nazevUcebny %></option>
+  <main>
+    <h2>Praktická zkouška z odborných předmětů</h2>
+    <form
+      action="/maturity/ukladanipzop"
+      method="POST"
+      style="display: flex; flex-direction: column"
+      id="form">
+      <label for="den-konani">Den konání:</label>
+      <input type="date" id="den-konani" name="den_konani" value=<%=dny[0]%> disabled/>
+  
+      <label for="dodatecne-dny">Dodatečné dny:</label>
+      <input type="date" id="dodatecne-dny" name="dodatecne_dny" value=<%=dny[1]%> disabled/>
+  
+      <label for="ucebna">Učebna:</label>
+      <select
+        id="ucebna"
+        name="ucebna"
+        style="margin-bottom: 1em; padding: 0.5em"
+        disabled>
+        <% for (const id in ucebny) { %> 
+          <% const nazevUcebny = ucebny[id]; %>
+          <% if (ucebna === id) { %>
+            <option value="<%= id %>" selected><%= nazevUcebny %></option>
+          <% } else { %>
+            <option value="<%= id %>"><%= nazevUcebny %></option>
+          <% } %>
         <% } %>
-      <% } %>
-    </select>
-        
-    <div style="text-align: center">
-      <button
-        type="button"
-        id="editButton"
-        onclick="enableForm()"
-        style="padding: 0.5em; border: none; cursor: pointer; width: 150px">
-        Edit
-      </button>
-      <button
-        type="submit"
-        id="submitButton"
-        style="padding: 0.5em; border: none; cursor: pointer; width: 150px; display: none;">
-        Uložit
-      </button>
-    </div>
-  </form>
+      </select>
+    </form>
+  </main>
 </article>
 
 <%- include('../partials/tail') %>
