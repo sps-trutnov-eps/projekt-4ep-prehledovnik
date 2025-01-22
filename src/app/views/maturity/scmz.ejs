@@ -119,6 +119,7 @@
           <th>Zadávání:</th>
           <th>Čas:</th>
           <th>Učebna:</th>
+          <th>Předmět:</th>
         </tr>
       </thead>
       <tbody>
@@ -133,6 +134,7 @@
             <%let bool_extra_info = extra_info.length > 0%>
             <%let cas = bool_extra_info ? extra_info[0] : ""%>
             <%let ucebna = bool_extra_info ? extra_info[1] : ""%>
+            <%let predmet = bool_extra_info ? extra_info[2] : ""%>
             <%if (extra_info.length == 0) {zadavani = false}%>
             
             <td><input type="date" value="<%=date%>" name="den<%=i+1%>_datum" disabled /></td>
@@ -164,6 +166,18 @@
                 <option value="T15" <%if (ucebna == "T15") {%>selected="selected"<%}%>>T15</option>
                 <option value="T16" <%if (ucebna == "T16") {%>selected="selected"<%}%>>T16</option>
                 <option value="T17" <%if (ucebna == "T17") {%>selected="selected"<%}%>>T17</option>
+              </select>
+            </td>
+            <td>
+              <select
+                name="den<%=i+1%>_predmet"
+                class="predmet-select"
+                disabled
+                style="padding: 0.5em">
+                <option value="">Vyberte předmět</option>
+                <option value="ČJ" <%if (predmet == "ČJ") {%>selected="selected"<%}%>>ČJ</option>
+                <option value="AJ" <%if (predmet == "AJ") {%>selected="selected"<%}%>>AJ</option>
+                <option value="MA" <%if (predmet == "MA") {%>selected="selected"<%}%>>MA</option>
               </select>
             </td>
           </tr>
@@ -216,6 +230,15 @@
                 <option value="T17">T17</option>
               </select>
             </td>
+            <td>
+              <select name="den${dayCounter}_predmet" class="predmet-select" disabled style="padding: 0.5em;">
+                <option value="">Vyberte předmět</option>
+                <option value="ČJ">ČJ</option>
+                <option value="AJ">AJ</option>
+                <option value="MA">MA</option>
+              </select>
+            </td>
+             
           `;
 
       tableBody.appendChild(newRow);
@@ -231,19 +254,23 @@
     const checkbox = row.querySelector(".zadavani-checkbox");
     const timeInput = row.querySelector(".cas-input");
     const classroomSelect = row.querySelector(".ucebna-select");
+    const subjectSelect = row.querySelector(".predmet-select");
 
     checkbox.addEventListener("change", function () {
-      if (checkbox.checked) {
-        timeInput.disabled = false;
-        classroomSelect.disabled = false;
-      } else {
-        timeInput.value = "";
-        timeInput.disabled = true;
-        classroomSelect.selectedIndex = 0;
-        classroomSelect.disabled = true;
-      }
-    });
-  }
+    if (checkbox.checked) {
+      timeInput.disabled = false;
+      classroomSelect.disabled = false;
+      subjectSelect.disabled = false;
+    } else {
+      timeInput.value = "";
+      timeInput.disabled = true;
+      classroomSelect.selectedIndex = 0;
+      classroomSelect.disabled = true;
+      subjectSelect.selectedIndex = 0;
+      subjectSelect.disabled = true;  
+    }
+  });
+}
 
   document.getElementById("edit-button").addEventListener("click", function () {
     document.querySelectorAll("input[type='date'], input[type='checkbox']").forEach(input => input.disabled = false);
@@ -261,10 +288,12 @@
       const checkbox = row.querySelector(".zadavani-checkbox");
       const timeInput = row.querySelector(".cas-input");
       const classroomSelect = row.querySelector(".ucebna-select");
+      const subjectSelect = row.querySelector(".predmet-select");
 
       if (checkbox.checked) {
         timeInput.disabled = false;
         classroomSelect.disabled = false;
+        subjectSelect.disabled = false;
       }
     });
   });

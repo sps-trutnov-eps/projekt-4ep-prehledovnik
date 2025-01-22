@@ -303,7 +303,7 @@ function gM(){return db.get("maturity")}
 function sM(maturity){db.set("maturity", maturity)}
 
 const maturity = {
-    pridatMaturitniEvent: (nazev, dny, casy, ucebny) => {
+    pridatMaturitniEvent: (nazev, dny, casy, ucebny, predmety) => {
         let maturity = gM();
         
         maturity[nazev] = null;
@@ -314,6 +314,11 @@ const maturity = {
             ucebny = []
         }
         maturity[nazev] = {dny, casy, ucebny};
+
+        if (nazev == "SČMZ"){
+          maturity[nazev]["predmety"] = predmety;
+        }
+
         sM(maturity);
     },
     ziskarMaturituDleNazvu: (nazev) => {
