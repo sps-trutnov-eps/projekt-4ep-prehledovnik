@@ -1,124 +1,116 @@
 <article style="flex: 3; box-shadow: none;">
-   <header>
-      <nav>
-        <hgroup>
-          <h1 style="display:inline; vertical-align:middle;">Přehled</h1>
-			 <p style="display:inline; vertical-align:bottom; margin-left: 1rem" >
+	<header>
+	   <nav>
+		  <hgroup>
+			 <h1 style="display:inline; vertical-align:middle;">Přehled</h1>
+			 <p style="display:inline; vertical-align:bottom; margin-left: 1rem">
 				<%= clas["trida"].slice(-1); %>. Pololetí -
 				<%= clas["trida"].slice(0, 1); %>.<%= clas["trida"].slice(1, 3).toUpperCase(); %>
-			 
 			 </p>
-        </hgroup>
+		  </hgroup>
 		  <hgroup style="display: flex; gap: 0.5em;">
-			  <input class="tlacitko" hx-hidden-input="file"  style="width: 8rem; padding: 0; min-height: 0; height: 2em; margin: 0;" type="button" value="Upload" hx-on:click="document.getElementById('fileInput').click()" />
-			  <input class="saveButton" style="width: 8rem; padding: 0; min-height: 0; height: 2em; margin: 0;" type="button" value="Uložit" onclick="save();" />
-			  
-			  <!-- invisible file input REPLACE 'null' WITH <'%= id %'> WHEN ABLE TO -->
-			  <!-- I forgot what id is.... -->
-                              <input type="file" 
-                                     id="fileInput" 
-                                     style="display:none" 
-                                     name="file"
-                                     hx-post="/projekty/upload/null"
-                                     hx-target="body"
-                                     hx-encoding="multipart/form-data"
-                                     onchange="this.closest('form')?.requestSubmit()">
-			  
-			  <input class="createButton" style="width: 8rem; padding: 0; min-height: 0; height: 2em; margin: 0;" type="button" value="Přehled" onclick="showElementAndHideElement('class', 'classDetails')" />
-			  <input class="createButton" style="width: 8rem; padding: 0; min-height: 0; height: 2em; margin: 0;" type="button" value="Detaily" onclick="showElementAndHideElement('classDetails', 'class'); sortTableAndOutput();" />
-			</hgroup>
-      </nav>
+			 <input class="tlacitko" hx-hidden-input="file" style="width: 8rem; padding: 0; min-height: 0; height: 2em; margin: 0;" type="button" value="Upload" hx-on:click="document.getElementById('fileInput').click()" />
+			 <input class="saveButton" style="width: 8rem; padding: 0; min-height: 0; height: 2em; margin: 0;" type="button" value="Uložit" onclick="save();" />
+			 <input type="file" 
+					id="fileInput" 
+					style="display:none" 
+					name="file"
+					hx-post="/projekty/upload/null"
+					hx-target="body"
+					hx-encoding="multipart/form-data"
+					onchange="this.closest('form')?.requestSubmit()">
+			 <input class="createButton" style="width: 8rem; padding: 0; min-height: 0; height: 2em; margin: 0;" type="button" value="Přehled" onclick="showElementAndHideElement('class', 'classDetails')" />
+			 <input class="createButton" style="width: 8rem; padding: 0; min-height: 0; height: 2em; margin: 0;" type="button" value="Detaily" onclick="showElementAndHideElement('classDetails', 'class'); sortTableAndOutput();" />
+		  </hgroup>
+	   </nav>
 	</header>
-	
-   <main>
-		<div class="timeline-container">
-				  <div class="timeline">
-						<div class="progress"></div>
-						<div class="circle"></div>
-						<div class="circle"></div>
-						<div class="circle"></div>
-						<div class="circle"></div>
-						<div class="circle filled"></div>
-						<div class="circle filled"></div>
-						<div class="circle filled"></div>
-				  </div>
-				  <div class="labels">
-						<div>0</div>
-						<div>1</div>
-						<div>2</div>
-						<div>3</div>
-						<div>4</div>
-						<div>5</div>
-						<div>6</div>
-				  </div>
-			 </div>
+ 
+	<main>
+	   <div class="timeline-container">
+		  <div class="timeline">
+			 <div class="progress"></div>
+			 <div class="circle"></div>
+			 <div class="circle"></div>
+			 <div class="circle"></div>
+			 <div class="circle"></div>
+			 <div class="circle filled"></div>
+			 <div class="circle filled"></div>
+			 <div class="circle filled"></div>
+		  </div>
+		  <div class="labels">
+			 <div>0</div>
+			 <div>1</div>
+			 <div>2</div>
+			 <div>3</div>
+			 <div>4</div>
+			 <div>5</div>
+			 <div>6</div>
+		  </div>
+	   </div>
 		<div id="hiddenDate" style="display:none">
-			<% if(clas["tymy"] != undefined) { %><%= clas["tymy"][0]["pitch"]["datum"] %><% } %>
-		</div>
-	
-      <div style=" display: flex; position: relative; overflow-y: auto; max-height: calc(100vh - 14em); padding-right: 15px; ">
-         <div id="mainThing" style="flex: auto">
-				
-				<input type="date" id="datum" name="datum" value="<% if(clas["tymy"] != undefined) { %><%= clas["tymy"][0]["pitch"]["datum"] %><% } %>">
-				
- 				<table id="curriculums">
-               <thead style="position: sticky; top: 0; z-index: 1">
-                  <tr>
-                     <th style="width: 10%; text-align: center;">Tým</th>
-							<th style="text-align: center;">Členové</th>
-							<th style="text-align: center;">Popis</th>
-							<th style="text-align: center;">Progres</th>
-						</tr>
-					</thead>
-               <tbody id="table-body">
-						<% if (clas["tymy"] != undefined) { %>
-							<% for (let i = 0; i < clas["tymy"].length; i++) { %>
-								<% let team = clas["tymy"][i]; %>
-								
-								<tr class="cur">
-								 <td style="display: flex; align-items: center;" class="curriculum-input">
-									<input type="button" value="-" class="deleteCurButton" style="margin-bottom: 0px;" onclick="deleteTeam(this)">
-									<div class="teamId" style="margin: 0 auto;"><%= team.cislo %></div>
-									<div class="ActulTeamId" style="display: none"><%= team.cislo %></div>
-								 </td>
-								 <td style="text-align: center;" class="curriculum-input">
-									<button class="dropdown-btn" onclick="toggleDropdown(this)"><%= team["clenove"].length %></button>
-									<div class="dropdown-content" id="team-1-dropdown">
-										<div class="dropdown-members">
-										
-											<% for (let iM = 0; iM < team["clenove"].length; iM++) { %>
-											
-												<div style="display: flex; align-items: center;" class="members-input">
-													<input type="button" value="-" class="deleteButton" style="margin-bottom: 0;" onclick="deleteOption(this)">
-													<input class="dropdown-item" type="text" value="<%= team["clenove"][iM]; %>" style="margin: 0" onchange="editMemberInDetails(this)" onkeypress="this.onchange()" onpaste="this.onchange()" oninput="this.onchange()">
-												</div>
-											
-											<% } %>
-											
-										</div>
-									  <div class="add-option">
-											<input class="createButton" style="padding: 0; min-height: 0; height: 2em; margin: 0" type="button" value="+" onclick="addNewOption(this)" />
-									  </div>
-									</div>
-								 </td>
-								 <td style="display: flex;" class="curriculum-input">
-									<input type="text" value="<%= team["tema"]; %>" style="margin: 0px;" class="curriculum-i, description">
-								 </td>
-								 <td style="text-align: center;">0</td>
-								</tr>
-						
-							<% } %>
-						<% } %>
-						
-                  <tr style="position: sticky; bottom: 0; z-index: 1">
-                     <td colspan="7">
-                        <input class="createButton" style="padding: 0; min-height: 0; height: 2em; margin: 0" type="button" value="+" onclick="addNewTeam(this)" />
+			<% if (clas["tymy"] && clas["tymy"].length > 0 && clas["tymy"][0]["pitch"] && clas["tymy"][0]["pitch"]["datum"]) { %>
+			   <%= clas["tymy"][0]["pitch"]["datum"] %>
+			<% } else { %>
+			   <span>Datum není k dispozici</span>
+			<% } %>
+		 </div>
+ 
+	   <div style="display: flex; position: relative; overflow-y: auto; max-height: calc(100vh - 14em); padding-right: 15px;">
+		  <div id="mainThing" style="flex: auto">
+			 <input type="date" id="datum" name="datum" value="<% if (clas["tymy"] && clas["tymy"].length > 0 && clas["tymy"][0]["pitch"]) { %><%= clas["tymy"][0]["pitch"]["datum"] %><% } else { %><% } %>">
+			 <table id="curriculums">
+				<thead style="position: sticky; top: 0; z-index: 1">
+				   <tr>
+					  <th style="width: 10%; text-align: center;">Tým</th>
+					  <th style="text-align: center;">Členové</th>
+					  <th style="text-align: center;">Popis</th>
+					  <th style="text-align: center;">Progres</th>
+				   </tr>
+				</thead>
+				<tbody id="table-body">
+				   <% if (clas["tymy"] != undefined) { %>
+					  <% for (let i = 0; i < clas["tymy"].length; i++) { %>
+						 <% let team = clas["tymy"][i]; %>
+						 <tr class="cur">
+							<td style="display: flex; align-items: center;" class="curriculum-input">
+							   <input type="button" value="-" class="deleteCurButton" style="margin-bottom: 0px;" onclick="deleteTeam(this)">
+							   <div class="teamId" style="margin: 0 auto;"><%= team.cislo %></div>
+							   <div class="ActulTeamId" style="display: none"><%= team.cislo %></div>
 							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-         
-		</div>
+							<td style="text-align: center;" class="curriculum-input">
+							   <button class="dropdown-btn" onclick="toggleDropdown(this)"><%= team["clenove"] ? team["clenove"].length : 0 %></button>
+							   <div class="dropdown-content" id="team-1-dropdown">
+								  <div class="dropdown-members">
+									 <% if (team["clenove"]) { %>
+										<% for (let iM = 0; iM < team["clenove"].length; iM++) { %>
+										   <div style="display: flex; align-items: center;" class="members-input">
+											  <input type="button" value="-" class="deleteButton" style="margin-bottom: 0;" onclick="deleteOption(this)">
+											  <input class="dropdown-item" type="text" value="<%= team["clenove"][iM]; %>" style="margin: 0" onchange="editMemberInDetails(this)" onkeypress="this.onchange()" onpaste="this.onchange()" oninput="this.onchange()">
+										   </div>
+										<% } %>
+									 <% } %>
+								  </div>
+								  <div class="add-option">
+									 <input class="createButton" style="padding: 0; min-height: 0; height: 2em; margin: 0" type="button" value="+" onclick="addNewOption(this)" />
+								  </div>
+							   </div>
+							</td>
+							<td style="display: flex;" class="curriculum-input">
+							   <input type="text" value="<%= team["tema"] || '' %>" style="margin: 0px;" class="curriculum-i, description">
+							</td>
+							<td style="text-align: center;">0</td>
+						 </tr>
+					  <% } %>
+				   <% } %>
+				   <tr style="position: sticky; bottom: 0; z-index: 1">
+					  <td colspan="7">
+						 <input class="createButton" style="padding: 0; min-height: 0; height: 2em; margin: 0" type="button" value="+" onclick="addNewTeam(this)" />
+					  </td>
+				   </tr>
+				</tbody>
+			 </table>
+		  </div>
+	   </div>
 	</main>
-</article>
+ </article>
+ 
