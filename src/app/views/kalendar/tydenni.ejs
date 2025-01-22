@@ -9,7 +9,7 @@
   .grid-item {
     border: 1px solid rgba(0, 0, 0, 0.8);
     margin: 0;
-    padding: 10px;
+    /* padding: 10px; */
     position: relative;
     display: flex;
     flex-direction: column;
@@ -20,7 +20,7 @@
     position: absolute;
     top: 5px;
     left: 5px;
-    font-size: 12px;
+    /* font-size: 12px; */
     font-weight: bold;
     color: #76baff;
   }
@@ -29,30 +29,35 @@
     position: absolute;
     top: 5px;
     right: 5px;
-    font-size: 12px;
+    font-size: 12px; 
     color: #76baff;
     font-weight: bold;
   }
 
   .grid-item .period {
-    font-size: 14px;
+    font-size: 18px;
     font-weight: bold;
     margin: auto;
     color: #76baff;
+  }
+  #detailButton {
+    width: 100%;
+    /* zmenšit */
   }
 
 
    .grid-container {
      display: grid;
      grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto;
-     padding: 10px;
+     /* padding: 10px; */
    }
    .grid-item {
      border: 1px solid rgba(0, 0, 0, 0.8);
-     padding-inline: 15px;
-     padding-block: 45px;
+     /* padding-inline: 5px;
+     padding-block: 10px; */
+     padding: 5px;
      margin: 0;
-     font-size: 18px;
+     /* font-size: 18px; */
      text-align: center;
    }
    .grid-item-h {
@@ -82,6 +87,9 @@
      padding-block: 30px;
      text-align: center;
    }
+
+
+    /* FOMRAT DIVU DETAILU */
    #detail {
         display: none;
         position: fixed;
@@ -95,6 +103,8 @@
         padding-bottom: 80px;
         z-index: 1000;
         text-align: center;
+
+        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
     }
 
     .detailItem {
@@ -109,7 +119,7 @@
         /*color: #666;*/
         margin-bottom: 4px;
     }
-    .detailButton {
+    .detailCloseButton {
         position: absolute;
         bottom: 20px;
         left: 50%;
@@ -125,7 +135,7 @@
         transition: background-color 0.2s;
     }
 
-    .detailButton:hover {
+    .detailCloseButton:hover {
         background-color: #ff0000;
     }
 
@@ -195,7 +205,7 @@
         <p id="groupDet" class="detailItem"></p>
         <p id="countDet" class="detailItem"></p>
         <p id="themeDet" class="detailItem"></p>
-        <button class="detailButton" onclick="detailOff()">X</button>
+        <button class="detailCloseButton" onclick="detailOff()">Zavřít</button>
       </div>
       <% let Weeks = week.length %>
       
@@ -305,7 +315,7 @@
                       
                     <%}%>               
                   <% }); %>
-                  <button onclick="detailDisplay(this)">X</button>
+                  <button id="detailButton" onclick="detailDisplay(this)">Detail</button>
                 </div>
             <%}%>
           <%} %>
