@@ -197,7 +197,7 @@
                       <%for (i = 0; i < data[datum].length; i++) { if (data[datum][i][0]-1 == y) {kondice = data[datum][i][1];} }%>
                       <input type="hidden" name="den<%=x%>_ucebna-<%=y+1%>[]" value="<%=kondice%>"/>
                       <%if (kondice != false) {%>
-                      <%=kondice%>
+                        <%=kondice%>
                       <%}else{%>
                           Vybrat
                       <%}%>
@@ -237,11 +237,7 @@
   
       <p id="selectedHourText"></p>
   
-      <select id="classroomSelect">
-        <option value="T15">T15</option>
-        <option value="T16">T16</option>
-        <option value="T17">T17</option>
-      </select>
+      <input type="text" id="classroomSelect">
       <br /><br />
       <button type="button" onclick="saveClassroom()">Uložit</button>
       <button type="button" onclick="closeModal()">Zrušit</button>
