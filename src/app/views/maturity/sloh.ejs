@@ -371,17 +371,6 @@
     tableBody.appendChild(newRow);
   }
 
-  // Initialize scripts on page load
-  document.addEventListener("DOMContentLoaded", function() {
-    toggleEdit();
-    // Add other initialization code here
-  });
-
-  // Reinitialize scripts after htmx swaps content
-  document.body.addEventListener("htmx:afterSwap", function() {
-    toggleEdit();
-    // Add other reinitialization code here
-  });
   function enableForm() {
     const form = document.getElementById("form");
     const inputs = form.querySelectorAll("input, select");
