@@ -33,8 +33,11 @@
         padding-bottom: 0;
         margin: 0;
         background-color: var(--pico-card-background-color);
+        
+        
 
-        p {
+        p.week-days { 
+            color: #0172ad;
             position: relative; /* Ensure positioning context */
             background-color: var(--pico-background-color);
             box-shadow: /* Still WIP */
@@ -225,9 +228,11 @@
                 <%
                 let date = String(new Date(i).toLocaleDateString('en-CA', {timeZone: 'Europe/Prague'}))
                 let nextDate = String(new Date(i+increment).toLocaleDateString('en-CA', {timeZone: 'Europe/Prague'}))
+                let currentMonth = new Date(i).getMonth() + 1;
+                let backgroundColor = currentMonth % 2 === 0 ? 'var(--schedule-bg-lighter)' : 'var(--schedule-bg-darker)';
                 %>
 
-                <section id=<%= date %>  style="grid-column-start: <%= new Date(i).getDay()%> ;" class="grid-item">
+                <section id=<%= date %>  style="grid-column-start: <%= new Date(i).getDay()%>; background-color: <%= backgroundColor %>;" class="grid-item">
                     <% if(new Date(i).getDay() == 6) {%>
                     <p class="days-mon"><%= date.split("-")[2] %>.<%= date.split("-")[1] %>. - <%= nextDate.split("-")[2] %>.<%= nextDate.split("-")[1] %>.</p>
 

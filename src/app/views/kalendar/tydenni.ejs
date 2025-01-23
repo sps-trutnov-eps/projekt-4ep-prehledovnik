@@ -1,24 +1,18 @@
 <!DOCTYPE html>
 <%- include('../partials/head'); %>
 <style>
-    .grid-container {
-    display: grid;
-    grid-template-columns: repeat(11, 1fr);
-  }
-
-  .grid-item {
-    border: 1px solid rgba(0, 0, 0, 0.8);
-    margin: 0;
-    padding: 10px;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    font-size: 18px;
-  }
-
-  .grid-item .class-group {
+  .grid-item .class {
     position: absolute;
     top: 5px;
+    left: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #76baff;
+  }
+
+  .grid-item .group {
+    position: absolute;
+    top: 20px;
     left: 5px;
     font-size: 12px;
     font-weight: bold;
@@ -29,31 +23,47 @@
     position: absolute;
     top: 5px;
     right: 5px;
-    font-size: 12px;
+    font-size: 12px; 
     color: #76baff;
     font-weight: bold;
   }
 
   .grid-item .period {
-    font-size: 14px;
+    margin-top: 30px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    
+    font-size: 18px;
     font-weight: bold;
-    margin: auto;
-    color: #76baff;
+    color: #0172ad;
+  }
+  #detailButton {
+    width: 100%;
+    padding: 0;
+    height: 30px;
+    margin-top: 0;
+    /* zmenšit */
   }
 
 
    .grid-container {
      display: grid;
-     grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto;
-     padding: 10px;
+     grid-template-columns: 70px repeat(10, 1fr);
+     /* padding: 10px; */
    }
    .grid-item {
      border: 1px solid rgba(0, 0, 0, 0.8);
-     padding-inline: 15px;
-     padding-block: 45px;
+     padding-inline: 5px;
+     padding-block: 10px;
+     padding: 5px;
      margin: 0;
      font-size: 18px;
      text-align: center;
+     
+     position: relative;
+     display: flex;
+     flex-direction: column;
+     font-size: 18px;
    }
    .grid-item-h {
       border: 1px solid rgba(0, 0, 0, 0.8);
@@ -62,6 +72,7 @@
       font-size: 18px;
       text-align: center;
    }
+   
 
    #naAktualniButton {
         margin-right: 2em; /* odsazení od tlačítka "Na aktuální"  */
@@ -81,7 +92,12 @@
      padding-inline: 0;
      padding-block: 30px;
      text-align: center;
+     font-size: 18px;
    }
+   
+
+
+    /* FOMRAT DIVU DETAILU */
    #detail {
         display: none;
         position: fixed;
@@ -95,6 +111,8 @@
         padding-bottom: 80px;
         z-index: 1000;
         text-align: center;
+
+        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
     }
 
     .detailItem {
@@ -109,7 +127,7 @@
         /*color: #666;*/
         margin-bottom: 4px;
     }
-    .detailButton {
+    .detailCloseButton {
         position: absolute;
         bottom: 20px;
         left: 50%;
@@ -119,13 +137,12 @@
         border: none;
         border-radius: 4px;
         font-size: 24px;
-        font-weight: bold;
         padding: 8px 40px;
         cursor: pointer;
         transition: background-color 0.2s;
     }
 
-    .detailButton:hover {
+    .detailCloseButton:hover {
         background-color: #ff0000;
     }
 
@@ -195,7 +212,7 @@
         <p id="groupDet" class="detailItem"></p>
         <p id="countDet" class="detailItem"></p>
         <p id="themeDet" class="detailItem"></p>
-        <button class="detailButton" onclick="detailOff()">X</button>
+        <button class="detailCloseButton" onclick="detailOff()">Zavřít</button>
       </div>
       <% let Weeks = week.length %>
       
@@ -239,8 +256,8 @@
             
             <% let formattedDate = `${currentDate.getDate()}.${currentDate.getMonth() + 1}.` %>
             <p class="grid-item den-tydne" id="<%= formattedDate %>">
-              <span class="cislo-hodiny"><%= daysDisplay[i] %></span><br>
-              <span><%= formattedDate %></span>
+              <span class="cislo-hodiny"><%= daysDisplay[i] %></span>
+              <span class="datum-dne"><%= formattedDate %></span>
             </p>
             <% for(let j=0;j<= 9;j++) {%>
               <% let key%>
@@ -248,7 +265,9 @@
                 <% if (week[t] % 2 === 0) { %>
                   <p class="room"><%= rozvrh.hodiny.sudy[days[i]][j].mistnost%></p>
                   <p class="period"><%= rozvrh.hodiny.sudy[days[i]][j].predmet%></p>
-                  <p class="group"><%= rozvrh.hodiny.sudy[days[i]][j].skupina%></p>
+                  <p class="group"> 
+                    <%= rozvrh.hodiny.sudy[days[i]][j].predmet !== "volno" ? rozvrh.hodiny.sudy[days[i]][j].skupina : "" %>
+                  </p>
                   <p class="class"><%= rozvrh.hodiny.sudy[days[i]][j].trida%></p>
                   <%
                     if( rozvrh.hodiny.sudy[days[i]][j].predmet != "volno"){
@@ -261,7 +280,9 @@
                 <% if (week[t] % 2 === 1) { %>
                   <p class="room"><%= rozvrh.hodiny.lichy[days[i]][j].mistnost%></p>
                   <p class="period"><%= rozvrh.hodiny.lichy[days[i]][j].predmet%></p>
-                  <p class="group"><%= rozvrh.hodiny.lichy[days[i]][j].skupina%></p>
+                  <p class="group">
+                    <%= rozvrh.hodiny.sudy[days[i]][j].predmet !== "volno" ? rozvrh.hodiny.sudy[days[i]][j].skupina : "" %>
+                  </p>
                   <p class="class"><%= rozvrh.hodiny.lichy[days[i]][j].trida%></p>
                   <%            
                     if( rozvrh.hodiny.lichy[days[i]][j].predmet != "volno"){
@@ -305,7 +326,10 @@
                       
                     <%}%>               
                   <% }); %>
-                  <button onclick="detailDisplay(this)">X</button>
+                  <% if ((week[t] % 2 === 0 && rozvrh.hodiny.sudy[days[i]][j].predmet !== "volno") || 
+                  (week[t] % 2 === 1 && rozvrh.hodiny.lichy[days[i]][j].predmet !== "volno")) { %>
+                  <button id="detailButton" onclick="detailDisplay(this)">Detail</button>
+                  <% } %>
                 </div>
             <%}%>
           <%} %>
