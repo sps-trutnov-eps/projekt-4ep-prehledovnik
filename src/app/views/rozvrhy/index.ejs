@@ -281,7 +281,7 @@
                     </form>
                 </div>
                 <% } else { %>
-                    <% const days=['Po', 'Ut' , 'St' , 'Ct' , 'Pa' ]; %>
+                    <% const days=['Po', 'Út' , 'St' , 'Čt' , 'Pá' ]; %>
                         <% const periods=['0', '1' , '2' , '3' , '4' , '5' , '6' , '7' , '8', '9' ]; %>
                             <% const timeRanges=['7:10 - 7:55', '8:00 - 8:45' , '8:50 - 9:35' , '9:55 - 10:40'
                                 , '10:45 - 11:30' , '11:35 - 12:25' , '12:35 - 13:20' , '13:25 - 14:10'
@@ -340,17 +340,25 @@
                                                             <label for="trida">Třída:</label>
                                                             <select name="trida" id="trida">
                                                                 <optgroup label="EP">
-                                                                    <option value="EP1">1.EP</option>
-                                                                    <option value="EP2">2.EP</option>
-                                                                    <option value="EP3">3.EP</option>
-                                                                    <option value="EP4">4.EP</option>
+                                                                    <option value="1.EP">1.EP</option>
+                                                                    <option value="2.EP">2.EP</option>
+                                                                    <option value="3.EP">3.EP</option>
+                                                                    <option value="4.EP">4.EP</option>
                                                                 </optgroup>
                                                                 <optgroup label="IT">
-                                                                    <option value="IT1">1.IT</option>
-                                                                    <option value="IT2">2.IT</option>
-                                                                    <option value="IT3">3.IT</option>
-                                                                    <option value="IT4">4.IT</option>
+                                                                    <option value="1.IT">1.IT</option>
+                                                                    <option value="2.IT">2.IT</option>
+                                                                    <option value="3.IT">3.IT</option>
+                                                                    <option value="4.IT">4.IT</option>
                                                                 </optgroup>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="skupina">Skupina:</label>
+                                                            <select name="skupina" id="skupina">
+                                                                <option value="cela" selected>Celá třída</option>
+                                                                <option value="sk1">Skupina 1</option>
+                                                                <option value="sk2">Skupina 2</option>
                                                             </select>
                                                         </div>
                                                         <div class="form-group">
@@ -378,14 +386,7 @@
                                                             <input type="text" name="mistnost" id="mistnost"
                                                                 placeholder="Název učebny">
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label for="skupina">Skupina:</label>
-                                                            <select name="skupina" id="skupina">
-                                                                <option value="cela" selected>Celá třída</option>
-                                                                <option value="sk1">Skupina 1</option>
-                                                                <option value="sk2">Skupina 2</option>
-                                                            </select>
-                                                        </div>
+                                                        
                                                         <button class="btn-save"
                                                             onclick="validateAndSubmit(); toggleModal(event)"
                                                             data-target="popupModal">Potvrdit
@@ -432,10 +433,10 @@
     <script>
         const emptyTimetable = {
             "lichy": {
-                "Po": {}, "Ut": {}, "St": {}, "Ct": {}, "Pa": {}
+                "Po": {}, "Út": {}, "St": {}, "Čt": {}, "Pá": {}
             },
             "sudy": {
-                "Po": {}, "Ut": {}, "St": {}, "Ct": {}, "Pa": {}
+                "Po": {}, "Út": {}, "St": {}, "Čt": {}, "Pá": {}
             }
         };
 
