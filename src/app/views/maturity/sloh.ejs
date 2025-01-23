@@ -30,13 +30,6 @@
     background-color: transparent;
     border: none;
   }
-  
-  input[disabled],
-  select[disabled],
-  textarea[disabled] {
-    color: inherit !important;
-    opacity: 1 !important;
-  }
 
   .headline-container {
     display: flex;
@@ -115,31 +108,23 @@
           <div role="group">
             <button
               class="outline"
-              hx-get="/maturity"
-              hx-target="body"
-              hx-push-url="true"
-              hx-swap="transition:true">
-            Praktická</button>
+              onclick="window.location.href='/maturity'">
+              Praktická
+            </button>
             <button
               class="outline"
-              hx-get="/maturity/pcmz"
-              hx-target="body"
-              hx-push-url="true"
-              hx-swap="transition:true">
-            Ústní</button>
+              onclick="window.location.href='/maturity/pcmz'">
+              Ústní
+            </button>
             <button
               class="outline"
-              hx-get="/maturity/scmz"
-              hx-target="body"
-              hx-push-url="true"
-              hx-swap="transition:true">
-            Státní</button>
+              onclick="window.location.href='/maturity/scmz'">
+              Státní
+            </button>
             <button
-              hx-get="/maturity/sloh"
-              hx-target="body"
-              hx-push-url="true"
-              hx-swap="transition:true">
-            Sloh</button>
+              onclick="window.location.href='/maturity/sloh'">
+              Sloh
+            </button>
           </div>
         </li>
       </ul>
@@ -397,6 +382,17 @@
     toggleEdit();
     // Add other reinitialization code here
   });
+  function enableForm() {
+    const form = document.getElementById("form");
+    const inputs = form.querySelectorAll("input, select");
+
+    inputs.forEach((input) => {
+      input.disabled = false;
+    });
+
+    document.getElementById("editButton").style.display = "none";
+    document.getElementById("submitButton").style.display = "inline-block";
+  }
 </script>
 
 

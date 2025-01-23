@@ -75,36 +75,21 @@
           </button>
         </li>
         <li>
-          <div role="group">
-            <button
-              hx-get="/maturity"
-              hx-target="body"
-              hx-push-url="true"
-              >
-            Praktická</button>
-            <button
-              class="outline"
-              hx-get="/maturity/pcmz"
-              hx-target="body"
-              hx-push-url="true"
-              >
-            Ústní</button>
-            <button
-              class="outline"
-              hx-get="/maturity/scmz"
-              hx-target="body"
-              hx-push-url="true"
-              >
-            Státní</button>
-            <button
-              class="outline"
-              hx-get="/maturity/sloh"
-              hx-target="body"
-              hx-push-url="true"
-              >
-            Sloh</button>
-          </div>
-        </li>
+      <div role="group">
+        <button class="outline" onclick="window.location.href='/maturity'">
+          Praktická
+        </button>
+        <button class="outline" onclick="window.location.href='/maturity/pcmz'">
+          Ústní
+        </button>
+        <button class="outline" onclick="window.location.href='/maturity/scmz'">
+          Státní
+        </button>
+        <button class="outline" onclick="window.location.href='/maturity/sloh'">
+          Sloh
+        </button>
+      </div>
+    </li>
       </ul>
     </nav>
   </header>
