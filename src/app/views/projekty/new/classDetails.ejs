@@ -42,8 +42,8 @@
 			 </div>
 			 
 			 <div id="hiddenDate" style="display:none">
-				<% if (clas["tymy"] && clas["tymy"].length > 0 && clas["tymy"][0]["pitch"] && clas["tymy"][0]["pitch"]["datum"]) { %>
-				   <%= clas["tymy"][0]["pitch"]["datum"] %>
+				<% if (clas["datum"]) { %>
+				   <%= clas["datum"] %>
 				<% } else { %>
 				   <span>Datum není k dispozici</span>
 				<% } %>

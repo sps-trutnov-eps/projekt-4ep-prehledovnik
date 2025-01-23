@@ -468,14 +468,14 @@ const projekty = {
   ziskatVse: () => {
     return gP();
   },
-  pridatProjekt: (trida) => {
+  pridatProjekt: (trida, datum) => {
     let projekty = gP();
     let nextID = projekty["nextID"];
-    projekty[nextID] = {trida, "tymy": []};
+    projekty[nextID] = {trida, "tymy": [], datum};
     projekty["nextID"] += 1;
     sP(projekty);
   },
-  pridatTym: (IDtridy, cislo, tema, odkaz, clenove, vedouci, datum, featury, stretchgoaly, poznamka, ucast, znamkyDev, znamkyCom) => {
+  pridatTym: (IDtridy, cislo, tema, odkaz, clenove, vedouci, featury, stretchgoaly, poznamka, ucast, znamkyDev, znamkyCom) => {
     let projekty = gP();
     //let IDtridy = ziskatIDprojektuDleTridy(trida); Doesn't work, I guess it's because it's in the same.. json?
     projekty[String(IDtridy)]["tymy"].push({
@@ -485,7 +485,6 @@ const projekty = {
       clenove,
       vedouci,
       "pitch": {
-        datum,
         featury,
         stretchgoaly,
         poznamka,

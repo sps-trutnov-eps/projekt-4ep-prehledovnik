@@ -132,11 +132,11 @@ exports.view = (req, res) => {
 }
 
 
-exports.addClass = (classID) => {
+exports.addClass = (classID, datum) => {
    
     let tridaID = databaze.projekty.ziskatIDprojektuDleTridy(classID);
     if (databaze.projekty.ziskatCelouTridu(tridaID) == undefined){
-        databaze.projekty.pridatProjekt(classID);
+        databaze.projekty.pridatProjekt(classID, datum);
     } else (console.log("(projektyController.js; function: addClass): Class already exists."))
 }
 
@@ -190,7 +190,7 @@ exports.saveTeams = (data) => {
                 "clenove": team.members,
                 "vedouci": existingTeam["vedouci"],
                 "pitch": {
-                    "datum": data.pitchDate,
+                    //"datum": data.pitchDate,
                     "featury": existingTeam["pitch"]["featury"],
                     "stretchgoaly": existingTeam["pitch"]["stretchgoaly"],
                     "pozamka": existingTeam["pitch"]["pozamka"],
@@ -303,6 +303,7 @@ exports.saveTeam = (data) => {
 
 // Tato metoda se volá, když se odesílá formulář pro nový projekt
 exports.ulozitProjekt = (req, res) => {
+    console.log(req.body);
     const { projectName, projectStart, studentCount } = req.body;
 
     if (!projectName || !projectStart || !studentCount || studentCount <= 0) {
@@ -359,7 +360,7 @@ exports.ulozitProjekt = (req, res) => {
             return res.status(400).send("Neplatná třída.");
     }
 
-    databaze.projekty.pridatProjekt(projectName, teams, projectStart);
+    databaze.projekty.pridatProjekt(projectName, teams, projectStart, data.pitchDate);
 
     res.redirect('/projekty/tymy');
 };
