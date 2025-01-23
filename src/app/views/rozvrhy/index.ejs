@@ -241,7 +241,7 @@
                     </div>
                     <div class="cast2">
                         <button class="nav-button" id="novaBtn" style="display: none; ">Nová verze</button>
-                        <button class="nav-button" id="editBtn">Upravit rozvrh</button>
+                        <button class="nav-button" id="editBtn">Edit</button>
                         <button class="nav-button" id="smazatBtn" style="display: none;">Smazat verzi</button>
                     </div>
                     <div class="cast3">
@@ -340,6 +340,7 @@
                                                             <label for="trida">Třída:</label>
                                                             <select name="trida" id="trida">
                                                                 <optgroup label="EP">
+                                                                    <option value="">-</option>
                                                                     <option value="1.EP">1.EP</option>
                                                                     <option value="2.EP">2.EP</option>
                                                                     <option value="3.EP">3.EP</option>
@@ -760,7 +761,7 @@
             lockTimetableButtons();
 
             editBtn.addEventListener('click', function() {
-                if (editBtn.textContent === 'Upravit rozvrh') {
+                if (editBtn.textContent === 'Edit') {
 
                     novaBtn.style.display = 'inline-block';
                     smazatBtn.style.display = 'inline-block';
@@ -772,7 +773,7 @@
                     smazatBtn.style.display = 'none';
 
                     lockTimetableButtons();
-                    editBtn.textContent = 'Upravit rozvrh';
+                    editBtn.textContent = 'Edit';
 
                     ulozitRozvrh();
                 }
@@ -841,7 +842,7 @@
             lockTimetableButtons();
 
             editBtn.addEventListener('click', function() {
-                if (editBtn.textContent === 'Upravit rozvrh') {
+                if (editBtn.textContent === 'Edit') {
 
                     novaBtn.style.display = 'inline-block';
                     smazatBtn.style.display = 'inline-block';
@@ -853,7 +854,7 @@
                     smazatBtn.style.display = 'none';
 
                     lockTimetableButtons();
-                    editBtn.textContent = 'Upravit rozvrh';
+                    editBtn.textContent = 'Edit';
 
                     ulozitRozvrh();
                 }
