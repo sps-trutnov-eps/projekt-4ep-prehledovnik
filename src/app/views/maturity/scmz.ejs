@@ -113,7 +113,8 @@
           <tr>
             <th>Datum</th>
             <th>Zadávávám</th>
-            <th>Čas</th>
+            <th>Čas od</th>
+            <th>Čas do</th>
             <th>Učebna</th>
             <th>Předmět</th>
           </tr>
@@ -128,9 +129,10 @@
               <%let extra_info = info[i] && info[i][1] ? info[i][1] : []%>
               <%let zadavani = true%>
               <%let bool_extra_info = extra_info.length > 0%>
-              <%let cas = bool_extra_info ? extra_info[0] : ""%>
-              <%let ucebna = bool_extra_info ? extra_info[1] : ""%>
-              <%let predmet = bool_extra_info ? extra_info[2] : ""%>
+              <%let casod = bool_extra_info ? extra_info[0] : ""%>
+              <%let casdo = bool_extra_info ? extra_info[1] : ""%>
+              <%let ucebna = bool_extra_info ? extra_info[2] : ""%>
+              <%let predmet = bool_extra_info ? extra_info[3] : ""%>
               <%if (extra_info.length == 0) {zadavani = false}%>
 
               <td><input type="date" value="<%=date%>" name="den<%=i+1%>_datum" disabled /></td>
@@ -146,9 +148,18 @@
               <td>
                 <input
                   type="time"
-                  name="den<%=i+1%>_cas"
-                  class="cas-input"
-                  value="<%=cas%>"
+                  name="den<%=i+1%>_casod"
+                  class="casod-input"
+                  value="<%=casod%>"
+                  style="padding: 0.5em" 
+                  disabled/>
+              </td>
+              <td>
+                <input
+                  type="time"
+                  name="den<%=i+1%>_casdo"
+                  class="casdo-input"
+                  value="<%=casdo%>"
                   style="padding: 0.5em" 
                   disabled/>
               </td>
@@ -214,7 +225,8 @@
       newRow.innerHTML = `
         <td><input type="date" name="den${dayCounter}_datum" disabled></td>
         <td><input type="checkbox" class="zadavani-checkbox" style="padding: 0.5em; font-size: 50px;" disabled></td>
-        <td><input type="time" name="den${dayCounter}_cas" class="cas-input" disabled style="padding: 0.5em;"></td>
+        <td><input type="time" name="den${dayCounter}_casod" class="casod-input" disabled style="padding: 0.5em;"></td>
+        <td><input type="time" name="den${dayCounter}_casdo" class="casdo-input" disabled style="padding: 0.5em;"></td>
         <td>
           <input type="text" name="den${dayCounter}_ucebna" class="ucebna-input" disabled style="padding: 0.5em;">
         </td>
@@ -239,18 +251,22 @@
 
   function addCheckboxFunctionality(row) {
     const checkbox = row.querySelector(".zadavani-checkbox");
-    const timeInput = row.querySelector(".cas-input");
+    const timeFromInput = row.querySelector(".casod-input");
+    const timeToInput = row.querySelector(".casdo-input");
     const classroomInput = row.querySelector(".ucebna-input");
     const subjectSelect = row.querySelector(".predmet-select");
 
     checkbox.addEventListener("change", function () {
       if (checkbox.checked) {
-        timeInput.disabled = false;
+        timeFromInput.disabled = false;
+        timeToInput.disabled = false;
         classroomInput.disabled = false;
         subjectSelect.disabled = false;
       } else {
-        timeInput.value = "";
-        timeInput.disabled = true;
+        timeFromInput.value = "";
+        timeFromInput.disabled = true;
+        timeToInput.value = "";
+        timeToInput.disabled = true;
         classroomInput.value = "";
         classroomInput.disabled = true;
         subjectSelect.selectedIndex = 0;
@@ -269,12 +285,14 @@
   document.querySelector("form").addEventListener("submit", function () {
     document.querySelectorAll("tbody tr").forEach(function (row) {
       const checkbox = row.querySelector(".zadavani-checkbox");
-      const timeInput = row.querySelector(".cas-input");
+      const timeFromInput = row.querySelector(".casod-input");
+      const timeToInput = row.querySelector(".casdo-input");
       const classroomInput = row.querySelector(".ucebna-input");
       const subjectSelect = row.querySelector(".predmet-select");
 
       if (checkbox.checked) {
-        timeInput.disabled = false;
+        timeFromInput.disabled = false;
+        timeToInput.disabled = false;
         classroomInput.disabled = false;
         subjectSelect.disabled = false;
       }
