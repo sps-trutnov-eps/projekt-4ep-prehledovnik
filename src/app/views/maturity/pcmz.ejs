@@ -69,6 +69,7 @@
     input[type="checkbox"][readonly] {
       pointer-events: none; /* Zakáže klikání */
     }
+
   </style>
 
     <article style="flex: 3; overflow-y: auto;">
@@ -135,42 +136,42 @@
             id="hodiny_tabulka">
             <thead>
               <tr>
-                <th style="text-align: center; color: white">Datum:</th>
-                <th>
+                <th style="text-align: center;">Datum</th>
+                <th style="text-align: center;">
                   1
-                  <p style="text-align: start;">8:00-8:45</p>
+                  <p>8:00-8:45</p>
                 </th>
-                <th>
+                <th style="text-align: center;">
                   2
-                  <p style="text-align: start;">8:50-9:35</p>
+                  <p>8:50-9:35</p>
                 </th>
-                <th>
+                <th style="text-align: center;">
                   3
-                  <p style="text-align: start;">9:55-10:40</p>
+                  <p>9:55-10:40</p>
                 </th>
-                <th>
+                <th style="text-align: center;">
                   4
-                  <p style="text-align: start;">10:50-11:35</p>
+                  <p>10:50-11:35</p>
                 </th>
-                <th>
+                <th style="text-align: center;">
                   5
-                  <p style="text-align: start;">11:40-12:25</p>
+                  <p>11:40-12:25</p>
                 </th>
-                <th>
+                <th style="text-align: center;">
                   6
-                  <p style="text-align: start;">12:35-13:20</p>
+                  <p>12:35-13:20</p>
                 </th>
-                <th>
+                <th style="text-align: center;">
                   7
-                  <p style="text-align: start;">13:25-14:10</p>
+                  <p>13:25-14:10</p>
                 </th>
-                <th>
+                <th style="text-align: center;">
                   8
-                  <p style="text-align: start;">14:15-15:00</p>
+                  <p>14:15-15:00</p>
                 </th>
-                <th>
+                <th style="text-align: center;">
                   9
-                  <p style="text-align: start;">15:10-15:55</p>
+                  <p>15:10-15:55</p>
                 </th>
               </tr>
             </thead>
@@ -186,7 +187,7 @@
                     readonly />
                 </td>
                 <% for (let i = 1; i <= 9; i++) { %>
-                <td>
+                <td style="text-align: center;">
                   <input class="zaskrtavaci_policko" type="checkbox"
                   name="den<%= dayCounter %>_hodina<%= i %>" <%= hodiny.includes(i) ? "checked" : "" %> readonly />
                 </td>
@@ -245,6 +246,7 @@
           for (var i = 1; i <= 9; i++) {
             var bunkaCheckbox = document.createElement("td");
             var inputCheckbox = document.createElement("input");
+            bunkaCheckbox.style.textAlign = "center";
             inputCheckbox.type = "checkbox";
             inputCheckbox.name = "den" + dayCounter + "_hodina" + i;
             inputCheckbox.classList.add("zaskrtavaci_policko");
