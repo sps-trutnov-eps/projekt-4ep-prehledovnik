@@ -323,7 +323,7 @@ function gM(){return db.get("maturity")}
 function sM(maturity){db.set("maturity", maturity)}
 
 const maturity = {
-    pridatMaturitniEvent: (nazev, dny, casy, ucebny) => {
+    pridatMaturitniEvent: (nazev, dny, casy, ucebny, predmety) => {
         let maturity = gM();
         
         maturity[nazev] = null;
@@ -334,6 +334,11 @@ const maturity = {
             ucebny = []
         }
         maturity[nazev] = {dny, casy, ucebny};
+
+        if (nazev == "SČMZ"){
+          maturity[nazev]["predmety"] = predmety;
+        }
+
         sM(maturity);
     },
     ziskarMaturituDleNazvu: (nazev) => {
@@ -470,7 +475,7 @@ const projekty = {
     projekty["nextID"] += 1;
     sP(projekty);
   },
-  pridatTym: (IDtridy, cislo, tema, odkaz, clenove, vedouci, datum, featury, stretchgoaly, poznamka, ucast) => {
+  pridatTym: (IDtridy, cislo, tema, odkaz, clenove, vedouci, datum, featury, stretchgoaly, poznamka, ucast, znamkyDev, znamkyCom) => {
     let projekty = gP();
     //let IDtridy = ziskatIDprojektuDleTridy(trida); Doesn't work, I guess it's because it's in the same.. json?
     projekty[String(IDtridy)]["tymy"].push({
@@ -485,7 +490,10 @@ const projekty = {
         stretchgoaly,
         poznamka,
         ucast
-      }});
+      },
+      "znamkyDev": znamkyDev,
+      "znamkyCom": znamkyCom
+      });
     sP(projekty);
   },
   ziskatTym: (IDtridy, cislo) => {
@@ -517,6 +525,18 @@ const projekty = {
     let projekty = gP();
     //let IDtridy = ziskatIDprojektuDleTridy(trida); Doesn't work, I guess it's because it's in the same.. json?
     let cislo = tym["cislo"];
+    for (let i = 0; i < projekty[String(IDtridy)]["tymy"].length; i++){
+      if (projekty[String(IDtridy)]["tymy"][i]["cislo"] == cislo){
+        projekty[String(IDtridy)]["tymy"][i] = tym;
+        break;
+      }
+    }
+    sP(projekty);
+  },
+  upravitTymPodleStarehoCisla: (IDtridy, tym, tymCisloPredchozi) => {
+    let projekty = gP();
+    //let IDtridy = ziskatIDprojektuDleTridy(trida); Doesn't work, I guess it's because it's in the same.. json?
+    let cislo = tymCisloPredchozi;
     for (let i = 0; i < projekty[String(IDtridy)]["tymy"].length; i++){
       if (projekty[String(IDtridy)]["tymy"][i]["cislo"] == cislo){
         projekty[String(IDtridy)]["tymy"][i] = tym;

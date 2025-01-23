@@ -21,8 +21,8 @@ exports.edit = (curID, data) => {
 		predmetTeorie = `-c`;
 	}
 	
-	const trida = `${data["rocnik"]}.${data["obor"]}`;
-	const predmet = `${data["predmet"].toUpperCase()}${predmetTeorie.toLowerCase()}`;
+   const trida = `${data["rocnik"]}.${data["obor"]}`;
+   const predmet = `${data["predmet"]}${predmetTeorie}`;
 	
 	processedData = {"trida": trida, "predmet": predmet, "temata": data["temata"]};
 	databaze.osnovy.upravitOsnovu(curID, processedData);

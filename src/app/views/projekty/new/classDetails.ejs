@@ -41,6 +41,15 @@
 				  </div>
 			 </div>
 			 
+			 <div id="hiddenDate" style="display:none">
+				<% if (clas["tymy"] && clas["tymy"].length > 0 && clas["tymy"][0]["pitch"] && clas["tymy"][0]["pitch"]["datum"]) { %>
+				   <%= clas["tymy"][0]["pitch"]["datum"] %>
+				<% } else { %>
+				   <span>Datum není k dispozici</span>
+				<% } %>
+			 </div>
+			 
+			 
       <div style=" display: flex; position: relative; overflow-y: auto; max-height: calc(100vh - 14em); padding-right: 15px; ">
          <div id="mainThing" style="flex: auto">
 			
@@ -86,79 +95,115 @@
 						<tr class="marks">
 							<td style="text-align: center;">Známka za commity</td>
 							<% if (clas["tymy"] != undefined) { %>
-							<% if (clas["tymy"][0]["znamkyCom"] != undefined) { for (let i = 0; i < clas["tymy"].length; i++) { %>
-								<% for (let iM = 0; iM < clas["tymy"][i]["znamkyCom"].length; iM++) { %>
-								
-										<td style="text-align: center;"><%= clas["tymy"][i]["znamkyCom"][iM]["znamky"][0] %></td>
-										
+								<% for (let i = 0; i < clas["tymy"].length; i++) { %>
+									<% if (clas["tymy"][i]["znamkyCom"] != undefined) { %>
+										<% for (let iM = 0; iM < clas["tymy"][i]["znamkyCom"].length; iM++) { %>
+											<td style="text-align: center;">
+												<%= clas["tymy"][i]["znamkyCom"][iM]["znamky"][0] %>
+											</td>
+										<% } %>
+									<% } else { %>
+										<td style="text-align: center;">-</td>
+									<% } %>
 								<% } %>
-							<% } } %>
 							<% } %>
+							
 						</tr>
 						<tr class="marks">
 							<td style="text-align: center;">Známka za devlog</td>
-							<% if (clas["tymy"] != undefined) { %>
-							<% if (clas["tymy"][0]["znamkyDev"] != undefined) { for (let i = 0; i < clas["tymy"].length; i++) { %>
-								<% for (let iM = 0; iM < clas["tymy"][i]["znamkyDev"].length; iM++) { %>
-								
-										<td style="text-align: center;"><%= clas["tymy"][i]["znamkyDev"][iM]["znamky"][0] %></td>
-										
+							<% if (clas["tymy"] && clas["tymy"].length > 0) { %>
+								<% if (clas["tymy"][0]["znamkyDev"] != undefined) { %>
+									<% for (let i = 0; i < clas["tymy"].length; i++) { %>
+										<% for (let iM = 0; iM < clas["tymy"][i]["znamkyDev"].length; iM++) { %>
+											<td style="text-align: center;"><%= clas["tymy"][i]["znamkyDev"][iM]["znamky"][0] %></td>
+										<% } %>
+									<% } %>
+								<% } else { %>
+									<td style="text-align: center;">Žádné známky za devlog</td>
 								<% } %>
-							<% } } %>
+							<% } else { %>
+								<td style="text-align: center;">Žádné týmy</td>
 							<% } %>
+							
 						</tr>
 						<tr class="cur">
                      <td style="text-align: center;" rowspan="3">2.</td>
 						</tr>
 						<tr class="marks">
 							<td style="text-align: center;">Známka za commity</td>
-							<% if (clas["tymy"] != undefined) { %>
-							<% if (clas["tymy"][0]["znamkyCom"] != undefined) { for (let i = 0; i < clas["tymy"].length; i++) { %>
-								<% for (let iM = 0; iM < clas["tymy"][i]["znamkyCom"].length; iM++) { %>
-								
-										<td style="text-align: center;"><%= clas["tymy"][i]["znamkyCom"][iM]["znamky"][1] %></td>
-										
+							<% if (clas["tymy"] && clas["tymy"].length > 0) { %>
+								<% if (clas["tymy"][0]["znamkyCom"] != undefined) { %>
+									<% for (let i = 0; i < clas["tymy"].length; i++) { %>
+										<% if (clas["tymy"][i]["znamkyCom"] != undefined) { %>
+											<% for (let iM = 0; iM < clas["tymy"][i]["znamkyCom"].length; iM++) { %>
+												<td style="text-align: center;"><%= clas["tymy"][i]["znamkyCom"][iM]["znamky"][1] %></td>
+											<% } %>
+										<% } else { %>
+											<td style="text-align: center;">-</td>
+										<% } %>
+									<% } %>
+								<% } else { %>
+									<td style="text-align: center;">Žádné známky za commity</td>
 								<% } %>
-							<% } } %>
+							<% } else { %>
+								<td style="text-align: center;">Žádné týmy</td>
 							<% } %>
+							
 						</tr>
 						<tr class="marks">
 							<td style="text-align: center;">Známka za devlog</td>
-							<% if (clas["tymy"] != undefined) { %>
-							<% if (clas["tymy"][0]["znamkyDev"] != undefined) { for (let i = 0; i < clas["tymy"].length; i++) { %>
-								<% for (let iM = 0; iM < clas["tymy"][i]["znamkyDev"].length; iM++) { %>
-								
-										<td style="text-align: center;"><%= clas["tymy"][i]["znamkyDev"][iM]["znamky"][1] %></td>
-										
+							<% if (clas["tymy"] && clas["tymy"].length > 0) { %>
+								<% for (let i = 0; i < clas["tymy"].length; i++) { %>
+									<% if (clas["tymy"][i]["znamkyDev"] != undefined) { %>
+										<% for (let iM = 0; iM < clas["tymy"][i]["znamkyDev"].length; iM++) { %>
+											<td style="text-align: center;"><%= clas["tymy"][i]["znamkyDev"][iM]["znamky"][1] %></td>
+										<% } %>
+									<% } else { %>
+										<td style="text-align: center;">-</td>
+									<% } %>
 								<% } %>
-							<% } } %>
+							<% } else { %>
+								<td style="text-align: center;">Žádné týmy</td>
 							<% } %>
+							
 						</tr>
 						<tr class="cur">
                      <td style="text-align: center;" rowspan="3">3.</td>
 						</tr>
 						<tr class="marks">
 							<td style="text-align: center;">Známka za commity</td>
-							<% if (clas["tymy"] != undefined) { %>
-							<% if (clas["tymy"][0]["znamkyCom"] != undefined) { for (let i = 0; i < clas["tymy"].length; i++) { %>
-								<% for (let iM = 0; iM < clas["tymy"][i]["znamkyCom"].length; iM++) { %>
-								
-										<td style="text-align: center;"><%= clas["tymy"][i]["znamkyCom"][iM]["znamky"][2] %></td>
-										
+							<% if (clas["tymy"] && clas["tymy"].length > 0) { %>
+								<% if (clas["tymy"][0]["znamkyCom"] != undefined) { %>
+									<% for (let i = 0; i < clas["tymy"].length; i++) { %>
+										<% if (clas["tymy"][i]["znamkyCom"] != undefined) { %>
+											<% for (let iM = 0; iM < clas["tymy"][i]["znamkyCom"].length; iM++) { %>
+												<td style="text-align: center;"><%= clas["tymy"][i]["znamkyCom"][iM]["znamky"][1] %></td>
+											<% } %>
+										<% } else { %>
+											<td style="text-align: center;">-</td>
+										<% } %>
+									<% } %>
+								<% } else { %>
+									<td style="text-align: center;">Žádné známky za commity</td>
 								<% } %>
-							<% } } %>
+							<% } else { %>
+								<td style="text-align: center;">Žádné týmy</td>
 							<% } %>
 						</tr>
 						<tr class="marks">
 							<td style="text-align: center;">Známka za devlog</td>
-							<% if (clas["tymy"] != undefined) { %>
-							<% if (clas["tymy"][0]["znamkyDev"] != undefined) { for (let i = 0; i < clas["tymy"].length; i++) { %>
-								<% for (let iM = 0; iM < clas["tymy"][i]["znamkyDev"].length; iM++) { %>
-								
-										<td style="text-align: center;"><%= clas["tymy"][i]["znamkyDev"][iM]["znamky"][2] %></td>
-										
+							<% if (clas["tymy"] && clas["tymy"].length > 0) { %>
+								<% for (let i = 0; i < clas["tymy"].length; i++) { %>
+									<% if (clas["tymy"][i]["znamkyDev"] != undefined) { %>
+										<% for (let iM = 0; iM < clas["tymy"][i]["znamkyDev"].length; iM++) { %>
+											<td style="text-align: center;"><%= clas["tymy"][i]["znamkyDev"][iM]["znamky"][1] %></td>
+										<% } %>
+									<% } else { %>
+										<td style="text-align: center;">-</td>
+									<% } %>
 								<% } %>
-							<% } } %>
+							<% } else { %>
+								<td style="text-align: center;">Žádné týmy</td>
 							<% } %>
 						</tr>
 						<tr class="cur">
@@ -166,26 +211,38 @@
 						</tr>
 						<tr class="marks">
 							<td style="text-align: center;">Známka za commity</td>
-							<% if (clas["tymy"] != undefined) { %>
-							<% if (clas["tymy"][0]["znamkyCom"] != undefined) { for (let i = 0; i < clas["tymy"].length; i++) { %>
-								<% for (let iM = 0; iM < clas["tymy"][i]["znamkyCom"].length; iM++) { %>
-								
-										<td style="text-align: center;"><%= clas["tymy"][i]["znamkyCom"][iM]["znamky"][3] %></td>
-										
+							<% if (clas["tymy"] && clas["tymy"].length > 0) { %>
+								<% if (clas["tymy"][0]["znamkyCom"] != undefined) { %>
+									<% for (let i = 0; i < clas["tymy"].length; i++) { %>
+										<% if (clas["tymy"][i]["znamkyCom"] != undefined) { %>
+											<% for (let iM = 0; iM < clas["tymy"][i]["znamkyCom"].length; iM++) { %>
+												<td style="text-align: center;"><%= clas["tymy"][i]["znamkyCom"][iM]["znamky"][1] %></td>
+											<% } %>
+										<% } else { %>
+											<td style="text-align: center;">-</td>
+										<% } %>
+									<% } %>
+								<% } else { %>
+									<td style="text-align: center;">Žádné známky za commity</td>
 								<% } %>
-							<% } } %>
+							<% } else { %>
+								<td style="text-align: center;">Žádné týmy</td>
 							<% } %>
 						</tr>
 						<tr class="marks">
 							<td style="text-align: center;">Známka za devlog</td>
-							<% if (clas["tymy"] != undefined) { %>
-							<% if (clas["tymy"][0]["znamkyDev"] != undefined) { for (let i = 0; i < clas["tymy"].length; i++) { %>
-								<% for (let iM = 0; iM < clas["tymy"][i]["znamkyDev"].length; iM++) { %>
-								
-										<td style="text-align: center;"><%= clas["tymy"][i]["znamkyDev"][iM]["znamky"][3] %></td>
-										
+							<% if (clas["tymy"] && clas["tymy"].length > 0) { %>
+								<% for (let i = 0; i < clas["tymy"].length; i++) { %>
+									<% if (clas["tymy"][i]["znamkyDev"] != undefined) { %>
+										<% for (let iM = 0; iM < clas["tymy"][i]["znamkyDev"].length; iM++) { %>
+											<td style="text-align: center;"><%= clas["tymy"][i]["znamkyDev"][iM]["znamky"][1] %></td>
+										<% } %>
+									<% } else { %>
+										<td style="text-align: center;">-</td>
+									<% } %>
 								<% } %>
-							<% } } %>
+							<% } else { %>
+								<td style="text-align: center;">Žádné týmy</td>
 							<% } %>
 						</tr>
 						<tr class="cur">
@@ -193,26 +250,38 @@
 						</tr>
 						<tr class="marks">
 							<td style="text-align: center;">Známka za commity</td>
-							<% if (clas["tymy"] != undefined) { %>
-							<% if (clas["tymy"][0]["znamkyCom"] != undefined) { for (let i = 0; i < clas["tymy"].length; i++) { %>
-								<% for (let iM = 0; iM < clas["tymy"][i]["znamkyCom"].length; iM++) { %>
-								
-										<td style="text-align: center;"><%= clas["tymy"][i]["znamkyCom"][iM]["znamky"][4] %></td>
-										
+							<% if (clas["tymy"] && clas["tymy"].length > 0) { %>
+								<% if (clas["tymy"][0]["znamkyCom"] != undefined) { %>
+									<% for (let i = 0; i < clas["tymy"].length; i++) { %>
+										<% if (clas["tymy"][i]["znamkyCom"] != undefined) { %>
+											<% for (let iM = 0; iM < clas["tymy"][i]["znamkyCom"].length; iM++) { %>
+												<td style="text-align: center;"><%= clas["tymy"][i]["znamkyCom"][iM]["znamky"][1] %></td>
+											<% } %>
+										<% } else { %>
+											<td style="text-align: center;">-</td>
+										<% } %>
+									<% } %>
+								<% } else { %>
+									<td style="text-align: center;">Žádné známky za commity</td>
 								<% } %>
-							<% } } %>
+							<% } else { %>
+								<td style="text-align: center;">Žádné týmy</td>
 							<% } %>
 						</tr>
 						<tr class="marks">
 							<td style="text-align: center;">Známka za devlog</td>
-							<% if (clas["tymy"] != undefined) { %>
-							<% if (clas["tymy"][0]["znamkyDev"] != undefined) { for (let i = 0; i < clas["tymy"].length; i++) { %>
-								<% for (let iM = 0; iM < clas["tymy"][i]["znamkyDev"].length; iM++) { %>
-								
-										<td style="text-align: center;"><%= clas["tymy"][i]["znamkyDev"][iM]["znamky"][4] %></td>
-										
+							<% if (clas["tymy"] && clas["tymy"].length > 0) { %>
+								<% for (let i = 0; i < clas["tymy"].length; i++) { %>
+									<% if (clas["tymy"][i]["znamkyDev"] != undefined) { %>
+										<% for (let iM = 0; iM < clas["tymy"][i]["znamkyDev"].length; iM++) { %>
+											<td style="text-align: center;"><%= clas["tymy"][i]["znamkyDev"][iM]["znamky"][1] %></td>
+										<% } %>
+									<% } else { %>
+										<td style="text-align: center;">-</td>
+									<% } %>
 								<% } %>
-							<% } } %>
+							<% } else { %>
+								<td style="text-align: center;">Žádné týmy</td>
 							<% } %>
 						</tr>
 						<tr class="cur">
@@ -220,26 +289,38 @@
 						</tr>
 						<tr class="marks">
 							<td style="text-align: center;">Známka za commity</td>
-							<% if (clas["tymy"] != undefined) { %>
-							<% if (clas["tymy"][0]["znamkyCom"] != undefined) { for (let i = 0; i < clas["tymy"].length; i++) { %>
-								<% for (let iM = 0; iM < clas["tymy"][i]["znamkyCom"].length; iM++) { %>
-								
-										<td style="text-align: center;"><%= clas["tymy"][i]["znamkyCom"][iM]["znamky"][5] %></td>
-										
+							<% if (clas["tymy"] && clas["tymy"].length > 0) { %>
+								<% if (clas["tymy"][0]["znamkyCom"] != undefined) { %>
+									<% for (let i = 0; i < clas["tymy"].length; i++) { %>
+										<% if (clas["tymy"][i]["znamkyCom"] != undefined) { %>
+											<% for (let iM = 0; iM < clas["tymy"][i]["znamkyCom"].length; iM++) { %>
+												<td style="text-align: center;"><%= clas["tymy"][i]["znamkyCom"][iM]["znamky"][1] %></td>
+											<% } %>
+										<% } else { %>
+											<td style="text-align: center;">-</td>
+										<% } %>
+									<% } %>
+								<% } else { %>
+									<td style="text-align: center;">Žádné známky za commity</td>
 								<% } %>
-							<% } } %>
+							<% } else { %>
+								<td style="text-align: center;">Žádné týmy</td>
 							<% } %>
 						</tr>
 						<tr class="marks">
 							<td style="text-align: center;">Známka za devlog</td>
-							<% if (clas["tymy"] != undefined) { %>
-							<% if (clas["tymy"][0]["znamkyDev"] != undefined) { for (let i = 0; i < clas["tymy"].length; i++) { %>
-								<% for (let iM = 0; iM < clas["tymy"][i]["znamkyDev"].length; iM++) { %>
-								
-										<td style="text-align: center;"><%= clas["tymy"][i]["znamkyDev"][iM]["znamky"][5] %></td>
-										
+							<% if (clas["tymy"] && clas["tymy"].length > 0) { %>
+								<% for (let i = 0; i < clas["tymy"].length; i++) { %>
+									<% if (clas["tymy"][i]["znamkyDev"] != undefined) { %>
+										<% for (let iM = 0; iM < clas["tymy"][i]["znamkyDev"].length; iM++) { %>
+											<td style="text-align: center;"><%= clas["tymy"][i]["znamkyDev"][iM]["znamky"][1] %></td>
+										<% } %>
+									<% } else { %>
+										<td style="text-align: center;">-</td>
+									<% } %>
 								<% } %>
-							<% } } %>
+							<% } else { %>
+								<td style="text-align: center;">Žádné týmy</td>
 							<% } %>
 						</tr>
 					</tbody>

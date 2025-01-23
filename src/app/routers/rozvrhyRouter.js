@@ -27,10 +27,10 @@ rozvrhyRouter.post('/vytvorit', (req, res) => {
     
     const hodiny = newVersionTimetableData ? JSON.parse(newVersionTimetableData) : {
         lichy: {
-            "Po": {}, "Út": {}, "St": {}, "Čt": {}, "Pá": {}
+            "Po": {}, "Ut": {}, "St": {}, "Ct": {}, "Pa": {}
         },
         sudy: {
-            "Po": {}, "Út": {}, "St": {}, "Čt": {}, "Pá": {}
+            "Po": {}, "Ut": {}, "St": {}, "Ct": {}, "Pa": {}
         }
     };
     

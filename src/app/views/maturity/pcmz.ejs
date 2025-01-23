@@ -51,6 +51,7 @@
 
     .headline {
       display: inline-block;
+      color: white;
       font-size: 1.5em;
     }
 
@@ -70,15 +71,32 @@
     }
   </style>
 
-    <article style="flex: 3; overflow-y: auto">
+    <article style="flex: 3; overflow-y: auto;">
       <header>
         <nav>
           <ul>
             <li>
-              <h1>Ústní</h1>
+              <h1>Maturity</h1>
             </li>
           </ul>
           <ul>
+            <li>
+              <button
+                type="submit"
+                form="mform"
+                id="save-button"
+                class="editbutton"
+                style="display:none">
+                Uložit
+              </button>
+              <button
+                type="button"
+                id="edit-button"
+                class="editbutton"
+                onclick="toggleEdit()">
+                Edit
+              </button>
+            </li>    
             <li>
               <div role="group">
                 <button
@@ -86,40 +104,37 @@
                   hx-get="/maturity"
                   hx-target="body"
                   hx-push-url="true"
-                  hx-swap="transition:true">
+                  >
                 Praktická</button>
                 <button
                   hx-get="/maturity/pcmz"
                   hx-target="body"
                   hx-push-url="true"
-                  hx-swap="transition:true">
+                  >
                 Ústní</button>
                 <button
                   class="outline"
                   hx-get="/maturity/scmz"
                   hx-target="body"
                   hx-push-url="true"
-                  hx-swap="transition:true">
+                  >
                 Státní</button>
                 <button
                   class="outline"
                   hx-get="/maturity/sloh"
                   hx-target="body"
                   hx-push-url="true"
-                  hx-swap="transition:true">
+                  >
                 Sloh</button>
               </div>
             </li>
           </ul>
         </nav>
       </header>
-          <div
-        style="padding: 20px; border-radius: 10px; color: white;">
-        <div class="headline-container">
-          <h1 class="headline">Profilová část maturitní zkoušky</h1>
-        </div>
-
+      <main>
+          <h2>Profilová část maturitní zkoušky</h2>
         <form
+          id="mform"
           action="/maturity/ukladanipcmz"
           method="POST"
           style="display: flex; flex-direction: column; align-items: center">
@@ -174,12 +189,6 @@
 
           <div style="margin-top: 1px">
             <button
-              type="button"
-              id="edit-button"
-              style="padding: 0.5em; width: 150px; border: none; cursor: pointer;">
-              Edit
-            </button>
-            <button
               type="submit"
               id="save-button"
               style="display: none; padding: 0.5em; width: 150px; border: none; cursor: pointer;">
@@ -187,7 +196,7 @@
             </button>
           </div>
         </form>
-      </div>
+      </main>
     </article>
 
     <script>
@@ -255,5 +264,3 @@
     </script>
 
     <%- include('../partials/tail'); %>
-  </body>
-</html>
