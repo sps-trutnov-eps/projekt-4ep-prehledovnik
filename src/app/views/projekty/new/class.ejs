@@ -9,8 +9,8 @@
 			 </p>
 		  </hgroup>
 		  <hgroup style="display: flex; gap: 0.5em;">
-			 <input class="tlacitko" hx-hidden-input="file" style="width: 8rem; padding: 0; min-height: 0; height: 2em; margin: 0;" type="button" value="Upload" hx-on:click="document.getElementById('fileInput').click()" />
-			 <input class="saveButton" style="width: 8rem; padding: 0; min-height: 0; height: 2em; margin: 0;" type="button" value="Uložit" onclick="save();" />
+			 <input class="tlacitko" hx-hidden-input="file" style="width: 8rem; padding: 0; min-height: 0; height: 2em; margin: 0; line-height: 1em;" type="button" value="Upload" hx-on:click="document.getElementById('fileInput').click()" />
+			 <input class="saveButton" style="width: 8rem; padding: 0; min-height: 0; height: 2em; margin: 0; line-height: 1em;" type="button" value="Uložit" onclick="save();" />
 			 <input type="file" 
 					id="fileInput" 
 					style="display:none" 
@@ -19,8 +19,8 @@
 					hx-target="body"
 					hx-encoding="multipart/form-data"
 					onchange="this.closest('form')?.requestSubmit()">
-			 <input class="createButton" style="width: 8rem; padding: 0; min-height: 0; height: 2em; margin: 0;" type="button" value="Přehled" onclick="showElementAndHideElement('class', 'classDetails')" />
-			 <input class="createButton" style="width: 8rem; padding: 0; min-height: 0; height: 2em; margin: 0;" type="button" value="Detaily" onclick="showElementAndHideElement('classDetails', 'class'); sortTableAndOutput();" />
+			 <input class="createButton, mainButton" style="width: 8rem; padding: 0; min-height: 0; height: 2em; margin: 0; line-height: 1em;" type="button" value="Přehled" onclick="showElementAndHideElement('class', 'classDetails')" />
+			 <input class="createButton" style="width: 8rem; padding: 0; min-height: 0; height: 2em; margin: 0; line-height: 1em;" type="button" value="Detaily" onclick="showElementAndHideElement('classDetails', 'class'); sortTableAndOutput();" />
 		  </hgroup>
 	   </nav>
 	</header>
@@ -63,7 +63,7 @@
 				   <tr>
 					  <th style="width: 10%; text-align: center;">Tým</th>
 					  <th style="text-align: center;">Členové</th>
-					  <th style="text-align: center;">Popis</th>
+					  <th style="text-align: center;">Téma</th>
 					  <th style="text-align: center;">Progres</th>
 				   </tr>
 				</thead>

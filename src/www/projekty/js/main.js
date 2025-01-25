@@ -114,13 +114,17 @@ function deleteTeam(button) {
 function addNewTeamToTheLeft(teamID) {
    let path = window.location.pathname.split('/');
    let id = path[path.length-1];
+   let className = id.split('-')[0];
+   className = className.slice(0, 1) + "." + className.slice(1);
+   className = className.toUpperCase();
+   
    
    const button = document.createElement('input');
    
    button.type = 'button';
-   button.value = `Tým${teamID}`;
-   button.style.marginLeft = '10%';
-   button.style.width = '80%';
+   button.value = `${className} Tým ${teamID}`;
+   button.style.marginLeft = '20%';
+   button.style.width = '60%';
    
    button.onclick = function() {
       window.location.href = `/projekty/${id}-${teamID}`;
@@ -634,7 +638,7 @@ async function save(){
         for (let ch = 0; ch < members[i].children.length; ch++){
            const child = members[i].children[ch];
            
-           console.log(child);
+           //console.log(child);
            
            mem.push(child.children[1].value); /* don't take this out of context :D */
         }

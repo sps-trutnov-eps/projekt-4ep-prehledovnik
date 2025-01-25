@@ -161,7 +161,7 @@ exports.saveTeams = (data) => {
         }
         if (!found) { excessTeamsIDs.push(clas["tymy"][i]["cislo"]); }
     }
-    console.log(`excess: ${excessTeamsIDs}`);
+    //console.log(`excess: ${excessTeamsIDs}`);
     
     let newTeams = [];
     let otherTeams = [];
@@ -180,8 +180,8 @@ exports.saveTeams = (data) => {
         }
         if (!foundInExcess) { otherTeams.push(data.teams[t]); }
     }
-    console.log(`new: ${newTeams}`);
-    console.log(`other: ${otherTeams}`);
+    //console.log(`new: ${newTeams}`);
+    //console.log(`other: ${otherTeams}`);
     
     // First, go through the teams that have haven't been deleted or added
     for (let i = 0; i < otherTeams.length; i++){
@@ -283,6 +283,13 @@ exports.saveTeam = (data) => {
         let member = {};
         member["znamky"] = data.marksDevlogs[i];
         membersDevlogs.push(member);
+    }
+    
+    if ( membersCommits == []){
+        membersCommits = undefined;
+    }
+    if ( membersDevlogs == []){
+        membersDevlogs = undefined;
     }
    
     databaze.projekty.upravitTym(tridaID, {
