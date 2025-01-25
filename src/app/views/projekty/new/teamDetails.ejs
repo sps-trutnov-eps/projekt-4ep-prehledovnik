@@ -11,9 +11,9 @@
 			 </p>
         </hgroup>
 		  <hgroup style="display: flex; gap: 0.5em;">
-			  <input class="saveButton" style="width: 8rem; padding: 0; min-height: 0; height: 2em; margin: 0;" type="button" value="Uložit" onclick="saveTeam();" />
-			  <input class="createButton" style="width: 8rem; padding: 0; min-height: 0; height: 2em; margin: 0;" type="button" value="Přehled" onclick="showElementAndHideElement('class', 'classDetails')" />
-			  <input class="createButton" style="width: 8rem; padding: 0; min-height: 0; height: 2em; margin: 0;" type="button" value="Detaily" onclick="showElementAndHideElement('classDetails', 'class')" />
+			  <input class="saveButton" style="width: 8rem; padding: 0; min-height: 0; height: 2em; margin: 0; line-height: 1em;" type="button" value="Uložit" onclick="saveTeam();" />
+			  <input class="createButton" style="width: 8rem; padding: 0; min-height: 0; height: 2em; margin: 0; line-height: 1em;" type="button" value="Přehled" onclick="showElementAndHideElement('class', 'classDetails')" />
+			  <input class="createButton, mainButton" style="width: 8rem; padding: 0; min-height: 0; height: 2em; margin: 0; line-height: 1em;" type="button" value="Detaily" onclick="showElementAndHideElement('classDetails', 'class')" />
 			</hgroup>
       </nav>
 	</header>
@@ -42,7 +42,7 @@
 			 </div>
 	
 		<div id="hiddenDate" style="display:none">
-			<% if(clas["tymy"] != undefined) { %><%= clas["tymy"][0]["pitch"]["datum"] %><% } %>
+			<% if(clas["datum"] != undefined) { %><%= clas["datum"] %><% } %>
 		</div>
 			
       <div style=" display: flex; position: relative; overflow-y: auto; max-height: calc(100vh - 14em); padding-right: 15px; ">
@@ -84,23 +84,23 @@
 								<td style="text-align: center;">0</td>
 							<% } %>
 						</tr>
-						<tr class="tdtMembers, marksCommits">
+						<tr class="tdtMembers marksCommits">
 							<td style="text-align: center;">Známka za commity</td>
 							<% for (let i = 0; i < team["clenove"].length; i++){ %>
 								<% if (team["znamkyCom"] != undefined) { %>
-									<td style="text-align: center;"><input class="dropdown-item" type="text" value="<%= team["znamkyCom"][i]["znamky"][0] %>" style="margin: 0"></td>
+									<td style="text-align: center;"><input class="dropdown-item" type="number" value="<% if (team["znamkyCom"][i]["znamky"][0] > 0) { %><%= team["znamkyCom"][i]["znamky"][0] %><% } else { console.log("boop") } %>" style="margin: 0" min="1" max="5" placeholder="neznámkováno"></td>
 								<% } else { %>
-									<td style="text-align: center;"><input class="dropdown-item" type="text" value="0" style="margin: 0"></td>
+									<td style="text-align: center;"><input class="dropdown-item" type="number" value="" style="margin: 0" min="1" max="5" placeholder="neznámkováno"></td>
 								<% } %>
 							<% } %>
 						</tr>
-						<tr class="tdtMembers, marksDevlogs">
+						<tr class="tdtMembers marksDevlogs">
 							<td style="text-align: center;">Známka za devlog</td>
 							<% for (let i = 0; i < team["clenove"].length; i++){ %>
 								<% if (team["znamkyDev"] != undefined) { %>
-									<td style="text-align: center;"><input class="dropdown-item" type="text" value="<%= team["znamkyDev"][i]["znamky"][0] %>" style="margin: 0"></td>
+									<td style="text-align: center;"><input class="dropdown-item" type="number" value="<% if (team["znamkyDev"][i]["znamky"][0] > 0) { %><%= team["znamkyDev"][i]["znamky"][0] %><% } %>" style="margin: 0" min="1" max="5" placeholder="neznámkováno"></td>
 								<% } else { %>
-									<td style="text-align: center;"><input class="dropdown-item" type="text" value="0" style="margin: 0"></td>
+									<td style="text-align: center;"><input class="dropdown-item" type="number" value="" style="margin: 0" min="1" max="5" placeholder="neznámkováno"></td>
 								<% } %>
 							<% } %>
 						</tr>
@@ -117,23 +117,23 @@
 								<td style="text-align: center;">0</td>
 							<% } %>
 						</tr>
-						<tr class="tdtMembers, marksCommits">
+						<tr class="tdtMembers marksCommits">
 							<td style="text-align: center;">Známka za commity</td>
 							<% for (let i = 0; i < team["clenove"].length; i++){ %>
 								<% if (team["znamkyCom"] != undefined) { %>
-									<td style="text-align: center;"><input class="dropdown-item" type="text" value="<%= team["znamkyCom"][i]["znamky"][1] %>" style="margin: 0"></td>
+									<td style="text-align: center;"><input class="dropdown-item" type="number" value="<% if (team["znamkyCom"][i]["znamky"][1] > 0) { %><%= team["znamkyCom"][i]["znamky"][1] %><% } %>" style="margin: 0" min="1" max="5" placeholder="neznámkováno"></td>
 								<% } else { %>
-									<td style="text-align: center;"><input class="dropdown-item" type="text" value="0" style="margin: 0"></td>
+									<td style="text-align: center;"><input class="dropdown-item" type="number" value="" style="margin: 0" min="1" max="5" placeholder="neznámkováno"></td>
 								<% } %>
 							<% } %>
 						</tr>
-						<tr class="tdtMembers, marksDevlogs">
+						<tr class="tdtMembers marksDevlogs">
 							<td style="text-align: center;">Známka za devlog</td>
 							<% for (let i = 0; i < team["clenove"].length; i++){ %>
 								<% if (team["znamkyDev"] != undefined) { %>
-									<td style="text-align: center;"><input class="dropdown-item" type="text" value="<%= team["znamkyDev"][i]["znamky"][1] %>" style="margin: 0"></td>
+									<td style="text-align: center;"><input class="dropdown-item" type="number" value="<% if (team["znamkyDev"][i]["znamky"][1] > 0) { %><%= team["znamkyDev"][i]["znamky"][1] %><% } %>" style="margin: 0" min="1" max="5" placeholder="neznámkováno"></td>
 								<% } else { %>
-									<td style="text-align: center;"><input class="dropdown-item" type="text" value="0" style="margin: 0"></td>
+									<td style="text-align: center;"><input class="dropdown-item" type="number" value="" style="margin: 0" min="1" max="5" placeholder="neznámkováno"></td>
 								<% } %>
 							<% } %>
 						</tr>
@@ -150,23 +150,23 @@
 								<td style="text-align: center;">0</td>
 							<% } %>
 						</tr>
-						<tr class="tdtMembers, marksCommits">
+						<tr class="tdtMembers marksCommits">
 							<td style="text-align: center;">Známka za commity</td>
 							<% for (let i = 0; i < team["clenove"].length; i++){ %>
 								<% if (team["znamkyCom"] != undefined) { %>
-									<td style="text-align: center;"><input class="dropdown-item" type="text" value="<%= team["znamkyCom"][i]["znamky"][2] %>" style="margin: 0"></td>
+									<td style="text-align: center;"><input class="dropdown-item" type="number"value="<% if (team["znamkyCom"][i]["znamky"][2] > 0) { %><%= team["znamkyCom"][i]["znamky"][2] %><% } %>" style="margin: 0" min="1" max="5" placeholder="neznámkováno"></td>
 								<% } else { %>
-									<td style="text-align: center;"><input class="dropdown-item" type="text" value="0" style="margin: 0"></td>
+									<td style="text-align: center;"><input class="dropdown-item" type="number" value="" style="margin: 0" min="1" max="5" placeholder="neznámkováno"></td>
 								<% } %>
 							<% } %>
 						</tr>
-						<tr class="tdtMembers, marksDevlogs">
+						<tr class="tdtMembers marksDevlogs">
 							<td style="text-align: center;">Známka za devlog</td>
 							<% for (let i = 0; i < team["clenove"].length; i++){ %>
 								<% if (team["znamkyDev"] != undefined) { %>
-									<td style="text-align: center;"><input class="dropdown-item" type="text" value="<%= team["znamkyDev"][i]["znamky"][2] %>" style="margin: 0"></td>
+									<td style="text-align: center;"><input class="dropdown-item" type="number" value="<% if (team["znamkyDev"][i]["znamky"][2] > 0) { %><%= team["znamkyDev"][i]["znamky"][2] %><% } %>" style="margin: 0" min="1" max="5" placeholder="neznámkováno"></td>
 								<% } else { %>
-									<td style="text-align: center;"><input class="dropdown-item" type="text" value="0" style="margin: 0"></td>
+									<td style="text-align: center;"><input class="dropdown-item" type="number" value="" style="margin: 0" min="1" max="5" placeholder="neznámkováno"></td>
 								<% } %>
 							<% } %>
 						</tr>
@@ -183,23 +183,23 @@
 								<td style="text-align: center;">0</td>
 							<% } %>
 						</tr>
-						<tr class="tdtMembers, marksCommits">
+						<tr class="tdtMembers marksCommits">
 							<td style="text-align: center;">Známka za commity</td>
 							<% for (let i = 0; i < team["clenove"].length; i++){ %>
 								<% if (team["znamkyCom"] != undefined) { %>
-									<td style="text-align: center;"><input class="dropdown-item" type="text" value="<%= team["znamkyCom"][i]["znamky"][3] %>" style="margin: 0"></td>
+									<td style="text-align: center;"><input class="dropdown-item" type="number" value="<% if (team["znamkyCom"][i]["znamky"][3] > 0) { %><%= team["znamkyCom"][i]["znamky"][3] %><% } %>" style="margin: 0" min="1" max="5" placeholder="neznámkováno"></td>
 								<% } else { %>
-									<td style="text-align: center;"><input class="dropdown-item" type="text" value="0" style="margin: 0"></td>
+									<td style="text-align: center;"><input class="dropdown-item" type="number" value="" style="margin: 0" min="1" max="5" placeholder="neznámkováno"></td>
 								<% } %>
 							<% } %>
 						</tr>
-						<tr class="tdtMembers, marksDevlogs">
+						<tr class="tdtMembers marksDevlogs">
 							<td style="text-align: center;">Známka za devlog</td>
 							<% for (let i = 0; i < team["clenove"].length; i++){ %>
 								<% if (team["znamkyDev"] != undefined) { %>
-									<td style="text-align: center;"><input class="dropdown-item" type="text" value="<%= team["znamkyDev"][i]["znamky"][3] %>" style="margin: 0"></td>
+									<td style="text-align: center;"><input class="dropdown-item" type="number" value="<% if (team["znamkyDev"][i]["znamky"][3] > 0) { %><%= team["znamkyDev"][i]["znamky"][3] %><% } %>" style="margin: 0" min="1" max="5" placeholder="neznámkováno"></td>
 								<% } else { %>
-									<td style="text-align: center;"><input class="dropdown-item" type="text" value="0" style="margin: 0"></td>
+									<td style="text-align: center;"><input class="dropdown-item" type="number" value="" style="margin: 0" min="1" max="5" placeholder="neznámkováno"></td>
 								<% } %>
 							<% } %>
 						</tr>
@@ -216,23 +216,23 @@
 								<td style="text-align: center;">0</td>
 							<% } %>
 						</tr>
-						<tr class="tdtMembers, marksCommits">
+						<tr class="tdtMembers marksCommits">
 							<td style="text-align: center;">Známka za commity</td>
 							<% for (let i = 0; i < team["clenove"].length; i++){ %>
 								<% if (team["znamkyCom"] != undefined) { %>
-									<td style="text-align: center;"><input class="dropdown-item" type="text" value="<%= team["znamkyCom"][i]["znamky"][4] %>" style="margin: 0"></td>
+									<td style="text-align: center;"><input class="dropdown-item" type="number" value="<% if (team["znamkyCom"][i]["znamky"][4] > 0) { %><%= team["znamkyCom"][i]["znamky"][4] %><% } %>" style="margin: 0" min="1" max="5" placeholder="neznámkováno"></td>
 								<% } else { %>
-									<td style="text-align: center;"><input class="dropdown-item" type="text" value="0" style="margin: 0"></td>
+									<td style="text-align: center;"><input class="dropdown-item" type="number" value="" style="margin: 0" min="1" max="5" placeholder="neznámkováno"></td>
 								<% } %>
 							<% } %>
 						</tr>
-						<tr class="tdtMembers, marksDevlogs">
+						<tr class="tdtMembers marksDevlogs">
 							<td style="text-align: center;">Známka za devlog</td>
 							<% for (let i = 0; i < team["clenove"].length; i++){ %>
 								<% if (team["znamkyDev"] != undefined) { %>
-									<td style="text-align: center;"><input class="dropdown-item" type="text" value="<%= team["znamkyDev"][i]["znamky"][4] %>" style="margin: 0"></td>
+									<td style="text-align: center;"><input class="dropdown-item" type="number" value="<% if (team["znamkyDev"][i]["znamky"][4] > 0) { %><%= team["znamkyDev"][i]["znamky"][4] %><% } %>" style="margin: 0" min="1" max="5" placeholder="neznámkováno"></td>
 								<% } else { %>
-									<td style="text-align: center;"><input class="dropdown-item" type="text" value="0" style="margin: 0"></td>
+									<td style="text-align: center;"><input class="dropdown-item" type="number" value="" style="margin: 0" min="1" max="5" placeholder="neznámkováno"></td>
 								<% } %>
 							<% } %>
 						</tr>
@@ -249,23 +249,23 @@
 								<td style="text-align: center;">0</td>
 							<% } %>
 						</tr>
-						<tr class="tdtMembers, marksCommits">
+						<tr class="tdtMembers marksCommits">
 							<td style="text-align: center;">Známka za commity</td>
 							<% for (let i = 0; i < team["clenove"].length; i++){ %>
 								<% if (team["znamkyCom"] != undefined) { %>
-									<td style="text-align: center;"><input class="dropdown-item" type="text" value="<%= team["znamkyCom"][i]["znamky"][5] %>" style="margin: 0"></td>
+									<td style="text-align: center;"><input class="dropdown-item" type="number" value="<% if (team["znamkyCom"][i]["znamky"][5] > 0) { %><%= team["znamkyCom"][i]["znamky"][5] %><% } %>" style="margin: 0" min="1" max="5" placeholder="neznámkováno"></td>
 								<% } else { %>
-									<td style="text-align: center;"><input class="dropdown-item" type="text" value="0" style="margin: 0"></td>
+									<td style="text-align: center;"><input class="dropdown-item" type="number" value="" style="margin: 0" min="1" max="5" placeholder="neznámkováno"></td>
 								<% } %>
 							<% } %>
 						</tr>
-						<tr class="tdtMembers, marksDevlogs">
+						<tr class="tdtMembers marksDevlogs">
 							<td style="text-align: center;">Známka za devlog</td>
 							<% for (let i = 0; i < team["clenove"].length; i++){ %>
 								<% if (team["znamkyDev"] != undefined) { %>
-									<td style="text-align: center;"><input class="dropdown-item" type="text" value="<%= team["znamkyDev"][i]["znamky"][5] %>" style="margin: 0"></td>
+									<td style="text-align: center;"><input class="dropdown-item" type="number" value="<% if (team["znamkyDev"][i]["znamky"][5] > 0) { %><%= team["znamkyDev"][i]["znamky"][5] %><% } %>" style="margin: 0" min="1" max="5" placeholder="neznámkováno"></td>
 								<% } else { %>
-									<td style="text-align: center;"><input class="dropdown-item" type="text" value="0" style="margin: 0"></td>
+									<td style="text-align: center;"><input class="dropdown-item" type="number" value="" style="margin: 0" min="1" max="5" placeholder="neznámkováno"></td>
 								<% } %>
 							<% } %>
 						</tr>
