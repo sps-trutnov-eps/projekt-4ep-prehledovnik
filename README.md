@@ -5,12 +5,9 @@ Použijte na vlastní nebezpečí.
 
 ## Spuštění
 
-Pro spuštění aplikace vlezte do `src` a spsťte následující příkazy
-
-```
-npm install # pouze jednou
-npm run dev
-```
+Před použitím aplikace je nutné připravit runtime.
+K tomu použijte `setup.bat` pokud používáte MS Windows, či `setup.sh` pokud ne.
+Poté již můžete spustit aplikaci přez `run.bat`, či `run.sh`.
 
 Poté můžete alpikaci otevřít přez
 [http://localhost:3000](http://localhost:3000).
