@@ -26,3 +26,9 @@ PORT=<port-number>
 
 Při prvním zpuštění aplikace se vytvoří `data/database.json`.
 V tomto souboru jsou uložena veškerá data, tudíž doporučuji nemazat a zálohovat.
+
+## Manuály
+
+[uživatelský](doc/pouziti.md)
+
+[hackerský](doc/implementace.md)
