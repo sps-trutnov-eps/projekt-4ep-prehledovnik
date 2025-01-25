@@ -33,6 +33,47 @@ PROTO NEPOUŽÍVAT NAPEVNO DANÉ BARVY ZAMÍŠLENÉ PRO POUZE DARK, ČI LIGHT M�
 
 ## Rozvrh
 
+Rozvrhy na frontendu nepoužívají htmx.
+Změny v rozvrhu jsou uloženy lokálně a server je kontaktován jen při ukládání
+a verzování.
+
+Aktivní verze kalendáře se posílá v URL jako \"verze\".
+
+V controlleru vlastně nic není.
+Vše se dělá přímo v routerech.
+
+Rozvrh jako takový je uložen jako Objekt.
+
+```
+{
+    lichy: {
+        "Po": {
+            "0": {
+            "predmet": "a",
+            "mistnost": "b",
+            "skupina": "c",
+            "trida": "d"
+
+            },
+
+            "1": {
+                ...
+            },
+
+            ...
+        },
+        "Ut": {...},
+        "St": {...},
+        "Ct": {...},
+        "Pa": {...}
+    },
+
+    sudy: {
+        ...
+    }
+}
+```
+
 ## Kalendář
 
 ## Události
