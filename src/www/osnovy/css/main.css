@@ -23,3 +23,12 @@
 .deleteCurButton:hover {
   background-color: rgba(255, 0, 0, 0.375);
 }
+
+.createCurButton {
+  color: hsla(var(--white), 1);
+  background-color: hsla(var(--light-blue-field), 1);
+}
+
+.createCurButton:hover {
+  background-color: hsla(var(--light-blue-field-hover), 1);
+}
