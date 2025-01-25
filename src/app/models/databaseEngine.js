@@ -475,6 +475,12 @@ const projekty = {
     projekty["nextID"] += 1;
     sP(projekty);
   },
+  upravitProjekt: (tridaID, datum) => {
+    let projekty = gP();
+    let nextID = projekty["nextID"];
+    projekty[tridaID]["datum"] = datum;
+    sP(projekty);
+  },
   pridatTym: (IDtridy, cislo, tema, odkaz, clenove, vedouci, featury, stretchgoaly, poznamka, ucast, znamkyDev, znamkyCom) => {
     let projekty = gP();
     //let IDtridy = ziskatIDprojektuDleTridy(trida); Doesn't work, I guess it's because it's in the same.. json?

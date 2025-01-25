@@ -12,7 +12,7 @@ projektyRouter.post('/save/class', (req, res) => {
    let data = req.body;
    
    
-   projektyController.addClass(data.classID, data.pitchDate);
+   projektyController.saveClass(data.classID, data.pitchDate);
    
    projektyController.saveTeams(data);
    

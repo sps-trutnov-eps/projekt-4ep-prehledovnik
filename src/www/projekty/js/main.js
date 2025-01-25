@@ -673,7 +673,9 @@ async function save(){
 			window.location.href = `/osnovy`;
 		}*/
 		
-		window.location.href = `/projekty/`;
+		//window.location.href = `/projekty/`;
+      window.location.reload();
+      
 		} catch (error) {
 		console.error('Error:', error);
 		}

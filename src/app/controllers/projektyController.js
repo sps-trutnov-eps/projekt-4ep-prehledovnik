@@ -132,12 +132,17 @@ exports.view = (req, res) => {
 }
 
 
-exports.addClass = (classID, datum) => {
+exports.saveClass = (classID, datum) => {
    
     let tridaID = databaze.projekty.ziskatIDprojektuDleTridy(classID);
+    // Add calss if not found
     if (databaze.projekty.ziskatCelouTridu(tridaID) == undefined){
+        //console.log("(projektyController.js; function: saveClass): Class doesn't exists.");
         databaze.projekty.pridatProjekt(classID, datum);
-    } else (console.log("(projektyController.js; function: addClass): Class already exists."))
+    } else {
+        //console.log("(projektyController.js; function: saveClass): Class already exists.");
+        databaze.projekty.upravitProjekt(tridaID, datum);
+    }
 }
 
 exports.saveTeams = (data) => {
@@ -156,7 +161,7 @@ exports.saveTeams = (data) => {
         }
         if (!found) { excessTeamsIDs.push(clas["tymy"][i]["cislo"]); }
     }
-    console.log(excessTeamsIDs);
+    console.log(`excess: ${excessTeamsIDs}`);
     
     let newTeams = [];
     let otherTeams = [];
@@ -175,8 +180,8 @@ exports.saveTeams = (data) => {
         }
         if (!foundInExcess) { otherTeams.push(data.teams[t]); }
     }
-    console.log(newTeams);
-    console.log(otherTeams);
+    console.log(`new: ${newTeams}`);
+    console.log(`other: ${otherTeams}`);
     
     // First, go through the teams that have haven't been deleted or added
     for (let i = 0; i < otherTeams.length; i++){
@@ -226,10 +231,7 @@ exports.saveTeams = (data) => {
     for (let i = 0; i < newTeams.length; i++){
         const team = newTeams[i];
         
-        databaze.projekty.pridatTym(tridaID, clas["tymy"].length+1, team.description, team.url,
-                                        team.members, 0, data.pitchDate,
-                                        [], [],
-                                        "undefined", ["undefined","undefined"], undefined, undefined);
+        databaze.projekty.pridatTym(tridaID, clas["tymy"].length+1, team.description, team.url, team.members, 0, [], [], "undefined", ["undefined","undefined"], undefined, undefined);
     }
     
    
