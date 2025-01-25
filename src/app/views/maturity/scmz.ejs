@@ -44,69 +44,94 @@
     gap: 1em;
     margin-top: 1em;
   }
+  
+  header {
+      display: flex;
+  }
+  
+  header > div:nth-of-type(1) {
+      flex: 1;
+      text-align: left;
+  }
+  header > div:nth-of-type(2) {
+      flex: 1;
+      display: flex;
+      justify-content: right;
+  }
+  header > div:nth-of-type(2) > button {
+    width: 5em;
+  }
+  header > div:nth-of-type(3) {
+      flex: 1;
+  }
+  
+  #save-button {
+      margin-right: 1em;
+  }
+  #edit-button {
+      margin-right: 1em;
+  }
 </style>
 
 <article style="flex: 3; overflow-y: auto">
-  <header>
-    <nav>
-      <ul>
-        <li>
-          <h1>Maturity</h1>
-        </li>
-      </ul>
-      <ul>
-        <li>
+   <header>
+      
+      <div>
+        <h1>Maturity</h1>
+      </div>
+      
+      <div>
+        <button
+          type="submit"
+          form="mform"
+          id="save-button"
+          class="editbutton"
+          style="display:none">
+          Uložit
+        </button>
+        <button
+          type="button"
+          id="edit-button"
+          class="editbutton"
+          onclick="toggleEdit()">
+          Edit
+        </button>
+      </div>
+      
+      <div>
+        <div role="group">
           <button
-            type="submit"
-            form="mform"
-            id="save-button"
-            class="editbutton"
-            style="display:none">
-            Uložit
+            class="outline"
+            hx-get="/maturity"
+            hx-target="body"
+            hx-push-url="true">
+            Praktická
           </button>
           <button
-            type="button"
-            id="edit-button"
-            class="editbutton"
-            onclick="toggleEdit()">
-            Edit
+            class="outline"
+            hx-get="/maturity/pcmz"
+            hx-target="body"
+            hx-push-url="true">
+            Ústní
           </button>
-        </li>
-
-        <li>
-          <div role="group">
-            <button
-              class="outline"
-              hx-get="/maturity"
-              hx-target="body"
-              hx-push-url="true">
-              Praktická
-            </button>
-            <button
-              class="outline"
-              hx-get="/maturity/pcmz"
-              hx-target="body"
-              hx-push-url="true">
-              Ústní
-            </button>
-            <button
-              hx-get="/maturity/scmz"
-              hx-target="body"
-              hx-push-url="true">
-              Státní
-            </button>
-            <button
-              class="outline"
-              hx-get="/maturity/sloh"
-              hx-target="body"
-              hx-push-url="true">
-              Sloh
-            </button>
-          </div>
-        </li>
-      </ul>
-    </nav>
-  </header>
+          <button
+            hx-get="/maturity/scmz"
+            hx-target="body"
+            hx-push-url="true">
+            Státní
+          </button>
+          <button
+            class="outline"
+            hx-get="/maturity/sloh"
+            hx-target="body"
+            hx-push-url="true">
+            Sloh
+          </button>
+        </div>
+      </div>
+      
+    </header>
+   
   <main>
     <h2>Společná část maturitní zkoušky</h2>
     <form

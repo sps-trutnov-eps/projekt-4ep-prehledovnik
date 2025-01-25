@@ -46,19 +46,44 @@
     color: inherit !important;
     opacity: 1 !important;
   }
+  
+  header {
+      display: flex;
+  }
+  
+  header > div:nth-of-type(1) {
+      flex: 1;
+      text-align: left;
+  }
+  header > div:nth-of-type(2) {
+      flex: 1;
+      display: flex;
+      justify-content: right;
+  }
+  header > div:nth-of-type(2) > button {
+    width: 5em;
+  }
+  header > div:nth-of-type(3) {
+      flex: 1;
+  }
+  
+  #editButton {
+      margin-right: 1em;
+  }
+  #submitButton {
+      margin-right: 1em;
+  }
 </style>
 
 <article style="flex: 3; overflow-y: auto; position: relative">
-  <header>
-    <nav>
-      <ul>
-        <li>
-          <h1>Maturity</h1>
-        </li>
-      </ul>
-      <ul>
-        <li>
-          <button
+   <header>
+      
+      <div>
+        <h1>Maturity</h1>
+      </div>
+      
+      <div>
+        <button
             type="submit"
             id="submitButton"
             class="editbutton"
@@ -73,9 +98,10 @@
             onclick="enableForm()">
             Edit
           </button>
-        </li>
-        <li>
-          <div role="group">
+      </div>
+      
+      <div>
+        <div role="group">
             <button
               hx-get="/maturity"
               hx-target="body"
@@ -104,10 +130,9 @@
               >
             Sloh</button>
           </div>
-        </li>
-      </ul>
-    </nav>
-  </header>
+      </div>
+      
+    </header>
   <main>
     <h2>Praktická zkouška z odborných předmětů</h2>
     <form
