@@ -22,11 +22,6 @@ Vytvořte `src/.env` a zapište do něj:
 PORT=<port-number>
 ```
 
-## Databáze
-
-Při prvním zpuštění aplikace se vytvoří `data/database.json`.
-V tomto souboru jsou uložena veškerá data, tudíž doporučuji nemazat a zálohovat.
-
 ## Manuály
 
 [uživatelský](doc/pouziti.md)
