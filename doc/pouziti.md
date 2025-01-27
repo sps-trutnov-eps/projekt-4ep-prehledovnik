@@ -48,6 +48,51 @@ Na předchozí verze se můžete podívat, ale nelze je editovat.
 
 ## Maturity
 
+Maturity jsou vcelku intuitivní modul.
+
+Maturity vám pomáhají plánovat maturíitní zkoušky vašich žáků.
+Maturity se zkládají ze čtyř částí:
+Praktické zkoušky z osborných předmětů (Praktická),
+Profilové části maturitní zkoušky (Ústní),
+Společná část maturitní zkoušky (Státní),
+Slohová práce (Sloh)
+
+Každá část maturit je zprvu zamknutá.
+Chcete li jí upravit, musíte kliknout na velké zelené tlačítko \"Edit\".
+Poté můžete upravovat a až budete spokojení, klikněte na tlačítko \"Uložit\",
+které zákeřně nahradilo tlačítko \"Edit\".
+
+### Prakická
+
+Praktická je fajn.
+Zapnete edit mód, vyplníte dny konání, vyberete z předpřipravených učeben a
+uložíte.
+
+### Ústní
+
+Ústní se skládá z několika dní.
+Přátelské tlačítko \"Přidat datum\" vám umožní počet dní navíšit.
+Dny se ďělí na hodiny (vyučovací).
+Vyberte ve které hodiny se zkoušky konají a uložte.
+Chcete li den smazat, odeberte všechny hodiny.
+
+Jednoduché.
+
+### Státní
+
+Státní se také zkládají z mnoha dní.
+Po zadání dne je nutné určit, zda zadáváte, či ne.
+Pakliže zadáváte, musíte také zadat čas, učebnu a předmět z předpřipraveného
+listu.
+
+### Sloh
+
+Zase, vše je založeno na dnech.
+Den je opět založen na hodinách (opět vyučovacích) ale tentokrát pro každou
+hodinu vybíráte učebnu.
+Výchozí je T15, ale můžete sem napsat cokoliv chcete
+(například \"Párek\" (dal bych si párek)).
+
 ## Databáze
 
 Při prvním zpuštění aplikace se vytvoří `data/database.json`.
