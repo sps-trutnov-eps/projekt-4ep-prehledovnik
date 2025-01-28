@@ -161,7 +161,7 @@
 }
 
 .dropdown-members {
-	min-height: calc(100% - 80px);
+	min-height: calc(100% - 4rem);
 }
 
 .members-input:hover .deleteButton {

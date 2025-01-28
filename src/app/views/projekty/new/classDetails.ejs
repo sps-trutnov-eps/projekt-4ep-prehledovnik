@@ -12,9 +12,9 @@
         </hgroup>
 		  <hgroup style="display: flex; gap: 0.5em;">
 			  <input class="saveButton" style="width: 8rem; padding: 0; min-height: 0; height: 2em; margin: 0; line-height: 1em;" type="button" value="Uložit" onclick="save();" />
-			  <div style="display: flex; gap: 0; align-items: center;">
-				<input class="createButton mainButton" style="width: 8rem; padding: 0; height: 2em; margin: 0; line-height: 1em;" type="button" value="Přehled" onclick="showElementAndHideElement('class', 'classDetails')" />
-				<input class="createButton" style="width: 8rem; padding: 0; height: 2em; margin: 0; line-height: 1em;" type="button" value="Detaily" onclick="showElementAndHideElement('classDetails', 'class')" />
+			  <div role="group" style="width: 20rem">
+				<input class="createButton" style="width: 8rem; padding: 0; height: 2em; margin: 0; line-height: 1em;" type="button" value="Přehled" onclick="showElementAndHideElement('class', 'classDetails')" />
+				<input class="createButton mainButton" style="width: 8rem; padding: 0; height: 2em; margin: 0; line-height: 1em;" type="button" value="Detaily" onclick="showElementAndHideElement('classDetails', 'class')" />
 			  </div>
 			</hgroup>
       </nav>
@@ -105,7 +105,7 @@
 											</td>
 										<% } %>
 									<% } else { %>
-										<td style="text-align: center;">-</td>
+											<td style="text-align: center;">-</td>
 									<% } %>
 								<% } %>
 							<% } %>
@@ -114,16 +114,16 @@
 						<tr class="marks">
 							<td style="text-align: center;">Známka za devlog</td>
 							<% if (clas["tymy"] && clas["tymy"].length > 0) { %>
-								<% if (clas["tymy"][0]["znamkyDev"] != undefined) { %>
-									<% for (let i = 0; i < clas["tymy"].length; i++) { %>
+								<% for (let i = 0; i < clas["tymy"].length; i++) { %>
+									<% if (clas["tymy"][0]["znamkyDev"] != undefined) { %>
 										<% for (let iM = 0; iM < clas["tymy"][i]["znamkyDev"].length; iM++) { %>
 											<td style="text-align: center;">
 												<% if (clas["tymy"][i]["znamkyDev"][iM]["znamky"][0] > 0) { %> <%= clas["tymy"][i]["znamkyDev"][iM]["znamky"][0]; %> <% } else { %>-<% } %>
 											</td>
 										<% } %>
+									<% } else { %>
+										<td style="text-align: center;">-</td>
 									<% } %>
-								<% } else { %>
-									<td style="text-align: center;">-</td>
 								<% } %>
 							<% } else { %>
 								<td style="text-align: center;">Žádné týmy</td>
@@ -136,8 +136,8 @@
 						<tr class="marks">
 							<td style="text-align: center;">Známka za commity</td>
 							<% if (clas["tymy"] && clas["tymy"].length > 0) { %>
-								<% if (clas["tymy"][0]["znamkyCom"] != undefined) { %>
-									<% for (let i = 0; i < clas["tymy"].length; i++) { %>
+								<% for (let i = 0; i < clas["tymy"].length; i++) { %>
+									<% if (clas["tymy"][0]["znamkyCom"] != undefined) { %>
 										<% if (clas["tymy"][i]["znamkyCom"] != undefined) { %>
 											<% for (let iM = 0; iM < clas["tymy"][i]["znamkyCom"].length; iM++) { %>
 												<td style="text-align: center;">
@@ -147,9 +147,9 @@
 										<% } else { %>
 											<td style="text-align: center;">-</td>
 										<% } %>
+									<% } else { %>
+										<td style="text-align: center;">-</td>
 									<% } %>
-								<% } else { %>
-									<td style="text-align: center;">-</td>
 								<% } %>
 							<% } else { %>
 								<td style="text-align: center;">Žádné týmy</td>
@@ -181,8 +181,8 @@
 						<tr class="marks">
 							<td style="text-align: center;">Známka za commity</td>
 							<% if (clas["tymy"] && clas["tymy"].length > 0) { %>
-								<% if (clas["tymy"][0]["znamkyCom"] != undefined) { %>
-									<% for (let i = 0; i < clas["tymy"].length; i++) { %>
+								<% for (let i = 0; i < clas["tymy"].length; i++) { %>
+									<% if (clas["tymy"][0]["znamkyCom"] != undefined) { %>
 										<% if (clas["tymy"][i]["znamkyCom"] != undefined) { %>
 											<% for (let iM = 0; iM < clas["tymy"][i]["znamkyCom"].length; iM++) { %>
 												<td style="text-align: center;">
@@ -192,9 +192,9 @@
 										<% } else { %>
 											<td style="text-align: center;">-</td>
 										<% } %>
+									<% } else { %>
+										<td style="text-align: center;">-</td>
 									<% } %>
-								<% } else { %>
-									<td style="text-align: center;">-</td>
 								<% } %>
 							<% } else { %>
 								<td style="text-align: center;">Žádné týmy</td>
@@ -224,8 +224,8 @@
 						<tr class="marks">
 							<td style="text-align: center;">Známka za commity</td>
 							<% if (clas["tymy"] && clas["tymy"].length > 0) { %>
-								<% if (clas["tymy"][0]["znamkyCom"] != undefined) { %>
-									<% for (let i = 0; i < clas["tymy"].length; i++) { %>
+								<% for (let i = 0; i < clas["tymy"].length; i++) { %>
+									<% if (clas["tymy"][0]["znamkyCom"] != undefined) { %>
 										<% if (clas["tymy"][i]["znamkyCom"] != undefined) { %>
 											<% for (let iM = 0; iM < clas["tymy"][i]["znamkyCom"].length; iM++) { %>
 												<td style="text-align: center;">
@@ -235,9 +235,9 @@
 										<% } else { %>
 											<td style="text-align: center;">-</td>
 										<% } %>
+									<% } else { %>
+										<td style="text-align: center;">-</td>
 									<% } %>
-								<% } else { %>
-									<td style="text-align: center;">-</td>
 								<% } %>
 							<% } else { %>
 								<td style="text-align: center;">Žádné týmy</td>
@@ -267,8 +267,8 @@
 						<tr class="marks">
 							<td style="text-align: center;">Známka za commity</td>
 							<% if (clas["tymy"] && clas["tymy"].length > 0) { %>
-								<% if (clas["tymy"][0]["znamkyCom"] != undefined) { %>
-									<% for (let i = 0; i < clas["tymy"].length; i++) { %>
+								<% for (let i = 0; i < clas["tymy"].length; i++) { %>
+									<% if (clas["tymy"][0]["znamkyCom"] != undefined) { %>
 										<% if (clas["tymy"][i]["znamkyCom"] != undefined) { %>
 											<% for (let iM = 0; iM < clas["tymy"][i]["znamkyCom"].length; iM++) { %>
 												<td style="text-align: center;">
@@ -278,9 +278,9 @@
 										<% } else { %>
 											<td style="text-align: center;">-</td>
 										<% } %>
+									<% } else { %>
+										<td style="text-align: center;">-</td>
 									<% } %>
-								<% } else { %>
-									<td style="text-align: center;">-</td>
 								<% } %>
 							<% } else { %>
 								<td style="text-align: center;">Žádné týmy</td>
@@ -310,8 +310,8 @@
 						<tr class="marks">
 							<td style="text-align: center;">Známka za commity</td>
 							<% if (clas["tymy"] && clas["tymy"].length > 0) { %>
-								<% if (clas["tymy"][0]["znamkyCom"] != undefined) { %>
-									<% for (let i = 0; i < clas["tymy"].length; i++) { %>
+								<% for (let i = 0; i < clas["tymy"].length; i++) { %>
+									<% if (clas["tymy"][0]["znamkyCom"] != undefined) { %>
 										<% if (clas["tymy"][i]["znamkyCom"] != undefined) { %>
 											<% for (let iM = 0; iM < clas["tymy"][i]["znamkyCom"].length; iM++) { %>
 												<td style="text-align: center;">
@@ -321,9 +321,9 @@
 										<% } else { %>
 											<td style="text-align: center;">-</td>
 										<% } %>
+									<% } else { %>
+										<td style="text-align: center;">-</td>
 									<% } %>
-								<% } else { %>
-									<td style="text-align: center;">-</td>
 								<% } %>
 							<% } else { %>
 								<td style="text-align: center;">Žádné týmy</td>
