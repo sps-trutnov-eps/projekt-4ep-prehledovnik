@@ -86,10 +86,9 @@
         <div id="tridySelect" style="display: none;">
           <label for="tridy">Třídy</label>
           <select id="tridy" name="tridy">
-            <option value="1EP">1.EP</option>
-            <option value="2EP">2.EP</option>
-            <option value="3EP">3.EP</option>
-            <option value="4EP">4.EP</option>
+            <% TridyObory.forEach(Trida => { %>
+              <option value="<%= Trida%>"><%= Trida %></option>
+            <% }) %>
           </select>
         </div>
 

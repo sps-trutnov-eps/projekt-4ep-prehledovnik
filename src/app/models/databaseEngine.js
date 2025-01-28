@@ -120,6 +120,18 @@ const osnovy = {
         }*/
     return gO();
   },
+  ziskatZadaneTridyaObory: () => {
+    let osnovy = gO();
+    let TridyObor = new Set();
+    
+    for (let id in osnovy) {
+      if (id !== "nextID" && osnovy[id].trida) {
+        TridyObor.add(osnovy[id].trida);
+      }
+    }
+    
+    return Array.from(TridyObor);;
+  },
   upravitOsnovu: (id, data) => {
     let osnovy = gO();
     //console.log(osnovy);
