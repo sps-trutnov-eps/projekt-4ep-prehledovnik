@@ -30,13 +30,6 @@
     background-color: transparent;
     border: none;
   }
-  
-  input[disabled],
-  select[disabled],
-  textarea[disabled] {
-    color: inherit !important;
-    opacity: 1 !important;
-  }
 
   .headline-container {
     display: flex;
@@ -182,8 +175,6 @@
       
     </header>
   
-  
-  
   <main>
     <h2>Slohová práce</h2>
 
@@ -191,41 +182,41 @@
       <table style="border-collapse: collapse; width: 100%">
         <thead>
           <tr>
-            <th style="text-align: center">Datum:</th>
+            <th style="text-align: center">Datum</th>
             <th>
-              1.
+              1
               <p>8:00-8:45</p>
             </th>
             <th>
-              2.
+              2
               <p>8:50-9:35</p>
             </th>
             <th>
-              3.
+              3
               <p>9:55-10:40</p>
             </th>
             <th>
-              4.
+              4
               <p>10:50-11:35</p>
             </th>
             <th>
-              5.
+              5
               <p>11:40-12:25</p>
             </th>
             <th>
-              6.
+              6
               <p>12:35-13:20</p>
             </th>
             <th>
-              7.
+              7
               <p>13:25-14:10</p>
             </th>
             <th>
-              8.
+              8
               <p>14:15-15:00</p>
             </th>
             <th>
-              9.
+              9
               <p>15:10-15:55</p>
             </th>
           </tr>
@@ -425,17 +416,17 @@
     tableBody.appendChild(newRow);
   }
 
-  // Initialize scripts on page load
-  document.addEventListener("DOMContentLoaded", function() {
-    toggleEdit();
-    // Add other initialization code here
-  });
+  function enableForm() {
+    const form = document.getElementById("form");
+    const inputs = form.querySelectorAll("input, select");
 
-  // Reinitialize scripts after htmx swaps content
-  document.body.addEventListener("htmx:afterSwap", function() {
-    toggleEdit();
-    // Add other reinitialization code here
-  });
+    inputs.forEach((input) => {
+      input.disabled = false;
+    });
+
+    document.getElementById("editButton").style.display = "none";
+    document.getElementById("submitButton").style.display = "inline-block";
+  }
 </script>
 
 
