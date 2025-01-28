@@ -304,10 +304,12 @@
                                                                 class="timetable-btn outline secondary disabled"
                                                                 onclick="toggleDayModal('<%= period %>', '<%= day %>', '<%= type %>', event)"
                                                                 data-target="popupModal">
-                                                                <span class="hodina-trida"></span>
+                                                                <sman>
+                                                                   <span class="hodina-trida"></span>
+                                                                   <span class="hodina-skupina"></span>
+                                                                </sman>
                                                                 <span class="hodina-predmet">+</span>
                                                                 <span class="hodina-mistnost"></span>
-                                                                <span class="hodina-skupina"></span>
                                                             </button>
                                                         </td>
                                                         <% }) %>
@@ -329,16 +331,16 @@
                                                             <label for="trida">Třída:</label>
                                                             <select name="trida" id="trida">
                                                                 <optgroup label="EP">
-                                                                    <option value="EP1">1.EP</option>
-                                                                    <option value="EP2">2.EP</option>
-                                                                    <option value="EP3">3.EP</option>
-                                                                    <option value="EP4">4.EP</option>
+                                                                    <option value="1.EP">1.EP</option>
+                                                                    <option value="2.EP">2.EP</option>
+                                                                    <option value="3.EP">3.EP</option>
+                                                                    <option value="4.EP">4.EP</option>
                                                                 </optgroup>
                                                                 <optgroup label="IT">
-                                                                    <option value="IT1">1.IT</option>
-                                                                    <option value="IT2">2.IT</option>
-                                                                    <option value="IT3">3.IT</option>
-                                                                    <option value="IT4">4.IT</option>
+                                                                    <option value="1.IT">1.IT</option>
+                                                                    <option value="2.IT">2.IT</option>
+                                                                    <option value="3.IT">3.IT</option>
+                                                                    <option value="4.IT">4.IT</option>
                                                                 </optgroup>
                                                             </select>
                                                         </div>
