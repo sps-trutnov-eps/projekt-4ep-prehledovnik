@@ -12,8 +12,10 @@
         </hgroup>
 		  <hgroup style="display: flex; gap: 0.5em;">
 			  <input class="saveButton" style="width: 8rem; padding: 0; min-height: 0; height: 2em; margin: 0; line-height: 1em;" type="button" value="Uložit" onclick="save();" />
-			  <input class="createButton" style="width: 8rem; padding: 0; min-height: 0; height: 2em; margin: 0; line-height: 1em;" type="button" value="Přehled" onclick="showElementAndHideElement('class', 'classDetails')" />
-			  <input class="createButton, mainButton" style="width: 8rem; padding: 0; min-height: 0; height: 2em; margin: 0; line-height: 1em;" type="button" value="Detaily" onclick="showElementAndHideElement('classDetails', 'class')" />
+			  <div style="display: flex; gap: 0; align-items: center;">
+				<input class="createButton mainButton" style="width: 8rem; padding: 0; height: 2em; margin: 0; line-height: 1em;" type="button" value="Přehled" onclick="showElementAndHideElement('class', 'classDetails')" />
+				<input class="createButton" style="width: 8rem; padding: 0; height: 2em; margin: 0; line-height: 1em;" type="button" value="Detaily" onclick="showElementAndHideElement('classDetails', 'class')" />
+			  </div>
 			</hgroup>
       </nav>
 	</header>

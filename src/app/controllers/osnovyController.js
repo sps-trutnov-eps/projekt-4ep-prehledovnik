@@ -21,6 +21,9 @@ exports.edit = (curID, data) => {
 		predmetTeorie = `-c`;
 	}
 	
+	data["predmet"] = data["predmet"].replace(/-/gi, '');
+	console.log(data["predmet"]);
+	
    const trida = `${data["rocnik"]}.${data["obor"]}`;
    const predmet = `${data["predmet"]}${predmetTeorie}`;
 	
