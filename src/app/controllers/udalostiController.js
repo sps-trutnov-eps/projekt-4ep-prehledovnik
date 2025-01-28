@@ -10,7 +10,8 @@ exports.index = (req, res) => {
     const allEvents = (databaze.udalosti.ziskatVsechnyUdalosti() || []).concat(databaze.maturity.ziskatVsechnyMaturityJakoUdalosti() || []).sort((a, b) => (a?.datum ? new Date(a.datum) : new Date(0)) - (b?.datum ? new Date(b.datum) : new Date(0)) || (!a?.casOd ? 1 : !b?.casOd ? -1 : typeof a.casOd === 'string' ? a.casOd.localeCompare(b.casOd) : 0));
     res.render('udalosti/index.ejs', {
         seznamNaZobrazeni: allEvents, 
-        datum: new Date().toISOString().split('T')[0]
+        datum: new Date().toISOString().split('T')[0],
+        TridyObory: databaze.osnovy.ziskatZadaneTridyaObory()
     });
 }
 
