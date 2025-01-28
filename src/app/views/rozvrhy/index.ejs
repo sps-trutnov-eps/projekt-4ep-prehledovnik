@@ -526,7 +526,6 @@
                 });
 
                 if (response.ok) {
-                    alert('Rozvrh byl úspěšně uložen!');
                     Object.entries(rozvrh.lichy).forEach(([den, hodiny]) => {
                         Object.entries(hodiny).forEach(([cas, hodina]) => {
                             updateTileDisplay('L', den, cas, hodina);
