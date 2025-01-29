@@ -187,43 +187,37 @@
         .mezirka{
             width: 4px;
         }
-        .navigace-rozvrh {
-            display: flex;
-            justify-content: space-between; 
-            align-items: center; 
-            gap: 20px; 
-            padding: 10px; 
         
-            width: 100%;
-        }
-
-        .cast1, .cast2, .cast3 {
+        header {
             display: flex;
-            align-items: center;
         }
-
-        .cast1 {
-            flex: 0.5;
+        
+        header > div:nth-of-type(1) {
+            flex: 1;
+            text-align: left;
         }
-
-        .cast2 {
-            flex: 4;
+        header > div:nth-of-type(2) {
+            flex: 1;
+            display: flex;
             justify-content: center;
-            gap: 10px;
+        }
+        header > div:nth-of-type(3) {
+            flex: 1;
+        }
+        
+        #rozvrhySelectorWrap {
+            padding-left: 10em;
+        }
+        #jakaverze {
+            padding: 0.5em;
         }
 
-        .cast3 {
-            flex: 0 0 auto;
-            margin-left: auto;
+        .smazbutton {
+            background-color: #B90E0A;
+         
         }
 
-        .cast3 select {
-            min-width: 200px;
-            max-width: 300px;
-            padding: 5px;
-        }
-
-        .nav-button {
+        .nav-button, .editbutton, .smazbutton {
             transition: all 0.3s ease;
             margin: 0 5px;
         }
@@ -264,6 +258,7 @@
                 
             </nav>
         </header>
+
         <main>
             <% if (!rozvrhy || rozvrhy.length===0) { %>
                 <div class="create-timetable">
@@ -315,10 +310,12 @@
                                                                 class="timetable-btn outline secondary disabled"
                                                                 onclick="toggleDayModal('<%= period %>', '<%= day %>', '<%= type %>', event)"
                                                                 data-target="popupModal">
-                                                                <span class="hodina-trida"></span>
+                                                                <sman>
+                                                                   <span class="hodina-trida"></span>
+                                                                   <span class="hodina-skupina"></span>
+                                                                </sman>
                                                                 <span class="hodina-predmet">+</span>
                                                                 <span class="hodina-mistnost"></span>
-                                                                <span class="hodina-skupina"></span>
                                                             </button>
                                                         </td>
                                                         <% }) %>
@@ -544,7 +541,6 @@
                 });
 
                 if (response.ok) {
-                    alert('Rozvrh byl úspěšně uložen!');
                     Object.entries(rozvrh.lichy).forEach(([den, hodiny]) => {
                         Object.entries(hodiny).forEach(([cas, hodina]) => {
                             updateTileDisplay('L', den, cas, hodina);

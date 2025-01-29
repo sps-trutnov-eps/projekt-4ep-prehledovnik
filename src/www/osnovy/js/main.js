@@ -229,18 +229,55 @@ function updateCurriculumHours() {
 	}
 }
 
+let prevSwitchState = [true, false, false];
+
+function threeWaySwitch() {
+	const calculateHours = document.getElementById("calculateHours");
+	const theory = document.getElementById("teorieCheckBox");
+	const exercise = document.getElementById("cviceniCheckBox");
+	
+	if (calculateHours.checked != prevSwitchState[2]) {
+		theory.checked = false;
+		exercise.checked = false;
+		calculateHours.checked = true;
+		
+		prevSwitchState[0] = false;
+		prevSwitchState[1] = false;
+		prevSwitchState[2] = true;
+	} else if (theory.checked != prevSwitchState[1]) {
+		exercise.checked = false;
+		theory.checked = true;
+		calculateHours.checked = false;
+		
+		prevSwitchState[0] = false;
+		prevSwitchState[1] = true;
+		prevSwitchState[2] = false;
+	} else if (exercise.checked != prevSwitchState[0]) {
+		exercise.checked = true;
+		theory.checked = false;
+		calculateHours.checked = false;
+		
+		prevSwitchState[0] = true;
+		prevSwitchState[1] = false;
+		prevSwitchState[2] = false;
+	}
+}
+
 function calculateTheTotalHours() {
+	threeWaySwitch();
 	const calculateHours = document.getElementById("calculateHours").checked;
 	
-	if (calculateHours){
+	if (!calculateHours){
+		const theory = document.getElementById("teorieCheckBox").checked;
+		const exercise = document.getElementById("cviceniCheckBox").checked;
+		
 		const totalHours = document.getElementById("pHodin");
 		const year = document.getElementById("rocnik");
-		const customHoursAWeek = document.getElementById("customHoursAWeek");
-		const theory = document.getElementById("teorieCheckBox").checked;
-
+		//const customHoursAWeek = document.getElementById("customHoursAWeek");
+		
 		let hoursAWeek = 2;
 		if (theory){ hoursAWeek = 1; }
-		if (customHoursAWeek.value > 0) { hoursAWeek = customHoursAWeek.value; }
+		//if (customHoursAWeek.value > 0) { hoursAWeek = customHoursAWeek.value; }
 		
 		let weeksAYear = 34;
 		if (year.value == 4) { weeksAYear -= 4; }
@@ -273,10 +310,10 @@ function updateRowColors() {
 }
 
 function hideDiv(id) {
-	const div = document.getElementById(id);
+	/*const div = document.getElementById(id);
 	console.log(div.style.display);
 	if (div.style.display === "none"){ div.style.display = "block"; }
-	else { div.style.display = "none"; }
+	else { div.style.display = "none"; }*/
 }
 
 window.onload = (event) => {

@@ -69,68 +69,94 @@
     input[type="checkbox"][readonly] {
       pointer-events: none; /* Zakáže klikání */
     }
+    
+  header {
+      display: flex;
+  }
+  
+  header > div:nth-of-type(1) {
+      flex: 1;
+      text-align: left;
+  }
+  header > div:nth-of-type(2) {
+      flex: 1;
+      display: flex;
+      justify-content: right;
+  }
+  header > div:nth-of-type(2) > button {
+    width: 5em;
+  }
+  header > div:nth-of-type(3) {
+      flex: 1;
+  }
+  
+  #save-button {
+      margin-right: 1em;
+  }
+  #edit-button {
+      margin-right: 1em;
+  }
   </style>
 
     <article style="flex: 3; overflow-y: auto;">
-      <header>
-        <nav>
-          <ul>
-            <li>
-              <h1>Maturity</h1>
-            </li>
-          </ul>
-          <ul>
-            <li>
-              <button
-                type="submit"
-                form="mform"
-                id="save-button"
-                class="editbutton"
-                style="display:none">
-                Uložit
-              </button>
-              <button
-                type="button"
-                id="edit-button"
-                class="editbutton"
-                onclick="toggleEdit()">
-                Edit
-              </button>
-            </li>    
-            <li>
-              <div role="group">
-                <button
-                  class="outline"
-                  hx-get="/maturity"
-                  hx-target="body"
-                  hx-push-url="true"
-                  >
-                Praktická</button>
-                <button
-                  hx-get="/maturity/pcmz"
-                  hx-target="body"
-                  hx-push-url="true"
-                  >
-                Ústní</button>
-                <button
-                  class="outline"
-                  hx-get="/maturity/scmz"
-                  hx-target="body"
-                  hx-push-url="true"
-                  >
-                Státní</button>
-                <button
-                  class="outline"
-                  hx-get="/maturity/sloh"
-                  hx-target="body"
-                  hx-push-url="true"
-                  >
-                Sloh</button>
-              </div>
-            </li>
-          </ul>
-        </nav>
-      </header>
+    <header>
+       
+      <div>
+        <h1>Maturity</h1>
+      </div>
+      
+      <div>
+        <button
+          type="submit"
+          form="mform"
+          id="save-button"
+          class="editbutton"
+          style="display:none">
+          Uložit
+        </button>
+        <button
+          type="button"
+          id="edit-button"
+          class="editbutton"
+          onclick="toggleEdit()">
+          Edit
+        </button>
+      </div>
+      
+      <div>
+        <div role="group">
+          <button
+            class="outline"
+            hx-get="/maturity"
+            hx-target="body"
+            hx-push-url="true"
+            >
+          Praktická</button>
+          <button
+            hx-get="/maturity/pcmz"
+            hx-target="body"
+            hx-push-url="true"
+            >
+          Ústní</button>
+          <button
+            class="outline"
+            hx-get="/maturity/scmz"
+            hx-target="body"
+            hx-push-url="true"
+            >
+          Státní</button>
+          <button
+            class="outline"
+            hx-get="/maturity/sloh"
+            hx-target="body"
+            hx-push-url="true"
+            >
+          Sloh</button>
+        </div>
+      </div>
+      
+    </header>
+    
       <main>
           <h2>Profilová část maturitní zkoušky</h2>
         <form
@@ -143,16 +169,43 @@
             id="hodiny_tabulka">
             <thead>
               <tr>
-                <th style="text-align: center; color: white">Datum:</th>
-                <% for (let i = 1; i <= 9; i++) { %>
-                <th style="color: white">
-                  <p>
-                    <%= ["8:00-8:45", "8:50-9:35", "9:55-10:40", "10:50-11:35",
-                    "11:40-12:25", "12:35-13:20", "13:25-14:10", "14:15-15:00",
-                    "15:10-15:55"][i-1] %>
-                  </p>
+                <th style="text-align: center;">Datum</th>
+                <th style="text-align: center;">
+                  1
+                  <p>8:00-8:45</p>
                 </th>
-                <% } %>
+                <th style="text-align: center;">
+                  2
+                  <p>8:50-9:35</p>
+                </th>
+                <th style="text-align: center;">
+                  3
+                  <p>9:55-10:40</p>
+                </th>
+                <th style="text-align: center;">
+                  4
+                  <p>10:50-11:35</p>
+                </th>
+                <th style="text-align: center;">
+                  5
+                  <p>11:40-12:25</p>
+                </th>
+                <th style="text-align: center;">
+                  6
+                  <p>12:35-13:20</p>
+                </th>
+                <th style="text-align: center;">
+                  7
+                  <p>13:25-14:10</p>
+                </th>
+                <th style="text-align: center;">
+                  8
+                  <p>14:15-15:00</p>
+                </th>
+                <th style="text-align: center;">
+                  9
+                  <p>15:10-15:55</p>
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -167,7 +220,7 @@
                     readonly />
                 </td>
                 <% for (let i = 1; i <= 9; i++) { %>
-                <td>
+                <td style="text-align: center;">
                   <input class="zaskrtavaci_policko" type="checkbox"
                   name="den<%= dayCounter %>_hodina<%= i %>" <%= hodiny.includes(i) ? "checked" : "" %> readonly />
                 </td>
@@ -226,6 +279,7 @@
           for (var i = 1; i <= 9; i++) {
             var bunkaCheckbox = document.createElement("td");
             var inputCheckbox = document.createElement("input");
+            bunkaCheckbox.style.textAlign = "center";
             inputCheckbox.type = "checkbox";
             inputCheckbox.name = "den" + dayCounter + "_hodina" + i;
             inputCheckbox.classList.add("zaskrtavaci_policko");
