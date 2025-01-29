@@ -187,42 +187,61 @@
         .mezirka{
             width: 4px;
         }
-        
-        header {
+        .navigace-rozvrh {
             display: flex;
-        }
+            justify-content: space-between; 
+            align-items: center; 
+            gap: 20px; 
+            padding: 10px; 
         
-        header > div:nth-of-type(1) {
-            flex: 1;
-            text-align: left;
+            width: 100%;
         }
-        header > div:nth-of-type(2) {
-            flex: 1;
+
+        .cast1, .cast2, .cast3 {
             display: flex;
+            align-items: center;
+            margin-top: -10px;
+        }
+
+        .cast1 {
+            flex: 0.5;
+        }
+
+        .cast2 {
+            flex: 4;
             justify-content: center;
-        }
-        header > div:nth-of-type(3) {
-            flex: 1;
-        }
-        
-        #rozvrhySelectorWrap {
-            padding-left: 10em;
-        }
-        #jakaverze {
-            padding: 0.5em;
+            gap: 10px;
         }
 
-        .smazbutton {
-            background-color: #B90E0A;
-         
+        .cast3 {
+            flex: 0 0 auto;
+            margin-left: auto;
         }
 
-        .nav-button, .editbutton, .smazbutton {
+        .cast3 select {
+            min-width: 200px;
+            max-width: 300px;
+            padding: 5px;
+        }
+
+        .nav-button {
             transition: all 0.3s ease;
             margin: 0 5px;
         }
 
-      
+        #editBtn{
+            background-color: hsl(100, 90%, 35%);
+        }
+
+        #smazatBtn{
+            background-color: #B90E0A;
+        }
+
+        button:disabled {
+            opacity: 1;
+        }
+
+    
     </style>
     <article class="articlesecond">
         <header>
@@ -365,7 +384,7 @@
                                                              <!-- Tady probíhá úprava názvu předmětu -->
 
                                                             <select name="predmet" id="jakypredmet" required>
-                                                                <option value="Kroužek">Koužek</option>
+                                                                <option value="Kroužek">Kroužek</option>
 
                                                                 <% for (let predmet of predmety) { %>
                                                                     <% let pr = predmet.split('-')[0]; %>
