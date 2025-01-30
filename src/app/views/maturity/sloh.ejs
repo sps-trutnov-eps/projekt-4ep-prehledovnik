@@ -30,13 +30,6 @@
     background-color: transparent;
     border: none;
   }
-  
-  input[disabled],
-  select[disabled],
-  textarea[disabled] {
-    color: inherit !important;
-    opacity: 1 !important;
-  }
 
   .headline-container {
     display: flex;
@@ -93,69 +86,95 @@
   transform: translateY(1px);
 }
 
+  header {
+      display: flex;
+  }
+  
+  header > div:nth-of-type(1) {
+      flex: 1;
+      text-align: left;
+  }
+  header > div:nth-of-type(2) {
+      flex: 1;
+      display: flex;
+      justify-content: right;
+  }
+  header > div:nth-of-type(2) > button {
+    width: 5em;
+  }
+  header > div:nth-of-type(3) {
+      flex: 1;
+  }
+  
+  #save-button {
+      margin-right: 1em;
+  }
+  #edit-button {
+      margin-right: 1em;
+  }
+
 
 </style>
 
 <article style="flex: 3; overflow-y: auto">
-  <header>
-    <nav>
-      <ul>
-        <li>
-          <h1>Maturity</h1>
-        </li>
-      </ul>
-      <ul>
-        <li>
+      <header>
+         
+      <div>
+        <h1>Maturity</h1>
+      </div>
+      
+      <div>
+        <button
+          type="submit"
+          form="mform"
+          id="save-button"
+          class="editbutton"
+          style="display:none">
+          Uložit
+        </button>
+        <button
+          type="button"
+          id="edit-button"
+          class="editbutton"
+          onclick="toggleEdit()">
+          Edit
+        </button>
+      </div>
+      
+      <div>
+        <div role="group">
           <button
-            type="submit"
-            form="mform"
-            id="save-button"
-            class="editbutton"
-            style="display:none">
-            Uložit
-          </button>
+            class="outline"
+            hx-get="/maturity"
+            hx-target="body"
+            hx-push-url="true"
+            hx-swap="transition:true">
+          Praktická</button>
           <button
-            type="button"
-            id="edit-button"
-            class="editbutton"
-            onclick="toggleEdit()">
-            Edit
-          </button>
-        </li>
-        <li>
-          <div role="group">
-            <button
-              class="outline"
-              hx-get="/maturity"
-              hx-target="body"
-              hx-push-url="true"
-              hx-swap="transition:true">
-            Praktická</button>
-            <button
-              class="outline"
-              hx-get="/maturity/pcmz"
-              hx-target="body"
-              hx-push-url="true"
-              hx-swap="transition:true">
-            Ústní</button>
-            <button
-              class="outline"
-              hx-get="/maturity/scmz"
-              hx-target="body"
-              hx-push-url="true"
-              hx-swap="transition:true">
-            Státní</button>
-            <button
-              hx-get="/maturity/sloh"
-              hx-target="body"
-              hx-push-url="true"
-              hx-swap="transition:true">
-            Sloh</button>
-          </div>
-        </li>
-      </ul>
-    </nav>
-  </header>
+            class="outline"
+            hx-get="/maturity/pcmz"
+            hx-target="body"
+            hx-push-url="true"
+            hx-swap="transition:true">
+          Ústní</button>
+          <button
+            class="outline"
+            hx-get="/maturity/scmz"
+            hx-target="body"
+            hx-push-url="true"
+            hx-swap="transition:true">
+          Státní</button>
+          <button
+            hx-get="/maturity/sloh"
+            hx-target="body"
+            hx-push-url="true"
+            hx-swap="transition:true">
+          Sloh</button>
+        </div>
+      </div>
+      
+    </header>
+  
   <main>
     <h2>Slohová práce</h2>
 
@@ -163,41 +182,41 @@
       <table style="border-collapse: collapse; width: 100%">
         <thead>
           <tr>
-            <th style="text-align: center">Datum:</th>
+            <th style="text-align: center">Datum</th>
             <th>
-              1.
+              1
               <p>8:00-8:45</p>
             </th>
             <th>
-              2.
+              2
               <p>8:50-9:35</p>
             </th>
             <th>
-              3.
+              3
               <p>9:55-10:40</p>
             </th>
             <th>
-              4.
+              4
               <p>10:50-11:35</p>
             </th>
             <th>
-              5.
+              5
               <p>11:40-12:25</p>
             </th>
             <th>
-              6.
+              6
               <p>12:35-13:20</p>
             </th>
             <th>
-              7.
+              7
               <p>13:25-14:10</p>
             </th>
             <th>
-              8.
+              8
               <p>14:15-15:00</p>
             </th>
             <th>
-              9.
+              9
               <p>15:10-15:55</p>
             </th>
           </tr>
@@ -397,17 +416,17 @@
     tableBody.appendChild(newRow);
   }
 
-  // Initialize scripts on page load
-  document.addEventListener("DOMContentLoaded", function() {
-    toggleEdit();
-    // Add other initialization code here
-  });
+  function enableForm() {
+    const form = document.getElementById("form");
+    const inputs = form.querySelectorAll("input, select");
 
-  // Reinitialize scripts after htmx swaps content
-  document.body.addEventListener("htmx:afterSwap", function() {
-    toggleEdit();
-    // Add other reinitialization code here
-  });
+    inputs.forEach((input) => {
+      input.disabled = false;
+    });
+
+    document.getElementById("editButton").style.display = "none";
+    document.getElementById("submitButton").style.display = "inline-block";
+  }
 </script>
 
 

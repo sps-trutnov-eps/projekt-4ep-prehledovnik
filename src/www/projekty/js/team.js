@@ -82,8 +82,11 @@ function appendColumn() {
       ac.classList.add("ac");
       
       const acMark = document.createElement('input');
-      acMark.type = 'text';
-      acMark.value = '0';
+      acMark.type = 'number';
+      acMark.value = '';
+      acMark.placeholder = "neznámkováno";
+      acMark.min = 1;
+      acMark.max = 5;
       acMark.style.margin = '0';
       acMark.classList.add("acMark");
       ac.appendChild(acMark);
@@ -94,8 +97,11 @@ function appendColumn() {
       ad.classList.add("ad");
       
       const adMark = document.createElement('input');
-      adMark.type = 'text';
-      adMark.value = '0';
+      adMark.type = 'number';
+      adMark.value = '';
+      adMark.placeholder = "neznámkováno";
+      adMark.min = 1;
+      adMark.max = 5;
       adMark.style.margin = '0';
       adMark.classList.add("adMark");
       ad.appendChild(adMark);
@@ -133,13 +139,65 @@ function deleteColumn(id){
    const rows = document.querySelectorAll(".tdtMembers");
    
    for (let i = 0; i < rows.length; i++){
-      // check if i == 2, 6, 10...
-      if ((i - 2) % 4 === 0) {
-         rows[i].children[id+1].remove();
-      } else {
-         rows[i].children[id].remove();
-      }
+    console.log(i);
+    console.log(rows[i].children[id]);
+    // check if i == 2, 6, 10...
+    // whyyy thoo
+    // figured out why, it's because the table rows are not actually on the same index (index = i)
+    //    1/2
+    //    2/2
+    // a  com
+    //    dev
+    //
+    // '1/2' isn't actually on the same i as '2/2', 'com' and 'dev'
+    // it's moved by one i, because that's where the 'a' is declared at in html
+    // we can't devide it by 4 rn because the table is... broken?
+    // it's having issues finding the input field row
+    // do they have .tdtMembers?
+    // the issue was this: <tr class="tdtMembers, marksCommits"> 
+    // they shouldn't have ','
+    // the correct version: <tr class="tdtMembers marksCommits">
+    if ((i - 2) % 4 === 0) {
+     //console.log(rows[i].children[id+1]);
+     rows[i].children[id+1].remove();
+    } else {
+     //console.log(rows[i].children[id]);
+     rows[i].children[id].remove();
+    }
    }
+   
+   //// Get the table body
+   //const tableBody = document.getElementById('table-body');
+   //
+   //// Get all rows in the table body
+   //const rows = tableBody.getElementsByTagName('tr');
+   //
+   //// Iterate through each row
+   //for (let i = 0; i < rows.length; i++) {
+   //   // Get the cells in the current row
+   //   const cells = rows[i].getElementsByTagName('td');
+   //
+   //   // Remove the cell at the specified columnIndex
+   //   if (cells.length > id) {
+   //      cells[id].remove();
+   //   }
+   //}
+   //
+   //// Adjust the colspan of the first column in the header
+   //const headerRow = document.getElementById('membersRow');
+   //const headerCells = headerRow.getElementsByTagName('th');
+   //headerCells[0].colSpan = 2; 
+   //
+   //// Hide the teams row
+   //const teamsRow = document.getElementById('teamsRow');
+   //teamsRow.style.display = 'none'; 
+   //
+   //// Remove the corresponding header cell
+   //teamsRow = document.getElementById('teamsRow');
+   //headerCells = teamsRow.getElementsByTagName('th');
+   //if (headerCells.length > id) {
+   //   headerCells[id].remove(); 
+   //}
 }
 
 function changeColumnName(id, name, offset = 0){
@@ -227,8 +285,12 @@ async function saveTeam(){
       console.log(`column: ${c}`);
       for (let r = 0; r < marksCommitsRows.length; r++){
          let mark = marksCommitsRows[r].children[c].children[0].value;
-         console.log(`row: ${r} mark: ${mark}`);
-         console.log( marksCommitsRows[r].children[c]);
+         //console.log(`row: ${r} mark: ${mark}`);
+         //console.log( marksCommitsRows[r].children[c]);
+         if (mark == ''){
+            mark = 0;  
+            //console.log("replacingMark");
+         }
          marksCommitsMember.push(mark);
       }
       marksCommits.push(marksCommitsMember);
@@ -244,6 +306,9 @@ async function saveTeam(){
          let mark = marksDevlogsRows[r].children[c].children[0].value;
          //console.log(`row: ${r} mark: ${mark}`);
          //console.log( marksDevlogsRows[r].children[c]);
+         if (mark == ''){
+            mark = 0;  
+         }
          marksDevlogsMember.push(mark);
       }
       marksDevlogs.push(marksDevlogsMember);
@@ -277,11 +342,12 @@ async function saveTeam(){
         //console.log(jsonResponse); // Handle your JSON data here
 
         // Redirect after handling
-		/*if (jsonResponse.id == undefined){
-			window.location.href = `/osnovy`;
-		}*/
-		
-		window.location.href = `/projekty/`;
+		//if (jsonResponse.id == undefined){
+		//	window.location.href = `/osnovy`;
+		//}
+		//window.location.href = `/projekty/`;
+      
+      window.location.reload();
 		} catch (error) {
 		console.error('Error:', error);
 		}

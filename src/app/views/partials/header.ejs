@@ -1,57 +1,46 @@
 <nav>
   <ul>
     <li>
-        <b>Přehledovnik</b>
+        <b>Přehledovník</b>
     </li>
     <li>
       <button
-        hx-get="/kalendar"
-        hx-target="body"
-        hx-push-url="true">
+        onclick="window.location.href='/kalendar'"
+        >
         Kalendář
       </button>
     </li>
     <li>
       <button
-        hx-get="/rozvrhy"
-        hx-target="body"
-        hx-push-url="true"
+        onclick="window.location.href='/rozvrhy'"
         >
         Rozvrh
       </button>
     </li>
     <li>
       <button
-        hx-get="/osnovy"
-        hx-target="body"
-        hx-push-url="true"
+        onclick="window.location.href='/osnovy'"
         >
         Osnovy
       </button>
     </li>
     <li>
       <button
-        hx-get="/udalosti"
-        hx-target="body"
-        hx-push-url="true"
+        onclick="window.location.href='/udalosti'"
         >
         Události
       </button>
     </li>
     <li>
       <button
-        hx-get="/projekty"
-        hx-target="body"
-        hx-push-url="true"
+        onclick="window.location.href='/projekty'"
         >
         Projekty
       </button>
     </li>
     <li>
       <button
-        hx-get="/maturity"
-        hx-target="body"
-        hx-push-url="true"
+        onclick="window.location.href='/maturity'"
         >
         Maturita
       </button>

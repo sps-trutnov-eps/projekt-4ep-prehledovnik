@@ -8,18 +8,20 @@ min-width: 20vw;
 margin-right: 1em;
 resize: horizontal;
 ">
-   <header>
+	<header style="border: 0">
       <h1>Osnovy</h1>
 
-      <form id="create">
-         <input
-         class="createButton outline"
-         type="submit"
-         value="Přidat tematický plán"
-         onclick="CreateCurriculum()" />
-		</form>
 	</header>
-   <main>
+   <main style="margin-top: -1px;">
+		<div style="margin: -16px; margin-bottom: 16px; padding: 16px; padding-bottom: 0px; padding-top: 0px; background-color: var(--pico-primary-background);">
+			<form id="create">
+				<input
+				class="createButton outline createCurButton"
+				type="submit"
+				value="Přidat tematický plán"
+				onclick="CreateCurriculum()" />
+			</form>
+		</div>
       <% for (let i = 1; i < cur["nextID"]; i++) {%>
       <div style="display: flex" class="cur">
          <input
@@ -27,8 +29,7 @@ resize: horizontal;
          type="button"
          value="-"
          onclick="RemoveCurriculum(<%= i %>)" />
-         <input style="margin-left: 0;" type="button" value="<%=
-			cur[i]["trida"] %> <%= cur[i]["predmet"] %>"
+         <input style="margin-left: 0;" type="button" value="<%= cur[i]["trida"] %> <%= cur[i]["predmet"].split('-')[0] %><% if( cur[i]["predmet"].split('-')[1] == "c") { %>cv<% } %>"
          onclick="window.location.href = '/osnovy/<%= i %>';">
 		</div>
       <% } %>
@@ -41,8 +42,6 @@ resize: horizontal;
       <nav>
         <hgroup>
           <h1>Tematický plán</h1>
-          <p><%= cur[id]["trida"] %> <%= cur[id]["predmet"] %></p>
-        </hgroup>
       </nav>
 	</header>
    <main>
@@ -63,11 +62,12 @@ resize: horizontal;
          <input
          type="text"
          id="newPocetHodin"
-         name="newPocetHodin" />
+         name="newPocetHodin" /> <!-- kde to krucinál končí?! Když už tak to odsazujte úplně, např jako je v pythnu, ne takhle polovičně.-->
          <input
-         type="button"
-         value="Uložit"
-         onclick="alert('Data byla uložena')" />
+				type="button"
+				value="Uložit"
+				onclick="alert('Data byla uložena')"
+			/>
 		</div>
       <div
       style="
@@ -130,29 +130,6 @@ resize: horizontal;
 			</div>
          <div style="width: 16em; margin-left: 2em; position: sticky; top: 0">
  				<form id="save" onsubmit="SaveCurriculum(event, <%= id %>)">
-               <div style="display: flex; align-items: center;">
-						<div style="margin-right: 20px; flex-grow: 1;">
-							<label for="predmet">Předmět:</label>
-
-							<input tyoe="text" id="predmet" name="predmet" value="<%= subjects[id-1].split('-')[0]; %>" />
-						</div>
-					</div>
-
-						<div style="display: flex; align-items: flex-start; width: 100%;">
-							<label for="teorieCheckBox">Teorie?
-								<input type="checkbox" id="teorieCheckBox" name="teorie" onchange="calculateTheTotalHours()" <% if (cur[id]['predmet'].split('-')[1] == 't') {%> checked <% } %>/>
-							</label>
-
-
-								<label for="calculateHours">Počítat hodiny?
-									<input type="checkbox" id="calculateHours" name="calculateHours" onchange="hideDiv('customHoursAWeekDiv')" checked/>
-								</label>
-
-						</div>
-						<div id="customHoursAWeekDiv">
-							<label for="customHoursAWeek">Vlastní hodiny týdně: <br/>0 = výchozí počítání</label>
-							<input type="number" id="customHoursAWeek" name="customHoursAWeek" value="0" min="0" onchange="calculateTheTotalHours();" />
-						</div>
 
                <div style="display: flex; align-items: flex-start; width: 100%;">
 						<div style="margin-right: 20px; flex-grow: 1;">
@@ -173,26 +150,42 @@ resize: horizontal;
 							</select>
 						</div>
 					</div>
-
 					
-					<div style="display: flex; align-items: flex-start; width: 100%;">
-						
-						
-							<label for="cviceniCheckBox">Cvičení
-								<!-- <input type="checkbox" id="cviceniCheckBox" name="cviceni" onchange="calculateTheTotalHours()" <% if (cur[id]['predmet'].split('-')[1] == 'c') {%> checked <% } %>/> -->
-								<input type="radio" id="cviceniCheckBox" name="cviceni" onchange="calculateTheTotalHours()" <% if (cur[id]['predmet'].split('-')[1] == 'c') {%> checked <% } %>>
-							</label>
-						
-							<label for="teorieCheckBox">Teorie
-								<!-- <input type="checkbox" id="teorieCheckBox" name="teorie" onchange="calculateTheTotalHours()" <% if (cur[id]['predmet'].split('-')[1] == 't') {%> checked <% } %>/> -->
-								<input type="radio" id="teorieCheckBox" name="teorie" onchange="calculateTheTotalHours()" <% if (cur[id]['predmet'].split('-')[1] == 't') {%> checked <% } %>>
-							</label>
+					<div style="display: flex; align-items: center;">
+						<div style="margin-right: 0; flex-grow: 1;">
+							<label for="predmet">Předmět:</label>
+							<input tyoe="text" id="predmet" name="predmet" value="<% if ( subjects[id-1] != undefined ) { %><%= subjects[id-1].split('-')[0]; %><% } else { %><% } %>" />
+							<!-- <select name="predmet" id="predmet">
+								<!% for (let i = 0; i < subjects.length; i++){ %>
+								<!% let subject = subjects[i].split('-');%>
+								<!% if (subject[1] == 't'){ %>
 
-							<label for="calculateHours">Ručně
-								<!-- <input type="checkbox" id="calculateHours" name="calculateHours" onchange="hideDiv('customHoursAWeekDiv'); threeWaySwitch();" checked/> -->
-								<input type="radio" id="calculateHours" name="calculateHours" onchange="hideDiv('customHoursAWeekDiv'); threeWaySwitch();" <% if (cur[id]['predmet'].split('-')[1] != 't' && cur[id]['predmet'].split('-')[1] != 'c') {%> checked <% } %>>
-							</label>
+								<option value="<!%= subject[0] %>" <!% if (cur[id]['predmet'].split('-')[0] == subject[0]) {%> selected <!% } %> ><!%= subject[0] %></option>
 
+								<!% } %> <!% } %>
+							</select> -->
+						</div>
+					</div>
+						<!-- <div id="customHoursAWeekDiv"> -->
+						<!-- 	<label for="customHoursAWeek">Vlastní hodiny týdně: <br/>0 = výchozí počítání</label> -->
+						<!-- 	<input type="number" id="customHoursAWeek" name="customHoursAWeek" value="0" min="0" onchange="calculateTheTotalHours();" /> -->
+						<!-- </div> -->
+					
+					<div style="display: flex; justify-content: center; width: 100%;">
+								<label for="cviceniCheckBox">Cvičení
+									<!-- <input type="checkbox" id="cviceniCheckBox" name="cviceni" onchange="calculateTheTotalHours()" <% if (cur[id]['predmet'].split('-')[1] == 'c') {%> checked <% } %>/> -->
+									<input type="radio" id="cviceniCheckBox" name="cviceni" onchange="calculateTheTotalHours()" <% if (cur[id]['predmet'].split('-')[1] == 'c') {%> checked <% } %>>
+								</label>
+							
+								<label for="teorieCheckBox">Teorie
+									<!-- <input type="checkbox" id="teorieCheckBox" name="teorie" onchange="calculateTheTotalHours()" <% if (cur[id]['predmet'].split('-')[1] == 't') {%> checked <% } %>/> -->
+									<input type="radio" id="teorieCheckBox" name="teorie" onchange="calculateTheTotalHours()" <% if (cur[id]['predmet'].split('-')[1] == 't') {%> checked <% } %>>
+								</label>
+
+								<label for="calculateHours">Ručně
+									<!-- <input type="checkbox" id="calculateHours" name="calculateHours" onchange="hideDiv('customHoursAWeekDiv'); threeWaySwitch();" checked/> -->
+									<input type="radio" id="calculateHours" name="calculateHours" onchange="hideDiv('customHoursAWeekDiv'); threeWaySwitch();" <% if (cur[id]['predmet'].split('-')[1] != 't' && cur[id]['predmet'].split('-')[1] != 'c') {%> checked <% } %>>
+								</label>
 						</div>
 					
                <label for="pHodin">Počet Hodin:</label>
@@ -203,7 +196,7 @@ resize: horizontal;
 					<% } %>
                <input type="number" id="pHodin" name="pHodin" value="<%= pocetHodin %>" min="0" />
 
-               <input type="submit" value="Uložit" />
+               <input type="submit" value="Uložit" style="background-color: green" />
 				</form>
 			</div>
 		</div>

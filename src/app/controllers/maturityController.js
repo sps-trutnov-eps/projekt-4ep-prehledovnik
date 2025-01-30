@@ -36,7 +36,6 @@ exports.sloh = (req, res) => {
         }
     }
 
-    console.log(data)
     res.render("maturity/sloh.ejs", { "data": dnyacasy });
 };
 
@@ -44,7 +43,6 @@ exports.scmz = (req, res) => {
     let data = databaze.maturity.ziskarMaturituDleNazvu('SČMZ')
 
     let dnyacasy = {}
-    console.log(data);
     for (let i = 0; i < data.dny.length; i++) {
         casy = data.casy[i];
         dnyacasy[data.dny[i]] = [];
@@ -52,15 +50,12 @@ exports.scmz = (req, res) => {
             dnyacasy[data.dny[i]].push(data.casy[i][x], data.ucebny[i], data.predmety[i]);
         }
     }
-    console.log(dnyacasy)
-    console.log(Object.entries(dnyacasy))
 
     res.render("maturity/scmz.ejs", {"data" : dnyacasy});
 };
 
 exports.ukladanipzop = (req, res) => {
     const {den_konani, dodatecne_dny, ucebna} = req.body;
-    console.log("Přijatá data:", {den_konani, dodatecne_dny, ucebna});
 
     if (!den_konani) {
         res.redirect("/maturity/");
@@ -85,8 +80,6 @@ exports.ukladanipcmz = (req, res) => {
 
     const radky = [];
     let pocitadloDnu = 1;
-
-    console.log(req.body);
 
     while (!vsechnyDnyUlozeny) {
         const dateKlic = `den${pocitadloDnu}_datum`;
@@ -208,8 +201,6 @@ exports.ukladanisloh = (req, res) => {
     const body = req.body;
     let pocitadloDnu = 1;
 
-    console.log(req.body);
-
     const seskupenaData = {};
 
     while (body[`den${pocitadloDnu}_datum`]) {
@@ -230,12 +221,10 @@ exports.ukladanisloh = (req, res) => {
         }
         pocitadloDnu++;
     }
-    console.log(seskupenaData)
 
     datumy = []
     hodiny = []
     ucebny = []
-    console.log(Object.values(seskupenaData));
     Object.values(seskupenaData).forEach(zaznam => {
 
         if(!datumy.includes(zaznam.dny[0])){
@@ -262,6 +251,7 @@ exports.ukladanisloh = (req, res) => {
         hodiny[i] = paired.map(p => p.cas);
         ucebny[i] = paired.map(p => p.ucebna);
     });
+
     databaze.maturity.pridatMaturitniEvent("SLOH", datumy, hodiny, ucebny);
     
     res.redirect('/maturity/sloh');

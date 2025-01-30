@@ -200,6 +200,7 @@
         .cast1, .cast2, .cast3 {
             display: flex;
             align-items: center;
+            margin-top: -10px;
         }
 
         .cast1 {
@@ -228,7 +229,19 @@
             margin: 0 5px;
         }
 
-      
+        #editBtn{
+            background-color: hsl(100, 90%, 35%);
+        }
+
+        #smazatBtn{
+            background-color: #B90E0A;
+        }
+
+        button:disabled {
+            opacity: 1;
+        }
+
+    
     </style>
     <article class="articlesecond">
         <header>
@@ -241,7 +254,7 @@
                     </div>
                     <div class="cast2">
                         <button class="nav-button" id="novaBtn" style="display: none; ">Nová verze</button>
-                        <button class="nav-button" id="editBtn">Upravit rozvrh</button>
+                        <button class="nav-button" id="editBtn">Edit</button>
                         <button class="nav-button" id="smazatBtn" style="display: none;">Smazat verzi</button>
                     </div>
                     <div class="cast3">
@@ -264,6 +277,7 @@
                 
             </nav>
         </header>
+
         <main>
             <% if (!rozvrhy || rozvrhy.length===0) { %>
                 <div class="create-timetable">
@@ -281,7 +295,7 @@
                     </form>
                 </div>
                 <% } else { %>
-                    <% const days=['Po', 'Ut' , 'St' , 'Ct' , 'Pa' ]; %>
+                    <% const days=['Po', 'Út' , 'St' , 'Čt' , 'Pá' ]; %>
                         <% const periods=['0', '1' , '2' , '3' , '4' , '5' , '6' , '7' , '8', '9' ]; %>
                             <% const timeRanges=['7:10 - 7:55', '8:00 - 8:45' , '8:50 - 9:35' , '9:55 - 10:40'
                                 , '10:45 - 11:30' , '11:35 - 12:25' , '12:35 - 13:20' , '13:25 - 14:10'
@@ -315,10 +329,12 @@
                                                                 class="timetable-btn outline secondary disabled"
                                                                 onclick="toggleDayModal('<%= period %>', '<%= day %>', '<%= type %>', event)"
                                                                 data-target="popupModal">
-                                                                <span class="hodina-trida"></span>
+                                                                <sman>
+                                                                   <span class="hodina-trida"></span>
+                                                                   <span class="hodina-skupina"></span>
+                                                                </sman>
                                                                 <span class="hodina-predmet">+</span>
                                                                 <span class="hodina-mistnost"></span>
-                                                                <span class="hodina-skupina"></span>
                                                             </button>
                                                         </td>
                                                         <% }) %>
@@ -340,17 +356,26 @@
                                                             <label for="trida">Třída:</label>
                                                             <select name="trida" id="trida">
                                                                 <optgroup label="EP">
-                                                                    <option value="EP1">1.EP</option>
-                                                                    <option value="EP2">2.EP</option>
-                                                                    <option value="EP3">3.EP</option>
-                                                                    <option value="EP4">4.EP</option>
+                                                                    <option value="">-</option>
+                                                                    <option value="1.EP">1.EP</option>
+                                                                    <option value="2.EP">2.EP</option>
+                                                                    <option value="3.EP">3.EP</option>
+                                                                    <option value="4.EP">4.EP</option>
                                                                 </optgroup>
                                                                 <optgroup label="IT">
-                                                                    <option value="IT1">1.IT</option>
-                                                                    <option value="IT2">2.IT</option>
-                                                                    <option value="IT3">3.IT</option>
-                                                                    <option value="IT4">4.IT</option>
+                                                                    <option value="1.IT">1.IT</option>
+                                                                    <option value="2.IT">2.IT</option>
+                                                                    <option value="3.IT">3.IT</option>
+                                                                    <option value="4.IT">4.IT</option>
                                                                 </optgroup>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="skupina">Skupina:</label>
+                                                            <select name="skupina" id="skupina">
+                                                                <option value="cela" selected>Celá třída</option>
+                                                                <option value="sk1">Skupina 1</option>
+                                                                <option value="sk2">Skupina 2</option>
                                                             </select>
                                                         </div>
                                                         <div class="form-group">
@@ -359,7 +384,7 @@
                                                              <!-- Tady probíhá úprava názvu předmětu -->
 
                                                             <select name="predmet" id="jakypredmet" required>
-                                                                <option value="Kroužek">Koužek</option>
+                                                                <option value="Kroužek">Kroužek</option>
 
                                                                 <% for (let predmet of predmety) { %>
                                                                     <% let pr = predmet.split('-')[0]; %>
@@ -378,14 +403,7 @@
                                                             <input type="text" name="mistnost" id="mistnost"
                                                                 placeholder="Název učebny">
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label for="skupina">Skupina:</label>
-                                                            <select name="skupina" id="skupina">
-                                                                <option value="cela" selected>Celá třída</option>
-                                                                <option value="sk1">Skupina 1</option>
-                                                                <option value="sk2">Skupina 2</option>
-                                                            </select>
-                                                        </div>
+                                                        
                                                         <button class="btn-save"
                                                             onclick="validateAndSubmit(); toggleModal(event)"
                                                             data-target="popupModal">Potvrdit
@@ -432,10 +450,10 @@
     <script>
         const emptyTimetable = {
             "lichy": {
-                "Po": {}, "Ut": {}, "St": {}, "Ct": {}, "Pa": {}
+                "Po": {}, "Út": {}, "St": {}, "Čt": {}, "Pá": {}
             },
             "sudy": {
-                "Po": {}, "Ut": {}, "St": {}, "Ct": {}, "Pa": {}
+                "Po": {}, "Út": {}, "St": {}, "Čt": {}, "Pá": {}
             }
         };
 
@@ -542,7 +560,6 @@
                 });
 
                 if (response.ok) {
-                    alert('Rozvrh byl úspěšně uložen!');
                     Object.entries(rozvrh.lichy).forEach(([den, hodiny]) => {
                         Object.entries(hodiny).forEach(([cas, hodina]) => {
                             updateTileDisplay('L', den, cas, hodina);
@@ -759,7 +776,7 @@
             lockTimetableButtons();
 
             editBtn.addEventListener('click', function() {
-                if (editBtn.textContent === 'Upravit rozvrh') {
+                if (editBtn.textContent === 'Edit') {
 
                     novaBtn.style.display = 'inline-block';
                     smazatBtn.style.display = 'inline-block';
@@ -771,7 +788,7 @@
                     smazatBtn.style.display = 'none';
 
                     lockTimetableButtons();
-                    editBtn.textContent = 'Upravit rozvrh';
+                    editBtn.textContent = 'Edit';
 
                     ulozitRozvrh();
                 }
@@ -840,7 +857,7 @@
             lockTimetableButtons();
 
             editBtn.addEventListener('click', function() {
-                if (editBtn.textContent === 'Upravit rozvrh') {
+                if (editBtn.textContent === 'Edit') {
 
                     novaBtn.style.display = 'inline-block';
                     smazatBtn.style.display = 'inline-block';
@@ -852,7 +869,7 @@
                     smazatBtn.style.display = 'none';
 
                     lockTimetableButtons();
-                    editBtn.textContent = 'Upravit rozvrh';
+                    editBtn.textContent = 'Edit';
 
                     ulozitRozvrh();
                 }

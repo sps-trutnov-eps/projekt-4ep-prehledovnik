@@ -120,6 +120,18 @@ const osnovy = {
         }*/
     return gO();
   },
+  ziskatZadaneTridyaObory: () => {
+    let osnovy = gO();
+    let TridyObor = new Set();
+    
+    for (let id in osnovy) {
+      if (id !== "nextID" && osnovy[id].trida) {
+        TridyObor.add(osnovy[id].trida);
+      }
+    }
+    
+    return Array.from(TridyObor);;
+  },
   upravitOsnovu: (id, data) => {
     let osnovy = gO();
     //console.log(osnovy);
@@ -468,14 +480,20 @@ const projekty = {
   ziskatVse: () => {
     return gP();
   },
-  pridatProjekt: (trida) => {
+  pridatProjekt: (trida, datum) => {
     let projekty = gP();
     let nextID = projekty["nextID"];
-    projekty[nextID] = {trida, "tymy": []};
+    projekty[nextID] = {trida, "tymy": [], datum};
     projekty["nextID"] += 1;
     sP(projekty);
   },
-  pridatTym: (IDtridy, cislo, tema, odkaz, clenove, vedouci, datum, featury, stretchgoaly, poznamka, ucast, znamkyDev, znamkyCom) => {
+  upravitProjekt: (tridaID, datum) => {
+    let projekty = gP();
+    let nextID = projekty["nextID"];
+    projekty[tridaID]["datum"] = datum;
+    sP(projekty);
+  },
+  pridatTym: (IDtridy, cislo, tema, odkaz, clenove, vedouci, featury, stretchgoaly, poznamka, ucast, znamkyDev, znamkyCom) => {
     let projekty = gP();
     //let IDtridy = ziskatIDprojektuDleTridy(trida); Doesn't work, I guess it's because it's in the same.. json?
     projekty[String(IDtridy)]["tymy"].push({
@@ -485,7 +503,6 @@ const projekty = {
       clenove,
       vedouci,
       "pitch": {
-        datum,
         featury,
         stretchgoaly,
         poznamka,
