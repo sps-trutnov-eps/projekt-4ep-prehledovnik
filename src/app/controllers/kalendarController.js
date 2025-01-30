@@ -24,9 +24,14 @@ exports.udalosti = () => {
 console.log(databaze.udalosti.ziskatVsechnyUdalosti())
 
 exports.mesicni = (req,res) => {
+    let udalosti = databaze.udalosti.ziskatVsechnyUdalosti()
+    let maturityUdalosti = databaze.maturity.ziskatVsechnyMaturityJakoUdalosti()
+
+    udalosti = udalosti.concat(maturityUdalosti)
+    console.log(maturityUdalosti, udalosti)
     res.render('kalendar', {
         date_udalost: date_udalost(),
-        udalosti: databaze.udalosti.ziskatVsechnyUdalosti()
+        udalosti: udalosti
     })
 }
 
