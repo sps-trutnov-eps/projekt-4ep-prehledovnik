@@ -244,6 +244,18 @@
                 const increment = 24 * 60 * 60 * 1000 //Miliseconds per day
                 let a = false
                 //console.log("aaa")
+
+                function getWeekNumber(date) {
+                    const startDate = new Date(date.getFullYear(), 0, 1);
+                    const days = Math.floor((date - startDate) / (24 * 60 * 60 * 1000));
+                    return Math.ceil((days + startDate.getDay() + 1) / 7);
+                }
+
+                function isEvenWeek(date) {
+                    date = new Date(date);
+                    const weekNumber = getWeekNumber(date);
+                    return weekNumber % 2 === 0 ? "even" : "odd";
+                }
             %>
             <% for (let i = startDate.getTime(); i <= endDate.getTime();i += increment) {%>
                 <% if(new Date(i).getDay() != 0) {%>
@@ -254,7 +266,7 @@
                 let backgroundColor = currentMonth % 2 === 0 ? 'var(--schedule-bg-lighter)' : 'var(--schedule-bg-darker)';
                 %>
 
-                <section id=<%= date %>  style="grid-column-start: <%= new Date(i).getDay()%>; background-color: <%= backgroundColor %>;" class="grid-item">
+                <section id=<%= date %> style="grid-column-start: <%= new Date(i).getDay()%>; background-color: <%= backgroundColor %>;" class="grid-item <%- isEvenWeek(date) %>">
                     <% if(new Date(i).getDay() == 6) {%>
                     <p class="days-mon"><%= date.split("-")[2] %>.<%= date.split("-")[1] %>. - <%= nextDate.split("-")[2] %>.<%= nextDate.split("-")[1] %>.</p>
 
