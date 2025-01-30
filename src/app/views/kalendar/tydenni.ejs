@@ -72,6 +72,18 @@
       font-size: 18px;
       text-align: center;
    }
+
+   .grid-item-h-ct {
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 15px;
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
    
 
    #naAktualniButton {
@@ -255,7 +267,7 @@
 
       <% for(let t=0;t<Weeks;t++ ) {%>
         <section class="grid-container">
-          <p class="grid-item-h"><%= week[t] %></p>
+          <p class="grid-item-h-ct" id="cisloTydne" ><%= week[t] %></p>
           <p class="grid-item-h"><span class="cislo-hodiny">0</span><br>7:10-7:55</p>
           <p class="grid-item-h"><span class="cislo-hodiny">1</span><br>8:00-8:45</p>
           <p class="grid-item-h"><span class="cislo-hodiny">2</span><br>8:50-9:35</p>
@@ -265,7 +277,7 @@
           <p class="grid-item-h"><span class="cislo-hodiny">6</span><br>12:35-13:20</p>
           <p class="grid-item-h"><span class="cislo-hodiny">7</span><br>13:25-14:10</p>
           <p class="grid-item-h"><span class="cislo-hodiny">8</span><br>14:15-15:00</p>
-          <p class="grid-item-h"><span class="cislo-hodiny">9</span><br>15:00+</p>
+          <p class="grid-item-h"><span class="cislo-hodiny">9+</span><br>15:00+</p>
           <% let days = ["Po", "Út", "St", "Čt", "Pá"] %>
           <%let daysDisplay = ["Po", "Út", "St", "Čt", "Pá"] %>
           <% let day = ["Po"] %>
