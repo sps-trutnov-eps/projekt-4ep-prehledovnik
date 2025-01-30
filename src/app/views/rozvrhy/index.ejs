@@ -216,12 +216,14 @@
         .cast3 {
             flex: 0 0 auto;
             margin-left: auto;
+            text-align: center;
         }
 
         .cast3 select {
             min-width: 200px;
             max-width: 300px;
             padding: 5px;
+            height: 40px;
         }
 
         .nav-button {
@@ -241,7 +243,11 @@
             opacity: 1;
         }
 
-    
+
+        #verzebutton {
+            border-top-left-radius: var(--pico-border-radius);
+            border-bottom-left-radius: var(--pico-border-radius);
+        }
     </style>
     <article class="articlesecond">
         <header>
@@ -258,6 +264,9 @@
                         <button class="nav-button" id="smazatBtn" style="display: none;">Smazat verzi</button>
                     </div>
                     <div class="cast3">
+                        <div class="totojeverze">
+                            <button id="verzebutton">Verze</button>
+                        </div>
                         <div role="group">
                             <% if (rozvrhy && rozvrhy.length> 0) { %>
                             <select name="verze" id="jakaverze" onchange="nacteniVerze(this.value)">
