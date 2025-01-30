@@ -1,17 +1,6 @@
 const databaze = require("../models/databaseEngine");
 const udalost = [];
-const rozvrh_L = ["", "PVA", "PVA", "CJL", "CJL", "", "", "", "", "",
-                "", "ELE", "ELE", "", "", "MAT", "MAT", "", "", "Krouzek",
-                "", "HAE", "", "CJ", "", "POS", "POS", "", "", "",
-                "", "POS", "OPS", "OPS", "OPS", "OPS", "", "", "", "",
-                "", "PVA", "CJL", "CJL", "MAT", "MAT", "", "", "", "Krouzek"
-]
-const rozvrh_S = ["", "MAT", "MAT", "CJL", "CJL", "", "HAE", "HAE", "", "",
-                "", "ELE", "ELE", "", "", "MAT", "MAT", "", "", "",
-                "", "HAE", "", "CJ", "", "POS", "POS", "", "", "Krouzek",
-                "", "POS", "OPS", "OPS", "OPS", "OPS", "", "", "", "",
-                "", "", "MAT", "MAT", "PVA", "PVA", "", "", "", ""
-]
+
 const year = new Date().getFullYear()
 
 function date_udalost() {
@@ -83,7 +72,6 @@ exports.tydenni = (req,res) => {
         }        
     }
 
-    //console.log(databaze.rozvrhy.ziskatPocetRozvrhu()-1);
     res.render('kalendar/tydenni', {
         rozvrh: rozvrh, 
         week: tydny,

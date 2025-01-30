@@ -76,9 +76,22 @@ Rozvrh jako takový je uložen jako Objekt.
 
 ## Kalendář
 
+Kalendář používá htmx pro přepínání mezi módy.
+
+Zase tak moc se tam na něm toho neděje, povětšinou pouze generace tabulek.
+(Čeho taky jiného, že ano)
+
+Veškerá logika je v controlleru.
+
+Nejzajímavější je objekt, jenž vrací `exports.tydenni` pod kolonkou `osnovy`.
+Jedná se o objekt, ve kterém se klíže jmenují `<přednět><třída>`, například
+`VYSv3IT`.
+Přiřazen k němu je array tématických plánů pro každou hodinu v roce (takže se
+opakují).
+
 ## Události
 
-## Projekty
+# Projekty
 
 ## Maturity
 

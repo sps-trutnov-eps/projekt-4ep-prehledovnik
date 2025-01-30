@@ -42,6 +42,26 @@ Na předchozí verze se můžete podívat, ale nelze je editovat.
 
 ## Kalendář
 
+Kalendář je takový pasivní prvek.
+Nic nemění, zato však zobrazuje data jak z rozvrhu, tak z událostí.
+
+Užití je zřejmé (snad).
+Po otevření modulu se vám zobrazí kalendář měsíční.
+Tam vidíte dny seskupené do měsíců a události, které se v nich dějí.
+Víkendy byly seskupeny do jednoho dne, jelikož vás nemusí zajímat.
+
+Na aktuální datum se můžete podívat tlačítkem \"Aktuální\".
+Pokud chcete jít na specifický měsíc, můžete kupodivu použít výběr měsícu a
+tlačítko \"Na měsíc\".
+
+Po kliknutí na událost se vám zobrazí její detail.
+
+Po stisknutí tlačítka \"Na týdenní\" se jeho text změní na \"Na Měsíční\".
+Také přepne na týdenní kalendář, kde se zobrazují vyučovací hodiny.
+
+Tlačítko \"detail\" kupodivu zobrazí detaily.
+Nečekané.
+
 ## Události
 
 ## Projekty
