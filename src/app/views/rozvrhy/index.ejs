@@ -187,50 +187,17 @@
         .mezirka{
             width: 4px;
         }
-        .navigace-rozvrh {
-            display: flex;
-            justify-content: space-between; 
-            align-items: center; 
-            gap: 20px; 
-            padding: 10px; 
-        
-            width: 100%;
-        }
-
-        .cast1, .cast2, .cast3 {
-            display: flex;
-            align-items: center;
-            margin-top: -10px;
-        }
-
-        .cast1 {
-            flex: 0.5;
-        }
-
-        .cast2 {
-            flex: 4;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .cast3 {
-            flex: 0 0 auto;
-            margin-left: auto;
-        }
-
-        .cast3 select {
-            min-width: 200px;
-            max-width: 300px;
-            padding: 5px;
-        }
 
         .nav-button {
             transition: all 0.3s ease;
             margin: 0 5px;
+            height: 40px; /* Adjust height as needed */
         }
 
-        #editBtn{
-            background-color: hsl(100, 90%, 35%);
+        select[name="verze"] {
+            height: 40px; /* Match the height of the buttons */
+            padding: 0 10px;
+            box-sizing: border-box;
         }
 
         #smazatBtn{
@@ -241,41 +208,48 @@
             opacity: 1;
         }
 
+        header {
+            display: flex;
+        }
+        
+        header > div:nth-of-type(1) {
+            flex: 1;
+            text-align: left;
+        }
+        header > div:nth-of-type(2) {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+        header > div:nth-of-type(3) {
+            flex: 1;
+        }
     
     </style>
     <article class="articlesecond">
         <header>
 
-            <nav>
-                
-               <div class="navigace-rozvrh">
-                    <div class="cast1">
-                        <h1>Rozvrh</h1>
+                <div class="cast1">
+                    <h1>Rozvrh</h1>
+                </div>
+                <div class="cast2">
+                    <button class="nav-button" id="novaBtn" style="display: none; ">Nová verze</button>
+                    <button class="editbutton" class="nav-button">Edit</button>
+                    <button class="nav-button" id="smazatBtn" style="display: none;">Smazat verzi</button>
+                </div>
+                <div class="cast3">
+                        <% if (rozvrhy && rozvrhy.length> 0) { %>
+                        <select name="verze" id="jakaverze" onchange="nacteniVerze(this.value)">
+                                <% rozvrhy.forEach(function(verze) { %>
+                                    <option value="<%= verze.id %>" <%=aktivniVerze==verze.id ? 'selected' : '' %>>
+                                        <%= verze.nazev %>
+                                            (<%= new Date(verze.datum).toLocaleDateString('cs-CZ') %>)
+                                    </option>
+                                <% }); %>
+                        </select>
+                        <% } %>
                     </div>
-                    <div class="cast2">
-                        <button class="nav-button" id="novaBtn" style="display: none; ">Nová verze</button>
-                        <button class="editbutton" class="nav-button">Edit</button>
-                        <button class="nav-button" id="smazatBtn" style="display: none;">Smazat verzi</button>
-                    </div>
-                    <div class="cast3">
-                        <div role="group">
-                            <% if (rozvrhy && rozvrhy.length> 0) { %>
-                            <select name="verze" id="jakaverze" onchange="nacteniVerze(this.value)">
-                                    <% rozvrhy.forEach(function(verze) { %>
-                                        <option value="<%= verze.id %>" <%=aktivniVerze==verze.id ? 'selected' : '' %>>
-                                            <%= verze.nazev %>
-                                                (<%= new Date(verze.datum).toLocaleDateString('cs-CZ') %>)
-                                        </option>
-                                    <% }); %>
-                            </select>
-                            <% } %>
-        
-                                
-                    </div>
-                    </div>
-               </div>
-                
-            </nav>
+                </div>
         </header>
 
         <main>
