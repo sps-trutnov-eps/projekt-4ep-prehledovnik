@@ -16,8 +16,8 @@
 [data-theme=light],
 :root:not([data-theme=dark]) {
     --white: 0, 0%, 100%;
-    --white-hover: 0, 0%, 95%;
-    --content-bg: 220, 60%, 95%;
+    --white-hover: 0, 0%, 97%;
+    --content-bg: 220, 60%, 97%;
     --content-bg-hover: 220, 60%, 90%;
     --navbar-bg: 223, 55%, 29%;
     --navbar-bg-hover: 223, 55%, 24%;
@@ -39,8 +39,8 @@
     :root:not([data-theme]) {
         --white: 0, 0%, 82%;
         --white-hover: 0, 0%, 87%;
-        --page-bg: 219, 25%, 16%;
-        --page-bg-hover: 219, 25%, 21%;
+        --content-bg: 219, 25%, 16%;
+        --content-bg-hover: 219, 25%, 21%;
         --navbar-bg: 204, 25%, 11%;
         --navbar-bg-hover: 204, 25%, 16%;
         --navbar-btn: 210, 27%, 12%;
@@ -124,6 +124,7 @@ article {
     padding: 0rem;
     display: flex;
     flex-direction: column;
+    --pico-card-background-color: hsla(var(--content-bg), 1) !important;
     header {
         --pico-text-selection-color: hsla(var(--light-blue-btn), 0.15) !important;
         --pico-primary: hsla(var(--light-blue-btn), 1) !important;
