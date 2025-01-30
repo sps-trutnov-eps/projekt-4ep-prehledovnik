@@ -282,77 +282,78 @@
             <% for(let j=0;j<= 9;j++) {%>
               <% let key%>
               <div class="grid-item">
-                <% if (week[t] % 2 === 0) { %>
-                  <p class="room"><%= rozvrh.hodiny.sudy[days[i]][j].mistnost%></p>
-                  <p class="period"><%= rozvrh.hodiny.sudy[days[i]][j].predmet%></p>
-                  <p class="group"> 
-                    <%= rozvrh.hodiny.sudy[days[i]][j].predmet !== "volno" ? rozvrh.hodiny.sudy[days[i]][j].skupina : "" %>
-                  </p>
-                  <p class="class"><%= rozvrh.hodiny.sudy[days[i]][j].trida%></p>
-                  <%
-                    if( rozvrh.hodiny.sudy[days[i]][j].predmet != "volno"){
-                      key = rozvrh.hodiny.sudy[days[i]][j].predmet+rozvrh.hodiny.sudy[days[i]][j].trida + rozvrh.hodiny.sudy[days[i]][j].skupina
-                      if (!(key in periodNumbers))
-                        periodNumbers[key] = 1
-                    }
-                  %>
-                <% }%>
-                <% if (week[t] % 2 === 1) { %>
-                  <p class="room"><%= rozvrh.hodiny.lichy[days[i]][j].mistnost%></p>
-                  <p class="period"><%= rozvrh.hodiny.lichy[days[i]][j].predmet%></p>
-                  <p class="group">
-                    <%= rozvrh.hodiny.sudy[days[i]][j].predmet !== "volno" ? rozvrh.hodiny.sudy[days[i]][j].skupina : "" %>
-                  </p>
-                  <p class="class"><%= rozvrh.hodiny.lichy[days[i]][j].trida%></p>
-                  <%            
-                    if( rozvrh.hodiny.lichy[days[i]][j].predmet != "volno"){
-                      key = rozvrh.hodiny.lichy[days[i]][j].predmet+rozvrh.hodiny.lichy[days[i]][j].trida + rozvrh.hodiny.lichy[days[i]][j].skupina
-                      if (!(key in periodNumbers))
-                        periodNumbers[key] = 1
-                    }              
-                  %>
-                <% }%>
-                <%if(key != null){ let altKey = key.replace(new RegExp("cela|sk1|sk2", "g"), "")
-                  altKey = altKey.replace("-c", "cv")
-                  altkey = altKey.replace("-t", "")
-                console.log(altKey, osnovy)
-                %>
-                  <p class="count" style="display: none;"><%= periodNumbers[key]%></p>
-                  <%if(osnovy[altKey] != undefined){ %>
-                    <p class="theme" style="display: none;"><%- osnovy[altKey][periodNumbers[key]-1] %></p>   
-                  <% }else{%>
-                    <p class="theme"></p>
-                  <%}%>
-                  <% periodNumbers[key] += 1 %>
-                <% }else{%>
-                  <p class="count"></p>
-                  <p class="theme"></p>
-                <%}%>
-                  <!-- <p><%=`${currentDate.getFullYear()}-${currentDate.getMonth()+ 1}-${currentDate.getDate()}`%></p> -->
-                  <% udalosti.forEach(function(event) { %>
-                    <%if(event.datum == `${currentDate.getFullYear()}-${currentDate.getMonth()+1}-${currentDate.getDate()}`){ %>
-                      <%if(event.typ == "celoskolni") { %>
-                        <p><%= event.nazev %></p>
-                      <%}%>
 
-                      <%if(event.typ == "ucitelsky") { %>
-                        <%if(rozvrh.hodiny.lichy[days[i]][j].predmet !== "volno" || rozvrh.hodiny.sudy[days[i]][j].predmet !== "volno") { %>
-                          <p><%= event.nazev %></p>
-                          <p><%= event.tykaSe %></p>
-                        <%}%>
+                <% if(rozvrh != null) {%>
+                  <% if (week[t] % 2 === 0) { %>
+                    <p class="room"><%= rozvrh.hodiny.sudy[days[i]][j].mistnost%></p>
+                    <p class="period"><%= rozvrh.hodiny.sudy[days[i]][j].predmet%></p>
+                    <p class="group"> 
+                      <%= rozvrh.hodiny.sudy[days[i]][j].predmet !== "volno" ? rozvrh.hodiny.sudy[days[i]][j].skupina : "" %>
+                    </p>
+                    <p class="class"><%= rozvrh.hodiny.sudy[days[i]][j].trida%></p>
+                      <%
+                        if( rozvrh.hodiny.sudy[days[i]][j].predmet != "volno"){
+                          key = rozvrh.hodiny.sudy[days[i]][j].predmet+rozvrh.hodiny.sudy[days[i]][j].trida + rozvrh.hodiny.sudy[days[i]][j].skupina
+                          if (!(key in periodNumbers))
+                            periodNumbers[key] = 1
+                      }%>
+                  <% }%>
+                  <% if (week[t] % 2 === 1) {%>
+                    <p class="room"><%= rozvrh.hodiny.lichy[days[i]][j].mistnost%></p>
+                    <p class="period"><%= rozvrh.hodiny.lichy[days[i]][j].predmet%></p>
+                    <p class="group">
+                      <%= rozvrh.hodiny.sudy[days[i]][j].predmet !== "volno" ? rozvrh.hodiny.sudy[days[i]][j].skupina : "" %>
+                    </p>
+                    <p class="class"><%= rozvrh.hodiny.lichy[days[i]][j].trida%></p>
+                    <%            
+                      if( rozvrh.hodiny.lichy[days[i]][j].predmet != "volno"){
+                        key = rozvrh.hodiny.lichy[days[i]][j].predmet+rozvrh.hodiny.lichy[days[i]][j].trida + rozvrh.hodiny.lichy[days[i]][j].skupina
+                        if (!(key in periodNumbers))
+                          periodNumbers[key] = 1
+                      }              
+                    %>
+                  <% }%>
+                    <%if(key != null){ let altKey = key.replace(new RegExp("cela|sk1|sk2", "g"), "")
+                      altKey = altKey.replace("-c", "cv")
+                      altkey = altKey.replace("-t", "")
+                    %>
+                      <p class="count" style="display: none;"><%= periodNumbers[key]%></p>
+                      <%if(osnovy[altKey] != undefined){ %>
+                        <p class="theme" style="display: none;"><%- osnovy[altKey][periodNumbers[key]-1] %></p>   
+                      <% }else{%>
+                        <p class="theme"></p>
                       <%}%>
-
-                      <%if(event.typ == "celotridni") { %>                      
-                        <%if(event.tykaSe == rozvrh.hodiny.lichy[days[i]][j].trida) { %>
+                      <% periodNumbers[key] += 1 %>
+                    <% }else{%>
+                      <p class="count"></p>
+                      <p class="theme"></p>
+                    <%}%>
+                    <!-- <p><%=`${currentDate.getFullYear()}-${currentDate.getMonth()+ 1}-${currentDate.getDate()}`%></p> -->
+                    <% udalosti.forEach(function(event) { %>
+                      <%if(event.datum == `${currentDate.getFullYear()}-${currentDate.getMonth()+1}-${currentDate.getDate()}`){ %>
+                        <%if(event.typ == "celoskolni") { %>
                           <p><%= event.nazev %></p>
                         <%}%>
-                      <%}%>
-                      
-                    <%}%>               
-                  <% }); %>
-                  <% if ((week[t] % 2 === 0 && rozvrh.hodiny.sudy[days[i]][j].predmet !== "volno") || 
-                  (week[t] % 2 === 1 && rozvrh.hodiny.lichy[days[i]][j].predmet !== "volno")) { %>
-                  <button id="detailButton" onclick="detailDisplay(this)">Detail</button>
+
+                        <%if(event.typ == "ucitelsky") { %>
+                          <%if(rozvrh.hodiny.lichy[days[i]][j].predmet !== "volno" || rozvrh.hodiny.sudy[days[i]][j].predmet !== "volno") { %>
+                            <p><%= event.nazev %></p>
+                            <p><%= event.tykaSe %></p>
+                          <%}%>
+                        <%}%>
+
+                        <%if(event.typ == "celotridni") { %>                      
+                          <%if(event.tykaSe == rozvrh.hodiny.lichy[days[i]][j].trida) { %>
+                            <p><%= event.nazev %></p>
+                          <%}%>
+                        <%}%>
+                        
+                      <%}%>               
+                    <% }); %>
+                    <% if ((week[t] % 2 === 0 && rozvrh.hodiny.sudy[days[i]][j].predmet !== "volno") || 
+                    (week[t] % 2 === 1 && rozvrh.hodiny.lichy[days[i]][j].predmet !== "volno")) { %>
+                    <button id="detailButton" onclick="detailDisplay(this)">Detail</button>
+                    <% } %>
                   <% } %>
                 </div>
             <%}%>

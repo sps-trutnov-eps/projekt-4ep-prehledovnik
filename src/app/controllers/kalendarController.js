@@ -24,9 +24,14 @@ exports.udalosti = () => {
 console.log(databaze.udalosti.ziskatVsechnyUdalosti())
 
 exports.mesicni = (req,res) => {
+    let udalosti = databaze.udalosti.ziskatVsechnyUdalosti()
+    let maturityUdalosti = databaze.maturity.ziskatVsechnyMaturityJakoUdalosti()
+
+    udalosti = udalosti.concat(maturityUdalosti)
+    console.log(maturityUdalosti, udalosti)
     res.render('kalendar', {
         date_udalost: date_udalost(),
-        udalosti: databaze.udalosti.ziskatVsechnyUdalosti()
+        udalosti: udalosti
     })
 }
 
@@ -58,6 +63,8 @@ exports.tydenni = (req,res) => {
     let osnovyRaw = databaze.osnovy.ziskatVsechnyOsnovy();
     let osnovy = {}
 
+    const rozvrh = databaze.rozvrhy.ziskatRozvrh(databaze.rozvrhy.ziskatPocetRozvrhu()-1)
+
     for (let id in osnovyRaw){
         if(id != "nextID"){
             var osnova = osnovyRaw[id]
@@ -78,7 +85,7 @@ exports.tydenni = (req,res) => {
 
     //console.log(databaze.rozvrhy.ziskatPocetRozvrhu()-1);
     res.render('kalendar/tydenni', {
-        rozvrh: databaze.rozvrhy.ziskatRozvrh(databaze.rozvrhy.ziskatPocetRozvrhu()-1), 
+        rozvrh: rozvrh, 
         week: tydny,
         osnovy: osnovy,
         udalosti: databaze.udalosti.ziskatVsechnyUdalosti()
