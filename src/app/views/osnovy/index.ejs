@@ -38,55 +38,38 @@ resize: horizontal;
 
 <article style="flex: 3;">
    <% if (cur[id] != undefined){ %>
-   <header>
+   <header style="margin: 0; min-height: 4.5rem">
       <nav>
         <hgroup>
-          <h1>Tematický plán</h1>
-      </nav>
+          <h1 style="display:inline; vertical-align:middle;">Tematický plán</h1>
+		  <p style="display:inline; vertical-align:bottom; margin-left: 1rem">
+				<%= cur[id]["trida"]; %> -
+				<%= cur[id]["predmet"].split('-')[0] %><% if( cur[id]["predmet"].split('-')[1] == "c") { %>cv<% } %>
+			 </p>
+		</hgroup>
+		<hgroup style="display: flex; gap: 0.5em;">  
+		  <input class="editbutton" style="width: 8rem; padding: 0; min-height: 0; height: 2em; margin: 0; line-height: 1em;" type="button" value="Uložit" onclick="document.getElementById('saveButtonBoop').click()" />
+		</hgroup>
+	  </nav>
 	</header>
-   <main>
-      <div
-      id="settingsPanel"
-      style="
-      display: none;
-      border: 1px solid #ccc;
-      padding: 1em;
-      margin-top: 1em;
-      ">
-         <h2>Nastavení Tematického Plánu</h2>
-         <label for="newTrida">Třída:</label>
-         <input type="text" id="newTrida" name="newTrida" />
-         <label for="newPredmet">Předmět:</label>
-         <input type="text" id="newPredmet" name="newPredmet" />
-         <label for="newPocetHodin">Počet Hodin:</label>
-         <input
-         type="text"
-         id="newPocetHodin"
-         name="newPocetHodin" /> <!-- kde to krucinál končí?! Když už tak to odsazujte úplně, např jako je v pythnu, ne takhle polovičně.-->
-         <input
-				type="button"
-				value="Uložit"
-				onclick="alert('Data byla uložena')"
-			/>
-		</div>
+   <main style="padding-top: 0">
       <div
       style="
+	  margin-top: 15px;
       display: flex;
-      position: relative;
-      overflow-y: auto;
-      max-height: calc(100vh - 14em);
       padding-right: 15px;
+	  overflow-y: none;
       ">
          <div style="flex: auto">
- 				<table id="curriculums">
+ 			<table style="overflow-y: auto; max-height: calc(100vh - 14em); padding-right: 15px;" id="curriculums">
                <thead style="position: sticky; top: 0; z-index: 1">
-                  <tr>
-                     <th style="width: 70%">Téma</th>
-                     <th style="text-align: center">Od</th>
-                     <th style="text-align: center">Do</th>
-                     <th style="text-align: center; width: 20%">Hodin</th>
-						</tr>
-					</thead>
+					<tr>
+						<th style="width: 70%">Téma</th>
+						<th style="text-align: center">Od</th>
+						<th style="text-align: center">Do</th>
+						<th style="text-align: center; width: 20%">Hodin</th>
+					</tr>
+				</thead>
                <tbody id="table-body">
                   <% let doPredchozi = 0; %> <% for (let i = 1; i <
 						cur[id]["temata"]["nextID"]; i++) {%>
@@ -115,7 +98,7 @@ resize: horizontal;
 							</td>
 						</tr>
                   <% } %>
-                  <tr style="position: sticky; bottom: 0; z-index: 1">
+                  <tr style="bottom: 0; z-index: 1">
                      <td colspan="4">
                         <input
                         class="createButton"
@@ -129,7 +112,7 @@ resize: horizontal;
 				</table>
 			</div>
          <div style="width: 16em; margin-left: 2em; position: sticky; top: 0">
- 				<form id="save" onsubmit="SaveCurriculum(event, <%= id %>)">
+ 				<form id="save" onsubmit="SaveCurriculum(event, <%= id %>)" style="position: sticky">
 
                <div style="display: flex; align-items: flex-start; width: 100%;">
 						<div style="margin-right: 20px; flex-grow: 1;">
@@ -196,7 +179,7 @@ resize: horizontal;
 					<% } %>
                <input type="number" id="pHodin" name="pHodin" value="<%= pocetHodin %>" min="0" />
 
-               <input type="submit" value="Uložit" style="background-color: green" />
+               <input type="submit" id="saveButtonBoop" value="Uložit" style="background-color: green; display: none" />
 				</form>
 			</div>
 		</div>

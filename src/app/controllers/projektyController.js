@@ -132,6 +132,7 @@ exports.view = (req, res) => {
 }
 
 
+// Spouští se když se ukládá třída
 exports.saveClass = (classID, datum) => {
    
     let tridaID = databaze.projekty.ziskatIDprojektuDleTridy(classID);
@@ -150,6 +151,7 @@ exports.saveTeams = (data) => {
     let tridaID = databaze.projekty.ziskatIDprojektuDleTridy(data.classID);
     let clas = databaze.projekty.ziskatCelouTridu(tridaID);
         
+	// Hledání smazaného teamu
     let excessTeamsIDs = [];
     for (let i = 0; i < clas["tymy"].length; i++){
         let found = false;
@@ -163,7 +165,10 @@ exports.saveTeams = (data) => {
     }
     //console.log(`excess: ${excessTeamsIDs}`);
     
+	
+	// Hledání nově vytvořeného týmu
     let newTeams = [];
+	// Týmy co tam již existují
     let otherTeams = [];
     for (let t = 0; t < data.teams.length; t++){
         if (data.teams[t]["teamID"] == undefined){
