@@ -62,6 +62,8 @@ exports.tydenni = (req,res) => {
         if(id != "nextID"){
             var osnova = osnovyRaw[id]
             let key = osnova.predmet + osnova.trida
+            key = key.replace("-t", "")
+            key = key.replace("-c", "cv")
             let index = 0;
             osnovy[key] = [];
             for (let tema in osnova.temata){

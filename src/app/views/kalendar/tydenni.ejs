@@ -312,7 +312,11 @@
                     }              
                   %>
                 <% }%>
-                <%if(key != null){ let altKey = key.replace(new RegExp("cela|sk1|sk2", "g"), "")%>
+                <%if(key != null){ let altKey = key.replace(new RegExp("cela|sk1|sk2", "g"), "")
+                  altKey = altKey.replace("-c", "cv")
+                  altkey = altKey.replace("-t", "")
+                console.log(altKey, osnovy)
+                %>
                   <p class="count" style="display: none;"><%= periodNumbers[key]%></p>
                   <%if(osnovy[altKey] != undefined){ %>
                     <p class="theme" style="display: none;"><%- osnovy[altKey][periodNumbers[key]-1] %></p>   
