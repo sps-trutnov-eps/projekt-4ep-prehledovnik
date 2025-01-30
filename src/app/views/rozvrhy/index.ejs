@@ -296,10 +296,10 @@
                 </div>
                 <% } else { %>
                     <% const days=['Po', 'Út' , 'St' , 'Čt' , 'Pá' ]; %>
-                        <% const periods=['0', '1' , '2' , '3' , '4' , '5' , '6' , '7' , '8', '9' ]; %>
+                        <% const periods=['0', '1' , '2' , '3' , '4' , '5' , '6' , '7' , '8', '9+' ]; %>
                             <% const timeRanges=['7:10 - 7:55', '8:00 - 8:45' , '8:50 - 9:35' , '9:55 - 10:40'
                                 , '10:45 - 11:30' , '11:35 - 12:25' , '12:35 - 13:20' , '13:25 - 14:10'
-                                , '14:15 - 15:00', '15:00 +' ]; %>
+                                , '14:15 - 15:00', '15:00+' ]; %>
 
                                 <% ['L', 'S' ].forEach(type=> { %>
                                     <h2>
@@ -368,8 +368,8 @@
                                                                     <option value="4.IT">4.IT</option>
                                                                 </optgroup>
                                                                 <optgroup label="Jiné">
-                                                                    <option value="">-</option>
-                                                                    <option value="Krouzek">Kroužek</option>
+                                                                    <option value="-">-</option>
+                                                                    <option value="Kroužek">Kroužek</option>
                                                                 </optgroup>
                                                             </select>
                                                         </div>
@@ -387,8 +387,8 @@
                                                              <!-- Tady probíhá úprava názvu předmětu -->
 
                                                             <select name="predmet" id="jakypredmet" required>
-                                                                <option value="Mechatronika">Mechatronika</option>
-                                                                <option value="Programování">Programování</option>
+                                                                <option value="Mech">Mechatronika</option>
+                                                                <option value="Prog">Programování</option>
                                                                 <% for (let predmet of predmety) { %>
                                                                     <% let pr = predmet.split('-')[0]; %>
                                                                     <% let typ = predmet.split('-')[1]; %>
@@ -631,7 +631,7 @@
             const mistnost = document.getElementById("mistnost").value;
             const trida = document.getElementById("trida").value;
 
-            if (predmet === "Kroužek") {
+            if (trida === "Kroužek") {
                 potvrditHodinu();
                 return;
             }
@@ -837,25 +837,22 @@
             }
 
             const handlePredmetChange = () => {
-                const selectedValue = predmetField.value;
+                const selectedValue = tridaField.value;
 
                 if (selectedValue === "Kroužek") {
                     mistnostField.disabled = true;
                     skupinaField.disabled = true;
-                    tridaField.disabled = true;
 
                     mistnostField.value = "";
                     skupinaField.value = "cela";
-                    tridaField.value = "";
                 }
                 else {
                     mistnostField.disabled = false;
                     skupinaField.disabled = false;
-                    tridaField.disabled = false;
                 }
             };
 
-            predmetField.addEventListener("change", handlePredmetChange);
+            tridaField.addEventListener("change", handlePredmetChange);
 
             lockTimetableButtons();
 
