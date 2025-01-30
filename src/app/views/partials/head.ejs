@@ -75,6 +75,8 @@
     --pico-primary-hover-background: hsla(var(--light-blue-hover), 1) !important;
     --pico-primary-focus: hsla(var(--light-blue), 0.3) !important;
     --pico-primary-inverse: #fff;
+    --save-button: hsl(40, 100%, 45%);
+    --save-button-hover: hsl(40, 100%, 41%);
 }
 
 nav {
@@ -171,12 +173,12 @@ article {
 }
 
 .editbutton{
-    background-color: rgb(125,215,0);
+    background-color: var(--save-button);
     text-shadow: 0px 0px 4px #000000;
 }
 
 .editbutton:hover {
-    background-color: rgb(111,191,0);
+    background-color: var(--save-button-hover);
 }
 
     </style>

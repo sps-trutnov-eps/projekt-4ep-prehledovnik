@@ -25,13 +25,12 @@
 
 
 .saveButton {
-  border-color: green;
-  background-color: green;
+  background-color: var(--save-button);
   transition: background-color 0.25s ease;
 }
 
 .saveButton:hover {
-  background-color: ForestGreen;
+  background-color: var(--save-button-hover);
 }
 
 
