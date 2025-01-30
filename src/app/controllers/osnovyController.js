@@ -11,6 +11,7 @@ exports.remove = (curID) => {
 	return true;
 }
 
+// Zapíše do databáze tématický plán
 exports.edit = (curID, data) => {
 	
 	data["temata"] = JSON.parse(data.temata);
