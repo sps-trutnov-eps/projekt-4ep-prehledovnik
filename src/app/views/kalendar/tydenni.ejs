@@ -302,7 +302,7 @@
                     <p class="room"><%= rozvrh.hodiny.lichy[days[i]][j].mistnost%></p>
                     <p class="period"><%= rozvrh.hodiny.lichy[days[i]][j].predmet%></p>
                     <p class="group">
-                      <%= rozvrh.hodiny.sudy[days[i]][j].predmet !== "volno" ? rozvrh.hodiny.sudy[days[i]][j].skupina : "" %>
+                      <%= rozvrh.hodiny.lichy[days[i]][j].predmet !== "volno" ? rozvrh.hodiny.lichy[days[i]][j].skupina : "" %>
                     </p>
                     <p class="class"><%= rozvrh.hodiny.lichy[days[i]][j].trida%></p>
                     <%            
@@ -330,7 +330,7 @@
                     <%}%>
                     <!-- <p><%=`${currentDate.getFullYear()}-${currentDate.getMonth()+ 1}-${currentDate.getDate()}`%></p> -->
                     <% udalosti.forEach(function(event) { %>
-                      <%if(event.datum == `${currentDate.getFullYear()}-${currentDate.getMonth()+1}-${currentDate.getDate()}`){ %>
+                      <%if(event.datum == currentDate.toLocaleDateString('en-CA', {timeZone: 'Europe/Prague'})){ %>
                         <%if(event.typ == "celoskolni") { %>
                           <p><%= event.nazev %></p>
                         <%}%>
