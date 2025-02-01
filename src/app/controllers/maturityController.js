@@ -48,12 +48,8 @@ exports.scmz = (req, res) => {
     for (let i = 0; i < data.dny.length; i++) {
         casy = data.casy[i];
         dnyacasy[data.dny[i]] = [];
-        for (let x = 0; x < casy.length; x++) {
-            dnyacasy[data.dny[i]].push(data.casy[i][x], data.ucebny[i], data.predmety[i]);
-        }
+        dnyacasy[data.dny[i]].push(data.casy[i][0], data.casy[i][1], data.ucebny[i], data.predmety[i]);
     }
-    console.log(dnyacasy)
-    console.log(Object.entries(dnyacasy))
 
     res.render("maturity/scmz.ejs", {"data" : dnyacasy});
 };
@@ -160,17 +156,18 @@ exports.ukladaniscmz = (req, res) => {
             continue;
         }
 
-        const casKlic = `den${pocitadloDnu}_cas`;
+        const casOdKlic = `den${pocitadloDnu}_casod`;
+        const casDoKlic = `den${pocitadloDnu}_casdo`;
         const ucebnaKlic = `den${pocitadloDnu}_ucebna`;
         const predmetKlic = `den${pocitadloDnu}_predmet`;
 
-        const casMaHodnotu = body[casKlic] && body[casKlic].trim() !== '';
+        const casOdMaHodnotu = body[casOdKlic] && body[casOdKlic].trim() !== '';
         const ucebnaMaHodnotu = body[ucebnaKlic] && body[ucebnaKlic].trim() !== '';
         const predmetMaHodnotu = body[predmetKlic] && body[predmetKlic].trim() !== '';
 
-        const hodiny = (casMaHodnotu && ucebnaMaHodnotu && predmetMaHodnotu) ? [body[casKlic]] : [];
-        const ucebna = (casMaHodnotu && ucebnaMaHodnotu && predmetMaHodnotu) ? body[ucebnaKlic] : null;
-        const predmet = (casMaHodnotu && ucebnaMaHodnotu && predmetMaHodnotu) ? body[predmetKlic] : null;
+        const hodiny = (casOdMaHodnotu && ucebnaMaHodnotu && predmetMaHodnotu) ? [body[casOdKlic], body[casDoKlic]] : [];
+        const ucebna = (casOdMaHodnotu && ucebnaMaHodnotu && predmetMaHodnotu) ? body[ucebnaKlic] : null;
+        const predmet = (casOdMaHodnotu && ucebnaMaHodnotu && predmetMaHodnotu) ? body[predmetKlic] : null;
 
         radky.push({
             datum: body[dateKlic],
@@ -191,7 +188,7 @@ exports.ukladaniscmz = (req, res) => {
             }
             let index = datumy.indexOf(radek.datum)
             if(hodiny[index]){
-                hodiny[index].push(radek.hodiny[0]);
+                hodiny[index].push([radek.hodiny[0], radek.hodiny[1]]);
             } else {
                 hodiny.push(radek.hodiny);
             }
