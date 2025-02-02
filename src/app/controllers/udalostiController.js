@@ -54,6 +54,9 @@ exports.pridat = (req, res) => {
                 break;
             case "ucitelsky":
                 tykaSe = "Jakub Šenkýř";
+            case "ucebna":
+                tykaSe = req.body.ucebna.trim();
+                break;
             default:
                 break;
         }
