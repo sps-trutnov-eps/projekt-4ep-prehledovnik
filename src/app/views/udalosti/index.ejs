@@ -67,7 +67,7 @@
           </select>
         </div>
 
-        <label for="datum" id="datumLabel">Datum:</label>
+        <label for="datum" id="datumLabel">Datum</label>
         <input type="date" id="datum" name="datum" value="<%= datum %>" min="<%= datum %>"/>
 
         <div id="vicedenniInputs" style="display: none;">
@@ -77,10 +77,11 @@
 
         <label for="typAkce" style="margin-bottom: 0.2em">Typ akce</label>
         <select id="typAkce" name="typAkce">
-          <option value="celoskolni">Celoškolní</option>
-          <option value="celotridni">Celotřídní</option>
-          <option value="ucitelsky">Učitelský</option>
-          <option value="budovy">Budovy</option>
+          <option value="ucitelsky">Učitel</option>
+          <option value="celotridni">Třída</option>
+          <option value="ucebna">Učebna</option>
+          <option value="budovy">Budova</option>
+          <option value="celoskolni">Škola</option>
         </select>
 
         <div id="tridySelect" style="display: none;">
@@ -100,6 +101,11 @@
             <option value="horska59">Horská 59</option>
             <option value="mladeBuky">Mladé Buky</option>
           </select>
+        </div>
+
+        <div id="ucebnaInput" style="display: none;">
+          <label for="ucebna">Učebna</label>
+          <input type="text" id="ucebna" name="ucebna" placeholder="Zadejte učebnu">
         </div>
         <!-- data pro změnu -->
         <input type="hidden" name="PuvodniData" value="">
@@ -202,6 +208,7 @@
 
         const prekladTypAkce = {
           "celotridni": "Celotřídní",
+          "ucebna": "Učebna",
           "budovy": "Budovy",
           "celoskolni": "Celoškolní",
           "ucitelsky": "Učitelský"
@@ -358,6 +365,7 @@
         this.typAkceSelect = document.getElementById('typAkce');
         this.tridySelect = document.getElementById('tridySelect');
         this.budovySelect = document.getElementById('budovySelect');
+        this.ucebnaInput = document.getElementById('ucebnaInput');
         this.datumInput = document.getElementById('datum');
         this.datumDoInput = document.getElementById('datumDo');
         this.casOdSelect = document.getElementById('casOd');
@@ -442,11 +450,14 @@
       handleTypAkceChange() {
         if (this.tridySelect) this.tridySelect.style.display = 'none';
         if (this.budovySelect) this.budovySelect.style.display = 'none';
+        if (this.ucebnaInput) this.ucebnaInput.style.display = 'none'; 
 
         if (this.typAkceSelect.value === 'celotridni') {
           if (this.tridySelect) this.tridySelect.style.display = 'block';
         } else if (this.typAkceSelect.value === 'budovy') {
           if (this.budovySelect) this.budovySelect.style.display = 'block';
+        } else if (this.typAkceSelect.value === 'ucebna') {
+          if (this.ucebnaInput) this.ucebnaInput.style.display = 'block';
         }
       }
 
@@ -556,7 +567,10 @@
       } else if (udalost.typ === "budovy") {
         budovySelect.value = udalost.tykaSe;
         document.getElementById('budovySelect').style.display = 'block';
-      }
+      } else if (udalost.typ === "ucebna") {
+        document.getElementById('ucebna').value = udalost.tykaSe || '';
+        document.getElementById('ucebnaInput').style.display = 'block';
+}
 
       // Poznámka
       document.querySelector('[name="poznamka_udalosti"]').value = udalost.poznamka || '';
