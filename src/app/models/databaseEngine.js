@@ -106,18 +106,7 @@ const osnovy = {
     }
     return IDhledaneOsnovy;
   },
-  /*ziskatOsnovu: (id) => {
-        let osnovy = gO();
-		//console.log(`osnova ${id}:` + osnovy[`${id}`]["trida"]);
-        return osnovy[`${id}`];
-    },*/
   ziskatVsechnyOsnovy: () => {
-    /*let osnovy = gO();
-        let osnovyList = [];
-        let nextID = osnovy["nextID"];
-        for(let i = 0; i < nextID; i++){
-            osnovyList.push(osnovy[String(i)]);
-        }*/
     return gO();
   },
   ziskatZadaneTridyaObory: () => {
@@ -134,14 +123,12 @@ const osnovy = {
   },
   upravitOsnovu: (id, data) => {
     let osnovy = gO();
-    //console.log(osnovy);
     osnovy[id]["trida"] =
       data.trida == undefined ? osnovy[id]["trida"] : data.trida;
     osnovy[id]["predmet"] =
       data.predmet == undefined ? osnovy[id]["predmet"] : data.predmet;
     osnovy[id]["temata"] =
       data.temata == undefined ? osnovy[id]["temata"] : data.temata;
-    //console.log(osnovy);
     sO(osnovy);
   },
   upravitTemataOsnovy: (trida, predmet, temata) => {
@@ -153,17 +140,13 @@ const osnovy = {
   odebratOsnovu: (id) => {
     let osnovy = gO();
     id = Number(id);
-    //console.log(id);
     if (id < Number(osnovy["nextID"])) {
-      //console.log("yep")
       for (let i = id + 1; i < osnovy["nextID"]; i++) {
-        //console.log(i)
         osnovy[`${i - 1}`] = osnovy[i];
       }
       osnovy["nextID"] -= 1;
       delete osnovy[osnovy["nextID"]];
     }
-    //console.log(osnovy);
     sO(osnovy);
   },
 };

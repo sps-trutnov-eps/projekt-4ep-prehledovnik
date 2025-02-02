@@ -174,12 +174,9 @@ tr:hover {
       })
       .then(odpoved => odpoved.json())
       .then(data => {
-        //console.log("data");
-        //console.log(data);
         dataTym = data;
       });
       
-      //console.log(dataTym.team);
       if (dataTym.team.leader == null) {dataTym["team"]["leader"] = "";}
       if (dataTym.team.members[1] == undefined) {dataTym["team"]["members"] = ["", 0];}
       if (dataTym.team.members[0] == undefined) {dataTym["team"]["members"] = ["", dataTym.team.members[1]];}

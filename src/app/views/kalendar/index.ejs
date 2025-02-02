@@ -243,7 +243,6 @@
                 let endDate = new Date(2025,6,31);
                 const increment = 24 * 60 * 60 * 1000 //Miliseconds per day
                 let a = false
-                //console.log("aaa")
 
                 function getWeekNumber(date) {
                     const startDate = new Date(date.getFullYear(), 0, 1);
@@ -351,8 +350,6 @@
     if (Number(dateCheck.getDay()) == 0)
         date = new Date(Number(dateCheck.getTime()) - increment).toLocaleDateString('en-CA', { timeZone: 'Europe/Prague' })
     let day = document.getElementById(date)
-    // console.log("AAA")
-
     let button = document.createElement("button")
     button.textContent = udalost.nazev
     button.className = "udalost"
@@ -368,7 +365,6 @@
             if(udalosti[id] != null){
                 if(udalosti[id].datumDo != null){
                     udalosti[id].naPocetDni = (new Date(udalosti[id].datumDo) - new Date(udalosti[id].datum) ) / (1000 * 60 * 60 * 24) + 1
-                    console.log(udalosti[id].naPocetDni)
                     for(let j=0; j < udalosti[id].naPocetDni ;j++){
                         let udalost = { ...udalosti[id] };
                         let date = new Date(udalost.datum);
@@ -392,7 +388,6 @@
   function detailDisplay(index, event){
       const udalosti = <%- JSON.stringify(udalosti) %>
       const udalost = udalosti[index]
-      //console.log(udalost.typ)
 
       let detail = document.getElementById("detail")
 

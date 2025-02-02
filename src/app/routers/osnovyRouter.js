@@ -16,12 +16,8 @@ osnovyRouter.post('/save/*', (req, res) => {
 		curID = curID.split('/');
 		curID = curID[curID.length-1];
 	} else {
-		//console.log('ERROR: Incorrect URL (save curriculum)');
 		res.json({'id': undefined});
 	}
-	
-	//console.log(req.body);
-	
 	
 	// I still have no idea how the curriculums field gets in here, it just gets
 	osnovyController.edit(curID, req.body);
@@ -42,8 +38,6 @@ osnovyRouter.post('/remove/*', (req, res) => {
 		res.json({'id': undefined});
 	}
 	
-	//console.log(req.body);
-	
 	osnovyController.remove(curID);
 	
 	// Odpověď klientu
@@ -60,7 +54,6 @@ osnovyRouter.get('*', (req, res) => {
 	let subjects = osnovyController.subjects();
 	let classes = osnovyController.classes();
 	let fields = osnovyController.fields();
-	//console.log(cur);
 	
 	res.render('osnovy/index.ejs', {"cur": cur, "id": id, "subjects": subjects, "classes": classes, "fields": fields});
 });
