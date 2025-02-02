@@ -15,10 +15,12 @@ exports.edit = (curID, data) => {
 	
 	data["temata"] = JSON.parse(data.temata);
 	
-	let predmetTeorie = `-t`;
-	if (data["teorie"] == undefined){
-		predmetTeorie = `-c`;
-	}
+	let predmetTeorie = "-c";
+	if (data["teorie"] != undefined) {
+		predmetTeorie = "-t";
+   } else if (data["calculateHours"] != undefined) {
+      predmetTeorie = "";
+   }
 	
 	data["predmet"] = data["predmet"].replace(/-/gi, '');
 	

@@ -15,10 +15,12 @@ browseru. Chrome aktuálně nefunguje, ale Edge a Firefox fungují.
 
 ## Osnovy
 
+
+
 ## Rozvrh
 
 Rozvrh nejprve nebude.
-je ho proto nutné vytvořit velkým intuitivním zeleným tlačítkem
+je ho proto nutné vytvořit velkým intuitivním oranžovým tlačítkem
 \"Vytvořit rozvrh\".
 
 Rozvrh je verzovaný z archivačních důvodů.
@@ -78,7 +80,7 @@ Společná část maturitní zkoušky (Státní),
 Slohová práce (Sloh)
 
 Každá část maturit je zprvu zamknutá.
-Chcete li jí upravit, musíte kliknout na velké zelené tlačítko \"Edit\".
+Chcete li jí upravit, musíte kliknout na velké oranžové tlačítko \"Edit\".
 Poté můžete upravovat a až budete spokojení, klikněte na tlačítko \"Uložit\",
 které zákeřně nahradilo tlačítko \"Edit\".
 
