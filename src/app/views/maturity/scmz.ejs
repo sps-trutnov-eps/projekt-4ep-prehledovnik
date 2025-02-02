@@ -127,13 +127,17 @@
             <tr>
               <%let date = info[i] && info[i][0] ? info[i][0] : ""%>
               <%let extra_info = info[i] && info[i][1] ? info[i][1] : []%>
-              <%let zadavani = true%>
+              <%let zadavani = false%>
               <%let bool_extra_info = extra_info.length > 0%>
               <%let casod = bool_extra_info ? extra_info[0] : ""%>
               <%let casdo = bool_extra_info ? extra_info[1] : ""%>
               <%let ucebna = bool_extra_info ? extra_info[2] : ""%>
               <%let predmet = bool_extra_info ? extra_info[3] : ""%>
-              <%if (extra_info.length == 0) {zadavani = false}%>
+              <%
+                if (extra_info.length > 0 && extra_info[0] && extra_info[1] && extra_info[2] && extra_info[3]) {
+                  zadavani = true;
+                }
+              %>
 
               <td><input type="date" value="<%=date%>" name="den<%=i+1%>_datum" disabled /></td>
               <td>
@@ -142,8 +146,8 @@
                   name="den<%=i+1%>_checkbox"
                   class="zadavani-checkbox"
                   style="font-size: 50px; padding: 0.5em"
-                  <%if (bool_extra_info) {%>checked<%}%>
-                  disabled />
+                  <%if (zadavani) {%>checked<%}%>
+                  disabled/>
               </td>
               <td>
                 <input
@@ -245,7 +249,7 @@
 
       if (document.getElementById("edit-button").style.display === "none") {
         newRow.querySelector("input[type='date']").disabled = false;
-        newRow.querySelector("input[type='checkbox']").disabled = false;
+        newRow.querySelector("input[type='checkbox']").disabled = false; 
       }
     });
 
