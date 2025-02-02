@@ -15,7 +15,25 @@ browseru. Chrome aktuálně nefunguje, ale Edge a Firefox fungují.
 
 ## Osnovy
 
+Osnovy se zkládají z tématických plánů pro jednotlivé předměty.
+Nejprve přidejte nový tématický plán tlačítkem \"Přidat tématický plán\".
+Toto přidá prázdné tlačítko.
+To je v pořádku.
 
+Nyní vyplňte \"Ročník\", \"Obor\" a \"Předmět\".
+Poté vyberte zda je váš předmět cvičení, či zda je praktický.
+Dle toho se určí počet hodin a popřípadná přípona pro název, tudíž ji není
+třeba psát ručně.
+Pokud má váš předmět nestandartní počet hodin, vyberte kolonku \"Ručně\".
+
+Nyní vás bude zajímat tabulka \"Témata\".
+Zde budete přidávat témata v jejich chronologickém pořadí a připíšete jim, kolik
+hodin mají trvat.
+Automaticky se vám doplní ve kterých hodinách se tedy mají probírat.
+Číslo \"Do\" bude černevé, dokud nebudou vaše počty hodin odpovídat.
+Pokud máte zaškrtnuto \"Ručně\", tak se po uložení počet hodin přispůsobí
+tématům.
+Po uložení se také pojmenuje kolonka plánu.
 
 ## Rozvrh
 

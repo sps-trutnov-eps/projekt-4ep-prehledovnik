@@ -31,6 +31,26 @@ PROTO NEPOUŽÍVAT NAPEVNO DANÉ BARVY ZAMÍŠLENÉ PRO POUZE DARK, ČI LIGHT M�
 
 ## Osnovy
 
+Tady žádné htmx nenajdete.
+Zato tu je spousta JS v `src/www/osnovy/js/main.js`.
+
+V ejs je pár zajímavých věcí.
+Zda je předmět \"Cvičení\", \"Teorie\", či \"Ručně\" se zjišťuje dle jeho názvu.
+
+JavaScript možná vypadá komplexně, ale vlastně není, jen je tam hodně interakcí
+s dokumentem.
+
+`threeWaySwitch` sice má obskurní if, ale vlastně jen zajišťuje, že se omylem
+nespustí kód pro změnu stavu na tlačítko, které už je vybrané, což by nic
+nerozbylo, ale stejně to někdo nechtěl.
+
+Zde dokonce i něco je v routeru, ale jen se tam připravují data pro controller.
+V controlleru je hodně funkcí, které jsou pouze interface k databázi.
+Jediná vyjímka je `exports.edit`.
+Zde se přidá koncovka předmětu a odstraní se extra \'-\', jelokož to rozbíjelo
+pár věcí.
+Také tu je neoptimální blok kódu, pokud je tu někdo, kdo rád optimalizuje.
+
 ## Rozvrh
 
 Rozvrhy na frontendu nepoužívají htmx.
