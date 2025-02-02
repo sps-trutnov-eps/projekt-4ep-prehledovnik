@@ -7,8 +7,7 @@
     <main>
       <form 
       hx-post="/udalosti/pridatUdalost" 
-      hx-target="body" 
-      hx-swap="outerHTML"
+      hx-target="body"
       hx-trigger="submit"
       class="event-form">
         <input
@@ -42,7 +41,7 @@
 
         <div id="jineInputs" style="display: none;">
           <label>Hodiny:</label>
-          <select id="casOd" style="margin-bottom: 0.7em; color:#ffffffe1;" name="casOd">
+          <select id="casOd" style="margin-bottom: 0.7em;" name="casOd">
             <option value="7:10">7:10</option>
             <option value="8:00">8:00</option>
             <option value="8:50">8:50</option>
@@ -54,7 +53,7 @@
             <option value="14:15">14:15</option>
             <option value="15:10">15:10</option>
           </select>
-          <select id="casDo" style="margin-bottom: 0.4em; color:#ffffffe1;" name="casDo">
+          <select id="casDo" style="margin-bottom: 0.4em;" name="casDo">
             <option value="7:55">7:55</option>
             <option value="8:45">8:45</option>
             <option value="9:35">9:35</option>
@@ -213,7 +212,7 @@
           "skolni101": "Školní 101",
           "horska618": "Horská 618",
           "horska59": "Horská 59",
-          "mladebuky": "Mladé Buky"
+          "mladeBuky": "Mladé Buky"
         };
 
         function formatDate(dateStr) {
@@ -221,7 +220,9 @@
           const day = String(date.getDate()).padStart(2, '0');
           const month = String(date.getMonth() + 1).padStart(2, '0');
           const year = date.getFullYear();
-          return `${day}-${month}-${year}`;
+          if(day != "NaN"){
+            return `${day}.${month}.${year}`;
+          } 
         }
         %>
         <tr style="border-bottom: 2px solid rgba(255, 255, 255, 0.767);">
@@ -230,7 +231,7 @@
           <td>Datum</td>
           <td style="padding-left: 30px;">Čas</td>
           <td><span style="left: -9%; position: relative;">Datum/Čas do</span></td>
-          <td>Tyka se</td>
+          <td>Týká se</td>
           <td style="padding-left: 0.8em;">✕</td>
         </tr>
         

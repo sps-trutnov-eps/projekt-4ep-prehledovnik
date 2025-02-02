@@ -5,10 +5,11 @@ const databaze = require("../models/databaseEngine");
 exports.pzop = (req, res) => {
     let data = databaze.maturity.ziskarMaturituDleNazvu('PŽOP')
 
-    ucebna = data.ucebny[0]
-    dny = data.dny
+    ucebna = data.ucebny[0] 
+    dny = data.dny 
+    const ucebny = ["T1", "T11", "T15", "T16"];
 
-    res.render('maturity/index.ejs', {"ucebna" : ucebna, "dny" : dny})
+    res.render('maturity/index.ejs', {"ucebna" : ucebna, "dny" : dny, "ucebny": ucebny})
 }
 
 exports.pcmz = (req, res) => {
@@ -43,16 +44,12 @@ exports.scmz = (req, res) => {
     let data = databaze.maturity.ziskarMaturituDleNazvu('SČMZ')
 
     let dnyacasy = {}
-    console.log(data)
+    console.log(data);
     for (let i = 0; i < data.dny.length; i++) {
-        casy = data.casy[i]
-        dnyacasy[data.dny[i]] = []
-        for (let x = 0; x < casy.length; x++) {
-            dnyacasy[data.dny[i]].push(data.casy[i][x], data.ucebny[i])
-        }
+        casy = data.casy[i];
+        dnyacasy[data.dny[i]] = [];
+        dnyacasy[data.dny[i]].push(data.casy[i][0], data.casy[i][1], data.ucebny[i], data.predmety[i]);
     }
-    console.log(dnyacasy)
-    console.log(Object.entries(dnyacasy))
 
     res.render("maturity/scmz.ejs", {"data" : dnyacasy});
 };
@@ -159,26 +156,31 @@ exports.ukladaniscmz = (req, res) => {
             continue;
         }
 
-        const casKlic = `den${pocitadloDnu}_cas`;
+        const casOdKlic = `den${pocitadloDnu}_casod`;
+        const casDoKlic = `den${pocitadloDnu}_casdo`;
         const ucebnaKlic = `den${pocitadloDnu}_ucebna`;
+        const predmetKlic = `den${pocitadloDnu}_predmet`;
 
-        const casMaHodnotu = body[casKlic] && body[casKlic].trim() !== '';
+        const casOdMaHodnotu = body[casOdKlic] && body[casOdKlic].trim() !== '';
         const ucebnaMaHodnotu = body[ucebnaKlic] && body[ucebnaKlic].trim() !== '';
+        const predmetMaHodnotu = body[predmetKlic] && body[predmetKlic].trim() !== '';
 
-        const hodiny = (casMaHodnotu && ucebnaMaHodnotu) ? [body[casKlic]] : [];
-        const ucebna = (casMaHodnotu && ucebnaMaHodnotu) ? body[ucebnaKlic] : null;
+        const hodiny = (casOdMaHodnotu && ucebnaMaHodnotu && predmetMaHodnotu) ? [body[casOdKlic], body[casDoKlic]] : [];
+        const ucebna = (casOdMaHodnotu && ucebnaMaHodnotu && predmetMaHodnotu) ? body[ucebnaKlic] : null;
+        const predmet = (casOdMaHodnotu && ucebnaMaHodnotu && predmetMaHodnotu) ? body[predmetKlic] : null;
 
         radky.push({
             datum: body[dateKlic],
             hodiny: hodiny,
-            ucebna: ucebna
+            ucebna: ucebna,
+            predmet: predmet
         });
-
         pocitadloDnu++;
     }
     datumy = [];
     hodiny = [];
     ucebny = [];
+    predmety = []; // do tohohle je taky potřeba pushovat
     radky.forEach((radek) => {
         if (radek.datum) {
             if(!datumy.includes(radek.datum)){
@@ -186,14 +188,15 @@ exports.ukladaniscmz = (req, res) => {
             }
             let index = datumy.indexOf(radek.datum)
             if(hodiny[index]){
-                hodiny[index].push(radek.hodiny[0]);
+                hodiny[index].push([radek.hodiny[0], radek.hodiny[1]]);
             } else {
                 hodiny.push(radek.hodiny);
             }
             ucebny.push(radek.ucebna);
+            predmety.push(radek.predmet);
         }
     });
-    databaze.maturity.pridatMaturitniEvent("SČMZ", datumy, hodiny, ucebny);
+    databaze.maturity.pridatMaturitniEvent("SČMZ", datumy, hodiny, ucebny, predmety);
     res.redirect("/maturity/scmz");
 };
 

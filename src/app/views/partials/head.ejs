@@ -140,9 +140,10 @@ article {
         left: 0;
         z-index: 1;
         max-width: 100%;
-        button, input {
+        button, input, [type=submit] {
             --pico-spacing: 0;
             border: none !important;
+            padding: 0.5em !important;
         }
         .outline, input, select, textarea {
             --pico-background-color: hsla(var(--light-blue-field), 1) !important;
@@ -164,6 +165,9 @@ article {
         overflow-y: auto;
         padding: 1rem;
     }
+}
+.editbutton{
+    background-color: hsl(100, 90%, 35%);
 }
     </style>
   </head>

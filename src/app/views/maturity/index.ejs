@@ -39,83 +39,90 @@
     height: 2px;
     background-color: white;
   }
+  
+  input[disabled],
+  select[disabled],
+  textarea[disabled] {
+    color: inherit !important;
+    opacity: 1 !important;
+  }
 </style>
-<article
-  style="
-    width: 20vw;
-    min-width: 20vw;
-    margin-right: 1em;
-    overflow-y: auto;
-    resize: horizontal;
-  ">
-  <div class="button">
-    <a href="../maturity/">
-      <button class="tlacitko">Praktická</button>
-    </a>
-    <a href="../maturity/pcmz">
-      <button class="tlacitko">Ústní</button>
-    </a>
-    <a href="../maturity/scmz">
-      <button class="tlacitko">Státní</button>
-    </a>
-    <a href="../maturity/sloh">
-      <button class="tlacitko">Sloh</button>
-    </a>
-  </div>
-</article>
 
 <article style="flex: 3; overflow-y: auto; position: relative">
-  <h1 class="headline">Praktická zkouška z odborných předmětů</h1>
-  <form
-    action="/maturity/ukladanipzop"
-    method="POST"
-    style="display: flex; flex-direction: column"
-    id="form">
-    <label for="den-konani">Den konání:</label>
-    <input type="date" id="den-konani" name="den_konani" value=<%=dny[0]%> disabled/>
-
-    <label for="dodatecne-dny">Dodatečné dny:</label>
-    <input type="date" id="dodatecne-dny" name="dodatecne_dny" value=<%=dny[1]%> disabled/>
-
-    <label for="ucebna">Učebna:</label>
-    <select
-      id="ucebna"
-      name="ucebna"
-      style="margin-bottom: 1em; padding: 0.5em"
-      disabled>
-      <%if (ucebna == "ucebna1") {%>
-        <option value="ucebna1" selected>Učebna 1</option>
-      <% } else {%>
-        <option value="ucebna1">Učebna 1</option>
-      <%}%>
-      <%if (ucebna == "ucebna2") {%>
-        <option value="ucebna2" selected>Učebna 2</option>
-      <% } else {%>
-        <option value="ucebna2">Učebna 2</option>
-      <%}%>
-      <%if (ucebna == "ucebna3") {%>
-        <option value="ucebna3" selected>Učebna 3</option>
-      <% } else {%>
-        <option value="ucebna3">Učebna 3</option>
-      <%}%>
-    </select>
-
-    <div style="text-align: center">
-      <button
-        type="button"
-        id="editButton"
-        onclick="enableForm()"
-        style="padding: 0.5em; border: none; cursor: pointer; width: 150px">
-        Edit
-      </button>
-      <button
-        type="submit"
-        id="submitButton"
-        style="padding: 0.5em; border: none; cursor: pointer; width: 150px; display: none;">
-        Uložit
-      </button>
-    </div>
-  </form>
+  <header>
+    <nav>
+      <ul>
+        <li>
+          <h1>Maturity</h1>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <button
+            type="submit"
+            id="submitButton"
+            class="editbutton"
+            form="form"
+            style="display: none;">
+            Uložit
+          </button>
+          <button
+            type="button"
+            id="editButton"
+            class="editbutton"
+            onclick="enableForm()">
+            Edit
+          </button>
+        </li>
+        <li>
+      <div role="group">
+        <button onclick="window.location.href='/maturity'">
+          Praktická
+        </button>
+        <button class="outline" onclick="window.location.href='/maturity/pcmz'">
+          Ústní
+        </button>
+        <button class="outline" onclick="window.location.href='/maturity/scmz'">
+          Státní
+        </button>
+        <button class="outline" onclick="window.location.href='/maturity/sloh'">
+          Sloh
+        </button>
+      </div>
+    </li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <h2>Praktická zkouška z odborných předmětů</h2>
+    <form
+      action="/maturity/ukladanipzop"
+      method="POST"
+      style="display: flex; flex-direction: column"
+      id="form">
+      <label for="den-konani">Den konání:</label>
+      <input type="date" id="den-konani" name="den_konani" value=<%=dny[0]%> disabled/>
+  
+      <label for="dodatecne-dny">Dodatečný den:</label>
+      <input type="date" id="dodatecne-dny" name="dodatecne_dny" value=<%=dny[1]%> disabled/>
+  
+      <label for="ucebna">Učebna:</label>
+      <select
+        id="ucebna"
+        name="ucebna"
+        style="margin-bottom: 1em; padding: 0.5em"
+        disabled>
+        <% for (const id in ucebny) { %> 
+          <% const nazevUcebny = ucebny[id]; %>
+          <% if (ucebna === id) { %>
+            <option value="<%= id %>" selected><%= nazevUcebny %></option>
+          <% } else { %>
+            <option value="<%= id %>"><%= nazevUcebny %></option>
+          <% } %>
+        <% } %>
+      </select>
+    </form>
+  </main>
 </article>
 
 <%- include('../partials/tail') %>

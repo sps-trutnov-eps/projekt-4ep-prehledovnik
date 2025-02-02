@@ -64,46 +64,70 @@
       height: 2px;
       background-color: white;
     }
+
+    /* Styl pro readonly checkbox */
+    input[type="checkbox"][readonly] {
+      pointer-events: none; /* Zakáže klikání */
+    }
+
   </style>
 
-  <body>
-    <article
-      style="
-        width: 20vw;
-        min-width: 20vw;
-        margin-right: 1em;
-        overflow-y: auto;
-        resize: horizontal;
-      ">
-      <div class="button">
-        <a href="../maturity/">
-          <button class="tlacitko">Praktická</button>
-        </a>
-        <a href="../maturity/pcmz">
-          <button class="tlacitko">Ústní</button>
-        </a>
-        <a href="../maturity/scmz">
-          <button class="tlacitko">Státní</button>
-        </a>
-        <a href="../maturity/sloh">
-          <button class="tlacitko">Sloh</button>
-        </a>
-      </div>
-    </article>
-
-    <article style="flex: 3; overflow-y: auto; padding: 20px">
-      <div
-        style="
-          padding: 20px;
-          background-color: #01172c;
-          border-radius: 10px;
-          color: white;
-        ">
-        <div class="headline-container">
-          <h1 class="headline">Profilová část maturitní zkoušky</h1>
-        </div>
-
+    <article style="flex: 3; overflow-y: auto;">
+      <header>
+        <nav>
+          <ul>
+            <li>
+              <h1>Maturity</h1>
+            </li>
+          </ul>
+          <ul>
+            <li>
+              <button
+                type="submit"
+                form="mform"
+                id="save-button"
+                class="editbutton"
+                style="display:none">
+                Uložit
+              </button>
+              <button
+                type="button"
+                id="edit-button"
+                class="editbutton"
+                onclick="toggleEdit()">
+                Edit
+              </button>
+            </li>    
+            <li>
+              <div role="group">
+                <button
+                  class="outline"
+                  onclick="window.location.href='/maturity'">
+                  Praktická
+                </button>
+                <button
+                  onclick="window.location.href='/maturity/pcmz'">
+                  Ústní
+                </button>
+                <button
+                  class="outline"
+                  onclick="window.location.href='/maturity/scmz'">
+                  Státní
+                </button>
+                <button
+                  class="outline"
+                  onclick="window.location.href='/maturity/sloh'">
+                  Sloh
+                </button>
+              </div>
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <main>
+          <h2>Profilová část maturitní zkoušky</h2>
         <form
+          id="mform"
           action="/maturity/ukladanipcmz"
           method="POST"
           style="display: flex; flex-direction: column; align-items: center">
@@ -112,16 +136,43 @@
             id="hodiny_tabulka">
             <thead>
               <tr>
-                <th style="text-align: center; color: white">Datum:</th>
-                <% for (let i = 1; i <= 9; i++) { %>
-                <th style="color: white">
-                  <p>
-                    <%= ["8:00-8:45", "8:50-9:35", "9:55-10:40", "10:50-11:35",
-                    "11:40-12:25", "12:35-13:20", "13:25-14:10", "14:15-15:00",
-                    "15:10-15:55"][i-1] %>
-                  </p>
+                <th style="text-align: center;">Datum</th>
+                <th style="text-align: center;">
+                  1
+                  <p>8:00-8:45</p>
                 </th>
-                <% } %>
+                <th style="text-align: center;">
+                  2
+                  <p>8:50-9:35</p>
+                </th>
+                <th style="text-align: center;">
+                  3
+                  <p>9:55-10:40</p>
+                </th>
+                <th style="text-align: center;">
+                  4
+                  <p>10:50-11:35</p>
+                </th>
+                <th style="text-align: center;">
+                  5
+                  <p>11:40-12:25</p>
+                </th>
+                <th style="text-align: center;">
+                  6
+                  <p>12:35-13:20</p>
+                </th>
+                <th style="text-align: center;">
+                  7
+                  <p>13:25-14:10</p>
+                </th>
+                <th style="text-align: center;">
+                  8
+                  <p>14:15-15:00</p>
+                </th>
+                <th style="text-align: center;">
+                  9
+                  <p>15:10-15:55</p>
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -136,10 +187,9 @@
                     readonly />
                 </td>
                 <% for (let i = 1; i <= 9; i++) { %>
-                <td>
+                <td style="text-align: center;">
                   <input class="zaskrtavaci_policko" type="checkbox"
-                  name="den<%= dayCounter %>_hodina<%= i %>" <%=
-                  hodiny.includes(i) ? "checked" : "" %> disabled />
+                  name="den<%= dayCounter %>_hodina<%= i %>" <%= hodiny.includes(i) ? "checked" : "" %> readonly />
                 </td>
                 <% } %>
               </tr>
@@ -151,12 +201,7 @@
             <button
               type="button"
               id="pridat-datum"
-              style="
-                padding: 0.5em;
-                width: 150px;
-                border: none;
-                cursor: pointer;
-              "
+              style="padding: 0.5em; width: 150px; border: none; cursor: pointer;"
               disabled>
               Přidat datum
             </button>
@@ -164,38 +209,20 @@
 
           <div style="margin-top: 1px">
             <button
-              type="button"
-              id="edit-button"
-              style="
-                padding: 0.5em;
-                width: 150px;
-                border: none;
-                cursor: pointer;
-              ">
-              Edit
-            </button>
-            <button
               type="submit"
               id="save-button"
-              style="
-                display: none;
-                padding: 0.5em;
-                width: 150px;
-                border: none;
-                cursor: pointer;
-              ">
+              style="display: none; padding: 0.5em; width: 150px; border: none; cursor: pointer;">
               Uložit
             </button>
           </div>
         </form>
-      </div>
+      </main>
     </article>
 
     <script>
       let dayCounter = document
         .getElementById("hodiny_tabulka")
         .getElementsByTagName("tbody")[0].rows.length || 0;
-
 
       document
         .getElementById("pridat-datum")
@@ -212,17 +239,18 @@
           inputDatum.type = "date";
           inputDatum.name = "den" + dayCounter + "_datum";
           inputDatum.classList.add("zaskrtavaci_policko");
-          inputDatum.disabled = true;
+          inputDatum.readOnly = true;
           bunkaDatum.appendChild(inputDatum);
           novyRadek.appendChild(bunkaDatum);
 
           for (var i = 1; i <= 9; i++) {
             var bunkaCheckbox = document.createElement("td");
             var inputCheckbox = document.createElement("input");
+            bunkaCheckbox.style.textAlign = "center";
             inputCheckbox.type = "checkbox";
             inputCheckbox.name = "den" + dayCounter + "_hodina" + i;
             inputCheckbox.classList.add("zaskrtavaci_policko");
-            inputCheckbox.disabled = true;
+            inputCheckbox.readOnly = true;
             bunkaCheckbox.appendChild(inputCheckbox);
             novyRadek.appendChild(bunkaCheckbox);
           }
@@ -231,7 +259,7 @@
 
           if (document.getElementById("edit-button").style.display === "none") {
             var newInputs = novyRadek.querySelectorAll("input");
-            newInputs.forEach((input) => (input.disabled = false));
+            newInputs.forEach((input) => (input.readOnly = false));
           }
         });
 
@@ -240,7 +268,7 @@
         .addEventListener("click", function () {
           document
             .querySelectorAll("input")
-            .forEach((input) => (input.disabled = false));
+            .forEach((input) => (input.readOnly = false));
           document.getElementById("pridat-datum").disabled = false;
           document.getElementById("edit-button").style.display = "none";
           document.getElementById("save-button").style.display = "block";
@@ -249,10 +277,11 @@
       document
         .getElementById("save-button")
         .addEventListener("click", function () {
+          document.querySelectorAll("input[type='checkbox']").forEach((checkbox) => {
+            checkbox.readOnly = true; // Nastaví checkbox na pouze pro čtení
+          });
           document.getElementById("pridat-datum").disabled = false;
         });
     </script>
 
     <%- include('../partials/tail'); %>
-  </body>
-</html>
