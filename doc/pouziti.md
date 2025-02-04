@@ -84,6 +84,31 @@ Nečekané.
 
 ## Události
 
+Události slouží pro zprávu všeho, co nějak ovlivní průběh dne.
+Událost se kupodivu vytvoří formulářem \"Nová událost\".
+Nejprve je nutno zadat název události.
+Poté musíte zedat kdy probíhá.
+
+Události jsou \"celodenní\", kde stačí zadat datum,
+\"Vícedenní\", kde zadáte od kdy do kdy a \"Zadat den a čas\", kdy zadáte datum
+a od které do které vyučovací hodiny událost probíhá.
+
+Poté zadáte typ akce na základě toho, čeho se akce týká.
+Akce typu \"Učitel\" se týkají pouze vás a žádné další informace nevyžadují.
+Akce typu \"Třída\" se týkají jedné třídy.
+Musíte zvolit třídu ze seznamu, kde se zobrazují pouze třídy, pro které existují
+osnovy.
+Akce typu \"Učebna\" se týkají jedné učebny, kterou je třeba specifikovat.
+Akce typu \"Budova\" se týkají celé budovy, kterou je třeba vybrat z
+předpřipraveného seznamu.
+Akce typu \"Škola\" se týkají celé školy a není třeba nic specifikovat.
+
+Nakonec můžete přidat poznámku, uznáte li to za vhodné.
+
+Události jsou vypsané po pravé straně a lze je smazat červeným \"✕\".
+
+Události jsou také vidět v kalendáři, což je tak trochu jeich celá pointa.
+
 ## Projekty
 
 ## Maturity
