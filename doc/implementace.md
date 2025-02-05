@@ -111,6 +111,34 @@ opakují).
 
 ## Události
 
+Události mají ve views dva soubory: `index.ejs` a `seznamUdalosti.ejs`.
+`seznamUdalosti.ejs` je zde pouze z historických důvodů a k ničemu se nepoužívá.
+Doporučuji ho ignorovat.
+
+`index.ejs` používá htmx při uložení formu.
+Z nějakého důvodu je tu styl uprostřed souboru, neřešte.
+Poté jsou tu nějaké deklarace v EJS, které se následně používají v generování
+tabulky.
+
+Spousta věcí se zde řeší objekterm `UdalstiManager`.
+Většinu práce však vykoná již při svém vytvoření.
+Poté jen updatuje datum.
+
+Hodně JavaScriptu vypadá děsivě, ale to jen proto, že editovat DOM zabere hodně
+kódu.
+Zase nic tak šíleného se tam neděje.
+
+V routeru toho moc není.
+
+Controller je tké celkem čistý.
+`exports.index` a `exports.smazat` jsou jen pár řádků, tudíž zbývá jen
+`exports.pridat`.
+To sice zabírá více řádků, ale většina je jen čtení dat a formátování záznamu
+v databázi.
+
+Celkově celkem fajn modul.
+Doporučuji.
+
 # Projekty
 
 ## Maturity

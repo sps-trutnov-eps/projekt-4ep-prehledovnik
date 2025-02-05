@@ -106,6 +106,7 @@ Akce typu \"Škola\" se týkají celé školy a není třeba nic specifikovat.
 Nakonec můžete přidat poznámku, uznáte li to za vhodné.
 
 Události jsou vypsané po pravé straně a lze je smazat červeným \"✕\".
+Událost lze editovat po kliknutí na její jméno v tabulce.
 
 Události jsou také vidět v kalendáři, což je tak trochu jeich celá pointa.
 
