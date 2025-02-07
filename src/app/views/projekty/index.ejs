@@ -103,13 +103,13 @@
 		<% if (files != "none") { %>
 			<div class="classOverview" id="class" >
 				<% if (team != undefined) { %>
-					<%- include(`./new/${files}.ejs`); %>
+					<%- include(`./${files}.ejs`); %>
 				<% } %>
 			</div>
 			
 			<div class="classDetails" id="classDetails" style="display: none">
 				<% if (team != undefined) { %>
-					<%- include(`./new/${files}Details.ejs`); %>
+					<%- include(`./${files}Details.ejs`); %>
 				<% } %>
 			</div>
 			

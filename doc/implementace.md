@@ -148,6 +148,13 @@ Doporučuji.
 
 ## Projekty
 
+Projekty jsou... komplexní.
+Jednou si to vzala celá třída jako finální projekt a selhali, tudíž je
+překvapující, že se to vůbec někam dostalo.
+Špatné zprávy jsou, že tohle je ten modul, se kterým budete nejspíš pracovat.
+S trochou štěstí už ve vaší době bude AI natolik pokročilá, aby to
+zdokumentovala za mně.
+
 ## Maturity
 
 Maturity nepoužívají htmx, pouze JS.
