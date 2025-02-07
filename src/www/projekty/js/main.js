@@ -562,6 +562,7 @@ function sortTableAndOutput() {
       
       targetBody.appendChild(newRow);
    });
+}
    
 
 function switchTables() {
