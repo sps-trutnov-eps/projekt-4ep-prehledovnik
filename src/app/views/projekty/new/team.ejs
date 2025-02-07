@@ -82,7 +82,10 @@
 							   </div>
 							</div>
 							<label for="link">URL</label>
-							<input type="text" name="link" id="link" value="<% if (team != undefined) { %><%= team["odkaz"] %><% } %>" onchange="selectOption(this)" style="margin: 0">
+							<input type="text" name="link" id="link" value="<% if (team != undefined) { %><%= team["odkaz"] %><% } %>" onchange="selectOption(this)"
+                        style="margin: 0; width: calc(99% - 3em)">
+                        <button style="width: 3em; padding-inline: 0"
+                                onclick="gotoURL()">&gt;</button>
 					</div>
 					<div style="flex: 1; padding: 0 var(--pico-block-spacing-horizontal);">
 						<p style="display: none"></p>

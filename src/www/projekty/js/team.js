@@ -335,3 +335,11 @@ async function saveTeam(){
          console.error('Error:', error);
 		}
 }
+
+function gotoURL() {
+   let url = document.getElementById('link').value;
+   if (!url) return;
+
+   if (! url.includes('://')) url = 'https://' + url
+   window.open(url, '_blank').focus();
+}
