@@ -874,7 +874,7 @@ const toggleDayModal = (cas, den, tyden, event) => {
 
     if (existingLesson) {
         document.getElementById("jakypredmet").value = existingLesson.predmet || "";
-        document.getElementById("mistnost").value = existingLesson.mistnost || "";
+        document.getElementById("mistnost").value = existingLesson.mistnost || "T16";
         document.getElementById("skupina").value = existingLesson.skupina || "cela";
     } else {
         resetForm();
