@@ -9,13 +9,13 @@ exports.upload = async (req, res) => {
 
       // go through milestones
       fileText.replace(/\n([A-Z][a-z]+)/g, "\n$1 $1")
-         .split(/\n[A-Z][a-z]+ /)
-         .slice(1)
-         .forEach(block => {
+              .split(/\n[A-Z][a-z]+ /)
+              .slice(1)
+              .forEach(block => {
 
             let lines = block.split(/\n/)
-               .map(l => l.trim())
-               .filter((elm) => elm.length > 3);
+                             .map(l => l.trim())
+                             .filter((elm) => elm.length > 3);
 
             let key = lines[0];
             points[key] = {"t1": {}, "t2": {}};
@@ -70,10 +70,10 @@ exports.upload = async (req, res) => {
             //
             // => z každého týdne max 4 body, každý chybějící bod stupeň dolů
 
-            // || can be used for default value while assigning
+            // ?? can be used for default value while assigning
             let count = [
-               points[key]["t1"][email] || 0,
-               points[key]["t2"][email] || 0
+               points[key]["t1"][email] ?? 0,
+               points[key]["t2"][email] ?? 0
             ].map(n => n > 2 ? 2 : n)
              // no .sum()?
              .reduce((acc, cur) => acc + cur);
