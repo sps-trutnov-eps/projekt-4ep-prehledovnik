@@ -486,7 +486,7 @@
           option.style.display = index + 1 <= casOdIndex ? 'none' : 'block';
         });
 
-        if (this.casDoSelect.selectedIndex <= casOdIndex) {
+        if (this.casDoSelect.selectedIndex + 1 <= casOdIndex) {
           this.casDoSelect.selectedIndex = -1;
         }
       }
