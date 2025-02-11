@@ -32,4 +32,5 @@
             "ucebny": []
         }
     },
+   "projekty": {"nextID": 1}
 }
