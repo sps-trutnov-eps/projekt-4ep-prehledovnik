@@ -40,7 +40,7 @@
         <label for="jine" style="margin-bottom: 1em;">Zadat den a čas</label><br />
 
         <div id="jineInputs" style="display: none;">
-          <label>Hodiny:</label>
+          <label>Hodiny</label>
           <select id="casOd" style="margin-bottom: 0.7em;" name="casOd">
             <option value="7:10">7:10</option>
             <option value="8:00">8:00</option>
@@ -71,7 +71,7 @@
         <input type="date" id="datum" name="datum" value="<%= datum %>" min="<%= datum %>"/>
 
         <div id="vicedenniInputs" style="display: none;">
-          <label for="datumDo" style="margin-bottom: 0.2em">Do:</label>
+          <label for="datumDo" style="margin-bottom: 0.2em">Do</label>
           <input type="date" id="datumDo" name="datumDo"/>
         </div>
 
@@ -110,8 +110,8 @@
         <!-- data pro změnu -->
         <input type="hidden" name="PuvodniData" value="">
 
-        <input type="text" name="poznamka_udalosti" placeholder="Poznámka:" />
-        <input type="submit" value="Uložit" />
+        <input type="text" name="poznamka_udalosti" placeholder="Poznámka..." />
+        <input type="submit" id="SaveButton" value="Přidat" />
       </form>
     </main>
   </article>
@@ -425,10 +425,10 @@
       updateVisibility() {
         if (this.jineInputs) this.jineInputs.style.display = 'none';
         if (this.vicedenniInputs) this.vicedenniInputs.style.display = 'none';
-        this.datumLabel.innerHTML = 'Datum:';
+        this.datumLabel.innerHTML = 'Datum';
 
         if (document.getElementById('vicedenni').checked) {
-          this.datumLabel.innerHTML = 'Od:';
+          this.datumLabel.innerHTML = 'Od';
           if (this.vicedenniInputs) this.vicedenniInputs.style.display = 'block';
         } else if (document.getElementById('jine').checked) {
           if (this.jineInputs) this.jineInputs.style.display = 'block';
@@ -514,6 +514,9 @@
     function editUdalost(udalostData) {
       // Parsování JSON objektu události
       const udalost = JSON.parse(udalostData);
+
+      //přepsání přidat na uložit
+      document.getElementById('SaveButton').value = 'Změnit';
 
       // Vyplnění polí ve formuláři
       document.querySelector('[name="jmeno_udalosti"]').value = udalost.nazev;
