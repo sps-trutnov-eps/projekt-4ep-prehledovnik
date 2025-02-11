@@ -32,15 +32,18 @@
           />
         <label for="vicedenni">Vícedenní</label><br />
         <input
-          type="radio"
-          id="jine"
-          name="variantaDni"
-          value="Zadat den a čas"
-          />
+        type="radio"
+        id="jine"
+        name="variantaDni"
+        value="Zadat den a čas"
+        />
         <label for="jine" style="margin-bottom: 1em;">Zadat den a čas</label><br />
 
+        <label for="datum" id="datumLabel">Datum</label>
+        <input type="date" id="datum" name="datum" value="<%= datum %>" min="<%= datum %>"/>
+
         <div id="jineInputs" style="display: none;">
-          <label>Hodiny</label>
+          <label>Od-do</label>
           <select id="casOd" style="margin-bottom: 0.7em;" name="casOd">
             <option value="7:10">7:10</option>
             <option value="8:00">8:00</option>
@@ -67,8 +70,6 @@
           </select>
         </div>
 
-        <label for="datum" id="datumLabel">Datum</label>
-        <input type="date" id="datum" name="datum" value="<%= datum %>" min="<%= datum %>"/>
 
         <div id="vicedenniInputs" style="display: none;">
           <label for="datumDo" style="margin-bottom: 0.2em">Do</label>
