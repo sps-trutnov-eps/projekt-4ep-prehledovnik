@@ -13,7 +13,6 @@ async function CreateCurriculum() {
 
         // Parse JSON response
         const jsonResponse = await response.json();
-        //console.log(jsonResponse); // Handle your JSON data here
 
         // Redirect after handling
         window.location.href = `/osnovy/${jsonResponse.id}`;
@@ -37,7 +36,6 @@ async function RemoveCurriculum(id) {
 
         // Parse JSON response
         const jsonResponse = await response.json();
-        //console.log(jsonResponse); // Handle your JSON data here
 
         // Redirect after handling
         window.location.href = `/osnovy`;
@@ -53,7 +51,6 @@ async function SaveCurriculum(event, id) {
 	const rows = table.rows;
 	const jsonData = {};
 	
-	//console.log(rows);
 	
 	// Extract data from each row
 	for (let i = 1; i < rows.length-1; i++) {
@@ -70,8 +67,6 @@ async function SaveCurriculum(event, id) {
 	let data = new URLSearchParams(formData);
 	
 	data.append("temata", JSON.stringify(jsonData));
-	console.log("data");
-	console.log(data);
 	
 	try {
 		
@@ -91,7 +86,6 @@ async function SaveCurriculum(event, id) {
 		
         // Parse JSON response
         const jsonResponse = await response.json();
-        //console.log(jsonResponse); // Handle your JSON data here
 
         // Redirect after handling
 		/*if (jsonResponse.id == undefined){
@@ -100,7 +94,7 @@ async function SaveCurriculum(event, id) {
 		
 		window.location.href = `/osnovy/${jsonResponse.id}`;
 		} catch (error) {
-		console.error('Error:', error);
+         console.error('Error:', error);
 		}
 }
 
@@ -206,7 +200,6 @@ function updateCurriculumHours() {
 	for (let i = 1; i < rows.length-1; i++) {
 	
 		const hoursInput = rows[i].querySelector('.hour-input');
-		//console.log(hoursInput);
 		const hours = parseInt(hoursInput.value) || 0; // Get hours or default to 0
 		const odCell = rows[i].cells[1]; // "Od" cell
 		const doCell = rows[i].cells[2]; // "Do" cell
@@ -225,7 +218,6 @@ function updateCurriculumHours() {
 
 		currentTotalHours += hours;
 		
-		//console.log(odCell);
 	}
 }
 
@@ -311,7 +303,6 @@ function updateRowColors() {
 
 function hideDiv(id) {
 	/*const div = document.getElementById(id);
-	console.log(div.style.display);
 	if (div.style.display === "none"){ div.style.display = "block"; }
 	else { div.style.display = "none"; }*/
 }

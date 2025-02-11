@@ -2,12 +2,6 @@
 <%- include('../partials/head'); %>
 
     <style>
-        body:first-of-type article {
-            margin-right: 1em;
-            width: 20vw;
-            min-width: 20vw;
-        }
-
         .articlesecond {
             flex: 3;
         }
@@ -187,50 +181,17 @@
         .mezirka{
             width: 4px;
         }
-        .navigace-rozvrh {
-            display: flex;
-            justify-content: space-between; 
-            align-items: center; 
-            gap: 20px; 
-            padding: 10px; 
-        
-            width: 100%;
-        }
-
-        .cast1, .cast2, .cast3 {
-            display: flex;
-            align-items: center;
-            margin-top: -10px;
-        }
-
-        .cast1 {
-            flex: 0.5;
-        }
-
-        .cast2 {
-            flex: 4;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .cast3 {
-            flex: 0 0 auto;
-            margin-left: auto;
-        }
-
-        .cast3 select {
-            min-width: 200px;
-            max-width: 300px;
-            padding: 5px;
-        }
 
         .nav-button {
             transition: all 0.3s ease;
             margin: 0 5px;
+            height: 40px; /* Adjust height as needed */
         }
 
-        #editBtn{
-            background-color: hsl(100, 90%, 35%);
+        select[name="verze"] {
+            height: 40px; /* Match the height of the buttons */
+            padding: 0 10px;
+            box-sizing: border-box;
         }
 
         #smazatBtn{
@@ -241,41 +202,48 @@
             opacity: 1;
         }
 
+        header {
+            display: flex;
+        }
+        
+        header > div:nth-of-type(1) {
+            flex: 1;
+            text-align: left;
+        }
+        header > div:nth-of-type(2) {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+        header > div:nth-of-type(3) {
+            flex: 1;
+        }
     
     </style>
     <article class="articlesecond">
         <header>
 
-            <nav>
-                
-               <div class="navigace-rozvrh">
-                    <div class="cast1">
-                        <h1>Rozvrh</h1>
+                <div class="cast1">
+                    <h1>Rozvrh</h1>
+                </div>
+                <div class="cast2">
+                    <button class="nav-button" id="novaBtn" style="display: none; ">Nová verze</button>
+                    <button class="editbutton" id="editBtn" class="nav-button">Edit</button>
+                    <button class="nav-button" id="smazatBtn" style="display: none;">Smazat verzi</button>
+                </div>
+                <div class="cast3">
+                        <% if (rozvrhy && rozvrhy.length> 0) { %>
+                        <select name="verze" id="jakaverze" onchange="nacteniVerze(this.value)">
+                                <% rozvrhy.forEach(function(verze) { %>
+                                    <option value="<%= verze.id %>" <%=aktivniVerze==verze.id ? 'selected' : '' %>>
+                                        <%= verze.nazev %>
+                                            (<%= new Date(verze.datum).toLocaleDateString('cs-CZ') %>)
+                                    </option>
+                                <% }); %>
+                        </select>
+                        <% } %>
                     </div>
-                    <div class="cast2">
-                        <button class="nav-button" id="novaBtn" style="display: none; ">Nová verze</button>
-                        <button class="nav-button" id="editBtn">Edit</button>
-                        <button class="nav-button" id="smazatBtn" style="display: none;">Smazat verzi</button>
-                    </div>
-                    <div class="cast3">
-                        <div role="group">
-                            <% if (rozvrhy && rozvrhy.length> 0) { %>
-                            <select name="verze" id="jakaverze" onchange="nacteniVerze(this.value)">
-                                    <% rozvrhy.forEach(function(verze) { %>
-                                        <option value="<%= verze.id %>" <%=aktivniVerze==verze.id ? 'selected' : '' %>>
-                                            <%= verze.nazev %>
-                                                (<%= new Date(verze.datum).toLocaleDateString('cs-CZ') %>)
-                                        </option>
-                                    <% }); %>
-                            </select>
-                            <% } %>
-        
-                                
-                    </div>
-                    </div>
-               </div>
-                
-            </nav>
+                </div>
         </header>
 
         <main>
@@ -296,10 +264,10 @@
                 </div>
                 <% } else { %>
                     <% const days=['Po', 'Út' , 'St' , 'Čt' , 'Pá' ]; %>
-                        <% const periods=['0', '1' , '2' , '3' , '4' , '5' , '6' , '7' , '8', '9' ]; %>
+                        <% const periods=['0', '1' , '2' , '3' , '4' , '5' , '6' , '7' , '8', '9+' ]; %>
                             <% const timeRanges=['7:10 - 7:55', '8:00 - 8:45' , '8:50 - 9:35' , '9:55 - 10:40'
                                 , '10:45 - 11:30' , '11:35 - 12:25' , '12:35 - 13:20' , '13:25 - 14:10'
-                                , '14:15 - 15:00', '15:00 +' ]; %>
+                                , '14:15 - 15:00', '15:00+' ]; %>
 
                                 <% ['L', 'S' ].forEach(type=> { %>
                                     <h2>
@@ -356,7 +324,6 @@
                                                             <label for="trida">Třída:</label>
                                                             <select name="trida" id="trida">
                                                                 <optgroup label="EP">
-                                                                    <option value="">-</option>
                                                                     <option value="1.EP">1.EP</option>
                                                                     <option value="2.EP">2.EP</option>
                                                                     <option value="3.EP">3.EP</option>
@@ -367,6 +334,10 @@
                                                                     <option value="2.IT">2.IT</option>
                                                                     <option value="3.IT">3.IT</option>
                                                                     <option value="4.IT">4.IT</option>
+                                                                </optgroup>
+                                                                <optgroup label="Jiné">
+                                                                    <option value="-">-</option>
+                                                                    <option value="Kroužek">Kroužek</option>
                                                                 </optgroup>
                                                             </select>
                                                         </div>
@@ -384,8 +355,8 @@
                                                              <!-- Tady probíhá úprava názvu předmětu -->
 
                                                             <select name="predmet" id="jakypredmet" required>
-                                                                <option value="Kroužek">Kroužek</option>
-
+                                                                <option value="MECH">Mechatronika</option>
+                                                                <option value="PROG">Programování</option>
                                                                 <% for (let predmet of predmety) { %>
                                                                     <% let pr = predmet.split('-')[0]; %>
                                                                     <% let typ = predmet.split('-')[1]; %>
@@ -628,7 +599,7 @@
             const mistnost = document.getElementById("mistnost").value;
             const trida = document.getElementById("trida").value;
 
-            if (predmet === "Kroužek") {
+            if (trida === "Kroužek") {
                 potvrditHodinu();
                 return;
             }
@@ -834,25 +805,22 @@
             }
 
             const handlePredmetChange = () => {
-                const selectedValue = predmetField.value;
+                const selectedValue = tridaField.value;
 
                 if (selectedValue === "Kroužek") {
                     mistnostField.disabled = true;
                     skupinaField.disabled = true;
-                    tridaField.disabled = true;
 
                     mistnostField.value = "";
                     skupinaField.value = "cela";
-                    tridaField.value = "";
                 }
                 else {
                     mistnostField.disabled = false;
                     skupinaField.disabled = false;
-                    tridaField.disabled = false;
                 }
             };
 
-            predmetField.addEventListener("change", handlePredmetChange);
+            tridaField.addEventListener("change", handlePredmetChange);
 
             lockTimetableButtons();
 
@@ -906,7 +874,7 @@ const toggleDayModal = (cas, den, tyden, event) => {
 
     if (existingLesson) {
         document.getElementById("jakypredmet").value = existingLesson.predmet || "";
-        document.getElementById("mistnost").value = existingLesson.mistnost || "";
+        document.getElementById("mistnost").value = existingLesson.mistnost || "T16";
         document.getElementById("skupina").value = existingLesson.skupina || "cela";
     } else {
         resetForm();

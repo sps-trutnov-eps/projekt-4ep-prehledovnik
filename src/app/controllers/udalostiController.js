@@ -31,9 +31,9 @@ exports.pridat = (req, res) => {
         let casOd = null;
         let casDo = null;
         let vyberZadani = "celodenni";
-        if(req.body.variantaDni.trim() == "Vícedenní"){
+        if (req.body.variantaDni.trim() == "Vícedenní") {
             datumDo = req.body.datumDo?.trim() || null;
-            if (datumDo){
+            if (datumDo) {
                 vyberZadani = "vicedenni";
             }
            //PocetDni = Math.ceil((new Date(datumDo) - new Date(datum)) / (1000 * 60 * 60 * 24));
@@ -55,6 +55,9 @@ exports.pridat = (req, res) => {
                 break;
             case "ucitelsky":
                 tykaSe = "Jakub Šenkýř";
+            case "ucebna":
+                tykaSe = req.body.ucebna.trim();
+                break;
             default:
                 break;
         }

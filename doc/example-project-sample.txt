@@ -1,0 +1,73 @@
+projekt-2ep-t05 2024-11-25 09:31:29
+-----------------------------------
+
+Pitch
+
+  2024-09-09 00:00:00 -> 2024-09-15 23:59:59
+     1	Jakub Šenkýø <senkyr@spstrutnov.cz>
+
+Milestone 1
+
+  2024-09-16 00:00:00 -> 2024-09-22 23:59:59
+     2	Šimon Volk <Volks@spstrutnov.cz>
+     1	alter-at-sps <soucekd23@spstrutnov.cz>
+
+  2024-09-23 00:00:00 -> 2024-09-29 23:59:59
+     2	alter-at-sps <soucekd23@spstrutnov.cz>
+     2	Šimon Volk <Volks@spstrutnov.cz>
+
+Milestone 2
+
+  2024-09-30 00:00:00 -> 2024-10-06 23:59:59
+     2	alter-at-sps <soucekd23@spstrutnov.cz>
+     2	Šimon Volk <Volks@spstrutnov.cz>
+
+  2024-10-07 00:00:00 -> 2024-10-13 23:59:59
+     4	alter-at-sps <soucekd23@spstrutnov.cz>
+     1	Šimon Volk <Volks@spstrutnov.cz>
+     1	Šimon Volk <simon@bischofstein.cz>
+
+Milestone 3
+
+  2024-10-14 00:00:00 -> 2024-10-20 23:59:59
+     1	Šimon Volk <Volks@spstrutnov.cz>
+     1	Šimon Volk <simon@bischofstein.cz>
+
+  2024-10-21 00:00:00 -> 2024-10-27 23:59:59
+     8	alter-at-sps <soucekd23@spstrutnov.cz>
+
+Milestone 4
+
+  2024-10-28 00:00:00 -> 2024-11-03 23:59:59
+     3	alter-at-sps <soucekd23@spstrutnov.cz>
+     2	Šimon Volk <Volks@spstrutnov.cz>
+
+  2024-11-04 00:00:00 -> 2024-11-10 23:59:59
+     3	Šimon Volk <Volks@spstrutnov.cz>
+     2	alter-at-sps <soucekd23@spstrutnov.cz>
+
+Milestone 5
+
+  2024-11-11 00:00:00 -> 2024-11-17 23:59:59
+     7	alter-at-sps <soucekd23@spstrutnov.cz>
+     2	Šimon Volk <Volks@spstrutnov.cz>
+     1	Šimon Volk <simon@bischofstein.cz>
+
+  2024-11-18 00:00:00 -> 2024-11-24 23:59:59
+     2	alter-at-sps <soucekd23@spstrutnov.cz>
+     2	Šimon Volk <Volks23@spstrutnov.cz>
+     1	Šimon Volk <Volks@spstrutnov.cz>
+     1	Šimon Volk <simon@bischofstein.cz>
+
+Milestone 6
+
+  2024-11-25 00:00:00 -> 2024-12-01 23:59:59
+     --
+
+  2024-12-02 00:00:00 -> 2024-12-08 23:59:59
+     --
+
+Patch
+
+  2024-12-09 00:00:00 -> 2024-11-25 09:31:26
+     --

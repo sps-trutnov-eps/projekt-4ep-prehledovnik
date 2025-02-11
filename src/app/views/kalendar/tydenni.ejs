@@ -227,7 +227,7 @@
       
       <div>
         <div role="group" id="rightSide">
-          <button class="outline" hx-get="/kalendar" hx-target="body" hx-push-url="true" hx-swap="transition:true">
+          <button class="outline" onclick="window.location.href='/kalendar'" hx-target="body" hx-push-url="true" hx-swap="transition:true">
             Na měsíční
           </button>
         </div>
@@ -387,7 +387,6 @@
           today = new Date(Number(today.getTime()) - increment*2)
 
       let formattedDate = `${today.getDate()}.${today.getMonth() + 1}.`
-      console.log(formattedDate)
       let element = document.getElementById(formattedDate);
 
       if (element) {
@@ -403,7 +402,6 @@
       const month = select.value;
       const year = (month < 8) ? 2025 : 2024;  // Nastavení roku podle výběru měsíce
       let selected = document.getElementById(`1.${month}.`);
-      console.log(`1.${month.padStart(2, '0')}.`)
 
       if (selected) {
           selected.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -417,7 +415,6 @@
       detail.style.display = "block"
 
       const period = button.parentNode
-      console.log(period.querySelector(".theme").textContent)
       document.getElementById("roomDet").innerText = period.querySelector(".room").textContent
       document.getElementById("periodDet").innerText = period.querySelector(".period").textContent
       document.getElementById("classDet").innerText = period.querySelector(".class").textContent

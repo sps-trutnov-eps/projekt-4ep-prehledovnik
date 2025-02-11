@@ -1,17 +1,6 @@
 const databaze = require("../models/databaseEngine");
 const udalost = [];
-const rozvrh_L = ["", "PVA", "PVA", "CJL", "CJL", "", "", "", "", "",
-                "", "ELE", "ELE", "", "", "MAT", "MAT", "", "", "Krouzek",
-                "", "HAE", "", "CJ", "", "POS", "POS", "", "", "",
-                "", "POS", "OPS", "OPS", "OPS", "OPS", "", "", "", "",
-                "", "PVA", "CJL", "CJL", "MAT", "MAT", "", "", "", "Krouzek"
-]
-const rozvrh_S = ["", "MAT", "MAT", "CJL", "CJL", "", "HAE", "HAE", "", "",
-                "", "ELE", "ELE", "", "", "MAT", "MAT", "", "", "",
-                "", "HAE", "", "CJ", "", "POS", "POS", "", "", "Krouzek",
-                "", "POS", "OPS", "OPS", "OPS", "OPS", "", "", "", "",
-                "", "", "MAT", "MAT", "PVA", "PVA", "", "", "", ""
-]
+
 const year = new Date().getFullYear()
 
 function date_udalost() {
@@ -21,14 +10,12 @@ function date_udalost() {
 exports.udalosti = () => {
     return databaze.udalosti.ziskatVsechnyUdalosti();
 }
-console.log(databaze.udalosti.ziskatVsechnyUdalosti())
 
 exports.mesicni = (req,res) => {
     let udalosti = databaze.udalosti.ziskatVsechnyUdalosti()
     let maturityUdalosti = databaze.maturity.ziskatVsechnyMaturityJakoUdalosti()
 
     udalosti = udalosti.concat(maturityUdalosti)
-    console.log(maturityUdalosti, udalosti)
     res.render('kalendar', {
         date_udalost: date_udalost(),
         udalosti: udalosti
@@ -49,7 +36,6 @@ let posledniRocniTyden = 52
 
 if(new Date(year, 12 - 1, 31 + 1).getDay == "4"){
     posledniRocniTyden = 53
-    //console.log("true")
 }
 let tydny = []
 for(let i=prvniTyden; i<=posledniRocniTyden; i++){
@@ -58,7 +44,6 @@ for(let i=prvniTyden; i<=posledniRocniTyden; i++){
 for(let i=1; i<=posledniSkolniTyden; i++){
     tydny.push(i)
 }
-//console.log(databaze.rozvrhy.ziskatRozvrh(4))
 exports.tydenni = (req,res) => {
     let osnovyRaw = databaze.osnovy.ziskatVsechnyOsnovy();
     let osnovy = {}
@@ -83,7 +68,6 @@ exports.tydenni = (req,res) => {
         }        
     }
 
-    //console.log(databaze.rozvrhy.ziskatPocetRozvrhu()-1);
     res.render('kalendar/tydenni', {
         rozvrh: rozvrh, 
         week: tydny,

@@ -10,14 +10,14 @@
     <link
       rel="stylesheet"
       href="/css/main.css" />
-    <link rel="icon" href="./favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="/logo.ico" type="image/x-icon" />
     <script src="https://unpkg.com/htmx.org@2.0.2"></script>
     <style>
 [data-theme=light],
 :root:not([data-theme=dark]) {
     --white: 0, 0%, 100%;
-    --white-hover: 0, 0%, 95%;
-    --content-bg: 220, 60%, 95%;
+    --white-hover: 0, 0%, 97%;
+    --content-bg: 220, 60%, 97%;
     --content-bg-hover: 220, 60%, 90%;
     --navbar-bg: 223, 55%, 29%;
     --navbar-bg-hover: 223, 55%, 24%;
@@ -39,8 +39,8 @@
     :root:not([data-theme]) {
         --white: 0, 0%, 82%;
         --white-hover: 0, 0%, 87%;
-        --page-bg: 219, 25%, 16%;
-        --page-bg-hover: 219, 25%, 21%;
+        --content-bg: 219, 25%, 16%;
+        --content-bg-hover: 219, 25%, 21%;
         --navbar-bg: 204, 25%, 11%;
         --navbar-bg-hover: 204, 25%, 16%;
         --navbar-btn: 210, 27%, 12%;
@@ -75,6 +75,8 @@
     --pico-primary-hover-background: hsla(var(--light-blue-hover), 1) !important;
     --pico-primary-focus: hsla(var(--light-blue), 0.3) !important;
     --pico-primary-inverse: #fff;
+    --save-button: hsl(40, 100%, 45%);
+    --save-button-hover: hsl(40, 100%, 41%);
 }
 
 nav {
@@ -124,6 +126,7 @@ article {
     padding: 0rem;
     display: flex;
     flex-direction: column;
+    --pico-card-background-color: hsla(var(--content-bg), 1) !important;
     header {
         --pico-text-selection-color: hsla(var(--light-blue-btn), 0.15) !important;
         --pico-primary: hsla(var(--light-blue-btn), 1) !important;
@@ -148,6 +151,9 @@ article {
             border: none !important;
             padding: 0.5em !important;
         }
+        [role=group] {
+            margin-bottom: 0 !important;
+        }
         .outline, input, select, textarea {
             --pico-background-color: hsla(var(--light-blue-field), 1) !important;
             border: none;
@@ -169,9 +175,16 @@ article {
         padding: 1rem;
     }
 }
+
 .editbutton{
-    background-color: hsl(100, 90%, 35%);
+    background-color: var(--save-button);
+    text-shadow: 0px 0px 4px #000000;
 }
+
+.editbutton:hover {
+    background-color: var(--save-button-hover);
+}
+
     </style>
   </head>
   <body>

@@ -2,7 +2,6 @@ const databaze = require("../models/databaseEngine");
 
 exports.create = () => {
 	let createdCurID = databaze.osnovy.pridatOsnovu('','','');
-	//console.log(`Creating new curriculum. ID: ${createdCurID}`);
 	return createdCurID;
 }
 
@@ -11,18 +10,19 @@ exports.remove = (curID) => {
 	return true;
 }
 
+// Zapíše do databáze tématický plán
 exports.edit = (curID, data) => {
 	
 	data["temata"] = JSON.parse(data.temata);
-	//console.log(data);
 	
-	let predmetTeorie = `-t`;
-	if (data["teorie"] == undefined){
-		predmetTeorie = `-c`;
-	}
+	let predmetTeorie = "-c";
+	if (data["teorie"] != undefined) {
+		predmetTeorie = "-t";
+   } else if (data["calculateHours"] != undefined) {
+      predmetTeorie = "";
+   }
 	
 	data["predmet"] = data["predmet"].replace(/-/gi, '');
-	console.log(data["predmet"]);
 	
    const trida = `${data["rocnik"]}.${data["obor"]}`;
    const predmet = `${data["predmet"]}${predmetTeorie}`;
@@ -35,7 +35,6 @@ exports.edit = (curID, data) => {
 	const osnovy = databaze.osnovy.ziskatVsechnyOsnovy();
 	let necessary = [];
 	for (let oi = 1; oi < osnovy["nextID"]; oi++){
-		//console.log(`${osnovy[oi].predmet}	${predmety[pi]}`);
 		if (necessary.length > 0){
 			let foundDuplicate = false;
 			for (let ni = 0; ni < necessary.length; ni++){

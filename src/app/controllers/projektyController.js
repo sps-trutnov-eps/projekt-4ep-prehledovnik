@@ -9,13 +9,13 @@ exports.upload = async (req, res) => {
 
       // go through milestones
       fileText.replace(/\n([A-Z][a-z]+)/g, "\n$1 $1")
-         .split(/\n[A-Z][a-z]+ /)
-         .slice(1)
-         .forEach(block => {
+              .split(/\n[A-Z][a-z]+ /)
+              .slice(1)
+              .forEach(block => {
 
             let lines = block.split(/\n/)
-               .map(l => l.trim())
-               .filter((elm) => elm.length > 3);
+                             .map(l => l.trim())
+                             .filter((elm) => elm.length > 3);
 
             let key = lines[0];
             points[key] = {"t1": {}, "t2": {}};
@@ -70,10 +70,10 @@ exports.upload = async (req, res) => {
             //
             // => z každého týdne max 4 body, každý chybějící bod stupeň dolů
 
-            // || can be used for default value while assigning
+            // ?? can be used for default value while assigning
             let count = [
-               points[key]["t1"][email] || 0,
-               points[key]["t2"][email] || 0
+               points[key]["t1"][email] ?? 0,
+               points[key]["t2"][email] ?? 0
             ].map(n => n > 2 ? 2 : n)
              // no .sum()?
              .reduce((acc, cur) => acc + cur);
@@ -82,8 +82,6 @@ exports.upload = async (req, res) => {
 
          });
       };
-
-      console.log(grades);
 
       // RESPONSE //
 
@@ -126,30 +124,27 @@ exports.view = (req, res) => {
     al = databaze.projekty.ziskatVse();
     if (clas == undefined) { clas = {trida: urlID }; }
     
-    //console.log(team);
-    
     res.render('projekty/index.ejs', { files: files, team: team, clas: clas, al: al});
 }
 
 
+// Spouští se když se ukládá třída
 exports.saveClass = (classID, datum) => {
    
     let tridaID = databaze.projekty.ziskatIDprojektuDleTridy(classID);
     // Add calss if not found
     if (databaze.projekty.ziskatCelouTridu(tridaID) == undefined){
-        //console.log("(projektyController.js; function: saveClass): Class doesn't exists.");
         databaze.projekty.pridatProjekt(classID, datum);
     } else {
-        //console.log("(projektyController.js; function: saveClass): Class already exists.");
         databaze.projekty.upravitProjekt(tridaID, datum);
     }
 }
 
 exports.saveTeams = (data) => {
-    //console.log(data)
     let tridaID = databaze.projekty.ziskatIDprojektuDleTridy(data.classID);
     let clas = databaze.projekty.ziskatCelouTridu(tridaID);
         
+	// Hledání smazaného teamu
     let excessTeamsIDs = [];
     for (let i = 0; i < clas["tymy"].length; i++){
         let found = false;
@@ -161,9 +156,11 @@ exports.saveTeams = (data) => {
         }
         if (!found) { excessTeamsIDs.push(clas["tymy"][i]["cislo"]); }
     }
-    //console.log(`excess: ${excessTeamsIDs}`);
     
+	
+	// Hledání nově vytvořeného týmu
     let newTeams = [];
+	// Týmy co tam již existují
     let otherTeams = [];
     for (let t = 0; t < data.teams.length; t++){
         if (data.teams[t]["teamID"] == undefined){
@@ -180,9 +177,6 @@ exports.saveTeams = (data) => {
         }
         if (!foundInExcess) { otherTeams.push(data.teams[t]); }
     }
-    //console.log(`new: ${newTeams}`);
-    //console.log(`other: ${otherTeams}`);
-    
     // First, go through the teams that have haven't been deleted or added
     for (let i = 0; i < otherTeams.length; i++){
         const team = otherTeams[i];
@@ -235,36 +229,6 @@ exports.saveTeams = (data) => {
     }
     
    
-    
-    
-    
-    /*for (let i = 0; i < data.teams.length; i++){
-        const team = data.teams[i];
-        
-        let existingTeam = databaze.projekty.ziskatTym(tridaID, team.teamID);
-        if (existingTeam == undefined){
-            databaze.projekty.pridatTym(tridaID, team.teamID, team.description, team.url,
-                                        team.members, 0, data.pitchDate,
-                                        [], [],
-                                        "undefined", ["undefined","undefined"], undefined, undefined);
-        } else {
-            console.log("(projektyController.js; function: saveTeams): Team already exists.");
-            databaze.projekty.upravitTym(tridaID, {
-                "cislo": team.teamID,
-                "tema": team.description,
-                "odkaz": team.url,
-                "clenove": team.members,
-                "vedouci": existingTeam["vedouci"],
-                "pitch": {
-                    "datum": data.pitchDate,
-                    "featury": existingTeam["pitch"]["featury"],
-                    "stretchgoaly": existingTeam["pitch"]["stretchgoaly"],
-                    "pozamka": existingTeam["pitch"]["pozamka"],
-                    "ucast": existingTeam["pitch"]["ucast"]
-                }
-            });
-        }
-    }*/
 }
 
 exports.saveTeam = (data) => {
@@ -312,7 +276,6 @@ exports.saveTeam = (data) => {
 
 // Tato metoda se volá, když se odesílá formulář pro nový projekt
 exports.ulozitProjekt = (req, res) => {
-    console.log(req.body);
     const { projectName, projectStart, studentCount } = req.body;
 
     if (!projectName || !projectStart || !studentCount || studentCount <= 0) {
