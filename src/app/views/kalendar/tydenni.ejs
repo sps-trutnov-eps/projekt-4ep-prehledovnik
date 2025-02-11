@@ -38,10 +38,12 @@
     color: #0172ad;
   }
   #detailButton {
-    width: 100%;
+    position: absolute;
+    bottom: 5px;
+    width: 90%;
     padding: 0;
     height: 30px;
-    margin-top: 0;
+
     /* zmenšit */
   }
 
@@ -59,6 +61,8 @@
      margin: 0;
      font-size: 18px;
      text-align: center;
+     vertical-align: middle;
+     align-items: center;
      
      position: relative;
      display: flex;
@@ -238,10 +242,12 @@
   <main>
     <div>
       <div id="detail">
+        <!-- DETAIL SE MENI NA POUHE TEMA
         <p id="roomDet" class="detailItem"></p>
         <p id="periodDet" class="detailItem"></p>
         <p id="classDet" class="detailItem"></p>
         <p id="groupDet" class="detailItem"></p>
+        -->
         <p id="countDet" class="detailItem"></p>
         <p id="themeDet" class="detailItem"></p>
         <button class="detailCloseButton" onclick="detailOff()">Zavřít</button>
@@ -363,7 +369,7 @@
                     <% }); %>
                     <% if ((week[t] % 2 === 0 && rozvrh.hodiny.sudy[days[i]][j].predmet !== "volno") || 
                     (week[t] % 2 === 1 && rozvrh.hodiny.lichy[days[i]][j].predmet !== "volno")) { %>
-                    <button id="detailButton" onclick="detailDisplay(this)">Detail</button>
+                    <button id="detailButton" onclick="detailDisplay(this)">Téma</button>
                     <% } %>
                   <% } %>
                 </div>
@@ -415,10 +421,12 @@
       detail.style.display = "block"
 
       const period = button.parentNode
+      /* DETAIL SE MENI NA POUHE TEMA
       document.getElementById("roomDet").innerText = period.querySelector(".room").textContent
       document.getElementById("periodDet").innerText = period.querySelector(".period").textContent
       document.getElementById("classDet").innerText = period.querySelector(".class").textContent
       document.getElementById("groupDet").innerText = period.querySelector(".group").textContent
+      */
       document.getElementById("countDet").innerText = period.querySelector(".count").textContent
       document.getElementById("themeDet").innerText = period.querySelector(".theme").textContent
   }
