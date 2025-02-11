@@ -59,7 +59,8 @@
  
 	   <div style="display: flex; position: relative; overflow-y: auto; max-height: calc(100vh - 14em); padding-right: 15px;">
 		  <div id="mainThing" style="flex: auto">
-			 <input type="date" id="datum" name="datum" value="<% if (clas["datum"] != undefined) { %><%= clas["datum"] %><% } else { %><% } %>">
+			<label for="datum"><strong>Datum pitche třídy</strong></label>
+			<input type="date" id="datum" name="datum" value="<%= clas.datum || '' %>">
 			 <table id="curriculums">
 				<thead style="position: sticky; top: 0; z-index: 1">
 				   <tr>
