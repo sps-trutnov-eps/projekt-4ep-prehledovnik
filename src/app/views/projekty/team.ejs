@@ -81,7 +81,7 @@
 									<input class="createButton" style="padding: 0; min-height: 0; height: 2em; margin: 0" type="button" value="+" onclick="deleteOptionsCEO(); addNewOption(this, 1); addOptionsCEO(); appendColumn()" />
 							   </div>
 							</div>
-							<label for="link">URL</label>
+							<label for="link">URL repozitáře</label>
 							<input type="text" name="link" id="link" value="<% if (team != undefined) { %><%= team["odkaz"] %><% } %>" onchange="selectOption(this)"
                         style="margin: 0; width: calc(99% - 3em)">
                         <button style="width: 3em; padding-inline: 0"
@@ -129,7 +129,7 @@
 									<input class="createButton" style="padding: 0; min-height: 0; height: 2em; margin: 0" type="button" value="+" onclick="addNewOption(this, 0)" />
 							   </div>
 							</div>
-							<label for="note">Poznámka k pitch</label>
+							<label for="note">Poznámka</label>
 							<input type="text" name="note" id="note" value="<% if (team != undefined) { %><%= team["pitch"]["pozamka"] %><% } %>" onchange="selectOption(this)" style="margin: 0">
 					</div>
 			   </div>
