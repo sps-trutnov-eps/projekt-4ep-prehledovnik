@@ -108,7 +108,6 @@ function appendColumn() {
       newColumn.push(ad);
    }
    
-   console.log(rows);
    document.getElementById("membersRow").appendChild(newColumn[0]);
    document.getElementById("pitchRow").appendChild(newColumn[1]);
    for (let i = 0; i < rows.length; i++){
@@ -139,8 +138,6 @@ function deleteColumn(id){
    const rows = document.querySelectorAll(".tdtMembers");
    
    for (let i = 0; i < rows.length; i++){
-    console.log(i);
-    console.log(rows[i].children[id]);
     // check if i == 2, 6, 10...
     // whyyy thoo
     // figured out why, it's because the table rows are not actually on the same index (index = i)
@@ -158,10 +155,8 @@ function deleteColumn(id){
     // they shouldn't have ','
     // the correct version: <tr class="tdtMembers marksCommits">
     if ((i - 2) % 4 === 0) {
-     //console.log(rows[i].children[id+1]);
      rows[i].children[id+1].remove();
     } else {
-     //console.log(rows[i].children[id]);
      rows[i].children[id].remove();
     }
    }
@@ -202,8 +197,6 @@ function deleteColumn(id){
 
 function changeColumnName(id, name, offset = 0){
    const rows = document.querySelectorAll(".tdtMembers");
-   
-   //console.log(`${id} ; ${name}; ${offset}`);
    
    rows[0].children[(id+offset)].textContent = name;
 }
@@ -277,19 +270,13 @@ async function saveTeam(){
    }
    data["pitch"] = pitch;
    
-   console.log(marksCommitsRows);
-   
    let marksCommits = [];
    for (let c = 1; c < members.length+1; c++){
       let marksCommitsMember = [];
-      console.log(`column: ${c}`);
       for (let r = 0; r < marksCommitsRows.length; r++){
          let mark = marksCommitsRows[r].children[c].children[0].value;
-         //console.log(`row: ${r} mark: ${mark}`);
-         //console.log( marksCommitsRows[r].children[c]);
          if (mark == ''){
             mark = 0;  
-            //console.log("replacingMark");
          }
          marksCommitsMember.push(mark);
       }
@@ -301,11 +288,8 @@ async function saveTeam(){
    let marksDevlogs = [];
    for (let c = 1; c < members.length+1; c++){
       let marksDevlogsMember = [];
-      //console.log(`column: ${c}`);
       for (let r = 0; r < marksDevlogsRows.length; r++){
          let mark = marksDevlogsRows[r].children[c].children[0].value;
-         //console.log(`row: ${r} mark: ${mark}`);
-         //console.log( marksDevlogsRows[r].children[c]);
          if (mark == ''){
             mark = 0;  
          }
@@ -339,7 +323,6 @@ async function saveTeam(){
 		
         // Parse JSON response
         //const jsonResponse = await response.json();
-        //console.log(jsonResponse); // Handle your JSON data here
 
         // Redirect after handling
 		//if (jsonResponse.id == undefined){
@@ -349,6 +332,14 @@ async function saveTeam(){
       
       window.location.reload();
 		} catch (error) {
-		console.error('Error:', error);
+         console.error('Error:', error);
 		}
+}
+
+function gotoURL() {
+   let url = document.getElementById('link').value;
+   if (!url) return;
+
+   if (! url.includes('://')) url = 'https://' + url
+   window.open(url, '_blank').focus();
 }

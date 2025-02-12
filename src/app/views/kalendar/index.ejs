@@ -11,7 +11,7 @@
         border-collapse: collapse;
         font-size: 20px;
         text-align: center;
-        scroll-margin: 325px;
+        scroll-margin: 75px;
         margin: 0;
         height: 120px;
         padding: 1px;
@@ -63,8 +63,9 @@
     .days-mon {
         padding: 0;
         font-size: 13px;
-        font-weight: 800;
+        font-weight: bold;
         margin: 0;
+        color: #0172ad;
     }
     
     .udalost {
@@ -195,6 +196,7 @@
       
       <div>
         <button id="naAktualniButton" onclick="scrollToCurrent()">Aktuální</button>
+        <div role="group">
             <button id="naMesicButon" onclick="scrollToMonth()">Na&nbsp;měsíc</button>
             <select name="months" id="months">
                 <option value="8">Srpen</option>
@@ -210,11 +212,13 @@
                 <option value="6">Červen</option>
                 <option value="7">Červenec</option>
             </select>
+        </div>
+           
       </div>
       
       <div>
         <div role="group" id="rightSide">
-          <button class="outline" hx-get="/kalendar/tydenni" hx-target="body" hx-push-url="true" hx-swap="transition:true">
+          <button class="outline" onclick="window.location.href='/kalendar/tydenni'" hx-target="body" hx-push-url="true" hx-swap="transition:true">
             Na týdenní
           </button>
         </div>
@@ -239,7 +243,18 @@
                 let endDate = new Date(2025,6,31);
                 const increment = 24 * 60 * 60 * 1000 //Miliseconds per day
                 let a = false
-                //console.log("aaa")
+
+                function getWeekNumber(date) {
+                    const startDate = new Date(date.getFullYear(), 0, 1);
+                    const days = Math.floor((date - startDate) / (24 * 60 * 60 * 1000));
+                    return Math.ceil((days + startDate.getDay() + 1) / 7);
+                }
+
+                function isEvenWeek(date) {
+                    date = new Date(date);
+                    const weekNumber = getWeekNumber(date);
+                    return weekNumber % 2 === 0 ? "even" : "odd";
+                }
             %>
             <% for (let i = startDate.getTime(); i <= endDate.getTime();i += increment) {%>
                 <% if(new Date(i).getDay() != 0) {%>
@@ -250,7 +265,7 @@
                 let backgroundColor = currentMonth % 2 === 0 ? 'var(--schedule-bg-lighter)' : 'var(--schedule-bg-darker)';
                 %>
 
-                <section id=<%= date %>  style="grid-column-start: <%= new Date(i).getDay()%>; background-color: <%= backgroundColor %>;" class="grid-item">
+                <section id=<%= date %> style="grid-column-start: <%= new Date(i).getDay()%>; background-color: <%= backgroundColor %>;" class="grid-item <%- isEvenWeek(date) %>">
                     <% if(new Date(i).getDay() == 6) {%>
                     <p class="days-mon"><%= date.split("-")[2] %>.<%= date.split("-")[1] %>. - <%= nextDate.split("-")[2] %>.<%= nextDate.split("-")[1] %>.</p>
 
@@ -335,8 +350,6 @@
     if (Number(dateCheck.getDay()) == 0)
         date = new Date(Number(dateCheck.getTime()) - increment).toLocaleDateString('en-CA', { timeZone: 'Europe/Prague' })
     let day = document.getElementById(date)
-    // console.log("AAA")
-
     let button = document.createElement("button")
     button.textContent = udalost.nazev
     button.className = "udalost"
@@ -352,7 +365,6 @@
             if(udalosti[id] != null){
                 if(udalosti[id].datumDo != null){
                     udalosti[id].naPocetDni = (new Date(udalosti[id].datumDo) - new Date(udalosti[id].datum) ) / (1000 * 60 * 60 * 24) + 1
-                    console.log(udalosti[id].naPocetDni)
                     for(let j=0; j < udalosti[id].naPocetDni ;j++){
                         let udalost = { ...udalosti[id] };
                         let date = new Date(udalost.datum);
@@ -376,7 +388,6 @@
   function detailDisplay(index, event){
       const udalosti = <%- JSON.stringify(udalosti) %>
       const udalost = udalosti[index]
-      //console.log(udalost.typ)
 
       let detail = document.getElementById("detail")
 

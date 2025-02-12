@@ -21,7 +21,6 @@ projektyRouter.post('/save/class', (req, res) => {
 
 projektyRouter.post('/save/team', (req, res) => {
    let data = req.body;
-   //console.log(data);
    
    projektyController.saveTeam(data);
    

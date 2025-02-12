@@ -434,7 +434,6 @@ function deleteMemberFromDetails(teamID, memberID, totalMemebersBefore, numberOf
          console.error(`mark.children[${totalMemebersBefore+memberID+1}] is undefined, skipping. (Couldn't find the member)`);
          continue;
       }
-      //console.log(mark.children[memberID]);
       mark.children[totalMemebersBefore+memberID+1].remove();
    }
 }
@@ -470,7 +469,6 @@ function editMemberInDetails (input) {
       memberID -= -1;
       checkingElement = checkingElement.nextElementSibling;
       
-      //console.log(checkingElement);
       
       looped -= -1;
       if (looped > dropdown.children.length) {
@@ -484,8 +482,6 @@ function editMemberInDetails (input) {
    let marks = document.querySelectorAll(".marks");
    
    let mark = marks[0];
-   
-   console.log(totalMemebersBefore+memberID+1);
    
    if (mark.children[totalMemebersBefore+memberID+1] == undefined){
       console.error(`mark.children[${totalMemebersBefore+memberID+1}] is undefined, skipping. (Couldn't find the member)`);
@@ -520,13 +516,10 @@ function sortTableAndOutput() {
    
    // Get all sortable headers (second header row, starting from third column)
    const sortableHeaders = Array.from(headerRows[1].querySelectorAll('th, td')).slice(1);
-   console.log(sortableHeaders);
    const sortableData = sortableHeaders.map((header, index) => ({
       index: index + 1, // Adjust for fixed columns
       text: header.textContent.trim(),
    }));
-   
-   console.log(sortableData);
    
    // Sort based on header text
    sortableData.sort((a, b) => a.text.localeCompare(b.text, undefined, { sensitivity: 'base' }));
@@ -537,19 +530,12 @@ function sortTableAndOutput() {
    
    headerRows.slice(1).forEach((row) => {
       const cells = Array.from(row.children);
-      /*console.log("cells");
-      console.log(cells);*/
       const fixedCells = cells.slice(0, 1); // Fixed columns
       const newCells = sortableData.map(({ index }) => cells[index] || document.createElement('th'));
       
       const newRow = document.createElement('tr');
-      /*console.log("fixed");
-      console.log(fixedCells);
-      console.log("new");
-      console.log(newCells);*/
       [...fixedCells, ...newCells].forEach((cell) => {
          const clonedCell = cell.cloneNode(true);
-         //console.log(clonedCell.innerHTML);
          newRow.appendChild(clonedCell);
       });
       
@@ -562,20 +548,13 @@ function sortTableAndOutput() {
    
    bodyRows.forEach((row) => {
       const cells = Array.from(row.children);
-      /*console.log("cells");
-      console.log(cells);*/
       const fixedCells = cells.slice(0, 1); // Fixed columns
       const newCells = sortableData.map(({ index }) => cells[index] || document.createElement('td'));
 		
       const newRow = document.createElement('tr');
-      /*console.log("fixed");
-      console.log(fixedCells);
-      console.log("new");
-      console.log(newCells);*/
       [...fixedCells, ...newCells].forEach((cell) => {
 			const clonedCell = cell.cloneNode(true);
 			if (clonedCell.innerHTML != ''){
-            //console.log(clonedCell.innerHTML);
 				newRow.appendChild(clonedCell);
          }
 			
@@ -583,9 +562,8 @@ function sortTableAndOutput() {
       
       targetBody.appendChild(newRow);
    });
-   
-   console.log("sorted");
 }
+   
 
 function switchTables() {
    const table = document.getElementById('detailsTable');
@@ -619,10 +597,6 @@ async function save(){
     let classID = window.location.pathname.split('/');
     classID = classID[classID.length-1];
     
-    console.log(teamIDs);
-    console.log(members);
-    console.log(descriptions);
-    
     let teams = [];
     /* teamID, members, description */
     
@@ -637,8 +611,6 @@ async function save(){
         let mem = [];
         for (let ch = 0; ch < members[i].children.length; ch++){
            const child = members[i].children[ch];
-           
-           //console.log(child);
            
            mem.push(child.children[1].value); /* don't take this out of context :D */
         }
@@ -670,8 +642,6 @@ async function save(){
 		
         // Parse JSON response
         //const jsonResponse = await response.json();
-        //console.log(jsonResponse); // Handle your JSON data here
-
         // Redirect after handling
 		/*if (jsonResponse.id == undefined){
 			window.location.href = `/osnovy`;
@@ -681,7 +651,7 @@ async function save(){
       window.location.reload();
       
 		} catch (error) {
-		console.error('Error:', error);
+         console.error('Error:', error);
 		}
     
 }
@@ -704,7 +674,6 @@ function updateTimeLine(){
       }
       
       const periods = calculateTwoWeekPeriods(startDate);
-      //console.log(`${periods} two-week periods have passed since ${startDate}.`);
       
       setProgress(periods);
 }

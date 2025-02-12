@@ -59,14 +59,14 @@
  
 	   <div style="display: flex; position: relative; overflow-y: auto; max-height: calc(100vh - 14em); padding-right: 15px;">
 		  <div id="mainThing" style="flex: auto">
-			 <input type="date" id="datum" name="datum" value="<% if (clas["datum"] != undefined) { %><%= clas["datum"] %><% } else { %><% } %>">
+			<label for="datum"><strong>Datum pitche třídy</strong></label>
+			<input type="date" id="datum" name="datum" value="<%= clas.datum || '' %>">
 			 <table id="curriculums">
 				<thead style="position: sticky; top: 0; z-index: 1">
 				   <tr>
 					  <th style="width: 10%; text-align: center;">Tým</th>
 					  <th style="text-align: center;">Členové</th>
 					  <th style="text-align: center;">Téma</th>
-					  <th style="text-align: center;">Progres</th>
 				   </tr>
 				</thead>
 				<tbody id="table-body">
@@ -80,7 +80,7 @@
 							   <div class="ActulTeamId" style="display: none"><%= team.cislo %></div>
 							</td>
 							<td style="text-align: center;" class="curriculum-input">
-							   <button class="dropdown-btn" onclick="toggleDropdown(this)"><%= team["clenove"] ? team["clenove"].length : 0 %></button>
+							   <div><%= team["clenove"] ? team["clenove"].join(', ') : "prázdné" %></div>
 							   <div class="dropdown-content" id="team-1-dropdown">
 								  <div class="dropdown-members">
 									 <% if (team["clenove"]) { %>
@@ -100,7 +100,6 @@
 							<td style="display: flex;" class="curriculum-input">
 							   <input type="text" value="<%= team["tema"] || '' %>" style="margin: 0px;" class="curriculum-i, description">
 							</td>
-							<td style="text-align: center;">0</td>
 						 </tr>
 					  <% } %>
 				   <% } %>
