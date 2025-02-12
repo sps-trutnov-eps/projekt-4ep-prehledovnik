@@ -7,6 +7,7 @@ rozvrhyRouter.get('/', (req, res) => {
     rozvrhy = rozvrhy.sort((a, b) => new Date(b.datum) - new Date(a.datum));
     
     const predmety = databaseEngine.ziskatPredmety();
+    const tridyObory = databaseEngine.osnovy.ziskatZadaneTridyaObory()
     const aktivniVerze = req.query.verze || (rozvrhy.length > 0 ? rozvrhy[0].id : null);
     
     const aktivniRozvrh = aktivniVerze 
@@ -15,7 +16,8 @@ rozvrhyRouter.get('/', (req, res) => {
 
     res.render('rozvrhy/index.ejs', { 
         rozvrhy, 
-        predmety, 
+        predmety,
+        tridyObory,
         aktivniVerze,
         aktivniRozvrh: aktivniRozvrh ? JSON.stringify(aktivniRozvrh).replace(/</g, '\\u003c') : null
     });
