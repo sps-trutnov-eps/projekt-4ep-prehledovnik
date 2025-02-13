@@ -1,6 +1,29 @@
 <!doctype html>
-        <%- include('partials/head'); %>
-            <article style="flex: 3;">
-                <img style="object-fit: contain; max-height: 100%;" src="https://cataas.com/cat/says/P%C5%99ehledovn%C3%ADk?fontColor=orange&fontSize=64" alt="Přehledovník">
-            </article>
+<%- include('partials/head'); %>
+
+    <style>
+        #doc {
+            max-width: 90ch;
+            margin-inline: auto;
+
+            h1, h2, h3, h4, h5 {
+                text-align: center;
+            }
+        }
+
+        #cat {
+            display: block;
+            margin-inline: auto;
+            margin-top: 2em;
+        }
+
+    </style>
+    <article style="flex: 3;">
+        <main>
+            <div id="doc">
+                <%- doc %>
+            </div>
+            <img id="cat" style="object-fit: contain; max-height: 100%;" src="https://cataas.com/cat/says/P%C5%99ehledovn%C3%ADk?fontColor=orange&fontSize=64" alt="Přehledovník">
+        </main>
+    </article>
 <%- include('partials/tail') %>
