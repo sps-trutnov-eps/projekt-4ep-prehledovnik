@@ -46,5 +46,25 @@
         Maturita
       </button>
     </li>
+    <li>
+      <button id="theme-switcher" onclick="switchTheme()">
+        <span id="theme-icon">🌜</span>
+      </button>
+    </li>
   </ul>
 </nav>
+<script>
+  function switchTheme() {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    document.getElementById('theme-icon').textContent = newTheme === 'dark' ? '🌞' : '🌜';
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    document.getElementById('theme-icon').textContent = savedTheme === 'dark' ? '🌞' : '🌜';
+  });
+</script>

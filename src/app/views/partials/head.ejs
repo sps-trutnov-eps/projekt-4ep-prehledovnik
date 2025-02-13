@@ -135,6 +135,9 @@ body {
         }
         li {
             padding: 0 .5em;
+            &:last-child {
+                flex-grow: 0;
+            }
         }
         button {
             border: none;
@@ -205,6 +208,11 @@ article {
 
 .editbutton:hover {
     background-color: var(--save-button-hover);
+}
+
+#theme-switcher {
+    background-color: transparent;
+    padding: 0;
 }
 
     </style>
