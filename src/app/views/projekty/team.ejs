@@ -59,6 +59,7 @@
 			   <div style="display: flex; flex-wrap: wrap; padding-bottom: 3rem;">
 				   <div style="flex: 1; padding: 0 var(--pico-block-spacing-horizontal);">
 						<p style="display: none"></p>
+						<h2 class="section-title">Tým</h2>
 						<label>Vedoucí</label>
 							 <select id="optionSelect">
 									<option value="">Select</option>
@@ -89,6 +90,7 @@
 					</div>
 					<div style="flex: 1; padding: 0 var(--pico-block-spacing-horizontal);">
 						<p style="display: none"></p>
+						<h2 class="section-title">Projekt</h2>
 						<label for="description">Téma</label>
 						<input type="text" name="description" id="description" value="<% if (team != undefined) { %><%= team["tema"] %><% } %>" onchange="selectOption(this)" style="margin: 0">
 						<label>Featury</label>
