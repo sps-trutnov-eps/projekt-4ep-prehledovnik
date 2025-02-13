@@ -348,8 +348,7 @@
                                                              <!-- Tady probíhá úprava názvu předmětu -->
 
                                                             <select name="predmet" id="jakypredmet" required>
-                                                                <option value="MECH">Kroužek mechatroniky</option>
-                                                                <option value="PROG">Kroužek programování</option>
+                                                                
                                                                 <% for (let predmet of predmety) { %>
                                                                     <% let pr = predmet.split('-')[0]; %>
                                                                     <% let typ = predmet.split('-')[1]; %>
@@ -359,6 +358,8 @@
                                                                         <%= celyPredmet %>
                                                                     </option>
                                                                 <% } %>
+                                                                <option value="MECH">Kroužek mechatroniky</option>
+                                                                <option value="PROG">Kroužek programování</option>
                                                                 
                                                             </select>
                                                         </div>
