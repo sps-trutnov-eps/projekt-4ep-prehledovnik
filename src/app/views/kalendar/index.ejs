@@ -255,6 +255,16 @@
                     const weekNumber = getWeekNumber(date);
                     return weekNumber % 2 === 0 ? "even" : "odd";
                 }
+
+                function isFirst(date) {
+                    return new Date(date).getDate() === 1 ? "firstDay" : ""
+                }
+
+                function isLast(date) {
+                    const actualDate = new Date(date)
+                    const nextDate = new Date(actualDate.getTime() + increment)
+                    return nextDate.getDate() === 1 ? "lastDay" : ""
+                }
             %>
             <% for (let i = startDate.getTime(); i <= endDate.getTime();i += increment) {%>
                 <% if(new Date(i).getDay() != 0) {%>
@@ -265,7 +275,7 @@
                 let backgroundColor = currentMonth % 2 === 0 ? 'var(--schedule-bg-lighter)' : 'var(--schedule-bg-darker)';
                 %>
 
-                <section id=<%= date %> style="grid-column-start: <%= new Date(i).getDay()%>; background-color: <%= backgroundColor %>;" class="grid-item <%- isEvenWeek(date) %>">
+                <section id=<%= date %> style="grid-column-start: <%= new Date(i).getDay()%>; background-color: <%= backgroundColor %>;" class="grid-item <%- isEvenWeek(date) %> <%-isFirst(date) %> <%-isLast(date) %>">
                     <% if(new Date(i).getDay() == 6) {%>
                     <p class="days-mon"><%= date.split("-")[2] %>.<%= date.split("-")[1] %>. - <%= nextDate.split("-")[2] %>.<%= nextDate.split("-")[1] %>.</p>
 
