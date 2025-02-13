@@ -352,8 +352,12 @@
                                                              <!-- Tady probíhá úprava názvu předmětu -->
 
                                                             <select name="predmet" id="jakypredmet" required>
-                                                                <option value="MECH">Kroužek mechatroniky</option>
-                                                                <option value="PROG">Kroužek programování</option>
+                                                                <% predmety.sort((a, b) => {
+                                                                    let nazevA = a.split('-')[0].toLowerCase(); // Extrahuje název předmětu
+                                                                    let nazevB = b.split('-')[0].toLowerCase();
+                                                                    return nazevA.localeCompare(nazevB); // Seřadí abecedně
+                                                                }); %>
+                                                                
                                                                 <% for (let predmet of predmety) { %>
                                                                     <% let pr = predmet.split('-')[0]; %>
                                                                     <% let typ = predmet.split('-')[1]; %>
@@ -363,6 +367,8 @@
                                                                         <%= celyPredmet %>
                                                                     </option>
                                                                 <% } %>
+                                                                <option value="MECH">Kroužek mechatroniky</option>
+                                                                <option value="PROG">Kroužek programování</option>
                                                                 
                                                             </select>
                                                         </div>
