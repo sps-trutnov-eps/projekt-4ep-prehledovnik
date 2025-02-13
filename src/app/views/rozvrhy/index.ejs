@@ -348,6 +348,11 @@
                                                              <!-- Tady probíhá úprava názvu předmětu -->
 
                                                             <select name="predmet" id="jakypredmet" required>
+                                                                <% predmety.sort((a, b) => {
+                                                                    let nazevA = a.split('-')[0].toLowerCase(); // Extrahuje název předmětu
+                                                                    let nazevB = b.split('-')[0].toLowerCase();
+                                                                    return nazevA.localeCompare(nazevB); // Seřadí abecedně
+                                                                }); %>
                                                                 
                                                                 <% for (let predmet of predmety) { %>
                                                                     <% let pr = predmet.split('-')[0]; %>
