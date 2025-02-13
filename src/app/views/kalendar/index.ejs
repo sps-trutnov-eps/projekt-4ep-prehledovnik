@@ -301,9 +301,9 @@
       </header>
       <main>
         <p id="name" class="detailItem"></p>
+        <p id="date" class="detailItem"></p>
         <p id="from" class="detailItem"></p>
         <p id="to" class="detailItem"></p>
-        <p id="date" class="detailItem"></p>
         <p id="type" class="detailItem"></p>
         <p id="tykase" class="detailItem"></p>
         <p id="note" class="detailItem"></p>
@@ -314,6 +314,7 @@
 <script>
 
     const dateIncrement = 24 * 60 * 60 * 1000 //Miliseconds per day
+    const detailUdalosti = {}
 
   function scrollToCurrent() {
       const increment = 24 * 60 * 60 * 1000
@@ -371,11 +372,18 @@
                     for(let j=0; j < udalosti[id].naPocetDni ;j++){
                         let udalost = { ...udalosti[id] };
                         let date = new Date(udalost.datum);
+
+                        udalost.datumOd = udalost.datum
                         date.setDate(date.getDate() + j);
                         udalost.datum = date.toISOString().split('T')[0];
+                        udalost.id = j+1000;
+                        
+                        detailUdalosti[udalost.id] = udalost;
+
+                        console.log(detailUdalosti)
 
                         if(new Date(date - dateIncrement).getDay() != 5 ){
-                            let element = placeUdalost(udalost,id)
+                            let element = placeUdalost(udalost,udalost.id)
                         element.classList.add("udalost", "udalostVicedenni")
                         while (element.previousSibling != null){
                             element.parentNode.insertBefore(element, element.previousSibling)
@@ -392,13 +400,15 @@
 
   function detailDisplay(index, event){
       const udalosti = <%- JSON.stringify(udalosti) %>
-      const udalost = udalosti[index]
+      let udalost = udalosti[index]
+      if(udalost == null)
+        udalost = detailUdalosti[index]
 
       let detail = document.getElementById("detail")
 
       document.getElementById("name").innerText = udalost.nazev
-      document.getElementById("from").innerText = udalost.casOd
-      document.getElementById("to").innerText = udalost.casDo
+      document.getElementById("from").innerText = udalost.datumOd
+      document.getElementById("to").innerText = udalost.datumDo
       document.getElementById("date").innerText = udalost.datum
       document.getElementById("type").innerText = udalost.typ
       document.getElementById("tykase").innerText = udalost.tykaSe
