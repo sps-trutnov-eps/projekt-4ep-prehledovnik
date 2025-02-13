@@ -232,7 +232,7 @@
                 </div>
                 <div class="cast2">
                     <button class="nav-button" id="novaBtn" style="display: none; ">Nová verze</button>
-                    <button class="editbutton" id="editBtn" class="nav-button">Edit</button>
+                    <button class="editbutton" id="editBtn" class="nav-button">Změnit</button>
                     <button class="nav-button" id="smazatBtn" style="display: none;">Smazat verzi</button>
                 </div>
                 <div class="cast3">
@@ -750,7 +750,7 @@
             lockTimetableButtons();
 
             editBtn.addEventListener('click', function() {
-                if (editBtn.textContent === 'Edit') {
+                if (editBtn.textContent === 'Změnit') {
 
                     novaBtn.style.display = 'inline-block';
                     smazatBtn.style.display = 'inline-block';
@@ -762,7 +762,7 @@
                     smazatBtn.style.display = 'none';
 
                     lockTimetableButtons();
-                    editBtn.textContent = 'Edit';
+                    editBtn.textContent = 'Změnit';
 
                     ulozitRozvrh();
                 }
@@ -828,7 +828,7 @@
             lockTimetableButtons();
 
             editBtn.addEventListener('click', function() {
-                if (editBtn.textContent === 'Edit') {
+                if (editBtn.textContent === 'Změnit') {
 
                     novaBtn.style.display = 'inline-block';
                     smazatBtn.style.display = 'inline-block';
@@ -840,7 +840,7 @@
                     smazatBtn.style.display = 'none';
 
                     lockTimetableButtons();
-                    editBtn.textContent = 'Edit';
+                    editBtn.textContent = 'Změnit';
 
                     ulozitRozvrh();
                 }
