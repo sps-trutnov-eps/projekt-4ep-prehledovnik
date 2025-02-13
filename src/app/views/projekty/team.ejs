@@ -65,8 +65,8 @@
 									<option value="">Select</option>
 							 </select>
 						<label style="margin-top: 1em;">Členové</label>
-							<div class="members" style="max-height: 21.9rem;">
-								<div class="dropdown-members" id="teamMembers" style="min-height: 20rem;">
+							<div class="members">
+								<div class="dropdown-members" id="teamMembers">
 									<% if (team != undefined) { %>
 									<% for (let i = 0; i < team["clenove"].length; i++) { %>
 									
@@ -94,8 +94,8 @@
 						<label for="description">Téma</label>
 						<input type="text" name="description" id="description" value="<% if (team != undefined) { %><%= team["tema"] %><% } %>" onchange="selectOption(this)" style="margin: 0">
 						<label>Featury</label>
-						<div class="members" style="max-height: 13.5rem;">
-								<div id="features" class="dropdown-members" style="min-height: 10rem;">
+						<div class="members">
+								<div id="features" class="dropdown-members">
 								<% if (team != undefined) { %>
 									<% for (let i = 0; i < team["pitch"]["featury"].length; i++) { %>
 								
@@ -114,8 +114,8 @@
 							
 							
 							<label style="margin-top: 1em;">Stretch goaly</label>
-							<div class="members" style="max-height: 17.5rem;">
-								<div id="goals" class="dropdown-members" style="min-height: 14rem;">
+							<div class="members">
+								<div id="goals" class="dropdown-members">
 								<% if (team != undefined) { %>
 									<% for (let i = 0; i < team["pitch"]["stretchgoaly"].length; i++) { %>
 								

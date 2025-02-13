@@ -160,7 +160,6 @@
 }
 
 .dropdown-members {
-	min-height: calc(100% - 4rem);
 }
 
 .members-input:hover .deleteButton {
@@ -189,7 +188,6 @@
 	margin-bottom: var(--pico-block-spacing-vertical);
 	background: var(--pico-background-color);
    overflow-y: auto;
-	max-height: 25.5rem;
 }
 
 
