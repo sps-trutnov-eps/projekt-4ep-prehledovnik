@@ -312,6 +312,9 @@
 </dialog>
 
 <script>
+
+    const dateIncrement = 24 * 60 * 60 * 1000 //Miliseconds per day
+
   function scrollToCurrent() {
       const increment = 24 * 60 * 60 * 1000
       let today = new Date();
@@ -371,13 +374,15 @@
                         date.setDate(date.getDate() + j);
                         udalost.datum = date.toISOString().split('T')[0];
 
-                        let element = placeUdalost(udalost,id)
+                        if(new Date(date - dateIncrement).getDay() != 5 ){
+                            let element = placeUdalost(udalost,id)
                         element.classList.add("udalost", "udalostVicedenni")
                         while (element.previousSibling != null){
                             element.parentNode.insertBefore(element, element.previousSibling)
                             if(element.previousSibling == element.parentNode.firstElementChild)
                                 break
                         }
+                        }                     
                 }}
                 else
                     placeUdalost(udalosti[id],id)
