@@ -115,7 +115,7 @@
 							<td style="text-align: center;">Známka za devlog</td>
 							<% if (clas["tymy"] && clas["tymy"].length > 0) { %>
 								<% for (let i = 0; i < clas["tymy"].length; i++) { %>
-									<% if (clas["tymy"][0]["znamkyDev"] != undefined) { %>
+									<% if (clas["tymy"][i]["znamkyDev"] != undefined) { %>
 										<% for (let iM = 0; iM < clas["tymy"][i]["znamkyDev"].length; iM++) { %>
 											<td style="text-align: center;">
 												<% if (clas["tymy"][i]["znamkyDev"][iM]["znamky"][0] > 0) { %> <%= clas["tymy"][i]["znamkyDev"][iM]["znamky"][0]; %> <% } else { %>-<% } %>
@@ -137,7 +137,7 @@
 							<td style="text-align: center;">Známka za commity</td>
 							<% if (clas["tymy"] && clas["tymy"].length > 0) { %>
 								<% for (let i = 0; i < clas["tymy"].length; i++) { %>
-									<% if (clas["tymy"][0]["znamkyCom"] != undefined) { %>
+									<% if (clas["tymy"][i]["znamkyCom"] != undefined) { %>
 										<% if (clas["tymy"][i]["znamkyCom"] != undefined) { %>
 											<% for (let iM = 0; iM < clas["tymy"][i]["znamkyCom"].length; iM++) { %>
 												<td style="text-align: center;">
@@ -182,7 +182,7 @@
 							<td style="text-align: center;">Známka za commity</td>
 							<% if (clas["tymy"] && clas["tymy"].length > 0) { %>
 								<% for (let i = 0; i < clas["tymy"].length; i++) { %>
-									<% if (clas["tymy"][0]["znamkyCom"] != undefined) { %>
+									<% if (clas["tymy"][i]["znamkyCom"] != undefined) { %>
 										<% if (clas["tymy"][i]["znamkyCom"] != undefined) { %>
 											<% for (let iM = 0; iM < clas["tymy"][i]["znamkyCom"].length; iM++) { %>
 												<td style="text-align: center;">
@@ -225,7 +225,7 @@
 							<td style="text-align: center;">Známka za commity</td>
 							<% if (clas["tymy"] && clas["tymy"].length > 0) { %>
 								<% for (let i = 0; i < clas["tymy"].length; i++) { %>
-									<% if (clas["tymy"][0]["znamkyCom"] != undefined) { %>
+									<% if (clas["tymy"][i]["znamkyCom"] != undefined) { %>
 										<% if (clas["tymy"][i]["znamkyCom"] != undefined) { %>
 											<% for (let iM = 0; iM < clas["tymy"][i]["znamkyCom"].length; iM++) { %>
 												<td style="text-align: center;">
@@ -268,7 +268,7 @@
 							<td style="text-align: center;">Známka za commity</td>
 							<% if (clas["tymy"] && clas["tymy"].length > 0) { %>
 								<% for (let i = 0; i < clas["tymy"].length; i++) { %>
-									<% if (clas["tymy"][0]["znamkyCom"] != undefined) { %>
+									<% if (clas["tymy"][i]["znamkyCom"] != undefined) { %>
 										<% if (clas["tymy"][i]["znamkyCom"] != undefined) { %>
 											<% for (let iM = 0; iM < clas["tymy"][i]["znamkyCom"].length; iM++) { %>
 												<td style="text-align: center;">
@@ -311,7 +311,7 @@
 							<td style="text-align: center;">Známka za commity</td>
 							<% if (clas["tymy"] && clas["tymy"].length > 0) { %>
 								<% for (let i = 0; i < clas["tymy"].length; i++) { %>
-									<% if (clas["tymy"][0]["znamkyCom"] != undefined) { %>
+									<% if (clas["tymy"][i]["znamkyCom"] != undefined) { %>
 										<% if (clas["tymy"][i]["znamkyCom"] != undefined) { %>
 											<% for (let iM = 0; iM < clas["tymy"][i]["znamkyCom"].length; iM++) { %>
 												<td style="text-align: center;">
