@@ -236,6 +236,8 @@ async function saveTeam(){
    const marksDevlogsRows = document.querySelectorAll(".marksDevlogs");
    let data = {};
    
+   console.log(pitchRow);
+   
    data["description"] = description.value;
    
    let members = [];
@@ -264,7 +266,7 @@ async function saveTeam(){
    data["goals"] = goalses;
    
    let pitch = []
-   for (let i = 1; i < pitchRow.children.length; i++){
+   for (let i = 2; i < pitchRow.children.length; i++){
          let checked = pitchRow.children[i].children[0].checked;
          pitch.push(checked);
    }
