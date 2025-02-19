@@ -3,11 +3,11 @@ const databaseEngine = require("../models/databaseEngine");
 const databaze = require("../models/databaseEngine");
 
 exports.pzop = (req, res) => {
-    let data = databaze.maturity.ziskarMaturituDleNazvu('PŽOP')
+    let data = databaze.maturity.ziskarMaturituDleNazvu('PZOP')
 
     ucebna = data.ucebny[0] 
     dny = data.dny 
-    const ucebny = ["T1", "T11", "T15", "T16"];
+    const ucebny = databaze.ziskatUcebny["pocitacovky"];
 
     res.render('maturity/index.ejs', {"ucebna" : ucebna, "dny" : dny, "ucebny": ucebny})
 }
@@ -67,7 +67,7 @@ exports.ukladanipzop = (req, res) => {
         for (let i = 0; i < dny.length; i++){
             casy.push([]);
         }
-        databaze.maturity.pridatMaturitniEvent("PŽOP", dny, casy, ucebna);
+        databaze.maturity.pridatMaturitniEvent("PZOP", dny, casy, ucebna);
     }
     res.redirect("/maturity/");
 };
