@@ -304,7 +304,7 @@
                     <p><%= date_udalost[2]%></p>
                     <%}%>
 
-                    <% if (new Date(i).getDay() > 0 && new Date(i).getDay() < 6) {%>
+                    <% if (new Date(i).getDay() > 0 && new Date(i).getDay() < 6 && new Date(i).getMonth() != 7 && new Date(i).getMonth() != 6 ) {%>
                         <button class="udalost">Výuka</button>
                     <%}%>
 
