@@ -327,6 +327,7 @@
                                                             <label for="trida">Třída:</label>
                                                             <select name="trida" id="trida">
                                                                 <optgroup label="Třídy">
+                                                                <% tridyObory.sort((a, b) => a.localeCompare(b, 'cs')); %>
                                                                 <% tridyObory.forEach(Trida => { %>
                                                                     <option value="<%= Trida%>"><%= Trida %></option>
                                                                   <% }) %>
