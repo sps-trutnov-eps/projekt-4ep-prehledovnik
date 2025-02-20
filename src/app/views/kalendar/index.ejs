@@ -289,6 +289,10 @@
                     <p><%= date_udalost[2]%></p>
                     <%}%>
 
+                    <% if (new Date(i).getDay() > 0 && new Date(i).getDay() < 6) {%>
+                        <button class="udalost">Výuka</button>
+                    <%}%>
+
                 </section>
 
 
