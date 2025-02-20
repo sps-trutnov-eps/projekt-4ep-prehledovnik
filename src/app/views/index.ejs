@@ -1,29 +1,121 @@
-<!doctype html>
-<%- include('partials/head'); %>
+<!DOCTYPE html>
+<%- include('./partials/head'); %>
+<!-- <link rel="stylesheet" href="/osnovy/css/main.css" /> -->
+<style>
+    .timeline {
+            margin-top: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            min-height: 60vh;
+            position: relative;
+    }
 
-    <style>
-        #doc {
-            max-width: 90ch;
-            margin-inline: auto;
+    .timeline::before {
+        content: '';
+        position: absolute;
+        left: 8px;
+        top: 20px;
+        width: 4px;
+        height: calc(100% - 40px);
+        background-color: #1e3c72;
+    }
+    
+    .timeline-item {
+        display: flex;
+        position: relative;
+        padding: 20px 0;
+    }
+    
+    .timeline-dot {
+        width: 20px;
+        height: 20px;
+        background-color: #1e3c72;
+        border-radius: 50%;
+        margin-right: 15px;
+        margin-top: 7px;
+        flex-shrink: 0;
+        position: relative;
+        z-index: 1;
+        background-color: #1e3c72;
+        border: 4px solid #1e3c72;
+        box-sizing: border-box;
+    }
+    
+    .timeline-content {
+        flex: 1;
+        font-size: 1.35em;
+        line-height: 1.5;
+    }
+</style>
+<article
+style="
+width: 20vw;
+min-width: 20vw;
+margin-right: 1em;
+resize: horizontal;
+">
+	<header style="border: 0;">
+      <h1>Moduly</h1>
 
-            h1, h2, h3, h4, h5 {
-                text-align: center;
-            }
-        }
+	</header>
+   <main style="margin-top: -1px;">
+        <div style="display: flex">
+            <input style="margin-left: 0;" type="button" value="Kalendář"
+            onclick="window.location.href = '/';">
+		</div>
+        <div style="display: flex">
+            <input style="margin-left: 0;" type="button" value="Rozvrh"
+            onclick="window.location.href = '/';">
+        </div>
+        <div style="display: flex">
+            <input style="margin-left: 0;" type="button" value="Projekty"
+            onclick="window.location.href = '/';">
+        </div>
+        <div style="display: flex">
+            <input style="margin-left: 0;" type="button" value="Události"
+            onclick="window.location.href = '/';">
+		</div>
+        <div style="display: flex">
+            <input style="margin-left: 0;" type="button" value="Osnovy"
+            onclick="window.location.href = '/';">
+        </div>
+        <div style="display: flex">
+            <input style="margin-left: 0;" type="button" value="Maturita"
+            onclick="window.location.href = '/';">
+        </div>
+	</main>
+</article>
 
-        #cat {
-            display: block;
-            margin-inline: auto;
-            margin-top: 2em;
-        }
-
-    </style>
-    <article style="flex: 3;">
-        <main>
-            <div id="doc">
-                <%- doc %>
+<article style="flex: 3; overflow-y: auto">
+    <header>
+      <h1>Začněte s přehledovníkem</h1>
+    </header>
+    <main>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    1. Vytvořte osnovy pro vaše předměty v modulu "Osnovy". V tomto modulu můžete zadat předměty, počet hodin a probíraná témata.
+                </div>
             </div>
-            <img id="cat" style="object-fit: contain; max-height: 100%;" src="https://cataas.com/cat/says/P%C5%99ehledovn%C3%ADk?fontColor=orange&fontSize=64" alt="Přehledovník">
-        </main>
-    </article>
-<%- include('partials/tail') %>
+            
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    2. Nakonfigurujte si svůj rozvrh v modulu "Rozvrh". Zde si můžete vybrat z předmětů zadaných v osnovách a zvolit čas, třídu a učebnu, kde se hodina koná.
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    3. Nyní máte nastaveno vše ke správnému používaní Přehledovníku. Teď už si jen stačí užívat pohodlí a přehledné zobrazení Vašeho denního rozvrhu.
+                </div>
+            </div>
+        </div>
+    </main>
+</article>
+<!-- <script src="/osnovy/js/main.js"></script> -->
+<%- include('./partials/tail') %>
