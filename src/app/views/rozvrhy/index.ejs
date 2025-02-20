@@ -314,9 +314,12 @@
 
                                         <dialog  id="popupModal">
                                             <article>
-                                                <header>
-                                                    <button aria-label="Close" rel="prev" data-target="popupModal" onclick="toggleModal(event)"></button>
-                                                    <p><strong>Tvorba hodiny</strong></p>
+                                                <header style="display: flex; justify-content: space-between; align-items: center; background-color: #008cdd; color: white; padding: 10px;">
+                                                    <p style="margin: 0; font-weight: bold;">Tvorba hodiny</p>
+                                                    <button style="width: 30px; height: 30px; background: none; border: none; color: white; font-size: 20px; font-weight: bold; cursor: pointer; outline: none; display: flex; justify-content: center; align-items: center;"
+                                                        aria-label="Close" rel="prev" data-target="popupModal" onclick="toggleModal(event)">
+                                                        &times;
+                                                    </button>
                                                 </header>
                                                 <main>
                                                     <form id="lessonForm" onsubmit="return false;">
