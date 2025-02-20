@@ -13,14 +13,14 @@ resize: horizontal;
 
 	</header>
    <main id="curriculumContainerMain" style="margin-top: -1px;">
-		<div id="addCurrrsss" style="margin: -16px; margin-bottom: 16px; padding: 16px; padding-bottom: 0px; padding-top: 0px; background-color: var(--pico-primary-background);">
-			<form id="create">
-				<input
+		<div id="addCurrrsss">
+			<button
 				class="createButton outline createCurButton"
 				type="submit"
-				value="Přidat tematický plán"
-				onclick="CreateCurriculum()" />
-			</form>
+				onclick="CreateCurriculum()"
+			>
+			Přidat tematický plán
+			</button>
 		</div>
       <% for (let i = 1; i < cur["nextID"]; i++) {%>
       <div style="display: flex" class="cur">
