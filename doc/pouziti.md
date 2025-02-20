@@ -1,17 +1,22 @@
 # Použití
 
-Pakliže byl balanc zachován, po zapnutí aplikace by vás měla přivítat
-přátelská číča.
-Můžete jí sdělit své trable.
-Sice vám to nepomůže, ale je to celkem fajn volnočasová aktivita.
+Po zapnutí aplikace vás přivítá tato dokumentace.
+
+**AHOJ!**
 
 Až se rozhodnete začít pracovat, horní lišta vám umožní přepnout se na
 jednotlivé modely.
 Modely na sobě do jisté míry závisí tudíž je nutné vyplnit Osnovy před Rozvrhem
 a rozvrh před Kalendářem.
 
-Aplikace podporuje light a dark mód, který se automaticky detekuje dle módu
-browseru. Chrome aktuálně nefunguje, ale Edge a Firefox fungují.
+Aplikace podporuje light a dark mód, který se dá přepnout emotikonem v pravém
+horním rohu.
+
+Na konci této stránky na vás také čeká přátelská číča,
+vlídně propůjčená službou
+[CATAAS](https://cataas.com/).
+Můžete jí sdělit své trable.
+Sice vám to nepomůže, ale je to celkem fajn volnočasová aktivita.
 
 ## Osnovy
 
