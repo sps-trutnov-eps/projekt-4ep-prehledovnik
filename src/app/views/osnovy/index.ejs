@@ -12,8 +12,8 @@ resize: horizontal;
       <h1>Osnovy</h1>
 
 	</header>
-   <main style="margin-top: -1px;">
-		<div style="margin: -16px; margin-bottom: 16px; padding: 16px; padding-bottom: 0px; padding-top: 0px; background-color: var(--pico-primary-background);">
+   <main id="curriculumContainerMain" style="margin-top: -1px;">
+		<div id="addCurrrsss" style="margin: -16px; margin-bottom: 16px; padding: 16px; padding-bottom: 0px; padding-top: 0px; background-color: var(--pico-primary-background);">
 			<form id="create">
 				<input
 				class="createButton outline createCurButton"
@@ -55,10 +55,10 @@ resize: horizontal;
    <main style="padding-top: 0">
       <div
       style="
-	  margin-top: 15px;
-      display: flex;
-      padding-right: 15px;
-	  overflow-y: none;
+		margin-top: 15px;
+		display: flex;
+		padding-right: 15px;
+		overflow-y: none;
       ">
          <div style="flex: auto">
  			<table style="overflow-y: auto; max-height: calc(100vh - 14em); padding-right: 15px;" id="curriculums">
@@ -173,7 +173,7 @@ resize: horizontal;
 					
                <label for="pHodin">Počet Hodin:</label>
 
-					<% let pocetHodin = 1; %>
+					<% let pocetHodin = 0; %>
 					<% for (let ti = 1; ti < cur[id]['temata']['nextID']; ti++){ %>
 					<% 	pocetHodin += cur[id]['temata'][ti]['pocetHodin'];%>
 					<% } %>
