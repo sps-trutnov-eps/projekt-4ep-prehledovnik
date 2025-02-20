@@ -156,7 +156,7 @@ function addRow() {
 	const hoursInput = document.createElement("input");
 	hoursInput.type = "number";
 	hoursInput.style.margin = "0";
-	hoursInput.value = "0";
+	hoursInput.value = "1";
 	hoursInput.min = 0;
 	hoursInput.className = "hour-input";
 	
