@@ -884,6 +884,7 @@ const toggleDayModal = (cas, den, tyden, event) => {
         : rozvrh.sudy[denHodiny][casHodiny];
 
     if (existingLesson) {
+        document.getElementById("trida").value = existingLesson.trida || "";
         document.getElementById("jakypredmet").value = existingLesson.predmet || "";
         document.getElementById("mistnost").value = existingLesson.mistnost || "T16";
         document.getElementById("skupina").value = existingLesson.skupina || "cela";
