@@ -268,7 +268,7 @@
                 </div>
                 <% } else { %>
                     <% const days=['Po', 'Út' , 'St' , 'Čt' , 'Pá' ]; %>
-                        <% const periods=['0', '1' , '2' , '3' , '4' , '5' , '6' , '7' , '8', '9+' ]; %>
+                        <% const periods=['0', '1' , '2' , '3' , '4' , '5' , '6' , '7' , '8', '9' ]; %>
                             <% const timeRanges=['7:10 - 7:55', '8:00 - 8:45' , '8:50 - 9:35' , '9:55 - 10:40'
                                 , '10:45 - 11:30' , '11:35 - 12:25' , '12:35 - 13:20' , '13:25 - 14:10'
                                 , '14:15 - 15:00', '15:00+' ]; %>
@@ -319,7 +319,6 @@
                                         <dialog  id="popupModal">
                                             <article>
                                                 <header>
-                                                    <button aria-label="Close" rel="prev" data-target="popupModal" onclick="toggleModal(event)"></button>
                                                     <p><strong>Tvorba hodiny</strong></p>
                                                 </header>
                                                 <main>
@@ -568,7 +567,7 @@
                     if (hodina.predmet === "volno") {
                         // button.classList.replace('secondary', 'primary');
                         button.classList.add('is-free');
-                        predmetSpan.textContent = "volno";
+                        predmetSpan.textContent = "";
                         mistnostSpan.textContent = "";
                         skupinaSpan.textContent = "";
                         tridaSpan.textContent = "";
@@ -587,6 +586,13 @@
                     skupinaSpan.textContent = '';
                     tridaSpan.textContent = '';
                 }
+            }
+        }
+
+        function addPluses() {
+            const buttons = document.querySelectorAll('.is-free');
+            for (let i = 0; i < buttons.length; i++) {
+                buttons[i].querySelector('.hodina-predmet').textContent = '+';
             }
         }
 
@@ -765,6 +771,7 @@
                     editBtn.textContent = 'Změnit';
 
                     ulozitRozvrh();
+
                 }
             });
         });
@@ -829,6 +836,7 @@
 
             editBtn.addEventListener('click', function() {
                 if (editBtn.textContent === 'Změnit') {
+                    addPluses();
 
                     novaBtn.style.display = 'inline-block';
                     smazatBtn.style.display = 'inline-block';

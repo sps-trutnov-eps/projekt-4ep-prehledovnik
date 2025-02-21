@@ -156,7 +156,7 @@ function addRow() {
 	const hoursInput = document.createElement("input");
 	hoursInput.type = "number";
 	hoursInput.style.margin = "0";
-	hoursInput.value = "0";
+	hoursInput.value = "1";
 	hoursInput.min = 0;
 	hoursInput.className = "hour-input";
 	
@@ -307,7 +307,39 @@ function hideDiv(id) {
 	else { div.style.display = "none"; }*/
 }
 
+function reorderCurriculum() {
+  const container = document.getElementById('curriculumContainerMain');
+  const curDivs = Array.from(container.querySelectorAll('.cur')); // Select .cur divs within the container
+  const addCursDiv = document.getElementById('addCurrrsss');
+  // Skip the first div
+  const divsToSort = curDivs;
+  divsToSort.slice(1);
+
+  divsToSort.sort((a, b) => {
+    const valueA = a.querySelector('input[type="button"]:nth-child(2)').value.trim();
+    const valueB = b.querySelector('input[type="button"]:nth-child(2)').value.trim();
+
+    // Handle empty values: Put empty values at the end
+    if (valueA === "" && valueB !== "") return 1;
+    if (valueA !== "" && valueB === "") return -1;
+    if (valueA === "" && valueB === "") return 0; // Keep order if both are empty
+
+    // Lexicographical comparison (you can modify this for numerical sorting if needed)
+    return valueA.localeCompare(valueB, undefined, { numeric: true, sensitivity: 'base' });
+  });
+
+  // Clear the container and re-append the first div followed by sorted divs
+  container.innerHTML = '';  // Remove all child nodes
+  container.appendChild(addCursDiv); // Append the first div back
+  divsToSort.forEach(div => container.appendChild(div)); // Append sorted divs
+}
+
+
 window.onload = (event) => {
     calculateTheTotalHours();
     updateRowColors();
+	reorderCurriculum();
 };
+
+
+
