@@ -2,7 +2,6 @@ function deleteMember(button) {
    button.parentElement.remove();
 }
 
-
 let first = true;
 function addOptionsCEO() {
    
