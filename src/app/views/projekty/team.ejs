@@ -61,8 +61,9 @@
 						<p style="display: none"></p>
 						<h2 class="section-title">Tým</h2>
 						<label>Vedoucí</label>
+							<!-- CEOs are being added in team.js -->
 							 <select id="optionSelect">
-									<option value="">Select</option>
+									<option value="">-</option>
 							 </select>
 						<label style="margin-top: 1em;">Členové</label>
 							<div class="members">
@@ -142,5 +143,5 @@
 </article>
 
 <script>
-	let selectedIndex = <% if (team != undefined) { %><%= team["vedouci"] %><% } else { %> 0 <% } %>;
+	let selectedIndex = <% if (team != undefined) { if (team["vedouci"] != undefined) { %><%= team["vedouci"] %><% } else { %> -1 <% }} else { %> -1 <% } %>;
 </script>

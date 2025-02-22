@@ -8,6 +8,14 @@ function addOptionsCEO() {
    
    const select = document.getElementById('optionSelect');
    const members = document.getElementById('teamMembers');
+   
+   const defOption = document.createElement('option');
+   defOption.value = undefined;
+   defOption.textContent = "-";
+   if (selectedIndex == -1){ defOption.selected = true; }
+   else { defOption.selected = false; }
+   select.appendChild(defOption);
+   
    for (let i = 0; i < members.children.length; i++){
       let name = members.children[i].children[1].value;
    
@@ -22,13 +30,14 @@ function addOptionsCEO() {
       
       select.appendChild(newOption);
    }
+   
 }
 
 function deleteOptionsCEO() {
    const select = document.getElementById('optionSelect');
    if (first) {
       first = false;
-   } else { selectedIndex = select.selectedIndex; }
+   } else { selectedIndex = select.selectedIndex-1; }
    select.innerHTML = '';
 }
 
@@ -247,7 +256,13 @@ async function saveTeam(){
    }
    data["members"] = members;
    
-   data["ceo"] = ceo.selectedIndex;
+   if (ceo.selectedIndex-1 == -1){
+      data["ceo"] = undefined;
+   } else {
+      data["ceo"] = ceo.selectedIndex-1;
+   }
+   console.log(data["ceo"]);
+   
    data["link"] = link.value;
    data["note"] = note.value;
    
@@ -335,7 +350,7 @@ async function saveTeam(){
       window.location.reload();
 		} catch (error) {
          console.error('Error:', error);
-		}
+   }
 }
 
 function gotoURL() {
