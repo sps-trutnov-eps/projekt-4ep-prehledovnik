@@ -1,24 +1,83 @@
 <!doctype html>
 <%- include('partials/head'); %>
 
-    <style>
-        #doc {
-            max-width: 90ch;
-            margin-inline: auto;
+<style>
+    #doc {
+        max-width: 90ch;
+        margin-inline: auto;
+    }
 
-            h1, h2, h3, h4, h5 {
-                text-align: center;
-            }
-        }
+    h1, h2, h3, h4, h5 {
+        text-align: center;
+    }
 
-        #cat {
-            display: block;
-            margin-inline: auto;
-            margin-top: 2em;
-        }
+    #cat {
+        display: block;
+        margin-inline: auto;
+        margin-top: 2em;
+    }
 
-    </style>
-    <article style="flex: 3;">
+    /* Navigace */
+    #sidebar {
+        width: 200px;
+        background: lightblue /* Modrá barva */
+        color: white;
+        padding: 15px;
+        height: 100vh;
+        position: fixed;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; /* Zarovnání úplně vlevo */
+    }
+
+    #sidebar ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+    }
+
+    #sidebar li {
+        width: 100%;
+    }
+
+    #sidebar a {
+        display: block;
+        color: white;
+        text-decoration: none;
+        padding: 15px;
+        width: 100%;
+        box-sizing: border-box; /* Zabrání přetékání */
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Oddělení položek */
+        text-align: left; /* Zarovnání textu doleva */
+    }
+
+    #sidebar a:hover {
+        background: #0056b3; /* Tmavší modrá při najetí */
+    }
+
+    .container {
+        display: flex;
+    }
+
+    .content {
+        margin-left: 220px;
+        flex: 3;
+        padding: 20px;
+    }
+</style>
+
+<div class="container">
+    <!-- Navigace nalevo -->
+    <nav id="sidebar">
+        <ul>
+            <%- nav %>
+        </ul>
+    </nav>
+
+    <!-- Hlavní obsah -->
+    <article class="content">
         <main>
             <div id="doc">
                 <%- doc %>
@@ -26,4 +85,6 @@
             <img id="cat" style="object-fit: contain; max-height: 100%;" src="https://cataas.com/cat/says/P%C5%99ehledovn%C3%ADk?fontColor=orange&fontSize=64" alt="Přehledovník">
         </main>
     </article>
+</div>
+
 <%- include('partials/tail') %>
