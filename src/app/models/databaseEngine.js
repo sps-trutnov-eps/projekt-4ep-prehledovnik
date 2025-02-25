@@ -567,6 +567,26 @@ const projekty = {
   }
 };
 
+function tvorbaStruktur() {
+  let rozvrhy = gR();
+  let osnovy = gO();
+  let udalost = gU();
+  let maturiy = this.ziskatMaturityProUdalosti();
+  let struktury = [];
+
+  const increment = 24 * 60 * 60 * 1000
+  const rok = new Date().getFullYear;
+  const startDate = new Date(rok, 7, 1);
+  const endDate = new Date(rok+1, 6, 31);
+
+  for (let i = startDate.getTime(); i <= endDate.getTime();i += increment) {
+    
+    struktury.push({"datum": i});
+  }
+
+
+}
+
 // CELKOVÝ MODEL
 const databaseEngine = {
   osnovy: osnovy,
