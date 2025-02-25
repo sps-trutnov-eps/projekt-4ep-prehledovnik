@@ -389,7 +389,6 @@ const maturity = {
                         const posledniHodina = maturity[typy[i]]["casy"][j][maturity[typy[i]]["casy"][j].length - 1];
                         cDO = hodiny[posledniHodina + 1][1]; 
                         typ = "celotridni";
-                        ucebna = "4.EP";
                       }
                   } catch (error) {
                     console.error('Chyba při zpracování času SLOH:', error);
