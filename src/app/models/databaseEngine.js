@@ -400,7 +400,7 @@ const maturity = {
                 nazev += " - dodatečný termín";
               }
               typ = "ucebna";
-              ucebna = maturity[typy[i]]["ucebny"][j];
+              ucebna = maturity[typy[i]]["ucebny"][0];
             }
             
             maturityList.push({
