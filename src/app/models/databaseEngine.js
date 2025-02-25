@@ -41,6 +41,7 @@ ucebny = {
   59: ["E4", "F14", "G1", "G2"],
   618: [],
   374: [],
+  "pocitacovky": ["T1", "T11", "T15", "T16"]
 };
 obory = ["EP", "IT"];
 
@@ -53,7 +54,7 @@ if (!db.has("predmety")) {
   db.set("rozvrhy", { nextID: 1 });
   db.set("udalosti", { nextID: 1 });
   db.set("maturity", {
-    "PŽOP": {
+    "PZOP": {
             "dny": [],
             "casy": [],
             "ucebny": []
@@ -323,7 +324,7 @@ const maturity = {
         
         maturity[nazev] = null;
 
-        if (nazev == "PŽOP"){
+        if (nazev == "PZOP"){
             ucebny = [ucebny];
         } else if (nazev == "PČMZ"){
             ucebny = []
@@ -343,7 +344,7 @@ const maturity = {
     ziskatVsechnyMaturity: () => {
         let maturity = gM();
         let maturityList = [];
-        maturityList.push("PŽOP");
+        maturityList.push("PZOP");
         maturityList.push("PČMZ");
         maturityList.push("SČMZ");
         maturityList.push("SLOH");
@@ -352,7 +353,7 @@ const maturity = {
     ziskatVsechnyMaturityJakoUdalosti: () => {
       let maturity = gM();
       let maturityList = [];
-      let typy = ["PŽOP", "PČMZ", "SČMZ", "SLOH"];
+      let typy = ["PZOP", "PČMZ", "SČMZ", "SLOH"];
       const hodiny = db.get("hodiny"); 
       
       for(let i = 0; i < typy.length; i++){
@@ -363,10 +364,9 @@ const maturity = {
             let cOD = null;
             let cDO = null;
             let ucebna = null;
-            let typ = null;
+            let typ = "ucitelsky";
             
             if(nazev == "PČMZ") {
-                typ = "ucitel";
                 if (maturity[typy[i]]["casy"][j] && maturity[typy[i]]["casy"][j].length > 0) {
                   try {
                     cOD = hodiny[maturity[typy[i]]["casy"][j][0] + 1][0]; 
@@ -375,16 +375,12 @@ const maturity = {
                     console.error('Chyba při zpracování času PČMZ:', error);
                   }
                 }
-
             } else if(nazev == "SČMZ") {
-                typ = "ucitel";
                 if (maturity[typy[i]]["casy"][j] && maturity[typy[i]]["casy"][j][0]) {
                   cOD = maturity[typy[i]]["casy"][j][0];
                 }
                 ucebna = maturity[typy[i]]["ucebny"][j];
-
             } else if(nazev == "SLOH") {
-                typ = "trida";
                 if (maturity[typy[i]]["casy"][j] && maturity[typy[i]]["casy"][j].length > 0) {
                   try {
                       const hodina = maturity[typy[i]]["casy"][j][0];
@@ -392,18 +388,19 @@ const maturity = {
                         cOD = hodiny[hodina + 1][0];
                         const posledniHodina = maturity[typy[i]]["casy"][j][maturity[typy[i]]["casy"][j].length - 1];
                         cDO = hodiny[posledniHodina + 1][1]; 
+                        typ = "celotridni";
+                        ucebna = "4.EP";
                       }
                   } catch (error) {
                     console.error('Chyba při zpracování času SLOH:', error);
                   }
                 }
-
-            } else if(nazev == "PŽOP") {
-                typ = "ucebna";
-                nazev = "PZOP";
-                if(j == 1) {
-                  nazev += " - dodatečný termín";
-                }
+            } else if(nazev == "PZOP") {
+              if(j == 1) {
+                nazev += " - dodatečný termín";
+              }
+              typ = "ucebna";
+              ucebna = maturity[typy[i]]["ucebny"][0];
             }
             
             maturityList.push({
