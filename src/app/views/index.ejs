@@ -18,12 +18,55 @@
         }
 
     </style>
-    <article style="flex: 3;">
-        <main>
-            <div id="doc">
-                <%- doc %>
-            </div>
-            <img id="cat" style="object-fit: contain; max-height: 100%;" src="https://cataas.com/cat/says/P%C5%99ehledovn%C3%ADk?fontColor=orange&fontSize=64" alt="Přehledovník">
-        </main>
-    </article>
+<article style="flex: 3;">
+    <main>
+        <div id="doc">
+            <%- doc %>
+        </div>
+        <img id="cat" style="display: none; object-fit: contain; max-height: 100%;" 
+             src="https://cataas.com/cat/says/P%C5%99ehledovn%C3%ADk?fontColor=orange&fontSize=64" 
+             alt="Přehledovník">
+    </main>
+</article>
+
+<script>
+    (function () {
+        let command = "";
+        const secret = "meow";
+        const docElement = document.getElementById("doc");
+
+        document.addEventListener("keydown", (event) => {
+            command += event.key.toLowerCase();
+            if (!secret.startsWith(command)) {
+                command = ""; // Reset při špatném zadání
+            }
+            if (command === secret) {
+                console.log("🐱 Meow! Přehledovník je teď jen o kočkách!");
+
+                // Uloží původní obsah #doc, aby se mohl vrátit po reloadu
+                localStorage.setItem("originalDoc", docElement.innerHTML);
+
+                // Nahradí obsah #doc obrázkem kočky
+                docElement.innerHTML = `
+                    <div style="display: flex; justify-content: center; align-items: center;">
+                        <img src="https://cataas.com/cat/says/Meow!" style="max-width: 100%; max-height: 100%;" alt="Meow!">
+                    </div>
+                `;
+
+                command = ""; // Reset příkazu
+            }
+        });
+
+        // Při reloadu stránky obnoví původní obsah #doc
+        window.addEventListener("load", () => {
+            const originalContent = localStorage.getItem("originalDoc");
+            if (originalContent) {
+                docElement.innerHTML = originalContent;
+                localStorage.removeItem("originalDoc"); // Po obnovení smaže uložený obsah
+            }
+        });
+    })();
+</script>
+
+  
 <%- include('partials/tail') %>
