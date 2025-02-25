@@ -367,7 +367,6 @@ const maturity = {
             let typ = "ucitelsky";
             
             if(nazev == "PČMZ") {
-                typ = "ucitel";
                 if (maturity[typy[i]]["casy"][j] && maturity[typy[i]]["casy"][j].length > 0) {
                   try {
                     cOD = hodiny[maturity[typy[i]]["casy"][j][0] + 1][0]; 
@@ -376,16 +375,12 @@ const maturity = {
                     console.error('Chyba při zpracování času PČMZ:', error);
                   }
                 }
-
             } else if(nazev == "SČMZ") {
-                typ = "ucitel";
                 if (maturity[typy[i]]["casy"][j] && maturity[typy[i]]["casy"][j][0]) {
                   cOD = maturity[typy[i]]["casy"][j][0];
                 }
                 ucebna = maturity[typy[i]]["ucebny"][j];
-
             } else if(nazev == "SLOH") {
-                typ = "trida";
                 if (maturity[typy[i]]["casy"][j] && maturity[typy[i]]["casy"][j].length > 0) {
                   try {
                       const hodina = maturity[typy[i]]["casy"][j][0];
