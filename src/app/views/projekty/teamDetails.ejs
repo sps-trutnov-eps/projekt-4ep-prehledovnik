@@ -56,10 +56,10 @@
                <thead>
 						<tr style="display: none" id="teamsRow">
                      <th style="width: 25%; text-align: center;" colspan="2"></th>
-							<th style="text-align: center;">Tým1</th>
-							<th style="text-align: center;">Tým2</th>
-							<th style="text-align: center;">Tým3</th>
-							<th style="text-align: center;">Tým4</th>
+							<th style="text-align: center;">Tým 1</th>
+							<th style="text-align: center;">Tým 2</th>
+							<th style="text-align: center;">Tým 3</th>
+							<th style="text-align: center;">Tým 4</th>
 						</tr>
                   <tr id="membersRow" class="tdtMembers" style="position: sticky; top: 0; z-index: 1">
                      <th style="width: 25%; text-align: center;" colspan="2"></th>
@@ -78,19 +78,19 @@
                <tbody id="table-body">
 						<tr class="tdtMembers">
                      <td style="text-align: center;" rowspan="4">1.</td>
-							<td style="text-align: center;">1/2</td>
+							<td style="text-align: center;">Commitů 1. týden</td>
 							<% for (let i = 0; i < team["clenove"].length; i++){ %>
 								<td style="text-align: center;">0</td>
 							<% } %>
 						</tr>
 						<tr class="tdtMembers">
-							<td style="text-align: center;">2/2</td>
+							<td style="text-align: center;">Commitů 2. týden</td>
 							<% for (let i = 0; i < team["clenove"].length; i++){ %>
 								<td style="text-align: center;">0</td>
 							<% } %>
 						</tr>
 						<tr class="tdtMembers marksCommits">
-							<td style="text-align: center;">Známka za commity</td>
+							<td style="text-align: center;">Za commity</td>
 							<% for (let i = 0; i < team["clenove"].length; i++){ %>
 								<% if (team["znamkyCom"] != undefined) { %>
 									<td style="text-align: center;"><input class="dropdown-item" type="number" value="<% if (team["znamkyCom"][i]["znamky"][0] > 0) { %><%= team["znamkyCom"][i]["znamky"][0] %><% } %>" style="margin: 0" min="1" max="5" placeholder="neznámkováno"></td>
@@ -100,7 +100,7 @@
 							<% } %>
 						</tr>
 						<tr class="tdtMembers marksDevlogs">
-							<td style="text-align: center;">Známka za devlog</td>
+							<td style="text-align: center;">Za devlog</td>
 							<% for (let i = 0; i < team["clenove"].length; i++){ %>
 								<% if (team["znamkyDev"] != undefined) { %>
 									<td style="text-align: center;"><input class="dropdown-item" type="number" value="<% if (team["znamkyDev"][i]["znamky"][0] > 0) { %><%= team["znamkyDev"][i]["znamky"][0] %><% } %>" style="margin: 0" min="1" max="5" placeholder="neznámkováno"></td>
@@ -111,19 +111,19 @@
 						</tr>
 						<tr class="tdtMembers">
                      <td style="text-align: center;" rowspan="4">2.</td>
-							<td style="text-align: center;">1/2</td>
+							<td style="text-align: center;">Commitů 1. týden</td>
 							<% for (let i = 0; i < team["clenove"].length; i++){ %>
 								<td style="text-align: center;">0</td>
 							<% } %>
 						</tr>
 						<tr class="tdtMembers">
-							<td style="text-align: center;">2/2</td>
+							<td style="text-align: center;">Commitů 2. týden</td>
 							<% for (let i = 0; i < team["clenove"].length; i++){ %>
 								<td style="text-align: center;">0</td>
 							<% } %>
 						</tr>
 						<tr class="tdtMembers marksCommits">
-							<td style="text-align: center;">Známka za commity</td>
+							<td style="text-align: center;">Za commity</td>
 							<% for (let i = 0; i < team["clenove"].length; i++){ %>
 								<% if (team["znamkyCom"] != undefined) { %>
 									<td style="text-align: center;"><input class="dropdown-item" type="number" value="<% if (team["znamkyCom"][i]["znamky"][1] > 0) { %><%= team["znamkyCom"][i]["znamky"][1] %><% } %>" style="margin: 0" min="1" max="5" placeholder="neznámkováno"></td>
@@ -133,7 +133,7 @@
 							<% } %>
 						</tr>
 						<tr class="tdtMembers marksDevlogs">
-							<td style="text-align: center;">Známka za devlog</td>
+							<td style="text-align: center;">Za devlog</td>
 							<% for (let i = 0; i < team["clenove"].length; i++){ %>
 								<% if (team["znamkyDev"] != undefined) { %>
 									<td style="text-align: center;"><input class="dropdown-item" type="number" value="<% if (team["znamkyDev"][i]["znamky"][1] > 0) { %><%= team["znamkyDev"][i]["znamky"][1] %><% } %>" style="margin: 0" min="1" max="5" placeholder="neznámkováno"></td>
@@ -144,19 +144,19 @@
 						</tr>
 						<tr class="tdtMembers">
                      <td style="text-align: center;" rowspan="4">3.</td>
-							<td style="text-align: center;">1/2</td>
+							<td style="text-align: center;">Commitů 1. týden</td>
 							<% for (let i = 0; i < team["clenove"].length; i++){ %>
 								<td style="text-align: center;">0</td>
 							<% } %>
 						</tr>
 						<tr class="tdtMembers">
-							<td style="text-align: center;">2/2</td>
+							<td style="text-align: center;">Commitů 2. týden</td>
 							<% for (let i = 0; i < team["clenove"].length; i++){ %>
 								<td style="text-align: center;">0</td>
 							<% } %>
 						</tr>
 						<tr class="tdtMembers marksCommits">
-							<td style="text-align: center;">Známka za commity</td>
+							<td style="text-align: center;">Za commity</td>
 							<% for (let i = 0; i < team["clenove"].length; i++){ %>
 								<% if (team["znamkyCom"] != undefined) { %>
 									<td style="text-align: center;"><input class="dropdown-item" type="number"value="<% if (team["znamkyCom"][i]["znamky"][2] > 0) { %><%= team["znamkyCom"][i]["znamky"][2] %><% } %>" style="margin: 0" min="1" max="5" placeholder="neznámkováno"></td>
@@ -166,7 +166,7 @@
 							<% } %>
 						</tr>
 						<tr class="tdtMembers marksDevlogs">
-							<td style="text-align: center;">Známka za devlog</td>
+							<td style="text-align: center;">Za devlog</td>
 							<% for (let i = 0; i < team["clenove"].length; i++){ %>
 								<% if (team["znamkyDev"] != undefined) { %>
 									<td style="text-align: center;"><input class="dropdown-item" type="number" value="<% if (team["znamkyDev"][i]["znamky"][2] > 0) { %><%= team["znamkyDev"][i]["znamky"][2] %><% } %>" style="margin: 0" min="1" max="5" placeholder="neznámkováno"></td>
@@ -177,19 +177,19 @@
 						</tr>
 						<tr class="tdtMembers">
                      <td style="text-align: center;" rowspan="4">4.</td>
-							<td style="text-align: center;">1/2</td>
+							<td style="text-align: center;">Commitů 1. týden</td>
 							<% for (let i = 0; i < team["clenove"].length; i++){ %>
 								<td style="text-align: center;">0</td>
 							<% } %>
 						</tr>
 						<tr class="tdtMembers">
-							<td style="text-align: center;">2/2</td>
+							<td style="text-align: center;">Commitů 2. týden</td>
 							<% for (let i = 0; i < team["clenove"].length; i++){ %>
 								<td style="text-align: center;">0</td>
 							<% } %>
 						</tr>
 						<tr class="tdtMembers marksCommits">
-							<td style="text-align: center;">Známka za commity</td>
+							<td style="text-align: center;">Za commity</td>
 							<% for (let i = 0; i < team["clenove"].length; i++){ %>
 								<% if (team["znamkyCom"] != undefined) { %>
 									<td style="text-align: center;"><input class="dropdown-item" type="number" value="<% if (team["znamkyCom"][i]["znamky"][3] > 0) { %><%= team["znamkyCom"][i]["znamky"][3] %><% } %>" style="margin: 0" min="1" max="5" placeholder="neznámkováno"></td>
@@ -199,7 +199,7 @@
 							<% } %>
 						</tr>
 						<tr class="tdtMembers marksDevlogs">
-							<td style="text-align: center;">Známka za devlog</td>
+							<td style="text-align: center;">Za devlog</td>
 							<% for (let i = 0; i < team["clenove"].length; i++){ %>
 								<% if (team["znamkyDev"] != undefined) { %>
 									<td style="text-align: center;"><input class="dropdown-item" type="number" value="<% if (team["znamkyDev"][i]["znamky"][3] > 0) { %><%= team["znamkyDev"][i]["znamky"][3] %><% } %>" style="margin: 0" min="1" max="5" placeholder="neznámkováno"></td>
@@ -210,19 +210,19 @@
 						</tr>
 						<tr class="tdtMembers">
                      <td style="text-align: center;" rowspan="4">5.</td>
-							<td style="text-align: center;">1/2</td>
+							<td style="text-align: center;">Commitů 1. týden</td>
 							<% for (let i = 0; i < team["clenove"].length; i++){ %>
 								<td style="text-align: center;">0</td>
 							<% } %>
 						</tr>
 						<tr class="tdtMembers">
-							<td style="text-align: center;">2/2</td>
+							<td style="text-align: center;">Commitů 2. týden</td>
 							<% for (let i = 0; i < team["clenove"].length; i++){ %>
 								<td style="text-align: center;">0</td>
 							<% } %>
 						</tr>
 						<tr class="tdtMembers marksCommits">
-							<td style="text-align: center;">Známka za commity</td>
+							<td style="text-align: center;">Za commity</td>
 							<% for (let i = 0; i < team["clenove"].length; i++){ %>
 								<% if (team["znamkyCom"] != undefined) { %>
 									<td style="text-align: center;"><input class="dropdown-item" type="number" value="<% if (team["znamkyCom"][i]["znamky"][4] > 0) { %><%= team["znamkyCom"][i]["znamky"][4] %><% } %>" style="margin: 0" min="1" max="5" placeholder="neznámkováno"></td>
@@ -232,7 +232,7 @@
 							<% } %>
 						</tr>
 						<tr class="tdtMembers marksDevlogs">
-							<td style="text-align: center;">Známka za devlog</td>
+							<td style="text-align: center;">Za devlog</td>
 							<% for (let i = 0; i < team["clenove"].length; i++){ %>
 								<% if (team["znamkyDev"] != undefined) { %>
 									<td style="text-align: center;"><input class="dropdown-item" type="number" value="<% if (team["znamkyDev"][i]["znamky"][4] > 0) { %><%= team["znamkyDev"][i]["znamky"][4] %><% } %>" style="margin: 0" min="1" max="5" placeholder="neznámkováno"></td>
@@ -243,19 +243,19 @@
 						</tr>
 						<tr class="tdtMembers">
                      <td style="text-align: center;" rowspan="4">6.</td>
-							<td style="text-align: center;">1/2</td>
+							<td style="text-align: center;">Commitů 1. týden</td>
 							<% for (let i = 0; i < team["clenove"].length; i++){ %>
 								<td style="text-align: center;">0</td>
 							<% } %>
 						</tr>
 						<tr class="tdtMembers">
-							<td style="text-align: center;">2/2</td>
+							<td style="text-align: center;">Commitů 2. týden</td>
 							<% for (let i = 0; i < team["clenove"].length; i++){ %>
 								<td style="text-align: center;">0</td>
 							<% } %>
 						</tr>
 						<tr class="tdtMembers marksCommits">
-							<td style="text-align: center;">Známka za commity</td>
+							<td style="text-align: center;">Za commity</td>
 							<% for (let i = 0; i < team["clenove"].length; i++){ %>
 								<% if (team["znamkyCom"] != undefined) { %>
 									<td style="text-align: center;"><input class="dropdown-item" type="number" value="<% if (team["znamkyCom"][i]["znamky"][5] > 0) { %><%= team["znamkyCom"][i]["znamky"][5] %><% } %>" style="margin: 0" min="1" max="5" placeholder="neznámkováno"></td>
@@ -265,7 +265,7 @@
 							<% } %>
 						</tr>
 						<tr class="tdtMembers marksDevlogs">
-							<td style="text-align: center;">Známka za devlog</td>
+							<td style="text-align: center;">Za devlog</td>
 							<% for (let i = 0; i < team["clenove"].length; i++){ %>
 								<% if (team["znamkyDev"] != undefined) { %>
 									<td style="text-align: center;"><input class="dropdown-item" type="number" value="<% if (team["znamkyDev"][i]["znamky"][5] > 0) { %><%= team["znamkyDev"][i]["znamky"][5] %><% } %>" style="margin: 0" min="1" max="5" placeholder="neznámkováno"></td>
