@@ -29,7 +29,7 @@ Modul má dark a light mód, který závisí na nastavení browseru.
 (funguje v Firefoxu a Edgy ale ne v Chromu)
 PROTO NEPOUŽÍVAT NAPEVNO DANÉ BARVY ZAMÝŠLENÉ PRO POUZE DARK, ČI LIGHT MÓD!
 
-Při vývoji doporučuji spouštět program ve \"vývojářském módu\" pomocí příkazu
+Při vývoji doporučuji spouštět program ve "vývojářském módu" pomocí příkazu
 `npm run dev` vyvolaném v adresáři `src/`.
 Tímto mimo aplikaci zapnete také
 [nodemon](https://www.npmjs.com/package/nodemon),
@@ -42,7 +42,7 @@ Tady žádné htmx nenajdete.
 Zato tu je spousta JS v `src/www/osnovy/js/main.js`.
 
 V ejs je pár zajímavých věcí.
-Zda je předmět \"Cvičení\", \"Teorie\", či \"Ručně\" se zjišťuje dle jeho názvu.
+Zda je předmět "Cvičení", "Teorie", či "Ručně" se zjišťuje dle jeho názvu.
 
 JavaScript možná vypadá komplexně, ale vlastně není, jen je tam hodně interakcí
 s dokumentem.
@@ -64,7 +64,7 @@ Rozvrhy na frontendu nepoužívají htmx.
 Změny v rozvrhu jsou uloženy lokálně a server je kontaktován jen při ukládání
 a verzování.
 
-Aktivní verze kalendáře se posílá v URL jako \"verze\".
+Aktivní verze kalendáře se posílá v URL jako "verze".
 
 V controlleru vlastně nic není.
 Vše se dělá přímo v routerech.

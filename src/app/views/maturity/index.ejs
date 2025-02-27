@@ -96,7 +96,7 @@
             id="editButton"
             class="editbutton"
             onclick="enableForm()">
-            Edit
+            Změnit
           </button>
       </div>
       
@@ -154,10 +154,10 @@
         disabled>
         <% for (const id in ucebny) { %> 
           <% const nazevUcebny = ucebny[id]; %>
-          <% if (ucebna === id) { %>
-            <option value="<%= id %>" selected><%= nazevUcebny %></option>
+          <% if (ucebna === ucebny[id]) { %>
+            <option value="<%= nazevUcebny %>" selected><%= nazevUcebny %></option>
           <% } else { %>
-            <option value="<%= id %>"><%= nazevUcebny %></option>
+            <option value="<%= nazevUcebny %>"><%= nazevUcebny %></option>
           <% } %>
         <% } %>
       </select>

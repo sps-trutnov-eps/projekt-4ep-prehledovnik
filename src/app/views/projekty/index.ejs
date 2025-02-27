@@ -9,90 +9,114 @@
    <main style="justify-content: center;">
 		<h3>1. Pololetí</h3>
         <div id="2ep-1">
-            <input style="margin-left: 0;" type="button" value="2.EP" onclick="window.location.href = '/projekty/2ep-1';">
+			<details open>
+				<summary>
+					<input style="margin-bottom: 0;" type="button" value="2.EP" onclick="window.location.href = '/projekty/2ep-1';">
+				</summary>
 				<% if (al["nextID"] > 1) { %>
 					<% for (let i = 1; i < al["nextID"]; i++) { %>
 						<% if (al[i]["trida"] != "2ep-1") { continue; } %>
 						<% let teams = al[i]["tymy"]%>
 						<% for (let iT = 0; iT < teams.length; iT++) { %>
 							
-							<input type="button" value="2.EP Tým <%= iT+1 %>" style="margin-left: 20%; width: 60%;" onclick="window.location.href = '/projekty/2ep-1-<%= iT+1 %>';">
+							<input type="button" value="2.EP Tým <%= iT+1 %>" style="margin-left: 10%; width: 80%;" onclick="window.location.href = '/projekty/2ep-1-<%= iT+1 %>';">
 							
 						<% } %>
 					<% } %>
 				<% } %>
+			</details>
         </div>
-         <div id="3ep-1">
-            <input style="margin-left: 0;" type="button" value="3.EP" onclick="window.location.href = '/projekty/3ep-1';">
+        <div id="3ep-1">
+			<details open>
+				<summary>
+					<input style="margin-bottom: 0;" type="button" value="3.EP" onclick="window.location.href = '/projekty/3ep-1';">
+				</summary>
 				<% if (al["nextID"] > 1) { %>
 					<% for (let i = 1; i < al["nextID"]; i++) { %>
 						<% if (al[i]["trida"] != "3ep-1") { continue; } %>
 						<% let teams = al[i]["tymy"]%>
 						<% for (let iT = 0; iT < teams.length; iT++) { %>
 							
-							<input type="button" value="3.EP Tým <%= iT+1 %>" style="margin-left: 20%; width: 60%;" onclick="window.location.href = '/projekty/3ep-1-<%= iT+1 %>';">
+							<input type="button" value="3.EP Tým <%= iT+1 %>" style="margin-left: 10%; width: 80%;" onclick="window.location.href = '/projekty/3ep-1-<%= iT+1 %>';">
 							
 						<% } %>
 					<% } %>
 				<% } %>
-         </div>                                                      
-         <div id="4ep-1">                                            
-            <input style="margin-left: 0;" type="button" value="4.EP" onclick="window.location.href = '/projekty/4ep-1';">
+			</details>
+        </div>
+        <div id="4ep-1">
+			<details open>
+				<summary>
+					<input style="margin-bottom: 0;" type="button" value="4.EP" onclick="window.location.href = '/projekty/4ep-1';">
+				</summary>
 				<% if (al["nextID"] > 1) { %>
 					<% for (let i = 1; i < al["nextID"]; i++) { %>
 						<% if (al[i]["trida"] != "4ep-1") { continue; } %>
 						<% let teams = al[i]["tymy"]%>
 						<% for (let iT = 0; iT < teams.length; iT++) { %>
 							
-							<input type="button" value="4.EP Tým <%= iT+1 %>" style="margin-left: 20%; width: 60%;" onclick="window.location.href = '/projekty/4ep-1-<%= iT+1 %>';">
+							<input type="button" value="4.EP Tým <%= iT+1 %>" style="margin-left: 10%; width: 80%;" onclick="window.location.href = '/projekty/4ep-1-<%= iT+1 %>';">
 							
 						<% } %>
 					<% } %>
 				<% } %>
-         </div>                                                      
-		<h3>2. Pololetí</h3>                                           
-        <div id="1ep-2">                                             
-            <input style="margin-left: 0;" type="button" value="1.EP" onclick="window.location.href = '/projekty/1ep-2';">
+			</details>
+        </div>
+		<h3>2. Pololetí</h3>
+        <div id="1ep-2">
+			<details open>
+				<summary>
+					<input style="margin-bottom: 0;" type="button" value="1.EP" onclick="window.location.href = '/projekty/1ep-2';">
+				</summary>
 				<% if (al["nextID"] > 1) { %>
 					<% for (let i = 1; i < al["nextID"]; i++) { %>
 						<% if (al[i]["trida"] != "1ep-2") { continue; } %>
 						<% let teams = al[i]["tymy"]%>
 						<% for (let iT = 0; iT < teams.length; iT++) { %>
 							
-							<input type="button" value="1.EP Tým <%= iT+1 %>" style="margin-left: 20%; width: 60%;" onclick="window.location.href = '/projekty/1ep-2-<%= iT+1 %>';">
+							<input type="button" value="1.EP Tým <%= iT+1 %>" style="margin-left: 10%; width: 80%;" onclick="window.location.href = '/projekty/1ep-2-<%= iT+1 %>';">
 							
 						<% } %>
 					<% } %>
 				<% } %>
-        </div>                                                       
-         <div id="2ep-2">                                            
-            <input style="margin-left: 0;" type="button" value="2.EP" onclick="window.location.href = '/projekty/2ep-2';">
+			</details>
+        </div>
+        <div id="2ep-2">
+			<details open>
+				<summary>
+					<input style="margin-bottom: 0;" type="button" value="2.EP" onclick="window.location.href = '/projekty/2ep-2';">
+				</summary>
 				<% if (al["nextID"] > 1) { %>
 					<% for (let i = 1; i < al["nextID"]; i++) { %>
 						<% if (al[i]["trida"] != "2ep-2") { continue; } %>
 						<% let teams = al[i]["tymy"]%>
 						<% for (let iT = 0; iT < teams.length; iT++) { %>
 							
-							<input type="button" value="2.EP Tým <%= iT+1 %>" style="margin-left: 20%; width: 60%;" onclick="window.location.href = '/projekty/2ep-2-<%= iT+1 %>';">
+							<input type="button" value="2.EP Tým <%= iT+1 %>" style="margin-left: 10%; width: 80%;" onclick="window.location.href = '/projekty/2ep-2-<%= iT+1 %>';">
 							
 						<% } %>
 					<% } %>
 				<% } %>
-         </div>                                                      
-         <div id="3ep-2">                                            
-            <input style="margin-left: 0;" type="button" value="3.EP" onclick="window.location.href = '/projekty/3ep-2';">
+			</details>
+        </div>
+        <div id="3ep-2">
+			<details open>
+				<summary>
+					<input style="margin-bottom: 0;" type="button" value="3.EP" onclick="window.location.href = '/projekty/3ep-2';">
+				</summary>
 				<% if (al["nextID"] > 1) { %>
 					<% for (let i = 1; i < al["nextID"]; i++) { %>
 						<% if (al[i]["trida"] != "3ep-2") { continue; } %>
 						<% let teams = al[i]["tymy"]%>
 						<% for (let iT = 0; iT < teams.length; iT++) { %>
 							
-							<input type="button" value="3.EP Tým <%= iT+1 %>" style="margin-left: 20%; width: 60%;" onclick="window.location.href = '/projekty/3ep-2-<%= iT+1 %>';">
+							<input type="button" value="3.EP Tým <%= iT+1 %>" style="margin-left: 10%; width: 80%;" onclick="window.location.href = '/projekty/3ep-2-<%= iT+1 %>';">
 							
 						<% } %>
 					<% } %>
 				<% } %>
-         </div>
+			</details>
+        </div>
 	</main>
 </article>
 

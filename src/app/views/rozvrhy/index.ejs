@@ -194,8 +194,12 @@
             box-sizing: border-box;
         }
 
-        #smazatBtn{
+        #smazatBtn {
             background-color: #B90E0A;
+        }
+
+        #novaBtn {
+            background-color: #45a049;
         }
 
         button:disabled {
@@ -228,7 +232,7 @@
                 </div>
                 <div class="cast2">
                     <button class="nav-button" id="novaBtn" style="display: none; ">Nová verze</button>
-                    <button class="editbutton" id="editBtn" class="nav-button">Edit</button>
+                    <button class="editbutton" id="editBtn" class="nav-button">Změnit</button>
                     <button class="nav-button" id="smazatBtn" style="display: none;">Smazat verzi</button>
                 </div>
                 <div class="cast3">
@@ -264,7 +268,7 @@
                 </div>
                 <% } else { %>
                     <% const days=['Po', 'Út' , 'St' , 'Čt' , 'Pá' ]; %>
-                        <% const periods=['0', '1' , '2' , '3' , '4' , '5' , '6' , '7' , '8', '9+' ]; %>
+                        <% const periods=['0', '1' , '2' , '3' , '4' , '5' , '6' , '7' , '8', '9' ]; %>
                             <% const timeRanges=['7:10 - 7:55', '8:00 - 8:45' , '8:50 - 9:35' , '9:55 - 10:40'
                                 , '10:45 - 11:30' , '11:35 - 12:25' , '12:35 - 13:20' , '13:25 - 14:10'
                                 , '14:15 - 15:00', '15:00+' ]; %>
@@ -315,7 +319,6 @@
                                         <dialog  id="popupModal">
                                             <article>
                                                 <header>
-                                                    <button aria-label="Close" rel="prev" data-target="popupModal" onclick="toggleModal(event)"></button>
                                                     <p><strong>Tvorba hodiny</strong></p>
                                                 </header>
                                                 <main>
@@ -323,17 +326,10 @@
                                                         <div class="form-group">
                                                             <label for="trida">Třída:</label>
                                                             <select name="trida" id="trida">
-                                                                <optgroup label="EP">
-                                                                    <option value="1.EP">1.EP</option>
-                                                                    <option value="2.EP">2.EP</option>
-                                                                    <option value="3.EP">3.EP</option>
-                                                                    <option value="4.EP">4.EP</option>
-                                                                </optgroup>
-                                                                <optgroup label="IT">
-                                                                    <option value="1.IT">1.IT</option>
-                                                                    <option value="2.IT">2.IT</option>
-                                                                    <option value="3.IT">3.IT</option>
-                                                                    <option value="4.IT">4.IT</option>
+                                                                <optgroup label="Třídy">
+                                                                <% tridyObory.forEach(Trida => { %>
+                                                                    <option value="<%= Trida%>"><%= Trida %></option>
+                                                                  <% }) %>
                                                                 </optgroup>
                                                                 <optgroup label="Jiné">
                                                                     <option value="-">-</option>
@@ -355,8 +351,12 @@
                                                              <!-- Tady probíhá úprava názvu předmětu -->
 
                                                             <select name="predmet" id="jakypredmet" required>
-                                                                <option value="MECH">Mechatronika</option>
-                                                                <option value="PROG">Programování</option>
+                                                                <% predmety.sort((a, b) => {
+                                                                    let nazevA = a.split('-')[0].toLowerCase(); // Extrahuje název předmětu
+                                                                    let nazevB = b.split('-')[0].toLowerCase();
+                                                                    return nazevA.localeCompare(nazevB); // Seřadí abecedně
+                                                                }); %>
+                                                                
                                                                 <% for (let predmet of predmety) { %>
                                                                     <% let pr = predmet.split('-')[0]; %>
                                                                     <% let typ = predmet.split('-')[1]; %>
@@ -366,6 +366,8 @@
                                                                         <%= celyPredmet %>
                                                                     </option>
                                                                 <% } %>
+                                                                <option value="MECH">Kroužek mechatroniky</option>
+                                                                <option value="PROG">Kroužek programování</option>
                                                                 
                                                             </select>
                                                         </div>
@@ -565,7 +567,7 @@
                     if (hodina.predmet === "volno") {
                         // button.classList.replace('secondary', 'primary');
                         button.classList.add('is-free');
-                        predmetSpan.textContent = "volno";
+                        predmetSpan.textContent = "";
                         mistnostSpan.textContent = "";
                         skupinaSpan.textContent = "";
                         tridaSpan.textContent = "";
@@ -584,6 +586,13 @@
                     skupinaSpan.textContent = '';
                     tridaSpan.textContent = '';
                 }
+            }
+        }
+
+        function addPluses() {
+            const buttons = document.querySelectorAll('.is-free');
+            for (let i = 0; i < buttons.length; i++) {
+                buttons[i].querySelector('.hodina-predmet').textContent = '+';
             }
         }
 
@@ -747,7 +756,7 @@
             lockTimetableButtons();
 
             editBtn.addEventListener('click', function() {
-                if (editBtn.textContent === 'Edit') {
+                if (editBtn.textContent === 'Změnit') {
 
                     novaBtn.style.display = 'inline-block';
                     smazatBtn.style.display = 'inline-block';
@@ -759,9 +768,10 @@
                     smazatBtn.style.display = 'none';
 
                     lockTimetableButtons();
-                    editBtn.textContent = 'Edit';
+                    editBtn.textContent = 'Změnit';
 
                     ulozitRozvrh();
+
                 }
             });
         });
@@ -825,7 +835,8 @@
             lockTimetableButtons();
 
             editBtn.addEventListener('click', function() {
-                if (editBtn.textContent === 'Edit') {
+                if (editBtn.textContent === 'Změnit') {
+                    addPluses();
 
                     novaBtn.style.display = 'inline-block';
                     smazatBtn.style.display = 'inline-block';
@@ -837,7 +848,7 @@
                     smazatBtn.style.display = 'none';
 
                     lockTimetableButtons();
-                    editBtn.textContent = 'Edit';
+                    editBtn.textContent = 'Změnit';
 
                     ulozitRozvrh();
                 }
@@ -873,6 +884,7 @@ const toggleDayModal = (cas, den, tyden, event) => {
         : rozvrh.sudy[denHodiny][casHodiny];
 
     if (existingLesson) {
+        document.getElementById("trida").value = existingLesson.trida || "";
         document.getElementById("jakypredmet").value = existingLesson.predmet || "";
         document.getElementById("mistnost").value = existingLesson.mistnost || "T16";
         document.getElementById("skupina").value = existingLesson.skupina || "cela";

@@ -35,6 +35,28 @@
     --light-blue-field-hover: 201, 66%, 60%;
 }
 
+[data-theme="dark"] {
+    --white: 0, 0%, 82%;
+    --white-hover: 0, 0%, 87%;
+    --content-bg: 219, 25%, 16%;
+    --content-bg-hover: 219, 25%, 21%;
+    --navbar-bg: 204, 25%, 11%;
+    --navbar-bg-hover: 204, 25%, 16%;
+    --navbar-btn: 210, 27%, 12%;
+    --navbar-btn-hover: 210, 27%, 17%;
+    --light-blue: 199, 81%, 26%;
+    --light-blue-hover: 199, 81%, 31%;
+    --light-blue-btn: 199, 100%, 29%;
+    --light-blue-btn-hover: 199, 100%, 34%;
+    --schedule-bg-lighter: 204, 11%, 33%;
+    --schedule-bg-lighter-hover: 204, 11%, 38%;
+    --schedule-bg-darker: 210, 9%, 21%;
+    --schedule-bg-darker-hover: 210, 9%, 26%;
+    --light-blue-field: 199, 58%, 33%;
+    --light-blue-field-hover: 199, 58%, 38%;
+
+}
+
 @media only screen and (prefers-color-scheme: dark) {
     :root:not([data-theme]) {
         --white: 0, 0%, 82%;
@@ -113,6 +135,9 @@ body {
         }
         li {
             padding: 0 .5em;
+            &:last-child {
+                flex-grow: 0;
+            }
         }
         button {
             border: none;
@@ -183,6 +208,11 @@ article {
 
 .editbutton:hover {
     background-color: var(--save-button-hover);
+}
+
+#theme-switcher {
+    background-color: transparent;
+    padding: 0;
 }
 
     </style>

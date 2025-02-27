@@ -12,15 +12,15 @@ resize: horizontal;
       <h1>Osnovy</h1>
 
 	</header>
-   <main style="margin-top: -1px;">
-		<div style="margin: -16px; margin-bottom: 16px; padding: 16px; padding-bottom: 0px; padding-top: 0px; background-color: var(--pico-primary-background);">
-			<form id="create">
-				<input
+   <main id="curriculumContainerMain" style="margin-top: -1px;">
+		<div id="addCurrrsss">
+			<button
 				class="createButton outline createCurButton"
 				type="submit"
-				value="Přidat tematický plán"
-				onclick="CreateCurriculum()" />
-			</form>
+				onclick="CreateCurriculum()"
+			>
+			Přidat tematický plán
+			</button>
 		</div>
       <% for (let i = 1; i < cur["nextID"]; i++) {%>
       <div style="display: flex" class="cur">
@@ -55,10 +55,10 @@ resize: horizontal;
    <main style="padding-top: 0">
       <div
       style="
-	  margin-top: 15px;
-      display: flex;
-      padding-right: 15px;
-	  overflow-y: none;
+		margin-top: 15px;
+		display: flex;
+		padding-right: 15px;
+		overflow-y: none;
       ">
          <div style="flex: auto">
  			<table style="overflow-y: auto; max-height: calc(100vh - 14em); padding-right: 15px;" id="curriculums">
