@@ -72,7 +72,7 @@
 								<div class="ActulTeamId" style="display: none"><%= team.cislo %></div>
 							 </td>
 							 <td style="text-align: center;" class="curriculum-input">
-								<button class="dropdown-btn" style="margin-left: 40px; width: 90%;" onclick="toggleDropdown(this)">
+								<button class="dropdown-btn" style="margin-left: 40px; width: 90%;" onclick="toggleDropdown(this, '.dropdown-content')">
 								   <%= team["clenove"] ? team["clenove"].join(', ') : "prázdné" %>
 								</button>
 								<div class="dropdown-content" id="team-1-dropdown">

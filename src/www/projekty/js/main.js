@@ -91,6 +91,7 @@ function addNewTeam(button) {
    
    addNewTeamToTheLeft(tableBody.rows.length-1);
    addNewTeamToTheDetails(tableBody.rows.length-1);
+   
 }
 
 function deleteTeam(button) {
@@ -183,36 +184,36 @@ function toggleDropdown(button) {
    const dropdown = button.nextElementSibling;
    dropdown.classList.toggle('show');
    
-   
    const overlay = document.getElementById('overlay');
    overlay.style.display = 'block';
 }
 
-function addNewOption(button, addToDetails = 2) {
+//ajaj.
+function addNewOption(button, addToDetails = 2, add='') {
    const parent = button.parentElement.parentElement;
-   const dropdown = parent.querySelector('.dropdown-members'); // Gets the first child with class 'child1'
+   const dropdown = parent.querySelector(`.dropdown-members${add}`); // Gets the first child with class 'child1'
    
    
    const newOption = document.createElement('div');
    newOption.style.display = 'flex';
    newOption.style.alignItems = 'center';
-   newOption.className = 'members-input';
+   newOption.className = `members-input${add}`;
    
    const deleteButton = document.createElement('input');
    deleteButton.type = 'button';
    deleteButton.value = '-';
-   deleteButton.className = 'deleteButton';
+   deleteButton.className = `deleteButton${add}`;
    deleteButton.style.marginBottom = '0';
    deleteButton.onclick = function() {
       if (addToDetails == 2 || addToDetails == 0){
          deleteOption(this);
-      } else if (addToDetails == 1) {
+      } else if (addToDetails == 3 || addToDetails == 1) {
          deleteOptionsCEO(); deleteOption(this, 1); addOptionsCEO(); deleteColumn(getColumnID(this.nextElementSibling.value))
       }
    };
    
    const input = document.createElement('input');
-   input.className = 'dropdown-item';
+   input.className = `dropdown-item${add}`;
    input.type = 'text';
    input.value = '';
    input.style.margin = '0';
@@ -221,13 +222,13 @@ function addNewOption(button, addToDetails = 2) {
       input.addEventListener('change', function() {
          editMemberInDetails(this);
       });
-   } else if (addToDetails == 1) {
+   } else if (addToDetails == 3 || addToDetails == 1) {
       input.addEventListener('change', function() {
          deleteOptionsCEO(); addOptionsCEO(); changeColumnName(getMemberID(this), this.value, 1);
       });
    }
    
-   if (addToDetails != 0){
+   if (addToDetails != 0 && addToDetails != 3){
       input.addEventListener('keypress', function() {
          this.dispatchEvent(new Event('change'));
       });
@@ -241,9 +242,48 @@ function addNewOption(button, addToDetails = 2) {
       });
    }
    
-
+   
+   // DROPDOWN
+   const td2 = document.createElement('td');
+   td2.className = 'curriculum-input';
+   td2.style.textAlign = 'center';
+   
+   const dropdownButton = document.createElement('button');
+   dropdownButton.className = 'dropdown-btn';
+   dropdownButton.onclick = function() { toggleDropdown(this); };
+   dropdownButton.textContent = 'email';
+   
+   const dropdownContentDiv = document.createElement('div');
+   dropdownContentDiv.className = 'dropdown-content';
+   
+   const dropdownMembersDiv = document.createElement('div');
+   dropdownMembersDiv.className = 'dropdown-members';
+   
+   // Add option button
+   const addOptionDiv = document.createElement('div');
+   addOptionDiv.className = 'add-option';
+   
+   const addOptionButton = document.createElement('input');
+   addOptionButton.type = 'button';
+   addOptionButton.value = '+';
+   addOptionButton.className = 'createButton';
+   addOptionButton.style.padding = '0';
+   addOptionButton.style.minHeight = '0';
+   addOptionButton.style.height = '2em';
+   addOptionButton.style.margin = '0';
+   
+   addOptionButton.onclick= function() { addNewOption(this); };
+   
+   addOptionDiv.appendChild(addOptionButton);
+   dropdownContentDiv.appendChild(dropdownMembersDiv);
+   dropdownContentDiv.appendChild(addOptionDiv);
+	
    newOption.appendChild(deleteButton);
    newOption.appendChild(input);
+   if (addToDetails == 3){
+	   newOption.appendChild(dropdownButton);
+	   newOption.appendChild(dropdownContentDiv);
+   }
    
    dropdown.appendChild(newOption);
    
@@ -252,6 +292,8 @@ function addNewOption(button, addToDetails = 2) {
    
       addMemberToDetails(teamID, 'Člen', dropdown.children.length);
    }
+   
+   
    
    
    const mainButton = parent.parentElement.children[0];
@@ -309,7 +351,7 @@ function deleteOption(button, deleteFromDetails = 2) {
 
 // Close dropdown when clicking outside
 document.addEventListener('click', function(event) {
-   if (!event.target.matches('.dropdown-btn') && !event.target.matches('.dropdown-content *') && !event.target.matches('.deleteButton')) {
+   if ((!event.target.matches('.dropdown-btn') && !event.target.matches('.dropdown-content *') && !event.target.matches('.deleteButton')) || (!event.target.matches('.dropdown-btn') && !event.target.matches('.dropdown-content *') && !event.target.matches('.deleteButton'))) {
       const dropdowns = document.querySelectorAll('.dropdown-content');
       dropdowns.forEach(dropdown => {
          if (dropdown.classList.contains('show')){
@@ -318,6 +360,9 @@ document.addEventListener('click', function(event) {
          }
          dropdown.classList.remove('show');
       });
+	  
+	  
+	  
       const overlay = document.getElementById('overlay');
       overlay.style.display = 'none';
       
@@ -744,8 +789,9 @@ function packTrida(){
    let url = window.location.href
    url = url.split("/")
    let id = url[4]
+   if(id.length == 7)
+      id = id.substring(0, id.length-2)
    console.log(id)
-
    let trida = document.getElementById(id)
    trida.open = !trida.open
 }
