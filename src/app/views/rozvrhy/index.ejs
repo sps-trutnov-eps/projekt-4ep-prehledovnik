@@ -268,7 +268,7 @@
                 </div>
                 <% } else { %>
                     <% const days=['Po', 'Út' , 'St' , 'Čt' , 'Pá' ]; %>
-                        <% const periods=['0', '1' , '2' , '3' , '4' , '5' , '6' , '7' , '8', '9' ]; %>
+                        <% const periods=['0', '1' , '2' , '3' , '4' , '5' , '6' , '7' , '8', '9+' ]; %>
                             <% const timeRanges=['7:10 - 7:55', '8:00 - 8:45' , '8:50 - 9:35' , '9:55 - 10:40'
                                 , '10:45 - 11:30' , '11:35 - 12:25' , '12:35 - 13:20' , '13:25 - 14:10'
                                 , '14:15 - 15:00', '15:00+' ]; %>
@@ -297,9 +297,9 @@
                                                     </td>
                                                     <% periods.forEach(period=> { %>
                                                         <td>
-                                                            <button id="btn-<%= type %>-<%= day %>-<%= period %>"
+                                                            <button id="btn-<%= type %>-<%= day %>-<%= period.replace('+', '') %>"
                                                                 class="timetable-btn outline secondary disabled"
-                                                                onclick="toggleDayModal('<%= period %>', '<%= day %>', '<%= type %>', event)"
+                                                                onclick="toggleDayModal('<%= period.replace('+', '') %>', '<%= day %>', '<%= type %>', event)"
                                                                 data-target="popupModal">
                                                                 <sman>
                                                                    <span class="hodina-trida"></span>
