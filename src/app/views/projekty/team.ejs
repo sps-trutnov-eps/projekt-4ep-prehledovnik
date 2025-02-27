@@ -92,12 +92,12 @@
 											   email
 											</button>
 											<div class="dropdown-content" id="team-1-dropdown">
-											   <div class="dropdown-members">
+											   <div class="dropdown-members emails">
 												  <% if (team["email"]) { %>
 													 <% for (let iM = 0; iM < team["email"].length; iM++) { %>
 														<div style="display: flex; align-items: center;" class="members-input">
 														   <input type="button" value="-" class="deleteButton" style="margin-bottom: 0;" onclick="deleteOption(this)">
-														   <input class="dropdown-item emails" type="text" value="<%= team["email"][iM]; %>" style="margin: 0" onchange="editMemberInDetails(this)" onkeypress="this.onchange()" onpaste="this.onchange()" oninput="this.onchange()">
+														   <input class="dropdown-item" type="text" value="<%= team["email"][iM]; %>" style="margin: 0" onchange="editMemberInDetails(this)" onkeypress="this.onchange()" onpaste="this.onchange()" oninput="this.onchange()">
 														</div>
 													 <% } %>
 												  <% } %>

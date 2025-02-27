@@ -242,6 +242,7 @@ async function saveTeam(){
    const pitchRow = document.getElementById("pitchRow");
    const marksCommitsRows = document.querySelectorAll(".marksCommits");
    const marksDevlogsRows = document.querySelectorAll(".marksDevlogs");
+   const mails = document.querySelectorAll(".emails");
    let data = {};
    
    console.log(pitchRow);

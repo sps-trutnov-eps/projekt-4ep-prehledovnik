@@ -215,11 +215,7 @@ function addNewOption(button, addToDetails = 2, add='') {
    };
    
    const input = document.createElement('input');
-   if (addToDetails == 4){
-	input.className = `dropdown-item${add} emails`;
-   } else {
 	input.className = `dropdown-item${add}`;
-   }
    input.type = 'text';
    input.value = '';
    input.style.margin = '0';
@@ -263,7 +259,11 @@ function addNewOption(button, addToDetails = 2, add='') {
    dropdownContentDiv.className = 'dropdown-content';
    
    const dropdownMembersDiv = document.createElement('div');
-   dropdownMembersDiv.className = 'dropdown-members';
+   if (addToDetails == 4){
+	dropdownMembersDiv.className = 'dropdown-members emails';
+   } else {
+	dropdownMembersDiv.className = 'dropdown-members';
+   }
    
    // Add option button
    const addOptionDiv = document.createElement('div');
