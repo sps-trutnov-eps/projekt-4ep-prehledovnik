@@ -187,6 +187,7 @@ exports.saveTeams = (data) => {
                 "tema": team.description,
                 "odkaz": existingTeam["odkaz"],
                 "clenove": team.members,
+                "emaily": existingTeam["emaily"],
                 "vedouci": existingTeam["vedouci"],
                 "pitch": {
                     //"datum": data.pitchDate,
@@ -214,6 +215,7 @@ exports.saveTeams = (data) => {
                 "tema": existingTeam["tema"],
                 "odkaz": existingTeam["odkaz"],
                 "clenove": existingTeam["clenove"],
+                "emaily": existingTeam["emaily"],
                 "vedouci": existingTeam["vedouci"],
                 "pitch": existingTeam["pitch"],
                 "znamkyDev": existingTeam["znamkyDev"],
@@ -225,7 +227,7 @@ exports.saveTeams = (data) => {
     for (let i = 0; i < newTeams.length; i++){
         const team = newTeams[i];
         
-        databaze.projekty.pridatTym(tridaID, clas["tymy"].length+1, team.description, team.url, team.members, 0, [], [], "undefined", ["undefined","undefined"], undefined, undefined);
+        databaze.projekty.pridatTym(tridaID, clas["tymy"].length+1, team.description, team.url, team.members, [], 0, [], [], "undefined", ["undefined","undefined"], undefined, undefined);
     }
     
    
@@ -261,6 +263,7 @@ exports.saveTeam = (data) => {
                 "tema": data.description,
                 "odkaz": data.link,
                 "clenove": data.members,
+                "emaily": data.emails,
                 "vedouci": data.ceo,
                 "pitch": {
                     "datum": existingTeam["pitch"]["datum"],
