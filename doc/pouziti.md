@@ -43,7 +43,7 @@ Po uložení se také pojmenuje kolonka plánu.
 ## Rozvrh
 
 Rozvrh nejprve nebude.
-Je ho proto nutné vytvořit velkým intuitivním oranžovým tlačítkem
+Je ho proto nutné vytvořit velkým intuitivním zeleným tlačítkem
 "Vytvořit rozvrh".
 
 Rozvrh je verzovaný z archivačních důvodů.
@@ -52,12 +52,12 @@ Verze obsahuje název a popis, který není povinný.
 Rozvrh se skládá ze sudého a lichého týdne.
 
 Zpočátku je rozvrh prázdný.
-Pro manipulaci s ním klikněte na "Upravit Rozvrh".
+Pro manipulaci s ním klikněte na "Změnit".
 Nyní můžete kliknout na políčko a vyplnit ho.
-Vyplňuje se třída, předmět, učebna a Skupina.
+Vyplňuje se třída, skupina, předmět a učebna.
 Předměty se vybírají z Osnov.
-Také existuje speciální předmět "Kroužek", který nevyžaduje žádné další
-informace.
+Také existuje speciální třída "Kroužek", která nevyžaduje skupinu a
+učebnu.
 
 Až budete s rozvrhem spokojeni, klikněte na "Uložit".
 Krom uložení můžete v editačním módu vytvořit novou verzi, či tu současnou
@@ -68,23 +68,24 @@ Na předchozí verze se můžete podívat, ale nelze je editovat.
 ## Kalendář
 
 Kalendář je takový pasivní prvek.
-Nic nemění, zato však zobrazuje data jak z rozvrhu, tak z událostí.
+Nic nemění, zato však zobrazuje data jak z rozvrhu, tak z událostí a
+dokonce i z událostí.
 
 Užití je zřejmé (snad).
 Po otevření modulu se vám zobrazí kalendář měsíční.
 Tam vidíte dny seskupené do měsíců a události, které se v nich dějí.
-Víkendy byly seskupeny do jednoho dne, jelikož vás nemusí zajímat.
+Víkendy jsou seskupeny do jednoho dne, jelikož vás nemusí zajímat.
 
 Na aktuální datum se můžete podívat tlačítkem "Aktuální".
-Pokud chcete jít na specifický měsíc, můžete kupodivu použít výběr měsíci a
+Pokud chcete jít na specifický měsíc, můžete kupodivu použít výběr měsíců a
 tlačítko "Na měsíc".
 
 Po kliknutí na událost se vám zobrazí její detail.
 
-Po stisknutí tlačítka "Na týdenní" se jeho text změní na "Na Měsíční".
-Také přepne na týdenní kalendář, kde se zobrazují vyučovací hodiny.
+Po stisknutí tlačítka "Na týdenní" se jeho text změní na "Na měsíční".
+Také se přepne na týdenní kalendář, kde se zobrazují vyučovací hodiny.
 
-Tlačítko "detail" kupodivu zobrazí detaily.
+Tlačítko "Téma" kupodivu zobrazí téma hodiny.
 Nečekané.
 
 ## Události
