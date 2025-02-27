@@ -789,8 +789,9 @@ function packTrida(){
    let url = window.location.href
    url = url.split("/")
    let id = url[4]
+   if(id.length == 7)
+      id = id.substring(0, id.length-2)
    console.log(id)
-
    let trida = document.getElementById(id)
    trida.open = !trida.open
 }
