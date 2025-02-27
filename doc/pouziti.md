@@ -116,6 +116,9 @@ Událost lze editovat po kliknutí na její jméno v tabulce.
 
 Události jsou také vidět v kalendáři, což je tak trochu jejich celá pointa.
 
+Také jsou zde viditelné maturity. Po kiliknutí na maturitu budete přesměrováni
+na její editace.
+
 ## Projekty
 
 Projekty mají předpřipravené třídy, které budou projektovat.
