@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <%- include('./partials/head'); %>
-<!-- <link rel="stylesheet" href="/osnovy/css/main.css" /> -->
 <style>
     .timeline {
             margin-top: 20px;
@@ -48,6 +47,16 @@
         font-size: 1.35em;
         line-height: 1.5;
     }
+
+    .module-button {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .active-module {
+        background-color: #1e3c72;
+        color: white;
+    }
 </style>
 <article
 style="
@@ -58,64 +67,54 @@ resize: horizontal;
 ">
 	<header style="border: 0;">
       <h1>Moduly</h1>
-
 	</header>
    <main style="margin-top: -1px;">
+        <div style="display: flex; margin-bottom: 20px;">
+            <input style="margin-left: 0;" type="button" value="Začněte s přehledovníkem" class="module-button <%= activeModule === 'home' ? 'active-module' : '' %>"
+            onclick="window.location.href = '/index';">
+        </div>
         <div style="display: flex">
-            <input style="margin-left: 0;" type="button" value="Kalendář"
-            onclick="window.location.href = '/';">
+            <input style="margin-left: 0;" type="button" value="Kalendář" class="module-button <%= activeModule === 'kalendar' ? 'active-module' : '' %>"
+            onclick="window.location.href = '/index/kalendar';">
 		</div>
         <div style="display: flex">
-            <input style="margin-left: 0;" type="button" value="Rozvrh"
-            onclick="window.location.href = '/';">
+            <input style="margin-left: 0;" type="button" value="Rozvrh" class="module-button <%= activeModule === 'rozvrh' ? 'active-module' : '' %>"
+            onclick="window.location.href = '/index/rozvrh';">
         </div>
         <div style="display: flex">
-            <input style="margin-left: 0;" type="button" value="Projekty"
-            onclick="window.location.href = '/';">
+            <input style="margin-left: 0;" type="button" value="Projekty" class="module-button <%= activeModule === 'projekty' ? 'active-module' : '' %>"
+            onclick="window.location.href = '/index/projekty';">
         </div>
         <div style="display: flex">
-            <input style="margin-left: 0;" type="button" value="Události"
-            onclick="window.location.href = '/';">
+            <input style="margin-left: 0;" type="button" value="Události" class="module-button <%= activeModule === 'udalosti' ? 'active-module' : '' %>"
+            onclick="window.location.href = '/index/udalosti';">
 		</div>
         <div style="display: flex">
-            <input style="margin-left: 0;" type="button" value="Osnovy"
-            onclick="window.location.href = '/';">
+            <input style="margin-left: 0;" type="button" value="Osnovy" class="module-button <%= activeModule === 'osnovy' ? 'active-module' : '' %>"
+            onclick="window.location.href = '/index/osnovy';">
         </div>
         <div style="display: flex">
-            <input style="margin-left: 0;" type="button" value="Maturita"
-            onclick="window.location.href = '/';">
+            <input style="margin-left: 0;" type="button" value="Maturita" class="module-button <%= activeModule === 'maturita' ? 'active-module' : '' %>"
+            onclick="window.location.href = '/index/maturita';">
         </div>
 	</main>
 </article>
 
 <article style="flex: 3; overflow-y: auto">
     <header>
-      <h1>Začněte s přehledovníkem</h1>
+      <h1><%= title %></h1>
     </header>
     <main>
         <div class="timeline">
-            <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    1. Vytvořte osnovy pro vaše předměty v modulu "Osnovy". V tomto modulu můžete zadat předměty, počet hodin a probíraná témata.
+            <% timelineItems.forEach((item, index) => { %>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <%= (index + 1) + '. ' + item.content %>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    2. Nakonfigurujte si svůj rozvrh v modulu "Rozvrh". Zde si můžete vybrat z předmětů zadaných v osnovách a zvolit čas, třídu a učebnu, kde se hodina koná.
-                </div>
-            </div>
-            
-            <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    3. Nyní máte nastaveno vše ke správnému používaní Přehledovníku. Teď už si jen stačí užívat pohodlí a přehledné zobrazení Vašeho denního rozvrhu.
-                </div>
-            </div>
+            <% }); %>
         </div>
     </main>
 </article>
-<!-- <script src="/osnovy/js/main.js"></script> -->
 <%- include('./partials/tail') %>
