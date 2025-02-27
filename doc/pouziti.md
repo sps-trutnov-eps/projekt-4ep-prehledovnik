@@ -126,34 +126,39 @@ Po kliknutí na třídu se vám zobrazí její přehled.
 
 Nejprve vás nejspíše zaujme podlouhlá reprezentace milestoneů.
 Ta se aktivuje jakmile vyplníte počáteční datum projektu a uložíte.
-Bude zobrazovat jak na tom je projekt časově.
+Bude zobrazovat jak je na tom projekt časově.
 
 Pod datem si naklikáte týmy, které se automaticky očíslují.
 Vy si už jen doplníte členy a téma.
 
-Týmy se zobrazují v sidebaru, kde na ně lze kliknout.
-Tím se otevře detailní přehled týmu.
+Týmy se zobrazují v sidebaru pod třídamy, kde na ně lze kliknout.
+Dají se sbalit, a dokonce to i dělají automaticky.
+Tým se otevře pro detailní přehled týmu.
 
 Zde můžete editovat členy, určit vedoucího týmu, přidat featury a stretch goaly,
 zapsat poznámky k pitchi a dokonce zapsat URL repozitáře.
 
-Následně má každá třída a každý tým i stránku s detaily, na kterou lze přepnout
+Následně má každá třída a každý tým stránku s detaily, na kterou lze přepnout
 v pravém horním rohu.
 Zde se zobrazují výsledky milestoneů.
+
+Tlačítko "Upload" slouží pro načtení dat ve speciálním formátu.
+[zde ukázka](example-project-sample.txt).
 
 ## Maturity
 
 Maturity jsou vcelku intuitivní modul.
 
 Maturity vám pomáhají plánovat maturitní zkoušky vašich žáků.
-Maturity se skládají ze čtyř částí:
-Praktické zkoušky z odborných předmětů (Praktická),
-Profilové části maturitní zkoušky (Ústní),
-Společná část maturitní zkoušky (Státní),
-Slohová práce (Sloh)
+Maturity se zkládají ze čtyř částí:
+
+* Praktické zkoušky z odborných předmětů (Praktická)
+* Profilové části maturitní zkoušky (Ústní)
+* Společná část maturitní zkoušky (Státní)
+* Slohová práce (Sloh)
 
 Každá část maturit je zprvu zamknutá.
-Chcete li jí upravit, musíte kliknout na velké oranžové tlačítko "Edit".
+Chcete li jí upravit, musíte kliknout na velké oranžové tlačítko "Změnit".
 Poté můžete upravovat a až budete spokojení, klikněte na tlačítko "Uložit",
 které zákeřně nahradilo tlačítko "Edit".
 
