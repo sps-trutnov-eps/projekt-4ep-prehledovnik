@@ -97,13 +97,13 @@
 													 <% for (let iM = 0; iM < team["email"].length; iM++) { %>
 														<div style="display: flex; align-items: center;" class="members-input">
 														   <input type="button" value="-" class="deleteButton" style="margin-bottom: 0;" onclick="deleteOption(this)">
-														   <input class="dropdown-item" type="text" value="<%= team["email"][iM]; %>" style="margin: 0" onchange="editMemberInDetails(this)" onkeypress="this.onchange()" onpaste="this.onchange()" oninput="this.onchange()">
+														   <input class="dropdown-item emails" type="text" value="<%= team["email"][iM]; %>" style="margin: 0" onchange="editMemberInDetails(this)" onkeypress="this.onchange()" onpaste="this.onchange()" oninput="this.onchange()">
 														</div>
 													 <% } %>
 												  <% } %>
 											   </div>
 											   <div class="add-option">
-												  <input class="createButton" style="padding: 0; min-height: 0; height: 2em; margin: 0" type="button" value="+" onclick="addNewOption(this, 0)" />
+												  <input class="createButton" style="padding: 0; min-height: 0; height: 2em; margin: 0" type="button" value="+" onclick="addNewOption(this, 4)" />
 											   </div>
 											</div>
 										
