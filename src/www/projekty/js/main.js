@@ -782,3 +782,17 @@ updateTimeLine();
 window.onload = (event) => {
    updateTimeLine();
 };
+
+/* PACKING/UNPACKING */
+
+function packTrida(){
+   let url = window.location.href
+   url = url.split("/")
+   let id = url[4]
+   console.log(id)
+
+   let trida = document.getElementById(id)
+   trida.open = !trida.open
+}
+
+packTrida()
