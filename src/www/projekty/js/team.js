@@ -242,6 +242,7 @@ async function saveTeam(){
    const pitchRow = document.getElementById("pitchRow");
    const marksCommitsRows = document.querySelectorAll(".marksCommits");
    const marksDevlogsRows = document.querySelectorAll(".marksDevlogs");
+   const mails = document.querySelectorAll(".emails");
    let data = {};
    
    console.log(pitchRow);
@@ -255,12 +256,24 @@ async function saveTeam(){
    }
    data["members"] = members;
    
+   let mailsData = [];
+   for (let mi = 0; mi < mails.length; mi++){
+      let membersMailsContentChildren = mails[mi].children
+      let membersMails = [];
+      for (let chi = 0; chi < membersMailsContentChildren.length; chi++){
+         membersMails.push(membersMailsContentChildren[chi].children[1].value);
+      }
+      mailsData.push(membersMails);
+   }
+   data["emails"] = mailsData;
+   //console.log(mailsData);
+   
    if (ceo.selectedIndex-1 == -1){
       data["ceo"] = undefined;
    } else {
       data["ceo"] = ceo.selectedIndex-1;
    }
-   console.log(data["ceo"]);
+   //console.log(data["ceo"]);
    
    data["link"] = link.value;
    data["note"] = note.value;

@@ -189,6 +189,8 @@ function toggleDropdown(button) {
 }
 
 //ajaj.
+// 4 is for emails
+// 3 is for adding members with emails button (like on teams page)
 function addNewOption(button, addToDetails = 2, add='') {
    const parent = button.parentElement.parentElement;
    const dropdown = parent.querySelector(`.dropdown-members${add}`); // Gets the first child with class 'child1'
@@ -205,7 +207,7 @@ function addNewOption(button, addToDetails = 2, add='') {
    deleteButton.className = `deleteButton${add}`;
    deleteButton.style.marginBottom = '0';
    deleteButton.onclick = function() {
-      if (addToDetails == 2 || addToDetails == 0){
+      if (addToDetails == 2 || addToDetails == 0 || addToDetails == 4){
          deleteOption(this);
       } else if (addToDetails == 3 || addToDetails == 1) {
          deleteOptionsCEO(); deleteOption(this, 1); addOptionsCEO(); deleteColumn(getColumnID(this.nextElementSibling.value))
@@ -213,7 +215,7 @@ function addNewOption(button, addToDetails = 2, add='') {
    };
    
    const input = document.createElement('input');
-   input.className = `dropdown-item${add}`;
+	input.className = `dropdown-item${add}`;
    input.type = 'text';
    input.value = '';
    input.style.margin = '0';
@@ -228,7 +230,7 @@ function addNewOption(button, addToDetails = 2, add='') {
       });
    }
    
-   if (addToDetails != 0 && addToDetails != 3){
+   if (addToDetails != 0 && addToDetails != 4 && addToDetails != 3){
       input.addEventListener('keypress', function() {
          this.dispatchEvent(new Event('change'));
       });
@@ -257,7 +259,11 @@ function addNewOption(button, addToDetails = 2, add='') {
    dropdownContentDiv.className = 'dropdown-content';
    
    const dropdownMembersDiv = document.createElement('div');
-   dropdownMembersDiv.className = 'dropdown-members';
+   if (addToDetails == 4){
+	dropdownMembersDiv.className = 'dropdown-members emails';
+   } else {
+	dropdownMembersDiv.className = 'dropdown-members';
+   }
    
    // Add option button
    const addOptionDiv = document.createElement('div');
@@ -272,7 +278,7 @@ function addNewOption(button, addToDetails = 2, add='') {
    addOptionButton.style.height = '2em';
    addOptionButton.style.margin = '0';
    
-   addOptionButton.onclick= function() { addNewOption(this); };
+   addOptionButton.onclick = function() { addNewOption(this, 4); };
    
    addOptionDiv.appendChild(addOptionButton);
    dropdownContentDiv.appendChild(dropdownMembersDiv);
