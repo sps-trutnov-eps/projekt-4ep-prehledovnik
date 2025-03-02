@@ -1,24 +1,76 @@
 <!doctype html>
 <%- include('partials/head'); %>
 
-    <style>
-        #doc {
-            max-width: 90ch;
-            margin-inline: auto;
+<style>
+    #doc {
+        max-width: 90ch;
+        margin-inline: auto;
+    }
 
-            h1, h2, h3, h4, h5 {
-                text-align: center;
-            }
-        }
+    h1, h2, h3, h4, h5 {
+        text-align: center;
+    }
 
-        #cat {
-            display: block;
-            margin-inline: auto;
-            margin-top: 2em;
-        }
+    #cat {
+        display: block;
+        margin-inline: auto;
+        margin-top: 2em;
+    }
 
-    </style>
-    <article style="flex: 3;">
+#sidebar {
+    width: 195px;
+    flex-shrink: 0;
+}
+
+#sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: block; 
+}
+
+#sidebar ul li {
+    margin: 0;
+    padding: 0;
+    display: block; 
+    border-bottom: 3px solid #ffffff;
+}
+
+#sidebar ul li a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding-inline: 50px; 
+    text-align: center;
+    font-size: 1.2em;
+    background-color: #40A3D8;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    border-left: 5px solid #008ACC; 
+}
+
+.container {
+    display: flex;
+}
+
+.content {
+    flex-grow: 0.4;
+    padding: 20px;
+}
+
+</style>
+
+<div class="container">
+    <!-- Navigace nalevo -->
+    <nav id="sidebar">
+        <ul>
+            <%- nav %>
+        </ul>
+    </nav>
+
+    <!-- Hlavní obsah -->
+    <article class="content">
         <main>
             <div id="doc">
                 <%- doc %>
@@ -26,4 +78,6 @@
             <img id="cat" style="object-fit: contain; max-height: 100%;" src="https://cataas.com/cat/says/P%C5%99ehledovn%C3%ADk?fontColor=orange&fontSize=64" alt="Přehledovník">
         </main>
     </article>
+</div>
+
 <%- include('partials/tail') %>
