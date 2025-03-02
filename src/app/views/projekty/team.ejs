@@ -22,7 +22,7 @@
                   id="fileInput" 
                   style="display:none" 
                   name="file"
-                  hx-post="/projekty/upload/null"
+                  hx-post="/projekty/upload/<%= clas["trida"] %>-<%= team["cislo"] %>"
                   hx-target="body"
                   hx-encoding="multipart/form-data"
                   onchange="this.closest('form')?.requestSubmit()">
