@@ -98,12 +98,14 @@ exports.upload = async (req, res) => {
         
     // set marks and amount of commits
     
+    // Get milestones
     for (let milesi = 1; milesi <= 6; milesi++){
         console.log(`Milestone ${milesi}`);
         let milestone = points[`Milestone ${milesi}`];
         let firstHalf = milestone["t1"];
         let secondHalf = milestone["t2"];
         
+        // Get members
         for (let mi = 0; mi < team.clenove.length; mi++){
             let memberMails = team.emaily[mi];
             let foundFirstHalf = false;
@@ -111,10 +113,15 @@ exports.upload = async (req, res) => {
             let firstHalfPoints = '0';
             let secondHalfPoints = '0';
             
+            let marksMails = grades[`Milestone ${milesi}`];
+            let mark = 0;
+            
             if (!team["pocetCom"]){ team["pocetCom"] = []; }
             if (!team["pocetCom"][mi]){ team["pocetCom"].push([]); }
             
+            // Go through every email of the member
             for (let maili = 0; maili < memberMails.length; maili++){
+                // Get amount of commits
                 if (firstHalf[memberMails[maili]]){
                     console.log(`1hf: ${memberMails[maili]}: ${firstHalf[memberMails[maili]]}`);
                     firstHalfPoints = firstHalf[memberMails[maili]];
@@ -126,11 +133,23 @@ exports.upload = async (req, res) => {
                     secondHalfPoints = secondHalf[memberMails[maili]];
                     foundSecondHalf = true;
                 } 
+                
+                // Get marks
+                if (marksMails[memberMails[maili]]){
+                    mark = marksMails[memberMails[maili]];
+                }
             }
             
+            // Set count of commits
             team["pocetCom"][mi].push(firstHalfPoints);
             team["pocetCom"][mi].push(secondHalfPoints);
+            
+            
+            // Set marks
+            team["znamkyCom"][mi]["znamky"][milesi-1] = mark;
+            
         }
+        
     }
     
     databaze.projekty.upravitTym(classID, team);
