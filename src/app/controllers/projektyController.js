@@ -331,6 +331,7 @@ exports.saveTeam = (data) => {
                     "pozamka": data["note"],
                     "ucast": data["pitch"]
                 },
+                "pocetCom": existingTeam["pocetCom"],
                 "znamkyDev": membersDevlogs,
                 "znamkyCom": membersCommits
             });
