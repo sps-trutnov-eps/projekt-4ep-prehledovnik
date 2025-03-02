@@ -1,3 +1,15 @@
+<%
+
+function SetCommits(member, half){
+
+	if (team["pocetCom"]) { %>
+		<td style="text-align: center;"><%= team["pocetCom"][member][half] %></td>
+	<% } else { %>
+		<td style="text-align: center;">-</td>
+	<% }
+
+}%>
+
 <article style="flex: 3; box-shadow: none;">
    <header>
       <nav>
@@ -92,15 +104,15 @@
 						<tr class="tdtMembers">
                      <td style="text-align: center;" rowspan="4">1.</td>
 							<td style="text-align: center;">Commitů 1. týden</td>
-							<% for (let i = 0; i < team["clenove"].length; i++){ %>
-								<td style="text-align: center;">0</td>
-							<% } %>
+							<% for (let i = 0; i < team["clenove"].length; i++){
+								SetCommits(i, 0);
+							} %>
 						</tr>
 						<tr class="tdtMembers">
 							<td style="text-align: center;">Commitů 2. týden</td>
-							<% for (let i = 0; i < team["clenove"].length; i++){ %>
-								<td style="text-align: center;">0</td>
-							<% } %>
+							<% for (let i = 0; i < team["clenove"].length; i++){
+								SetCommits(i, 1);
+							} %>
 						</tr>
 						<tr class="tdtMembers marksCommits">
 							<td style="text-align: center;">Za commity</td>
@@ -125,15 +137,15 @@
 						<tr class="tdtMembers">
                      <td style="text-align: center;" rowspan="4">2.</td>
 							<td style="text-align: center;">Commitů 1. týden</td>
-							<% for (let i = 0; i < team["clenove"].length; i++){ %>
-								<td style="text-align: center;">0</td>
-							<% } %>
+							<% for (let i = 0; i < team["clenove"].length; i++){
+								SetCommits(i, 2);
+							} %>
 						</tr>
 						<tr class="tdtMembers">
 							<td style="text-align: center;">Commitů 2. týden</td>
-							<% for (let i = 0; i < team["clenove"].length; i++){ %>
-								<td style="text-align: center;">0</td>
-							<% } %>
+							<% for (let i = 0; i < team["clenove"].length; i++){
+								SetCommits(i, 3);
+							} %>
 						</tr>
 						<tr class="tdtMembers marksCommits">
 							<td style="text-align: center;">Za commity</td>
@@ -158,15 +170,15 @@
 						<tr class="tdtMembers">
                      <td style="text-align: center;" rowspan="4">3.</td>
 							<td style="text-align: center;">Commitů 1. týden</td>
-							<% for (let i = 0; i < team["clenove"].length; i++){ %>
-								<td style="text-align: center;">0</td>
-							<% } %>
+							<% for (let i = 0; i < team["clenove"].length; i++){
+								SetCommits(i, 4);
+							} %>
 						</tr>
 						<tr class="tdtMembers">
 							<td style="text-align: center;">Commitů 2. týden</td>
-							<% for (let i = 0; i < team["clenove"].length; i++){ %>
-								<td style="text-align: center;">0</td>
-							<% } %>
+							<% for (let i = 0; i < team["clenove"].length; i++){
+								SetCommits(i, 5);
+							} %>
 						</tr>
 						<tr class="tdtMembers marksCommits">
 							<td style="text-align: center;">Za commity</td>
@@ -191,15 +203,15 @@
 						<tr class="tdtMembers">
                      <td style="text-align: center;" rowspan="4">4.</td>
 							<td style="text-align: center;">Commitů 1. týden</td>
-							<% for (let i = 0; i < team["clenove"].length; i++){ %>
-								<td style="text-align: center;">0</td>
-							<% } %>
+							<% for (let i = 0; i < team["clenove"].length; i++){
+								SetCommits(i, 6);
+							} %>
 						</tr>
 						<tr class="tdtMembers">
 							<td style="text-align: center;">Commitů 2. týden</td>
-							<% for (let i = 0; i < team["clenove"].length; i++){ %>
-								<td style="text-align: center;">0</td>
-							<% } %>
+							<% for (let i = 0; i < team["clenove"].length; i++){
+								SetCommits(i, 7);
+							} %>
 						</tr>
 						<tr class="tdtMembers marksCommits">
 							<td style="text-align: center;">Za commity</td>
@@ -224,15 +236,15 @@
 						<tr class="tdtMembers">
                      <td style="text-align: center;" rowspan="4">5.</td>
 							<td style="text-align: center;">Commitů 1. týden</td>
-							<% for (let i = 0; i < team["clenove"].length; i++){ %>
-								<td style="text-align: center;">0</td>
-							<% } %>
+							<% for (let i = 0; i < team["clenove"].length; i++){
+								SetCommits(i, 8);
+							} %>
 						</tr>
 						<tr class="tdtMembers">
 							<td style="text-align: center;">Commitů 2. týden</td>
-							<% for (let i = 0; i < team["clenove"].length; i++){ %>
-								<td style="text-align: center;">0</td>
-							<% } %>
+							<% for (let i = 0; i < team["clenove"].length; i++){
+								SetCommits(i, 9);
+							} %>
 						</tr>
 						<tr class="tdtMembers marksCommits">
 							<td style="text-align: center;">Za commity</td>
@@ -257,15 +269,15 @@
 						<tr class="tdtMembers">
                      <td style="text-align: center;" rowspan="4">6.</td>
 							<td style="text-align: center;">Commitů 1. týden</td>
-							<% for (let i = 0; i < team["clenove"].length; i++){ %>
-								<td style="text-align: center;">0</td>
-							<% } %>
+							<% for (let i = 0; i < team["clenove"].length; i++){
+								SetCommits(i, 10);
+							} %>
 						</tr>
 						<tr class="tdtMembers">
 							<td style="text-align: center;">Commitů 2. týden</td>
-							<% for (let i = 0; i < team["clenove"].length; i++){ %>
-								<td style="text-align: center;">0</td>
-							<% } %>
+							<% for (let i = 0; i < team["clenove"].length; i++){
+								SetCommits(i, 11);
+							} %>
 						</tr>
 						<tr class="tdtMembers marksCommits">
 							<td style="text-align: center;">Za commity</td>

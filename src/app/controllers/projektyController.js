@@ -1,6 +1,19 @@
 const databaze = require("../models/databaseEngine");
 
 exports.upload = async (req, res) => {
+   
+   // Get id (includes class and the team)
+   let urlID = req.params.id;
+   //console.log(urlID);
+   let classID = databaze.projekty.ziskatIDprojektuDleTridy(urlID.slice(0, 5));
+   //console.log(classID);
+   let teamID = urlID.slice(-1);
+   let team = databaze.projekty.ziskatTym(classID, urlID.slice(-1));
+   //console.log(team);
+
+   
+   
+   
    try {
       const fileText = req.file.buffer.toString('utf8');
 
@@ -16,7 +29,7 @@ exports.upload = async (req, res) => {
             let lines = block.split(/\n/)
                              .map(l => l.trim())
                              .filter((elm) => elm.length > 3);
-
+            
             let key = lines[0];
             points[key] = {"t1": {}, "t2": {}};
 
@@ -51,7 +64,7 @@ exports.upload = async (req, res) => {
             if (! emails.includes(email))
                emails.push(email);
          }
-
+        
          // get marks for mails
          emails.forEach(email => {
             // dle Šenkýře:
@@ -71,6 +84,7 @@ exports.upload = async (req, res) => {
             // => z každého týdne max 4 body, každý chybějící bod stupeň dolů
 
             // ?? can be used for default value while assigning
+            
             let count = [
                points[key]["t1"][email] ?? 0,
                points[key]["t2"][email] ?? 0
@@ -79,10 +93,51 @@ exports.upload = async (req, res) => {
              .reduce((acc, cur) => acc + cur);
 
             grades[key][email] = 5 - count;
-
          });
       };
-
+        
+    // set marks and amount of commits
+    
+    for (let milesi = 1; milesi <= 6; milesi++){
+        console.log(`Milestone ${milesi}`);
+        let milestone = points[`Milestone ${milesi}`];
+        let firstHalf = milestone["t1"];
+        let secondHalf = milestone["t2"];
+        
+        for (let mi = 0; mi < team.clenove.length; mi++){
+            let memberMails = team.emaily[mi];
+            let foundFirstHalf = false;
+            let foundSecondHalf = false;
+            let firstHalfPoints = '0';
+            let secondHalfPoints = '0';
+            
+            if (!team["pocetCom"]){ team["pocetCom"] = []; }
+            if (!team["pocetCom"][mi]){ team["pocetCom"].push([]); }
+            
+            for (let maili = 0; maili < memberMails.length; maili++){
+                if (firstHalf[memberMails[maili]]){
+                    console.log(`1hf: ${memberMails[maili]}: ${firstHalf[memberMails[maili]]}`);
+                    firstHalfPoints = firstHalf[memberMails[maili]];
+                    foundFirstHalf = true;
+                }
+                
+                if (secondHalf[memberMails[maili]]){
+                    console.log(`2hf: ${memberMails[maili]}: ${secondHalf[memberMails[maili]]}`);
+                    secondHalfPoints = secondHalf[memberMails[maili]];
+                    foundSecondHalf = true;
+                } 
+            }
+            
+            team["pocetCom"][mi].push(firstHalfPoints);
+            team["pocetCom"][mi].push(secondHalfPoints);
+        }
+    }
+    
+    databaze.projekty.upravitTym(classID, team);
+    
+    /*console.log(points);
+    console.log(grades);*/
+        
       // RESPONSE //
 
       let tlacitka = vytvorTlacitka("projekty/");
@@ -195,7 +250,10 @@ exports.saveTeams = (data) => {
                     "stretchgoaly": existingTeam["pitch"]["stretchgoaly"],
                     "pozamka": existingTeam["pitch"]["pozamka"],
                     "ucast": existingTeam["pitch"]["ucast"]
-                }
+                },
+                "pocetCom": existingTeam["pocetCom"],
+                "znamkyCom": existingTeam["znamkyCom"],
+                "znamkyDev": existingTeam["znamkyDev"]
             });
     }
     
@@ -218,6 +276,7 @@ exports.saveTeams = (data) => {
                 "emaily": existingTeam["emaily"],
                 "vedouci": existingTeam["vedouci"],
                 "pitch": existingTeam["pitch"],
+                "pocetCom": existingTeam["pocetCom"],
                 "znamkyDev": existingTeam["znamkyDev"],
                 "znamkyCom": existingTeam["znamkyCom"]
             }, existingTeam["cislo"]);
@@ -227,7 +286,7 @@ exports.saveTeams = (data) => {
     for (let i = 0; i < newTeams.length; i++){
         const team = newTeams[i];
         
-        databaze.projekty.pridatTym(tridaID, clas["tymy"].length+1, team.description, team.url, team.members, [], 0, [], [], "undefined", ["undefined","undefined"], undefined, undefined);
+        databaze.projekty.pridatTym(tridaID, clas["tymy"].length+1, team.description, team.url, team.members, [], 0, [], [], "undefined", ["undefined","undefined"], undefined, undefined, undefined);
     }
     
    
