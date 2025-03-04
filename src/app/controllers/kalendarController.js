@@ -12,6 +12,7 @@ exports.udalosti = () => {
 }
 
 exports.mesicni = (req,res) => {
+    console.log(databaze.struktury())
     let udalosti = databaze.udalosti.ziskatVsechnyUdalosti()
     let maturityUdalosti = databaze.maturity.ziskatVsechnyMaturityJakoUdalosti()
 

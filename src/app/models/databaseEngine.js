@@ -565,26 +565,6 @@ const projekty = {
   }
 };
 
-function tvorbaStruktur() {
-  let rozvrhy = gR();
-  let osnovy = gO();
-  let udalost = gU();
-  let maturiy = this.ziskatMaturityProUdalosti();
-  let struktury = [];
-
-  const increment = 24 * 60 * 60 * 1000
-  const rok = new Date().getFullYear;
-  const startDate = new Date(rok, 7, 1);
-  const endDate = new Date(rok+1, 6, 31);
-
-  for (let i = startDate.getTime(); i <= endDate.getTime();i += increment) {
-    
-    struktury.push({"datum": i});
-  }
-
-
-}
-
 // CELKOVÝ MODEL
 const databaseEngine = {
   osnovy: osnovy,
@@ -611,7 +591,82 @@ const databaseEngine = {
   },
   ziskatUcebny: () => {
     return db.get("ucebny");
-  }
+  },
+  struktury: tvorbaStruktur
 };
+
+function tvorbaStruktur() {
+  let rozvrhy = gR();
+  let osnovy = gO();
+  let udalosti = gU();
+  let maturity = maturity.ziskatVsechnyMaturityJakoUdalosti();
+
+  let struktury = [];
+
+  const increment = 24 * 60 * 60 * 1000;
+  const rok = new Date().getFullYear();
+  const startDate = new Date(rok, 7, 1);
+  const endDate = new Date(rok + 1, 6, 31);
+
+  let baseMonday = getFirstMondayOfSeptember(rok);
+
+  for (let i = startDate.getTime(); i <= endDate.getTime(); i += increment) {
+    let datum = new Date(i);
+    let denVTydnu = datum.getDay();
+    let formattedDate = `${datum.getDate()}.${datum.getMonth() + 1}.`;
+
+    let tydenOdZacatku = Math.floor((datum - baseMonday) / (7 * increment));
+    let lichySud = tydenOdZacatku % 2 === 0 ? "sudy" : "lichy";
+
+    const dniMap = ["Ne", "Po", "Út", "St", "Čt", "Pá", "So"];
+    let denNazev = dniMap[denVTydnu];
+
+    if (denVTydnu === 0 || denVTydnu === 6) continue;
+
+    let denStruktura = {
+      datum: formattedDate,
+      den: denNazev,
+      tyden: tydenOdZacatku,
+      lichySud: lichySud,
+      hodiny: [],
+      udalosti: [],
+    };
+
+    if (rozvrhy?.hodiny?.[lichySud]?.[denNazev]) {
+      for (let j = 0; j <= 9; j++) {
+        let hodinaData = rozvrhy.hodiny[lichySud][denNazev][j];
+
+        if (hodinaData) {
+          let predmet = hodinaData.predmet !== "volno" ? hodinaData.predmet : "";
+          let skupina = hodinaData.predmet !== "volno" ? hodinaData.skupina : "";
+          let key = predmet + hodinaData.trida + skupina;
+
+          denStruktura.hodiny.push({
+            cislo: j,
+            predmet: predmet,
+            skupina: skupina,
+            trida: hodinaData.trida,
+            mistnost: hodinaData.mistnost,
+            tema: osnovy[key] ? osnovy[key][0] : "",
+          });
+        }
+      }
+    }
+    let datumISO = datum.toISOString().split("T")[0];
+    denStruktura.udalosti = udalosti.filter(u => u.datum === datumISO);
+
+    struktury.push(denStruktura);
+  }
+
+  return struktury;
+}
+
+function getFirstMondayOfSeptember(year) {
+  let date = new Date(year, 8, 1);
+  while (date.getDay() !== 1) {
+    date.setDate(date.getDate() + 1);
+  }
+  return date;
+}
 
 module.exports = databaseEngine;
