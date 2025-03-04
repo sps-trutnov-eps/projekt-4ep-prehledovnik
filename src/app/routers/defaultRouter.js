@@ -6,7 +6,20 @@ defaultRouter.get('/', (req, res) => {
     fs.readFile('../doc/pouziti.md', 'utf8', (err, data) => {
         if (err) console.error(err);
 
-        res.render('index.ejs', {doc: markdown.toHTML(data)});
+        const htmlContent = markdown.toHTML(data);
+
+        let navLinks = '';
+        let content = '';
+        let sectionId = 0;
+
+        content = htmlContent.replace(/<h(\d)>(.*?)<\/h\1>/g, (match, level, text) => {
+            sectionId++;
+            const id = `section-${sectionId}`;
+            navLinks += `<li><a href="#${id}"><button>${text}</button></a></li>`;
+            return `<h${level} id="${id}">${text}</h${level}>`;
+        });
+
+        res.render('index.ejs', { nav: navLinks, doc: content });
     });
 });
 

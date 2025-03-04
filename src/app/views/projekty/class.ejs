@@ -48,59 +48,62 @@
 			<% } %>
 		 </div>
  
-	   <div style="display: flex; position: relative; overflow-y: auto; max-height: calc(100vh - 14em); padding-right: 15px;">
+	   <div style="display: flex; position: relative; overflow-y: auto; max-height: calc(100vh - 16em); padding-right: 15px;">
 		  <div id="mainThing" style="flex: auto">
 			<label for="datum"><strong>Datum pitche třídy</strong></label>
 			<input type="date" id="datum" name="datum" value="<%= clas.datum || '' %>">
-			 <table id="curriculums">
-				<thead style="position: sticky; top: 0; z-index: 1">
+			<table id="curriculums">
+				<thead style="position: sticky; top: 0; z-index: 1; background-color: white;">
 				   <tr>
-					  <th style="width: 10%; text-align: center;">Tým</th>
-					  <th style="text-align: center;">Členové</th>
-					  <th style="text-align: center;">Téma</th>
+					  <th style="width: 10%; text-align: center; vertical-align: middle;">Tým</th>
+					  <th style="width: 40%; padding-left: 50px; text-align: center; vertical-align: middle;">Členové</th>
+					  <th style="width: 40%; padding-left: 15px; text-align: center; vertical-align: middle;">Téma</th>
 				   </tr>
 				</thead>
+				 
 				<tbody id="table-body">
-				   <% if (clas["tymy"] != undefined) { %>
-					  <% for (let i = 0; i < clas["tymy"].length; i++) { %>
-						 <% let team = clas["tymy"][i]; %>
-						 <tr class="cur">
-							<td style="display: flex; align-items: center;" class="curriculum-input">
-							   <input type="button" value="-" class="deleteCurButton" style="margin-bottom: 0px;" onclick="deleteTeam(this)">
-							   <div class="teamId" style="margin: 0 auto;"><%= team.cislo %></div>
-							   <div class="ActulTeamId" style="display: none"><%= team.cislo %></div>
-							</td>
-							<td style="text-align: center;" class="curriculum-input">
-								<button class="dropdown-btn" style="width: 100%" onclick="toggleDropdown(this)"><%= team["clenove"] ? team["clenove"].join(', ') : "prázdné" %></button>
-							   <div class="dropdown-content" id="team-1-dropdown">
-								  <div class="dropdown-members">
-									 <% if (team["clenove"]) { %>
-										<% for (let iM = 0; iM < team["clenove"].length; iM++) { %>
-										   <div style="display: flex; align-items: center;" class="members-input">
-											  <input type="button" value="-" class="deleteButton" style="margin-bottom: 0;" onclick="deleteOption(this)">
-											  <input class="dropdown-item" type="text" value="<%= team["clenove"][iM]; %>" style="margin: 0" onchange="editMemberInDetails(this)" onkeypress="this.onchange()" onpaste="this.onchange()" oninput="this.onchange()">
-										   </div>
-										<% } %>
-									 <% } %>
-								  </div>
-								  <div class="add-option">
-									 <input class="createButton" style="padding: 0; min-height: 0; height: 2em; margin: 0" type="button" value="+" onclick="addNewOption(this)" />
-								  </div>
-							   </div>
-							</td>
-							<td style="display: flex;" class="curriculum-input">
-							   <input type="text" value="<%= team["tema"] || '' %>" style="margin: 0px;" class="curriculum-i, description">
-							</td>
-						 </tr>
-					  <% } %>
-				   <% } %>
-				   <tr style="position: sticky; bottom: 0; z-index: 1">
-					  <td colspan="7">
-						 <input class="createButton" style="padding: 0; min-height: 0; height: 2em; margin: 0" type="button" value="+" onclick="addNewTeam(this)" />
-					  </td>
-				   </tr>
-				</tbody>
-			 </table>
+					<% if (clas["tymy"] != undefined) { %>
+					   <% for (let i = 0; i < clas["tymy"].length; i++) { %>
+						  <% let team = clas["tymy"][i]; %>
+						  <tr class="cur">
+							 <td style="display: flex; align-items: center;" class="curriculum-input">
+								<input type="button" value="-" class="deleteCurButton" style="margin-bottom: 0px;" onclick="deleteTeam(this)">
+								<div class="teamId" style="margin: 0 auto;"><%= team.cislo %></div>
+								<div class="ActulTeamId" style="display: none"><%= team.cislo %></div>
+							 </td>
+							 <td style="text-align: center;" class="curriculum-input">
+								<button class="dropdown-btn" style="margin-left: 40px; width: 90%;" onclick="toggleDropdown(this, '.dropdown-content')">
+								   <%= team["clenove"] ? team["clenove"].join(', ') : "prázdné" %>
+								</button>
+								<div class="dropdown-content" id="team-1-dropdown">
+								   <div class="dropdown-members">
+									  <% if (team["clenove"]) { %>
+										 <% for (let iM = 0; iM < team["clenove"].length; iM++) { %>
+											<div style="display: flex; align-items: center;" class="members-input">
+											   <input type="button" value="-" class="deleteButton" style="margin-bottom: 0;" onclick="deleteOption(this)">
+											   <input class="dropdown-item" type="text" value="<%= team["clenove"][iM]; %>" style="margin: 0" onchange="editMemberInDetails(this)" onkeypress="this.onchange()" onpaste="this.onchange()" oninput="this.onchange()">
+											</div>
+										 <% } %>
+									  <% } %>
+								   </div>
+								   <div class="add-option">
+									  <input class="createButton" style="padding: 0; min-height: 0; height: 2em; margin: 0" type="button" value="+" onclick="addNewOption(this)" />
+								   </div>
+								</div>
+							 </td>
+							 <td style="text-align: center;" class="curriculum-input">
+								<input type="text" value="<%= team["tema"] || '' %>" style="width: 90%; margin: 0px; text-align:center;" class="curriculum-i, description">
+							 </td>
+						  </tr>
+					   <% } %>
+					<% } %>
+					<tr style="position: sticky; bottom: 0; z-index: 1">
+					   <td colspan="7">
+						  <input class="createButton" style="padding: 0; min-height: 0; height: 2em; margin: 0" type="button" value="+" onclick="addNewTeam(this)" />
+					   </td>
+					</tr>
+				 </tbody>
+			  </table>
 		  </div>
 	   </div>
 	</main>

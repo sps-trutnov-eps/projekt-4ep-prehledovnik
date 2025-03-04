@@ -239,8 +239,23 @@
 
         <section class="grid-container">
             <%
-                let startDate = new Date(2024,7,1);
-                let endDate = new Date(2025,6,31);
+                let startYear
+                let endYear
+
+                let now = new Date()
+
+                if(now.getMonth() > 7){
+                    startYear = now.getFullYear()
+                    endYear = startYear + 1
+                }else{
+                    endYear = now.getFullYear()
+                    startYear = endYear-1
+                }
+                console.log(startYear)
+
+            
+                let startDate = new Date(startYear,7,1);
+                let endDate = new Date(endYear,6,31);
                 const increment = 24 * 60 * 60 * 1000 //Miliseconds per day
                 let a = false
 
@@ -287,6 +302,10 @@
 
                     <% if (new Date(i).getDate() == date_udalost[0] && new Date(i).getMonth() + 1 == date_udalost[1]) {%>
                     <p><%= date_udalost[2]%></p>
+                    <%}%>
+
+                    <% if (new Date(i).getDay() > 0 && new Date(i).getDay() < 6 && new Date(i).getMonth() != 7 && new Date(i).getMonth() != 6 ) {%>
+                        <button class="udalost">Výuka</button>
                     <%}%>
 
                 </section>
