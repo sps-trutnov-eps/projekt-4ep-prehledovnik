@@ -12,12 +12,18 @@ defaultRouter.get('/', (req, res) => {
         let content = '';
         let sectionId = 0;
 
+        // přidání ID a divů
         content = htmlContent.replace(/<h(\d)>(.*?)<\/h\1>/g, (match, level, text) => {
             sectionId++;
             const id = `section-${sectionId}`;
             navLinks += `<li><a href="#${id}"><button>${text}</button></a></li>`;
-            return `<h${level} id="${id}">${text}</h${level}>`;
+            return `</div><div class="section"><h${level}>${text}</h${level}>`;
         });
+
+        // odseknutí prvního divu
+        content.replace('</div>', '');
+        // uyavření posledního divu
+        content += '</div>'
 
         res.render('index.ejs', { nav: navLinks, doc: content });
     });

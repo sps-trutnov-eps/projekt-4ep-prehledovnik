@@ -17,50 +17,58 @@
         margin-top: 2em;
     }
 
-#sidebar {
-    width: 195px;
-    flex-shrink: 0;
-}
+    #sidebar {
+        width: 195px;
+        flex-shrink: 0;
+    }
 
-#sidebar ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    display: block; 
-}
+    #sidebar ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: block; 
+    }
 
-#sidebar ul li {
-    margin: 0;
-    padding: 0;
-    display: block; 
-    margin-bottom: 3px;
-}
+    #sidebar ul li {
+        margin: 0;
+        padding: 0;
+        display: block; 
+        margin-bottom: 3px;
+    }
 
-#sidebar ul li a {
-   width:100%;
-}
+    #sidebar ul li a {
+       width:100%;
+    }
 
-#sidebar ul li a button {
-    display: block;
-    text-decoration: none;
-    padding-inline: 50px; 
-    text-align: center;
-    font-size: 1.2em;
-    width: 100%;
-    box-sizing: border-box;
-    white-space: nowrap;
-    margin: 0;
-}
+    #sidebar ul li a button {
+        display: block;
+        text-decoration: none;
+        padding-inline: 50px; 
+        text-align: center;
+        font-size: 1.2em;
+        width: 100%;
+        box-sizing: border-box;
+        white-space: nowrap;
+        margin: 0;
+    }
 
-.container {
-    display: flex;
-}
+    .container {
+        display: flex;
+    }
 
-.content {
-    flex-grow: 0.4;
-    padding: 20px;
-}
+    .content {
+        flex-grow: 0.4;
+        padding: 20px;
+    }
 
+    /* Section visibility */
+    .section {
+        display: none;
+    }
+
+    .section.active {
+        display: block;
+    }
 </style>
 
 <div class="container">
@@ -76,10 +84,41 @@
         <main>
             <div id="doc">
                 <%- doc %>
+                <!-- kočky pro easteregg -->
+                <!-- <img id="cat" style="object-fit: contain; max-height: 100%;" src="https://cataas.com/cat/says/P%C5%99ehledovn%C3%ADk?fontColor=orange&fontSize=64" alt="Přehledovník"> -->
             </div>
-            <img id="cat" style="object-fit: contain; max-height: 100%;" src="https://cataas.com/cat/says/P%C5%99ehledovn%C3%ADk?fontColor=orange&fontSize=64" alt="Přehledovník">
         </main>
     </article>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Get all section navigation buttons
+        const sectionButtons = document.querySelectorAll('#sidebar ul li a button');
+        
+        // Hide all sections initially
+        const sections = document.querySelectorAll('.section');
+        sections.forEach(section => section.classList.remove('active'));
+        
+        // Add click event to each button
+        sectionButtons.forEach((button, index) => {
+            button.addEventListener('click', () => {
+                // Hide all sections
+                sections.forEach(section => section.classList.remove('active'));
+                
+                // Show only the clicked section
+                if (sections[index]) {
+                    sections[index].classList.add('active');
+                }
+            });
+        });
+
+        // Activate first section by default
+        const firstSection = document.querySelector('.section');
+        if (firstSection) {
+            firstSection.classList.add('active');
+        }
+    });
+</script>
 
 <%- include('partials/tail') %>
