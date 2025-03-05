@@ -604,7 +604,11 @@ function tvorbaStruktur(maturity) {
   let struktury = [];
 
   const increment = 24 * 60 * 60 * 1000;
-  const rok = new Date().getFullYear();
+  const dnesniDatum = new Date();
+  const aktualniRok = dnesniDatum.getFullYear();
+
+  const rok = dnesniDatum.getMonth() < 7 ? aktualniRok - 1 : aktualniRok;
+
   const startDate = new Date(rok, 7, 1);
   const endDate = new Date(rok + 1, 6, 31);
 
