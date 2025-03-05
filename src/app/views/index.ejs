@@ -39,7 +39,6 @@
         document.addEventListener("keydown", (event) => {
             const key = event.key.toLowerCase();
 
-            // Pokud už je zobrazená kočka a uživatel stiskne "r", změní se obrázek
             if (key === "r" && catImage) {
                 changeCatImage();
                 return;
@@ -58,7 +57,7 @@
                     <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
                         <img id="randomCat" src="https://cataas.com/cat?timestamp=${new Date().getTime()}" 
                              style="max-width: 100%; max-height: 100%;" alt="Meow!">
-                        <p style="color: white; font-size: 18px;">Stiskni <strong>R</strong> pro novou kočku!</p>
+                        <p style="color: black; font-size: 18px;">Stiskni <strong>R</strong> pro jiný obrázek!</p>
                     </div>
                 `;
 
