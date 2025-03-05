@@ -34,39 +34,55 @@
         let command = "";
         const secret = "meow";
         const docElement = document.getElementById("doc");
+        let catImage = null; 
 
         document.addEventListener("keydown", (event) => {
-            command += event.key.toLowerCase();
+            const key = event.key.toLowerCase();
+
+            // Pokud už je zobrazená kočka a uživatel stiskne "r", změní se obrázek
+            if (key === "r" && catImage) {
+                changeCatImage();
+                return;
+            }
+
+            command += key;
             if (!secret.startsWith(command)) {
-                command = ""; // Reset při špatném zadání
+                command = ""; 
             }
             if (command === secret) {
                 console.log("🐱 Meow! Přehledovník je teď jen o kočkách!");
 
-                // Uloží původní obsah #doc, aby se mohl vrátit po reloadu
                 localStorage.setItem("originalDoc", docElement.innerHTML);
 
-                // Nahradí obsah #doc obrázkem kočky
                 docElement.innerHTML = `
-                    <div style="display: flex; justify-content: center; align-items: center;">
-                        <img src="https://cataas.com/cat/says/Meow!" style="max-width: 100%; max-height: 100%;" alt="Meow!">
+                    <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+                        <img id="randomCat" src="https://cataas.com/cat?timestamp=${new Date().getTime()}" 
+                             style="max-width: 100%; max-height: 100%;" alt="Meow!">
+                        <p style="color: white; font-size: 18px;">Stiskni <strong>R</strong> pro novou kočku!</p>
                     </div>
                 `;
 
-                command = ""; // Reset příkazu
+                catImage = document.getElementById("randomCat");
+
+                command = ""; 
             }
         });
 
-        // Při reloadu stránky obnoví původní obsah #doc
+        function changeCatImage() {
+            if (catImage) {
+                catImage.src = `https://cataas.com/cat?timestamp=${new Date().getTime()}`;
+                console.log("🔄 Nová kočka načtena!");
+            }
+        }
+
         window.addEventListener("load", () => {
             const originalContent = localStorage.getItem("originalDoc");
             if (originalContent) {
                 docElement.innerHTML = originalContent;
-                localStorage.removeItem("originalDoc"); // Po obnovení smaže uložený obsah
+                localStorage.removeItem("originalDoc"); 
             }
         });
     })();
 </script>
 
-  
 <%- include('partials/tail') %>
