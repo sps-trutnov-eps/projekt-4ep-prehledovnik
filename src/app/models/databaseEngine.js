@@ -76,6 +76,7 @@ if (!db.has("predmety")) {
         }
   });
   db.set("projekty", { nextID: 1 });
+  db.set("struktury", []);
 }
 
 // OSNOVY
@@ -595,11 +596,10 @@ const databaseEngine = {
   struktury: tvorbaStruktur
 };
 
-function tvorbaStruktur() {
+function tvorbaStruktur(maturity) {
   let rozvrhy = gR();
   let osnovy = gO();
   let udalosti = gU();
-  let maturity = maturity.ziskatVsechnyMaturityJakoUdalosti();
 
   let struktury = [];
 
@@ -615,7 +615,7 @@ function tvorbaStruktur() {
     let denVTydnu = datum.getDay();
     let formattedDate = `${datum.getDate()}.${datum.getMonth() + 1}.`;
 
-    let tydenOdZacatku = Math.floor((datum - baseMonday) / (7 * increment));
+    let tydenOdZacatku = getWeekNumber(datum);
     let lichySud = tydenOdZacatku % 2 === 0 ? "sudy" : "lichy";
 
     const dniMap = ["Ne", "Po", "Út", "St", "Čt", "Pá", "So"];
@@ -653,12 +653,17 @@ function tvorbaStruktur() {
       }
     }
     let datumISO = datum.toISOString().split("T")[0];
-    denStruktura.udalosti = udalosti.filter(u => u.datum === datumISO);
+
+    let udalostiArray = Object.entries(udalosti)
+      .filter(([key, value]) => key !== "nextID")
+      .map(([key, value]) => ({ id: key, ...value }));
+
+    denStruktura.udalosti = udalostiArray.filter(u => u.datum === datumISO);
 
     struktury.push(denStruktura);
   }
 
-  return struktury;
+  db.set("struktury", struktury)
 }
 
 function getFirstMondayOfSeptember(year) {
@@ -667,6 +672,14 @@ function getFirstMondayOfSeptember(year) {
     date.setDate(date.getDate() + 1);
   }
   return date;
+}
+
+function getWeekNumber(d) {
+  d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+  let dayNum = d.getUTCDay() || 7;  // Převod neděle (0) na 7
+  d.setUTCDate(d.getUTCDate() + 4 - dayNum); // Nastavení na čtvrtek daného týdne
+  let yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
 }
 
 module.exports = databaseEngine;
