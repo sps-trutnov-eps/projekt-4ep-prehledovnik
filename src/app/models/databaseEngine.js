@@ -632,23 +632,25 @@ function tvorbaStruktur(maturity) {
       udalosti: [],
     };
 
-    if (rozvrhy?.hodiny?.[lichySud]?.[denNazev]) {
+    if (rozvrhy[Number(rozvrhy["nextID"]) - 1]?.hodiny?.[lichySud]?.[denNazev]) {
       for (let j = 0; j <= 9; j++) {
-        let hodinaData = rozvrhy.hodiny[lichySud][denNazev][j];
+        let hodinaData = rozvrhy[Number(rozvrhy["nextID"]) - 1].hodiny[lichySud][denNazev][j];
 
         if (hodinaData) {
           let predmet = hodinaData.predmet !== "volno" ? hodinaData.predmet : "";
           let skupina = hodinaData.predmet !== "volno" ? hodinaData.skupina : "";
           let key = predmet + hodinaData.trida + skupina;
-
-          denStruktura.hodiny.push({
-            cislo: j,
-            predmet: predmet,
-            skupina: skupina,
-            trida: hodinaData.trida,
-            mistnost: hodinaData.mistnost,
-            tema: osnovy[key] ? osnovy[key][0] : "",
-          });
+          
+          if (predmet != ""){
+            denStruktura.hodiny.push({
+              cislo: j,
+              predmet: predmet,
+              skupina: skupina,
+              trida: hodinaData.trida,
+              mistnost: hodinaData.mistnost,
+              tema: osnovy[key] ? osnovy[key][0] : "",
+            });
+          }
         }
       }
     }
