@@ -1,17 +1,22 @@
 # Použití
 
-Pakliže byl balanc zachován, po zapnutí aplikace by vás měla přivítat
-přátelská číča.
-Můžete jí sdělit své trable.
-Sice vám to nepomůže, ale je to celkem fajn volnočasová aktivita.
+Po zapnutí aplikace vás přivítá tato dokumentace.
+
+**AHOJ!**
 
 Až se rozhodnete začít pracovat, horní lišta vám umožní přepnout se na
 jednotlivé modely.
 Modely na sobě do jisté míry závisí tudíž je nutné vyplnit Osnovy před Rozvrhem
 a rozvrh před Kalendářem.
 
-Aplikace podporuje light a dark mód, který se automaticky detekuje dle módu
-browseru. Chrome aktuálně nefunguje, ale Edge a Firefox fungují.
+Aplikace podporuje light a dark mód, který se dá přepnout emotikonem v pravém
+horním rohu.
+
+Na konci této stránky na vás také čeká přátelská číča,
+vlídně propůjčená službou
+[CATAAS](https://cataas.com/).
+Můžete jí sdělit své trable.
+Sice vám to nepomůže, ale je to celkem fajn volnočasová aktivita.
 
 ## Osnovy
 
@@ -38,7 +43,7 @@ Po uložení se také pojmenuje kolonka plánu.
 ## Rozvrh
 
 Rozvrh nejprve nebude.
-Je ho proto nutné vytvořit velkým intuitivním oranžovým tlačítkem
+Je ho proto nutné vytvořit velkým intuitivním zeleným tlačítkem
 "Vytvořit rozvrh".
 
 Rozvrh je verzovaný z archivačních důvodů.
@@ -47,12 +52,12 @@ Verze obsahuje název a popis, který není povinný.
 Rozvrh se skládá ze sudého a lichého týdne.
 
 Zpočátku je rozvrh prázdný.
-Pro manipulaci s ním klikněte na "Upravit Rozvrh".
+Pro manipulaci s ním klikněte na "Změnit".
 Nyní můžete kliknout na políčko a vyplnit ho.
-Vyplňuje se třída, předmět, učebna a Skupina.
+Vyplňuje se třída, skupina, předmět a učebna.
 Předměty se vybírají z Osnov.
-Také existuje speciální předmět "Kroužek", který nevyžaduje žádné další
-informace.
+Také existuje speciální třída "Kroužek", která nevyžaduje skupinu a
+učebnu.
 
 Až budete s rozvrhem spokojeni, klikněte na "Uložit".
 Krom uložení můžete v editačním módu vytvořit novou verzi, či tu současnou
@@ -63,23 +68,24 @@ Na předchozí verze se můžete podívat, ale nelze je editovat.
 ## Kalendář
 
 Kalendář je takový pasivní prvek.
-Nic nemění, zato však zobrazuje data jak z rozvrhu, tak z událostí.
+Nic nemění, zato však zobrazuje data jak z rozvrhu, tak z událostí a
+dokonce i z událostí.
 
 Užití je zřejmé (snad).
 Po otevření modulu se vám zobrazí kalendář měsíční.
 Tam vidíte dny seskupené do měsíců a události, které se v nich dějí.
-Víkendy byly seskupeny do jednoho dne, jelikož vás nemusí zajímat.
+Víkendy jsou seskupeny do jednoho dne, jelikož vás nemusí zajímat.
 
 Na aktuální datum se můžete podívat tlačítkem "Aktuální".
-Pokud chcete jít na specifický měsíc, můžete kupodivu použít výběr měsíci a
+Pokud chcete jít na specifický měsíc, můžete kupodivu použít výběr měsíců a
 tlačítko "Na měsíc".
 
 Po kliknutí na událost se vám zobrazí její detail.
 
-Po stisknutí tlačítka "Na týdenní" se jeho text změní na "Na Měsíční".
-Také přepne na týdenní kalendář, kde se zobrazují vyučovací hodiny.
+Po stisknutí tlačítka "Na týdenní" se jeho text změní na "Na měsíční".
+Také se přepne na týdenní kalendář, kde se zobrazují vyučovací hodiny.
 
-Tlačítko "detail" kupodivu zobrazí detaily.
+Tlačítko "Téma" kupodivu zobrazí téma hodiny.
 Nečekané.
 
 ## Události
@@ -110,6 +116,9 @@ Událost lze editovat po kliknutí na její jméno v tabulce.
 
 Události jsou také vidět v kalendáři, což je tak trochu jejich celá pointa.
 
+Také jsou zde viditelné maturity. Po kiliknutí na maturitu budete přesměrováni
+na její editace.
+
 ## Projekty
 
 Projekty mají předpřipravené třídy, které budou projektovat.
@@ -117,34 +126,39 @@ Po kliknutí na třídu se vám zobrazí její přehled.
 
 Nejprve vás nejspíše zaujme podlouhlá reprezentace milestoneů.
 Ta se aktivuje jakmile vyplníte počáteční datum projektu a uložíte.
-Bude zobrazovat jak na tom je projekt časově.
+Bude zobrazovat jak je na tom projekt časově.
 
 Pod datem si naklikáte týmy, které se automaticky očíslují.
 Vy si už jen doplníte členy a téma.
 
-Týmy se zobrazují v sidebaru, kde na ně lze kliknout.
-Tím se otevře detailní přehled týmu.
+Týmy se zobrazují v sidebaru pod třídamy, kde na ně lze kliknout.
+Dají se sbalit, a dokonce to i dělají automaticky.
+Tým se otevře pro detailní přehled týmu.
 
 Zde můžete editovat členy, určit vedoucího týmu, přidat featury a stretch goaly,
 zapsat poznámky k pitchi a dokonce zapsat URL repozitáře.
 
-Následně má každá třída a každý tým i stránku s detaily, na kterou lze přepnout
+Následně má každá třída a každý tým stránku s detaily, na kterou lze přepnout
 v pravém horním rohu.
 Zde se zobrazují výsledky milestoneů.
+
+Tlačítko "Upload" slouží pro načtení dat ve speciálním formátu.
+[zde ukázka](example-project-sample.txt).
 
 ## Maturity
 
 Maturity jsou vcelku intuitivní modul.
 
 Maturity vám pomáhají plánovat maturitní zkoušky vašich žáků.
-Maturity se skládají ze čtyř částí:
-Praktické zkoušky z odborných předmětů (Praktická),
-Profilové části maturitní zkoušky (Ústní),
-Společná část maturitní zkoušky (Státní),
-Slohová práce (Sloh)
+Maturity se zkládají ze čtyř částí:
+
+* Praktické zkoušky z odborných předmětů (Praktická)
+* Profilové části maturitní zkoušky (Ústní)
+* Společná část maturitní zkoušky (Státní)
+* Slohová práce (Sloh)
 
 Každá část maturit je zprvu zamknutá.
-Chcete li jí upravit, musíte kliknout na velké oranžové tlačítko "Edit".
+Chcete li jí upravit, musíte kliknout na velké oranžové tlačítko "Změnit".
 Poté můžete upravovat a až budete spokojení, klikněte na tlačítko "Uložit",
 které zákeřně nahradilo tlačítko "Edit".
 

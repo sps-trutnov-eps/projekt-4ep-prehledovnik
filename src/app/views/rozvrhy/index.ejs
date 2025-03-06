@@ -297,9 +297,9 @@
                                                     </td>
                                                     <% periods.forEach(period=> { %>
                                                         <td>
-                                                            <button id="btn-<%= type %>-<%= day %>-<%= period %>"
+                                                            <button id="btn-<%= type %>-<%= day %>-<%= period.replace('+', '') %>"
                                                                 class="timetable-btn outline secondary disabled"
-                                                                onclick="toggleDayModal('<%= period %>', '<%= day %>', '<%= type %>', event)"
+                                                                onclick="toggleDayModal('<%= period.replace('+', '') %>', '<%= day %>', '<%= type %>', event)"
                                                                 data-target="popupModal">
                                                                 <sman>
                                                                    <span class="hodina-trida"></span>
@@ -319,7 +319,6 @@
                                         <dialog  id="popupModal">
                                             <article>
                                                 <header>
-                                                    <button aria-label="Close" rel="prev" data-target="popupModal" onclick="toggleModal(event)"></button>
                                                     <p><strong>Tvorba hodiny</strong></p>
                                                 </header>
                                                 <main>
@@ -568,7 +567,7 @@
                     if (hodina.predmet === "volno") {
                         // button.classList.replace('secondary', 'primary');
                         button.classList.add('is-free');
-                        predmetSpan.textContent = "volno";
+                        predmetSpan.textContent = "";
                         mistnostSpan.textContent = "";
                         skupinaSpan.textContent = "";
                         tridaSpan.textContent = "";
@@ -587,6 +586,13 @@
                     skupinaSpan.textContent = '';
                     tridaSpan.textContent = '';
                 }
+            }
+        }
+
+        function addPluses() {
+            const buttons = document.querySelectorAll('.is-free');
+            for (let i = 0; i < buttons.length; i++) {
+                buttons[i].querySelector('.hodina-predmet').textContent = '+';
             }
         }
 
@@ -765,6 +771,7 @@
                     editBtn.textContent = 'Změnit';
 
                     ulozitRozvrh();
+
                 }
             });
         });
@@ -829,6 +836,7 @@
 
             editBtn.addEventListener('click', function() {
                 if (editBtn.textContent === 'Změnit') {
+                    addPluses();
 
                     novaBtn.style.display = 'inline-block';
                     smazatBtn.style.display = 'inline-block';
@@ -876,6 +884,7 @@ const toggleDayModal = (cas, den, tyden, event) => {
         : rozvrh.sudy[denHodiny][casHodiny];
 
     if (existingLesson) {
+        document.getElementById("trida").value = existingLesson.trida || "";
         document.getElementById("jakypredmet").value = existingLesson.predmet || "";
         document.getElementById("mistnost").value = existingLesson.mistnost || "T16";
         document.getElementById("skupina").value = existingLesson.skupina || "cela";

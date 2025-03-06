@@ -1,3 +1,32 @@
+<%
+	// FUNCTIONS //
+	
+	
+	function GetMark (milestone, mark){
+		if (clas["tymy"] && clas["tymy"].length > 0) { %>
+			<% for (let i = 0; i < clas["tymy"].length; i++) { %>
+				<% if(clas["tymy"][i]["clenove"].length != 0) { %>
+					<% for (let iM = 0; iM < clas["tymy"][i]["clenove"].length; iM++) { %>
+						<% if (clas["tymy"][i][mark] != undefined) { %>
+							<td style="text-align: center;">
+								<% if(clas["tymy"][i][mark][iM]["znamky"][milestone] > 0) { %> <%= clas["tymy"][i][mark][iM]["znamky"][milestone]; %> <% } else { %>-<% } %>
+							</td>
+						<% } else { %>
+								<td style="text-align: center;">-</td>
+						<% } %>
+					<% } %>
+				<% } else { %>
+						<td style="text-align: center;">-</td>
+				<% } %>
+			<% } %>
+		<% } else { %>
+			<td style="text-align: center;">Žádné týmy</td>
+		<% } 
+	}
+	
+%>
+
+
 <article style="flex: 3; box-shadow: none;">
    <header>
       <nav>
@@ -52,7 +81,7 @@
 			 </div>
 			 
 			 
-      <div style=" display: flex; position: relative; overflow-y: auto; max-height: calc(100vh - 14em); padding-right: 15px; ">
+      <div style=" display: flex; position: relative; overflow-y: auto; overflow-x: auto; max-height: calc(100vh - 16em); padding-right: 15px; ">
          <div id="mainThing" style="flex: auto">
 			
  				<table id="detailsTable">
@@ -74,10 +103,12 @@
 									<th style="text-align: center;"><%= member %></th>
 									
 								<% } %>
+								<% if (clas["tymy"][i]["clenove"].length == 0) { %> <th style="text-align: center;"></th> <% } %>
 							<% } } %>
 						</tr>
 						<tr class="marks">
-                     <th style="width: 25%; text-align: center;" colspan="2">Pitch</th>
+                     <th></th>
+                     <th style="width: 25%; text-align: center;">Pitch</th>
 							<% if (clas["tymy"] != undefined) { for (let i = 0; i < clas["tymy"].length; i++) { %>
 								<% for (let iM = 0; iM < clas["tymy"][i]["clenove"].length; iM++) { %>
 									<% let member = clas["tymy"][i]["clenove"][iM]; %>
@@ -87,6 +118,7 @@
 									</th>
 									
 								<% } %>
+								<% if (clas["tymy"][i]["clenove"].length == 0) { %> <th style="text-align: center;"></th> <% } %>
 							<% } } %>
 						</tr>
 					</thead>
@@ -95,257 +127,67 @@
                      <td style="text-align: center;" rowspan="3">1.</td>
 						</tr>
 						<tr class="marks">
-							<td style="text-align: center;">Známka za commity</td>
-							<% if (clas["tymy"] != undefined) { %>
-								<% for (let i = 0; i < clas["tymy"].length; i++) { %>
-									<% if (clas["tymy"][i]["znamkyCom"] != undefined) { %>
-										<% for (let iM = 0; iM < clas["tymy"][i]["znamkyCom"].length; iM++) { %>
-											<td style="text-align: center;">
-												<% if(clas["tymy"][i]["znamkyCom"][iM]["znamky"][0] > 0) { %> <%= clas["tymy"][i]["znamkyCom"][iM]["znamky"][0]; %> <% } else { %>-<% } %>
-											</td>
-										<% } %>
-									<% } else { %>
-											<td style="text-align: center;">-</td>
-									<% } %>
-								<% } %>
-							<% } %>
-							
+							<td style="text-align: center;">Za commity</td>
+							<% GetMark(0, "znamkyCom"); %>
 						</tr>
 						<tr class="marks">
-							<td style="text-align: center;">Známka za devlog</td>
-							<% if (clas["tymy"] && clas["tymy"].length > 0) { %>
-								<% for (let i = 0; i < clas["tymy"].length; i++) { %>
-									<% if (clas["tymy"][i]["znamkyDev"] != undefined) { %>
-										<% for (let iM = 0; iM < clas["tymy"][i]["znamkyDev"].length; iM++) { %>
-											<td style="text-align: center;">
-												<% if (clas["tymy"][i]["znamkyDev"][iM]["znamky"][0] > 0) { %> <%= clas["tymy"][i]["znamkyDev"][iM]["znamky"][0]; %> <% } else { %>-<% } %>
-											</td>
-										<% } %>
-									<% } else { %>
-										<td style="text-align: center;">-</td>
-									<% } %>
-								<% } %>
-							<% } else { %>
-								<td style="text-align: center;">Žádné týmy</td>
-							<% } %>
-							
+							<td style="text-align: center;">Za devlog</td>
+							<% GetMark(0, "znamkyDev"); %>
 						</tr>
 						<tr class="cur">
                      <td style="text-align: center;" rowspan="3">2.</td>
 						</tr>
 						<tr class="marks">
-							<td style="text-align: center;">Známka za commity</td>
-							<% if (clas["tymy"] && clas["tymy"].length > 0) { %>
-								<% for (let i = 0; i < clas["tymy"].length; i++) { %>
-									<% if (clas["tymy"][i]["znamkyCom"] != undefined) { %>
-										<% if (clas["tymy"][i]["znamkyCom"] != undefined) { %>
-											<% for (let iM = 0; iM < clas["tymy"][i]["znamkyCom"].length; iM++) { %>
-												<td style="text-align: center;">
-													<% if( clas["tymy"][i]["znamkyCom"][iM]["znamky"][1] > 0 ) { %> <%= clas["tymy"][i]["znamkyCom"][iM]["znamky"][1]; %> <% } else { %>-<% } %>
-												</td>
-											<% } %>
-										<% } else { %>
-											<td style="text-align: center;">-</td>
-										<% } %>
-									<% } else { %>
-										<td style="text-align: center;">-</td>
-									<% } %>
-								<% } %>
-							<% } else { %>
-								<td style="text-align: center;">Žádné týmy</td>
-							<% } %>
-							
+							<td style="text-align: center;">Za commity</td>
+							<% GetMark(1, "znamkyCom"); %>
 						</tr>
 						<tr class="marks">
-							<td style="text-align: center;">Známka za devlog</td>
-							<% if (clas["tymy"] && clas["tymy"].length > 0) { %>
-								<% for (let i = 0; i < clas["tymy"].length; i++) { %>
-									<% if (clas["tymy"][i]["znamkyDev"] != undefined) { %>
-										<% for (let iM = 0; iM < clas["tymy"][i]["znamkyDev"].length; iM++) { %>
-											<td style="text-align: center;">
-												<% if( clas["tymy"][i]["znamkyDev"][iM]["znamky"][1] > 0 ) { %> <%= clas["tymy"][i]["znamkyDev"][iM]["znamky"][1]; %> <% } else { %>-<% } %>
-											</td>
-										<% } %>
-									<% } else { %>
-										<td style="text-align: center;">-</td>
-									<% } %>
-								<% } %>
-							<% } else { %>
-								<td style="text-align: center;">Žádné týmy</td>
-							<% } %>
-							
+							<td style="text-align: center;">Za devlog</td>
+							<% GetMark(1, "znamkyDev"); %>
 						</tr>
 						<tr class="cur">
                      <td style="text-align: center;" rowspan="3">3.</td>
 						</tr>
 						<tr class="marks">
-							<td style="text-align: center;">Známka za commity</td>
-							<% if (clas["tymy"] && clas["tymy"].length > 0) { %>
-								<% for (let i = 0; i < clas["tymy"].length; i++) { %>
-									<% if (clas["tymy"][i]["znamkyCom"] != undefined) { %>
-										<% if (clas["tymy"][i]["znamkyCom"] != undefined) { %>
-											<% for (let iM = 0; iM < clas["tymy"][i]["znamkyCom"].length; iM++) { %>
-												<td style="text-align: center;">
-													<% if( clas["tymy"][i]["znamkyCom"][iM]["znamky"][2] > 0 ) { %> <%= clas["tymy"][i]["znamkyCom"][iM]["znamky"][2]; %> <% } else { %>-<% } %>
-												</td>
-											<% } %>
-										<% } else { %>
-											<td style="text-align: center;">-</td>
-										<% } %>
-									<% } else { %>
-										<td style="text-align: center;">-</td>
-									<% } %>
-								<% } %>
-							<% } else { %>
-								<td style="text-align: center;">Žádné týmy</td>
-							<% } %>
+							<td style="text-align: center;">Za commity</td>
+							<% GetMark(2, "znamkyCom"); %>
 						</tr>
 						<tr class="marks">
-							<td style="text-align: center;">Známka za devlog</td>
-							<% if (clas["tymy"] && clas["tymy"].length > 0) { %>
-								<% for (let i = 0; i < clas["tymy"].length; i++) { %>
-									<% if (clas["tymy"][i]["znamkyDev"] != undefined) { %>
-										<% for (let iM = 0; iM < clas["tymy"][i]["znamkyDev"].length; iM++) { %>
-											<td style="text-align: center;">
-												<% if( clas["tymy"][i]["znamkyDev"][iM]["znamky"][2] > 0 ) { %> <%= clas["tymy"][i]["znamkyDev"][iM]["znamky"][2]; %> <% } else { %>-<% } %>
-											</td>
-										<% } %>
-									<% } else { %>
-										<td style="text-align: center;">-</td>
-									<% } %>
-								<% } %>
-							<% } else { %>
-								<td style="text-align: center;">Žádné týmy</td>
-							<% } %>
+							<td style="text-align: center;">Za devlog</td>
+							<% GetMark(2, "znamkyDev"); %>
 						</tr>
 						<tr class="cur">
                      <td style="text-align: center;" rowspan="3">4.</td>
 						</tr>
 						<tr class="marks">
-							<td style="text-align: center;">Známka za commity</td>
-							<% if (clas["tymy"] && clas["tymy"].length > 0) { %>
-								<% for (let i = 0; i < clas["tymy"].length; i++) { %>
-									<% if (clas["tymy"][i]["znamkyCom"] != undefined) { %>
-										<% if (clas["tymy"][i]["znamkyCom"] != undefined) { %>
-											<% for (let iM = 0; iM < clas["tymy"][i]["znamkyCom"].length; iM++) { %>
-												<td style="text-align: center;">
-													<% if( clas["tymy"][i]["znamkyCom"][iM]["znamky"][3] > 0 ) { %> <%= clas["tymy"][i]["znamkyCom"][iM]["znamky"][3]; %> <% } else { %>-<% } %>
-												</td>
-											<% } %>
-										<% } else { %>
-											<td style="text-align: center;">-</td>
-										<% } %>
-									<% } else { %>
-										<td style="text-align: center;">-</td>
-									<% } %>
-								<% } %>
-							<% } else { %>
-								<td style="text-align: center;">Žádné týmy</td>
-							<% } %>
+							<td style="text-align: center;">Za commity</td>
+							<% GetMark(3, "znamkyCom"); %>
 						</tr>
 						<tr class="marks">
-							<td style="text-align: center;">Známka za devlog</td>
-							<% if (clas["tymy"] && clas["tymy"].length > 0) { %>
-								<% for (let i = 0; i < clas["tymy"].length; i++) { %>
-									<% if (clas["tymy"][i]["znamkyDev"] != undefined) { %>
-										<% for (let iM = 0; iM < clas["tymy"][i]["znamkyDev"].length; iM++) { %>
-											<td style="text-align: center;">
-												<% if( clas["tymy"][i]["znamkyDev"][iM]["znamky"][3] > 0 ) { %> <%= clas["tymy"][i]["znamkyDev"][iM]["znamky"][3]; %> <% } else { %>-<% } %>
-											</td>
-										<% } %>
-									<% } else { %>
-										<td style="text-align: center;">-</td>
-									<% } %>
-								<% } %>
-							<% } else { %>
-								<td style="text-align: center;">Žádné týmy</td>
-							<% } %>
+							<td style="text-align: center;">Za devlog</td>
+							<% GetMark(3, "znamkyDev"); %>
 						</tr>
 						<tr class="cur">
                      <td style="text-align: center;" rowspan="3">5.</td>
 						</tr>
 						<tr class="marks">
-							<td style="text-align: center;">Známka za commity</td>
-							<% if (clas["tymy"] && clas["tymy"].length > 0) { %>
-								<% for (let i = 0; i < clas["tymy"].length; i++) { %>
-									<% if (clas["tymy"][i]["znamkyCom"] != undefined) { %>
-										<% if (clas["tymy"][i]["znamkyCom"] != undefined) { %>
-											<% for (let iM = 0; iM < clas["tymy"][i]["znamkyCom"].length; iM++) { %>
-												<td style="text-align: center;">
-													<% if( clas["tymy"][i]["znamkyCom"][iM]["znamky"][4] > 0 ) { %> <%= clas["tymy"][i]["znamkyCom"][iM]["znamky"][4]; %> <% } else { %>-<% } %>
-												</td>
-											<% } %>
-										<% } else { %>
-											<td style="text-align: center;">-</td>
-										<% } %>
-									<% } else { %>
-										<td style="text-align: center;">-</td>
-									<% } %>
-								<% } %>
-							<% } else { %>
-								<td style="text-align: center;">Žádné týmy</td>
-							<% } %>
+							<td style="text-align: center;">Za commity</td>
+							<% GetMark(4, "znamkyCom"); %>
 						</tr>
 						<tr class="marks">
-							<td style="text-align: center;">Známka za devlog</td>
-							<% if (clas["tymy"] && clas["tymy"].length > 0) { %>
-								<% for (let i = 0; i < clas["tymy"].length; i++) { %>
-									<% if (clas["tymy"][i]["znamkyDev"] != undefined) { %>
-										<% for (let iM = 0; iM < clas["tymy"][i]["znamkyDev"].length; iM++) { %>
-											<td style="text-align: center;">
-												<% if( clas["tymy"][i]["znamkyDev"][iM]["znamky"][4] > 0 ) { %> <%= clas["tymy"][i]["znamkyDev"][iM]["znamky"][4]; %> <% } else { %>-<% } %>
-											</td>
-										<% } %>
-									<% } else { %>
-										<td style="text-align: center;">-</td>
-									<% } %>
-								<% } %>
-							<% } else { %>
-								<td style="text-align: center;">Žádné týmy</td>
-							<% } %>
+							<td style="text-align: center;">Za devlog</td>
+							<% GetMark(4, "znamkyDev"); %>
 						</tr>
 						<tr class="cur">
                      <td style="text-align: center;" rowspan="3">6.</td>
 						</tr>
 						<tr class="marks">
-							<td style="text-align: center;">Známka za commity</td>
-							<% if (clas["tymy"] && clas["tymy"].length > 0) { %>
-								<% for (let i = 0; i < clas["tymy"].length; i++) { %>
-									<% if (clas["tymy"][i]["znamkyCom"] != undefined) { %>
-										<% if (clas["tymy"][i]["znamkyCom"] != undefined) { %>
-											<% for (let iM = 0; iM < clas["tymy"][i]["znamkyCom"].length; iM++) { %>
-												<td style="text-align: center;">
-													<% if( clas["tymy"][i]["znamkyCom"][iM]["znamky"][5] > 0 ) { %> <%= clas["tymy"][i]["znamkyCom"][iM]["znamky"][5]; %> <% } else { %>-<% } %>
-												</td>
-											<% } %>
-										<% } else { %>
-											<td style="text-align: center;">-</td>
-										<% } %>
-									<% } else { %>
-										<td style="text-align: center;">-</td>
-									<% } %>
-								<% } %>
-							<% } else { %>
-								<td style="text-align: center;">Žádné týmy</td>
-							<% } %>
+							<td style="text-align: center;">Za commity</td>
+							<% GetMark(5, "znamkyCom"); %>
 						</tr>
 						<tr class="marks">
-							<td style="text-align: center;">Známka za devlog</td>
-							<% if (clas["tymy"] && clas["tymy"].length > 0) { %>
-								<% for (let i = 0; i < clas["tymy"].length; i++) { %>
-									<% if (clas["tymy"][i]["znamkyDev"] != undefined) { %>
-										<% for (let iM = 0; iM < clas["tymy"][i]["znamkyDev"].length; iM++) { %>
-											<td style="text-align: center;">
-												<% if (clas["tymy"][i]["znamkyDev"][iM]["znamky"][5] > 0 ) { %> <%= clas["tymy"][i]["znamkyDev"][iM]["znamky"][5]; %> <% } else { %>-<% } %>
-											</td>
-										<% } %>
-									<% } else { %>
-										<td style="text-align: center;">-</td>
-									<% } %>
-								<% } %>
-							<% } else { %>
-								<td style="text-align: center;">Žádné týmy</td>
-							<% } %>
+							<td style="text-align: center;">Za devlog</td>
+							<% GetMark(5, "znamkyDev"); %>
 						</tr>
 					</tbody>
 				</table>
@@ -380,14 +222,14 @@
                      <td style="text-align: center;" rowspan="3">1.</td>
 						</tr>
 						<tr class="marks">
-							<td style="text-align: center;">Známka za commity</td>
+							<td style="text-align: center;">Za commity</td>
 							<td style="text-align: center;">0</td>
 							<td style="text-align: center;">0</td>
 							<td style="text-align: center;">0</td>
 							<td style="text-align: center;">0</td>
 						</tr>
 						<tr class="marks">
-							<td style="text-align: center;">Známka za devlog</td>
+							<td style="text-align: center;">Za devlog</td>
 							<td style="text-align: center;">0</td>
 							<td style="text-align: center;">0</td>
 							<td style="text-align: center;">0</td>
@@ -397,14 +239,14 @@
                      <td style="text-align: center;" rowspan="3">2.</td>
 						</tr>
 						<tr class="marks">
-							<td style="text-align: center;">Známka za commity</td>
+							<td style="text-align: center;">Za commity</td>
 							<td style="text-align: center;">0</td>
 							<td style="text-align: center;">0</td>
 							<td style="text-align: center;">0</td>
 							<td style="text-align: center;">0</td>
 						</tr>
 						<tr class="marks">
-							<td style="text-align: center;">Známka za devlog</td>
+							<td style="text-align: center;">Za devlog</td>
 							<td style="text-align: center;">0</td>
 							<td style="text-align: center;">0</td>
 							<td style="text-align: center;">0</td>
@@ -414,14 +256,14 @@
                      <td style="text-align: center;" rowspan="3">3.</td>
 						</tr>
 						<tr class="marks">
-							<td style="text-align: center;">Známka za commity</td>
+							<td style="text-align: center;">Za commity</td>
 							<td style="text-align: center;">0</td>
 							<td style="text-align: center;">0</td>
 							<td style="text-align: center;">0</td>
 							<td style="text-align: center;">0</td>
 						</tr>
 						<tr class="marks">
-							<td style="text-align: center;">Známka za devlog</td>
+							<td style="text-align: center;">Za devlog</td>
 							<td style="text-align: center;">0</td>
 							<td style="text-align: center;">0</td>
 							<td style="text-align: center;">0</td>
@@ -431,14 +273,14 @@
                      <td style="text-align: center;" rowspan="3">4.</td>
 						</tr>
 						<tr class="marks">
-							<td style="text-align: center;">Známka za commity</td>
+							<td style="text-align: center;">Za commity</td>
 							<td style="text-align: center;">0</td>
 							<td style="text-align: center;">0</td>
 							<td style="text-align: center;">0</td>
 							<td style="text-align: center;">0</td>
 						</tr>
 						<tr class="marks">
-							<td style="text-align: center;">Známka za devlog</td>
+							<td style="text-align: center;">Za devlog</td>
 							<td style="text-align: center;">0</td>
 							<td style="text-align: center;">0</td>
 							<td style="text-align: center;">0</td>
@@ -448,14 +290,14 @@
                      <td style="text-align: center;" rowspan="3">5.</td>
 						</tr>
 						<tr class="marks">
-							<td style="text-align: center;">Známka za commity</td>
+							<td style="text-align: center;">Za commity</td>
 							<td style="text-align: center;">0</td>
 							<td style="text-align: center;">0</td>
 							<td style="text-align: center;">0</td>
 							<td style="text-align: center;">0</td>
 						</tr>
 						<tr class="marks">
-							<td style="text-align: center;">Známka za devlog</td>
+							<td style="text-align: center;">Za devlog</td>
 							<td style="text-align: center;">0</td>
 							<td style="text-align: center;">0</td>
 							<td style="text-align: center;">0</td>
@@ -465,14 +307,14 @@
                      <td style="text-align: center;" rowspan="3">6.</td>
 						</tr>
 						<tr class="marks">
-							<td style="text-align: center;">Známka za commity</td>
+							<td style="text-align: center;">Za commity</td>
 							<td style="text-align: center;">0</td>
 							<td style="text-align: center;">0</td>
 							<td style="text-align: center;">0</td>
 							<td style="text-align: center;">0</td>
 						</tr>
 						<tr class="marks">
-							<td style="text-align: center;">Známka za devlog</td>
+							<td style="text-align: center;">Za devlog</td>
 							<td style="text-align: center;">0</td>
 							<td style="text-align: center;">0</td>
 							<td style="text-align: center;">0</td>

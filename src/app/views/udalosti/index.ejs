@@ -286,7 +286,7 @@
                 <td style="padding-left: 30px;"><%= udalost.casOd %></td>
                 <td style="padding-left: 30px;"><%= udalost.casDo %></td>
         
-              <% } else if (udalost.nazev === "PŽOP" || udalost.nazev === "PŽOP - dodatečný termín") { %>
+              <% } else if (udalost.nazev === "PZOP" || udalost.nazev === "PZOP - dodatečný termín") { %>
                 <td><%= formatDate(udalost.datum) %></td>
                 <td class="empty-cell"></td>
                 <td class="empty-cell"></td>
@@ -338,8 +338,8 @@
           case 'SLOH':
             window.location.href = `/maturity/sloh`;
             break;
-          case 'PŽOP':
-          case 'PŽOP - dodatečný termín':
+          case 'PZOP':
+          case 'PZOP - dodatečný termín':
             window.location.href = `/maturity/`;
             break;
           default:
