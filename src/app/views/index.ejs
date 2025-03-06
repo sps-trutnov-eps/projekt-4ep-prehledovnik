@@ -102,19 +102,80 @@ resize: horizontal;
 
 <article style="flex: 3; overflow-y: auto">
     <header>
-      <h1><%= title %></h1>
+        <h1><%= title %></h1>
     </header>
-    <main>
-        <div class="timeline">
-            <% timelineItems.forEach((item, index) => { %>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <%= (index + 1) + '. ' + item.content %>
+    <div id="doc">
+        <main>
+            <div class="timeline">
+                <% timelineItems.forEach((item, index) => { %>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <%= (index + 1) + '. ' + item.content %>
+                        </div>
                     </div>
-                </div>
-            <% }); %>
+                <% }); %>
+            </div>
+            <img id="cat" style="display: none; object-fit: contain; max-height: 100%;" 
+             src="https://cataas.com/cat/says/P%C5%99ehledovn%C3%ADk?fontColor=orange&fontSize=64" 
+             alt="Přehledovník">
         </div>
     </main>
 </article>
+
+<script>
+    (function () {
+        let command = "";
+        const secret = "mnau";
+        const docElement = document.getElementById("doc");
+        let catImage = null; 
+
+        document.addEventListener("keydown", (event) => {
+            const key = event.key.toLowerCase();
+
+            if (key === "r" && catImage) {
+                changeCatImage();
+                return;
+            }
+
+            command += key;
+            if (!secret.startsWith(command)) {
+                command = ""; 
+            }
+            if (command === secret) {
+                console.log("🐱 Mňau! Přehledovník je teď jen o kočkách!");
+
+                localStorage.setItem("originalDoc", docElement.innerHTML);
+
+                docElement.innerHTML = `
+                    <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+                        <img id="randomCat" src="https://cataas.com/cat?timestamp=${new Date().getTime()}" 
+                             style="max-width: 100%; max-height: 100%;" alt="Mňau!">
+                        <p style="color: black; font-size: 18px;">Stiskni <strong>R</strong> pro jiný obrázek!</p>
+                    </div>
+                `;
+
+                catImage = document.getElementById("randomCat");
+
+                command = ""; 
+            }
+        });
+
+        function changeCatImage() {
+            if (catImage) {
+                catImage.src = `https://cataas.com/cat?timestamp=${new Date().getTime()}`;
+                console.log("🔄 Nová kočka načtena!");
+            }
+        }
+
+        window.addEventListener("load", () => {
+            const originalContent = localStorage.getItem("originalDoc");
+            if (originalContent) {
+                docElement.innerHTML = originalContent;
+                localStorage.removeItem("originalDoc"); 
+            }
+        });
+    })();
+</script>
+
 <%- include('./partials/tail') %>
