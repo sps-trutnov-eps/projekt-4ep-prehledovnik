@@ -436,6 +436,7 @@
       let detail = document.getElementById("detail")
 
       document.getElementById("name").innerText = udalost.nazev
+      if(udalost.datumOd != undefined)
       document.getElementById("from").innerText = udalost.datumOd
       document.getElementById("to").innerText = udalost.datumDo
       document.getElementById("date").innerText = udalost.datum
