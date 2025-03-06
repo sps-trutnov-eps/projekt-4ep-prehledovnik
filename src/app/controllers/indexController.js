@@ -68,7 +68,8 @@ let moduleContentCache = null;
 
 // Helper function to render the page with appropriate timeline content
 function renderModulePage(req, res, module) {
-  const title = module === 'home' ? 'Začněte s přehledovníkem' : module.charAt(0).toUpperCase() + module.slice(1);
+  let title = module === 'home' ? 'Začněte s přehledovníkem' : module.charAt(0).toUpperCase() + module.slice(1);
+  if (title == 'Kalendar') title = 'Kalendář';
   
   // Load content if not already cached
   if (!moduleContentCache) {
