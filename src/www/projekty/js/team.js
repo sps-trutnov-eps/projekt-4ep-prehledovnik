@@ -266,7 +266,6 @@ async function saveTeam(){
       mailsData.push(membersMails);
    }
    data["emails"] = mailsData;
-   //console.log(mailsData);
    
    if (ceo.selectedIndex-1 == -1){
       data["ceo"] = undefined;
