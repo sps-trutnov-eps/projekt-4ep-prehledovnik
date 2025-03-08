@@ -38,6 +38,7 @@ function parseModuleContent() {
         } else {
           // For other headers, convert to lowercase and remove diacritics
           moduleKey = headerText.toLowerCase()
+            // normalize NDF rozdělí znak na základ a diakritiku
             .normalize("NFD").replace(/[\u0300-\u036f]/g, ""); // Remove diacritics
         }
         
@@ -64,20 +65,17 @@ function parseModuleContent() {
 }
 
 // Cache for module content
-let moduleContentCache = null;
+let moduleContent = parseModuleContent();
 
 // Helper function to render the page with appropriate timeline content
 function renderModulePage(req, res, module) {
-  let title = module === 'home' ? 'Začněte s přehledovníkem' : module.charAt(0).toUpperCase() + module.slice(1);
+  let title = module === 'home' ? 'Začněte s přehledovníkem'
+                                : module.charAt(0).toUpperCase() + module.slice(1);
+     // na stránce už diakritiku chceme
   if (title == 'Kalendar') title = 'Kalendář';
   
-  // Load content if not already cached
-  if (!moduleContentCache) {
-    moduleContentCache = parseModuleContent();
-  }
-  
   // Get items for the requested module
-  const timelineItems = moduleContentCache[module] || [];
+  const timelineItems = moduleContent[module] || [];
   
   res.render('index', { 
     title: title,

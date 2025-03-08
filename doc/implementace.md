@@ -36,6 +36,33 @@ Tímto mimo aplikaci zapnete také
 který vám automaticky restartuje aplikaci při změně gitem sledovaného souboru.
 Pakliže ho budete potřebovat restartovat manuálně, napište do něj `rs`.
 
+## Domovská stránka
+
+Domovská stránka žádné htmx nepoužívá, ale nijak jí to nevadí.
+Ono je domovských stránek ve skutečnosti víc.
+Základem je `/index/`.
+Poté jsou další `/index/<modul>`.
+Sidebar k nim má ke všem linky.
+
+Ze strany serveru se do ejs dostane nadpis, technický název modulu a instrukce
+pro aktuální modul.
+
+Technický název se používá pro nastavení barev tlačítek.
+Jednotlivé body instrukcí jsou uloženy v `timelineItems`.
+Každý bod je objekt, který obsahuje pouze `content`, což je string.
+Možná trochu redundantní, ale budiž.
+Z těch se poté tvoří seznam.
+
+Ve scriptu je jednoduchý EventListener na "keydown", který kontroluje, zda bylo
+zadáno kouzelné slůvko: "mnau", načež zobrazí kočku.
+
+Instrukce jako takové jsou schované v `/doc/navod.md`.
+
+Index controller obsahuje `parseModuleContent`, kde se návod přemění na
+strukturovaný objekt.
+Pomocí `.normalize("NFD").replace(/[\u0300-\u036f]/g, "")` se dá pěkně odstranit
+diakritika, čehož je Zeus dozajista fanouškem.
+
 ## Osnovy
 
 Tady žádné htmx nenajdete.
@@ -54,7 +81,7 @@ nerozbilo, ale stejně to někdo nechtěl.
 Zde dokonce i něco je v routeru, ale jen se tam připravují data pro controller.
 V controlleru je hodně funkcí, které jsou pouze interface k databázi.
 Jediná výjimka je `exports.edit`.
-Zde se přidá koncovka předmětu a odstraní se extra \'-\', jelikož to rozbíjelo
+Zde se přidá koncovka předmětu a odstraní se extra '-', jelikož to rozbíjelo
 pár věcí.
 Také tu je neoptimální blok kódu, pokud je tu někdo, kdo rád optimalizuje.
 
@@ -173,7 +200,7 @@ Class je pro celou třídu, team pro specifický tým.
 
 JS je zvlášť v `src/www/projekty/js/main.js` a `src/www/projekty/js/team.js`.
 
-Detaily jsou \'jen\' generace tabulek.
+Detaily jsou 'jen' generace tabulek.
 Hodně forů, hodně ifů, hodně čtení objektů.
 Tedy, ono to je všechno jen generování tabulek.
 Já to všude nebudu opakovat.
