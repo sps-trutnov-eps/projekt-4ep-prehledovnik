@@ -606,13 +606,13 @@ function tvorbaStruktur(maturity) {
   const increment = 24 * 60 * 60 * 1000;
   const dnesniDatum = new Date();
   const aktualniRok = dnesniDatum.getFullYear();
-
   const rok = dnesniDatum.getMonth() < 7 ? aktualniRok - 1 : aktualniRok;
 
   const startDate = new Date(rok, 7, 1);
   const endDate = new Date(rok + 1, 6, 31);
-
   let baseMonday = getFirstMondayOfSeptember(rok);
+
+  let vsechnyDny = []; // Seznam všech dní pro přehlednost
 
   for (let i = startDate.getTime(); i <= endDate.getTime(); i += increment) {
     let datum = new Date(i);
@@ -636,28 +636,6 @@ function tvorbaStruktur(maturity) {
       udalosti: [],
     };
 
-    if (rozvrhy[Number(rozvrhy["nextID"]) - 1]?.hodiny?.[lichySud]?.[denNazev]) {
-      for (let j = 0; j <= 9; j++) {
-        let hodinaData = rozvrhy[Number(rozvrhy["nextID"]) - 1].hodiny[lichySud][denNazev][j];
-
-        if (hodinaData) {
-          let predmet = hodinaData.predmet !== "volno" ? hodinaData.predmet : "";
-          let skupina = hodinaData.predmet !== "volno" ? hodinaData.skupina : "";
-          let key = predmet + hodinaData.trida + skupina;
-          
-          if (predmet != ""){
-            denStruktura.hodiny.push({
-              cislo: j,
-              predmet: predmet,
-              skupina: skupina,
-              trida: hodinaData.trida,
-              mistnost: hodinaData.mistnost,
-              tema: osnovy[key] ? osnovy[key][0] : "",
-            });
-          }
-        }
-      }
-    }
     let datumISO = datum.toISOString().split("T")[0];
 
     let udalostiArray = Object.entries(udalosti)
@@ -666,10 +644,45 @@ function tvorbaStruktur(maturity) {
 
     denStruktura.udalosti = udalostiArray.filter(u => u.datum === datumISO);
 
-    struktury.push(denStruktura);
+    // Pokud je v tento den událost typu "Škola", "Budova" nebo "Učitel", všechny hodiny jsou zrušené
+    let jeDenZrusen = denStruktura.udalosti.some(u =>
+      ["Škola", "Budova", "Učitel"].includes(u.typ)
+    );
+
+    if (!jeDenZrusen && rozvrhy[Number(rozvrhy["nextID"]) - 1]?.hodiny?.[lichySud]?.[denNazev]) {
+      for (let j = 0; j <= 9; j++) {
+        let hodinaData = rozvrhy[Number(rozvrhy["nextID"]) - 1].hodiny[lichySud][denNazev][j];
+
+        if (hodinaData) {
+          let predmet = hodinaData.predmet !== "volno" ? hodinaData.predmet : "";
+          let skupina = hodinaData.predmet !== "volno" ? hodinaData.skupina : "";
+          let key = predmet + hodinaData.trida + skupina;
+
+          if (predmet !== "") {
+            let novaHodina = {
+                cislo: j,
+                predmet: predmet,
+                skupina: skupina,
+                trida: hodinaData.trida,
+                mistnost: hodinaData.mistnost,
+                tema: null, // Přidáme až po kontrole blokací
+            };
+
+            if (!jeHodinaBlokovana(novaHodina, denStruktura.udalosti)) {
+              denStruktura.hodiny.push(novaHodina); // Přidáme jen pokud není blokovaná
+            }
+          }
+        }
+      }
+    }
+
+    vsechnyDny.push(denStruktura);
   }
 
-  db.set("struktury", struktury)
+  // Přiřadíme témata s posunem
+  priraditTemata(vsechnyDny, osnovy);
+
+  db.set("struktury", vsechnyDny);
 }
 
 function getFirstMondayOfSeptember(year) {
@@ -687,5 +700,82 @@ function getWeekNumber(d) {
   let yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
   return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
 }
+
+function priraditTemata(vsechnyDny, osnovy) {
+  let cekajiciTemata = {}; // Fronta témat pro každý předmět + třídu
+
+  vsechnyDny.forEach(den => {
+    den.hodiny.forEach(hodina => {
+      let osnovaID = Object.keys(osnovy).find(id =>
+        osnovy[id].trida === hodina.trida && osnovy[id].predmet === hodina.predmet
+      );
+
+      if (!osnovaID) return; // Osnova neexistuje, přeskočíme
+
+      let temata = osnovy[osnovaID].temata;
+      let temaKeys = Object.keys(temata).filter(k => k !== "nextID").sort((a, b) => a - b);
+
+      // Pokud byl den zrušen, přesuneme téma do čekací fronty
+      if (den.udalosti.some(u => ["Škola", "Budova", "Učitel"].includes(u.typ))) {
+        if (!cekajiciTemata[osnovaID]) cekajiciTemata[osnovaID] = temaKeys.map(k => ({ ...temata[k], id: k }));
+        return;
+      }
+
+      // Pokud jsou témata ve frontě, přesuneme je nejprve
+      if (cekajiciTemata[osnovaID] && cekajiciTemata[osnovaID].length > 0) {
+        let temaData = cekajiciTemata[osnovaID].shift();
+        hodina.tema = temaData.tema;
+        temaData.pocetHodin--;
+        if (temaData.pocetHodin > 0) cekajiciTemata[osnovaID].unshift(temaData);
+        return;
+      }
+
+      // Normální přiřazení tématu
+      for (let temaID of temaKeys) {
+        let temaData = temata[temaID];
+
+        if (temaData.pocetHodin > 0) {
+          hodina.tema = temaData.tema;
+          temaData.pocetHodin--;
+          break;
+        }
+      }
+    });
+  });
+
+  // Pokud jsou stále čekající témata, pokusíme se je přiřadit do dalších dnů
+  if (Object.keys(cekajiciTemata).length > 0) {
+    let dnyPoAktualnim = vsechnyDny.slice(vsechnyDny.indexOf(den) + 1);
+
+    for (let den of dnyPoAktualnim) {
+      if (Object.keys(cekajiciTemata).length === 0) break; // Pokud nejsou čekající témata, končíme
+
+      den.hodiny.forEach(hodina => {
+        let osnovaID = Object.keys(cekajiciTemata).find(id =>
+          osnovy[id].trida === hodina.trida && osnovy[id].predmet === hodina.predmet
+        );
+
+        if (!osnovaID) return;
+
+        if (!den.udalosti.some(u => ["Škola", "Budova", "Učitel"].includes(u.typ)) && cekajiciTemata[osnovaID].length > 0) {
+          let temaData = cekajiciTemata[osnovaID].shift();
+          hodina.tema = temaData.tema;
+          temaData.pocetHodin--;
+          if (temaData.pocetHodin > 0) cekajiciTemata[osnovaID].unshift(temaData);
+        }
+      });
+    }
+  }
+}
+
+function jeHodinaBlokovana(hodina, udalosti) {
+  return udalosti.some(udalost => {
+      if (["Škola", "Budova", "Učitel"].includes(udalost.typ)) return true; // Celá škola mimo provoz
+      if (udalost.typ === "Třída" && hodina.trida === udalost.tykaSe) return true; // Konkrétní třída mimo
+      if (udalost.typ === "Učebna" && hodina.mistnost === udalost.tykaSe) return true; // Učebna není dostupná
+      return false;
+  });
+}
+
 
 module.exports = databaseEngine;
