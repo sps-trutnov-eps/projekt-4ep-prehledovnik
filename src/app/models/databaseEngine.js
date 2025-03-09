@@ -769,13 +769,21 @@ function priraditTemata(vsechnyDny, osnovy) {
 }
 
 function jeHodinaBlokovana(hodina, udalosti) {
-  return udalosti.some(udalost => {
-      if (["Škola", "Budova", "Učitel"].includes(udalost.typ)) return true; // Celá škola mimo provoz
-      if (udalost.typ === "Třída" && hodina.trida === udalost.tykaSe) return true; // Konkrétní třída mimo
-      if (udalost.typ === "Učebna" && hodina.mistnost === udalost.tykaSe) return true; // Učebna není dostupná
+  let blokovana = udalosti.some(udalost => {
+      if (["celoskolni", "budovy", "ucitelsky"].includes(udalost.typ)) {
+          return true;
+      }
+      if (udalost.typ === "celotridni" && hodina.trida === udalost.tykaSe) {
+          return true;
+      }
+      if (udalost.typ === "ucebna" && hodina.mistnost === udalost.tykaSe) {
+          return true;
+      }
       return false;
   });
+  return blokovana;
 }
+
 
 
 module.exports = databaseEngine;
