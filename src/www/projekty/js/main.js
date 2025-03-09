@@ -259,7 +259,8 @@ function addNewOption(button, addToDetails = 2, add='') {
    dropdownContentDiv.className = 'dropdown-content';
    
    const dropdownMembersDiv = document.createElement('div');
-   if (addToDetails == 4){
+   // console.log(addToDetails)
+   if (addToDetails == 3){
 	dropdownMembersDiv.className = 'dropdown-members emails';
    } else {
 	dropdownMembersDiv.className = 'dropdown-members';

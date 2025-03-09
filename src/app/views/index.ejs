@@ -1,85 +1,173 @@
-<!doctype html>
-<%- include('partials/head'); %>
-
+<!DOCTYPE html>
+<%- include('./partials/head'); %>
 <style>
-    #doc {
-        max-width: 90ch;
-        margin-inline: auto;
+    .timeline {
+            margin-top: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            min-height: 60vh;
+            position: relative;
     }
 
-    h1, h2, h3, h4, h5 {
-        text-align: center;
+    .timeline::before {
+        content: '';
+        position: absolute;
+        left: 8px;
+        top: 20px;
+        width: 4px;
+        height: calc(100% - 40px);
+        background-color: #1e3c72;
+    }
+    
+    .timeline-item {
+        display: flex;
+        position: relative;
+        padding: 20px 0;
+    }
+    
+    .timeline-dot {
+        width: 20px;
+        height: 20px;
+        background-color: #1e3c72;
+        border-radius: 50%;
+        margin-right: 15px;
+        margin-top: 7px;
+        flex-shrink: 0;
+        position: relative;
+        z-index: 1;
+        background-color: #1e3c72;
+        border: 4px solid #1e3c72;
+        box-sizing: border-box;
+    }
+    
+    .timeline-content {
+        flex: 1;
+        font-size: 1.35em;
+        line-height: 1.5;
     }
 
-    #cat {
-        display: block;
-        margin-inline: auto;
-        margin-top: 2em;
+    .module-button {
+        margin-left: 0;
+        width: 100%;
     }
 
-#sidebar {
-    width: 195px;
-    flex-shrink: 0;
-}
-
-#sidebar ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    display: block; 
-}
-
-#sidebar ul li {
-    margin: 0;
-    padding: 0;
-    display: block; 
-    margin-bottom: 3px;
-}
-
-#sidebar ul li a {
-   width:100%;
-}
-
-#sidebar ul li a button {
-    display: block;
-    text-decoration: none;
-    padding-inline: 50px; 
-    text-align: center;
-    font-size: 1.2em;
-    width: 100%;
-    box-sizing: border-box;
-    white-space: nowrap;
-    margin: 0;
-}
-
-.container {
-    display: flex;
-}
-
-.content {
-    flex-grow: 0.4;
-    padding: 20px;
-}
-
+    .active-module {
+        background-color: #1e3c72;
+        color: white;
+    }
 </style>
+<article
+style="
+width: 20vw;
+min-width: 20vw;
+margin-right: 1em;
+resize: horizontal;
+">
+	<header style="border: 0;">
+      <h1>Moduly</h1>
+	</header>
+   <main style="margin-top: -1px;">
+        <div style="display: flex; margin-bottom: 20px;">
+            <input style="margin-left: 0;" type="button" value="Začněte s přehledovníkem" class="module-button <%= activeModule === 'home' ? 'active-module' : '' %>"
+            onclick="window.location.href = '/index';">
+        </div>
+        <div style="display: flex">
+            <input style="margin-left: 0;" type="button" value="Kalendář" class="module-button <%= activeModule === 'kalendář' ? 'active-module' : '' %>"
+            onclick="window.location.href = '/index/kalendar';">
+		</div>
+        <div style="display: flex">
+            <input style="margin-left: 0;" type="button" value="Rozvrh" class="module-button <%= activeModule === 'rozvrh' ? 'active-module' : '' %>"
+            onclick="window.location.href = '/index/rozvrh';">
+        </div>
+        <div style="display: flex">
+            <input style="margin-left: 0;" type="button" value="Projekty" class="module-button <%= activeModule === 'projekty' ? 'active-module' : '' %>"
+            onclick="window.location.href = '/index/projekty';">
+        </div>
+        <div style="display: flex">
+            <input style="margin-left: 0;" type="button" value="Události" class="module-button <%= activeModule === 'udalosti' ? 'active-module' : '' %>"
+            onclick="window.location.href = '/index/udalosti';">
+		</div>
+        <div style="display: flex">
+            <input style="margin-left: 0;" type="button" value="Osnovy" class="module-button <%= activeModule === 'osnovy' ? 'active-module' : '' %>"
+            onclick="window.location.href = '/index/osnovy';">
+        </div>
+        <div style="display: flex">
+            <input style="margin-left: 0;" type="button" value="Maturita" class="module-button <%= activeModule === 'maturita' ? 'active-module' : '' %>"
+            onclick="window.location.href = '/index/maturita';">
+        </div>
+	</main>
+</article>
 
-<div class="container">
-    <!-- Navigace nalevo -->
-    <nav id="sidebar">
-        <ul>
-            <%- nav %>
-        </ul>
-    </nav>
-
-    <!-- Hlavní obsah -->
-    <article class="content">
+<article style="flex: 3; overflow-y: auto">
+    <header>
+        <h1><%= title %></h1>
+    </header>
+    <div id="doc">
         <main>
-            <div id="doc">
-                <%- doc %>
+            <div class="timeline">
+                <% timelineItems.forEach((item, index) => { %>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <%= (index + 1) + '. ' + item.content %>
+                        </div>
+                    </div>
+                <% }); %>
             </div>
-            <img id="cat" style="object-fit: contain; max-height: 100%;" src="https://cataas.com/cat/says/P%C5%99ehledovn%C3%ADk?fontColor=orange&fontSize=64" alt="Přehledovník">
-        </main>
-    </article>
-</div>
+            <img id="cat" style="display: none; object-fit: contain; max-height: 100%;" 
+             src="https://cataas.com/cat/says/P%C5%99ehledovn%C3%ADk?fontColor=orange&fontSize=64" 
+             alt="Přehledovník">
+        </div>
+    </main>
+</article>
 
-<%- include('partials/tail') %>
+<script>
+   let command = "";
+   const secret = "mnau";
+   const docElement = document.getElementById("doc");
+   let catImage = null; 
+
+   document.addEventListener("keydown", (event) => {
+      const key = event.key.toLowerCase();
+
+      if (key === "r" && catImage) {
+         changeCatImage();
+         return;
+      }
+
+      command += key;
+      if (!secret.startsWith(command)) {
+         command = ""; 
+      }
+      if (command === secret) {
+         console.log("🐱 Mňau! Přehledovník je teď jen o kočkách!");
+
+         docElement.innerHTML = `
+            <div style="display: flex; justify-content: center;
+                        align-items: center; flex-direction: column;">
+               <img id="randomCat"
+                    src="https://cataas.com/cat?timestamp=${new Date().getTime()}" 
+                    style="max-width: 100%; max-height: 100%;" alt="Mňau!">
+               <p style="color: black; font-size: 18px;">
+                  Stiskni <strong>R</strong> pro jiný obrázek!
+               </p>
+            </div>
+            `;
+
+         catImage = document.getElementById("randomCat");
+
+         command = ""; 
+      }
+   });
+
+   function changeCatImage() {
+      if (catImage) {
+         catImage.src = `https://cataas.com/cat?timestamp=${new Date().getTime()}`;
+         console.log("🔄 Nová kočka načtena!");
+      }
+   }
+</script>
+
+<%- include('./partials/tail') %>

@@ -1,22 +1,18 @@
 # Použití
 
-Po zapnutí aplikace vás přivítá tato dokumentace.
-
-**AHOJ!**
+Po zapnutí aplikace vás přivítá domovská stránka obsahující zkrácenou verzi
+dokumentace.
+Po levé straně budete mít sidebar, kde můžete přepínat mezi instrukcemi pro
+jednotlivé moduly.
 
 Až se rozhodnete začít pracovat, horní lišta vám umožní přepnout se na
 jednotlivé modely.
 Modely na sobě do jisté míry závisí tudíž je nutné vyplnit Osnovy před Rozvrhem
 a rozvrh před Kalendářem.
+Nápis "Přehledovník" na pravé straně lišty vás vezme zpět na domovskou stránku.
 
 Aplikace podporuje light a dark mód, který se dá přepnout emotikonem v pravém
 horním rohu.
-
-Na konci této stránky na vás také čeká přátelská číča,
-vlídně propůjčená službou
-[CATAAS](https://cataas.com/).
-Můžete jí sdělit své trable.
-Sice vám to nepomůže, ale je to celkem fajn volnočasová aktivita.
 
 ## Osnovy
 
@@ -133,7 +129,7 @@ Vy si už jen doplníte členy a téma.
 
 Týmy se zobrazují v sidebaru pod třídamy, kde na ně lze kliknout.
 Dají se sbalit, a dokonce to i dělají automaticky.
-Tým se otevře pro detailní přehled týmu.
+Po kliknutí na tým se vám otevře detailní přehled týmu.
 
 Zde můžete editovat členy, určit vedoucího týmu, přidat featury a stretch goaly,
 zapsat poznámky k pitchi a dokonce zapsat URL repozitáře.
@@ -144,6 +140,7 @@ Zde se zobrazují výsledky milestoneů.
 
 Tlačítko "Upload" slouží pro načtení dat ve speciálním formátu.
 [zde ukázka](example-project-sample.txt).
+Aby tato část fungovala, musí se všem členům přiřadit email.
 
 ## Maturity
 
@@ -197,3 +194,33 @@ Výchozí je T15, ale můžete sem napsat cokoliv chcete
 
 Při prvním spuštění aplikace se vytvoří `data/database.json`.
 V tomto souboru jsou uložena veškerá data, tudíž doporučuji nemazat a zálohovat.
+
+## Číči
+
+Jako odměnu za přečtení celé dokumentace vám prozradím tajemství.
+Pokud jste ještě nepřečetli celou dokumentaci, číst následující text vám není
+povoleno.
+Sice vám v tom nemohu zabránit, ale je to krajně nemorální a budete se potom
+cítit špatně.
+
+Pokud budete na domovské stránce a napíšete jen tak to éteru "mnau", tak se vám
+ukáže přátelská číča, vlídně propůjčená službou
+[CATAAS](https://cataas.com/).
+
+Pokud budete chtít vidět číču jinou, stiskněte R.
+
+Taková číča je vlastně celkem fajn, například po zadání hodně špatných známek
+do projektu hodně špatné třídy.
+Hledět na číči má terapeutické účinky, podobné odstěhování se kamsi do hlubin
+lesa, daleko od technologií a společnosti celkově.
+A to vše v pohodlí vašeho Přehledovníku!
+
+Číči je však nutné aplikovat s rozvahou.
+Je prokázáno, že nadměrné užívání číč snižuje produktivitu až o mnoho procent,
+což je vskutku hodně.
+
+Vývojáři Přehledivníku nenesou zodpovědnost za jakékoli negativní následky
+používání jakékoli featury.
+Přehledovník nemá žádné bugy, jen nezdokumentované featury.
+
+Byli jste varováni!
