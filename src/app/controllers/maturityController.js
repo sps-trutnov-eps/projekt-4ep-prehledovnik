@@ -68,6 +68,7 @@ exports.ukladanipzop = (req, res) => {
         }
         databaze.maturity.pridatMaturitniEvent("PZOP", dny, casy, ucebna);
     }
+    databaze.struktury(databaze.maturity.ziskatVsechnyMaturityJakoUdalosti());
     res.redirect("/maturity/");
 };
 
@@ -132,7 +133,7 @@ exports.ukladanipcmz = (req, res) => {
 
     // Uložení do databáze
     databaze.maturity.pridatMaturitniEvent("PČMZ", datumy, hodinyFinal, null); 
-
+    databaze.struktury(databaze.maturity.ziskatVsechnyMaturityJakoUdalosti());
     res.redirect("/maturity/pcmz");
 };
 
@@ -191,6 +192,7 @@ exports.ukladaniscmz = (req, res) => {
         }
     });
     databaze.maturity.pridatMaturitniEvent("SČMZ", datumy, hodiny, ucebny, predmety);
+    databaze.struktury(databaze.maturity.ziskatVsechnyMaturityJakoUdalosti());
     res.redirect("/maturity/scmz");
 };
 
@@ -252,5 +254,6 @@ exports.ukladanisloh = (req, res) => {
 
     databaze.maturity.pridatMaturitniEvent("SLOH", datumy, hodiny, ucebny);
     
+    databaze.struktury(databaze.maturity.ziskatVsechnyMaturityJakoUdalosti());
     res.redirect('/maturity/sloh');
 };

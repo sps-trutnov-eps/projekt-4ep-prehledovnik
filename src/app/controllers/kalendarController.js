@@ -25,7 +25,6 @@ exports.udalosti = () => {
 }
 
 exports.mesicni = (req,res) => {
-    databaze.struktury(databaze.maturity.ziskatVsechnyMaturityJakoUdalosti());
     let udalosti = databaze.udalosti.ziskatVsechnyUdalosti();
     let maturityUdalosti = databaze.maturity.ziskatVsechnyMaturityJakoUdalosti();
 

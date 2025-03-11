@@ -1,13 +1,16 @@
 const osnovyRouter = require('express').Router();
 const osnovyController = require('../controllers/osnovyController');
+const databaze = require("../models/databaseEngine");
 
 osnovyRouter.post('/create', (req, res) => {
 	let curID = osnovyController.create();
 	
 	// Odpověď klientu
 	// Tady upravíš co to vrací, například stránku jako je hore (exampleRouter.get)
+	databaze.struktury(databaze.maturity.ziskatVsechnyMaturityJakoUdalosti());
 	res.json({'id': curID});
 	//res.send('Recieved data.');
+	
 });
 
 osnovyRouter.post('/save/*', (req, res) => {
@@ -24,6 +27,7 @@ osnovyRouter.post('/save/*', (req, res) => {
 	
 	// Odpověď klientu
 	// Tady upravíš co to vrací, například stránku jako je hore (exampleRouter.get)
+	databaze.struktury(databaze.maturity.ziskatVsechnyMaturityJakoUdalosti());
 	res.json({'id': curID});
 	//res.send('Recieved data.');
 });
@@ -42,6 +46,7 @@ osnovyRouter.post('/remove/*', (req, res) => {
 	
 	// Odpověď klientu
 	// Tady upravíš co to vrací, například stránku jako je hore (exampleRouter.get)
+	databaze.struktury(databaze.maturity.ziskatVsechnyMaturityJakoUdalosti());
 	res.json({'id': curID});
 	//res.send('Recieved data.');
 });
@@ -54,7 +59,7 @@ osnovyRouter.get('*', (req, res) => {
 	let subjects = osnovyController.subjects();
 	let classes = osnovyController.classes();
 	let fields = osnovyController.fields();
-	
+	databaze.struktury(databaze.maturity.ziskatVsechnyMaturityJakoUdalosti());
 	res.render('osnovy/index.ejs', {"cur": cur, "id": id, "subjects": subjects, "classes": classes, "fields": fields});
 });
 

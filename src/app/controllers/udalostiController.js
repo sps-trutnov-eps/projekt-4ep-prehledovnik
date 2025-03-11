@@ -25,6 +25,7 @@ exports.index = (req, res) => {
 
 exports.smazat = (req, res) => {
     databaze.udalosti.odebratUdalost(req.params.data);
+    databaze.struktury(databaze.maturity.ziskatVsechnyMaturityJakoUdalosti());
     res.redirect("/udalosti");
 }
 
@@ -77,5 +78,6 @@ exports.pridat = (req, res) => {
             databaze.udalosti.upravitUdalost(req.body.PuvodniData, novaUdalost);
         }
     }
+    databaze.struktury(databaze.maturity.ziskatVsechnyMaturityJakoUdalosti());
     res.redirect("/udalosti");
 }
