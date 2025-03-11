@@ -37,21 +37,21 @@ rozvrhyRouter.post('/vytvorit', (req, res) => {
     };
     
     const id = databaseEngine.rozvrhy.pridatRozvrh(datum, nazev, popis, hodiny);
-    databaze.struktury(databaze.maturity.ziskatVsechnyMaturityJakoUdalosti());
+    databaseEngine.struktury(databaseEngine.maturity.ziskatVsechnyMaturityJakoUdalosti());
     res.redirect('/rozvrhy?verze=' + id);
 });
 
 rozvrhyRouter.post('/ulozit-verzi', (req, res) => {
     const { id, hodiny } = req.body;
     databaseEngine.rozvrhy.upravitRozvrh(id, hodiny);
-    databaze.struktury(databaze.maturity.ziskatVsechnyMaturityJakoUdalosti());
+    databaseEngine.struktury(databaseEngine.maturity.ziskatVsechnyMaturityJakoUdalosti());
     res.json({ success: true });
 });
 
 rozvrhyRouter.post('/smazat-verzi', (req, res) => {
     const { id } = req.body;
     databaseEngine.rozvrhy.smazatRozvrh(id);
-    databaze.struktury(databaze.maturity.ziskatVsechnyMaturityJakoUdalosti());
+    databaseEngine.struktury(databaseEngine.maturity.ziskatVsechnyMaturityJakoUdalosti());
     res.json({ success: true });
 });
 

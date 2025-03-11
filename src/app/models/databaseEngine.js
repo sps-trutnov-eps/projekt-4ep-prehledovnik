@@ -636,7 +636,9 @@ function tvorbaStruktur(maturity) {
       udalosti: [],
     };
 
-    let datumISO = datum.toISOString().split("T")[0];
+    let datumISO = new Date(datum.getTime() - datum.getTimezoneOffset() * 60000)
+    .toISOString().split("T")[0];
+
 
     let udalostiArray = Object.entries(udalosti)
       .filter(([key, value]) => key !== "nextID")
@@ -783,7 +785,5 @@ function jeHodinaBlokovana(hodina, udalosti) {
   });
   return blokovana;
 }
-
-
 
 module.exports = databaseEngine;
