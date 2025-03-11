@@ -81,7 +81,7 @@ if (!db.has("predmety")) {
 
 // OSNOVY
 function gO() {
-  return db.get("osnovy");
+  return JSON.parse(JSON.stringify(db.get("osnovy")));
 }
 function sO(osnovy) {
   db.set("osnovy", osnovy);
