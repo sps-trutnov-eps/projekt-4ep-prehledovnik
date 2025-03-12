@@ -25,8 +25,9 @@ exports.udalosti = () => {
 }
 
 exports.mesicni = (req,res) => {
-    let udalosti = databaze.udalosti.ziskatVsechnyUdalosti()
-    let maturityUdalosti = databaze.maturity.ziskatVsechnyMaturityJakoUdalosti()
+    databaze.struktury(databaze.maturity.ziskatVsechnyMaturityJakoUdalosti());
+    let udalosti = databaze.udalosti.ziskatVsechnyUdalosti();
+    let maturityUdalosti = databaze.maturity.ziskatVsechnyMaturityJakoUdalosti();
 
     udalosti = udalosti.concat(maturityUdalosti)
     res.render('kalendar', {
@@ -80,6 +81,7 @@ for(let i=1; i<=posledniSkolniTyden; i++){
     tydny.push(i)
 }
 exports.tydenni = (req,res) => {
+    databaze.struktury(databaze.maturity.ziskatVsechnyMaturityJakoUdalosti());
     let osnovyRaw = databaze.osnovy.ziskatVsechnyOsnovy();
     let osnovy = {}
 

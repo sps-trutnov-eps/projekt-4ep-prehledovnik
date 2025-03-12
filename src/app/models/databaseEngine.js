@@ -76,11 +76,12 @@ if (!db.has("predmety")) {
         }
   });
   db.set("projekty", { nextID: 1 });
+  db.set("struktury", []);
 }
 
 // OSNOVY
 function gO() {
-  return db.get("osnovy");
+  return JSON.parse(JSON.stringify(db.get("osnovy")));
 }
 function sO(osnovy) {
   db.set("osnovy", osnovy);
@@ -591,7 +592,198 @@ const databaseEngine = {
   },
   ziskatUcebny: () => {
     return db.get("ucebny");
-  }
+  },
+  struktury: tvorbaStruktur
 };
+
+function tvorbaStruktur(maturity) {
+  let rozvrhy = gR();
+  let osnovy = gO();
+  let udalosti = gU();
+
+  let struktury = [];
+
+  const increment = 24 * 60 * 60 * 1000;
+  const dnesniDatum = new Date();
+  const aktualniRok = dnesniDatum.getFullYear();
+  const rok = dnesniDatum.getMonth() < 7 ? aktualniRok - 1 : aktualniRok;
+
+  const startDate = new Date(rok, 7, 1);
+  const endDate = new Date(rok + 1, 6, 31);
+  let baseMonday = getFirstMondayOfSeptember(rok);
+
+  let vsechnyDny = []; // Seznam všech dní pro přehlednost
+
+  for (let i = startDate.getTime(); i <= endDate.getTime(); i += increment) {
+    let datum = new Date(i);
+    let denVTydnu = datum.getDay();
+    let formattedDate = `${datum.getDate()}.${datum.getMonth() + 1}.`;
+
+    let tydenOdZacatku = getWeekNumber(datum);
+    let lichySud = tydenOdZacatku % 2 === 0 ? "sudy" : "lichy";
+
+    const dniMap = ["Ne", "Po", "Út", "St", "Čt", "Pá", "So"];
+    let denNazev = dniMap[denVTydnu];
+
+    if (denVTydnu === 0 || denVTydnu === 6) continue;
+
+    let denStruktura = {
+      datum: formattedDate,
+      den: denNazev,
+      tyden: tydenOdZacatku,
+      lichySud: lichySud,
+      hodiny: [],
+      udalosti: [],
+    };
+
+    let datumISO = new Date(datum.getTime() - datum.getTimezoneOffset() * 60000)
+    .toISOString().split("T")[0];
+
+
+    let udalostiArray = Object.entries(udalosti)
+      .filter(([key, value]) => key !== "nextID")
+      .map(([key, value]) => ({ id: key, ...value }));
+
+    denStruktura.udalosti = udalostiArray.filter(u => u.datum === datumISO);
+
+    // Pokud je v tento den událost typu "Škola", "Budova" nebo "Učitel", všechny hodiny jsou zrušené
+    let jeDenZrusen = denStruktura.udalosti.some(u =>
+      ["Škola", "Budova", "Učitel"].includes(u.typ)
+    );
+
+    if (!jeDenZrusen && rozvrhy[Number(rozvrhy["nextID"]) - 1]?.hodiny?.[lichySud]?.[denNazev]) {
+      for (let j = 0; j <= 9; j++) {
+        let hodinaData = rozvrhy[Number(rozvrhy["nextID"]) - 1].hodiny[lichySud][denNazev][j];
+
+        if (hodinaData) {
+          let predmet = hodinaData.predmet !== "volno" ? hodinaData.predmet : "";
+          let skupina = hodinaData.predmet !== "volno" ? hodinaData.skupina : "";
+          let key = predmet + hodinaData.trida + skupina;
+
+          if (predmet !== "") {
+            let novaHodina = {
+                cislo: j,
+                predmet: predmet,
+                skupina: skupina,
+                trida: hodinaData.trida,
+                mistnost: hodinaData.mistnost,
+                tema: null, // Přidáme až po kontrole blokací
+            };
+
+            if (!jeHodinaBlokovana(novaHodina, denStruktura.udalosti)) {
+              denStruktura.hodiny.push(novaHodina); // Přidáme jen pokud není blokovaná
+            }
+          }
+        }
+      }
+    }
+
+    vsechnyDny.push(denStruktura);
+  }
+
+  // Přiřadíme témata s posunem
+  priraditTemata(vsechnyDny, osnovy);
+
+  db.set("struktury", vsechnyDny);
+}
+
+function getFirstMondayOfSeptember(year) {
+  let date = new Date(year, 8, 1);
+  while (date.getDay() !== 1) {
+    date.setDate(date.getDate() + 1);
+  }
+  return date;
+}
+
+function getWeekNumber(d) {
+  d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+  let dayNum = d.getUTCDay() || 7;  // Převod neděle (0) na 7
+  d.setUTCDate(d.getUTCDate() + 4 - dayNum); // Nastavení na čtvrtek daného týdne
+  let yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+}
+
+function priraditTemata(vsechnyDny, osnovy) {
+  let cekajiciTemata = {}; // Fronta témat pro každý předmět + třídu
+
+  vsechnyDny.forEach(den => {
+    den.hodiny.forEach(hodina => {
+      let osnovaID = Object.keys(osnovy).find(id =>
+        osnovy[id].trida === hodina.trida && osnovy[id].predmet === hodina.predmet
+      );
+
+      if (!osnovaID) return; // Osnova neexistuje, přeskočíme
+
+      let temata = osnovy[osnovaID].temata;
+      let temaKeys = Object.keys(temata).filter(k => k !== "nextID").sort((a, b) => a - b);
+
+      // Pokud byl den zrušen, přesuneme téma do čekací fronty
+      if (den.udalosti.some(u => ["Škola", "Budova", "Učitel"].includes(u.typ))) {
+        if (!cekajiciTemata[osnovaID]) cekajiciTemata[osnovaID] = temaKeys.map(k => ({ ...temata[k], id: k }));
+        return;
+      }
+
+      // Pokud jsou témata ve frontě, přesuneme je nejprve
+      if (cekajiciTemata[osnovaID] && cekajiciTemata[osnovaID].length > 0) {
+        let temaData = cekajiciTemata[osnovaID].shift();
+        hodina.tema = temaData.tema;
+        temaData.pocetHodin--;
+        if (temaData.pocetHodin > 0) cekajiciTemata[osnovaID].unshift(temaData);
+        return;
+      }
+
+      // Normální přiřazení tématu
+      for (let temaID of temaKeys) {
+        let temaData = temata[temaID];
+
+        if (temaData.pocetHodin > 0) {
+          hodina.tema = temaData.tema;
+          temaData.pocetHodin--;
+          break;
+        }
+      }
+    });
+  });
+
+  // Pokud jsou stále čekající témata, pokusíme se je přiřadit do dalších dnů
+  if (Object.keys(cekajiciTemata).length > 0) {
+    let dnyPoAktualnim = vsechnyDny.slice(vsechnyDny.indexOf(den) + 1);
+
+    for (let den of dnyPoAktualnim) {
+      if (Object.keys(cekajiciTemata).length === 0) break; // Pokud nejsou čekající témata, končíme
+
+      den.hodiny.forEach(hodina => {
+        let osnovaID = Object.keys(cekajiciTemata).find(id =>
+          osnovy[id].trida === hodina.trida && osnovy[id].predmet === hodina.predmet
+        );
+
+        if (!osnovaID) return;
+
+        if (!den.udalosti.some(u => ["Škola", "Budova", "Učitel"].includes(u.typ)) && cekajiciTemata[osnovaID].length > 0) {
+          let temaData = cekajiciTemata[osnovaID].shift();
+          hodina.tema = temaData.tema;
+          temaData.pocetHodin--;
+          if (temaData.pocetHodin > 0) cekajiciTemata[osnovaID].unshift(temaData);
+        }
+      });
+    }
+  }
+}
+
+function jeHodinaBlokovana(hodina, udalosti) {
+  let blokovana = udalosti.some(udalost => {
+      if (["celoskolni", "budovy", "ucitelsky"].includes(udalost.typ)) {
+          return true;
+      }
+      if (udalost.typ === "celotridni" && hodina.trida === udalost.tykaSe) {
+          return true;
+      }
+      if (udalost.typ === "ucebna" && hodina.mistnost === udalost.tykaSe) {
+          return true;
+      }
+      return false;
+  });
+  return blokovana;
+}
 
 module.exports = databaseEngine;
