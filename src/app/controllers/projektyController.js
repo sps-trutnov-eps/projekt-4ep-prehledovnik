@@ -253,27 +253,62 @@ exports.saveTeams = (data) => {
     }
     // First, go through the teams that have haven't been deleted or added
     for (let i = 0; i < otherTeams.length; i++){
-        const team = otherTeams[i];
-        const existingTeam = databaze.projekty.ziskatTym(tridaID, team.teamID);
-        
-        databaze.projekty.upravitTym(tridaID, {
-                "cislo": team.teamID,
-                "tema": team.description,
-                "odkaz": existingTeam["odkaz"],
-                "clenove": team.members,
-                "emaily": existingTeam["emaily"],
-                "vedouci": existingTeam["vedouci"],
-                "pitch": {
-                    //"datum": data.pitchDate,
-                    "featury": existingTeam["pitch"]["featury"],
-                    "stretchgoaly": existingTeam["pitch"]["stretchgoaly"],
-                    "pozamka": existingTeam["pitch"]["pozamka"],
-                    "ucast": existingTeam["pitch"]["ucast"]
-                },
-                "pocetCom": existingTeam["pocetCom"],
-                "znamkyCom": existingTeam["znamkyCom"],
-                "znamkyDev": existingTeam["znamkyDev"]
-            });
+       const team = otherTeams[i];
+       const existingTeam = databaze.projekty.ziskatTym(tridaID, team.teamID);
+
+       // handle members
+       let members = team.members;
+       let exMembers = existingTeam["clenove"];
+
+       let mails = existingTeam["emaily"];
+       let com = existingTeam["znamkyCom"];
+       let dev = existingTeam["znamkyDev"];
+
+       // find deleted members
+       let deleted = [];
+       let j = 0;
+
+       for (let exj = 0; exj < exMembers.length; exj++) {
+          if (exMembers[exj] == members[j] || members[j] === undefined)
+             j++;
+          else
+             // I want to go from the back
+             deleted.unshift(exj);
+       }
+
+       // remove deleted members data
+       deleted.forEach(j => {
+          mails.splice(j, 1);
+          com.splice(j, 1);
+          dev.splice(j, 1);
+       });
+
+       // add data for new users
+       for (let i = 0; i < members.length - mails.length; i++) {
+          mails.push([]);
+          com.push({znamky: [0, 0, 0, 0, 0, 0]});
+          dev.push({znamky: [0, 0, 0, 0, 0, 0]});
+       }
+
+       // zapsat do databaze
+       databaze.projekty.upravitTym(tridaID, {
+          "cislo": team.teamID,
+          "tema": team.description,
+          "odkaz": existingTeam["odkaz"],
+          "clenove": team.members,
+          "emaily": mails,
+          "vedouci": existingTeam["vedouci"],
+          "pitch": {
+             //"datum": data.pitchDate,
+             "featury": existingTeam["pitch"]["featury"],
+             "stretchgoaly": existingTeam["pitch"]["stretchgoaly"],
+             "pozamka": existingTeam["pitch"]["pozamka"],
+             "ucast": existingTeam["pitch"]["ucast"]
+          },
+          "pocetCom": existingTeam["pocetCom"],
+          "znamkyCom": com,
+          "znamkyDev": dev,
+       });
     }
     
     // Secondly, delete all teams from database that have been deleted team by user
