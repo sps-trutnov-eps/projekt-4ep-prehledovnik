@@ -5,15 +5,19 @@
 	function GetMark (milestone, mark){
 		if (clas["tymy"] && clas["tymy"].length > 0) { %>
 			<% for (let i = 0; i < clas["tymy"].length; i++) { %>
-				<% if(clas["tymy"][i]["clenove"].length != 0) { %>
-					<% for (let iM = 0; iM < clas["tymy"][i]["clenove"].length; iM++) { %>
-						<% if (clas["tymy"][i][mark] != undefined) { %>
-							<td style="text-align: center;">
-								<% if(clas["tymy"][i][mark][iM]["znamky"][milestone] > 0) { %> <%= clas["tymy"][i][mark][iM]["znamky"][milestone]; %> <% } else { %>-<% } %>
-							</td>
-						<% } else { %>
-								<td style="text-align: center;">-</td>
+				<% if(clas["clenove"] != undefined) { %>
+					<% if(clas["tymy"][i]["clenove"].length != 0) { %>
+						<% for (let iM = 0; iM < clas["tymy"][i]["clenove"].length; iM++) { %>
+							<% if (clas["tymy"][i][mark] != undefined) { %>
+								<td style="text-align: center;">
+									<% if(clas["tymy"][i][mark][iM]["znamky"][milestone] > 0) { %> <%= clas["tymy"][i][mark][iM]["znamky"][milestone]; %> <% } else { %>-<% } %>
+								</td>
+							<% } else { %>
+									<td style="text-align: center;">-</td>
+							<% } %>
 						<% } %>
+					<% } else { %>
+							<td style="text-align: center;">-</td>
 					<% } %>
 				<% } else { %>
 						<td style="text-align: center;">-</td>
@@ -90,35 +94,43 @@
                      <th style="width: 25%; text-align: center;" colspan="2"></th>
 							<% if (clas["tymy"] != undefined) { for (let i = 0; i < clas["tymy"].length; i++) { %>
 							
-								<th style="text-align: center;" colspan="<%= clas["tymy"][i]["clenove"].length; %>">Tým <%= clas["tymy"][i]["cislo"]; %></th>
+								<th style="text-align: center;" colspan="<%if (clas["clenove"] == undefined){ %> 1 <% } else { %> <%= clas["tymy"][i]["clenove"].length; %> <% } %>">Tým <%= clas["tymy"][i]["cislo"]; %></th>
 								
 							<% } } %>
 						</tr>
                   <tr class="marks">
                      <th style="width: 25%; text-align: center;" colspan="2"><input id="filterButton" style="padding: 0; min-height: 0; height: 2em; margin: 0" type="button" value="Podle jmen" onclick="switchTables()" /></th>
 							<% if (clas["tymy"] != undefined) { for (let i = 0; i < clas["tymy"].length; i++) { %>
-								<% for (let iM = 0; iM < clas["tymy"][i]["clenove"].length; iM++) { %>
-									<% let member = clas["tymy"][i]["clenove"][iM]; %>
-									
-									<th style="text-align: center;"><%= member %></th>
-									
+								<% if (clas["tymy"][i]["clenove"] == undefined){ %>
+								<th style="text-align: center;">žádní členové</th>
+								<%} else {%>
+									<% for (let iM = 0; iM < clas["tymy"][i]["clenove"].length; iM++) { %>
+										<% let member = clas["tymy"][i]["clenove"][iM]; %>
+										
+										<th style="text-align: center;"><%= member %></th>
+										
+									<% } %>
+									<% if (clas["tymy"][i]["clenove"].length == 0) { %> <th style="text-align: center;">žádní členové</th> <% } %>
 								<% } %>
-								<% if (clas["tymy"][i]["clenove"].length == 0) { %> <th style="text-align: center;"></th> <% } %>
 							<% } } %>
 						</tr>
 						<tr class="marks">
                      <th></th>
                      <th style="width: 25%; text-align: center;">Pitch</th>
 							<% if (clas["tymy"] != undefined) { for (let i = 0; i < clas["tymy"].length; i++) { %>
-								<% for (let iM = 0; iM < clas["tymy"][i]["clenove"].length; iM++) { %>
-									<% let member = clas["tymy"][i]["clenove"][iM]; %>
-									
-									<th style="text-align: center;">
-										<% if (clas["tymy"][i]["pitch"]["ucast"][iM]) { %> přítomen <% } else { %> nepřítomen <% } %>
-									</th>
-									
+								<% if (clas["tymy"][i]["clenove"] == undefined){ %>
+									<th style="text-align: center;">-</th>
+								<%} else {%>
+									<% for (let iM = 0; iM < clas["tymy"][i]["clenove"].length; iM++) { %>
+										<% let member = clas["tymy"][i]["clenove"][iM]; %>
+										
+										<th style="text-align: center;">
+											<% if (clas["tymy"][i]["pitch"]["ucast"][iM]) { %> přítomen <% } else { %> nepřítomen <% } %>
+										</th>
+										
+									<% } %>
+									<% if (clas["tymy"][i]["clenove"].length == 0) { %> <th style="text-align: center;">-</th> <% } %>
 								<% } %>
-								<% if (clas["tymy"][i]["clenove"].length == 0) { %> <th style="text-align: center;"></th> <% } %>
 							<% } } %>
 						</tr>
 					</thead>
