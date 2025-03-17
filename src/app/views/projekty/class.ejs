@@ -56,8 +56,8 @@
 				<thead style="position: sticky; top: 0; z-index: 1; background-color: white;">
 				   <tr>
 					  <th style="width: 10%; text-align: center; vertical-align: middle;">Tým</th>
-					  <th style="width: 40%; padding-left: 50px; text-align: center; vertical-align: middle;">Členové</th>
-					  <th style="width: 40%; padding-left: 15px; text-align: center; vertical-align: middle;">Téma</th>
+					  <th style="width: 40%; text-align: center; vertical-align: middle;">Členové</th>
+					  <th style="width: 40%; text-align: center; vertical-align: middle;">Téma</th>
 				   </tr>
 				</thead>
 				 
@@ -72,24 +72,7 @@
 								<div class="ActulTeamId" style="display: none"><%= team.cislo %></div>
 							 </td>
 							 <td style="text-align: center;" class="curriculum-input">
-								<button class="dropdown-btn" style="margin-left: 40px; width: 90%;" onclick="toggleDropdown(this, '.dropdown-content')">
-								   <%= team["clenove"] ? team["clenove"].join(', ') : "prázdné" %>
-								</button>
-								<div class="dropdown-content" id="team-1-dropdown">
-								   <div class="dropdown-members">
-									  <% if (team["clenove"]) { %>
-										 <% for (let iM = 0; iM < team["clenove"].length; iM++) { %>
-											<div style="display: flex; align-items: center;" class="members-input">
-											   <input type="button" value="-" class="deleteButton" style="margin-bottom: 0;" onclick="deleteOption(this)">
-											   <input class="dropdown-item" type="text" value="<%= team["clenove"][iM]; %>" style="margin: 0" onchange="editMemberInDetails(this)" onkeypress="this.onchange()" onpaste="this.onchange()" oninput="this.onchange()">
-											</div>
-										 <% } %>
-									  <% } %>
-								   </div>
-								   <div class="add-option">
-									  <input class="createButton" style="padding: 0; min-height: 0; height: 2em; margin: 0" type="button" value="+" onclick="addNewOption(this)" />
-								   </div>
-								</div>
+								<%= team["clenove"] ? (team["clenove"].length > 0 ? team["clenove"].join(', ') : "žádní členové") : "žádní členové" %>
 							 </td>
 							 <td style="text-align: center;" class="curriculum-input">
 								<input type="text" value="<%= team["tema"] || '' %>" style="width: 90%; margin: 0px; text-align:center;" class="curriculum-i, description">

@@ -29,11 +29,12 @@ function addNewTeam(button) {
    const td2 = document.createElement('td');
    td2.className = 'curriculum-input';
    td2.style.textAlign = 'center';
+   td2.textContent = 'žádní členové';
    
-   const dropdownButton = document.createElement('button');
+   /*const dropdownButton = document.createElement('button');
    dropdownButton.className = 'dropdown-btn';
    dropdownButton.onclick = function() { toggleDropdown(this); };
-   dropdownButton.textContent = '0';
+   dropdownButton.textContent = 'žádní členové';
    
    const dropdownContentDiv = document.createElement('div');
    dropdownContentDiv.className = 'dropdown-content';
@@ -62,6 +63,9 @@ function addNewTeam(button) {
    
    td2.appendChild(dropdownButton);
    td2.appendChild(dropdownContentDiv);
+   */
+   
+   
    
    // Create third <td> for input field
    const td3 = document.createElement('td');
@@ -668,7 +672,7 @@ function switchTables() {
 async function save(){
     let pitchDate = document.getElementById('datum').value;
     let teamIDs = document.querySelectorAll('.ActulTeamId');
-    let members = document.querySelectorAll('.dropdown-members');
+    //let members = document.querySelectorAll('.dropdown-members');
     let descriptions = document.querySelectorAll('.description');
     let classID = window.location.pathname.split('/');
     classID = classID[classID.length-1];
@@ -677,20 +681,20 @@ async function save(){
     /* teamID, members, description */
     
     for (let i = 0; i < document.querySelectorAll('.teamId').length; i++){
-        const team = {teamID: undefined, members: "undefined", description: "undefined"};
+        const team = {teamID: undefined, members: [], description: "undefined"};
         
          if (i < teamIDs.length) {
             team["teamID"] = teamIDs[i].innerHTML;
          }
         
         
-        let mem = [];
+        /*let mem = [];
         for (let ch = 0; ch < members[i].children.length; ch++){
            const child = members[i].children[ch];
            
-           mem.push(child.children[1].value); /* don't take this out of context :D */
+           mem.push(child.children[1].value); //don't take this out of context :D
         }
-        team["members"] = mem;
+        team["members"] = mem;*/
         
         team["description"] = descriptions[i].value;
         
