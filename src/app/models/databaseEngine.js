@@ -593,7 +593,10 @@ const databaseEngine = {
   ziskatUcebny: () => {
     return db.get("ucebny");
   },
-  struktury: tvorbaStruktur
+  struktury: tvorbaStruktur,
+  ziskatStruktury: () => {
+    return db.get("struktury");
+  }
 };
 
 function tvorbaStruktur(maturity) {
@@ -627,18 +630,18 @@ function tvorbaStruktur(maturity) {
 
     if (denVTydnu === 0 || denVTydnu === 6) continue;
 
+    let datumISO = new Date(datum.getTime() - datum.getTimezoneOffset() * 60000)
+    .toISOString().split("T")[0];
+
     let denStruktura = {
       datum: formattedDate,
+      datumISO: datumISO,
       den: denNazev,
       tyden: tydenOdZacatku,
       lichySud: lichySud,
       hodiny: [],
       udalosti: [],
     };
-
-    let datumISO = new Date(datum.getTime() - datum.getTimezoneOffset() * 60000)
-    .toISOString().split("T")[0];
-
 
     let udalostiArray = Object.entries(udalosti)
       .filter(([key, value]) => key !== "nextID")

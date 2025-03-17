@@ -24,17 +24,30 @@ exports.udalosti = () => {
     return databaze.udalosti.ziskatVsechnyUdalosti();
 }
 
-exports.mesicni = (req,res) => {
-    databaze.struktury(databaze.maturity.ziskatVsechnyMaturityJakoUdalosti());
-    let udalosti = databaze.udalosti.ziskatVsechnyUdalosti();
-    let maturityUdalosti = databaze.maturity.ziskatVsechnyMaturityJakoUdalosti();
+exports.mesicni = (req, res) => {
+    // Přidání datumISO pro frontend, pokud chybí
+    let struktury = databaze.ziskatStruktury();
+    
+    // Zajistíme, že máme všechna data v požadovaném formátu
+    struktury.forEach(den => {
+        if (!den.datumISO) {
+            // Pokud datumISO chybí, pokusíme se ho vytvořit z data
+            const parts = den.datum.split('.');
+            if (parts.length === 2) {
+                const day = parts[0].padStart(2, '0');
+                const month = parts[1].padStart(2, '0');
+                const year = month < 8 ? new Date().getFullYear() + 1 : new Date().getFullYear();
+                den.datumISO = `${year}-${month}-${day}`;
+            }
+        }
+    });
+    
+    // Získáme udalosti pro frontend skript
+    const udalosti = databaze.udalosti.ziskatVsechnyUdalosti();
+    
+    res.render('kalendar', { struktury: struktury, udalosti: udalosti });
+};
 
-    udalosti = udalosti.concat(maturityUdalosti)
-    res.render('kalendar', {
-        date_udalost: date_udalost(),
-        udalosti: udalosti
-    })
-}
 function getFirstMondayInSeptember(startYear) {
     // Nastavíme datum na 1. září daného roku
     let date = new Date(startYear, 8, 1); // měsíc září je indexován jako 8 (0 = leden, 1 = únor, ...)

@@ -189,133 +189,69 @@
 
 <article style="flex: 3; padding: 0;">
     <header>
-       
-      <div>
-        <h1>Kalendář</h1>
-      </div>
-      
-      <div>
-        <button id="naAktualniButton" onclick="scrollToCurrent()">Aktuální</button>
-        <div role="group">
-            <button id="naMesicButon" onclick="scrollToMonth()">Na&nbsp;měsíc</button>
-            <select name="months" id="months">
-                <option value="8">Srpen</option>
-                <option value="9">Září</option>
-                <option value="10">Říjen</option>
-                <option value="11">Listopad</option>
-                <option value="12">Prosinec</option>
-                <option value="1">Leden</option>
-                <option value="2">Únor</option>
-                <option value="3">Březen</option>
-                <option value="4">Duben</option>
-                <option value="5">Květen</option>
-                <option value="6">Červen</option>
-                <option value="7">Červenec</option>
-            </select>
+        <div><h1>Kalendář</h1></div>
+        <div>
+            <button id="naAktualniButton" onclick="scrollToCurrent()">Aktuální</button>
+            <div role="group">
+                <button id="naMesicButon" onclick="scrollToMonth()">Na&nbsp;měsíc</button>
+                <select name="months" id="months">
+                    <option value="8">Srpen</option>
+                    <option value="9">Září</option>
+                    <option value="10">Říjen</option>
+                    <option value="11">Listopad</option>
+                    <option value="12">Prosinec</option>
+                    <option value="1">Leden</option>
+                    <option value="2">Únor</option>
+                    <option value="3">Březen</option>
+                    <option value="4">Duben</option>
+                    <option value="5">Květen</option>
+                    <option value="6">Červen</option>
+                    <option value="7">Červenec</option>
+                </select>
+            </div>
         </div>
-           
-      </div>
-      
-      <div>
-        <div role="group" id="rightSide">
-          <button class="outline" onclick="window.location.href='/kalendar/tydenni'" hx-target="body" hx-push-url="true" hx-swap="transition:true">
-            Na týdenní
-          </button>
+        <div>
+            <div role="group" id="rightSide">
+                <button class="outline" onclick="window.location.href='/kalendar/mesicni'">
+                    Na měsíční
+                </button>
+            </div>
         </div>
-      </div>
-      
     </header>
 
     <main>
-      <section class="grid-container days-header">
-         <p class="grid-item week-days">PONDĚLÍ</p>
-         <p class="grid-item week-days">ÚTERÝ</p>
-         <p class="grid-item week-days">STŘEDA</p>
-         <p class="grid-item week-days">ČTVRTEK</p>
-         <p class="grid-item week-days">PÁTEK</p>
-         <p class="grid-item week-days">VÍKEND</p>
-      </section>
-
+        <section class="grid-container days-header">
+            <p class="grid-item week-days">PONDĚLÍ</p>
+            <p class="grid-item week-days">ÚTERÝ</p>
+            <p class="grid-item week-days">STŘEDA</p>
+            <p class="grid-item week-days">ČTVRTEK</p>
+            <p class="grid-item week-days">PÁTEK</p>
+            <p class="grid-item week-days">VÍKEND</p>
+        </section>
 
         <section class="grid-container">
-            <%
-                let startYear
-                let endYear
-
-                let now = new Date()
-
-                if(now.getMonth() > 7){
-                    startYear = now.getFullYear()
-                    endYear = startYear + 1
-                }else{
-                    endYear = now.getFullYear()
-                    startYear = endYear-1
-                }
-                console.log(startYear)
-
-            
-                let startDate = new Date(startYear,7,1);
-                let endDate = new Date(endYear,6,31);
-                const increment = 24 * 60 * 60 * 1000 //Miliseconds per day
-                let a = false
-
-                function getWeekNumber(date) {
-                    const startDate = new Date(date.getFullYear(), 0, 1);
-                    const days = Math.floor((date - startDate) / (24 * 60 * 60 * 1000));
-                    return Math.ceil((days + startDate.getDay() + 1) / 7);
-                }
-
-                function isEvenWeek(date) {
-                    date = new Date(date);
-                    const weekNumber = getWeekNumber(date);
-                    return weekNumber % 2 === 0 ? "even" : "odd";
-                }
-
-                function isFirst(date) {
-                    return new Date(date).getDate() === 1 ? "firstDay" : ""
-                }
-
-                function isLast(date) {
-                    const actualDate = new Date(date)
-                    const nextDate = new Date(actualDate.getTime() + increment)
-                    return nextDate.getDate() === 1 ? "lastDay" : ""
-                }
-            %>
-            <% for (let i = startDate.getTime(); i <= endDate.getTime();i += increment) {%>
-                <% if(new Date(i).getDay() != 0) {%>
-                <%
-                let date = String(new Date(i).toLocaleDateString('en-CA', {timeZone: 'Europe/Prague'}))
-                let nextDate = String(new Date(i+increment).toLocaleDateString('en-CA', {timeZone: 'Europe/Prague'}))
-                let currentMonth = new Date(i).getMonth() + 1;
-                let backgroundColor = currentMonth % 2 === 0 ? 'var(--schedule-bg-lighter)' : 'var(--schedule-bg-darker)';
-                %>
-
-                <section id=<%= date %> style="grid-column-start: <%= new Date(i).getDay()%>; background-color: <%= backgroundColor %>;" class="grid-item <%- isEvenWeek(date) %> <%-isFirst(date) %> <%-isLast(date) %>">
-                    <% if(new Date(i).getDay() == 6) {%>
-                    <p class="days-mon"><%= date.split("-")[2] %>.<%= date.split("-")[1] %>. - <%= nextDate.split("-")[2] %>.<%= nextDate.split("-")[1] %>.</p>
-
-                    <% }else{%>
-                        <p class="days-mon"><%= date.split("-")[2] %>.<%= date.split("-")[1] %>.</p>
-                    <% }%>
-
-
-
-                    <% if (new Date(i).getDate() == date_udalost[0] && new Date(i).getMonth() + 1 == date_udalost[1]) {%>
-                    <p><%= date_udalost[2]%></p>
-                    <%}%>
-
-                    <% if (new Date(i).getDay() > 0 && new Date(i).getDay() < 6 && new Date(i).getMonth() != 7 && new Date(i).getMonth() != 6 ) {%>
+            <% struktury.forEach(den => { %>
+                <section id="<%= den.datumISO %>" 
+                         class="grid-item <%= den.lichySud %>">
+                    <p class="days-mon"><%= den.datum %></p>
+        
+                    <% den.udalosti.forEach(udalost => { %>
+                        <button class="udalost" 
+                                data-target="detail" 
+                                onclick="detailDisplay('<%= JSON.stringify(udalost).replace(/"/g, '&quot;') %>', event)">
+                            <%= udalost.nazev %>
+                        </button>
+                    <% }); %>
+        
+                    <% if (den.hodiny.length > 0) { %>
                         <button class="udalost">Výuka</button>
-                    <%}%>
-
+                    <% } %>
                 </section>
-
-
-                <% }%>
-            <% }%>
+            <% }); %>
         </section>
     </main>
 </article>
+
 
 <dialog id="detail">
     <article>
@@ -392,59 +328,24 @@
     return button
   }
 
-  function placeUdalosti() {
-        let udalosti = <%- JSON.stringify(udalosti) %>
-        for (let id in udalosti){
-            if(udalosti[id] != null){
-                if(udalosti[id].datumDo != null){
-                    udalosti[id].naPocetDni = (new Date(udalosti[id].datumDo) - new Date(udalosti[id].datum) ) / (1000 * 60 * 60 * 24) + 1
-                    for(let j=0; j < udalosti[id].naPocetDni ;j++){
-                        let udalost = { ...udalosti[id] };
-                        let date = new Date(udalost.datum);
+  function detailDisplay(udalostJSON, event) {
+    const udalost = JSON.parse(udalostJSON);
+    
+    let detail = document.getElementById("detail");
+    
+    document.getElementById("name").innerText = udalost.nazev || '';
+    document.getElementById("from").innerText = udalost.casOd || '';
+    document.getElementById("to").innerText = udalost.casDo || '';
+    document.getElementById("date").innerText = udalost.datum || '';
+    document.getElementById("type").innerText = udalost.typ || '';
+    document.getElementById("tykase").innerText = udalost.tykaSe || '';
+    document.getElementById("note").innerText = udalost.poznamka || '';
+    
+    toggleModal(event);
+    }
 
-                        udalost.datumOd = udalost.datum
-                        date.setDate(date.getDate() + j);
-                        udalost.datum = date.toISOString().split('T')[0];
-                        udalost.id = j+1000;
-                        
-                        detailUdalosti[udalost.id] = udalost;
-
-                        console.log(detailUdalosti)
-
-                        if(new Date(date - dateIncrement).getDay() != 5 ){
-                            let element = placeUdalost(udalost,udalost.id)
-                        element.classList.add("udalost", "udalostVicedenni")
-                        while (element.previousSibling != null){
-                            element.parentNode.insertBefore(element, element.previousSibling)
-                            if(element.previousSibling == element.parentNode.firstElementChild)
-                                break
-                        }
-                        }                     
-                }}
-                else
-                    placeUdalost(udalosti[id],id)
-            }
-        }
-  }
-
-  function detailDisplay(index, event){
-      const udalosti = <%- JSON.stringify(udalosti) %>
-      let udalost = udalosti[index]
-      if(udalost == null)
-        udalost = detailUdalosti[index]
-
-      let detail = document.getElementById("detail")
-
-      document.getElementById("name").innerText = udalost.nazev
-      document.getElementById("from").innerText = udalost.datumOd
-      document.getElementById("to").innerText = udalost.datumDo
-      document.getElementById("date").innerText = udalost.datum
-      document.getElementById("type").innerText = udalost.typ
-      document.getElementById("tykase").innerText = udalost.tykaSe
-      document.getElementById("note").innerText = udalost.poznamka
-
-      toggleModal(event)
-  }
+// Odstraň funkci placeUdalosti(), protože události už jsou součástí struktury
+// a jsou vykreslované přímo v EJS šabloně
 
 
   const isOpenClass = "modal-is-open";
@@ -518,7 +419,6 @@
     return document.body.scrollHeight > screen.height;
     };
 
-    placeUdalosti()
 </script>
 <script src="/kalendar/js/main.js"></script>
 <%- include('../partials/tail') %>
