@@ -237,83 +237,62 @@
       </section>
 
 
-        <section class="grid-container">
-            <%
-                let startYear
-                let endYear
-
-                let now = new Date()
-
-                if(now.getMonth() > 7){
-                    startYear = now.getFullYear()
-                    endYear = startYear + 1
-                }else{
-                    endYear = now.getFullYear()
-                    startYear = endYear-1
+      <section class="grid-container">
+        <% 
+        // Struktury jsou již předpočítané z controlleru
+        if (struktury && struktury.length > 0) {
+            // Projdeme všechny dny ve strukturách
+            for (let i = 0; i < struktury.length; i++) {
+                const den = struktury[i];
+                const datumParts = den.datum.split('.');
+                const day = parseInt(datumParts[0]);
+                const month = parseInt(datumParts[1]);
+                
+                // Převod na ISO formát pro ID elementu
+                const date = new Date(den.datum.includes('.') ? 
+                    `${month > 7 ? startYear : endYear}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}` : 
+                    den.datum);
+                
+                const dateISO = date.toISOString().split('T')[0];
+                const dayOfWeek = den.den === "Ne" ? 0 : den.den === "Po" ? 1 : den.den === "Út" ? 2 : den.den === "St" ? 3 : den.den === "Čt" ? 4 : den.den === "Pá" ? 5 : 6;
+                
+                if (dayOfWeek !== 0) { // Přeskočíme neděle
+                    const backgroundColor = month % 2 === 0 ? 'var(--schedule-bg-lighter)' : 'var(--schedule-bg-darker)';
+                    const isEvenWeek = den.tyden % 2 === 0 ? "even" : "odd";
+                    const isFirst = day === 1 ? "firstDay" : "";
+                    const nextDay = new Date(date);
+                    nextDay.setDate(nextDay.getDate() + 1);
+                    const isLast = nextDay.getDate() === 1 ? "lastDay" : "";
+        %>
+                    <section id="<%= dateISO %>" style="grid-column-start: <%= dayOfWeek %>; background-color: <%= backgroundColor %>;" class="grid-item <%= isEvenWeek %> <%= isFirst %> <%= isLast %>">
+                        <% if(dayOfWeek == 6) { %>
+                            <p class="days-mon"><%= day %>.<%= month %>. - <%= nextDay.getDate() %>.<%= nextDay.getMonth() + 1 %>.</p>
+                        <% } else { %>
+                            <p class="days-mon"><%= day %>.<%= month %>.</p>
+                        <% } %>
+    
+                        <% // Zobrazíme události pro tento den
+                        if (den.udalosti && den.udalosti.length > 0) {
+                            den.udalosti.forEach(udalost => { %>
+                                <button class="udalost" data-target="detail" onclick="detailDisplay('<%= udalost.id %>', event)"><%= udalost.nazev %></button>
+                            <% });
+                        } %>
+    
+                        <% // Pokud je všední den a není v srpnu nebo červenci, zobrazíme výuku
+                        if (dayOfWeek > 0 && dayOfWeek < 6 && month !== 8 && month !== 7 && 
+                            (!den.udalosti || !den.udalosti.some(u => ["Škola", "Budova", "Učitel"].includes(u.typ)))) { %>
+                            <button class="udalost">Výuka</button>
+                        <% } %>
+                    </section>
+        <%
                 }
-                console.log(startYear)
-
-            
-                let startDate = new Date(startYear,7,1);
-                let endDate = new Date(endYear,6,31);
-                const increment = 24 * 60 * 60 * 1000 //Miliseconds per day
-                let a = false
-
-                function getWeekNumber(date) {
-                    const startDate = new Date(date.getFullYear(), 0, 1);
-                    const days = Math.floor((date - startDate) / (24 * 60 * 60 * 1000));
-                    return Math.ceil((days + startDate.getDay() + 1) / 7);
-                }
-
-                function isEvenWeek(date) {
-                    date = new Date(date);
-                    const weekNumber = getWeekNumber(date);
-                    return weekNumber % 2 === 0 ? "even" : "odd";
-                }
-
-                function isFirst(date) {
-                    return new Date(date).getDate() === 1 ? "firstDay" : ""
-                }
-
-                function isLast(date) {
-                    const actualDate = new Date(date)
-                    const nextDate = new Date(actualDate.getTime() + increment)
-                    return nextDate.getDate() === 1 ? "lastDay" : ""
-                }
-            %>
-            <% for (let i = startDate.getTime(); i <= endDate.getTime();i += increment) {%>
-                <% if(new Date(i).getDay() != 0) {%>
-                <%
-                let date = String(new Date(i).toLocaleDateString('en-CA', {timeZone: 'Europe/Prague'}))
-                let nextDate = String(new Date(i+increment).toLocaleDateString('en-CA', {timeZone: 'Europe/Prague'}))
-                let currentMonth = new Date(i).getMonth() + 1;
-                let backgroundColor = currentMonth % 2 === 0 ? 'var(--schedule-bg-lighter)' : 'var(--schedule-bg-darker)';
-                %>
-
-                <section id=<%= date %> style="grid-column-start: <%= new Date(i).getDay()%>; background-color: <%= backgroundColor %>;" class="grid-item <%- isEvenWeek(date) %> <%-isFirst(date) %> <%-isLast(date) %>">
-                    <% if(new Date(i).getDay() == 6) {%>
-                    <p class="days-mon"><%= date.split("-")[2] %>.<%= date.split("-")[1] %>. - <%= nextDate.split("-")[2] %>.<%= nextDate.split("-")[1] %>.</p>
-
-                    <% }else{%>
-                        <p class="days-mon"><%= date.split("-")[2] %>.<%= date.split("-")[1] %>.</p>
-                    <% }%>
-
-
-
-                    <% if (new Date(i).getDate() == date_udalost[0] && new Date(i).getMonth() + 1 == date_udalost[1]) {%>
-                    <p><%= date_udalost[2]%></p>
-                    <%}%>
-
-                    <% if (new Date(i).getDay() > 0 && new Date(i).getDay() < 6 && new Date(i).getMonth() != 7 && new Date(i).getMonth() != 6 ) {%>
-                        <button class="udalost">Výuka</button>
-                    <%}%>
-
-                </section>
-
-
-                <% }%>
-            <% }%>
-        </section>
+            }
+        } else {
+            // Záložní řešení, pokud by struktury nebyly dostupné
+        %>
+            <p>Kalendář se nepodařilo načíst. Zkuste aktualizovat stránku.</p>
+        <% } %>
+    </section>
     </main>
 </article>
 
@@ -427,32 +406,41 @@
         }
   }
 
-  function detailDisplay(index, event){
-      const udalosti = <%- JSON.stringify(udalosti) %>
-      let udalost = udalosti[index]
-      if(udalost == null)
-        udalost = detailUdalosti[index]
+  function detailDisplay(index, event) {
+    const udalosti = <%- JSON.stringify(udalosti) %>;
+    let udalost = udalosti[index];
+    
+    // Pokud není událost přímo v udalosti, zkusíme ji najít ve strukturách
+    if (!udalost) {
+        const struktury = <%- JSON.stringify(struktury) %>;
+        for (let i = 0; i < struktury.length; i++) {
+            if (struktury[i].udalosti) {
+                const nalezena = struktury[i].udalosti.find(u => u.id === index);
+                if (nalezena) {
+                    udalost = nalezena;
+                    break;
+                }
+            }
+        }
+    }
+    
+    if (!udalost) {
+        console.error("Událost nebyla nalezena:", index);
+        return;
+    }
 
-      let detail = document.getElementById("detail")
+    let detail = document.getElementById("detail");
 
-      document.getElementById("name").innerText = udalost.nazev
-      document.getElementById("from").innerText = udalost.datumOd
-      document.getElementById("to").innerText = udalost.datumDo
-      document.getElementById("date").innerText = udalost.datum
-      document.getElementById("type").innerText = udalost.typ
-      document.getElementById("tykase").innerText = udalost.tykaSe
-      document.getElementById("note").innerText = udalost.poznamka
+    document.getElementById("name").innerText = udalost.nazev || "";
+    document.getElementById("from").innerText = udalost.datumOd || udalost.datum || "";
+    document.getElementById("to").innerText = udalost.datumDo || "";
+    document.getElementById("date").innerText = udalost.datum || "";
+    document.getElementById("type").innerText = udalost.typ || "";
+    document.getElementById("tykase").innerText = udalost.tykaSe || "";
+    document.getElementById("note").innerText = udalost.poznamka || "";
 
-      toggleModal(event)
-  }
-
-
-  const isOpenClass = "modal-is-open";
-  const openingClass = "modal-is-opening";
-  const closingClass = "modal-is-closing";
-  const scrollbarWidthCssVar = "--pico-scrollbar-width";
-  const animationDuration = 400; // ms
-  let visibleModal = null;
+    toggleModal(event);
+    }
 
 
   const toggleModal = (event) => {

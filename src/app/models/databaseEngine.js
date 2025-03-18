@@ -593,7 +593,10 @@ const databaseEngine = {
   ziskatUcebny: () => {
     return db.get("ucebny");
   },
-  struktury: tvorbaStruktur
+  struktury: tvorbaStruktur,
+  ziskatStruktury: () => {
+    return db.get("struktury");
+  }
 };
 
 function tvorbaStruktur(maturity) {
