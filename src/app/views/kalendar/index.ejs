@@ -239,58 +239,95 @@
 
       <section class="grid-container">
         <% 
-        // Struktury jsou již předpočítané z controlleru
-        if (struktury && struktury.length > 0) {
-            // Projdeme všechny dny ve strukturách
-            for (let i = 0; i < struktury.length; i++) {
-                const den = struktury[i];
-                const datumParts = den.datum.split('.');
-                const day = parseInt(datumParts[0]);
-                const month = parseInt(datumParts[1]);
-                
-                // Převod na ISO formát pro ID elementu
-                const date = new Date(den.datum.includes('.') ? 
-                    `${month > 7 ? startYear : endYear}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}` : 
-                    den.datum);
-                
-                const dateISO = date.toISOString().split('T')[0];
-                const dayOfWeek = den.den === "Ne" ? 0 : den.den === "Po" ? 1 : den.den === "Út" ? 2 : den.den === "St" ? 3 : den.den === "Čt" ? 4 : den.den === "Pá" ? 5 : 6;
-                
-                if (dayOfWeek !== 0) { // Přeskočíme neděle
-                    const backgroundColor = month % 2 === 0 ? 'var(--schedule-bg-lighter)' : 'var(--schedule-bg-darker)';
-                    const isEvenWeek = den.tyden % 2 === 0 ? "even" : "odd";
-                    const isFirst = day === 1 ? "firstDay" : "";
-                    const nextDay = new Date(date);
-                    nextDay.setDate(nextDay.getDate() + 1);
-                    const isLast = nextDay.getDate() === 1 ? "lastDay" : "";
+        // Příprava dat pro kalendář
+        let startDate = new Date(startYear, 7, 1); // 1. srpen
+        let endDate = new Date(endYear, 6, 31);    // 31. červenec
+        const increment = 24 * 60 * 60 * 1000;     // 1 den v milisekundách
+        
+        // Funkce pro získání struktury dne podle data
+        function getStrukturaDne(datum) {
+            const datumISO = datum.toISOString().split('T')[0];
+            return struktury.find(s => {
+                const parts = s.datum.split('.');
+                const denStructure = parseInt(parts[0]);
+                const mesicStructure = parseInt(parts[1]);
+                const mesicDatum = datum.getMonth() + 1;
+                const denDatum = datum.getDate();
+                return denStructure === denDatum && mesicStructure === mesicDatum;
+            });
+        }
+        
+        // Procházení všech dnů v rozsahu školního roku
+        for (let i = startDate.getTime(); i <= endDate.getTime(); i += increment) {
+            const datum = new Date(i);
+            const dayOfWeek = datum.getDay(); // 0 = neděle, 1 = pondělí, ...
+            const day = datum.getDate();
+            const month = datum.getMonth() + 1;
+            const datumISO = datum.toISOString().split('T')[0];
+            const backgroundColor = month % 2 === 0 ? 'var(--schedule-bg-lighter)' : 'var(--schedule-bg-darker)';
+            
+            // Přeskočíme neděle - ty se nezobrazují
+            if (dayOfWeek === 0) continue;
+            
+            // Najdeme strukturu pro tento den, pokud existuje
+            const strukturaDne = getStrukturaDne(datum);
+            
+            // Určíme typ týdne (lichý/sudý)
+            const tyden = strukturaDne ? strukturaDne.tyden : 0;
+            const lichySud = strukturaDne ? strukturaDne.lichySud : 'lichy';
+            const isEvenWeek = lichySud === 'sudy' ? 'even' : 'odd';
+            
+            // Určíme, zda je první/poslední den měsíce
+            const isFirst = day === 1 ? "firstDay" : "";
+            const nextDay = new Date(datum);
+            nextDay.setDate(nextDay.getDate() + 1);
+            const isLast = nextDay.getDate() === 1 ? "lastDay" : "";
         %>
-                    <section id="<%= dateISO %>" style="grid-column-start: <%= dayOfWeek %>; background-color: <%= backgroundColor %>;" class="grid-item <%= isEvenWeek %> <%= isFirst %> <%= isLast %>">
-                        <% if(dayOfWeek == 6) { %>
-                            <p class="days-mon"><%= day %>.<%= month %>. - <%= nextDay.getDate() %>.<%= nextDay.getMonth() + 1 %>.</p>
-                        <% } else { %>
-                            <p class="days-mon"><%= day %>.<%= month %>.</p>
-                        <% } %>
-    
-                        <% // Zobrazíme události pro tento den
-                        if (den.udalosti && den.udalosti.length > 0) {
-                            den.udalosti.forEach(udalost => { %>
-                                <button class="udalost" data-target="detail" onclick="detailDisplay('<%= udalost.id %>', event)"><%= udalost.nazev %></button>
-                            <% });
-                        } %>
-    
-                        <% // Pokud je všední den a není v srpnu nebo červenci, zobrazíme výuku
-                        if (dayOfWeek > 0 && dayOfWeek < 6 && month !== 8 && month !== 7 && 
-                            (!den.udalosti || !den.udalosti.some(u => ["Škola", "Budova", "Učitel"].includes(u.typ)))) { %>
-                            <button class="udalost">Výuka</button>
-                        <% } %>
-                    </section>
-        <%
+            <section id="<%= datumISO %>" style="grid-column-start: <%= dayOfWeek %>; background-color: <%= backgroundColor %>;" class="grid-item <%= isEvenWeek %> <%= isFirst %> <%= isLast %>">
+                <% if (dayOfWeek === 6) { // Sobota - zobrazíme rozsah so-ne %>
+                    <p class="days-mon"><%= day %>.<%= month %>. - <%= nextDay.getDate() %>.<%= nextDay.getMonth() + 1 %>.</p>
+                <% } else { %>
+                    <p class="days-mon"><%= day %>.<%= month %>.</p>
+                <% } %>
+                
+                <% 
+                // Zobrazení událostí pro tento den
+                if (strukturaDne && strukturaDne.udalosti && strukturaDne.udalosti.length > 0) { 
+                    strukturaDne.udalosti.forEach(udalost => { 
+                %>
+                    <button class="udalost" data-target="detail" onclick="detailDisplay('<%= udalost.id %>', event)"><%= udalost.nazev %></button>
+                <% 
+                    });
                 }
-            }
-        } else {
-            // Záložní řešení, pokud by struktury nebyly dostupné
-        %>
-            <p>Kalendář se nepodařilo načíst. Zkuste aktualizovat stránku.</p>
+                
+                // Vícedení události - zjistíme, zda existuje nějaká, která sahá až do tohoto dne
+                const vicedenni = udalosti.filter(u => {
+                    if (!u || !u.datum || !u.datumDo) return false;
+                    const udalostOd = new Date(u.datum);
+                    const udalostDo = new Date(u.datumDo);
+                    return datum >= udalostOd && datum <= udalostDo;
+                });
+                
+                // Zobrazení vícedních událostí
+                vicedenni.forEach(u => {
+                    if (!strukturaDne || !strukturaDne.udalosti || !strukturaDne.udalosti.some(su => su.id === u.id)) {
+                %>
+                    <button class="udalost udalostVicedenni" data-target="detail" onclick="detailDisplay('<%= u.id %>', event)"><%= u.nazev %></button>
+                <% 
+                    }
+                });
+                
+                // Zobrazení výuky pouze pro všední dny (Po-Pá) mimo srpen a červenec
+                // a pouze pokud existují hodiny pro tento den a není žádná událost typu "Škola", "Budova" nebo "Učitel"
+                const maHodiny = strukturaDne && strukturaDne.hodiny && strukturaDne.hodiny.length > 0;
+                const maUcitelskouUdalost = strukturaDne && strukturaDne.udalosti && 
+                                          strukturaDne.udalosti.some(u => u.typ === "ucitelsky" || u.typ === "Škola" || u.typ === "Budova" || u.typ === "Učitel");
+                
+                if (dayOfWeek > 0 && dayOfWeek < 6 && month !== 8 && month !== 7 && maHodiny && !maUcitelskouUdalost) { 
+                %>
+                    <button class="udalost">Výuka</button>
+                <% } %>
+            </section>
         <% } %>
     </section>
     </main>
@@ -407,15 +444,17 @@
   }
 
   function detailDisplay(index, event) {
+    // Získáme všechny události
     const udalosti = <%- JSON.stringify(udalosti) %>;
-    let udalost = udalosti[index];
+    let udalost = udalosti.find(u => u.id === index);
     
-    // Pokud není událost přímo v udalosti, zkusíme ji najít ve strukturách
+    // Pokud nebyla událost nalezena v hlavním seznamu, hledáme ji ve strukturách
     if (!udalost) {
         const struktury = <%- JSON.stringify(struktury) %>;
         for (let i = 0; i < struktury.length; i++) {
-            if (struktury[i].udalosti) {
-                const nalezena = struktury[i].udalosti.find(u => u.id === index);
+            const den = struktury[i];
+            if (den.udalosti && den.udalosti.length > 0) {
+                const nalezena = den.udalosti.find(u => u.id === index);
                 if (nalezena) {
                     udalost = nalezena;
                     break;
@@ -423,6 +462,24 @@
             }
         }
     }
+    
+    if (!udalost) {
+        console.error("Událost nebyla nalezena:", index);
+        return;
+    }
+
+    let detail = document.getElementById("detail");
+
+    document.getElementById("name").innerText = udalost.nazev || "";
+    document.getElementById("from").innerText = udalost.datumOd || udalost.datum || "";
+    document.getElementById("to").innerText = udalost.datumDo || "";
+    document.getElementById("date").innerText = udalost.datum || "";
+    document.getElementById("type").innerText = udalost.typ || "";
+    document.getElementById("tykase").innerText = udalost.tykaSe || "";
+    document.getElementById("note").innerText = udalost.poznamka || "";
+
+    toggleModal(event);
+}
     
     if (!udalost) {
         console.error("Událost nebyla nalezena:", index);

@@ -29,11 +29,15 @@ exports.mesicni = (req,res) => {
     let struktury = databaze.ziskatStruktury();
     let udalosti = databaze.udalosti.ziskatVsechnyUdalosti();
     let maturityUdalosti = databaze.maturity.ziskatVsechnyMaturityJakoUdalosti();
+    let vsechnyUdalosti = [...udalosti];
+    if (maturityUdalosti && maturityUdalosti.length) {
+        vsechnyUdalosti.push(...maturityUdalosti);
+    }
 
     udalosti = udalosti.concat(maturityUdalosti)
     res.render('kalendar', {
         struktury: struktury,
-        udalosti: udalosti.concat(maturityUdalosti),
+        udalosti: vsechnyUdalosti,
         startYear: startYear,
         endYear: endYear
     });
