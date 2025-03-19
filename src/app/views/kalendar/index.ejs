@@ -187,6 +187,196 @@
     }
 </style>
 
+<script>
+
+    const dateIncrement = 24 * 60 * 60 * 1000 //Miliseconds per day
+    const detailUdalosti = {}
+
+  // Oprava scrollování na aktuální den
+    function scrollToCurrent() {
+        let today = new Date();
+        let currentDate = today.toISOString().split('T')[0]; // YYYY-MM-DD
+        let element = document.getElementById(currentDate);
+
+        if (!element) {
+            console.error("Nenalezen prvek pro dnešní datum:", currentDate);
+            return;
+        }
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // Oprava scrollování na měsíc
+    function scrollToMonth() {
+        const select = document.getElementById("months");
+        const month = select.value.padStart(2, '0'); // Zajistí dvouciferné číslo
+        const year = (month < 8) ? 2025 : 2024;
+        
+        let selected = document.getElementById(`${year}-${month}-01`);
+        if (!selected) {
+            console.warn("Nenalezen prvek pro první den měsíce, zkouším druhý den...");
+            selected = document.getElementById(`${year}-${month}-02`);
+        }
+        if (selected) {
+            selected.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+            console.error("Nepodařilo se najít prvek pro vybraný měsíc:", month);
+        }
+    }
+
+  function placeUdalost(udalost, index){
+    const increment = 24 * 60 * 60 * 1000
+    let date = udalost.datum
+    const dateCheck = new Date(udalost.datum)
+    if (Number(dateCheck.getDay()) == 0)
+        date = new Date(Number(dateCheck.getTime()) - increment).toLocaleDateString('en-CA', { timeZone: 'Europe/Prague' })
+    let day = document.getElementById(date)
+    let button = document.createElement("button")
+    button.textContent = udalost.nazev
+    button.className = "udalost"
+    button.setAttribute("data-target", "detail")
+    button.onclick = function(){detailDisplay(index, event)}
+    day.appendChild(button)
+    return button
+  }
+
+  /*function placeUdalosti() {
+        let udalosti = <%- JSON.stringify(udalosti) %>
+        for (let id in udalosti){
+            if(udalosti[id] != null){
+                if(udalosti[id].datumDo != null){
+                    udalosti[id].naPocetDni = (new Date(udalosti[id].datumDo) - new Date(udalosti[id].datum) ) / (1000 * 60 * 60 * 24) + 1
+                    for(let j=0; j < udalosti[id].naPocetDni ;j++){
+                        let udalost = { ...udalosti[id] };
+                        let date = new Date(udalost.datum);
+
+                        udalost.datumOd = udalost.datum
+                        date.setDate(date.getDate() + j);
+                        udalost.datum = date.toISOString().split('T')[0];
+                        udalost.id = j+1000;
+                        
+                        detailUdalosti[udalost.id] = udalost;
+
+                        console.log(detailUdalosti)
+
+                        if(new Date(date - dateIncrement).getDay() != 5 ){
+                            let element = placeUdalost(udalost,udalost.id)
+                        element.classList.add("udalost", "udalostVicedenni")
+                        while (element.previousSibling != null){
+                            element.parentNode.insertBefore(element, element.previousSibling)
+                            if(element.previousSibling == element.parentNode.firstElementChild)
+                                break
+                        }
+                        }                     
+                }}
+                else
+                    placeUdalost(udalosti[id],id)
+            }
+        }
+  }*/
+
+  /*function detailDisplay(index, event) {
+    // Získáme všechny události
+    const udalosti = <%- JSON.stringify(udalosti) %>;
+    let udalost = udalosti.find(u => u.id === index);
+    
+    // Pokud nebyla událost nalezena v hlavním seznamu, hledáme ji ve strukturách
+    if (!udalost) {
+        const struktury = <%- JSON.stringify(struktury) %>;
+        for (let i = 0; i < struktury.length; i++) {
+            const den = struktury[i];
+            if (den.udalosti && den.udalosti.length > 0) {
+                const nalezena = den.udalosti.find(u => u.id === index);
+                if (nalezena) {
+                    udalost = nalezena;
+                    break;
+                }
+            }
+        }
+    }
+    
+    if (!udalost) {
+        console.error("Událost nebyla nalezena:", index);
+    }
+
+    let detail = document.getElementById("detail");
+
+    document.getElementById("name").innerText = udalost.nazev || "";
+    document.getElementById("from").innerText = udalost.datumOd || udalost.datum || "";
+    document.getElementById("to").innerText = udalost.datumDo || "";
+    document.getElementById("date").innerText = udalost.datum || "";
+    document.getElementById("type").innerText = udalost.typ || "";
+    document.getElementById("tykase").innerText = udalost.tykaSe || "";
+    document.getElementById("note").innerText = udalost.poznamka || "";
+
+    toggleModal(event);*/
+
+  const toggleModal = (event) => {
+    event.preventDefault();
+    const modal = document.getElementById(event.currentTarget.dataset.target);
+    if (!modal) return;
+    modal && (modal.open ? closeModal(modal) : openModal(modal));
+    };
+
+    // Open modal
+    const openModal = (modal) => {
+    const { documentElement: html } = document;
+    const scrollbarWidth = getScrollbarWidth();
+    if (scrollbarWidth) {
+        html.style.setProperty(scrollbarWidthCssVar, `${scrollbarWidth}px`);
+    }
+    html.classList.add(isOpenClass, openingClass);
+    setTimeout(() => {
+        visibleModal = modal;
+        html.classList.remove(openingClass);
+    }, animationDuration);
+    modal.showModal();
+    };
+
+    // Close modal
+    const closeModal = (modal) => {
+    visibleModal = null;
+    const { documentElement: html } = document;
+    html.classList.add(closingClass);
+    setTimeout(() => {
+        html.classList.remove(closingClass, isOpenClass);
+        html.style.removeProperty(scrollbarWidthCssVar);
+        modal.close();
+    }, animationDuration);
+    };
+
+    // Close with a click outside
+    document.addEventListener("click", (event) => {
+    if (visibleModal === null) return;
+    const modalContent = visibleModal.querySelector("article");
+    const isClickInside = modalContent.contains(event.target);
+    if (!isClickInside) {
+        closeModal(visibleModal);
+        event.stopPropagation();
+    }
+    });
+
+    // Close with Esc key
+    document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && visibleModal) {
+        closeModal(visibleModal);
+    }
+    });
+
+    // Get scrollbar width
+    const getScrollbarWidth = () => {
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    return scrollbarWidth;
+    };
+
+    // Is scrollbar visible
+    const isScrollbarVisible = () => {
+    return document.body.scrollHeight > screen.height;
+    };
+
+    placeUdalosti()
+</script>
+<script src="/kalendar/js/main.js"></script>
+
 <article style="flex: 3; padding: 0;">
     <header>
        
@@ -263,7 +453,8 @@
             const dayOfWeek = datum.getDay(); // 0 = neděle, 1 = pondělí, ...
             const day = datum.getDate();
             const month = datum.getMonth() + 1;
-            const datumISO = datum.toISOString().split('T')[0];
+            let datumISO = new Date(datum.getTime() - datum.getTimezoneOffset() * 60000)
+                          .toISOString().split('T')[0];
             const backgroundColor = month % 2 === 0 ? 'var(--schedule-bg-lighter)' : 'var(--schedule-bg-darker)';
             
             // Přeskočíme neděle - ty se nezobrazují
@@ -355,215 +546,4 @@
       </main>
     </article>
 </dialog>
-
-<script>
-
-    const dateIncrement = 24 * 60 * 60 * 1000 //Miliseconds per day
-    const detailUdalosti = {}
-
-  function scrollToCurrent() {
-      const increment = 24 * 60 * 60 * 1000
-      let today = new Date();
-      //Pokud je nedele, scrolluje se na sobotu
-      if(Number(today.getDay()) == 0)
-          today = new Date(Number(today.getTime()) - increment)
-      let currentDate = today.toISOString().split('T')[0]; // Format YYYY-MM-DD
-      let element = document.getElementById(currentDate);
-
-      if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      } else {
-          console.error("Element pro aktuální datum nebyl nalezen.");
-      }
-  }
-
-  function scrollToMonth() {
-
-      const select = document.getElementById("months");
-      const month = select.value;
-      const year = (month < 8) ? 2025 : 2024;  // Nastavení roku podle výběru měsíce
-      let selected = document.getElementById(`${year}-${month.padStart(2, '0')}-01`);
-
-      if (selected) {
-          selected.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      } else {
-          selected = document.getElementById(`${year}-${month.padStart(2, '0')}-02`);
-          selected.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-  }
-
-  function placeUdalost(udalost, index){
-    const increment = 24 * 60 * 60 * 1000
-    let date = udalost.datum
-    const dateCheck = new Date(udalost.datum)
-    if (Number(dateCheck.getDay()) == 0)
-        date = new Date(Number(dateCheck.getTime()) - increment).toLocaleDateString('en-CA', { timeZone: 'Europe/Prague' })
-    let day = document.getElementById(date)
-    let button = document.createElement("button")
-    button.textContent = udalost.nazev
-    button.className = "udalost"
-    button.setAttribute("data-target", "detail")
-    button.onclick = function(){detailDisplay(index, event)}
-    day.appendChild(button)
-    return button
-  }
-
-  function placeUdalosti() {
-        let udalosti = <%- JSON.stringify(udalosti) %>
-        for (let id in udalosti){
-            if(udalosti[id] != null){
-                if(udalosti[id].datumDo != null){
-                    udalosti[id].naPocetDni = (new Date(udalosti[id].datumDo) - new Date(udalosti[id].datum) ) / (1000 * 60 * 60 * 24) + 1
-                    for(let j=0; j < udalosti[id].naPocetDni ;j++){
-                        let udalost = { ...udalosti[id] };
-                        let date = new Date(udalost.datum);
-
-                        udalost.datumOd = udalost.datum
-                        date.setDate(date.getDate() + j);
-                        udalost.datum = date.toISOString().split('T')[0];
-                        udalost.id = j+1000;
-                        
-                        detailUdalosti[udalost.id] = udalost;
-
-                        console.log(detailUdalosti)
-
-                        if(new Date(date - dateIncrement).getDay() != 5 ){
-                            let element = placeUdalost(udalost,udalost.id)
-                        element.classList.add("udalost", "udalostVicedenni")
-                        while (element.previousSibling != null){
-                            element.parentNode.insertBefore(element, element.previousSibling)
-                            if(element.previousSibling == element.parentNode.firstElementChild)
-                                break
-                        }
-                        }                     
-                }}
-                else
-                    placeUdalost(udalosti[id],id)
-            }
-        }
-  }
-
-  function detailDisplay(index, event) {
-    // Získáme všechny události
-    const udalosti = <%- JSON.stringify(udalosti) %>;
-    let udalost = udalosti.find(u => u.id === index);
-    
-    // Pokud nebyla událost nalezena v hlavním seznamu, hledáme ji ve strukturách
-    if (!udalost) {
-        const struktury = <%- JSON.stringify(struktury) %>;
-        for (let i = 0; i < struktury.length; i++) {
-            const den = struktury[i];
-            if (den.udalosti && den.udalosti.length > 0) {
-                const nalezena = den.udalosti.find(u => u.id === index);
-                if (nalezena) {
-                    udalost = nalezena;
-                    break;
-                }
-            }
-        }
-    }
-    
-    if (!udalost) {
-        console.error("Událost nebyla nalezena:", index);
-        return;
-    }
-
-    let detail = document.getElementById("detail");
-
-    document.getElementById("name").innerText = udalost.nazev || "";
-    document.getElementById("from").innerText = udalost.datumOd || udalost.datum || "";
-    document.getElementById("to").innerText = udalost.datumDo || "";
-    document.getElementById("date").innerText = udalost.datum || "";
-    document.getElementById("type").innerText = udalost.typ || "";
-    document.getElementById("tykase").innerText = udalost.tykaSe || "";
-    document.getElementById("note").innerText = udalost.poznamka || "";
-
-    toggleModal(event);
-}
-    
-    if (!udalost) {
-        console.error("Událost nebyla nalezena:", index);
-        return;
-    }
-
-    let detail = document.getElementById("detail");
-
-    document.getElementById("name").innerText = udalost.nazev || "";
-    document.getElementById("from").innerText = udalost.datumOd || udalost.datum || "";
-    document.getElementById("to").innerText = udalost.datumDo || "";
-    document.getElementById("date").innerText = udalost.datum || "";
-    document.getElementById("type").innerText = udalost.typ || "";
-    document.getElementById("tykase").innerText = udalost.tykaSe || "";
-    document.getElementById("note").innerText = udalost.poznamka || "";
-
-    toggleModal(event);
-    }
-
-
-  const toggleModal = (event) => {
-    event.preventDefault();
-    const modal = document.getElementById(event.currentTarget.dataset.target);
-    if (!modal) return;
-    modal && (modal.open ? closeModal(modal) : openModal(modal));
-    };
-
-    // Open modal
-    const openModal = (modal) => {
-    const { documentElement: html } = document;
-    const scrollbarWidth = getScrollbarWidth();
-    if (scrollbarWidth) {
-        html.style.setProperty(scrollbarWidthCssVar, `${scrollbarWidth}px`);
-    }
-    html.classList.add(isOpenClass, openingClass);
-    setTimeout(() => {
-        visibleModal = modal;
-        html.classList.remove(openingClass);
-    }, animationDuration);
-    modal.showModal();
-    };
-
-    // Close modal
-    const closeModal = (modal) => {
-    visibleModal = null;
-    const { documentElement: html } = document;
-    html.classList.add(closingClass);
-    setTimeout(() => {
-        html.classList.remove(closingClass, isOpenClass);
-        html.style.removeProperty(scrollbarWidthCssVar);
-        modal.close();
-    }, animationDuration);
-    };
-
-    // Close with a click outside
-    document.addEventListener("click", (event) => {
-    if (visibleModal === null) return;
-    const modalContent = visibleModal.querySelector("article");
-    const isClickInside = modalContent.contains(event.target);
-    if (!isClickInside) {
-        closeModal(visibleModal);
-        event.stopPropagation();
-    }
-    });
-
-    // Close with Esc key
-    document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && visibleModal) {
-        closeModal(visibleModal);
-    }
-    });
-
-    // Get scrollbar width
-    const getScrollbarWidth = () => {
-    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-    return scrollbarWidth;
-    };
-
-    // Is scrollbar visible
-    const isScrollbarVisible = () => {
-    return document.body.scrollHeight > screen.height;
-    };
-
-    placeUdalosti()
-</script>
-<script src="/kalendar/js/main.js"></script>
 <%- include('../partials/tail') %>
