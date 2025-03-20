@@ -340,6 +340,3 @@ window.onload = (event) => {
     updateRowColors();
 	reorderCurriculum();
 };
-
-
-
