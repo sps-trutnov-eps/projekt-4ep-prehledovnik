@@ -593,7 +593,10 @@ const databaseEngine = {
   ziskatUcebny: () => {
     return db.get("ucebny");
   },
-  struktury: tvorbaStruktur
+  struktury: tvorbaStruktur,
+  ziskatStruktury: () => {
+    return db.get("struktury");
+  }
 };
 
 function tvorbaStruktur(maturity) {
@@ -624,8 +627,6 @@ function tvorbaStruktur(maturity) {
 
     const dniMap = ["Ne", "Po", "Út", "St", "Čt", "Pá", "So"];
     let denNazev = dniMap[denVTydnu];
-
-    if (denVTydnu === 0 || denVTydnu === 6) continue;
 
     let denStruktura = {
       datum: formattedDate,
