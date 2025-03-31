@@ -28,11 +28,13 @@ exports.mesicni = (req,res) => {
     databaze.struktury(databaze.maturity.ziskatVsechnyMaturityJakoUdalosti());
     let udalosti = databaze.udalosti.ziskatVsechnyUdalosti();
     let maturityUdalosti = databaze.maturity.ziskatVsechnyMaturityJakoUdalosti();
+    let struktury = databaze.ziskatStruktury();
 
     udalosti = udalosti.concat(maturityUdalosti)
-    res.render('kalendar', {
+    res.render('kalendar/index2', {
         date_udalost: date_udalost(),
-        udalosti: udalosti
+        udalosti: udalosti,
+        struktury: struktury
     })
 }
 function getFirstMondayInSeptember(startYear) {
