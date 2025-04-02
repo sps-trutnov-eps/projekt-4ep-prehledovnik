@@ -192,7 +192,17 @@
                         <% } %>
 
                         <% den.hodiny.forEach(hodina => { %>
-                            <button class="udalost"><%= hodina.predmet %></button>
+                            <button class="udalost" 
+                                    data-target="detail" 
+                                    onclick="detailDisplayHodina(this, event)"
+                                    data-predmet="<%= hodina.predmet %>"
+                                    data-mistnost="<%= hodina.mistnost %>"
+                                    data-skupina="<%= hodina.skupina %>"
+                                    data-trida="<%= hodina.trida %>"
+                                    data-tema="<%= hodina.tema %>"
+                                    data-cislo="<%= hodina.cislo %>">
+                                <%= hodina.predmet %>
+                            </button>
                         <% }) %>
 
                         <% den.udalosti.forEach(udalost => { %>
@@ -282,6 +292,27 @@
             
             toggleModal(event);
         }
+    }
+
+    function detailDisplayHodina(element, event) {
+        const hodina = {
+            predmet: element.dataset.predmet,
+            mistnost: element.dataset.mistnost,
+            skupina: element.dataset.skupina,
+            trida: element.dataset.trida,
+            tema: element.dataset.tema,
+            cislo: element.dataset.cislo
+        };
+        
+        document.getElementById("name").innerText = hodina.predmet;
+        document.getElementById("date").innerText = `${hodina.cislo}. hodina`;
+        document.getElementById("from").innerText = `Místnost: ${hodina.mistnost}`;
+        document.getElementById("to").innerText = `Třída: ${hodina.trida}`;
+        document.getElementById("type").innerText = `Skupina: ${hodina.skupina}`;
+        document.getElementById("tykase").innerText = `Téma: ${hodina.tema || 'Není určeno'}`;
+        document.getElementById("note").innerText = '';
+        
+        toggleModal(event);
     }
 
     // Modal handling code
