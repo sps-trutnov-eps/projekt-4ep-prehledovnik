@@ -156,14 +156,36 @@
         <section class="grid-container">
             <% struktury.forEach(den => { %>
                 <% if(den.den !== 'Ne') { %>
-                    <section id="<%= den.datum.split('.')[2] %>-<%= den.datum.split('.')[1].padStart(2, '0') %>-<%= den.datum.split('.')[0].padStart(2, '0') %>" 
+                    <% 
+                    const datumParts = den.datum.split('.');
+                    const month = Number(datumParts[1]);
+                    const year = month < 8 ? 2025 : 2024;
+                    %>
+                    <section id="<%= year %>-<%= datumParts[1].padStart(2, '0') %>-<%= datumParts[0].padStart(2, '0') %>" 
                             style="grid-column-start: <%= ['Po', 'Út', 'St', 'Čt', 'Pá', 'So'].indexOf(den.den) + 1 %>; 
-                                   background-color: <%= Number(den.datum.split('.')[1]) % 2 === 0 ? 'var(--schedule-bg-lighter)' : 'var(--schedule-bg-darker)' %>;" 
+                                   background-color: <%= Number(datumParts[1]) % 2 === 0 ? 'var(--schedule-bg-lighter)' : 'var(--schedule-bg-darker)' %>;" 
                             class="grid-item">
                         <% if(den.den === 'So') { %>
                             <p class="days-mon"><%= den.datum %> - <%= 
-                                struktury.find(d => d.datum.split('.')[0] === String(Number(den.datum.split('.')[0]) + 1) && 
-                                                  d.datum.split('.')[1] === den.datum.split('.')[1])?.datum || 'N/A' 
+                                (() => {
+                                    const parts = den.datum.split('.');
+                                    const day = Number(parts[0]);
+                                    const month = Number(parts[1]);
+                                    const nextDay = day + 1;
+                                    
+                                    // Pokud je další den 1, hledáme v dalším měsíci
+                                    if (nextDay > 31 || (nextDay === 31 && [4,6,9,11].includes(month)) || (nextDay === 29 && month === 2)) {
+                                        return struktury.find(d => 
+                                            d.datum.startsWith('1.') && 
+                                            Number(d.datum.split('.')[1]) === (month === 12 ? 1 : month + 1)
+                                        )?.datum || 'N/A';
+                                    }
+                                    
+                                    return struktury.find(d => 
+                                        d.datum.startsWith(nextDay + '.') && 
+                                        d.datum.split('.')[1] === parts[1]
+                                    )?.datum || 'N/A';
+                                })()
                             %></p>
                         <% } else { %>
                             <p class="days-mon"><%= den.datum %></p>
@@ -213,8 +235,14 @@
         if(today.getDay() === 0) {
             today.setDate(today.getDate() - 1);
         }
-        const currentDate = today.toISOString().split('T')[0];
-        const element = document.getElementById(currentDate);
+        // Formát data pro ID: rok-mesic-den
+        const day = String(today.getDate()).padStart(2, '0');
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const year = today.getFullYear();
+        
+        // Sestavení ID ve stejném formátu jako v EJS šabloně
+        const elementId = `${year}-${month}-${day}`;
+        const element = document.getElementById(elementId);
 
         if (element) {
             element.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -223,16 +251,18 @@
 
     function scrollToMonth() {
         const select = document.getElementById("months");
-        const month = select.value;
-        const year = (month < 8) ? 2025 : 2024;
-        let selected = document.getElementById(`${year}-${month.padStart(2, '0')}-01`);
+        const month = select.value.padStart(2, '0');
+        const year = (Number(month) < 8) ? 2025 : 2024;
 
-        if (selected) {
-            selected.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        } else {
-            selected = document.getElementById(`${year}-${month.padStart(2, '0')}-02`);
-            if (selected) {
-                selected.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Procházíme prvních několik dní v měsíci, dokud nenajdeme existující element
+        for (let day = 1; day <= 7; day++) {
+            const dayStr = String(day).padStart(2, '0');
+            const elementId = `${year}-${month}-${dayStr}`;
+            const element = document.getElementById(elementId);
+            
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                break;
             }
         }
     }
