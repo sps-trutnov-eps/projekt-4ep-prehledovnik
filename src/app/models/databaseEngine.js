@@ -653,7 +653,7 @@ function tvorbaStruktur(maturity) {
 
     // Kontrola, zda není den zrušený kvůli události
     let jeDenZrusen = denStruktura.udalosti.some(u =>
-      ["Škola", "Budova", "Učitel"].includes(u.typ)
+      ["celoskolni", "budovy", "ucitelsky"].includes(u.typ)
     );
 
     // Přidání hodin pouze pokud je školní rok a den není zrušený

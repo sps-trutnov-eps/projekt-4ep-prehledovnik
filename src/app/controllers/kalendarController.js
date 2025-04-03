@@ -107,11 +107,14 @@ exports.tydenni = (req,res) => {
         }        
     }
 
-    res.render('kalendar/tydenni', {
+    let struktury = databaze.ziskatStruktury();
+
+    res.render('kalendar/tydenni2', {
         rozvrh: rozvrh, 
         week: tydny,
         osnovy: osnovy,
-        udalosti: databaze.udalosti.ziskatVsechnyUdalosti()
+        udalosti: databaze.udalosti.ziskatVsechnyUdalosti(),
+        struktury: struktury
     })
 }
 
