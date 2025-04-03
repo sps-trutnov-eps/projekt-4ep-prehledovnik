@@ -81,7 +81,7 @@
 						<label style="margin-top: 1em;">Členové</label>
 							<div class="members">
 								<div class="dropdown-members2" id="teamMembers">
-									<% if (team != undefined) { %>
+									<% if (team != undefined && team["clenove"] != undefined) { %>
 									<% for (let i = 0; i < team["clenove"].length; i++) { %>
 									
 										<div style="display: flex; align-items: center;" class="members-input2">

@@ -305,7 +305,18 @@
             <td>
               <% if (udalost.vyberZadani !== "maturita") { %>
                 <button 
-                  onclick="if(confirm('Opravdu chcete smazat tuto událost?')) { window.location.href = '/udalosti/smazat/<%= JSON.stringify(udalost) %>';}"
+                  onclick="(async function() { 
+                    const showConfirm = createConfirmPopup({
+                      title: 'Smazat Událost',
+                      message: 'Opravdu chcete smazat událost?',
+                      confirmText: 'Smazat',
+                      cancelText: 'Zrušit'
+                    });
+                    const confirmed = await showConfirm();
+                    if(confirmed) { 
+                      window.location.href = '/udalosti/smazat/<%= JSON.stringify(udalost) %>';
+                    }
+                  })()"
                   class="delete-btn"
                 >✕</button>
               <% } else { %>

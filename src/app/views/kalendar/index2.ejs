@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<%- include('../partials/head'); %>
+<style>
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(6, minmax(150px, 1fr));
+        padding: 20px;
+    }
+    .grid-item {
+        border: 1px solid rgba(0, 0, 0, 0.8);
+        border-collapse: collapse;
+        font-size: 20px;
+        text-align: center;
+        scroll-margin: 75px;
+        margin: 0;
+        height: 120px;
+        padding: 1px;
+    }
+
+    #naAktualniButton {
+        margin-right: 2em;
+        border-radius: var(--pico-border-radius);
+    }
+    #naMesicButon {
+        border-top-left-radius: var(--pico-border-radius);
+        border-bottom-left-radius: var(--pico-border-radius);
+    }
+
+    .days-header {
+        position: sticky;
+        top: -1em;
+        z-index: 9;
+        padding-bottom: 0;
+        margin: 0;
+        background-color: var(--pico-card-background-color);
+    }
+
+    .week-days {
+        color: #0172ad;
+        position: relative;
+        background-color: var(--pico-background-color);
+        box-shadow: 0rem 0.029rem 0.174rem rgba(129, 145, 181, 0.01698),
+                   0rem 0.067rem 0.402rem rgba(129, 145, 181, 0.024),
+                   0rem 0.125rem 0.75rem rgba(129, 145, 181, 0.03),
+                   0rem 0.225rem 1.35rem rgba(129, 145, 181, 0.036),
+                   0rem 0.417rem 2.502rem rgba(129, 145, 181, 0.04302),
+                   0rem 1rem 6rem rgba(129, 145, 181, 0.06);
+        margin: 0;
+        padding: 10px 5px;
+        height: 50px;
+        font-weight: 600;
+    }
+
+    .days-mon {
+        padding: 0;
+        font-size: 13px;
+        font-weight: bold;
+        margin: 0;
+        color: #0172ad;
+    }
+
+    .udalost {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        margin-top: -10px;
+        border-radius: 0;
+        height: 20px;
+        font-size: 10px;
+        padding-block: 0px;
+        padding-inline: 0px;
+        line-height: 1;
+    }
+
+    #quick-nav {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        margin-top: 0;
+        padding: 15px;
+    }
+
+    header {
+        display: flex;
+    }
+    
+    header > div:nth-of-type(1) {
+        flex: 1;
+        text-align: left;
+    }
+    header > div:nth-of-type(2) {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+    }
+    header > div:nth-of-type(3) {
+        flex: 1;
+    }
+    
+    #rightSide > button {
+        margin-left: 16em;
+    }
+    #months {
+        margin: 0;
+        padding: 0;
+        padding-left: 0.6em;
+    }
+</style>
+
+<article style="flex: 3; padding: 0;">
+    <header>
+        <div>
+            <h1>Kalendář</h1>
+        </div>
+        
+        <div>
+            <button id="naAktualniButton" onclick="scrollToCurrent()">Aktuální</button>
+            <div role="group">
+                <button id="naMesicButon" onclick="scrollToMonth()">Na&nbsp;měsíc</button>
+                <select name="months" id="months">
+                    <option value="8">Srpen</option>
+                    <option value="9">Září</option>
+                    <option value="10">Říjen</option>
+                    <option value="11">Listopad</option>
+                    <option value="12">Prosinec</option>
+                    <option value="1">Leden</option>
+                    <option value="2">Únor</option>
+                    <option value="3">Březen</option>
+                    <option value="4">Duben</option>
+                    <option value="5">Květen</option>
+                    <option value="6">Červen</option>
+                    <option value="7">Červenec</option>
+                </select>
+            </div>
+        </div>
+        
+        <div>
+            <div role="group" id="rightSide">
+                <button class="outline" onclick="window.location.href='/kalendar/tydenni'" hx-target="body" hx-push-url="true" hx-swap="transition:true">
+                    Na týdenní
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="grid-container days-header">
+            <p class="grid-item week-days">PONDĚLÍ</p>
+            <p class="grid-item week-days">ÚTERÝ</p>
+            <p class="grid-item week-days">STŘEDA</p>
+            <p class="grid-item week-days">ČTVRTEK</p>
+            <p class="grid-item week-days">PÁTEK</p>
+            <p class="grid-item week-days">VÍKEND</p>
+        </section>
+
+        <section class="grid-container">
+            <% struktury.forEach(den => { %>
+                <% if(den.den !== 'Ne') { %>
+                    <% 
+                    const datumParts = den.datum.split('.');
+                    const month = Number(datumParts[1]);
+                    const year = month < 8 ? 2025 : 2024;
+                    %>
+                    <section id="<%= year %>-<%= datumParts[1].padStart(2, '0') %>-<%= datumParts[0].padStart(2, '0') %>" 
+                            style="grid-column-start: <%= ['Po', 'Út', 'St', 'Čt', 'Pá', 'So'].indexOf(den.den) + 1 %>; 
+                                   background-color: <%= Number(datumParts[1]) % 2 === 0 ? 'var(--schedule-bg-lighter)' : 'var(--schedule-bg-darker)' %>;" 
+                            class="grid-item">
+                        <% if(den.den === 'So') { %>
+                            <p class="days-mon"><%= den.datum %> - <%= 
+                                (() => {
+                                    const parts = den.datum.split('.');
+                                    const day = Number(parts[0]);
+                                    const month = Number(parts[1]);
+                                    const nextDay = day + 1;
+                                    
+                                    // Pokud je další den 1, hledáme v dalším měsíci
+                                    if (nextDay > 31 || (nextDay === 31 && [4,6,9,11].includes(month)) || (nextDay === 29 && month === 2)) {
+                                        return struktury.find(d => 
+                                            d.datum.startsWith('1.') && 
+                                            Number(d.datum.split('.')[1]) === (month === 12 ? 1 : month + 1)
+                                        )?.datum || 'N/A';
+                                    }
+                                    
+                                    return struktury.find(d => 
+                                        d.datum.startsWith(nextDay + '.') && 
+                                        d.datum.split('.')[1] === parts[1]
+                                    )?.datum || 'N/A';
+                                })()
+                            %></p>
+                        <% } else { %>
+                            <p class="days-mon"><%= den.datum %></p>
+                        <% } %>
+
+                        <% den.hodiny.forEach(hodina => { %>
+                            <button class="udalost" 
+                                    data-target="detail" 
+                                    onclick="detailDisplayHodina(this, event)"
+                                    data-predmet="<%= hodina.predmet %>"
+                                    data-mistnost="<%= hodina.mistnost %>"
+                                    data-skupina="<%= hodina.skupina %>"
+                                    data-trida="<%= hodina.trida %>"
+                                    data-tema="<%= hodina.tema %>"
+                                    data-cislo="<%= hodina.cislo %>">
+                                <%= hodina.predmet %>
+                            </button>
+                        <% }) %>
+
+                        <% den.udalosti.forEach(udalost => { %>
+                            <button class="udalost" 
+                                    data-target="detail" 
+                                    onclick="detailDisplay('<%= udalost.id %>', event)">
+                                <%= udalost.nazev %>
+                            </button>
+                        <% }) %>
+                    </section>
+                <% } %>
+            <% }) %>
+        </section>
+    </main>
+</article>
+
+<dialog id="detail">
+    <article>
+        <header>
+            <button aria-label="Close" rel="prev" data-target="detail" onclick="toggleModal(event)"></button>
+            <p><strong>Detail události</strong></p>
+        </header>
+        <main>
+            <p id="name" class="detailItem"></p>
+            <p id="date" class="detailItem"></p>
+            <p id="from" class="detailItem"></p>
+            <p id="to" class="detailItem"></p>
+            <p id="type" class="detailItem"></p>
+            <p id="tykase" class="detailItem"></p>
+            <p id="note" class="detailItem"></p>
+        </main>
+    </article>
+</dialog>
+
+<script>
+    const dateIncrement = 24 * 60 * 60 * 1000;
+
+    function scrollToCurrent() {
+        const today = new Date();
+        if(today.getDay() === 0) {
+            today.setDate(today.getDate() - 1);
+        }
+        // Formát data pro ID: rok-mesic-den
+        const day = String(today.getDate()).padStart(2, '0');
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const year = today.getFullYear();
+        
+        // Sestavení ID ve stejném formátu jako v EJS šabloně
+        const elementId = `${year}-${month}-${day}`;
+        const element = document.getElementById(elementId);
+
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+
+    function scrollToMonth() {
+        const select = document.getElementById("months");
+        const month = select.value.padStart(2, '0');
+        const year = (Number(month) < 8) ? 2025 : 2024;
+
+        // Procházíme prvních několik dní v měsíci, dokud nenajdeme existující element
+        for (let day = 1; day <= 7; day++) {
+            const dayStr = String(day).padStart(2, '0');
+            const elementId = `${year}-${month}-${dayStr}`;
+            const element = document.getElementById(elementId);
+            
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                break;
+            }
+        }
+    }
+
+    function detailDisplay(udalostId, event) {
+        const udalosti = <%- JSON.stringify(struktury.flatMap(den => den.udalosti)) %>;
+        const udalost = udalosti.find(u => u.id === udalostId);
+        
+        if (udalost) {
+            document.getElementById("name").innerText = udalost.nazev;
+            document.getElementById("date").innerText = udalost.datum;
+            document.getElementById("from").innerText = udalost.casOd || 'Celý den';
+            document.getElementById("to").innerText = udalost.casDo || 'Celý den';
+            document.getElementById("type").innerText = udalost.typ;
+            document.getElementById("tykase").innerText = udalost.tykaSe;
+            document.getElementById("note").innerText = udalost.poznamka;
+            
+            toggleModal(event);
+        }
+    }
+
+    function detailDisplayHodina(element, event) {
+        const hodina = {
+            predmet: element.dataset.predmet,
+            mistnost: element.dataset.mistnost,
+            skupina: element.dataset.skupina,
+            trida: element.dataset.trida,
+            tema: element.dataset.tema,
+            cislo: element.dataset.cislo
+        };
+        
+        document.getElementById("name").innerText = hodina.predmet;
+        document.getElementById("date").innerText = `${hodina.cislo}. hodina`;
+        document.getElementById("from").innerText = `Místnost: ${hodina.mistnost}`;
+        document.getElementById("to").innerText = `Třída: ${hodina.trida}`;
+        document.getElementById("type").innerText = `Skupina: ${hodina.skupina}`;
+        document.getElementById("tykase").innerText = `Téma: ${hodina.tema || 'Není určeno'}`;
+        document.getElementById("note").innerText = '';
+        
+        toggleModal(event);
+    }
+
+    // Modal handling code
+    const isOpenClass = "modal-is-open";
+    const openingClass = "modal-is-opening";
+    const closingClass = "modal-is-closing";
+    const animationDuration = 400;
+    let visibleModal = null;
+
+    const toggleModal = (event) => {
+        event.preventDefault();
+        const modal = document.getElementById(event.currentTarget.dataset.target);
+        if (!modal) return;
+        modal && (modal.open ? closeModal(modal) : openModal(modal));
+    };
+
+    const openModal = (modal) => {
+        const { documentElement: html } = document;
+        html.classList.add(isOpenClass, openingClass);
+        setTimeout(() => {
+            visibleModal = modal;
+            html.classList.remove(openingClass);
+        }, animationDuration);
+        modal.showModal();
+    };
+
+    const closeModal = (modal) => {
+        visibleModal = null;
+        const { documentElement: html } = document;
+        html.classList.add(closingClass);
+        setTimeout(() => {
+            html.classList.remove(closingClass, isOpenClass);
+            modal.close();
+        }, animationDuration);
+    };
+
+    document.addEventListener("click", (event) => {
+        if (visibleModal === null) return;
+        const modalContent = visibleModal.querySelector("article");
+        if (!modalContent.contains(event.target)) {
+            closeModal(visibleModal);
+            event.stopPropagation();
+        }
+    });
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && visibleModal) {
+            closeModal(visibleModal);
+        }
+    });
+</script>
+
+<script src="/kalendar/js/main.js"></script>
+<%- include('../partials/tail') %>

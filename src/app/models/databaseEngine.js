@@ -593,7 +593,10 @@ const databaseEngine = {
   ziskatUcebny: () => {
     return db.get("ucebny");
   },
-  struktury: tvorbaStruktur
+  struktury: tvorbaStruktur,
+  ziskatStruktury: () => {
+    return db.get("struktury");
+  }
 };
 
 function tvorbaStruktur(maturity) {
@@ -625,8 +628,6 @@ function tvorbaStruktur(maturity) {
     const dniMap = ["Ne", "Po", "Út", "St", "Čt", "Pá", "So"];
     let denNazev = dniMap[denVTydnu];
 
-    if (denVTydnu === 0 || denVTydnu === 6) continue;
-
     let denStruktura = {
       datum: formattedDate,
       den: denNazev,
@@ -636,46 +637,44 @@ function tvorbaStruktur(maturity) {
       udalosti: [],
     };
 
+    // Kontrola, zda je den v období školního roku (září-červen)
+    const mesic = datum.getMonth() + 1; // getMonth() vrací 0-11
+    const jeVyuka = mesic >= 9 || mesic <= 6;
+
     let datumISO = new Date(datum.getTime() - datum.getTimezoneOffset() * 60000)
-    .toISOString().split("T")[0];
+      .toISOString().split("T")[0];
 
-
+    // Přidání událostí
     let udalostiArray = Object.entries(udalosti)
       .filter(([key, value]) => key !== "nextID")
       .map(([key, value]) => ({ id: key, ...value }));
 
     denStruktura.udalosti = udalostiArray.filter(u => u.datum === datumISO);
 
-    // Pokud je v tento den událost typu "Škola", "Budova" nebo "Učitel", všechny hodiny jsou zrušené
+    // Kontrola, zda není den zrušený kvůli události
     let jeDenZrusen = denStruktura.udalosti.some(u =>
       ["Škola", "Budova", "Učitel"].includes(u.typ)
     );
 
-    if (!jeDenZrusen && rozvrhy[Number(rozvrhy["nextID"]) - 1]?.hodiny?.[lichySud]?.[denNazev]) {
-      for (let j = 0; j <= 9; j++) {
-        let hodinaData = rozvrhy[Number(rozvrhy["nextID"]) - 1].hodiny[lichySud][denNazev][j];
-
-        if (hodinaData) {
-          let predmet = hodinaData.predmet !== "volno" ? hodinaData.predmet : "";
-          let skupina = hodinaData.predmet !== "volno" ? hodinaData.skupina : "";
-          let key = predmet + hodinaData.trida + skupina;
-
-          if (predmet !== "") {
-            let novaHodina = {
-                cislo: j,
-                predmet: predmet,
-                skupina: skupina,
-                trida: hodinaData.trida,
-                mistnost: hodinaData.mistnost,
-                tema: null, // Přidáme až po kontrole blokací
-            };
-
-            if (!jeHodinaBlokovana(novaHodina, denStruktura.udalosti)) {
-              denStruktura.hodiny.push(novaHodina); // Přidáme jen pokud není blokovaná
-            }
+    // Přidání hodin pouze pokud je školní rok a den není zrušený
+    if (jeVyuka && !jeDenZrusen && denVTydnu > 0 && denVTydnu < 6) {
+      // Zde přidáme hodiny z rozvrhu
+      Object.values(rozvrhy).forEach(rozvrh => {
+        if (rozvrh.hodiny) {
+          const denRozvrhu = rozvrh.hodiny[lichySud][denNazev];
+          if (denRozvrhu) {
+            Object.entries(denRozvrhu).forEach(([cisloHodiny, hodina]) => {
+              if (hodina.predmet !== "volno") {
+                denStruktura.hodiny.push({
+                  cislo: parseInt(cisloHodiny),
+                  ...hodina,
+                  tema: null
+                });
+              }
+            });
           }
         }
-      }
+      });
     }
 
     vsechnyDny.push(denStruktura);
