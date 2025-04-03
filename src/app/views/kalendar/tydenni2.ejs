@@ -309,4 +309,49 @@
    </main>
 </article>
 
+<script>
+  function scrollToCurrent() {
+      const increment = 24 * 60 * 60 * 1000
+      let today = new Date();
+      if(Number(today.getDay()) == 0)
+          today = new Date(Number(today.getTime()) - increment*2)
+
+      let formattedDate = `${today.getDate()}.${today.getMonth() + 1}.`
+      let element = document.getElementById(formattedDate);
+
+      if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+          console.error("Element pro aktuální datum nebyl nalezen.");
+      }
+  }
+
+  function scrollToMonth() {
+      const select = document.getElementById("months");
+      const month = select.value;
+      const year = (month < 8) ? 2025 : 2024;
+      let selected = document.getElementById(`1.${month}.`);
+
+      if (selected) {
+          selected.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+          selected = document.getElementById(`${year}-${month.padStart(2, '0')}-02`);
+          selected.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+  }
+
+  function detailDisplay(button) {
+      let detail = document.getElementById("detail")
+      detail.style.display = "block"
+
+      const period = button.parentNode
+      document.getElementById("countDet").innerText = period.querySelector(".count").textContent
+      document.getElementById("themeDet").innerText = period.querySelector(".theme").textContent
+  }
+
+  function detailOff() {
+      document.getElementById("detail").style.display = "none"
+  }
+</script>
+
 <%- include('../partials/tail') %>
