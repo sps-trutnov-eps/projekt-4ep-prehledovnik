@@ -241,19 +241,42 @@
        </div>
 
        <% 
-       // Group struktury by week
-       let weeks = {};
+       // Group struktury by week ensuring weeks start with Monday
+       let weeks = [];
+       let currentWeek = null;
+       let currentDays = [];
+       
        struktury.forEach(den => {
-         if (!weeks[den.tyden]) {
-           weeks[den.tyden] = [];
-         }
          if (den.den !== 'So' && den.den !== 'Ne') {
-           weeks[den.tyden].push(den);
+           // If it's Monday or we don't have a current week yet
+           if (den.den === 'Po' || currentWeek === null) {
+             // If we have days from previous week, save them
+             if (currentDays.length > 0) {
+               weeks.push({
+                 tyden: currentWeek,
+                 dny: currentDays
+               });
+             }
+             // Start new week
+             currentWeek = den.tyden;
+             currentDays = [den];
+           } else {
+             // Add to current week
+             currentDays.push(den);
+           }
          }
        });
+       
+       // Add the last week if it has any days
+       if (currentDays.length > 0) {
+         weeks.push({
+           tyden: currentWeek,
+           dny: currentDays
+         });
+       }
        %>
 
-       <% Object.entries(weeks).forEach(([tyden, dny]) => { %>
+       <% weeks.forEach(({tyden, dny}) => { %>
          <section class="grid-container">
            <p class="grid-item-h-ct" id="cisloTydne"><%= tyden %></p>
            <p class="grid-item-h"><span class="cislo-hodiny">0</span><br>7:10-7:55</p>
