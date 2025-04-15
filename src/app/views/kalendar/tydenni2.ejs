@@ -221,6 +221,62 @@
   }
 </style>
 
+<script>
+  function scrollToCurrent() {
+      const increment = 24 * 60 * 60 * 1000
+      let today = new Date();
+      if(Number(today.getDay()) == 0)
+          today = new Date(Number(today.getTime()) - increment*2)
+
+      let formattedDate = `${today.getDate()}.${today.getMonth() + 1}.`
+      let element = document.getElementById(formattedDate);
+
+      if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+          console.error("Element pro aktuální datum nebyl nalezen.");
+      }
+  }
+
+  function scrollToMonth() {
+      const select = document.getElementById("months");
+      const month = select.value;
+      const year = (month < 8) ? 2025 : 2024;
+      let selected = document.getElementById(`1.${month}.`);
+
+      if (selected) {
+          selected.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+          selected = document.getElementById(`${year}-${month.padStart(2, '0')}-02`);
+          selected.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+  }
+
+  function detailDisplay(button) {
+      let detail = document.getElementById("detail")
+      detail.style.display = "block"
+
+      const period = button.parentNode
+      document.getElementById("countDet").innerText = period.querySelector(".count").textContent
+      document.getElementById("themeDet").innerText = period.querySelector(".theme").textContent
+  }
+
+  function detailOff() {
+      document.getElementById("detail").style.display = "none"
+  }
+
+  function showEventDetail(button) {
+    let detail = document.getElementById("detail");
+    detail.style.display = "block";
+
+    const eventType = button.querySelector(".event-type").textContent;
+    const eventTarget = button.querySelector(".event-target")?.textContent || "";
+    
+    document.getElementById("countDet").innerText = `Typ: ${eventType}`;
+    document.getElementById("themeDet").innerText = eventTarget ? `Týká se: ${eventTarget}` : "";
+  }
+</script>
+
 <article style="flex: 3; overflow-y: auto; padding: 0;">
    <header>
       <div>
@@ -334,25 +390,75 @@
                    <% } %>
                  <% } %>
 
+                 <% 
+                 // Helper function to get time index
+                 function getTimeIndex(cas) {
+                   const hodiny = {
+                     1: ["7:10", "7:55"],
+                     2: ["8:00", "8:45"],
+                     3: ["8:50", "9:35"],
+                     4: ["9:55", "10:40"],
+                     5: ["10:50", "11:35"],
+                     6: ["11:40", "12:25"],
+                     7: ["12:35", "13:20"],
+                     8: ["13:25", "14:10"],
+                     9: ["14:15", "15:00"],
+                     10: ["15:10", "15:55"]
+                   };
+
+                   for (let i = 1; i <= 10; i++) {
+                     if (cas === hodiny[i][0] || cas === hodiny[i][1]) {
+                       return i-1; // Odečítáme 1, protože j začíná od 0
+                     }
+                   }
+                   return null;
+                 }
+                 %>
+
                  <% den.udalosti.forEach(event => { %>
-                   <% if(event.typ == "celoskolni") { %>
-                     <button class="event-button" onclick="showEventDetail(this)">
-                       <%= event.nazev %>
-                       <span class="event-type">celoskolni</span>
-                     </button>
-                   <% } %>
-                   <% if(event.typ == "ucitelsky") { %>
-                     <button class="event-button" onclick="showEventDetail(this)">
-                       <%= event.nazev %>
-                       <span class="event-type">ucitelsky</span>
-                       <span class="event-target"><%= event.tykaSe %></span>
-                     </button>
-                   <% } %>
-                   <% if(event.typ == "celotridni") { %>
-                     <button class="event-button" onclick="showEventDetail(this)">
-                       <%= event.nazev %>
-                       <span class="event-type">celotridni</span>
-                     </button>
+                   <% if(event.casOd && event.casDo) { %>
+                     <% if(j >= getTimeIndex(event.casOd) && j <= getTimeIndex(event.casDo)) { %>
+                       <% if(event.typ == "celoskolni") { %>
+                         <button class="event-button" onclick="showEventDetail(this)">
+                           <%= event.nazev %>
+                           <span class="event-type">celoskolni</span>
+                         </button>
+                       <% } %>
+                       <% if(event.typ == "ucitelsky") { %>
+                         <button class="event-button" onclick="showEventDetail(this)">
+                           <%= event.nazev %>
+                           <span class="event-type">ucitelsky</span>
+                           <span class="event-target"><%= event.tykaSe %></span>
+                         </button>
+                       <% } %>
+                       <% if(event.typ == "celotridni") { %>
+                         <button class="event-button" onclick="showEventDetail(this)">
+                           <%= event.nazev %>
+                           <span class="event-type">celotridni</span>
+                         </button>
+                       <% } %>
+                     <% } %>
+                   <% } else { %>
+                     <% // Pokud událost nemá časové údaje, zobrazí se v každé hodině %>
+                     <% if(event.typ == "celoskolni") { %>
+                       <button class="event-button" onclick="showEventDetail(this)">
+                         <%= event.nazev %>
+                         <span class="event-type">celoskolni</span>
+                       </button>
+                     <% } %>
+                     <% if(event.typ == "ucitelsky") { %>
+                       <button class="event-button" onclick="showEventDetail(this)">
+                         <%= event.nazev %>
+                         <span class="event-type">ucitelsky</span>
+                         <span class="event-target"><%= event.tykaSe %></span>
+                       </button>
+                     <% } %>
+                     <% if(event.typ == "celotridni") { %>
+                       <button class="event-button" onclick="showEventDetail(this)">
+                         <%= event.nazev %>
+                         <span class="event-type">celotridni</span>
+                       </button>
+                     <% } %>
                    <% } %>
                  <% }); %>
                </div>
@@ -363,61 +469,5 @@
      </div>
    </main>
 </article>
-
-<script>
-  function scrollToCurrent() {
-      const increment = 24 * 60 * 60 * 1000
-      let today = new Date();
-      if(Number(today.getDay()) == 0)
-          today = new Date(Number(today.getTime()) - increment*2)
-
-      let formattedDate = `${today.getDate()}.${today.getMonth() + 1}.`
-      let element = document.getElementById(formattedDate);
-
-      if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      } else {
-          console.error("Element pro aktuální datum nebyl nalezen.");
-      }
-  }
-
-  function scrollToMonth() {
-      const select = document.getElementById("months");
-      const month = select.value;
-      const year = (month < 8) ? 2025 : 2024;
-      let selected = document.getElementById(`1.${month}.`);
-
-      if (selected) {
-          selected.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      } else {
-          selected = document.getElementById(`${year}-${month.padStart(2, '0')}-02`);
-          selected.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-  }
-
-  function detailDisplay(button) {
-      let detail = document.getElementById("detail")
-      detail.style.display = "block"
-
-      const period = button.parentNode
-      document.getElementById("countDet").innerText = period.querySelector(".count").textContent
-      document.getElementById("themeDet").innerText = period.querySelector(".theme").textContent
-  }
-
-  function detailOff() {
-      document.getElementById("detail").style.display = "none"
-  }
-
-  function showEventDetail(button) {
-    let detail = document.getElementById("detail");
-    detail.style.display = "block";
-
-    const eventType = button.querySelector(".event-type").textContent;
-    const eventTarget = button.querySelector(".event-target")?.textContent || "";
-    
-    document.getElementById("countDet").innerText = `Typ: ${eventType}`;
-    document.getElementById("themeDet").innerText = eventTarget ? `Týká se: ${eventTarget}` : "";
-  }
-</script>
 
 <%- include('../partials/tail') %>

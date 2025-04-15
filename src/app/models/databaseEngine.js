@@ -599,10 +599,62 @@ const databaseEngine = {
   }
 };
 
+function casNaMinuty(cas) {
+  const [hodiny, minuty] = cas.split(':').map(Number);
+  return hodiny * 60 + minuty;
+}
+
+function jeHodinaBlokovana(hodina, udalosti, hodinoveIntervaly) {
+  if (!udalosti || !hodina || !hodinoveIntervaly) return false;
+  
+  return udalosti.some(udalost => {
+    // Kontrola pro celodenní události
+    if (udalost.vyberZadani === "celodenni") {
+      if (["celoskolni", "budovy", "ucitelsky"].includes(udalost.typ)) {
+        return true;
+      }
+      if (udalost.typ === "celotridni" && hodina.trida === udalost.tykaSe) {
+        return true;
+      }
+      if (udalost.typ === "ucebna" && hodina.mistnost === udalost.tykaSe) {
+        return true;
+      }
+      return false;
+    }
+    
+    // Kontrola pro události s časem
+    if (udalost.vyberZadani === "casIDatum" && udalost.casOd && udalost.casDo) {
+      const hodinovyInterval = hodinoveIntervaly[hodina.cislo + 1];
+      if (!hodinovyInterval) return false;
+      
+      const hodinaStartMinuty = casNaMinuty(hodinovyInterval[0]);
+      const hodinaEndMinuty = casNaMinuty(hodinovyInterval[1]);
+      const udalostStartMinuty = casNaMinuty(udalost.casOd);
+      const udalostEndMinuty = casNaMinuty(udalost.casDo);
+      
+      // Kontrola překryvu časů
+      if (!(udalostEndMinuty <= hodinaStartMinuty || udalostStartMinuty >= hodinaEndMinuty)) {
+        if (["celoskolni", "budovy", "ucitelsky"].includes(udalost.typ)) {
+          return true;
+        }
+        if (udalost.typ === "celotridni" && hodina.trida === udalost.tykaSe) {
+          return true;
+        }
+        if (udalost.typ === "ucebna" && hodina.mistnost === udalost.tykaSe) {
+          return true;
+        }
+      }
+    }
+    
+    return false;
+  });
+}
+
 function tvorbaStruktur(maturity) {
   let rozvrhy = gR();
   let osnovy = gO();
   let udalosti = gU();
+  let hodiny = db.get("hodiny");
 
   let struktury = [];
 
@@ -652,27 +704,25 @@ function tvorbaStruktur(maturity) {
     denStruktura.udalosti = udalostiArray.filter(u => u.datum === datumISO);
 
     // Kontrola, zda není den zrušený kvůli události
-    let jeDenZrusen = denStruktura.udalosti.some(u =>
-      ["celoskolni", "budovy", "ucitelsky"].includes(u.typ)
-    );
-
-    // Přidání hodin pouze pokud je školní rok a den není zrušený
-    if (jeVyuka && !jeDenZrusen && denVTydnu > 0 && denVTydnu < 6) {
-      // Zde přidáme hodiny z rozvrhu
-      Object.values(rozvrhy).forEach(rozvrh => {
-        if (rozvrh.hodiny) {
+    let jeDenZrusen = false;
+    if (jeVyuka && denVTydnu > 0 && denVTydnu < 6) {
+      // Procházíme všechny rozvrhy a hledáme aktivní
+      Object.entries(rozvrhy).forEach(([id, rozvrh]) => {
+        if (id === "nextID") return;
+        
+        if (rozvrh.hodiny?.[lichySud]?.[denNazev]) {
           const denRozvrhu = rozvrh.hodiny[lichySud][denNazev];
-          if (denRozvrhu) {
-            Object.entries(denRozvrhu).forEach(([cisloHodiny, hodina]) => {
-              if (hodina.predmet !== "volno") {
+          Object.entries(denRozvrhu).forEach(([cisloHodiny, hodina]) => {
+            if (hodina.predmet !== "volno") {
+              if (!jeHodinaBlokovana({...hodina, cislo: parseInt(cisloHodiny)}, denStruktura.udalosti, hodiny)) {
                 denStruktura.hodiny.push({
                   cislo: parseInt(cisloHodiny),
                   ...hodina,
                   tema: null
                 });
               }
-            });
-          }
+            }
+          });
         }
       });
     }
@@ -767,22 +817,6 @@ function priraditTemata(vsechnyDny, osnovy) {
       });
     }
   }
-}
-
-function jeHodinaBlokovana(hodina, udalosti) {
-  let blokovana = udalosti.some(udalost => {
-      if (["celoskolni", "budovy", "ucitelsky"].includes(udalost.typ)) {
-          return true;
-      }
-      if (udalost.typ === "celotridni" && hodina.trida === udalost.tykaSe) {
-          return true;
-      }
-      if (udalost.typ === "ucebna" && hodina.mistnost === udalost.tykaSe) {
-          return true;
-      }
-      return false;
-  });
-  return blokovana;
 }
 
 module.exports = databaseEngine;
