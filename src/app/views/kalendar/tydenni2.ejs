@@ -271,9 +271,13 @@
 
     const eventType = button.querySelector(".event-type").textContent;
     const eventTarget = button.querySelector(".event-target")?.textContent || "";
-    
+    const eventNote = button.querySelector(".event-note")?.textContent || "";
+
     document.getElementById("countDet").innerText = `Typ: ${eventType}`;
     document.getElementById("themeDet").innerText = eventTarget ? `Týká se: ${eventTarget}` : "";
+    if (eventNote) {
+      document.getElementById("themeDet").innerText += `\nPoznámka: ${eventNote}`;
+    }
   }
 </script>
 
@@ -422,6 +426,7 @@
                          <button class="event-button" onclick="showEventDetail(this)">
                            <%= event.nazev %>
                            <span class="event-type">celoskolni</span>
+                           <span class="event-note" style="display: none;"><%= event.poznamka %></span>
                          </button>
                        <% } %>
                        <% if(event.typ == "ucitelsky") { %>
@@ -429,12 +434,14 @@
                            <%= event.nazev %>
                            <span class="event-type">ucitelsky</span>
                            <span class="event-target"><%= event.tykaSe %></span>
+                           <span class="event-note" style="display: none;"><%= event.poznamka %></span>
                          </button>
                        <% } %>
                        <% if(event.typ == "celotridni") { %>
                          <button class="event-button" onclick="showEventDetail(this)">
                            <%= event.nazev %>
                            <span class="event-type">celotridni</span>
+                           <span class="event-note" style="display: none;"><%= event.poznamka %></span>
                          </button>
                        <% } %>
                      <% } %>
@@ -444,6 +451,7 @@
                        <button class="event-button" onclick="showEventDetail(this)">
                          <%= event.nazev %>
                          <span class="event-type">celoskolni</span>
+                         <span class="event-note" style="display: none;"><%= event.poznamka %></span>
                        </button>
                      <% } %>
                      <% if(event.typ == "ucitelsky") { %>
@@ -451,12 +459,14 @@
                          <%= event.nazev %>
                          <span class="event-type">ucitelsky</span>
                          <span class="event-target"><%= event.tykaSe %></span>
+                         <span class="event-note" style="display: none;"><%= event.poznamka %></span>
                        </button>
                      <% } %>
                      <% if(event.typ == "celotridni") { %>
                        <button class="event-button" onclick="showEventDetail(this)">
                          <%= event.nazev %>
                          <span class="event-type">celotridni</span>
+                         <span class="event-note" style="display: none;"><%= event.poznamka %></span>
                        </button>
                      <% } %>
                    <% } %>
