@@ -626,7 +626,6 @@ function jeHodinaBlokovana(hodina, udalosti, hodinoveIntervaly) {
     if (udalost.vyberZadani === "casIDatum" && udalost.casOd && udalost.casDo) {
       const hodinovyInterval = hodinoveIntervaly[hodina.cislo + 1];
       if (!hodinovyInterval) return false;
-      
       const hodinaStartMinuty = casNaMinuty(hodinovyInterval[0]);
       const hodinaEndMinuty = casNaMinuty(hodinovyInterval[1]);
       const udalostStartMinuty = casNaMinuty(udalost.casOd);
@@ -655,31 +654,25 @@ function tvorbaStruktur(maturity) {
   let osnovy = gO();
   let udalosti = gU();
   let hodiny = db.get("hodiny");
-
   let struktury = [];
-
   const increment = 24 * 60 * 60 * 1000;
   const dnesniDatum = new Date();
   const aktualniRok = dnesniDatum.getFullYear();
   const rok = dnesniDatum.getMonth() < 7 ? aktualniRok - 1 : aktualniRok;
-
   const startDate = new Date(rok, 7, 1);
   const endDate = new Date(rok + 1, 6, 31);
   let baseMonday = getFirstMondayOfSeptember(rok);
-
   let vsechnyDny = []; // Seznam všech dní pro přehlednost
 
   for (let i = startDate.getTime(); i <= endDate.getTime(); i += increment) {
     let datum = new Date(i);
     let denVTydnu = datum.getDay();
     let formattedDate = `${datum.getDate()}.${datum.getMonth() + 1}.`;
-
     let tydenOdZacatku = getWeekNumber(datum);
     let lichySud = tydenOdZacatku % 2 === 0 ? "sudy" : "lichy";
 
     const dniMap = ["Ne", "Po", "Út", "St", "Čt", "Pá", "So"];
     let denNazev = dniMap[denVTydnu];
-
     let denStruktura = {
       datum: formattedDate,
       den: denNazev,
@@ -689,27 +682,27 @@ function tvorbaStruktur(maturity) {
       udalosti: [],
     };
 
-    // Kontrola, zda je den v období školního roku (září-červen)
-    const mesic = datum.getMonth() + 1; // getMonth() vrací 0-11
+    const mesic = datum.getMonth() + 1;
     const jeVyuka = mesic >= 9 || mesic <= 6;
-
-    let datumISO = new Date(datum.getTime() - datum.getTimezoneOffset() * 60000)
+    const datumISO = new Date(datum.getTime() - datum.getTimezoneOffset() * 60000)
       .toISOString().split("T")[0];
 
-    // Přidání událostí
     let udalostiArray = Object.entries(udalosti)
       .filter(([key, value]) => key !== "nextID")
       .map(([key, value]) => ({ id: key, ...value }));
 
-    denStruktura.udalosti = udalostiArray.filter(u => u.datum === datumISO);
+    denStruktura.udalosti = udalostiArray.filter(u => {
+      if (u.vyberZadani != "vicedenni") return u.datum === datumISO;
+      const eventStart = new Date(u.datum);
+      const eventEnd = new Date(u.datumDo);
+      const currentDate = new Date(datumISO);
+      return currentDate >= eventStart && currentDate <= eventEnd;
+    });
 
-    // Kontrola, zda není den zrušený kvůli události
     let jeDenZrusen = false;
     if (jeVyuka && denVTydnu > 0 && denVTydnu < 6) {
-      // Procházíme všechny rozvrhy a hledáme aktivní
       Object.entries(rozvrhy).forEach(([id, rozvrh]) => {
         if (id === "nextID") return;
-        
         if (rozvrh.hodiny?.[lichySud]?.[denNazev]) {
           const denRozvrhu = rozvrh.hodiny[lichySud][denNazev];
           Object.entries(denRozvrhu).forEach(([cisloHodiny, hodina]) => {
@@ -730,9 +723,7 @@ function tvorbaStruktur(maturity) {
     vsechnyDny.push(denStruktura);
   }
 
-  // Přiřadíme témata s posunem
   priraditTemata(vsechnyDny, osnovy);
-
   db.set("struktury", vsechnyDny);
 }
 
@@ -746,14 +737,14 @@ function getFirstMondayOfSeptember(year) {
 
 function getWeekNumber(d) {
   d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
-  let dayNum = d.getUTCDay() || 7;  // Převod neděle (0) na 7
-  d.setUTCDate(d.getUTCDate() + 4 - dayNum); // Nastavení na čtvrtek daného týdne
+  let dayNum = d.getUTCDay() || 7;
+  d.setUTCDate(d.getUTCDate() + 4 - dayNum);
   let yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
   return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
 }
 
 function priraditTemata(vsechnyDny, osnovy) {
-  let cekajiciTemata = {}; // Fronta témat pro každý předmět + třídu
+  let cekajiciTemata = {};
 
   vsechnyDny.forEach(den => {
     den.hodiny.forEach(hodina => {
@@ -761,18 +752,16 @@ function priraditTemata(vsechnyDny, osnovy) {
         osnovy[id].trida === hodina.trida && osnovy[id].predmet === hodina.predmet
       );
 
-      if (!osnovaID) return; // Osnova neexistuje, přeskočíme
+      if (!osnovaID) return;
 
       let temata = osnovy[osnovaID].temata;
       let temaKeys = Object.keys(temata).filter(k => k !== "nextID").sort((a, b) => a - b);
 
-      // Pokud byl den zrušen, přesuneme téma do čekací fronty
       if (den.udalosti.some(u => ["Škola", "Budova", "Učitel"].includes(u.typ))) {
         if (!cekajiciTemata[osnovaID]) cekajiciTemata[osnovaID] = temaKeys.map(k => ({ ...temata[k], id: k }));
         return;
       }
 
-      // Pokud jsou témata ve frontě, přesuneme je nejprve
       if (cekajiciTemata[osnovaID] && cekajiciTemata[osnovaID].length > 0) {
         let temaData = cekajiciTemata[osnovaID].shift();
         hodina.tema = temaData.tema;
@@ -781,7 +770,6 @@ function priraditTemata(vsechnyDny, osnovy) {
         return;
       }
 
-      // Normální přiřazení tématu
       for (let temaID of temaKeys) {
         let temaData = temata[temaID];
 
@@ -794,13 +782,11 @@ function priraditTemata(vsechnyDny, osnovy) {
     });
   });
 
-  // Pokud jsou stále čekající témata, pokusíme se je přiřadit do dalších dnů
   if (Object.keys(cekajiciTemata).length > 0) {
     let dnyPoAktualnim = vsechnyDny.slice(vsechnyDny.indexOf(den) + 1);
 
     for (let den of dnyPoAktualnim) {
-      if (Object.keys(cekajiciTemata).length === 0) break; // Pokud nejsou čekající témata, končíme
-
+      if (Object.keys(cekajiciTemata).length === 0) break;
       den.hodiny.forEach(hodina => {
         let osnovaID = Object.keys(cekajiciTemata).find(id =>
           osnovy[id].trida === hodina.trida && osnovy[id].predmet === hodina.predmet
