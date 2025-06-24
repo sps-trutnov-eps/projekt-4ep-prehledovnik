@@ -225,8 +225,10 @@
   function scrollToCurrent() {
       const increment = 24 * 60 * 60 * 1000
       let today = new Date();
-      if(Number(today.getDay()) == 0)
-          today = new Date(Number(today.getTime()) - increment*2)
+      if(Number(today.getDay()) == 0) // Řešení nedělí
+        today = new Date(Number(today.getTime()) - increment*2)
+      if(Number(today.getDay()) == 6) // Řešení soboty
+        today = new Date(Number(today.getTime()) - increment)
 
       let formattedDate = `${today.getDate()}.${today.getMonth() + 1}.`
       let element = document.getElementById(formattedDate);

@@ -72,6 +72,32 @@
         line-height: 1;
     }
 
+    .udalost.event {
+        background-color: #ff9800;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        margin-top: 2px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    .udalost.event:hover {
+        background-color: #f57c00;
+    }
+    .udalost.lesson {
+        background-color: #0172ad;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        margin-top: 2px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    
+    .udalost.lesson:hover {
+        background-color: #015a87;
+    }
+
     #quick-nav {
         position: sticky;
         top: 0;
@@ -192,7 +218,7 @@
                         <% } %>
 
                         <% den.hodiny.forEach(hodina => { %>
-                            <button class="udalost" 
+                            <button class="udalost lesson" 
                                     data-target="detail" 
                                     onclick="detailDisplayHodina(this, event)"
                                     data-predmet="<%= hodina.predmet %>"
@@ -206,7 +232,7 @@
                         <% }) %>
 
                         <% den.udalosti.forEach(udalost => { %>
-                            <button class="udalost" 
+                            <button class="udalost event" 
                                     data-target="detail" 
                                     onclick="detailDisplay('<%= udalost.id %>', event)">
                                 <%= udalost.nazev %>
