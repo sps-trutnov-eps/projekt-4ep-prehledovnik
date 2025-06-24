@@ -435,14 +435,15 @@
                          <button class="event-button" onclick="showEventDetail(this)">
                            <%= event.nazev %>
                            <span class="event-type">ucitelsky</span>
-                           <span class="event-target"><%= event.tykaSe %></span>
                            <span class="event-note" style="display: none;"><%= event.poznamka %></span>
                          </button>
                        <% } %>
                        <% if(event.typ == "celotridni") { %>
+                          <% console.log(event);%>
                          <button class="event-button" onclick="showEventDetail(this)">
                            <%= event.nazev %>
                            <span class="event-type">celotridni</span>
+                           <span class="event-target"><%= event.tykaSe %></span>
                            <span class="event-note" style="display: none;"><%= event.poznamka %></span>
                          </button>
                        <% } %>
@@ -460,7 +461,6 @@
                        <button class="event-button" onclick="showEventDetail(this)">
                          <%= event.nazev %>
                          <span class="event-type">ucitelsky</span>
-                         <span class="event-target"><%= event.tykaSe %></span>
                          <span class="event-note" style="display: none;"><%= event.poznamka %></span>
                        </button>
                      <% } %>
@@ -468,6 +468,7 @@
                        <button class="event-button" onclick="showEventDetail(this)">
                          <%= event.nazev %>
                          <span class="event-type">celotridni</span>
+                         <span class="event-target"><%= event.tykaSe %></span>
                          <span class="event-note" style="display: none;"><%= event.poznamka %></span>
                        </button>
                      <% } %>
